@@ -102,6 +102,7 @@ class S3ResourceSelectorContainer extends React.Component {
         constraintText="Format: s3://bucket/prefix."
         errorText={errorText}
         stretch={true}
+        i18nStrings={{ errorIconAriaLabel: 'Error' }}
       >
         <S3ResourceSelector {...s3ResourceSelectorProps} />
       </FormField>

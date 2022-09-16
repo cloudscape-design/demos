@@ -35,6 +35,7 @@ export default function OriginPanel({ updateTools, readOnlyWithErrors = false })
           }
           description="The Amazon S3 bucket or web server that you want CloudFront to get your web content from."
           errorText={getErrorText('You must specify a content origin.')}
+          i18nStrings={{ errorIconAriaLabel: 'Error' }}
         >
           <Multiselect
             {...contentOriginsHandlers}
@@ -70,6 +71,7 @@ export default function OriginPanel({ updateTools, readOnlyWithErrors = false })
           }
           description="The directory in your Amazon S3 bucket or your custom origin."
           errorText={getErrorText('You must specify a path to content.')}
+          i18nStrings={{ errorIconAriaLabel: 'Error' }}
         >
           <Input
             placeholder="/images"
@@ -89,6 +91,7 @@ export default function OriginPanel({ updateTools, readOnlyWithErrors = false })
           }
           description="This value lets you distinguish multiple origins in the same distribution from one another."
           errorText={getErrorText('You must specify a origin ID.')}
+          i18nStrings={{ errorIconAriaLabel: 'Error' }}
         >
           <Input
             ariaRequired={true}
