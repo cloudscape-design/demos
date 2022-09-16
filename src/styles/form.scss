@@ -1,0 +1,13 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+@use './base';
+
+.custom-header {
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.date-time-container > * {
+  min-width: 18rem;
+}
