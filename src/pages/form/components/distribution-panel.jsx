@@ -119,6 +119,7 @@ export default function DistributionPanel({ updateTools, updateDirty = noop, rea
           }
           description="Enter the name of the object that you want CloudFront to return when a viewer request points to your root URL."
           errorText={getErrorText('You must specify a root object.')}
+          i18nStrings={{ errorIconAriaLabel: 'Error' }}
         >
           <Input
             value={distributionPanelData.cloudFrontRootObject}
@@ -144,6 +145,7 @@ export default function DistributionPanel({ updateTools, updateDirty = noop, rea
           constraintText="Specify up to 100 CNAMEs separated with commas, or put each on a new line."
           stretch={true}
           errorText={getErrorText('You must specify at least one alternative domain name.')}
+          i18nStrings={{ errorIconAriaLabel: 'Error' }}
         >
           <Textarea
             placeholder={'www.one.example.com\nwww.two.example.com'}
@@ -155,6 +157,7 @@ export default function DistributionPanel({ updateTools, updateDirty = noop, rea
           label="S3 bucket for logs"
           description="The Amazon S3 bucket that you want CloudFront to store your access logs in."
           errorText={getErrorText('You must specify a S3 bucket.')}
+          i18nStrings={{ errorIconAriaLabel: 'Error' }}
         >
           <Select
             {...contentOriginsHandlers}
@@ -187,6 +190,7 @@ export default function DistributionPanel({ updateTools, updateDirty = noop, rea
               className="date-time-container"
               errorText={getErrorText('Invalid date format.')}
               constraintText={'Use YYYY/MM/DD format.'}
+              i18nStrings={{ errorIconAriaLabel: 'Error' }}
             >
               <DatePicker
                 ariaLabelledby="certificate-expiry-label"
@@ -207,6 +211,7 @@ export default function DistributionPanel({ updateTools, updateDirty = noop, rea
               constraintText="Use 24-hour format."
               className="date-time-container"
               errorText={getErrorText('Invalid time format.')}
+              i18nStrings={{ errorIconAriaLabel: 'Error' }}
             >
               <TimeInput
                 ariaLabelledby="certificate-expiry-label"
