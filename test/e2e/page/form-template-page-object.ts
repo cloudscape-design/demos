@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import createWrapper from '@cloudscape-design/components/test-utils/selectors';
-import AppLayoutPage from './app-layout-page-object';
+import FormPage from './form-page-object';
 
 const page = createWrapper('body');
 
@@ -15,7 +15,7 @@ function formExpandableSectionHeader(id: string) {
 function formExpandableSection(id: string) {
   return page.findContainer(id).findFooter().findExpandableSection().findContent().toSelector();
 }
-export default class Page extends AppLayoutPage {
+export default class Page extends FormPage {
   async expandChangeBehaviorPanel() {
     await this.click(formExpandableSectionHeader('#cache-behavior-panel'));
   }

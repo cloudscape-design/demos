@@ -1,11 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import createWrapper from '@cloudscape-design/components/test-utils/selectors';
-import { BasePageObject } from '@cloudscape-design/browser-test-tools/page-objects';
+import AppLayoutPage from './app-layout-page-object';
 
 const DEBOUNCE_FILTERING_DELAY = 400;
 
-export default class PageObject extends BasePageObject {
+export default class PageObject extends AppLayoutPage {
   private pageWrapper = createWrapper('body');
   private distributionPanelWrapper = createWrapper('#distribution-panel');
   private distributionsSelect = this.distributionPanelWrapper.findSelect();
