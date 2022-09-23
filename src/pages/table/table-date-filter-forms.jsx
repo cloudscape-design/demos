@@ -60,7 +60,7 @@ export function DateTimeForm({ filter, operator, value, onChange }) {
 
       <Calendar
         value={dateValue}
-        locale="en-EN"
+        locale="en-GB"
         previousMonthAriaLabel="Previous month"
         nextMonthAriaLabel="Next month"
         todayAriaLabel="Today"
