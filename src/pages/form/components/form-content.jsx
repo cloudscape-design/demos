@@ -40,6 +40,7 @@ function BaseFormContent({ content, onCancelClick, errorText = null }) {
           </SpaceBetween>
         }
         errorText={errorText}
+        errorIconAriaLabel="Error"
       >
         {content}
       </Form>

@@ -294,4 +294,5 @@ const dateRangeFilterI18nStrings = {
   clearButtonLabel: 'Clear and dismiss',
   cancelButtonLabel: 'Cancel',
   applyButtonLabel: 'Apply',
+  errorIconAriaLabel: 'Error',
 };

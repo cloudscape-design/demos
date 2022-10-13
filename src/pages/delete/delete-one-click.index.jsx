@@ -41,7 +41,9 @@ function loadTagValues(key) {
   return window.FakeServer.GetTagValues(key).then(({ TagValues }) => TagValues);
 }
 
-const Info = () => <Alert>This page illustrates the use of the one-click delete pattern.</Alert>;
+const Info = () => (
+  <Alert statusIconAriaLabel="Info">This page illustrates the use of the one-click delete pattern.</Alert>
+);
 
 function App() {
   const [tags, setTags] = useState([]);

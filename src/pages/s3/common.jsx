@@ -8,6 +8,7 @@ export function ErrorAlert({ error }) {
 
   return (
     <Alert
+      statusIconAriaLabel="Error"
       type={error.type || 'error'}
       header={error.header}
       dismissible={true}
