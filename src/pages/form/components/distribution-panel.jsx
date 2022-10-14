@@ -201,7 +201,7 @@ export default function DistributionPanel({ updateTools, updateDirty = noop, rea
                 value={distributionPanelData.certificateExpiryDate}
                 onChange={({ detail: { value } }) => onChange('certificateExpiryDate', value)}
                 openCalendarAriaLabel={selectedDate =>
-                  'Choose Date' + (selectedDate ? `, selected date is ${selectedDate}` : '')
+                  'Choose certificate expiry date' + (selectedDate ? `, selected date is ${selectedDate}` : '')
                 }
               />
             </FormField>
