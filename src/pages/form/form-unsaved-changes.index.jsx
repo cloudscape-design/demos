@@ -65,7 +65,7 @@ function App() {
           header={
             <SpaceBetween size="m">
               <FormHeader updateTools={updateTools} />
-              <Alert header="Communicate unsaved changes on the page">
+              <Alert statusIconAriaLabel="Info" header="Communicate unsaved changes on the page">
                 This demo showcases how to communicate to users that the changes will be discarded when they leave the
                 page. To see the confirmation modal, make some edits on the form then leave the page. The Cloudscape
                 modal will be triggered when you use the buttons/links to exit the form. The browser-native modal will
@@ -99,7 +99,7 @@ function App() {
               </Box>
             }
           >
-            <Alert type="warning">
+            <Alert type="warning" statusIconAriaLabel="Warning">
               Are you sure that you want to leave the current page? The changes that you made won't be saved.
             </Alert>
           </Modal>

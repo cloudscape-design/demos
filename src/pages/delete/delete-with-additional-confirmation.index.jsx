@@ -252,7 +252,7 @@ function DeleteModal({ instances, visible, onDiscard, onDelete }) {
             </Box>
           )}
 
-          <Alert type="warning">
+          <Alert type="warning" statusIconAriaLabel="Warning">
             Proceeding with this action will delete instance(s) with all content and can impact related resources.{' '}
             <Link external={true} href="#">
               Learn more
@@ -269,7 +269,6 @@ function DeleteModal({ instances, visible, onDiscard, onDelete }) {
                   onChange={event => setDeleteInputText(event.detail.value)}
                   value={deleteInputText}
                   ariaRequired={true}
-                  ariaLabelledby="delete-confirmation-label"
                 />
               </FormField>
             </form>

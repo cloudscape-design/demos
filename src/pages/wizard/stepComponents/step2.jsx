@@ -146,7 +146,7 @@ const InstanceOptions = ({
             GiB
           </Box>
         </FormField>
-        <Alert type="info">
+        <Alert type="info" statusIconAriaLabel="Info">
           Provisioning less than 100 GiB of General Purpose (SSD) storage for high throughput workloads could result in
           higher latencies upon exhaustion of the initial General Purpose (SSD) IO credit balance.
         </Alert>

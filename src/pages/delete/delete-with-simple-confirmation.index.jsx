@@ -203,7 +203,7 @@ function DeleteModal({ distributions, visible, onDiscard, onDelete }) {
             </Box>
           )}
 
-          <Alert>
+          <Alert statusIconAriaLabel="Info">
             Proceeding with this action will delete distribution(s) with all content and can impact related resources.{' '}
             <Link external={true} href="#">
               Learn more
