@@ -31,7 +31,7 @@ function App() {
           header={
             <SpaceBetween size="m">
               <FormHeader updateTools={updateTools} />
-              <Alert header="Read-only form validation">
+              <Alert statusIconAriaLabel="Info" header="Read-only form validation">
                 This demo showcases a read-only form validation by marking any fields that contain an error and display
                 an error message under the field.
               </Alert>
