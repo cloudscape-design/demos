@@ -51,6 +51,7 @@ describe('Table - Client side', () => {
       'clears search text when clear filter button is pressed',
       setupTest(async page => {
         await page.searchText('0000');
+        await page.waitUntilLoaded();
         await page.clearFilterFromEmptySlot();
 
         await expect(page.getSearchText()).resolves.toBe('');

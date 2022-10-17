@@ -63,7 +63,6 @@ export default class CardsFilteringPageObject extends AppLayoutPage {
   }
 
   async clearFilterFromNoMatchRegion() {
-    await this.waitForVisible(cardsWrapper.findEmptySlot().findButton().toSelector());
     await this.click(cardsWrapper.findEmptySlot().findButton().toSelector());
     await this.waitUntilLoaded();
   }

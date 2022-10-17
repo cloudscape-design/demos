@@ -21,7 +21,6 @@ export default class TablePageObject extends AppLayoutPage {
   }
 
   async clearFilterFromEmptySlot() {
-    await this.waitForVisible(this.tableWrapper.findEmptySlot().findButton().toSelector());
     await this.click(this.tableWrapper.findEmptySlot().findButton().toSelector());
     await this.waitUntilLoaded();
   }
