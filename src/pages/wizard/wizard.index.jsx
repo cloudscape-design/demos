@@ -40,6 +40,7 @@ const i18nStrings = {
   stepNumberLabel: stepNumber => `Step ${stepNumber}`,
   collapsedStepsLabel: (stepNumber, stepsCount) => `Step ${stepNumber} of ${stepsCount}`,
   errorIconAriaLabel: 'Error',
+  navigationAriaLabel: 'Steps',
   cancelButton: 'Cancel',
   previousButton: 'Previous',
   nextButton: 'Next',
