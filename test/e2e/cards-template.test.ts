@@ -93,6 +93,7 @@ describe('React Cards - Client side', () => {
     'When filter has no match the no match state is displayed',
     setupTest(async page => {
       await page.searchText('0000');
+      await page.waitUntilLoaded();
 
       await expect(page.isNoMatchButtonVisible()).resolves.toBe(true);
     })
