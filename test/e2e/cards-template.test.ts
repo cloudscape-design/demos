@@ -92,7 +92,7 @@ describe('React Cards - Client side', () => {
   test(
     'When filter has no match the no match state is displayed',
     setupTest(async page => {
-      await page.searchText('0000');
+      await page.searchText('00000');
 
       await expect(page.isNoMatchButtonVisible()).resolves.toBe(true);
     })
@@ -111,7 +111,7 @@ describe('React Cards - Client side', () => {
   test(
     'When clear filter button is pressed filtering text is reset and distributions are reset to show 30 cards',
     setupTest(async page => {
-      await page.searchText('0000');
+      await page.searchText('00000');
       await page.clearFilterFromNoMatchRegion();
 
       await expect(page.getSearchText()).resolves.toBe('');

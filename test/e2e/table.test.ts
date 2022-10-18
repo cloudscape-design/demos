@@ -41,7 +41,7 @@ describe('Table - Client side', () => {
     test(
       'no match displayed when filter has no match',
       setupTest(async page => {
-        await page.searchText('0000');
+        await page.searchText('00000');
 
         expect(await page.isTableEmptyButtonVisible()).toBe(true);
       })
@@ -50,7 +50,7 @@ describe('Table - Client side', () => {
     test(
       'clears search text when clear filter button is pressed',
       setupTest(async page => {
-        await page.searchText('0000');
+        await page.searchText('00000');
         await page.clearFilterFromEmptySlot();
 
         await expect(page.getSearchText()).resolves.toBe('');
