@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
   Alert,
@@ -25,6 +25,7 @@ function App() {
   const [navigationOpen, setNavigationOpen] = useState(true);
   const [dirty, setDirty] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const appLayout = useRef();
 
   useEffect(() => {
     window.addEventListener('beforeunload', onBeforeUnload);
@@ -52,19 +53,21 @@ function App() {
     }
   };
 
-  const updateTools = index => {
+  const loadHelpPanelContent = index => {
     setToolsIndex(index);
     setToolsOpen(true);
+    appLayout.current?.focusToolsClose();
   };
 
   return (
     <AppLayout
+      ref={appLayout}
       contentType="form"
       content={
         <ContentLayout
           header={
             <SpaceBetween size="m">
-              <FormHeader updateTools={updateTools} />
+              <FormHeader loadHelpPanelContent={loadHelpPanelContent} />
               <Alert statusIconAriaLabel="Info" header="Communicate unsaved changes on the page">
                 This demo showcases how to communicate to users that the changes will be discarded when they leave the
                 page. To see the confirmation modal, make some edits on the form then leave the page. The Cloudscape
@@ -76,7 +79,7 @@ function App() {
         >
           <FormLimitedContent
             onCancelClick={onNavigate}
-            updateTools={updateTools}
+            loadHelpPanelContent={loadHelpPanelContent}
             updateDirty={dirty => setDirty(dirty)}
           />
           <Modal

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Container, FormField, Header, Tiles } from '@cloudscape-design/components';
 import { InfoLink } from '../../commons/common-components';
 
-export default function ContentDeliveryPanel({ updateTools }) {
+export default function ContentDeliveryPanel({ loadHelpPanelContent }) {
   const [deliveryMethod, setDeliveryMethod] = useState('web');
 
   return (
@@ -14,7 +14,7 @@ export default function ContentDeliveryPanel({ updateTools }) {
         info={
           <InfoLink
             id="delivery-method-info-link"
-            onFollow={() => updateTools(1)}
+            onFollow={() => loadHelpPanelContent(1)}
             ariaLabel={'Information about delivery method.'}
           />
         }

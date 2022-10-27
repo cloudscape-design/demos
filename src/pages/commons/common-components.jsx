@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React from 'react';
+import React, { forwardRef } from 'react';
 import {
   AppLayout,
   Badge,
@@ -132,7 +132,7 @@ export const TableHeader = props => {
       variant={props.variant}
       counter={getCounter(props)}
       info={
-        props.updateTools && <InfoLink onFollow={props.updateTools} ariaLabel={`Information about ${props.title}.`} />
+        props.loadHelpPanelContent && <InfoLink onFollow={props.loadHelpPanelContent} ariaLabel={`Information about ${props.title}.`} />
       }
       description={props.description}
       actions={props.actionButtons}
@@ -161,9 +161,10 @@ export function Notifications({ successNotification }) {
   return <Flashbar items={notifications} />;
 }
 
-export function CustomAppLayout(props) {
+export const CustomAppLayout = forwardRef((props, ref) => {
   return (
     <AppLayout
+      ref={ref}
       {...props}
       headerSelector="#header"
       ariaLabels={appLayoutLabels}
@@ -179,7 +180,7 @@ export function CustomAppLayout(props) {
       }}
     />
   );
-}
+})
 
 export const CounterLink = ({ children }) => {
   return (

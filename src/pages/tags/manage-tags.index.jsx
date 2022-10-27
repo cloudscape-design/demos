@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import {
@@ -31,6 +31,7 @@ class App extends Component {
     super(props);
     this.state = { toolsIndex: 0, toolsOpen: false, tags: [], valid: true, loading: true };
     this.loadTags();
+    this.appLayout = createRef();
   }
 
   async loadTags() {
@@ -54,7 +55,10 @@ class App extends Component {
   }
 
   content() {
-    const handleInfoClick = () => this.setState({ toolsIndex: 0, toolsOpen: true });
+    const handleInfoClick = () => {
+      this.setState({ toolsIndex: 0, toolsOpen: true });
+      this.appLayout.current?.focusToolsClose();
+    };
     return (
       <ContentLayout header={<Header variant="h1">Manage tags</Header>}>
         <form onSubmit={event => event.preventDefault()}>
@@ -95,6 +99,7 @@ class App extends Component {
   render() {
     return (
       <AppLayout
+        ref={this.appLayout}
         contentType="form"
         content={this.content()}
         headerSelector="#header"

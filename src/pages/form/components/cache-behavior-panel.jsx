@@ -24,7 +24,7 @@ import 'ace-builds/css/ace.css';
 import 'ace-builds/css/theme/dawn.css';
 import 'ace-builds/css/theme/tomorrow_night_bright.css';
 
-export default function CacheBehaviorPanel({ updateTools, readOnlyWithErrors = false }) {
+export default function CacheBehaviorPanel({ loadHelpPanelContent, readOnlyWithErrors = false }) {
   const [minimumTtl, setMinimumTtl] = useState(0);
   const [maximumTtl, setMaximumTtl] = useState(31536000);
   const [defaultTtl, setDefaultTtl] = useState(86400);
@@ -63,7 +63,7 @@ export default function CacheBehaviorPanel({ updateTools, readOnlyWithErrors = f
       header={
         <Header
           variant="h2"
-          info={<InfoLink onFollow={() => updateTools(9)} ariaLabel={'Information about cache behavior settings.'} />}
+          info={<InfoLink onFollow={() => loadHelpPanelContent(9)} ariaLabel={'Information about cache behavior settings.'} />}
         >
           Cache behavior settings
         </Header>

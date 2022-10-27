@@ -170,6 +170,16 @@ describe('Form', () => {
   );
 
   test(
+    'Tools panel updates focus as expected correctly while clicking multiple info anchors',
+    setupTest(async page => {
+      await page.openOriginIdInfo();
+      await expect(page.isToolsCloseFocused()).resolves.toBe(true);
+      await page.openCustomHeadersInfo();
+      await expect(page.isToolsCloseFocused()).resolves.toBe(true);
+    })
+  );
+
+  test(
     'Expandable sections open properly',
     setupTest(async page => {
       await page.expandDistributionPanel();

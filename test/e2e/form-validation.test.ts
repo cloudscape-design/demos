@@ -19,7 +19,7 @@ legalDisclaimerTest(setupTest);
 describe('Form validation example', () => {
   test(
     'The initial state is correct',
-    setupTest(async (formTemplatePage) => {
+    setupTest(async formTemplatePage => {
       await expect(formTemplatePage.countBreadcrumbs()).resolves.toBe(3);
       await expect(formTemplatePage.isNavigationOpen()).resolves.toBe(false);
       await expect(formTemplatePage.isToolsOpen()).resolves.toBe(false);
@@ -30,7 +30,7 @@ describe('Form validation example', () => {
 
   test(
     'Navigation panel opens properly and expandable sections are expanded',
-    setupTest(async (formTemplatePage) => {
+    setupTest(async formTemplatePage => {
       await formTemplatePage.openSideNavigation();
 
       await expect(formTemplatePage.isNavigationOpen()).resolves.toBe(true);
@@ -46,7 +46,7 @@ describe('Form validation example', () => {
 
   test(
     'Tools panel opens properly and has correct default content',
-    setupTest(async (formTemplatePage) => {
+    setupTest(async formTemplatePage => {
       await formTemplatePage.openTools();
 
       await expect(formTemplatePage.isToolsOpen()).resolves.toBe(true);
@@ -59,7 +59,7 @@ describe('Form validation example', () => {
 
   test(
     'Tools panel opens and displays correct content after clicking header info anchor',
-    setupTest(async (formTemplatePage) => {
+    setupTest(async formTemplatePage => {
       await formTemplatePage.openMainInfo();
       await expect(formTemplatePage.isToolsOpen()).resolves.toBe(true);
       await expect(formTemplatePage.getToolsTitle()).resolves.toBe('Create distribution');
@@ -71,7 +71,7 @@ describe('Form validation example', () => {
 
   test(
     'Tools panel opens and displays correct content after clicking on certificat',
-    setupTest(async (formTemplatePage) => {
+    setupTest(async formTemplatePage => {
       await formTemplatePage.openCertificateInfo();
 
       await expect(formTemplatePage.isToolsOpen()).resolves.toBe(true);
@@ -84,7 +84,7 @@ describe('Form validation example', () => {
 
   test(
     'Tools panel displays correct content after clicking on root object info link',
-    setupTest(async (formTemplatePage) => {
+    setupTest(async formTemplatePage => {
       await formTemplatePage.openRootObjectInfo();
 
       await expect(formTemplatePage.isToolsOpen()).resolves.toBe(true);
@@ -97,7 +97,7 @@ describe('Form validation example', () => {
 
   test(
     'Tools panel displays correct content after clicking on cnames info link',
-    setupTest(async (formTemplatePage) => {
+    setupTest(async formTemplatePage => {
       await formTemplatePage.openCnamesInfo();
 
       await expect(formTemplatePage.isToolsOpen()).resolves.toBe(true);
@@ -110,7 +110,7 @@ describe('Form validation example', () => {
 
   test(
     'Tools panel displays correct content after clicking on content origin info link',
-    setupTest(async (formTemplatePage) => {
+    setupTest(async formTemplatePage => {
       await formTemplatePage.openOriginInfo();
 
       await expect(formTemplatePage.isToolsOpen()).resolves.toBe(true);
@@ -123,7 +123,7 @@ describe('Form validation example', () => {
 
   test(
     'Tools panel displays correct content after clicking on path info info link',
-    setupTest(async (formTemplatePage) => {
+    setupTest(async formTemplatePage => {
       await formTemplatePage.openPathInfo();
 
       await expect(formTemplatePage.isToolsOpen()).resolves.toBe(true);
@@ -136,7 +136,7 @@ describe('Form validation example', () => {
 
   test(
     'Tools panel displays correct content after clicking on origin id info link',
-    setupTest(async (formTemplatePage) => {
+    setupTest(async formTemplatePage => {
       await formTemplatePage.openOriginIdInfo();
 
       await expect(formTemplatePage.isToolsOpen()).resolves.toBe(true);
@@ -149,7 +149,7 @@ describe('Form validation example', () => {
 
   test(
     'Tools panel displays correct content after clicking on custom headers info link',
-    setupTest(async (formTemplatePage) => {
+    setupTest(async formTemplatePage => {
       await formTemplatePage.openCustomHeadersInfo();
 
       await expect(formTemplatePage.isToolsOpen()).resolves.toBe(true);
@@ -161,8 +161,18 @@ describe('Form validation example', () => {
   );
 
   test(
+    'Tools panel updates focus as expected correctly while clicking multiple info anchors',
+    setupTest(async page => {
+      await page.openOriginIdInfo();
+      await expect(page.isToolsCloseFocused()).resolves.toBe(true);
+      await page.openCustomHeadersInfo();
+      await expect(page.isToolsCloseFocused()).resolves.toBe(true);
+    })
+  );
+
+  test(
     'Expandable sections open properly',
-    setupTest(async (formTemplatePage) => {
+    setupTest(async formTemplatePage => {
       await formTemplatePage.expandDistributionPanel();
       await formTemplatePage.expandChangeBehaviorPanel();
       await expect(formTemplatePage.isDistributionsContentVisible()).resolves.toBe(true);
@@ -172,7 +182,7 @@ describe('Form validation example', () => {
 
   test(
     'Contains expected server side error messages',
-    setupTest(async (page) => {
+    setupTest(async page => {
       await expect(page.getFormErrorMessages()).resolves.toEqual(
         expect.arrayContaining([
           'CloudFront can’t create the new distribution because of a permissions problem with your IAM role.',
@@ -183,7 +193,7 @@ describe('Form validation example', () => {
 
   test(
     'Contains expected error messages',
-    setupTest(async (page) => {
+    setupTest(async page => {
       await expect(page.getDistributionPanelErrorMessages()).resolves.toEqual(
         expect.arrayContaining([
           'You must specify a root object.',
@@ -198,7 +208,7 @@ describe('Form validation example', () => {
 
   test(
     'Contains expected error messages',
-    setupTest(async (page) => {
+    setupTest(async page => {
       await expect(page.getOriginSettingsErrorMessages()).resolves.toEqual(
         expect.arrayContaining([
           'You must specify a content origin.',

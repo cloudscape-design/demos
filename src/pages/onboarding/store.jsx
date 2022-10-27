@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { createContext, useCallback, useContext, useState } from 'react';
+import React, { createContext, useCallback, useContext, useRef, useState } from 'react';
 import { useAvailableTutorials } from './tutorial-data';
 
 const StoreContext = createContext({});
@@ -13,12 +13,14 @@ export function StoreProvider({ children }) {
   const [toolsOpen, setToolsOpen] = useState(true);
   const [toolsTab, setToolsTab] = useState('tutorials-panel');
   const [helpPanelTopic, setHelpPanelTopic] = useState('create-transcription-job');
+  const appLayoutRef = useRef();
 
   const makeHelpPanelHandler = useCallback(
     topic => () => {
       setHelpPanelTopic(topic);
       setToolsTab('help-panel');
       setToolsOpen(true);
+      appLayout.current?.focusToolsClose();
     },
     []
   );
@@ -41,6 +43,7 @@ export function StoreProvider({ children }) {
           setToolsOpen,
           setTutorialCompleted,
         },
+        appLayoutRef
       }}
     >
       {children}

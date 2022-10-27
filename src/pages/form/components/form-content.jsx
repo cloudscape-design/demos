@@ -9,14 +9,14 @@ import DistributionsPanel from './distribution-panel';
 import OriginPanel from './origin-panel';
 import TagsPanel from './tags-panel';
 
-export function FormHeader({ updateTools }) {
+export function FormHeader({ loadHelpPanelContent }) {
   return (
     <Header
       variant="h1"
       info={
         <InfoLink
           id="form-main-info-link"
-          onFollow={() => updateTools(0)}
+          onFollow={() => loadHelpPanelContent(0)}
           ariaLabel={'Information about how to create a distribution.'}
         />
       }
@@ -48,40 +48,40 @@ function BaseFormContent({ content, onCancelClick, errorText = null }) {
   );
 }
 
-export function FormContent({ updateTools }) {
+export function FormContent({ loadHelpPanelContent }) {
   return (
     <BaseFormContent
       content={
         <SpaceBetween size="l">
-          <ContentDeliveryPanel updateTools={updateTools} />
-          <DistributionsPanel updateTools={updateTools} />
-          <OriginPanel updateTools={updateTools} />
-          <CacheBehaviorPanel updateTools={updateTools} />
-          <TagsPanel updateTools={updateTools} />
+          <ContentDeliveryPanel loadHelpPanelContent={loadHelpPanelContent} />
+          <DistributionsPanel loadHelpPanelContent={loadHelpPanelContent} />
+          <OriginPanel loadHelpPanelContent={loadHelpPanelContent} />
+          <CacheBehaviorPanel loadHelpPanelContent={loadHelpPanelContent} />
+          <TagsPanel loadHelpPanelContent={loadHelpPanelContent} />
         </SpaceBetween>
       }
     />
   );
 }
 
-export const FormLimitedContent = ({ updateTools, updateDirty, onCancelClick }) => {
+export const FormLimitedContent = ({ loadHelpPanelContent, updateDirty, onCancelClick }) => {
   return (
     <BaseFormContent
       onCancelClick={onCancelClick}
-      content={<DistributionsPanel updateTools={updateTools} updateDirty={updateDirty} />}
+      content={<DistributionsPanel loadHelpPanelContent={loadHelpPanelContent} updateDirty={updateDirty} />}
     />
   );
 };
 
-export const FormContentReadOnlyWithErrors = ({ updateTools }) => {
+export const FormContentReadOnlyWithErrors = ({ loadHelpPanelContent }) => {
   return (
     <BaseFormContent
       content={
         <SpaceBetween size="l">
-          <DistributionsPanel updateTools={updateTools} readOnlyWithErrors={true} />
-          <OriginPanel updateTools={updateTools} readOnlyWithErrors={true} />
-          <CacheBehaviorPanel updateTools={updateTools} readOnlyWithErrors={true} />
-          <TagsPanel updateTools={updateTools} readOnlyWithErrors={true} />
+          <DistributionsPanel loadHelpPanelContent={loadHelpPanelContent} readOnlyWithErrors={true} />
+          <OriginPanel loadHelpPanelContent={loadHelpPanelContent} readOnlyWithErrors={true} />
+          <CacheBehaviorPanel loadHelpPanelContent={loadHelpPanelContent} readOnlyWithErrors={true} />
+          <TagsPanel loadHelpPanelContent={loadHelpPanelContent} readOnlyWithErrors={true} />
         </SpaceBetween>
       }
       errorText="CloudFront can’t create the new distribution because of a permissions problem with your IAM role."

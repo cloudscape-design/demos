@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 import { AppLayout, HelpPanel, Icon, Wizard } from '@cloudscape-design/components';
 import { Breadcrumbs, Navigation } from './wizard-components.jsx';
@@ -78,16 +78,18 @@ const getFormattedToolsContent = tools => (
 const useTools = () => {
   const [toolsContent, setToolsContent] = useState(getFormattedToolsContent(getDefaultToolsContent(0)));
   const [isToolsOpen, setIsToolsOpen] = useState(false);
+  const appLayoutRef = useRef();
 
   const setFormattedToolsContent = tools => {
     setToolsContent(getFormattedToolsContent(tools));
   };
 
-  const openTools = tools => {
+  const setHelpPanelContent = tools => {
     if (tools) {
       setFormattedToolsContent(tools);
     }
     setIsToolsOpen(true);
+    appLayoutRef.current?.focusToolsClose();
   };
   const closeTools = () => setIsToolsOpen(false);
 
@@ -96,10 +98,11 @@ const useTools = () => {
   return {
     toolsContent,
     isToolsOpen,
-    openTools,
+    setHelpPanelContent,
     closeTools,
     setFormattedToolsContent,
     onToolsChange,
+    appLayoutRef,
   };
 };
 
@@ -150,7 +153,7 @@ const useWizard = (closeTools, setFormattedToolsContent) => {
 };
 
 const App = () => {
-  const { toolsContent, isToolsOpen, openTools, closeTools, setFormattedToolsContent, onToolsChange } = useTools();
+  const { toolsContent, isToolsOpen, setHelpPanelContent, closeTools, setFormattedToolsContent, onToolsChange, appLayoutRef } = useTools();
   const {
     activeStepIndex,
     stepsInfo,
@@ -164,19 +167,20 @@ const App = () => {
   const wizardSteps = steps.map(({ title, stateKey, StepContent }) => ({
     title,
     info: (
-      <InfoLink onFollow={() => openTools(TOOLS_CONTENT[stateKey].default)} ariaLabel={`Information about ${title}.`} />
+      <InfoLink onFollow={() => setHelpPanelContent(TOOLS_CONTENT[stateKey].default)} ariaLabel={`Information about ${title}.`} />
     ),
     content: (
       <StepContent
         info={stepsInfo}
         onChange={newStepState => onStepInfoChange(stateKey, newStepState)}
-        openTools={openTools}
+        setHelpPanelContent={setHelpPanelContent}
         setActiveStepIndex={setActiveStepIndexAndCloseTools}
       />
     ),
   }));
   return (
     <AppLayout
+      ref={appLayoutRef}
       headerSelector="#header"
       navigation={<Navigation />}
       tools={toolsContent}
