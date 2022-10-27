@@ -254,7 +254,7 @@ export function BehaviorsTable() {
   );
 }
 
-export function TagsTable({ updateTools }) {
+export function TagsTable({ loadHelpPanelContent }) {
   const [tags, tagsLoading] = useAsyncData(async () => {
     const { ResourceTagMappingList } = await window.FakeServer.GetResources();
     return ResourceTagMappingList.reduce((tags, resourceTagMapping) => [...tags, ...resourceTagMapping.Tags], []);
@@ -271,7 +271,7 @@ export function TagsTable({ updateTools }) {
         <Header
           variant="h2"
           counter={`(${tags.length})`}
-          info={<InfoLink onFollow={() => updateTools(2)} ariaLabel={'Information about tags.'} />}
+          info={<InfoLink onFollow={() => loadHelpPanelContent(2)} ariaLabel={'Information about tags.'} />}
           actions={<Button>Manage tags</Button>}
           description={
             <>

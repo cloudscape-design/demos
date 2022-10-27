@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { useCollection } from '@cloudscape-design/collection-hooks';
 import DataProvider from '../commons/data-provider';
@@ -20,7 +20,7 @@ import '../../styles/base.scss';
 import { useColumnWidths } from '../commons/use-column-widths';
 import { useLocalStorage } from '../../common/localStorage';
 
-function TableContent({ distributions, updateTools }) {
+function TableContent({ distributions, loadHelpPanelContent }) {
   const [columnDefinitions, saveWidths] = useColumnWidths('React-Table-Widths', COLUMN_DEFINITIONS);
   const [preferences, setPreferences] = useLocalStorage('React-DistributionsTable-Preferences', DEFAULT_PREFERENCES);
   const { items, actions, filteredItemsCount, collectionProps, filterProps, paginationProps } = useCollection(
@@ -52,7 +52,7 @@ function TableContent({ distributions, updateTools }) {
         <FullPageHeader
           selectedItems={collectionProps.selectedItems}
           totalItems={distributions}
-          updateTools={updateTools}
+          loadHelpPanelContent={loadHelpPanelContent}
         />
       }
       filter={
@@ -71,13 +71,18 @@ function TableContent({ distributions, updateTools }) {
 
 function App({ distributions }) {
   const [toolsOpen, setToolsOpen] = useState(false);
+  const appLayout = useRef();
 
   return (
     <CustomAppLayout
+      ref={appLayout}
       navigation={<Navigation activeHref="#/distributions" />}
       notifications={<Notifications successNotification={true} />}
       breadcrumbs={<Breadcrumbs />}
-      content={<TableContent distributions={distributions} updateTools={() => setToolsOpen(true)} />}
+      content={<TableContent distributions={distributions} loadHelpPanelContent={() => {
+        setToolsOpen(true);
+        appLayout.current?.focusToolsClose();
+      }} />}
       contentType="table"
       tools={<ToolsContent />}
       toolsOpen={toolsOpen}

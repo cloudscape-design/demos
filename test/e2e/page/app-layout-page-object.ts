@@ -22,6 +22,10 @@ export default class Page extends BasePageObject {
     return this.getElementsCount(page.findSideNavigation().findItemByIndex(index).findItems().toSelector());
   }
 
+  infoLinkSelector() {
+    return page.findLink('[aria-label*=Information]').toSelector();
+  }
+
   disableMotion() {
     return this.browser.execute('disableMotionForTests()');
   }
@@ -49,6 +53,9 @@ export default class Page extends BasePageObject {
   }
   isToolsOpen() {
     return this.isDisplayed(page.findAppLayout().findToolsClose().toSelector());
+  }
+  isToolsCloseFocused() {
+    return this.isFocused(page.findAppLayout().findToolsClose().toSelector());
   }
   async openSideNavigation() {
     await this.click(page.findAppLayout().findNavigationToggle().toSelector());

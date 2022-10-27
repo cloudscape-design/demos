@@ -150,6 +150,23 @@ describe('Table Select Filter', () => {
         await expect(page.getToolsContent()).resolves.toContain('View your current DB instances');
       })
     );
+
+    test(
+      'tools panel can be opened by info link',
+      setupTest(async page => {
+        await page.click(page.infoLinkSelector());
+        await expect(page.isToolsOpen()).resolves.toBe(true);
+      })
+    );
+
+    test(
+      'tools panel is re-focused after clicking multiple info links',
+      setupTest(async page => {
+        await page.click(page.infoLinkSelector());
+        await page.click(page.infoLinkSelector());
+        await expect(page.isToolsCloseFocused()).resolves.toBe(true);
+      })
+    );
   });
 
   describe('Header buttons', () => {

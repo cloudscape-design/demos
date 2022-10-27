@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { useState } from 'react';
+import React, { createRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
   PRICE_CLASS_OPTIONS,
@@ -61,7 +61,7 @@ const DistributionsFooter = props => {
           info={
             <InfoLink
               id="root-info-link"
-              onFollow={() => props.updateTools(3)}
+              onFollow={() => props.loadHelpPanelContent(3)}
               ariaLabel={'Information about root object.'}
             />
           }
@@ -108,7 +108,7 @@ const Content = props => {
       >
         <Container
           header={<Header variant="h2">Distribution settings</Header>}
-          footer={<DistributionsFooter updateTools={index => props.updateTools(index)} />}
+          footer={<DistributionsFooter loadHelpPanelContent={index => props.loadHelpPanelContent(index)} />}
         >
           <SpaceBetween size="l">
             <FormField label="Price class" stretch={true}>
@@ -127,7 +127,7 @@ const Content = props => {
               info={
                 <InfoLink
                   id="cname-info-link"
-                  onFollow={() => props.updateTools(1)}
+                  onFollow={() => props.loadHelpPanelContent(1)}
                   ariaLabel={'Information about alternative domain names.'}
                 />
               }
@@ -146,7 +146,7 @@ const Content = props => {
               info={
                 <InfoLink
                   id="ssl-info-link"
-                  onFollow={() => props.updateTools(2)}
+                  onFollow={() => props.loadHelpPanelContent(2)}
                   ariaLabel={'Information about SSL/TLS certificate.'}
                 />
               }
@@ -171,15 +171,18 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = { toolsIndex: 0, toolsOpen: false };
+    this.appLayout = createRef();
   }
 
-  updateTools(toolsIndex) {
+  loadHelpPanelContent(toolsIndex) {
     this.setState({ toolsIndex, toolsOpen: true });
+    this.appLayout.current?.focusToolsClose();
   }
 
   render() {
     return (
       <AppLayout
+        ref={this.appLayout}
         contentType="form"
         content={
           <ContentLayout
@@ -190,7 +193,7 @@ class App extends React.Component {
                   <Link
                     id="main-info-link"
                     variant="info"
-                    onFollow={() => this.updateTools(0)}
+                    onFollow={() => this.loadHelpPanelContent(0)}
                     ariaLabel="Information about edit distribution."
                   >
                     Info
@@ -201,7 +204,7 @@ class App extends React.Component {
               </Header>
             }
           >
-            <Content updateTools={index => this.updateTools(index)} />
+            <Content loadHelpPanelContent={index => this.loadHelpPanelContent(index)} />
           </ContentLayout>
         }
         headerSelector="#header"

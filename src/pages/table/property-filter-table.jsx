@@ -17,7 +17,7 @@ import '../../styles/base.scss';
 
 export function PropertyFilterTable({
   data,
-  updateTools,
+  loadHelpPanelContent,
   columnDefinitions,
   saveWidths,
   preferences,
@@ -61,7 +61,7 @@ export function PropertyFilterTable({
         <FullPageHeader
           selectedItems={collectionProps.selectedItems}
           totalItems={data}
-          updateTools={updateTools}
+          loadHelpPanelContent={loadHelpPanelContent}
           serverSide={false}
         />
       }

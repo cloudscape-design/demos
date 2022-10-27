@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { AppLayout, Table, Pagination, SplitPanel, TextFilter } from '@cloudscape-design/components';
 import { useCollection } from '@cloudscape-design/collection-hooks';
@@ -43,9 +43,10 @@ const App = () => {
   const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize } = useSplitPanel(
     collectionProps.selectedItems
   );
-
+  const appLayout = useRef();
   return (
     <AppLayout
+      ref={appLayout}
       contentType="table"
       headerSelector="#header"
       navigation={<Navigation header={ec2NavHeader} navItems={ec2NavItems} activeHref="#/instances" />}
@@ -72,7 +73,10 @@ const App = () => {
               createButtonText="Create instance"
               selectedItems={collectionProps.selectedItems}
               totalItems={INSTANCES}
-              updateTools={() => setToolsOpen(true)}
+              loadHelpPanelContent={() => {
+                setToolsOpen(true);
+                appLayout.current?.focusToolsClose();
+              }}
             />
           }
           columnDefinitions={COLUMN_DEFINITIONS_MAIN}

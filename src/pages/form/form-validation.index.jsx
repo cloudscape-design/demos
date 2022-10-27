@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Alert, AppLayout, BreadcrumbGroup, ContentLayout, SpaceBetween } from '@cloudscape-design/components';
 import { Navigation, Notifications } from '../commons/common-components';
@@ -17,20 +17,23 @@ const Breadcrumbs = () => (
 function App() {
   const [toolsIndex, setToolsIndex] = useState(0);
   const [toolsOpen, setToolsOpen] = useState(false);
+  const appLayout = useRef()
 
-  const updateTools = index => {
+  const loadHelpPanelContent = index => {
     setToolsIndex(index);
     setToolsOpen(true);
+    appLayout.current?.focusToolsClose();
   };
 
   return (
     <AppLayout
+      ref={appLayout}
       contentType="form"
       content={
         <ContentLayout
           header={
             <SpaceBetween size="m">
-              <FormHeader updateTools={updateTools} />
+              <FormHeader loadHelpPanelContent={loadHelpPanelContent} />
               <Alert statusIconAriaLabel="Info" header="Read-only form validation">
                 This demo showcases a read-only form validation by marking any fields that contain an error and display
                 an error message under the field.
@@ -38,7 +41,7 @@ function App() {
             </SpaceBetween>
           }
         >
-          <FormContentReadOnlyWithErrors updateTools={updateTools} />
+          <FormContentReadOnlyWithErrors loadHelpPanelContent={loadHelpPanelContent} />
         </ContentLayout>
       }
       headerSelector="#header"

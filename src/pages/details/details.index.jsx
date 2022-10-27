@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React from 'react';
+import React, { createRef } from 'react';
 import { createRoot } from 'react-dom/client';
 import { AppLayout, Container, ContentLayout, Header, SpaceBetween } from '@cloudscape-design/components';
 import { BehaviorsTable, Breadcrumbs, OriginsTable, PageHeader, SettingsDetails, TagsTable } from './common-components';
@@ -9,12 +9,12 @@ import ToolsContent from './components/tools-content';
 import { appLayoutLabels } from '../../common/labels';
 import '../../styles/base.scss';
 
-const DistSettings = ({ updateTools, isInProgress }) => (
+const DistSettings = ({ loadHelpPanelContent, isInProgress }) => (
   <Container
     header={
       <Header
         variant="h2"
-        info={<InfoLink onFollow={() => updateTools(0)} ariaLabel={'Information about distribution settings.'} />}
+        info={<InfoLink onFollow={() => loadHelpPanelContent(0)} ariaLabel={'Information about distribution settings.'} />}
       >
         Distribution settings
       </Header>
@@ -28,26 +28,29 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { toolsIndex: 0, toolsOpen: false };
+    this.appLayout = createRef();
   }
 
-  updateTools(index) {
+  loadHelpPanelContent(index) {
     this.setState({ toolsIndex: index, toolsOpen: true });
+    this.appLayout.current?.focusToolsClose();
   }
 
   render() {
     return (
       <AppLayout
+        ref={this.appLayout}
         content={
           <ContentLayout
             header={
-              <PageHeader buttons={[{ text: 'Edit' }, { text: 'Delete' }]} updateTools={this.updateTools.bind(this)} />
+              <PageHeader buttons={[{ text: 'Edit' }, { text: 'Delete' }]} loadHelpPanelContent={this.loadHelpPanelContent.bind(this)} />
             }
           >
             <SpaceBetween size="l">
-              <DistSettings isInProgress={true} updateTools={this.updateTools.bind(this)} />
+              <DistSettings isInProgress={true} loadHelpPanelContent={this.loadHelpPanelContent.bind(this)} />
               <OriginsTable />
               <BehaviorsTable />
-              <TagsTable updateTools={this.updateTools.bind(this)} />
+              <TagsTable loadHelpPanelContent={this.loadHelpPanelContent.bind(this)} />
             </SpaceBetween>
           </ContentLayout>
         }

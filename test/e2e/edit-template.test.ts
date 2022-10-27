@@ -89,4 +89,14 @@ describe('Edit', () => {
       );
     })
   );
+
+  test(
+    'Tools panel updates focus as expected correctly while clicking multiple info anchors',
+    setupTest(async page => {
+      await page.openMainInfoLink();
+      await expect(page.isToolsCloseFocused()).resolves.toBe(true);
+      await page.openCnameInfoLink();
+      await expect(page.isToolsCloseFocused()).resolves.toBe(true);
+    })
+  );
 });

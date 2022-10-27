@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { useCollection } from '@cloudscape-design/collection-hooks';
 import {
@@ -65,7 +65,7 @@ function matchesClass(item, selectedClass) {
   return selectedClass === defaultClass || item.class === selectedClass.label;
 }
 
-function TableSelectFilter({ updateTools }) {
+function TableSelectFilter({ loadHelpPanelContent }) {
   const [columnDefinitions, saveWidths] = useColumnWidths('React-TableSelectFilter-Widths', COLUMN_DEFINITIONS);
   const [engine, setEngine] = useState(defaultEngine);
   const [instanceClass, setInstanceClass] = useState(defaultClass);
@@ -130,7 +130,7 @@ function TableSelectFilter({ updateTools }) {
           variant="awsui-h1-sticky"
           selectedItems={collectionProps.selectedItems}
           totalItems={DATA}
-          updateTools={updateTools}
+          loadHelpPanelContent={loadHelpPanelContent}
           actionButtons={
             <SpaceBetween size="xs" direction="horizontal">
               <Button disabled={collectionProps.selectedItems.length === 0}>Instance actions</Button>
@@ -214,12 +214,17 @@ function TableSelectFilter({ updateTools }) {
 
 function App() {
   const [toolsOpen, setToolsOpen] = useState(false);
+  const appLayout = useRef();
   return (
     <CustomAppLayout
+      ref={appLayout}
       navigation={<Navigation activeHref="#/instances" />}
       notifications={<Notifications successNotification={true} />}
       breadcrumbs={<Breadcrumbs />}
-      content={<TableSelectFilter updateTools={() => setToolsOpen(true)} />}
+      content={<TableSelectFilter loadHelpPanelContent={() => {
+        appLayout.current?.focusToolsClose();
+        setToolsOpen(true);
+      }} />}
       contentType="table"
       tools={<ToolsContent />}
       toolsOpen={toolsOpen}

@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import AppLayout from '@cloudscape-design/components/app-layout';
@@ -309,7 +309,7 @@ function Content(props) {
       ]}
     >
       <ServiceOverview />
-      <ServiceHealth updateTools={props.updateTools} />
+      <ServiceHealth loadHelpPanelContent={props.loadHelpPanelContent} />
       <CPUUtilisation />
       <NetworkTraffic />
       <Alarms />
@@ -325,17 +325,20 @@ function Content(props) {
 function App() {
   const [toolsOpen, setToolsOpen] = useState(false);
   const [toolsContent, setToolsContent] = useState(<EC2Info />);
+  const appLayout = useRef();
 
-  const updateTools = toolsContent => {
+  const loadHelpPanelContent = toolsContent => {
     setToolsOpen(true);
     setToolsContent(toolsContent);
+    appLayout.current?.focusToolsClose();
   };
 
   return (
     <AppLayout
+      ref={appLayout}
       content={
-        <ContentLayout header={<DashboardHeader updateTools={updateTools} />}>
-          <Content updateTools={updateTools} />
+        <ContentLayout header={<DashboardHeader loadHelpPanelContent={loadHelpPanelContent} />}>
+          <Content loadHelpPanelContent={loadHelpPanelContent} />
         </ContentLayout>
       }
       headerSelector="#header"

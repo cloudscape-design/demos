@@ -29,7 +29,7 @@ const InstanceOptions = ({
   storageType,
   storage,
   onChange,
-  openTools,
+  setHelpPanelContent,
 }) => {
   const onTimeZoneChange = getFieldOnChange('select', 'timeZone', onChange);
   const onAvailabilityZoneChange = getFieldOnChange('select', 'availabilityZone', onChange);
@@ -77,7 +77,7 @@ const InstanceOptions = ({
               label="IAM DB authentication"
               info={
                 <InfoLink
-                  onFollow={() => openTools(detailsToolsContent.iamAuth)}
+                  onFollow={() => setHelpPanelContent(detailsToolsContent.iamAuth)}
                   ariaLabel={'Information about IAM DB authentication.'}
                 />
               }
@@ -108,7 +108,7 @@ const InstanceOptions = ({
           label="Class"
           info={
             <InfoLink
-              onFollow={() => openTools(detailsToolsContent.instanceClass)}
+              onFollow={() => setHelpPanelContent(detailsToolsContent.instanceClass)}
               ariaLabel={'Information about class.'}
             />
           }
@@ -126,7 +126,7 @@ const InstanceOptions = ({
           label="Storage type"
           info={
             <InfoLink
-              onFollow={() => openTools(detailsToolsContent.storageType)}
+              onFollow={() => setHelpPanelContent(detailsToolsContent.storageType)}
               ariaLabel={'Information about storage type.'}
             />
           }
@@ -155,7 +155,7 @@ const InstanceOptions = ({
   );
 };
 
-const NameAndPassword = ({ identifier, username, password, confirmPassword, onChange, openTools }) => {
+const NameAndPassword = ({ identifier, username, password, confirmPassword, onChange, setHelpPanelContent }) => {
   const onIdentifierChange = getFieldOnChange('input', 'identifier', onChange);
   const onUsernameChange = getFieldOnChange('input', 'username', onChange);
   const onPasswordChange = getFieldOnChange('input', 'password', onChange);
@@ -168,7 +168,7 @@ const NameAndPassword = ({ identifier, username, password, confirmPassword, onCh
           label="DB instance identifier"
           info={
             <InfoLink
-              onFollow={() => openTools(detailsToolsContent.identifier)}
+              onFollow={() => setHelpPanelContent(detailsToolsContent.identifier)}
               ariaLabel={'Information about DB instance identifier.'}
             />
           }
@@ -181,7 +181,7 @@ const NameAndPassword = ({ identifier, username, password, confirmPassword, onCh
           label="Primary user name"
           info={
             <InfoLink
-              onFollow={() => openTools(detailsToolsContent.username)}
+              onFollow={() => setHelpPanelContent(detailsToolsContent.username)}
               ariaLabel={'Information about primary user name.'}
             />
           }
@@ -195,7 +195,7 @@ const NameAndPassword = ({ identifier, username, password, confirmPassword, onCh
             label="Primary password"
             info={
               <InfoLink
-                onFollow={() => openTools(detailsToolsContent.password)}
+                onFollow={() => setHelpPanelContent(detailsToolsContent.password)}
                 ariaLabel={'Information about primary password.'}
               />
             }
@@ -212,8 +212,8 @@ const NameAndPassword = ({ identifier, username, password, confirmPassword, onCh
   );
 };
 
-const Details = ({ info: { details }, openTools, onChange }) => {
-  const childProps = { ...details, openTools, onChange };
+const Details = ({ info: { details }, setHelpPanelContent, onChange }) => {
+  const childProps = { ...details, setHelpPanelContent, onChange };
   return (
     <Box margin={{ bottom: 'l' }}>
       <SpaceBetween size="l">

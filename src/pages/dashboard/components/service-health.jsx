@@ -40,7 +40,7 @@ export default function ServiceHealth(props) {
           variant="h2"
           info={
             <InfoLink
-              onFollow={() => props.updateTools(<ServiceHealthInfo />)}
+              onFollow={() => props.loadHelpPanelContent(<ServiceHealthInfo />)}
               ariaLabel={'Information about service health.'}
             />
           }

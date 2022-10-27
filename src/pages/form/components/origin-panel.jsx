@@ -6,7 +6,7 @@ import { InfoLink } from '../../commons/common-components';
 import useContentOrigins from '../../commons/use-content-origins';
 import HeadersEditor from './headers-editor';
 
-export default function OriginPanel({ updateTools, readOnlyWithErrors = false }) {
+export default function OriginPanel({ loadHelpPanelContent, readOnlyWithErrors = false }) {
   const [contentOriginsState, contentOriginsHandlers] = useContentOrigins();
   const [selectedOptions, setSelectedOptions] = useState([]);
 
@@ -29,7 +29,7 @@ export default function OriginPanel({ updateTools, readOnlyWithErrors = false })
           info={
             <InfoLink
               id="content-origin-info-link"
-              onFollow={() => updateTools(5)}
+              onFollow={() => loadHelpPanelContent(5)}
               ariaLabel={'Information about setting content origin.'}
             />
           }
@@ -65,7 +65,7 @@ export default function OriginPanel({ updateTools, readOnlyWithErrors = false })
           info={
             <InfoLink
               id="path-info-link"
-              onFollow={() => updateTools(6)}
+              onFollow={() => loadHelpPanelContent(6)}
               ariaLabel={'Information about path to content.'}
             />
           }
@@ -85,7 +85,7 @@ export default function OriginPanel({ updateTools, readOnlyWithErrors = false })
           info={
             <InfoLink
               id="origin-id-info-link"
-              onFollow={() => updateTools(7)}
+              onFollow={() => loadHelpPanelContent(7)}
               ariaLabel={'Information about origin ID.'}
             />
           }
@@ -105,7 +105,7 @@ export default function OriginPanel({ updateTools, readOnlyWithErrors = false })
             info={
               <InfoLink
                 id="custom-headers-info-link"
-                onFollow={() => updateTools(8)}
+                onFollow={() => loadHelpPanelContent(8)}
                 ariaLabel={'Information about custom headers.'}
               />
             }

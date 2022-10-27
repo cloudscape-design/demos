@@ -5,7 +5,7 @@ import { Container, Header, TagEditor } from '@cloudscape-design/components';
 import { InfoLink } from '../../commons/common-components';
 import { tagEditor as i18nStrings } from '../../../common/i18nStrings';
 
-export default function TagsPanel({ updateTools, readOnlyWithErrors = false }) {
+export default function TagsPanel({ loadHelpPanelContent, readOnlyWithErrors = false }) {
   const [tags, setTags] = useState([{ key: '', value: '' }]);
 
   return (
@@ -14,7 +14,7 @@ export default function TagsPanel({ updateTools, readOnlyWithErrors = false }) {
       header={
         <Header
           variant="h2"
-          info={<InfoLink onFollow={() => updateTools(10)} ariaLabel={'Information about tags.'} />}
+          info={<InfoLink onFollow={() => loadHelpPanelContent(10)} ariaLabel={'Information about tags.'} />}
           description="A tag is a label that you assign to an AWS resource. Each tag consists of a key and an optional value. You can use tags to search and filter your resources or track your AWS costs."
         >
           Tags

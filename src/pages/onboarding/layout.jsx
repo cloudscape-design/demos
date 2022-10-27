@@ -9,7 +9,7 @@ import { useStore } from './store';
 import { Notifications } from '../commons/common-components';
 
 export function CustomAppLayout({ initialHelpPanelPage, ...props }) {
-  const { state, actions } = useStore();
+  const { state, actions, appLayoutRef } = useStore();
 
   useEffect(() => {
     actions.setHelpPanelTopic(initialHelpPanelPage);
@@ -21,6 +21,7 @@ export function CustomAppLayout({ initialHelpPanelPage, ...props }) {
 
   return (
     <AppLayout
+      ref={appLayoutRef}
       navigationOpen={false}
       onNavigationChange={() => {
         /*this functionality is not represented in this demo*/

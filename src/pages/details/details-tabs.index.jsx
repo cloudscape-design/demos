@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { useState } from 'react';
+import React, { createRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
   AppLayout,
@@ -41,12 +41,12 @@ import { getFilterCounterText } from '../../common/tableCounterStrings';
 import ToolsContent from './components/tools-content';
 import '../../styles/base.scss';
 
-const Details = ({ updateTools }) => (
+const Details = ({ loadHelpPanelContent }) => (
   <Container
     header={
       <Header
         variant="h2"
-        info={<InfoLink onFollow={() => updateTools(1)} ariaLabel={'Information about details.'} />}
+        info={<InfoLink onFollow={() => loadHelpPanelContent(1)} ariaLabel={'Information about details.'} />}
         actions={<Button>Edit</Button>}
       >
         Details
@@ -113,10 +113,12 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { toolsIndex: 0, toolsOpen: false };
+    this.appLayout = createRef();
   }
 
-  updateTools(index) {
+  loadHelpPanelContent(index) {
     this.setState({ toolsIndex: index, toolsOpen: true });
+    this.appLayout.current?.focusToolsClose();
   }
 
   render() {
@@ -124,7 +126,7 @@ class App extends React.Component {
       {
         label: 'Details',
         id: 'details',
-        content: <Details updateTools={this.updateTools.bind(this)} />,
+        content: <Details loadHelpPanelContent={this.loadHelpPanelContent.bind(this)} />,
       },
       {
         label: 'Logs',
@@ -149,12 +151,13 @@ class App extends React.Component {
       {
         label: 'Tags',
         id: 'tags',
-        content: <TagsTable updateTools={this.updateTools.bind(this)} />,
+        content: <TagsTable loadHelpPanelContent={this.loadHelpPanelContent.bind(this)} />,
       },
     ];
 
     return (
       <AppLayout
+        ref={this.appLayout}
         content={
           <ContentLayout
             header={

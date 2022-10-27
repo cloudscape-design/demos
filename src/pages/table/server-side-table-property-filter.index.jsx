@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import intersection from 'lodash/intersection';
 import {
@@ -23,7 +23,7 @@ import { getServerFilterCounterText } from '../../common/tableCounterStrings';
 
 const DEFAULT_FILTERING_QUERY = { tokens: [], operation: 'and' };
 
-function ServerSidePropertyFilterTable({ columnDefinitions, saveWidths, updateTools }) {
+function ServerSidePropertyFilterTable({ columnDefinitions, saveWidths, loadHelpPanelContent }) {
   const [selectedItems, setSelectedItems] = useState([]);
   const [preferences, setPreferences] = useLocalStorage('React-DistributionsTable-Preferences', DEFAULT_PREFERENCES);
   const [sortingDescending, setSortingDescending] = useState(false);
@@ -91,7 +91,7 @@ function ServerSidePropertyFilterTable({ columnDefinitions, saveWidths, updateTo
         <FullPageHeader
           selectedItems={selectedItems}
           totalItems={totalCount}
-          updateTools={updateTools}
+          loadHelpPanelContent={loadHelpPanelContent}
           serverSide={true}
         />
       }
@@ -128,8 +128,10 @@ function ServerSidePropertyFilterTable({ columnDefinitions, saveWidths, updateTo
 function App() {
   const [columnDefinitions, saveWidths] = useColumnWidths('React-TableServerSide-Widths', COLUMN_DEFINITIONS);
   const [toolsOpen, setToolsOpen] = useState(false);
+  const appLayout = useRef();
   return (
     <CustomAppLayout
+      ref={appLayout}
       navigation={<Navigation activeHref="#/distributions" />}
       notifications={<Notifications successNotification={true} />}
       breadcrumbs={<Breadcrumbs />}
@@ -137,7 +139,10 @@ function App() {
         <ServerSidePropertyFilterTable
           columnDefinitions={columnDefinitions}
           saveWidths={saveWidths}
-          updateTools={() => setToolsOpen(true)}
+          loadHelpPanelContent={() => {
+            setToolsOpen(true);
+            appLayout.current?.focusToolsClose();
+          }}
         />
       }
       contentType="table"

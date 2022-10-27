@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 import { useCollection } from '@cloudscape-design/collection-hooks';
 import DataProvider from '../commons/data-provider';
@@ -20,7 +20,7 @@ import { getFilterCounterText } from '../../common/tableCounterStrings';
 import { useLocalStorage } from '../../common/localStorage';
 import '../../styles/base.scss';
 
-function DetailsCards({ updateTools }) {
+function DetailsCards({ loadHelpPanelContent }) {
   const [loading, setLoading] = useState(true);
   const [distributions, setDistributions] = useState([]);
   const [preferences, setPreferences] = useLocalStorage('React-Cards-Preferences', DEFAULT_PREFERENCES);
@@ -59,7 +59,7 @@ function DetailsCards({ updateTools }) {
         <FullPageHeader
           selectedItems={collectionProps.selectedItems}
           totalItems={distributions}
-          updateTools={updateTools}
+          loadHelpPanelContent={loadHelpPanelContent}
         />
       }
       filter={
@@ -96,12 +96,17 @@ function DetailsCards({ updateTools }) {
 
 function App() {
   const [toolsOpen, setToolsOpen] = useState(false);
+  const appLayout = useRef();
   return (
     <CustomAppLayout
+      ref={appLayout}
       navigation={<Navigation activeHref="#/distributions" />}
       notifications={<Notifications successNotification={true} />}
       breadcrumbs={<Breadcrumbs />}
-      content={<DetailsCards updateTools={() => setToolsOpen(true)} />}
+      content={<DetailsCards loadHelpPanelContent={() => {
+        setToolsOpen(true);
+        appLayout.current?.focusToolsClose();
+      }} />}
       contentType="cards"
       tools={<ToolsContent />}
       toolsOpen={toolsOpen}

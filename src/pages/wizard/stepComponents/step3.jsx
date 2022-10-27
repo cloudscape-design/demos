@@ -24,7 +24,7 @@ import { getFieldOnChange } from '../utils';
 
 const { advanced: advancedToolsContent } = TOOLS_CONTENT;
 
-const NetworkAndSecurity = ({ vpc, subnet, securityGroups, accessibility, encryption, onChange, openTools }) => {
+const NetworkAndSecurity = ({ vpc, subnet, securityGroups, accessibility, encryption, onChange, setHelpPanelContent }) => {
   const onVPCChange = getFieldOnChange('select', 'vpc', onChange);
   const onSubnetChange = getFieldOnChange('select', 'subnet', onChange);
   const onSecurityGroupChange = getFieldOnChange('select', 'securityGroups', onChange);
@@ -38,7 +38,7 @@ const NetworkAndSecurity = ({ vpc, subnet, securityGroups, accessibility, encryp
           label="Virtual Private Cloud (VPC)"
           info={
             <InfoLink
-              onFollow={() => openTools(advancedToolsContent.vpc)}
+              onFollow={() => setHelpPanelContent(advancedToolsContent.vpc)}
               ariaLabel={'Information about virtual private cloud.'}
             />
           }
@@ -50,7 +50,7 @@ const NetworkAndSecurity = ({ vpc, subnet, securityGroups, accessibility, encryp
           label="Subnet group"
           info={
             <InfoLink
-              onFollow={() => openTools(advancedToolsContent.subnet)}
+              onFollow={() => setHelpPanelContent(advancedToolsContent.subnet)}
               ariaLabel={'Information about subnet group.'}
             />
           }
@@ -67,7 +67,7 @@ const NetworkAndSecurity = ({ vpc, subnet, securityGroups, accessibility, encryp
           label="VPC security groups"
           info={
             <InfoLink
-              onFollow={() => openTools(advancedToolsContent.securityGroups)}
+              onFollow={() => setHelpPanelContent(advancedToolsContent.securityGroups)}
               ariaLabel={'Information about VPC security groups.'}
             />
           }
@@ -84,7 +84,7 @@ const NetworkAndSecurity = ({ vpc, subnet, securityGroups, accessibility, encryp
           label="Public accessibility"
           info={
             <InfoLink
-              onFollow={() => openTools(advancedToolsContent.accessibility)}
+              onFollow={() => setHelpPanelContent(advancedToolsContent.accessibility)}
               ariaLabel={'Information about public accessibility.'}
             />
           }
@@ -113,7 +113,7 @@ const NetworkAndSecurity = ({ vpc, subnet, securityGroups, accessibility, encryp
           label="Encryption"
           info={
             <InfoLink
-              onFollow={() => openTools(advancedToolsContent.encryption)}
+              onFollow={() => setHelpPanelContent(advancedToolsContent.encryption)}
               ariaLabel={'Information about encryption.'}
             />
           }
@@ -138,7 +138,7 @@ const NetworkAndSecurity = ({ vpc, subnet, securityGroups, accessibility, encryp
   );
 };
 
-const MaintenanceAndMonitoring = ({ failover, backtrack, upgrades, backup, monitoring, onChange, openTools }) => {
+const MaintenanceAndMonitoring = ({ failover, backtrack, upgrades, backup, monitoring, onChange, setHelpPanelContent }) => {
   const onFailoverChange = getFieldOnChange('select', 'failover', onChange);
   const onBacktrackChange = getFieldOnChange('radio', 'backtrack', onChange);
   const onUpgradesChange = getFieldOnChange('radio', 'upgrades', onChange);
@@ -155,7 +155,7 @@ const MaintenanceAndMonitoring = ({ failover, backtrack, upgrades, backup, monit
               label="Failover priority"
               info={
                 <InfoLink
-                  onFollow={() => openTools(advancedToolsContent.failover)}
+                  onFollow={() => setHelpPanelContent(advancedToolsContent.failover)}
                   ariaLabel={'Information about failover priority.'}
                 />
               }
@@ -172,7 +172,7 @@ const MaintenanceAndMonitoring = ({ failover, backtrack, upgrades, backup, monit
               label="Backtrack"
               info={
                 <InfoLink
-                  onFollow={() => openTools(advancedToolsContent.backtrack)}
+                  onFollow={() => setHelpPanelContent(advancedToolsContent.backtrack)}
                   ariaLabel={'Information about backtrack.'}
                 />
               }
@@ -225,7 +225,7 @@ const MaintenanceAndMonitoring = ({ failover, backtrack, upgrades, backup, monit
           label="Enhanced monitoring"
           info={
             <InfoLink
-              onFollow={() => openTools(advancedToolsContent.monitoring)}
+              onFollow={() => setHelpPanelContent(advancedToolsContent.monitoring)}
               ariaLabel={'Information about enhanced monitoring.'}
             />
           }
@@ -250,8 +250,8 @@ const MaintenanceAndMonitoring = ({ failover, backtrack, upgrades, backup, monit
   );
 };
 
-const Advanced = ({ info: { advanced }, openTools, onChange }) => {
-  const childProps = { ...advanced, openTools, onChange };
+const Advanced = ({ info: { advanced }, setHelpPanelContent, onChange }) => {
+  const childProps = { ...advanced, setHelpPanelContent, onChange };
   return (
     <Box margin={{ bottom: 'l' }}>
       <SpaceBetween size="l">

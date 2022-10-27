@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import DataProvider from '../commons/data-provider';
@@ -19,6 +19,7 @@ function App() {
   const [columnDefinitions, saveWidths] = useColumnWidths('React-TableServerSide-Widths', COLUMN_DEFINITIONS);
   const [preferences, setPreferences] = useLocalStorage('React-DistributionsTable-Preferences', DEFAULT_PREFERENCES);
   const [toolsOpen, setToolsOpen] = useState(false);
+  const appLayout = useRef();
 
   useEffect(() => {
     new DataProvider().getData('distributions').then(distributions => {
@@ -28,13 +29,17 @@ function App() {
 
   return (
     <CustomAppLayout
+      ref={appLayout}
       navigation={<Navigation activeHref="#/distributions" />}
       notifications={<Notifications successNotification={true} />}
       breadcrumbs={<Breadcrumbs />}
       content={
         <PropertyFilterTable
           data={distributions}
-          updateTools={() => setToolsOpen(true)}
+          loadHelpPanelContent={() => {
+            setToolsOpen(true);
+            appLayout.current?.focusToolsClose();
+          }}
           columnDefinitions={columnDefinitions}
           saveWidths={saveWidths}
           preferences={preferences}

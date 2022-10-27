@@ -67,6 +67,23 @@ describe('React Cards - Client side', () => {
   );
 
   test(
+    'tools panel can be opened by info link',
+    setupTest(async page => {
+      await page.click(page.infoLinkSelector());
+      await expect(page.isToolsOpen()).resolves.toBe(true);
+    })
+  );
+
+  test(
+    'tools panel is re-focused after clicking multiple info links',
+    setupTest(async page => {
+      await page.click(page.infoLinkSelector());
+      await page.click(page.infoLinkSelector());
+      await expect(page.isToolsCloseFocused()).resolves.toBe(true);
+    })
+  );
+
+  test(
     'Cards view details, edit and delete buttons are enabled when one card is selected',
     setupTest(async page => {
       await page.selectCard(1);

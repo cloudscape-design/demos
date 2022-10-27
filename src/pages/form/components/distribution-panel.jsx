@@ -60,7 +60,7 @@ const noop = () => {
   /*noop*/
 };
 
-export default function DistributionPanel({ updateTools, updateDirty = noop, readOnlyWithErrors = false }) {
+export default function DistributionPanel({ loadHelpPanelContent, updateDirty = noop, readOnlyWithErrors = false }) {
   const [contentOriginsState, contentOriginsHandlers] = useContentOrigins();
   const [distributionPanelData, setDistributionPanelData] = useState(defaultState);
 
@@ -95,7 +95,7 @@ export default function DistributionPanel({ updateTools, updateDirty = noop, rea
           info={
             <InfoLink
               id="certificate-method-info-link"
-              onFollow={() => updateTools(2)}
+              onFollow={() => loadHelpPanelContent(2)}
               ariaLabel={'Information about SSL/TLS certificate.'}
             />
           }
@@ -113,7 +113,7 @@ export default function DistributionPanel({ updateTools, updateDirty = noop, rea
           info={
             <InfoLink
               id="root-object-info-link"
-              onFollow={() => updateTools(3)}
+              onFollow={() => loadHelpPanelContent(3)}
               ariaLabel={'Information about root object.'}
             />
           }
@@ -137,7 +137,7 @@ export default function DistributionPanel({ updateTools, updateDirty = noop, rea
           info={
             <InfoLink
               id="cnames-info-link"
-              onFollow={() => updateTools(4)}
+              onFollow={() => loadHelpPanelContent(4)}
               ariaLabel={'Information about alternative domain names.'}
             />
           }
