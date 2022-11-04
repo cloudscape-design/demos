@@ -113,7 +113,7 @@ const createWebpackConfig = (config, { outputPath, includeDevServer }) => {
       rules: [
         {
           test: /\.jsx?/,
-          include: [__dirname + '/src'],
+          include: path.join(__dirname, 'src'),
           use: {
             loader: 'babel-loader',
             options: {
@@ -123,7 +123,7 @@ const createWebpackConfig = (config, { outputPath, includeDevServer }) => {
         },
         {
           test: /\.scss$/,
-          include: [__dirname + '/src/styles'],
+          include: path.join(__dirname, 'src/styles'),
           use: [
             MiniCssExtractPlugin.loader,
             { loader: 'css-loader', options: { url: false } },
