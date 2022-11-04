@@ -23,6 +23,7 @@
     "axe-core": "^4.4.3",
     "babel-loader": "^8.1.0",
     "copy-webpack-plugin": "^11.0.0",
+    "cross-env": "^7.0.3",
     "css-loader": "^6.7.1",
     "date-fns": "^2.29.2",
     "del": "^4.1.1",
@@ -59,7 +60,7 @@
     "whatwg-fetch": "^3.5.0"
   },
   "scripts": {
-    "webpack": "NODE_ENV=production webpack",
+    "webpack": "cross-env NODE_ENV=production webpack",
     "clean": "node ./scripts/clean",
     "generate-html-files": "node ./scripts/generate-html-files",
     "build": "npm-run-all -s clean webpack generate-html-files",
@@ -67,7 +68,7 @@
     "test": "npm run test-no-build",
     "test-no-build": "run-p -r start jest",
     "jest": "jest",
-    "start": "NODE_ENV=development webpack-dev-server",
+    "start": "cross-env NODE_ENV=development webpack-dev-server",
     "prepare": "husky install",
     "lint": "eslint --fix --ignore-path .gitignore --ext ts,js,jsx,json ."
   },
