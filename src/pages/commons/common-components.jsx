@@ -8,7 +8,6 @@ import {
   Button,
   Flashbar,
   Header,
-  Icon,
   Link,
   SideNavigation,
   SpaceBetween,
@@ -42,7 +41,6 @@ export const navItems = [
   },
 ];
 
-export const ec2NavHeader = { text: 'Service', href: '#/' };
 export const ec2NavItems = [
   { type: 'link', text: 'Instances', href: '#/instances' },
   { type: 'link', text: 'Instance types', href: '#/instance-types' },
@@ -53,20 +51,14 @@ export const ec2NavItems = [
   { type: 'divider' },
   {
     type: 'link',
-    text: (
-      <>
-        Notifications <Badge color="red">23</Badge>
-      </>
-    ),
+    text: 'Notifications',
+    info: <Badge color="red">23</Badge>,
     href: '#/notifications',
   },
   {
     type: 'link',
-    text: (
-      <>
-        Documentation <Icon name="external" />
-      </>
-    ),
+    text: 'Documentation',
+    external: true,
     href: '#/documentation',
   },
 ];

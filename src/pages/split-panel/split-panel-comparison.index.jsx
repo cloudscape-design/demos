@@ -8,7 +8,6 @@ import { appLayoutLabels } from '../../common/labels';
 import { getFilterCounterText } from '../../common/tableCounterStrings';
 import {
   Navigation,
-  ec2NavHeader,
   ec2NavItems,
   Notifications,
   TableNoMatchState,
@@ -49,7 +48,7 @@ const App = () => {
       ref={appLayout}
       contentType="table"
       headerSelector="#header"
-      navigation={<Navigation header={ec2NavHeader} navItems={ec2NavItems} activeHref="#/instances" />}
+      navigation={<Navigation items={ec2NavItems} activeHref="#/instances" />}
       breadcrumbs={<Breadcrumbs />}
       notifications={<Notifications successNotification={true} />}
       tools={<EC2ToolsContent />}
