@@ -165,7 +165,6 @@ const DemoHeaderPortal = ({ children }) => {
 };
 
 function App() {
-  const [navigationOpen, setNavigationOpen] = useState(true);
   const [searchValue, setSearchValue] = useState('');
   return (
     <>
@@ -210,12 +209,10 @@ function App() {
         toolsHide
         headerSelector="#header"
         ariaLabels={{ navigationClose: 'close' }}
-        navigationOpen={navigationOpen}
         navigation={<SideNavigation activeHref="#/pages" items={navItems} />}
         breadcrumbs={<BreadcrumbGroup items={breadcrumbs} expandAriaLabel="Show path" ariaLabel="Breadcrumbs" />}
         contentType="table"
         content={<Content />}
-        onNavigationChange={({ detail }) => setNavigationOpen(detail.open)}
         notifications={<Notifications />}
       />
     </>

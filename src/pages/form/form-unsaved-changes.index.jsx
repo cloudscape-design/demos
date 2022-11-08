@@ -22,7 +22,6 @@ import '../../styles/form.scss';
 function App() {
   const [toolsIndex, setToolsIndex] = useState(0);
   const [toolsOpen, setToolsOpen] = useState(false);
-  const [navigationOpen, setNavigationOpen] = useState(true);
   const [dirty, setDirty] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const appLayout = useRef();
@@ -121,8 +120,6 @@ function App() {
       tools={ToolsContent[toolsIndex]}
       toolsOpen={toolsOpen}
       onToolsChange={({ detail }) => setToolsOpen(detail.open)}
-      navigationOpen={navigationOpen}
-      onNavigationChange={({ detail }) => setNavigationOpen(detail.open)}
       ariaLabels={appLayoutLabels}
       notifications={<Notifications />}
     />
