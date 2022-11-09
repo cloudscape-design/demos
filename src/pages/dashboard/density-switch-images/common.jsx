@@ -4,14 +4,17 @@ import React from 'react';
 
 export const getClassName = element => `density-switch-${element}`;
 
-const TableRow = ({ offset, separator = true, compact = false }) => {
+export const TableRow = ({ offset, separator = true, compact = false, isHeader = false }) => {
   const offsetTop = 0.4482;
   const offsetBottom = 3.4482;
   const separatorDistance = compact ? 7 : 8;
   return (
-    <g transform={`translate(0, ${offset})`} className={getClassName('disabled')}>
+    <g transform={`translate(0, ${offset})`} className={getClassName(isHeader ? 'column-header' : 'disabled')}>
       <path d={`M53 ${offsetTop}H56V${offsetBottom}H53V${offsetTop}Z`} />
-      <path d={`M61 ${offsetTop}H85V${offsetBottom}H61V${offsetTop}Z`} className={getClassName('secondary')} />
+      <path
+        d={`M61 ${offsetTop}H85V${offsetBottom}H61V${offsetTop}Z`}
+        className={!isHeader ? getClassName('secondary') : undefined}
+      />
       <path d={`M138 ${offsetTop}H118V${offsetBottom}H138V${offsetTop}Z`} />
       <path d={`M185 ${offsetTop}H141V${offsetBottom}H185V${offsetTop}Z`} />
       {separator && (
@@ -22,7 +25,7 @@ const TableRow = ({ offset, separator = true, compact = false }) => {
 };
 
 export const TableRows = ({ offsetTop, rows, compact = false }) => {
-  const distance = compact ? 10 : 12;
+  const distance = compact ? 10 : 13;
   return (
     <g>
       {[...Array(rows)].map((_, index) => (
@@ -42,14 +45,5 @@ export const WindowPath = () => (
 export const TopNavigation = () => (
   <g className="awsui-context-top-navigation">
     <rect x="24" y="2" width="187" height="6" className={getClassName('top-navigation')} />
-  </g>
-);
-
-export const ColumnHeaders = ({ offset }) => (
-  <g transform={`translate(0, ${offset})`} className={getClassName('default')}>
-    <path d="M138 0.4483H118V3.4483H138V0.4483Z" />
-    <path d="M185 0.4483H141V3.4483H185V0.4483Z" />
-    <path d="M61 0.4483H85V3.4483H61V0.4483Z" />
-    <path d="M53 0.4483H56V3.4483H53V0.4483Z" />
   </g>
 );

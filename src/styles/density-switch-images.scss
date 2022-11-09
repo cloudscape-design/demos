@@ -22,10 +22,13 @@
   &-disabled {
     fill: cs.$color-background-control-disabled;
   }
+  &-column-header {
+    fill: cs.$color-text-input-disabled;
+  }
   &-secondary {
     fill: cs.$color-text-body-secondary;
   }
   &-separator {
-    stroke: cs.$color-border-button-primary-disabled;
+    stroke: cs.$color-border-divider-default;
   }
 }
