@@ -131,7 +131,7 @@ export const PROPERTY_FILTERING_I18N_CONSTANTS = {
   filteringAriaLabel: 'your choice',
   dismissAriaLabel: 'Dismiss',
 
-  filteringPlaceholder: 'Search',
+  filteringPlaceholder: 'Filter distributions by text, property or value',
   groupValuesText: 'Values',
   groupPropertiesText: 'Properties',
   operatorsText: 'Operators',
