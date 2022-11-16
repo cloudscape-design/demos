@@ -99,7 +99,7 @@ class S3ResourceSelectorContainer extends React.Component {
       <FormField
         label="Write simulations to S3"
         description="Enter a destination in Amazon S3 where your simulation will be stored. Amazon S3 is object storage built to store and retrieve data."
-        constraintText="Format: s3://bucket/prefix."
+        constraintText="Use s3://bucket/prefix format."
         errorText={errorText}
         stretch={true}
         i18nStrings={{ errorIconAriaLabel: 'Error' }}
