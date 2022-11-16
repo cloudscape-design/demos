@@ -149,7 +149,7 @@ const MaintenanceAndMonitoring = ({ failover, backtrack, upgrades, backup, monit
     <Container
       header={<Header variant="h2">Maintenance and monitoring</Header>}
       footer={
-        <ExpandableSection header="Additional settings" variant="footer">
+        <ExpandableSection headerText="Additional settings" variant="footer">
           <SpaceBetween size="l">
             <FormField
               label="Failover priority"

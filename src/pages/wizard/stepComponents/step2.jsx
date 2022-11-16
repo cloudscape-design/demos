@@ -43,7 +43,7 @@ const InstanceOptions = ({
     <Container
       header={<Header variant="h2">Instance options</Header>}
       footer={
-        <ExpandableSection header="Additional options" variant="footer">
+        <ExpandableSection headerText="Additional options" variant="footer">
           <SpaceBetween size="l">
             <FormField
               label={

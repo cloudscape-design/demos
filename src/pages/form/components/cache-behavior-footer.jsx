@@ -31,7 +31,7 @@ export default function CacheBehaviorFooter({ readOnlyWithErrors = false }) {
   };
 
   return (
-    <ExpandableSection header="Additional settings" variant="footer">
+    <ExpandableSection headerText="Additional settings" variant="footer">
       <SpaceBetween size="l">
         <div>
           <Box variant="awsui-key-label">Path pattern</Box>
