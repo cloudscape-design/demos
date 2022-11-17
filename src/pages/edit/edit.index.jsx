@@ -42,7 +42,7 @@ const DistributionsFooter = props => {
   const [loggingEnabled, setLoggingEnabled] = useState(false);
   const [ipv6Enabled, setIpv6Enabled] = useState(false);
   return (
-    <ExpandableSection header="Additional settings" variant="footer">
+    <ExpandableSection headerText="Additional settings" variant="footer">
       <SpaceBetween size="l">
         <FormField
           label="Supported HTTP versions"

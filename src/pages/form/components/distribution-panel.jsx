@@ -21,7 +21,7 @@ import { SSL_CERTIFICATE_OPTIONS, SUPPORTED_HTTP_VERSIONS_OPTIONS } from '../for
 
 function DistributionsFooter({ state, onChange }) {
   return (
-    <ExpandableSection header="Additional settings" variant="footer">
+    <ExpandableSection headerText="Additional settings" variant="footer">
       <SpaceBetween size="l">
         <FormField
           label="Supported HTTP versions"

@@ -79,7 +79,7 @@ const Review = ({ info: { engine, details, advanced }, setActiveStepIndex }) => 
             <Container
               header={<Header variant="h2">Instance options</Header>}
               footer={
-                <ExpandableSection header="Additional options" variant="footer">
+                <ExpandableSection headerText="Additional options" variant="footer">
                   <ColumnLayout columns={2} variant="text-grid">
                     <div>
                       <Box variant="awsui-key-label">Time zone</Box>
@@ -188,7 +188,7 @@ const Review = ({ info: { engine, details, advanced }, setActiveStepIndex }) => 
             <Container
               header={<Header variant="h2">Maintenance and monitoring</Header>}
               footer={
-                <ExpandableSection header="Additional options" variant="footer">
+                <ExpandableSection headerText="Additional options" variant="footer">
                   <ColumnLayout columns={2} variant="text-grid">
                     <div>
                       <Box variant="awsui-key-label">Failover priority</Box>
