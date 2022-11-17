@@ -91,8 +91,8 @@ class S3ResourceSelectorContainer extends React.Component {
     return (
       <FormField
         label="Read simulations from S3"
-        description="Choose a simulation in Amazon S3. Amazon S3 is object storage built to store and retrieve data."
-        constraintText="Format: s3://bucket/prefix/object. For objects in a bucket with versioning activated, you can choose the most recent or a previous version of the object."
+        description="Choose a simulation in Amazon S3. Amazon S3 is object storage built to store and retrieve data. For objects in a bucket with versioning activated, you can choose the most recent or a previous version of the object."
+        constraintText="Use s3://bucket/prefix/object format."
         errorText={errorText}
         stretch={true}
         i18nStrings={{ errorIconAriaLabel: 'Error' }}
