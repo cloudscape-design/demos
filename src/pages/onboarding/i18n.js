@@ -19,6 +19,8 @@ export const tutorialPanelI18nStrings = {
   stepTitle: (stepIndex, stepTitle) => `Step ${stepIndex + 1}: ${stepTitle}`,
   labelTotalSteps: totalStepCount => `Total steps: ${totalStepCount}`,
   labelLearnMoreExternalIcon: 'Opens in a new tab',
+  labelTutorialListDownloadLink: 'Download PDF version of this tutorial',
+  labelLearnMoreLink: 'Learn more about transcribe audio (opens new tab)',
 };
 
 export const overlayI18nStrings = {
