@@ -106,7 +106,7 @@ const createWebpackConfig = (config, { outputPath, includeDevServer }) => {
     },
 
     resolve: {
-      extensions: ['.js', '.jsx', '.scss', '.ts'],
+      extensions: ['.js', '.jsx', '.ts'],
     },
 
     module: {
@@ -127,14 +127,6 @@ const createWebpackConfig = (config, { outputPath, includeDevServer }) => {
           use: [
             MiniCssExtractPlugin.loader,
             { loader: 'css-loader', options: { url: false } },
-            {
-              loader: 'postcss-loader',
-              options: {
-                postcssOptions: {
-                  plugins: ['postcss-custom-properties'],
-                },
-              },
-            },
             {
               loader: 'sass-loader',
               options: {
