@@ -27,7 +27,7 @@ export const overlayI18nStrings = {
   labelHotspot: (openState, stepIndex, totalStepCount) =>
   openState
     ? `close annotation for step ${stepIndex + 1} of ${totalStepCount}`
-    : `open annotation for step ${stepIndex + 1}of ${totalStepCount}`,
+    : `open annotation for step ${stepIndex + 1} of ${totalStepCount}`,
   nextButtonText: 'Next',
   previousButtonText: 'Previous',
   finishButtonText: 'Finish',
