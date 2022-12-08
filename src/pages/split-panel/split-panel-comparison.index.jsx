@@ -93,6 +93,7 @@ const App = () => {
             />
           }
           wrapLines={preferences.wrapLines}
+          stripedRows={preferences.stripedRows}
           pagination={<Pagination {...paginationProps} ariaLabels={paginationLabels} />}
           preferences={<EC2Preferences preferences={preferences} setPreferences={setPreferences} />}
         />

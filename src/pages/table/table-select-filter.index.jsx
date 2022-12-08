@@ -73,6 +73,7 @@ function TableSelectFilter({ loadHelpPanelContent }) {
     pageSize: 30,
     visibleContent: ['id', 'engine', 'version', 'status', 'activity', 'class'],
     wrapLines: false,
+    stripedRows: false,
     custom: 'table',
   });
   const { items, actions, filteredItemsCount, collectionProps, filterProps, paginationProps } = useCollection(DATA, {
@@ -118,6 +119,7 @@ function TableSelectFilter({ loadHelpPanelContent }) {
       resizableColumns={true}
       onColumnWidthsChange={saveWidths}
       wrapLines={preferences.wrapLines}
+      stripedRows={preferences.stripedRows}
       selectionType="single"
       ariaLabels={{
         itemSelectionLabel: (data, row) => `Select DB instance ${row.id}`,
@@ -202,6 +204,10 @@ function TableSelectFilter({ loadHelpPanelContent }) {
             label: 'Wrap lines',
             description: 'Check to see all the text and wrap the lines',
           }}
+          stripedRowsPreference={{
+            label: 'Striped rows',
+            description: 'Check to add alternating shaded rows',
+          }}
           visibleContentPreference={{
             title: 'Select visible columns',
             options: VISIBLE_CONTENT_OPTIONS,
@@ -221,10 +227,14 @@ function App() {
       navigation={<Navigation activeHref="#/instances" />}
       notifications={<Notifications successNotification={true} />}
       breadcrumbs={<Breadcrumbs />}
-      content={<TableSelectFilter loadHelpPanelContent={() => {
-        appLayout.current?.focusToolsClose();
-        setToolsOpen(true);
-      }} />}
+      content={
+        <TableSelectFilter
+          loadHelpPanelContent={() => {
+            appLayout.current?.focusToolsClose();
+            setToolsOpen(true);
+          }}
+        />
+      }
       contentType="table"
       tools={<ToolsContent />}
       toolsOpen={toolsOpen}

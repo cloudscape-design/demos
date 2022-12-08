@@ -74,6 +74,7 @@ function ServerSideTable({ columnDefinitions, saveWidths, loadHelpPanelContent }
       resizableColumns={true}
       onColumnWidthsChange={saveWidths}
       wrapLines={preferences.wrapLines}
+      stripedRows={preferences.stripedRows}
       header={
         <FullPageHeader
           selectedItems={selectedItems}

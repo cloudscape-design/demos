@@ -103,6 +103,7 @@ export const DEFAULT_PREFERENCES = {
   pageSize: 30,
   visibleContent: ['id', 'domainName', 'deliveryMethod', 'sslCertificate', 'status', 'state'],
   wrapLines: false,
+  stripedRows: false,
 };
 
 export const Preferences = ({
@@ -126,6 +127,10 @@ export const Preferences = ({
     wrapLinesPreference={{
       label: 'Wrap lines',
       description: 'Check to see all the text and wrap the lines',
+    }}
+    stripedRowsPreference={{
+      label: 'Striped rows',
+      description: 'Check to add alternating shaded rows',
     }}
     visibleContentPreference={{
       title: 'Select visible columns',

@@ -97,4 +97,5 @@ export const DEFAULT_PREFERENCES = {
   pageSize: 30,
   visibleContent: ['id', 'type', 'publicDns', 'monitoring', 'state'],
   wrapLines: false,
+  stripedRows: false,
 };

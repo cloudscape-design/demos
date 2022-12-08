@@ -88,6 +88,7 @@ export const DEFAULT_PREFERENCES = {
   pageSize: 30,
   visibleContent: ['id', 'domainName', 'createdAt', 'deliveryMethod', 'sslCertificate', 'status', 'state'],
   wraplines: false,
+  stripedRows: false,
 };
 
 export const FILTERING_PROPERTIES = [
