@@ -48,6 +48,7 @@ function TableContent({ distributions, loadHelpPanelContent }) {
       resizableColumns={true}
       onColumnWidthsChange={saveWidths}
       wrapLines={preferences.wrapLines}
+      stripedRows={preferences.stripedRows}
       header={
         <FullPageHeader
           selectedItems={collectionProps.selectedItems}
@@ -79,10 +80,15 @@ function App({ distributions }) {
       navigation={<Navigation activeHref="#/distributions" />}
       notifications={<Notifications successNotification={true} />}
       breadcrumbs={<Breadcrumbs />}
-      content={<TableContent distributions={distributions} loadHelpPanelContent={() => {
-        setToolsOpen(true);
-        appLayout.current?.focusToolsClose();
-      }} />}
+      content={
+        <TableContent
+          distributions={distributions}
+          loadHelpPanelContent={() => {
+            setToolsOpen(true);
+            appLayout.current?.focusToolsClose();
+          }}
+        />
+      }
       contentType="table"
       tools={<ToolsContent />}
       toolsOpen={toolsOpen}
