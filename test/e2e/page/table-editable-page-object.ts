@@ -31,7 +31,7 @@ export default class TableEditablePageObject extends TableFilteringPageObject {
 
   async performBadDomainEdit(row: number) {
     const bodyCell = this.tableWrapper.findBodyCell(row, 4);
-    const input = this.tableWrapper.findEditingCellInputSlot().find('input');
+    const input = bodyCell.findFormField().find('input');
     await this.click(bodyCell.toSelector());
     await this.click(input.toSelector());
     await this.browser.$(input.toSelector()).setValue('bad domain name');
@@ -42,7 +42,7 @@ export default class TableEditablePageObject extends TableFilteringPageObject {
 
   async performGoodDomainEdit(row: number, value: string) {
     const bodyCell = this.tableWrapper.findBodyCell(row, 4);
-    const input = this.tableWrapper.findEditingCellInputSlot().find('input');
+    const input = bodyCell.findFormField().find('input');
     await this.click(bodyCell.toSelector());
     await this.click(input.toSelector());
 
