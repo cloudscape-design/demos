@@ -27,6 +27,13 @@ export const distributionSelectionLabels = {
   selectionGroupLabel: 'Distribution selection',
 };
 
+export const distributionEditLabels = {
+  ...distributionSelectionLabels,
+  activateEditLabel: column => `Edit ${column.header}`,
+  cancelEditLabel: column => `Cancel editing ${column.header}`,
+  submitEditLabel: column => `Submit edit ${column.header}`,
+};
+
 export const originsSelectionLabels = {
   itemSelectionLabel: (data, row) => `select ${row.name}`,
   allItemsSelectionLabel: () => 'select all',

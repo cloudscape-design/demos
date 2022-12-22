@@ -12,6 +12,7 @@ export const Breadcrumbs = () => (
 export const FullPageHeader = ({
   resourceName = 'Distributions',
   createButtonText = 'Create distribution',
+  extraActions = null,
   ...props
 }) => {
   const isOnlyOneSelected = props.selectedItems.length === 1;
@@ -22,10 +23,19 @@ export const FullPageHeader = ({
       title={resourceName}
       actionButtons={
         <SpaceBetween size="xs" direction="horizontal">
-          <Button disabled={!isOnlyOneSelected}>View details</Button>
-          <Button disabled={!isOnlyOneSelected}>Edit</Button>
-          <Button disabled={props.selectedItems.length === 0}>Delete</Button>
-          <Button variant="primary">{createButtonText}</Button>
+          {extraActions}
+          <Button data-testid="header-btn-view-details" disabled={!isOnlyOneSelected}>
+            View details
+          </Button>
+          <Button data-testid="header-btn-edit" disabled={!isOnlyOneSelected}>
+            Edit
+          </Button>
+          <Button data-testid="header-btn-delete" disabled={props.selectedItems.length === 0}>
+            Delete
+          </Button>
+          <Button data-testid="header-btn-create" variant="primary">
+            {createButtonText}
+          </Button>
         </SpaceBetween>
       }
       {...props}

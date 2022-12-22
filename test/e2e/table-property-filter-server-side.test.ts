@@ -6,6 +6,7 @@ import commonTableTests from './common/table/table-tests';
 import commonPropertyFilteringTests from './common/table/table-property-filtering-tests';
 import commonPreferencesTests from './common/table/table-preferences-tests';
 import legalDisclaimerTest from './common/legal-disclaimer';
+import commonFlashTests from './common/flashbar-tests';
 
 describe('Server Side Table - Property Filtering', () => {
   const setupTest = (testFn: { (page: TablePropertyFilteringPageObject): Promise<void> }) => {
@@ -20,6 +21,7 @@ describe('Server Side Table - Property Filtering', () => {
   legalDisclaimerTest(setupTest);
 
   commonTableTests(setupTest);
+  commonFlashTests(setupTest);
   commonPreferencesTests(setupTest);
   commonPropertyFilteringTests(setupTest);
 

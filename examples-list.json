@@ -16,6 +16,7 @@
   { "path": "table/table-select-filter", "title": "Table with select filter" },
   { "path": "table/table-date-filter", "title": "Table view with date range picker filter" },
   { "path": "table/table", "title": "Table view" },
+  { "path": "table/table-editable", "title": "Table view with inline editing"},
   { "path": "tags/manage-tags", "title": "Manage tags" },
   { "path": "s3/read-from-s3", "title": "Read from Amazon S3" },
   { "path": "s3/write-to-s3", "title": "Write to Amazon S3" },

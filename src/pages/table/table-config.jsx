@@ -1,7 +1,14 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import { CollectionPreferences, StatusIndicator, Link } from '@cloudscape-design/components';
+import {
+  CollectionPreferences,
+  StatusIndicator,
+  Link,
+  Select,
+  Input,
+  Autosuggest,
+} from '@cloudscape-design/components';
 import { addColumnSortLabels } from '../../common/labels';
 
 export const COLUMN_DEFINITIONS = addColumnSortLabels([
@@ -76,11 +83,125 @@ export const COLUMN_DEFINITIONS = addColumnSortLabels([
   },
 ]);
 
+export const serverSideErrorsStore = new Map();
+
+// Please do not use this in any real code, this is not a good regular expression for domain names
+// A better regex would be something like: /^((?=[a-z0-9-]{1,63}\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}$/
+// or one of the regular expressions mentioned here:
+//    https://www.oreilly.com/library/view/regular-expressions-cookbook/9781449327453/ch08s15.html
+export const domainNameRegex = /^(?:[\w_-]+\.){1,3}(?:com|net|org)$/i;
+export const INVALID_DOMAIN_MESSAGE = 'Valid domain name ends with .com, .org, or .net.';
+
+const editableColumns = {
+  state: {
+    minWidth: 200,
+    editConfig: {
+      ariaLabel: 'Edit state',
+      errorIconAriaLabel: 'State Validation Error',
+      editIconAriaLabel: 'editable',
+    },
+    cell: (item, { isEditing, setValue, currentValue }) => {
+      const options = [
+        { value: 'Activated', label: 'Activated' },
+        { value: 'Deactivated', label: 'Deactivated' },
+      ];
+      if (isEditing) {
+        return (
+          <Select
+            autoFocus={true}
+            expandToViewport={true}
+            ariaLabel="Select desired state"
+            options={options}
+            onChange={event => {
+              setValue(event.detail.selectedOption.value);
+            }}
+            selectedOption={options.find(option => option.value === (currentValue ?? item.state))}
+          />
+        );
+      }
+      return <StatusIndicator type={item.state === 'Deactivated' ? 'error' : 'success'}>{item.state}</StatusIndicator>;
+    },
+  },
+  domainName: {
+    minWidth: 180,
+    editConfig: {
+      ariaLabel: 'Edit domain name',
+      errorIconAriaLabel: 'Domain Name Validation Error',
+      editIconAriaLabel: 'editable',
+      validation(item, value) {
+        if (serverSideErrorsStore.has(item)) {
+          if (value) {
+            serverSideErrorsStore.set(item, domainNameRegex.test(value) ? undefined : INVALID_DOMAIN_MESSAGE);
+          }
+          return serverSideErrorsStore.get(item);
+        }
+      },
+    },
+    cell: (item, { isEditing, setValue, currentValue }) => {
+      if (isEditing) {
+        return (
+          <Input
+            autoFocus={true}
+            ariaLabel="Edit domain name"
+            value={currentValue ?? item.domainName}
+            onChange={event => {
+              setValue(event.detail.value);
+            }}
+            placeholder="Enter domain name"
+          />
+        );
+      }
+      return item.domainName;
+    },
+  },
+  sslCertificate: {
+    minWidth: 180,
+    editConfig: {
+      ariaLabel: 'Edit SSL certificate',
+      errorIconAriaLabel: 'Certificate Validation Error',
+      editIconAriaLabel: 'editable',
+    },
+    cell: (item, { isEditing, setValue, currentValue }) => {
+      const options = [
+        { value: 'Default', label: 'Default ' },
+        { value: 'ACM', label: 'ACM' },
+        { value: 'Custom', label: 'Custom' },
+      ];
+      if (isEditing) {
+        return (
+          <Autosuggest
+            autoFocus={true}
+            value={currentValue ?? item.sslCertificate}
+            onChange={event => setValue(event.detail.value)}
+            options={options}
+            enteredTextLabel={value => `Use custom certificate "${value}"`}
+            expandToViewport={true}
+            ariaLabel="SSL Certificate"
+            placeholder="Select an SSL certificate"
+          />
+        );
+      }
+      return item.sslCertificate;
+    },
+  },
+};
+
+export const EDITABLE_COLUMN_DEFINITIONS = COLUMN_DEFINITIONS.map(column => {
+  if (editableColumns[column.id]) {
+    return {
+      ...column,
+      minWidth: Math.max(column.minWidth || 0, 176),
+      ...editableColumns[column.id],
+    };
+  }
+  return column;
+});
+
 const VISIBLE_CONTENT_OPTIONS = [
   {
     label: 'Main distribution properties',
     options: [
-      { id: 'id', label: 'Distribution ID', editable: false },
+      { id: 'id', label: 'Distribution ID' },
       { id: 'domainName', label: 'Domain name' },
       { id: 'deliveryMethod', label: 'Delivery method' },
       { id: 'priceClass', label: 'Price class' },
@@ -102,6 +223,13 @@ export const PAGE_SIZE_OPTIONS = [
 export const DEFAULT_PREFERENCES = {
   pageSize: 30,
   visibleContent: ['id', 'domainName', 'deliveryMethod', 'sslCertificate', 'status', 'state'],
+  wrapLines: false,
+  stripedRows: false,
+};
+
+export const EDITABLE_PREFERENCES = {
+  pageSize: 30,
+  visibleContent: ['id', 'domainName', 'deliveryMethod', 'sslCertificate', 'state'],
   wrapLines: false,
   stripedRows: false,
 };

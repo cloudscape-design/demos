@@ -6,6 +6,7 @@ import TableFilteringPageObject from './page/table-filtering-page-object';
 import commonFilteringTests from './common/table/table-filtering-tests';
 import commonPreferencesTests from './common/table/table-preferences-tests';
 import legalDisclaimerTest from './common/legal-disclaimer';
+import commonFlashTests from './common/flashbar-tests';
 
 describe('Table - Server side', () => {
   const setupTest = (testFn: { (page: TableFilteringPageObject): Promise<void> }) => {
@@ -20,6 +21,7 @@ describe('Table - Server side', () => {
   legalDisclaimerTest(setupTest);
 
   commonTableTests(setupTest);
+  commonFlashTests(setupTest);
   commonPreferencesTests(setupTest);
   commonFilteringTests(setupTest);
 
