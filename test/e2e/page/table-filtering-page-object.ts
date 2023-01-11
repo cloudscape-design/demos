@@ -14,14 +14,14 @@ export default class TableFilteringPageObject extends TablePageObject {
   }
 
   isViewDetailsButtonEnabled() {
-    return this.isTableHeaderButtonEnabled(1);
+    return this.isTableHeaderButtonWithTestIdEnabled('header-btn-view-details');
   }
 
   isEditDetailsButtonEnabled() {
-    return this.isTableHeaderButtonEnabled(2);
+    return this.isTableHeaderButtonWithTestIdEnabled('header-btn-edit');
   }
 
   isDeleteDetailsButtonEnabled() {
-    return this.isTableHeaderButtonEnabled(3);
+    return this.isTableHeaderButtonWithTestIdEnabled('header-btn-delete');
   }
 }

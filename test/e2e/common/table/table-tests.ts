@@ -3,14 +3,15 @@
 import TablePropertyFilteringPageObject from '../../page/table-property-filtering-page-object';
 import TableFilteringPageObject from '../../page/table-filtering-page-object';
 
-export default (setupTest: {
-  (testFn: { (page: TablePropertyFilteringPageObject | TableFilteringPageObject): Promise<void> }): any;
-}) => {
+type PageObjectWithFiltering = TablePropertyFilteringPageObject | TableFilteringPageObject;
+
+export type SetupTest<T> = (testFn: (page: T) => Promise<void>) => any;
+
+export default function commonTests<T extends PageObjectWithFiltering>(setupTest: SetupTest<T>) {
   describe('Common Table Tests', () => {
     test(
       'Initial layout is correct',
       setupTest(async page => {
-        await expect(page.isFlashVisible()).resolves.toBe(true);
         await expect(page.countBreadcrumbs()).resolves.toBe(2);
         await expect(page.getActiveNavigationLinkText()).resolves.toBe('Distributions');
         await expect(page.isNavigationOpen()).resolves.toBe(true);
@@ -27,17 +28,6 @@ export default (setupTest: {
         await expect(page.getColumnAriaLabel(2)).resolves.toBe('Distribution ID, sorted ascending.');
       })
     );
-
-    describe('Flash message', () => {
-      test(
-        'dismisses properly',
-        setupTest(async page => {
-          await page.disableMotion();
-          await page.dismissFlash();
-          await expect(page.isFlashVisible()).resolves.toBe(false);
-        })
-      );
-    });
 
     describe('Navigation', () => {
       test(
@@ -125,4 +115,4 @@ export default (setupTest: {
       });
     });
   });
-};
+}

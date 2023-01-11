@@ -3,6 +3,7 @@
 import useBrowser from '@cloudscape-design/browser-test-tools/use-browser';
 import legalDisclaimerTest from './common/legal-disclaimer';
 import Page from './page/cards-page-object';
+import commonFlashTests from './common/flashbar-tests';
 
 describe('React Cards - Client side', () => {
   const setupTest = (testFn: { (page: Page): Promise<void> }) => {
@@ -15,11 +16,11 @@ describe('React Cards - Client side', () => {
   };
 
   legalDisclaimerTest(setupTest);
+  commonFlashTests(setupTest);
 
   test(
     'Initial state is correct',
     setupTest(async page => {
-      await expect(page.isFlashVisible()).resolves.toBe(true);
       await expect(page.countBreadcrumbs()).resolves.toBe(2);
       await expect(page.getActiveNavigationLinkText()).resolves.toBe('Distributions');
       await expect(page.isNavigationOpen()).resolves.toBe(true);

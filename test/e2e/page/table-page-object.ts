@@ -37,6 +37,11 @@ export default class TablePageObject extends AppLayoutPage {
     return el.isEnabled();
   }
 
+  protected async isTableHeaderButtonWithTestIdEnabled(testId: string) {
+    const el = await this.browser.$(this.pageWrapper.findButton(`[data-testid="${testId}"]`).toSelector());
+    return el.isEnabled();
+  }
+
   async selectTableRow(index: number) {
     await this.click(this.tableWrapper.findBodyCell(index, 1).toSelector());
   }
