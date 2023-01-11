@@ -11,6 +11,16 @@
 const fs = require('fs');
 const filenames = process.argv.slice(2);
 
+function unlock(packages) {
+  Object.keys(packages).forEach(dependencyName => {
+    if (dependencyName.includes('@cloudscape-design/')) {
+      delete packages[dependencyName];
+    }
+  });
+
+  return packages;
+}
+
 for (const filename of filenames) {
   const packageLock = require(filename);
 
@@ -18,10 +28,8 @@ for (const filename of filenames) {
     throw new Error('package-lock.json must have "lockfileVersion": 2');
   }
 
-  Object.keys(packageLock.packages).forEach(dependencyName => {
-    if (dependencyName.includes('@cloudscape-design/')) {
-      delete packageLock.packages[dependencyName];
-    }
-  });
+  packageLock.packages = unlock(packageLock.packages);
+  packageLock.dependencies = unlock(packageLock.dependencies);
+
   fs.writeFileSync(filename, JSON.stringify(packageLock, null, 2) + '\n');
 }
