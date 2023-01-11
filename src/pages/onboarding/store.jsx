@@ -20,7 +20,7 @@ export function StoreProvider({ children }) {
       setHelpPanelTopic(topic);
       setToolsTab('help-panel');
       setToolsOpen(true);
-      appLayout.current?.focusToolsClose();
+      appLayoutRef.current?.focusToolsClose();
     },
     []
   );
