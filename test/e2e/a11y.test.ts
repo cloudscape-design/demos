@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import fs from 'fs';
-import lodash from 'lodash';
 import * as Axe from 'axe-core';
 import createWrapper from '@cloudscape-design/components/test-utils/selectors';
 import { BasePageObject } from '@cloudscape-design/browser-test-tools/page-objects';
@@ -36,17 +35,10 @@ function filterIgnored(results: Axe.Result[]) {
   });
 }
 
-const testPagesList = lodash
-  .chain(examplesList)
-  .flatMap(example => {
-    const pageName = example.path.split('/')[1];
-    return {
-      pageName,
-      pagePath: `/${pageName}.html`,
-      discardLogs: example.discardLogs,
-    };
-  })
-  .value();
+const testPagesList = examplesList.map(example => ({
+  pagePath: `/${example.path}.html`,
+  discardLogs: example.discardLogs,
+}));
 
 function findUndefinedNodes() {
   const result = [];

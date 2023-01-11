@@ -124,7 +124,9 @@ export const TableHeader = props => {
       variant={props.variant}
       counter={getCounter(props)}
       info={
-        props.loadHelpPanelContent && <InfoLink onFollow={props.loadHelpPanelContent} ariaLabel={`Information about ${props.title}.`} />
+        props.loadHelpPanelContent && (
+          <InfoLink onFollow={props.loadHelpPanelContent} ariaLabel={`Information about ${props.title}.`} />
+        )
       }
       description={props.description}
       actions={props.actionButtons}
@@ -172,7 +174,7 @@ export const CustomAppLayout = forwardRef((props, ref) => {
       }}
     />
   );
-})
+});
 
 export const CounterLink = ({ children }) => {
   return (

@@ -27,9 +27,9 @@ export const overlayI18nStrings = {
   stepCounterText: (stepIndex, totalStepCount) => `Step ${stepIndex + 1}/${totalStepCount}`,
   taskTitle: (taskIndex, taskTitle) => `Task ${taskIndex + 1}: ${taskTitle}`,
   labelHotspot: (openState, stepIndex, totalStepCount) =>
-  openState
-    ? `close annotation for step ${stepIndex + 1} of ${totalStepCount}`
-    : `open annotation for step ${stepIndex + 1} of ${totalStepCount}`,
+    openState
+      ? `close annotation for step ${stepIndex + 1} of ${totalStepCount}`
+      : `open annotation for step ${stepIndex + 1} of ${totalStepCount}`,
   nextButtonText: 'Next',
   previousButtonText: 'Previous',
   finishButtonText: 'Finish',

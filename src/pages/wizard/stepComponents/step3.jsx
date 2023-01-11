@@ -24,7 +24,15 @@ import { getFieldOnChange } from '../utils';
 
 const { advanced: advancedToolsContent } = TOOLS_CONTENT;
 
-const NetworkAndSecurity = ({ vpc, subnet, securityGroups, accessibility, encryption, onChange, setHelpPanelContent }) => {
+const NetworkAndSecurity = ({
+  vpc,
+  subnet,
+  securityGroups,
+  accessibility,
+  encryption,
+  onChange,
+  setHelpPanelContent,
+}) => {
   const onVPCChange = getFieldOnChange('select', 'vpc', onChange);
   const onSubnetChange = getFieldOnChange('select', 'subnet', onChange);
   const onSecurityGroupChange = getFieldOnChange('select', 'securityGroups', onChange);
@@ -138,7 +146,15 @@ const NetworkAndSecurity = ({ vpc, subnet, securityGroups, accessibility, encryp
   );
 };
 
-const MaintenanceAndMonitoring = ({ failover, backtrack, upgrades, backup, monitoring, onChange, setHelpPanelContent }) => {
+const MaintenanceAndMonitoring = ({
+  failover,
+  backtrack,
+  upgrades,
+  backup,
+  monitoring,
+  onChange,
+  setHelpPanelContent,
+}) => {
   const onFailoverChange = getFieldOnChange('select', 'failover', onChange);
   const onBacktrackChange = getFieldOnChange('radio', 'backtrack', onChange);
   const onUpgradesChange = getFieldOnChange('radio', 'upgrades', onChange);

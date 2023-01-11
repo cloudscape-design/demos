@@ -63,7 +63,12 @@ export default function CacheBehaviorPanel({ loadHelpPanelContent, readOnlyWithE
       header={
         <Header
           variant="h2"
-          info={<InfoLink onFollow={() => loadHelpPanelContent(9)} ariaLabel={'Information about cache behavior settings.'} />}
+          info={
+            <InfoLink
+              onFollow={() => loadHelpPanelContent(9)}
+              ariaLabel={'Information about cache behavior settings.'}
+            />
+          }
         >
           Cache behavior settings
         </Header>
