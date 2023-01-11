@@ -13,7 +13,7 @@ function getPageContent(pageName, { title }) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link href="vendor.css" rel="stylesheet">
-    <link href="${pageName}.index.css" rel="stylesheet">
+    <link href="${pageName}.css" rel="stylesheet">
   </head>
   <body>
     <header id="header">
@@ -24,7 +24,7 @@ function getPageContent(pageName, { title }) {
     <div id="app"></div>
     <script src="libs/fake-server.js"></script>
     <script src="vendor.js"></script>
-    <script src="${pageName}.index.js"></script>
+    <script src="${pageName}.js"></script>
   </body>
 </html>
 `;
