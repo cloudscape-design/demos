@@ -1,45 +1,13 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React, { forwardRef } from 'react';
-import {
-  AppLayout,
-  Badge,
-  Box,
-  Button,
-  Flashbar,
-  Header,
-  Link,
-  SideNavigation,
-  SpaceBetween,
-} from '@cloudscape-design/components';
-import { appLayoutLabels, externalLinkProps } from '../../common/labels';
+import { AppLayout, Badge, Box, Button, Header, Link, SpaceBetween } from '@cloudscape-design/components';
+import { appLayoutLabels } from '../../common/labels';
 import { getHeaderCounterText, getServerHeaderCounterText } from '../../common/tableCounterStrings';
-import { useNotifications } from './use-notifications';
+import { InfoLink } from './info-link';
 
-export const navHeader = { text: 'Service', href: '#/' };
-export const navItems = [
-  {
-    type: 'section',
-    text: 'Reports and analytics',
-    items: [
-      { type: 'link', text: 'Distributions', href: '#/distributions' },
-      { type: 'link', text: 'Cache statistics', href: '#/cache' },
-      { type: 'link', text: 'Monitoring and alarms', href: '#/monitoring' },
-      { type: 'link', text: 'Popular objects', href: '#/popular' },
-      { type: 'link', text: 'Top referrers', href: '#/referrers' },
-      { type: 'link', text: 'Usage', href: '#/usage' },
-      { type: 'link', text: 'Viewers', href: '#/viewers' },
-    ],
-  },
-  {
-    type: 'section',
-    text: 'Private content',
-    items: [
-      { type: 'link', text: 'How-to guide', href: '#/howto' },
-      { type: 'link', text: 'Origin access identity', href: '#/origin' },
-    ],
-  },
-];
+// backward compatibility
+export * from './index';
 
 export const ec2NavItems = [
   { type: 'link', text: 'Instances', href: '#/instances' },
@@ -62,20 +30,6 @@ export const ec2NavItems = [
     href: '#/documentation',
   },
 ];
-
-export const InfoLink = ({ id, onFollow, ariaLabel }) => (
-  <Link variant="info" id={id} onFollow={onFollow} ariaLabel={ariaLabel}>
-    Info
-  </Link>
-);
-
-// a special case of external link, to be used within a link group, where all of them are external
-// and we do not repeat the icon
-export const ExternalLinkItem = ({ href, text }) => (
-  <Link href={href} ariaLabel={`${text} ${externalLinkProps.externalIconAriaLabel}`} target="_blank">
-    {text}
-  </Link>
-);
 
 export const TableNoMatchState = props => (
   <Box margin={{ vertical: 'xs' }} textAlign="center" color="inherit">
@@ -135,25 +89,6 @@ export const TableHeader = props => {
     </Header>
   );
 };
-
-const defaultOnFollowHandler = ev => {
-  // keep the locked href for our demo pages
-  ev.preventDefault();
-};
-
-export function Navigation({
-  activeHref,
-  header = navHeader,
-  items = navItems,
-  onFollowHandler = defaultOnFollowHandler,
-}) {
-  return <SideNavigation items={items} header={header} activeHref={activeHref} onFollow={onFollowHandler} />;
-}
-
-export function Notifications({ successNotification }) {
-  const notifications = useNotifications(successNotification);
-  return <Flashbar items={notifications} />;
-}
 
 export const CustomAppLayout = forwardRef((props, ref) => {
   return (

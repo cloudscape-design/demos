@@ -3,6 +3,8 @@
     "target": "es2017",
     "module": "es2015",
     "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
     "lib": ["es2017", "dom"],
     "noEmit": true,
     "declaration": false,
@@ -10,5 +12,5 @@
     "esModuleInterop": true,
     "resolveJsonModule": true
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "**/*.tsx"]
 }

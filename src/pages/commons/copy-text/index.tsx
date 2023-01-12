@@ -1,19 +1,31 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React, { useState } from 'react';
-import { Box, Button, StatusIndicator, Popover } from '@cloudscape-design/components';
-import { copyToClipboard } from '../../common/clipboard';
-import '../../styles/components/copy-code.scss';
+import { Box, Button, StatusIndicator, Popover, StatusIndicatorProps } from '@cloudscape-design/components';
+import styles from './styles.module.scss';
 
 const SUCCESS_STATUS = 'success';
 const ERROR_STATUS = 'error';
 
-export default function CopyText({ copyText, copyButtonLabel, successText, errorText }) {
-  const [status, setStatus] = useState(SUCCESS_STATUS);
+interface CopyTextProps {
+  copyText: string;
+  copyButtonLabel: string;
+  successText: string;
+  errorText: string;
+}
+
+// Force function to return a promise even if it throws synchronously
+// eslint-disable-next-line require-await
+export async function copyToClipboard(text: string) {
+  return navigator.clipboard.writeText(text);
+}
+
+export default function CopyText({ copyText, copyButtonLabel, successText, errorText }: CopyTextProps) {
+  const [status, setStatus] = useState<StatusIndicatorProps.Type>(SUCCESS_STATUS);
   const [message, setMessage] = useState(successText);
 
   return (
-    <div className="custom-wrapping">
+    <div className={styles['custom-wrapping']}>
       <Box margin={{ right: 'xxs' }} display="inline-block">
         <Popover
           size="small"
