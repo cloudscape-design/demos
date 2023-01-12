@@ -1,9 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
+import { FlashbarProps } from '@cloudscape-design/components/flashbar';
 import { useId } from './use-id';
 
-export function useDisclaimerFlashbarItem(onDismiss) {
+export function useDisclaimerFlashbarItem(onDismiss: (id: string) => void): FlashbarProps.MessageDefinition | null {
   const id = useId();
 
   return {

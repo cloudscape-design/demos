@@ -20,10 +20,16 @@
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-empty-function": "off",
     "curly": "error",
     "eqeqeq": "error",
     "no-return-await": "error",
     "require-await": "error",
+    "header/header": [
+      "error",
+      "line",
+      [" Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.", " SPDX-License-Identifier: MIT-0"]
+    ],
     "react/display-name": "off",
     "react/prop-types": "off",
     "react/no-unescaped-entities": "off",
@@ -44,13 +50,9 @@
   },
   "overrides": [
     {
-      "files": ["**/*.js", "**/*.jsx", "**/*.ts"],
+      "files": ["*.json"],
       "rules": {
-        "header/header": [
-          "error",
-          "line",
-          [" Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.", " SPDX-License-Identifier: MIT-0"]
-        ]
+        "header/header": "off"
       }
     },
     {

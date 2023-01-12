@@ -37,7 +37,7 @@ import CPUUtilisation from './components/cpu-utilisation';
 import NetworkTraffic from './components/network-traffic';
 import comfortableVisualRefreshImage from './density-switch-images/comfortable-visual-refresh';
 import compactVisualRefreshImage from './density-switch-images/compact-visual-refresh';
-import { navHeader, Notifications } from '../commons/common-components';
+import { Navigation as CommonNavigation, Notifications } from '../commons';
 
 function Breadcrumbs() {
   const breadcrumbItems = [
@@ -244,7 +244,7 @@ function Navigation() {
 
   return (
     <>
-      <SideNavigation header={navHeader} items={navItems} activeHref="#/" onFollow={e => onFollowHandler(e)} />
+      <CommonNavigation items={navItems} activeHref="#/" onFollow={e => onFollowHandler(e)} />
       <Modal
         onDismiss={() => onDismissHandler()}
         visible={visible}
