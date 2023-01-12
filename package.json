@@ -62,7 +62,7 @@
     "clean": "node ./scripts/clean",
     "generate-html-files": "node ./scripts/generate-html-files",
     "build": "npm-run-all -s clean webpack generate-html-files",
-    "pretest": "npm run build",
+    "pretest": "npm-run-all -s lint build",
     "test": "npm run test-no-build",
     "test-no-build": "run-p -r start jest",
     "jest": "jest",
