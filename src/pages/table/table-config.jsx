@@ -99,13 +99,11 @@ const editableColumns = {
       ariaLabel: 'Edit state',
       errorIconAriaLabel: 'State Validation Error',
       editIconAriaLabel: 'editable',
-    },
-    cell: (item, { isEditing, setValue, currentValue }) => {
-      const options = [
-        { value: 'Activated', label: 'Activated' },
-        { value: 'Deactivated', label: 'Deactivated' },
-      ];
-      if (isEditing) {
+      editingCell: (item, { setValue, currentValue }) => {
+        const options = [
+          { value: 'Activated', label: 'Activated' },
+          { value: 'Deactivated', label: 'Deactivated' },
+        ];
         return (
           <Select
             autoFocus={true}
@@ -118,7 +116,9 @@ const editableColumns = {
             selectedOption={options.find(option => option.value === (currentValue ?? item.state))}
           />
         );
-      }
+      },
+    },
+    cell: item => {
       return <StatusIndicator type={item.state === 'Deactivated' ? 'error' : 'success'}>{item.state}</StatusIndicator>;
     },
   },
@@ -136,9 +136,7 @@ const editableColumns = {
           return serverSideErrorsStore.get(item);
         }
       },
-    },
-    cell: (item, { isEditing, setValue, currentValue }) => {
-      if (isEditing) {
+      editingCell: (item, { setValue, currentValue }) => {
         return (
           <Input
             autoFocus={true}
@@ -150,7 +148,9 @@ const editableColumns = {
             placeholder="Enter domain name"
           />
         );
-      }
+      },
+    },
+    cell: item => {
       return item.domainName;
     },
   },
@@ -160,14 +160,13 @@ const editableColumns = {
       ariaLabel: 'Edit SSL certificate',
       errorIconAriaLabel: 'Certificate Validation Error',
       editIconAriaLabel: 'editable',
-    },
-    cell: (item, { isEditing, setValue, currentValue }) => {
-      const options = [
-        { value: 'Default', label: 'Default ' },
-        { value: 'ACM', label: 'ACM' },
-        { value: 'Custom', label: 'Custom' },
-      ];
-      if (isEditing) {
+
+      editingCell: (item, { setValue, currentValue }) => {
+        const options = [
+          { value: 'Default', label: 'Default ' },
+          { value: 'ACM', label: 'ACM' },
+          { value: 'Custom', label: 'Custom' },
+        ];
         return (
           <Autosuggest
             autoFocus={true}
@@ -180,7 +179,9 @@ const editableColumns = {
             placeholder="Select an SSL certificate"
           />
         );
-      }
+      },
+    },
+    cell: item => {
       return item.sslCertificate;
     },
   },
