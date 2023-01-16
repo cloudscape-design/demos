@@ -105,7 +105,7 @@ const createWebpackConfig = (config, { outputPath, includeDevServer }) => {
     },
 
     resolve: {
-      extensions: ['.js', '.jsx', '.ts'],
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
     },
 
     module: {
@@ -119,6 +119,31 @@ const createWebpackConfig = (config, { outputPath, includeDevServer }) => {
               presets: ['@babel/preset-env', '@babel/preset-react'],
             },
           },
+        },
+        {
+          test: /\.tsx?/,
+          include: path.join(__dirname, 'src'),
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+            },
+          },
+        },
+        {
+          test: /\.module\.scss$/,
+          include: path.join(__dirname, 'src/pages'),
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                url: false,
+              },
+            },
+            'sass-loader',
+          ],
         },
         {
           test: /\.scss$/,

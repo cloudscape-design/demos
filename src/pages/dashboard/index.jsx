@@ -14,7 +14,6 @@ import Link from '@cloudscape-design/components/link';
 import Modal from '@cloudscape-design/components/modal';
 import Popover from '@cloudscape-design/components/popover';
 import SpaceBetween from '@cloudscape-design/components/space-between';
-import SideNavigation from '@cloudscape-design/components/side-navigation';
 import Tiles from '@cloudscape-design/components/tiles';
 
 import '@cloudscape-design/global-styles/dark-mode-utils.css';
@@ -37,7 +36,7 @@ import CPUUtilisation from './components/cpu-utilisation';
 import NetworkTraffic from './components/network-traffic';
 import comfortableVisualRefreshImage from './density-switch-images/comfortable-visual-refresh';
 import compactVisualRefreshImage from './density-switch-images/compact-visual-refresh';
-import { navHeader, Notifications } from '../commons/common-components';
+import { Navigation as CommonNavigation, Notifications } from '../commons';
 
 function Breadcrumbs() {
   const breadcrumbItems = [
@@ -244,7 +243,7 @@ function Navigation() {
 
   return (
     <>
-      <SideNavigation header={navHeader} items={navItems} activeHref="#/" onFollow={e => onFollowHandler(e)} />
+      <CommonNavigation items={navItems} activeHref="#/" onFollow={e => onFollowHandler(e)} />
       <Modal
         onDismiss={() => onDismissHandler()}
         visible={visible}
