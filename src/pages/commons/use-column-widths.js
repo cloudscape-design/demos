@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import { useMemo } from 'react';
 import { addToColumnDefinitions, mapWithColumnDefinitionIds } from '../../common/columnDefinitionsHelper';
-import { useLocalStorage } from '../../common/localStorage';
+import { useLocalStorage } from './use-local-storage';
 
 export function useColumnWidths(storageKey, columnDefinitions) {
   const [widths, saveWidths] = useLocalStorage(storageKey);

@@ -10,7 +10,7 @@ import { COLUMN_DEFINITIONS, DEFAULT_PREFERENCES, Preferences } from '../table/t
 import { Breadcrumbs, FullPageHeader, ToolsContent } from '../table/common-components';
 import { CustomAppLayout, Navigation, Notifications, TableNoMatchState } from '../commons/common-components';
 import { paginationLabels, distributionSelectionLabels } from '../../common/labels';
-import { useLocalStorage } from '../../common/localStorage';
+import { useLocalStorage } from '../commons/use-local-storage';
 import { getServerFilterCounterText } from '../../common/tableCounterStrings';
 import { useColumnWidths } from '../commons/use-column-widths';
 import { useDistributions } from './hooks';

@@ -6,7 +6,7 @@ import React, { useRef, useState } from 'react';
 import { useCollection } from '@cloudscape-design/collection-hooks';
 import { Button, Pagination, Table, TextFilter } from '@cloudscape-design/components';
 import { distributionEditLabels, paginationLabels } from '../../common/labels';
-import { useLocalStorage } from '../../common/localStorage';
+import { useLocalStorage } from '../commons/use-local-storage';
 import { getFilterCounterText } from '../../common/tableCounterStrings';
 import '../../styles/base.scss';
 import {
