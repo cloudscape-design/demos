@@ -18,7 +18,7 @@ import { paginationLabels, distributionSelectionLabels } from '../../common/labe
 import { getFilterCounterText } from '../../common/tableCounterStrings';
 import '../../styles/base.scss';
 import { useColumnWidths } from '../commons/use-column-widths';
-import { useLocalStorage } from '../../common/localStorage';
+import { useLocalStorage } from '../commons/use-local-storage';
 
 function TableContent({ distributions, loadHelpPanelContent }) {
   const [columnDefinitions, saveWidths] = useColumnWidths('React-Table-Widths', COLUMN_DEFINITIONS);

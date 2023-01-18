@@ -14,7 +14,7 @@ import {
   TableNoMatchState,
 } from '../commons/common-components';
 import { paginationLabels } from '../../common/labels';
-import { useLocalStorage } from '../../common/localStorage';
+import { useLocalStorage } from '../commons/use-local-storage';
 import { EC2ToolsContent, FullPageHeader } from '../table/common-components';
 import INSTANCES from '../../resources/ec2-instances';
 import {

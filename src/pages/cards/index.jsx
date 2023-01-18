@@ -17,7 +17,7 @@ import {
 import { distributionSelectionLabels, paginationLabels } from '../../common/labels';
 import { FullPageHeader } from '../table/common-components';
 import { getFilterCounterText } from '../../common/tableCounterStrings';
-import { useLocalStorage } from '../../common/localStorage';
+import { useLocalStorage } from '../commons/use-local-storage';
 import '../../styles/base.scss';
 
 function DetailsCards({ loadHelpPanelContent }) {

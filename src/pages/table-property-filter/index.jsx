@@ -5,14 +5,13 @@ import { createRoot } from 'react-dom/client';
 
 import DataProvider from '../commons/data-provider';
 import { useColumnWidths } from '../commons/use-column-widths';
+import { useLocalStorage } from '../commons/use-local-storage';
 import { Breadcrumbs, ToolsContent } from '../table/common-components';
 import { CustomAppLayout, Navigation, Notifications } from '../commons/common-components';
 import { COLUMN_DEFINITIONS, FILTERING_PROPERTIES } from './table-property-filter-config';
 import { DEFAULT_PREFERENCES } from '../table/table-config';
 import { PropertyFilterTable } from './property-filter-table';
-
 import '../../styles/base.scss';
-import { useLocalStorage } from '../../common/localStorage';
 
 function App() {
   const [distributions, setDistributions] = useState([]);

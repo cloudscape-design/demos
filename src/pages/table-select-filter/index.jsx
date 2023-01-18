@@ -31,7 +31,7 @@ import {
   TableNoMatchState,
 } from '../commons/common-components';
 import { useColumnWidths } from '../commons/use-column-widths';
-import { useLocalStorage } from '../../common/localStorage';
+import { useLocalStorage } from '../commons/use-local-storage';
 
 const defaultEngine = { value: '0', label: 'Any Engine' };
 const defaultClass = { value: '0', label: 'Any Class' };

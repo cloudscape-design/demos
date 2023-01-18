@@ -10,7 +10,7 @@ const mergeArrays = (a, b) => (Array.isArray(a) ? a.concat(b) : undefined);
 
 const addEntryIteration = (entries, example) => {
   const filePath = `./src/pages/${example.path}/index`;
-  entries[example.path] = ['@babel/polyfill', 'whatwg-fetch', './src/common/apply-mode.js', filePath];
+  entries[example.path] = ['./src/common/apply-mode.js', filePath];
   return entries;
 };
 

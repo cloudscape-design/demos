@@ -14,7 +14,7 @@ import PropertyFilter from '@cloudscape-design/components/property-filter';
 import { Breadcrumbs, FullPageHeader, ToolsContent } from '../table/common-components';
 import { CustomAppLayout, Navigation, Notifications, TableNoMatchState } from '../commons/common-components';
 import { paginationLabels, distributionSelectionLabels } from '../../common/labels';
-import { useLocalStorage } from '../../common/localStorage';
+import { useLocalStorage } from '../commons/use-local-storage';
 import '../../styles/base.scss';
 import { useColumnWidths } from '../commons/use-column-widths';
 import { DEFAULT_PREFERENCES, Preferences } from '../table/table-config';

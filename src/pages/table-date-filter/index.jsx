@@ -11,7 +11,7 @@ import { COLUMN_DEFINITIONS, FILTERING_PROPERTIES, DEFAULT_PREFERENCES } from '.
 import { PropertyFilterTable } from '../table-property-filter/property-filter-table';
 
 import '../../styles/table-date-filter.scss';
-import { useLocalStorage } from '../../common/localStorage';
+import { useLocalStorage } from '../commons/use-local-storage';
 
 function App() {
   const [distributions, setDistributions] = useState([]);

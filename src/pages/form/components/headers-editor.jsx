@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React, { useState } from 'react';
-import assign from 'object-assign';
 import { Autosuggest, AttributeEditor } from '@cloudscape-design/components';
 
 export default function HeadersEditor({ readOnlyWithErrors = false }) {
@@ -62,7 +61,7 @@ export default function HeadersEditor({ readOnlyWithErrors = false }) {
 
     return ({ detail }) => {
       const itemsCopy = items.slice();
-      const updatedItem = assign({}, item);
+      const updatedItem = Object.assign({}, item);
       updatedItem[key] = detail.value;
       itemsCopy.splice(index, 1, updatedItem);
       setItems(itemsCopy);
