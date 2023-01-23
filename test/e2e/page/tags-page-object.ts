@@ -25,7 +25,7 @@ export default class PageObject extends BasePageObject {
   }
 
   async removeTag(row: number) {
-    await this.click(this.findRow(row).findButton().toSelector());
+    await this.click(this.findRow(row).findRemoveButton().toSelector());
   }
 
   async undoTagRemoval(row: number) {
