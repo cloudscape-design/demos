@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 export const i18nStrings = {
   inContextInputPlaceholder: 's3://bucket/prefix/object',
+  inContextInputClearAriaLabel: 'Clear',
   inContextSelectPlaceholder: 'Choose a version',
   inContextBrowseButton: 'Browse S3',
   inContextViewButton: 'View',

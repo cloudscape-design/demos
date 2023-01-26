@@ -179,6 +179,7 @@ function App() {
           search={
             <Input
               ariaLabel="Input field"
+              clearAriaLabel="Clear"
               value={searchValue}
               type="search"
               placeholder="Search"

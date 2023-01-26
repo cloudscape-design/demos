@@ -130,6 +130,7 @@ export const FILTERING_PROPERTIES = [
 export const PROPERTY_FILTERING_I18N_CONSTANTS = {
   filteringAriaLabel: 'your choice',
   dismissAriaLabel: 'Dismiss',
+  clearAriaLabel: 'Clear',
 
   filteringPlaceholder: 'Filter distributions by text, property or value',
   groupValuesText: 'Values',

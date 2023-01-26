@@ -89,6 +89,7 @@ const App = () => {
               {...filterProps}
               filteringAriaLabel="Filter instances"
               filteringPlaceholder="Find instances"
+              filteringClearAriaLabel="Clear"
               countText={getFilterCounterText(filteredItemsCount)}
             />
           }

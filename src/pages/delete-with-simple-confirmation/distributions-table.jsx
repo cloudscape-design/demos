@@ -113,6 +113,7 @@ export default function DistributionsTable({ distributions, selectedItems, onSel
           {...filterProps}
           filteringAriaLabel="Filter distributions"
           filteringPlaceholder="Find distributions"
+          filteringClearAriaLabel="Clear"
           countText={getFilterCounterText(filteredItemsCount)}
         />
       }

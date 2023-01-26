@@ -57,6 +57,7 @@ export default function OriginPanel({ loadHelpPanelContent, readOnlyWithErrors =
             empty={contentOriginsState.filteringText ? "We can't find a match" : 'No origins'}
             filteringType="manual"
             filteringAriaLabel="Filter origins"
+            filteringClearAriaLabel="Clear"
             ariaRequired={true}
           />
         </FormField>
