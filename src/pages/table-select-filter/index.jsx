@@ -154,7 +154,7 @@ function TableSelectFilter({ loadHelpPanelContent }) {
               }}
               placeholder="Find instances"
               label="Find instances"
-              clearAriaLabel="clear"
+              clearAriaLabel="Clear"
               ariaDescribedby={null}
             />
           </div>
