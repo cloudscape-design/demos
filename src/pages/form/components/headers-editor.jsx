@@ -12,6 +12,7 @@ export default function HeadersEditor({ readOnlyWithErrors = false }) {
         return (
           <Autosuggest
             placeholder="Enter name"
+            clearAriaLabel="Clear"
             empty="No names found"
             onChange={getOnChangeHandler('key', item, index)}
             value={item.key || ''}
@@ -27,6 +28,7 @@ export default function HeadersEditor({ readOnlyWithErrors = false }) {
         return (
           <Autosuggest
             placeholder="Enter value"
+            clearAriaLabel="Clear"
             empty="No values found"
             value={item.value || ''}
             onChange={getOnChangeHandler('value', item, index)}

@@ -176,6 +176,7 @@ export default function DistributionPanel({ loadHelpPanelContent, updateDirty = 
             empty={contentOriginsState.filteringText ? "We can't find a match" : 'No origins'}
             filteringType="manual"
             filteringAriaLabel="Filter buckets"
+            filteringClearAriaLabel="Clear"
             ariaRequired={true}
             selectedOption={distributionPanelData.s3BucketSelectedOption}
             onChange={({ detail: { selectedOption } }) => onChange('s3BucketSelectedOption', selectedOption)}

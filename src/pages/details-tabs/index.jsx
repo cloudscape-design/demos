@@ -105,6 +105,7 @@ function LogsTable() {
           {...filterProps}
           filteringAriaLabel="Find logs"
           filteringPlaceholder="Find logs"
+          filteringClearAriaLabel="Clear"
           countText={getFilterCounterText(filteredItemsCount)}
         />
       }

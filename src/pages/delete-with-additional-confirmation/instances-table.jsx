@@ -90,6 +90,7 @@ export default function InstancesTable({ instances, selectedItems, onSelectionCh
           {...filterProps}
           filteringAriaLabel="Filter instances"
           filteringPlaceholder="Find instances"
+          filteringClearAriaLabel="Clear"
           countText={getFilterCounterText(filteredItemsCount)}
         />
       }

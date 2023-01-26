@@ -67,6 +67,7 @@ function DetailsCards({ loadHelpPanelContent }) {
           {...filterProps}
           filteringAriaLabel="Filter distributions"
           filteringPlaceholder="Find distributions"
+          filteringClearAriaLabel="Clear"
           countText={getFilterCounterText(filteredItemsCount)}
           disabled={loading}
         />

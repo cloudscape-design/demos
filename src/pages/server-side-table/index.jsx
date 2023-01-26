@@ -92,6 +92,7 @@ function ServerSideTable({ columnDefinitions, saveWidths, loadHelpPanelContent }
           onDelayedChange={() => setDelayedFilteringText(filteringText)}
           filteringAriaLabel="Filter distributions"
           filteringPlaceholder="Find distributions"
+          filteringClearAriaLabel="Clear"
           countText={getServerFilterCounterText(items, pagesCount, pageSize)}
         />
       }

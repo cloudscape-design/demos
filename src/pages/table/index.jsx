@@ -61,6 +61,7 @@ function TableContent({ distributions, loadHelpPanelContent }) {
           {...filterProps}
           filteringAriaLabel="Filter distributions"
           filteringPlaceholder="Find distributions"
+          filteringClearAriaLabel="Clear"
           countText={getFilterCounterText(filteredItemsCount)}
         />
       }
