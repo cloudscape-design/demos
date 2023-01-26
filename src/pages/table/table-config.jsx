@@ -176,7 +176,7 @@ const editableColumns = {
             enteredTextLabel={value => `Use custom certificate "${value}"`}
             expandToViewport={true}
             ariaLabel="SSL Certificate"
-            clearAriaLabel="clear"
+            clearAriaLabel="Clear"
             placeholder="Select an SSL certificate"
           />
         );
