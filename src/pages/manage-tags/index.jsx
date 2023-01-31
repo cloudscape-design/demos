@@ -15,9 +15,8 @@ import {
   TagEditor,
 } from '@cloudscape-design/components';
 import { Navigation, InfoLink, Notifications } from '../commons/common-components';
-import { appLayoutLabels } from '../../common/labels';
+import { appLayoutAriaLabels, tagEditorI18nStrings } from '../../i18n-strings';
 import { resourceManageTagsBreadcrumbs } from '../../common/breadcrumbs';
-import { tagEditor as i18nStrings } from '../../common/i18nStrings';
 import ToolsContent from './components/tools-content';
 
 import '../../styles/base.scss';
@@ -82,7 +81,7 @@ class App extends Component {
               }
             >
               <TagEditor
-                i18nStrings={i18nStrings}
+                i18nStrings={tagEditorI18nStrings}
                 tags={this.state.tags}
                 onChange={this.onChange.bind(this)}
                 keysRequest={() => window.FakeServer.GetTagKeys().then(({ TagKeys }) => TagKeys)}
@@ -108,7 +107,7 @@ class App extends Component {
         toolsOpen={this.state.toolsOpen}
         onToolsChange={({ detail }) => this.setState({ toolsOpen: detail.open })}
         tools={ToolsContent[this.state.toolsIndex]}
-        ariaLabels={appLayoutLabels}
+        ariaLabels={appLayoutAriaLabels}
         notifications={<Notifications />}
       />
     );

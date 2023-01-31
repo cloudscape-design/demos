@@ -4,7 +4,7 @@ import React, { useState, useCallback, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 import { AppLayout, HelpPanel, Icon, Wizard } from '@cloudscape-design/components';
 import { Breadcrumbs, Navigation } from './wizard-components.jsx';
-import { appLayoutLabels } from '../../common/labels';
+import { appLayoutAriaLabels } from '../../i18n-strings';
 import Engine from './stepComponents/step1.jsx';
 import Details from './stepComponents/step2.jsx';
 import Advanced from './stepComponents/step3.jsx';
@@ -209,7 +209,7 @@ const App = () => {
           onSubmit={onSubmit}
         />
       }
-      ariaLabels={appLayoutLabels}
+      ariaLabels={appLayoutAriaLabels}
       notifications={<Notifications />}
     />
   );

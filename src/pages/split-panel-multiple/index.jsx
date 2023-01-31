@@ -4,8 +4,13 @@ import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { AppLayout, Table, Pagination, SplitPanel, TextFilter } from '@cloudscape-design/components';
 import { useCollection } from '@cloudscape-design/collection-hooks';
-import { appLayoutLabels } from '../../common/labels';
-import { getFilterCounterText } from '../../common/tableCounterStrings';
+import {
+  appLayoutAriaLabels,
+  getHeaderCounterText,
+  getTextFilterCounterText,
+  paginationAriaLabels,
+  splitPanelI18nStrings,
+} from '../../i18n-strings';
 import {
   Navigation,
   ec2NavItems,
@@ -13,9 +18,9 @@ import {
   TableEmptyState,
   TableNoMatchState,
 } from '../commons/common-components';
-import { paginationLabels } from '../../common/labels';
+import { FullPageHeader } from '../commons';
 import { useLocalStorage } from '../commons/use-local-storage';
-import { EC2ToolsContent, FullPageHeader } from '../table/common-components';
+import { EC2ToolsContent } from '../table/common-components';
 import INSTANCES from '../../resources/ec2-instances';
 import {
   COLUMN_DEFINITIONS_MAIN,
@@ -24,7 +29,6 @@ import {
   EC2Preferences,
 } from '../split-panel-comparison/table-config';
 import { getPanelContent, Breadcrumbs, useSplitPanel } from '../split-panel-comparison/utils';
-import { SPLIT_PANEL_I18NSTRINGS } from '../split-panel-comparison/split-panel-config';
 
 // It's necessary to import a scss file or the build will fail
 import '../../styles/base.scss';
@@ -65,7 +69,7 @@ const App = () => {
       splitPanelSize={splitPanelSize}
       onSplitPanelResize={onSplitPanelResize}
       splitPanel={
-        <SplitPanel header={panelHeader} i18nStrings={SPLIT_PANEL_I18NSTRINGS}>
+        <SplitPanel header={panelHeader} i18nStrings={splitPanelI18nStrings}>
           {panelBody}
         </SplitPanel>
       }
@@ -74,11 +78,11 @@ const App = () => {
           {...collectionProps}
           header={
             <FullPageHeader
-              resourceName="Instances"
+              title="Instances"
               createButtonText="Create instance"
-              selectedItems={collectionProps.selectedItems}
-              totalItems={INSTANCES}
-              loadHelpPanelContent={() => {
+              selectedItemsCount={collectionProps.selectedItems.length}
+              counter={getHeaderCounterText(INSTANCES, collectionProps.selectedItems)}
+              onInfoLinkClick={() => {
                 setToolsOpen(true);
                 appLayout.current?.focusToolsClose();
               }}
@@ -96,16 +100,16 @@ const App = () => {
               filteringAriaLabel="Filter instances"
               filteringPlaceholder="Find instances"
               filteringClearAriaLabel="Clear"
-              countText={getFilterCounterText(filteredItemsCount)}
+              countText={getTextFilterCounterText(filteredItemsCount)}
             />
           }
           wrapLines={preferences.wrapLines}
           stripedRows={preferences.stripedRows}
-          pagination={<Pagination {...paginationProps} ariaLabels={paginationLabels} />}
+          pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels} />}
           preferences={<EC2Preferences preferences={preferences} setPreferences={setPreferences} />}
         />
       }
-      ariaLabels={appLayoutLabels}
+      ariaLabels={appLayoutAriaLabels}
     />
   );
 };

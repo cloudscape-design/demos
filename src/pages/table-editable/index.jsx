@@ -5,9 +5,14 @@ import { createRoot } from 'react-dom/client';
 import React, { useRef, useState } from 'react';
 import { useCollection } from '@cloudscape-design/collection-hooks';
 import { Button, Pagination, Table, TextFilter } from '@cloudscape-design/components';
-import { distributionEditLabels, paginationLabels } from '../../common/labels';
+import {
+  distributionEditableTableAriaLabels,
+  getHeaderCounterText,
+  getTextFilterCounterText,
+  paginationAriaLabels,
+} from '../../i18n-strings';
+import { FullPageHeader } from '../commons';
 import { useLocalStorage } from '../commons/use-local-storage';
-import { getFilterCounterText } from '../../common/tableCounterStrings';
 import '../../styles/base.scss';
 import {
   CustomAppLayout,
@@ -18,7 +23,7 @@ import {
 } from '../commons/common-components';
 import DataProvider from '../commons/data-provider';
 import { useColumnWidths } from '../commons/use-column-widths';
-import { Breadcrumbs, FullPageHeader, ToolsContent } from '../table/common-components';
+import { Breadcrumbs, ToolsContent } from '../table/common-components';
 import {
   EDITABLE_PREFERENCES,
   EDITABLE_COLUMN_DEFINITIONS,
@@ -123,7 +128,7 @@ function TableContent({ loadHelpPanelContent, distributions }) {
       visibleColumns={preferences.visibleContent}
       items={currentPageItemsSnapshot || items}
       submitEdit={handleSubmit}
-      ariaLabels={distributionEditLabels}
+      ariaLabels={distributionEditableTableAriaLabels}
       variant="full-page"
       stickyHeader={true}
       resizableColumns={true}
@@ -134,10 +139,10 @@ function TableContent({ loadHelpPanelContent, distributions }) {
       loading={loading}
       header={
         <FullPageHeader
-          selectedItems={tableCollectionProps.selectedItems}
-          totalItems={distributions}
-          loadHelpPanelContent={loadHelpPanelContent}
+          selectedItemsCount={tableCollectionProps.selectedItems.length}
+          counter={getHeaderCounterText(distributions, tableCollectionProps.selectedItems)}
           extraActions={<Button iconName="refresh" ariaLabel="Refresh" {...refreshButtonProps} />}
+          onInfoLinkClick={loadHelpPanelContent}
         />
       }
       filter={
@@ -146,10 +151,10 @@ function TableContent({ loadHelpPanelContent, distributions }) {
           filteringAriaLabel="Filter distributions"
           filteringPlaceholder="Find distributions"
           filteringClearAriaLabel="Clear"
-          countText={getFilterCounterText(filteredItemsCount)}
+          countText={getTextFilterCounterText(filteredItemsCount)}
         />
       }
-      pagination={<Pagination {...tablePaginationProps} ariaLabels={paginationLabels} />}
+      pagination={<Pagination {...tablePaginationProps} ariaLabels={paginationAriaLabels} />}
       preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}
     />
   );

@@ -13,7 +13,7 @@ import {
   SpaceBetween,
 } from '@cloudscape-design/components';
 import { Navigation, Notifications } from '../commons/common-components';
-import { appLayoutLabels } from '../../common/labels';
+import { appLayoutAriaLabels } from '../../i18n-strings';
 import { resourceCreateBreadcrumbs } from '../../common/breadcrumbs';
 import { FormHeader, FormLimitedContent } from '../form/components/form-content';
 import ToolsContent from '../form/components/tools-content';
@@ -120,7 +120,7 @@ function App() {
       tools={ToolsContent[toolsIndex]}
       toolsOpen={toolsOpen}
       onToolsChange={({ detail }) => setToolsOpen(detail.open)}
-      ariaLabels={appLayoutLabels}
+      ariaLabels={appLayoutAriaLabels}
       notifications={<Notifications />}
     />
   );

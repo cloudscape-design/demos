@@ -7,11 +7,16 @@ import Pagination from '@cloudscape-design/components/pagination';
 import Table from '@cloudscape-design/components/table';
 import TextFilter from '@cloudscape-design/components/text-filter';
 import { COLUMN_DEFINITIONS, DEFAULT_PREFERENCES, Preferences } from '../table/table-config';
-import { Breadcrumbs, FullPageHeader, ToolsContent } from '../table/common-components';
+import { Breadcrumbs, ToolsContent } from '../table/common-components';
 import { CustomAppLayout, Navigation, Notifications, TableNoMatchState } from '../commons/common-components';
-import { paginationLabels, distributionSelectionLabels } from '../../common/labels';
+import { FullPageHeader } from '../commons';
 import { useLocalStorage } from '../commons/use-local-storage';
-import { getServerFilterCounterText } from '../../common/tableCounterStrings';
+import {
+  getHeaderCounterServerSideText,
+  paginationAriaLabels,
+  distributionTableAriaLabels,
+  getTextFilterCounterServerSideText,
+} from '../../i18n-strings';
 import { useColumnWidths } from '../commons/use-column-widths';
 import { useDistributions } from './hooks';
 
@@ -67,7 +72,7 @@ function ServerSideTable({ columnDefinitions, saveWidths, loadHelpPanelContent }
       sortingDescending={descendingSorting}
       columnDefinitions={columnDefinitions}
       visibleColumns={preferences.visibleContent}
-      ariaLabels={distributionSelectionLabels}
+      ariaLabels={distributionTableAriaLabels}
       selectionType="multi"
       variant="full-page"
       stickyHeader={true}
@@ -77,10 +82,9 @@ function ServerSideTable({ columnDefinitions, saveWidths, loadHelpPanelContent }
       stripedRows={preferences.stripedRows}
       header={
         <FullPageHeader
-          selectedItems={selectedItems}
-          totalItems={totalCount}
-          loadHelpPanelContent={loadHelpPanelContent}
-          serverSide={true}
+          selectedItemsCount={selectedItems.length}
+          counter={getHeaderCounterServerSideText(totalCount, selectedItems.length)}
+          onInfoLinkClick={loadHelpPanelContent}
         />
       }
       loadingText="Loading distributions"
@@ -93,7 +97,7 @@ function ServerSideTable({ columnDefinitions, saveWidths, loadHelpPanelContent }
           filteringAriaLabel="Filter distributions"
           filteringPlaceholder="Find distributions"
           filteringClearAriaLabel="Clear"
-          countText={getServerFilterCounterText(items, pagesCount, pageSize)}
+          countText={getTextFilterCounterServerSideText(items, pagesCount, pageSize)}
         />
       }
       pagination={
@@ -102,7 +106,7 @@ function ServerSideTable({ columnDefinitions, saveWidths, loadHelpPanelContent }
           currentPageIndex={serverPageIndex}
           disabled={loading}
           onChange={event => setCurrentPageIndex(event.detail.currentPageIndex)}
-          ariaLabels={paginationLabels}
+          ariaLabels={paginationAriaLabels}
         />
       }
       preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}

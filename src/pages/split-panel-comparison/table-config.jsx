@@ -3,6 +3,7 @@
 import React from 'react';
 import { Link, StatusIndicator } from '@cloudscape-design/components';
 import { Preferences } from '../table/table-config';
+import { baseTableAriaLabels } from '../../i18n-strings';
 
 export const EC2Preferences = props => (
   <Preferences
@@ -88,8 +89,7 @@ export const COLUMN_DEFINITIONS_PANEL_CONTENT_SINGLE = [
 ];
 
 export const SELECTION_LABELS = {
-  itemSelectionLabel: (data, row) => `select ${row.id}`,
-  allItemsSelectionLabel: () => 'select all',
+  ...baseTableAriaLabels,
   selectionGroupLabel: 'Instance selection',
 };
 

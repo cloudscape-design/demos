@@ -26,7 +26,7 @@ import {
   Textarea,
 } from '@cloudscape-design/components';
 import { Navigation } from '../commons/common-components';
-import { appLayoutLabels } from '../../common/labels';
+import { appLayoutAriaLabels } from '../../i18n-strings';
 import { resourceEditBreadcrumbs } from '../../common/breadcrumbs';
 import { InfoLink, Notifications } from '../commons/common-components';
 import '../../styles/form.scss';
@@ -213,7 +213,7 @@ class App extends React.Component {
         tools={TOOLS_CONTENT[this.state.toolsIndex]}
         toolsOpen={this.state.toolsOpen}
         onToolsChange={({ detail }) => this.setState({ toolsOpen: detail.open })}
-        ariaLabels={appLayoutLabels}
+        ariaLabels={appLayoutAriaLabels}
         notifications={<Notifications />}
       />
     );

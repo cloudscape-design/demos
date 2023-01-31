@@ -20,7 +20,7 @@ import {
   SpaceBetween,
 } from '@cloudscape-design/components';
 import { Navigation } from '../commons/common-components';
-import { appLayoutLabels } from '../../common/labels';
+import { appLayoutAriaLabels } from '../../i18n-strings';
 import INSTANCES from '../../resources/ec2-instances';
 import '../../styles/base.scss';
 
@@ -119,7 +119,7 @@ function InstancesPage({ instances, selectedItems, setSelectedItems, onDeleteIni
       navigation={<Navigation activeHref="#" />}
       navigationOpen={false}
       toolsHide={true}
-      ariaLabels={appLayoutLabels}
+      ariaLabels={appLayoutAriaLabels}
       contentType="table"
     />
   );
@@ -190,7 +190,7 @@ function InstanceDetailsPage({ instance, onDeleteInit, notifications }) {
       navigation={<Navigation activeHref="#" />}
       navigationOpen={false}
       toolsHide={true}
-      ariaLabels={appLayoutLabels}
+      ariaLabels={appLayoutAriaLabels}
     />
   );
 }

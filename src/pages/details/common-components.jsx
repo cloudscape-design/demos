@@ -16,11 +16,11 @@ import {
 } from '@cloudscape-design/components';
 import { useAsyncData } from '../commons/use-async-data';
 import DataProvider from '../commons/data-provider';
-import { TableHeader, TableEmptyState, InfoLink } from '../commons/common-components';
+import { TableEmptyState, InfoLink } from '../commons/common-components';
 import { ORIGINS_COLUMN_DEFINITIONS, BEHAVIORS_COLUMN_DEFINITIONS, TAGS_COLUMN_DEFINITIONS } from './details-config';
 import { resourceDetailBreadcrumbs } from '../../common/breadcrumbs';
-import { behaviorsSelectionLabels, originsSelectionLabels } from '../../common/labels';
 import CopyText from '../commons/copy-text';
+import { baseTableAriaLabels, getHeaderCounterText } from '../../i18n-strings';
 
 export const DEMO_DISTRIBUTION = {
   id: 'SLCCSMWOHOFUY0',
@@ -184,6 +184,12 @@ export const EmptyTable = props => {
   );
 };
 
+const originsSelectionLabels = {
+  ...baseTableAriaLabels,
+  itemSelectionLabel: (data, row) => `select ${row.name}`,
+  selectionGroupLabel: 'Origins selection',
+};
+
 export function OriginsTable() {
   const [origins, originsLoading] = useAsyncData(() => new DataProvider().getData('origins'));
   const [selectedItems, setSelectedItems] = useState([]);
@@ -202,22 +208,28 @@ export function OriginsTable() {
       selectedItems={selectedItems}
       onSelectionChange={event => setSelectedItems(event.detail.selectedItems)}
       header={
-        <TableHeader
-          title="Origins"
-          selectedItems={selectedItems}
-          totalItems={origins}
-          actionButtons={
+        <Header
+          counter={getHeaderCounterText(origins, selectedItems)}
+          actions={
             <SpaceBetween direction="horizontal" size="xs">
               <Button disabled={!isOnlyOneSelected}>Edit</Button>
               <Button disabled={!atLeastOneSelected}>Delete</Button>
               <Button>Create origin</Button>
             </SpaceBetween>
           }
-        />
+        >
+          Origins
+        </Header>
       }
     />
   );
 }
+
+const behaviorsSelectionLabels = {
+  ...baseTableAriaLabels,
+  itemSelectionLabel: (data, row) => `select path ${row.pathPattern} from origin ${row.origin}`,
+  selectionGroupLabel: 'Behaviors selection',
+};
 
 export function BehaviorsTable() {
   const [behaviors, behaviorsLoading] = useAsyncData(() => new DataProvider().getData('behaviors'));
@@ -237,18 +249,18 @@ export function BehaviorsTable() {
       selectedItems={selectedItems}
       onSelectionChange={event => setSelectedItems(event.detail.selectedItems)}
       header={
-        <TableHeader
-          title="Cache behavior settings"
-          selectedItems={selectedItems}
-          totalItems={behaviors}
-          actionButtons={
+        <Header
+          counter={getHeaderCounterText(behaviors, selectedItems)}
+          actions={
             <SpaceBetween direction="horizontal" size="xs">
               <Button disabled={!isOnlyOneSelected}>Edit</Button>
               <Button disabled={!atLeastOneSelected}>Delete</Button>
               <Button>Create behavior</Button>
             </SpaceBetween>
           }
-        />
+        >
+          Cache behavior settings
+        </Header>
       }
     />
   );

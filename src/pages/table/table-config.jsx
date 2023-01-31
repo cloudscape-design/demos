@@ -9,9 +9,9 @@ import {
   Input,
   Autosuggest,
 } from '@cloudscape-design/components';
-import { addColumnSortLabels } from '../../common/labels';
+import { createTableSortLabelFn } from '../../i18n-strings';
 
-export const COLUMN_DEFINITIONS = addColumnSortLabels([
+const rawColumns = [
   {
     id: 'id',
     sortingField: 'id',
@@ -81,7 +81,9 @@ export const COLUMN_DEFINITIONS = addColumnSortLabels([
     cell: item => item.logging,
     minWidth: 100,
   },
-]);
+];
+
+export const COLUMN_DEFINITIONS = rawColumns.map(column => ({ ...column, ariaLabel: createTableSortLabelFn(column) }));
 
 export const serverSideErrorsStore = new Map();
 

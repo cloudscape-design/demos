@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 import { StatusIndicator, Link } from '@cloudscape-design/components';
-import { addColumnSortLabels } from '../../common/labels';
+import { createTableSortLabelFn } from '../../i18n-strings';
 
-export const COLUMN_DEFINITIONS = addColumnSortLabels([
+const rawColumns = [
   {
     id: 'id',
     sortingField: 'id',
@@ -73,13 +73,9 @@ export const COLUMN_DEFINITIONS = addColumnSortLabels([
     cell: item => item.logging,
     minWidth: 100,
   },
-]);
-
-export const PAGE_SIZE_OPTIONS = [
-  { value: 10, label: '10 Distributions' },
-  { value: 30, label: '30 Distributions' },
-  { value: 50, label: '50 Distributions' },
 ];
+
+export const COLUMN_DEFINITIONS = rawColumns.map(column => ({ ...column, ariaLabel: createTableSortLabelFn(column) }));
 
 export const FILTERING_PROPERTIES = [
   {

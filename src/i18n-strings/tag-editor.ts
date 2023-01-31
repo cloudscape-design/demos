@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-export const tagEditor = {
+import { TagEditorProps } from '@cloudscape-design/components';
+
+export const tagEditorI18nStrings: TagEditorProps.I18nStrings = {
   keyPlaceholder: 'Enter key',
   valuePlaceholder: 'Enter value',
   addButton: 'Add new tag',

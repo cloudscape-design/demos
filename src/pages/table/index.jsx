@@ -6,7 +6,8 @@ import { useCollection } from '@cloudscape-design/collection-hooks';
 import DataProvider from '../commons/data-provider';
 import { COLUMN_DEFINITIONS, DEFAULT_PREFERENCES, Preferences } from './table-config';
 import { Pagination, Table, TextFilter } from '@cloudscape-design/components';
-import { Breadcrumbs, FullPageHeader, ToolsContent } from './common-components';
+import { FullPageHeader } from '../commons';
+import { Breadcrumbs, ToolsContent } from './common-components';
 import {
   CustomAppLayout,
   Navigation,
@@ -14,8 +15,12 @@ import {
   TableEmptyState,
   TableNoMatchState,
 } from '../commons/common-components';
-import { paginationLabels, distributionSelectionLabels } from '../../common/labels';
-import { getFilterCounterText } from '../../common/tableCounterStrings';
+import {
+  paginationAriaLabels,
+  distributionTableAriaLabels,
+  getTextFilterCounterText,
+  getHeaderCounterText,
+} from '../../i18n-strings';
 import '../../styles/base.scss';
 import { useColumnWidths } from '../commons/use-column-widths';
 import { useLocalStorage } from '../commons/use-local-storage';
@@ -42,7 +47,7 @@ function TableContent({ distributions, loadHelpPanelContent }) {
       visibleColumns={preferences.visibleContent}
       items={items}
       selectionType="multi"
-      ariaLabels={distributionSelectionLabels}
+      ariaLabels={distributionTableAriaLabels}
       variant="full-page"
       stickyHeader={true}
       resizableColumns={true}
@@ -51,9 +56,9 @@ function TableContent({ distributions, loadHelpPanelContent }) {
       stripedRows={preferences.stripedRows}
       header={
         <FullPageHeader
-          selectedItems={collectionProps.selectedItems}
-          totalItems={distributions}
-          loadHelpPanelContent={loadHelpPanelContent}
+          selectedItemsCount={collectionProps.selectedItems.length}
+          counter={getHeaderCounterText(distributions, collectionProps.selectedItems)}
+          onInfoLinkClick={loadHelpPanelContent}
         />
       }
       filter={
@@ -62,10 +67,10 @@ function TableContent({ distributions, loadHelpPanelContent }) {
           filteringAriaLabel="Filter distributions"
           filteringPlaceholder="Find distributions"
           filteringClearAriaLabel="Clear"
-          countText={getFilterCounterText(filteredItemsCount)}
+          countText={getTextFilterCounterText(filteredItemsCount)}
         />
       }
-      pagination={<Pagination {...paginationProps} ariaLabels={paginationLabels} />}
+      pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels} />}
       preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}
     />
   );

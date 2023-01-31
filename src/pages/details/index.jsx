@@ -6,7 +6,7 @@ import { AppLayout, Container, ContentLayout, Header, SpaceBetween } from '@clou
 import { BehaviorsTable, Breadcrumbs, OriginsTable, PageHeader, SettingsDetails, TagsTable } from './common-components';
 import { Navigation, InfoLink, Notifications } from '../commons/common-components';
 import ToolsContent from './tools-content';
-import { appLayoutLabels } from '../../common/labels';
+import { appLayoutAriaLabels } from '../../i18n-strings';
 import '../../styles/base.scss';
 
 const DistSettings = ({ loadHelpPanelContent, isInProgress }) => (
@@ -66,7 +66,7 @@ class App extends React.Component {
         toolsOpen={this.state.toolsOpen}
         onToolsChange={({ detail }) => this.setState({ toolsOpen: detail.open })}
         contentType="default"
-        ariaLabels={appLayoutLabels}
+        ariaLabels={appLayoutAriaLabels}
         notifications={<Notifications />}
       />
     );

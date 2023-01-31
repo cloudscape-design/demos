@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Container, Header, TagEditor } from '@cloudscape-design/components';
 import { InfoLink } from '../../commons/common-components';
-import { tagEditor as i18nStrings } from '../../../common/i18nStrings';
+import { tagEditorI18nStrings } from '../../../i18n-strings';
 
 export default function TagsPanel({ loadHelpPanelContent, readOnlyWithErrors = false }) {
   const [tags, setTags] = useState([{ key: '', value: '' }]);
@@ -22,7 +22,7 @@ export default function TagsPanel({ loadHelpPanelContent, readOnlyWithErrors = f
       }
     >
       <TagEditor
-        i18nStrings={i18nStrings}
+        i18nStrings={tagEditorI18nStrings}
         tags={tags}
         onChange={({ detail }) => {
           const { tags } = detail;

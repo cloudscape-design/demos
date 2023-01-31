@@ -16,16 +16,15 @@ import {
   S3ResourceSelector,
 } from '@cloudscape-design/components';
 import { Navigation, Notifications } from '../commons/common-components';
-import { appLayoutLabels } from '../../common/labels';
+import { appLayoutAriaLabels, s3ResourceSelectorI18nStrings } from '../../i18n-strings';
 import { writeToS3Breadcrumbs } from '../../common/breadcrumbs';
-import { i18nStrings } from '../../common/s3-resource-selector/i18n-strings';
 import { getItems, requestAsyncAttribute } from '../../common/s3-resource-selector/mock-request';
 import { ErrorAlert } from '../read-from-s3/common';
 
 import '../../styles/base.scss';
 
 const i18nStringsWriteMode = {
-  ...i18nStrings,
+  ...s3ResourceSelectorI18nStrings,
   modalTitle: 'Choose destination for simulations',
   inContextInputPlaceholder: 's3://bucket/prefix',
 };
@@ -140,7 +139,7 @@ class App extends Component {
         headerSelector="#header"
         breadcrumbs={<Breadcrumbs />}
         navigation={<Navigation activeHref="#/distributions" />}
-        ariaLabels={appLayoutLabels}
+        ariaLabels={appLayoutAriaLabels}
         toolsHide={true}
         notifications={<Notifications />}
       />

@@ -11,7 +11,7 @@ import Grid from '@cloudscape-design/components/grid';
 import '@cloudscape-design/global-styles/dark-mode-utils.css';
 import '../../styles/dashboard.scss';
 
-import { appLayoutLabels } from '../../common/labels';
+import { appLayoutAriaLabels } from '../../i18n-strings';
 
 import { DashboardHeader, EC2Info } from './components/header';
 import { FeaturesSpotlight, AccountAttributes } from './components/related-resources';
@@ -95,7 +95,7 @@ function App() {
       tools={toolsContent}
       toolsOpen={toolsOpen}
       onToolsChange={({ detail }) => setToolsOpen(detail.open)}
-      ariaLabels={appLayoutLabels}
+      ariaLabels={appLayoutAriaLabels}
       notifications={<Notifications />}
     />
   );
