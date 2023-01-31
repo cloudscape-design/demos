@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-export const SPLIT_PANEL_I18NSTRINGS = {
+import { SplitPanelProps } from '@cloudscape-design/components';
+
+export const splitPanelI18nStrings: SplitPanelProps.I18nStrings = {
   preferencesTitle: 'Split panel preferences',
   preferencesPositionLabel: 'Split panel position',
   preferencesPositionDescription: 'Choose the default split panel position for the service.',

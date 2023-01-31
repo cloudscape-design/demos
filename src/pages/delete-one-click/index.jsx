@@ -16,8 +16,7 @@ import {
 } from '@cloudscape-design/components';
 import { Navigation, Notifications } from '../commons/common-components';
 import { Breadcrumbs } from '../details/common-components';
-import { appLayoutLabels } from '../../common/labels';
-import { tagEditor as i18nStrings } from '../../common/i18nStrings';
+import { appLayoutAriaLabels, tagEditorI18nStrings } from '../../i18n-strings';
 
 import '../../styles/base.scss';
 
@@ -106,7 +105,7 @@ function App() {
                   }
                 >
                   <TagEditor
-                    i18nStrings={i18nStrings}
+                    i18nStrings={tagEditorI18nStrings}
                     tags={tags}
                     onChange={onChange}
                     keysRequest={loadTagKeys}
@@ -123,7 +122,7 @@ function App() {
       breadcrumbs={<Breadcrumbs />}
       navigation={<Navigation activeHref="#/distributions" />}
       toolsHide={true}
-      ariaLabels={appLayoutLabels}
+      ariaLabels={appLayoutAriaLabels}
       notifications={<Notifications />}
     />
   );

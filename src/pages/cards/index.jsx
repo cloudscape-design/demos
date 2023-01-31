@@ -14,9 +14,13 @@ import {
   TableEmptyState,
   TableNoMatchState,
 } from '../commons/common-components';
-import { distributionSelectionLabels, paginationLabels } from '../../common/labels';
-import { FullPageHeader } from '../table/common-components';
-import { getFilterCounterText } from '../../common/tableCounterStrings';
+import { FullPageHeader } from '../commons';
+import {
+  getTextFilterCounterText,
+  paginationAriaLabels,
+  distributionTableAriaLabels,
+  getHeaderCounterText,
+} from '../../i18n-strings';
 import { useLocalStorage } from '../commons/use-local-storage';
 import '../../styles/base.scss';
 
@@ -54,12 +58,12 @@ function DetailsCards({ loadHelpPanelContent }) {
       items={items}
       selectionType="multi"
       variant="full-page"
-      ariaLabels={distributionSelectionLabels}
+      ariaLabels={distributionTableAriaLabels}
       header={
         <FullPageHeader
-          selectedItems={collectionProps.selectedItems}
-          totalItems={distributions}
-          loadHelpPanelContent={loadHelpPanelContent}
+          selectedItemsCount={collectionProps.selectedItems.length}
+          counter={getHeaderCounterText(distributions, collectionProps.selectedItems)}
+          onInfoLinkClick={loadHelpPanelContent}
         />
       }
       filter={
@@ -68,11 +72,11 @@ function DetailsCards({ loadHelpPanelContent }) {
           filteringAriaLabel="Filter distributions"
           filteringPlaceholder="Find distributions"
           filteringClearAriaLabel="Clear"
-          countText={getFilterCounterText(filteredItemsCount)}
+          countText={getTextFilterCounterText(filteredItemsCount)}
           disabled={loading}
         />
       }
-      pagination={<Pagination {...paginationProps} ariaLabels={paginationLabels} disabled={loading} />}
+      pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels} disabled={loading} />}
       preferences={
         <CollectionPreferences
           title="Preferences"

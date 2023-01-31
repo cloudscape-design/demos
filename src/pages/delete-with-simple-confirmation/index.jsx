@@ -18,7 +18,7 @@ import {
 } from '@cloudscape-design/components';
 import { SettingsDetails } from '../details/common-components';
 import { Navigation } from '../commons/common-components';
-import { appLayoutLabels } from '../../common/labels';
+import { appLayoutAriaLabels } from '../../i18n-strings';
 import DataProvider from '../commons/data-provider';
 import '../../styles/base.scss';
 
@@ -111,7 +111,7 @@ function DistributionsPage({ distributions, selectedItems, setSelectedItems, onD
       navigation={<Navigation activeHref="#" />}
       navigationOpen={false}
       toolsHide={true}
-      ariaLabels={appLayoutLabels}
+      ariaLabels={appLayoutAriaLabels}
       contentType="table"
     />
   );
@@ -157,7 +157,7 @@ function DistributionDetailsPage({ distribution, onDeleteInit, notifications }) 
       navigation={<Navigation activeHref="#" />}
       navigationOpen={false}
       toolsHide={true}
-      ariaLabels={appLayoutLabels}
+      ariaLabels={appLayoutAriaLabels}
     />
   );
 }

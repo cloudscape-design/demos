@@ -21,15 +21,9 @@ import {
 import { Navigation, Breadcrumbs, ToolsContent } from './table-select-filter-components';
 import '../../styles/table-select.scss';
 import DATA from '../../resources/instances';
-import { paginationLabels } from '../../common/labels';
-import { getFilterCounterText } from '../../common/tableCounterStrings';
-import {
-  CustomAppLayout,
-  Notifications,
-  TableEmptyState,
-  TableHeader,
-  TableNoMatchState,
-} from '../commons/common-components';
+import { getTextFilterCounterText, getHeaderCounterText, paginationAriaLabels } from '../../i18n-strings';
+import { CustomAppLayout, Notifications, TableEmptyState, TableNoMatchState } from '../commons/common-components';
+import { FullPageHeader } from '../commons';
 import { useColumnWidths } from '../commons/use-column-widths';
 import { useLocalStorage } from '../commons/use-local-storage';
 
@@ -127,19 +121,18 @@ function TableSelectFilter({ loadHelpPanelContent }) {
         selectionGroupLabel: 'Instances selection',
       }}
       header={
-        <TableHeader
+        <FullPageHeader
           title="Instances"
-          variant="awsui-h1-sticky"
-          selectedItems={collectionProps.selectedItems}
-          totalItems={DATA}
-          loadHelpPanelContent={loadHelpPanelContent}
-          actionButtons={
+          selectedItemsCount={collectionProps.selectedItems.length}
+          counter={getHeaderCounterText(DATA, collectionProps.selectedItems)}
+          actions={
             <SpaceBetween size="xs" direction="horizontal">
               <Button disabled={collectionProps.selectedItems.length === 0}>Instance actions</Button>
               <Button>Restore from S3</Button>
               <Button variant="primary">Launch DB instance</Button>
             </SpaceBetween>
           }
+          onInfoLinkClick={loadHelpPanelContent}
         />
       }
       filter={
@@ -185,11 +178,11 @@ function TableSelectFilter({ loadHelpPanelContent }) {
             />
           </div>
           {(filterProps.filteringText || engine !== defaultEngine || instanceClass !== defaultClass) && (
-            <span className="filtering-results">{getFilterCounterText(filteredItemsCount)}</span>
+            <span className="filtering-results">{getTextFilterCounterText(filteredItemsCount)}</span>
           )}
         </div>
       }
-      pagination={<Pagination {...paginationProps} ariaLabels={paginationLabels} />}
+      pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels} />}
       preferences={
         <CollectionPreferences
           title="Preferences"

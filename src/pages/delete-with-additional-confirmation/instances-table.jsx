@@ -4,9 +4,8 @@ import React from 'react';
 import { useCollection } from '@cloudscape-design/collection-hooks';
 import { Button, Pagination, Table, TextFilter, SpaceBetween, Link } from '@cloudscape-design/components';
 import { TableEmptyState, TableNoMatchState } from '../commons/common-components';
-import { paginationLabels } from '../../common/labels';
-import { getFilterCounterText } from '../../common/tableCounterStrings';
-import { TableHeader } from '../commons/common-components';
+import { paginationAriaLabels, getTextFilterCounterText, getHeaderCounterText } from '../../i18n-strings';
+import { FullPageHeader } from '../commons';
 import ItemState from '../delete-with-simple-confirmation/item-state';
 
 const COLUMN_DEFINITIONS = [
@@ -68,10 +67,10 @@ export default function InstancesTable({ instances, selectedItems, onSelectionCh
       variant="full-page"
       stickyHeader={true}
       header={
-        <TableHeader
-          variant="awsui-h1-sticky"
+        <FullPageHeader
           title="Instances"
-          actionButtons={
+          counter={getHeaderCounterText(instances, selectedItems)}
+          actions={
             <SpaceBetween size="xs" direction="horizontal">
               <Button disabled={selectedItems.length !== 1}>View details</Button>
               <Button disabled={selectedItems.length !== 1}>Edit</Button>
@@ -81,8 +80,6 @@ export default function InstancesTable({ instances, selectedItems, onSelectionCh
               <Button variant="primary">Create instance</Button>
             </SpaceBetween>
           }
-          totalItems={instances}
-          selectedItems={selectedItems}
         />
       }
       filter={
@@ -91,10 +88,10 @@ export default function InstancesTable({ instances, selectedItems, onSelectionCh
           filteringAriaLabel="Filter instances"
           filteringPlaceholder="Find instances"
           filteringClearAriaLabel="Clear"
-          countText={getFilterCounterText(filteredItemsCount)}
+          countText={getTextFilterCounterText(filteredItemsCount)}
         />
       }
-      pagination={<Pagination {...paginationProps} ariaLabels={paginationLabels} />}
+      pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels} />}
     />
   );
 }

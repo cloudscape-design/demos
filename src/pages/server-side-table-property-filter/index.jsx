@@ -3,24 +3,26 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import intersection from 'lodash/intersection';
-import {
-  COLUMN_DEFINITIONS,
-  PROPERTY_FILTERING_I18N_CONSTANTS,
-  FILTERING_PROPERTIES,
-} from '../table-property-filter/table-property-filter-config';
+import { COLUMN_DEFINITIONS, FILTERING_PROPERTIES } from '../table-property-filter/table-property-filter-config';
 import Pagination from '@cloudscape-design/components/pagination';
 import Table from '@cloudscape-design/components/table';
 import PropertyFilter from '@cloudscape-design/components/property-filter';
-import { Breadcrumbs, FullPageHeader, ToolsContent } from '../table/common-components';
+import { Breadcrumbs, ToolsContent } from '../table/common-components';
 import { CustomAppLayout, Navigation, Notifications, TableNoMatchState } from '../commons/common-components';
-import { paginationLabels, distributionSelectionLabels } from '../../common/labels';
+import { FullPageHeader } from '../commons';
+import {
+  paginationAriaLabels,
+  distributionTableAriaLabels,
+  getHeaderCounterServerSideText,
+  getTextFilterCounterServerSideText,
+  propertyFilterI18nStrings,
+} from '../../i18n-strings';
 import { useLocalStorage } from '../commons/use-local-storage';
 import '../../styles/base.scss';
 import { useColumnWidths } from '../commons/use-column-widths';
 import { DEFAULT_PREFERENCES, Preferences } from '../table/table-config';
 import { useDistributions } from '../server-side-table/hooks';
 import { useDistributionsPropertyFiltering } from './hooks';
-import { getServerFilterCounterText } from '../../common/tableCounterStrings';
 
 const DEFAULT_FILTERING_QUERY = { tokens: [], operation: 'and' };
 
@@ -81,7 +83,7 @@ function ServerSidePropertyFilterTable({ columnDefinitions, saveWidths, loadHelp
       sortingDescending={sortingDescending}
       columnDefinitions={columnDefinitions}
       visibleColumns={preferences.visibleContent}
-      ariaLabels={distributionSelectionLabels}
+      ariaLabels={distributionTableAriaLabels}
       selectionType="multi"
       variant="full-page"
       stickyHeader={true}
@@ -91,17 +93,16 @@ function ServerSidePropertyFilterTable({ columnDefinitions, saveWidths, loadHelp
       stripedRows={preferences.stripedRows}
       header={
         <FullPageHeader
-          selectedItems={selectedItems}
-          totalItems={totalCount}
-          loadHelpPanelContent={loadHelpPanelContent}
-          serverSide={true}
+          selectedItemsCount={selectedItems.length}
+          counter={getHeaderCounterServerSideText(totalCount, selectedItems.length)}
+          onInfoLinkClick={loadHelpPanelContent}
         />
       }
       loadingText="Loading distributions"
       empty={<TableNoMatchState onClearFilter={handleClearFilter} />}
       filter={
         <PropertyFilter
-          i18nStrings={PROPERTY_FILTERING_I18N_CONSTANTS}
+          i18nStrings={propertyFilterI18nStrings}
           filteringProperties={filteringProperties}
           filteringOptions={filteringOptions}
           query={filteringQuery}
@@ -109,7 +110,7 @@ function ServerSidePropertyFilterTable({ columnDefinitions, saveWidths, loadHelp
           onLoadItems={handleLoadItems}
           filteringStatusType={filteringStatus}
           customGroupsText={[{ group: 'tags', properties: 'Tags', values: 'Tags values' }]}
-          countText={`${getServerFilterCounterText(items, pagesCount, pageSize)}`}
+          countText={getTextFilterCounterServerSideText(items, pagesCount, pageSize)}
           expandToViewport={true}
         />
       }
@@ -119,7 +120,7 @@ function ServerSidePropertyFilterTable({ columnDefinitions, saveWidths, loadHelp
           disabled={loading}
           currentPageIndex={serverPageIndex}
           onChange={event => setCurrentPageIndex(event.detail.currentPageIndex)}
-          ariaLabels={paginationLabels}
+          ariaLabels={paginationAriaLabels}
         />
       }
       preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}

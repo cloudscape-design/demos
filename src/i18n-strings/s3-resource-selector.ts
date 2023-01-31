@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-export const i18nStrings = {
+import { S3ResourceSelectorProps } from '@cloudscape-design/components';
+
+export const s3ResourceSelectorI18nStrings: S3ResourceSelectorProps.I18nStrings = {
   inContextInputPlaceholder: 's3://bucket/prefix/object',
   inContextInputClearAriaLabel: 'Clear',
   inContextSelectPlaceholder: 'Choose a version',
@@ -33,17 +35,14 @@ export const i18nStrings = {
   filteringCantFindMatch: "We can't find a match.",
   clearFilterButtonText: 'Clear filter',
 
-  columnBucketID: 'ID',
   columnBucketName: 'Name',
   columnBucketCreationDate: 'Creation date',
   columnBucketRegion: 'Region',
-  columnBucketAccess: 'Access',
-  columnObjectID: 'ID',
   columnObjectKey: 'Key',
   columnObjectLastModified: 'Last modified',
   columnObjectSize: 'Size',
   columnVersionID: 'Version ID',
-  columnVersionCreationDate: 'Creation date',
+  columnVersionLastModified: 'Last modified',
   columnVersionSize: 'Size',
 
   validationPathMustBegin: 'The path must begin with s3://',
@@ -69,12 +68,11 @@ export const i18nStrings = {
     selectionGroupLabel: 'Objects',
   },
   labelsVersionsSelection: {
-    itemSelectionLabel: (data, item) => `${item.CreationDate}`,
+    itemSelectionLabel: (data, item) => `${item.LastModified}`,
     selectionGroupLabel: 'Versions',
   },
   labelFiltering: itemsType => `Find ${itemsType}`,
   labelRefresh: 'Refresh the data',
-  labelAlertDismiss: 'Dismiss the alert',
   labelModalDismiss: 'Dismiss the modal',
   labelBreadcrumbs: 'S3 navigation',
 };

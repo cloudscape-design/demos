@@ -1,47 +1,13 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import { BreadcrumbGroup, Button, HelpPanel, Icon, SpaceBetween } from '@cloudscape-design/components';
+import { BreadcrumbGroup, HelpPanel, Icon } from '@cloudscape-design/components';
 import { resourcesBreadcrumbs } from '../../common/breadcrumbs';
-import { ExternalLinkItem, TableHeader } from '../commons/common-components';
+import { ExternalLinkItem } from '../commons';
 
 export const Breadcrumbs = () => (
   <BreadcrumbGroup items={resourcesBreadcrumbs} expandAriaLabel="Show path" ariaLabel="Breadcrumbs" />
 );
-
-export const FullPageHeader = ({
-  resourceName = 'Distributions',
-  createButtonText = 'Create distribution',
-  extraActions = null,
-  ...props
-}) => {
-  const isOnlyOneSelected = props.selectedItems.length === 1;
-
-  return (
-    <TableHeader
-      variant="awsui-h1-sticky"
-      title={resourceName}
-      actionButtons={
-        <SpaceBetween size="xs" direction="horizontal">
-          {extraActions}
-          <Button data-testid="header-btn-view-details" disabled={!isOnlyOneSelected}>
-            View details
-          </Button>
-          <Button data-testid="header-btn-edit" disabled={!isOnlyOneSelected}>
-            Edit
-          </Button>
-          <Button data-testid="header-btn-delete" disabled={props.selectedItems.length === 0}>
-            Delete
-          </Button>
-          <Button data-testid="header-btn-create" variant="primary">
-            {createButtonText}
-          </Button>
-        </SpaceBetween>
-      }
-      {...props}
-    />
-  );
-};
 
 export const ToolsContent = () => (
   <HelpPanel
@@ -87,22 +53,3 @@ export const EC2ToolsContent = () => (
     </p>
   </HelpPanel>
 );
-
-export const InstanceHeader = ({ ...props }) => {
-  const isOnlyOneSelected = props.selectedItems.length === 1;
-
-  return (
-    <TableHeader
-      {...props}
-      title="Instances"
-      actionButtons={
-        <SpaceBetween size="xs" direction="horizontal">
-          <Button disabled={!isOnlyOneSelected}>View details</Button>
-          <Button disabled={!isOnlyOneSelected}>Edit</Button>
-          <Button disabled={props.selectedItems.length === 0}>Delete</Button>
-          <Button variant="primary">Create instance</Button>
-        </SpaceBetween>
-      }
-    />
-  );
-};

@@ -3,13 +3,17 @@
 import React from 'react';
 import { useCollection } from '@cloudscape-design/collection-hooks';
 import { Button, Pagination, Table, TextFilter, SpaceBetween, Link } from '@cloudscape-design/components';
-import { TableEmptyState, TableNoMatchState } from '../commons/common-components';
-import { paginationLabels, distributionSelectionLabels, addColumnSortLabels } from '../../common/labels';
-import { getFilterCounterText } from '../../common/tableCounterStrings';
-import { TableHeader } from '../commons/common-components';
+import { FullPageHeader, TableEmptyState, TableNoMatchState } from '../commons/common-components';
 import ItemState from './item-state';
+import {
+  getTextFilterCounterText,
+  paginationAriaLabels,
+  distributionTableAriaLabels,
+  createTableSortLabelFn,
+  getHeaderCounterText,
+} from '../../i18n-strings';
 
-const COLUMN_DEFINITIONS = addColumnSortLabels([
+const rawColumns = [
   {
     id: 'id',
     sortingField: 'id',
@@ -63,7 +67,8 @@ const COLUMN_DEFINITIONS = addColumnSortLabels([
     cell: item => item.status,
     minWidth: 100,
   },
-]);
+];
+const columnDefinitions = rawColumns.map(column => ({ ...column, ariaLabel: createTableSortLabelFn(column) }));
 
 export default function DistributionsTable({ distributions, selectedItems, onSelectionChange, onDelete }) {
   const { items, actions, filteredItemsCount, collectionProps, filterProps, paginationProps } = useCollection(
@@ -74,7 +79,7 @@ export default function DistributionsTable({ distributions, selectedItems, onSel
         noMatch: <TableNoMatchState onClearFilter={() => actions.setFiltering('')} />,
       },
       pagination: { pageSize: 50 },
-      sorting: { defaultState: { sortingColumn: COLUMN_DEFINITIONS[0] } },
+      sorting: { defaultState: { sortingColumn: columnDefinitions[0] } },
       selection: {},
     }
   );
@@ -84,17 +89,18 @@ export default function DistributionsTable({ distributions, selectedItems, onSel
       {...collectionProps}
       selectedItems={selectedItems}
       onSelectionChange={onSelectionChange}
-      columnDefinitions={COLUMN_DEFINITIONS}
+      columnDefinitions={columnDefinitions}
       items={items}
       selectionType="multi"
-      ariaLabels={distributionSelectionLabels}
+      ariaLabels={distributionTableAriaLabels}
       variant="full-page"
       stickyHeader={true}
       header={
-        <TableHeader
-          variant="awsui-h1-sticky"
+        <FullPageHeader
           title="Distributions"
-          actionButtons={
+          selectedItemsCount={selectedItems.length}
+          counter={getHeaderCounterText(distributions, selectedItems)}
+          actions={
             <SpaceBetween size="xs" direction="horizontal">
               <Button disabled={selectedItems.length !== 1}>View details</Button>
               <Button disabled={selectedItems.length !== 1}>Edit</Button>
@@ -104,8 +110,6 @@ export default function DistributionsTable({ distributions, selectedItems, onSel
               <Button variant="primary">Create distribution</Button>
             </SpaceBetween>
           }
-          totalItems={distributions}
-          selectedItems={selectedItems}
         />
       }
       filter={
@@ -114,10 +118,10 @@ export default function DistributionsTable({ distributions, selectedItems, onSel
           filteringAriaLabel="Filter distributions"
           filteringPlaceholder="Find distributions"
           filteringClearAriaLabel="Clear"
-          countText={getFilterCounterText(filteredItemsCount)}
+          countText={getTextFilterCounterText(filteredItemsCount)}
         />
       }
-      pagination={<Pagination {...paginationProps} ariaLabels={paginationLabels} />}
+      pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels} />}
     />
   );
 }

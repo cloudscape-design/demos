@@ -3,9 +3,9 @@
 import React from 'react';
 import { StatusComponent } from './table-select-filter-components';
 import { Link, Box } from '@cloudscape-design/components';
-import { addColumnSortLabels } from '../../common/labels';
+import { createTableSortLabelFn } from '../../i18n-strings';
 
-export const COLUMN_DEFINITIONS = addColumnSortLabels([
+const rawColumns = [
   {
     id: 'id',
     header: 'DB instance',
@@ -60,7 +60,9 @@ export const COLUMN_DEFINITIONS = addColumnSortLabels([
     cell: item => <Box textAlign="right">{item.iops}</Box>,
     sortingField: 'iops',
   },
-]);
+];
+
+export const COLUMN_DEFINITIONS = rawColumns.map(column => ({ ...column, ariaLabel: createTableSortLabelFn(column) }));
 
 export const SEARCHABLE_COLUMNS = ['id', 'engine', 'version', 'status', 'class', 'activity', 'zone', 'iops', 'maint'];
 

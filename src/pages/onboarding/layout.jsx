@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useEffect } from 'react';
 import { AppLayout, Tabs, TutorialPanel } from '@cloudscape-design/components';
-import { appLayoutLabels } from '../../common/labels';
+import { appLayoutAriaLabels } from '../../i18n-strings';
 import { tutorialPanelI18nStrings } from './i18n';
 import { helpPanelContent } from './help-panel-content';
 import { useStore } from './store';
@@ -27,7 +27,7 @@ export function CustomAppLayout({ initialHelpPanelPage, ...props }) {
         /*this functionality is not represented in this demo*/
       }}
       headerSelector="#header"
-      ariaLabels={appLayoutLabels}
+      ariaLabels={appLayoutAriaLabels}
       toolsOpen={state.toolsOpen}
       onToolsChange={event => actions.setToolsOpen(event.detail.open)}
       toolsWidth={330}

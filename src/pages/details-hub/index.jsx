@@ -5,10 +5,20 @@ import { createRoot } from 'react-dom/client';
 import DataProvider from '../commons/data-provider';
 import { useAsyncData } from '../commons/use-async-data';
 import { INSTANCE_DROPDOWN_ITEMS, LOGS_COLUMN_DEFINITIONS } from '../details/details-config';
-import { AppLayout, Box, Button, ContentLayout, Link, SpaceBetween, Table } from '@cloudscape-design/components';
+import {
+  AppLayout,
+  Box,
+  Button,
+  ContentLayout,
+  Header,
+  Link,
+  SpaceBetween,
+  Table,
+} from '@cloudscape-design/components';
 import { Breadcrumbs, GeneralConfig, OriginsTable, PageHeader } from '../details/common-components';
-import { Navigation, TableHeader, Notifications } from '../commons/common-components';
-import { appLayoutLabels, logsSelectionLabels } from '../../common/labels';
+import { Navigation, Notifications } from '../commons/common-components';
+import { appLayoutAriaLabels, getHeaderCounterText } from '../../i18n-strings';
+import { logsTableAriaLabels } from './commons';
 import '../../styles/base.scss';
 
 function LogsTable() {
@@ -24,23 +34,23 @@ function LogsTable() {
       loadingText="Loading logs"
       columnDefinitions={LOGS_COLUMN_DEFINITIONS}
       items={logs.slice(0, 5)}
-      ariaLabels={logsSelectionLabels}
+      ariaLabels={logsTableAriaLabels}
       selectionType="multi"
       selectedItems={selectedItems}
       onSelectionChange={event => setSelectedItems(event.detail.selectedItems)}
       header={
-        <TableHeader
-          title="Logs"
-          selectedItems={selectedItems}
-          totalItems={logs}
-          actionButtons={
+        <Header
+          counter={getHeaderCounterText(logs, selectedItems)}
+          actions={
             <SpaceBetween direction="horizontal" size="xs">
               <Button disabled={!isOnlyOneSelected}>View</Button>
               <Button disabled={!atLeastOneSelected}>Watch</Button>
               <Button disabled={!atLeastOneSelected}>Download</Button>
             </SpaceBetween>
           }
-        />
+        >
+          Logs
+        </Header>
       }
       footer={
         <Box textAlign="center">
@@ -75,7 +85,7 @@ class App extends React.Component {
         navigation={<Navigation activeHref="#/distributions" />}
         toolsHide={true}
         contentType="default"
-        ariaLabels={appLayoutLabels}
+        ariaLabels={appLayoutAriaLabels}
         notifications={<Notifications />}
       />
     );

@@ -32,17 +32,15 @@ import {
   SettingsDetails,
   TagsTable,
 } from '../details/common-components';
+import { Navigation, TableEmptyState, TableNoMatchState, InfoLink, Notifications } from '../commons/common-components';
 import {
-  Navigation,
-  TableEmptyState,
-  TableNoMatchState,
-  TableHeader,
-  InfoLink,
-  Notifications,
-} from '../commons/common-components';
-import { appLayoutLabels, logsSelectionLabels, paginationLabels } from '../../common/labels';
-import { getFilterCounterText } from '../../common/tableCounterStrings';
+  appLayoutAriaLabels,
+  getHeaderCounterText,
+  getTextFilterCounterText,
+  paginationAriaLabels,
+} from '../../i18n-strings';
 import ToolsContent from '../details/tools-content';
+import { logsTableAriaLabels } from '../details-hub/commons';
 import '../../styles/base.scss';
 
 const Details = ({ loadHelpPanelContent }) => (
@@ -82,23 +80,23 @@ function LogsTable() {
       loadingText="Loading logs"
       columnDefinitions={LOGS_COLUMN_DEFINITIONS}
       items={items}
-      ariaLabels={logsSelectionLabels}
+      ariaLabels={logsTableAriaLabels}
       selectionType="multi"
       selectedItems={selectedItems}
       onSelectionChange={evt => setSelectedItems(evt.detail.selectedItems)}
       header={
-        <TableHeader
-          title="Logs"
-          selectedItems={selectedItems}
-          totalItems={logs}
-          actionButtons={
+        <Header
+          counter={getHeaderCounterText(logs, selectedItems)}
+          actions={
             <SpaceBetween direction="horizontal" size="xs">
               <Button disabled={!isOnlyOneSelected}>View</Button>
               <Button disabled={!atLeastOneSelected}>Watch</Button>
               <Button disabled={!atLeastOneSelected}>Download</Button>
             </SpaceBetween>
           }
-        />
+        >
+          Logs
+        </Header>
       }
       filter={
         <TextFilter
@@ -106,10 +104,10 @@ function LogsTable() {
           filteringAriaLabel="Find logs"
           filteringPlaceholder="Find logs"
           filteringClearAriaLabel="Clear"
-          countText={getFilterCounterText(filteredItemsCount)}
+          countText={getTextFilterCounterText(filteredItemsCount)}
         />
       }
-      pagination={<Pagination {...paginationProps} ariaLabels={paginationLabels} />}
+      pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels} />}
     />
   );
 }
@@ -183,7 +181,7 @@ class App extends React.Component {
         tools={ToolsContent[this.state.toolsIndex]}
         toolsOpen={this.state.toolsOpen}
         onToolsChange={({ detail }) => this.setState({ toolsOpen: detail.open })}
-        ariaLabels={appLayoutLabels}
+        ariaLabels={appLayoutAriaLabels}
         notifications={<Notifications />}
       />
     );

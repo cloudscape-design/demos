@@ -6,11 +6,15 @@ import PropertyFilter from '@cloudscape-design/components/property-filter';
 import Pagination from '@cloudscape-design/components/pagination';
 import Table from '@cloudscape-design/components/table';
 
-import { getFilterCounterText } from '../../common/tableCounterStrings';
-import { FullPageHeader } from '../table/common-components';
+import { FullPageHeader } from '../commons';
 import { TableNoMatchState, TableEmptyState } from '../commons/common-components';
-import { paginationLabels, distributionSelectionLabels } from '../../common/labels';
-import { PROPERTY_FILTERING_I18N_CONSTANTS } from './table-property-filter-config';
+import {
+  distributionTableAriaLabels,
+  getHeaderCounterText,
+  getTextFilterCounterText,
+  paginationAriaLabels,
+  propertyFilterI18nStrings,
+} from '../../i18n-strings';
 import { Preferences } from '../table/table-config';
 
 import '../../styles/base.scss';
@@ -50,7 +54,7 @@ export function PropertyFilterTable({
       items={items}
       columnDefinitions={columnDefinitions}
       visibleColumns={preferences.visibleContent}
-      ariaLabels={distributionSelectionLabels}
+      ariaLabels={distributionTableAriaLabels}
       selectionType="multi"
       variant="full-page"
       stickyHeader={true}
@@ -60,22 +64,21 @@ export function PropertyFilterTable({
       onColumnWidthsChange={saveWidths}
       header={
         <FullPageHeader
-          selectedItems={collectionProps.selectedItems}
-          totalItems={data}
-          loadHelpPanelContent={loadHelpPanelContent}
-          serverSide={false}
+          selectedItemsCount={collectionProps.selectedItems.length}
+          counter={getHeaderCounterText(data, collectionProps.selectedItems)}
+          onInfoLinkClick={loadHelpPanelContent}
         />
       }
       loadingText="Loading distributions"
       filter={
         <PropertyFilter
-          i18nStrings={PROPERTY_FILTERING_I18N_CONSTANTS}
           {...propertyFilterProps}
-          countText={getFilterCounterText(filteredItemsCount)}
+          i18nStrings={propertyFilterI18nStrings}
+          countText={getTextFilterCounterText(filteredItemsCount)}
           expandToViewport={true}
         />
       }
-      pagination={<Pagination {...paginationProps} ariaLabels={paginationLabels} />}
+      pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels} />}
       preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}
     />
   );
