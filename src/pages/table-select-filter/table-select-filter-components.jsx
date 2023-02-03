@@ -1,9 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import { BreadcrumbGroup, HelpPanel, Icon, StatusIndicator, SideNavigation } from '@cloudscape-design/components';
+import { BreadcrumbGroup, HelpPanel, StatusIndicator, SideNavigation } from '@cloudscape-design/components';
+import { ExternalLinkGroup } from '../commons';
 import '../../styles/table-select.scss';
-import { ExternalLinkItem } from '../commons/common-components';
 
 export const StatusComponent = ({ status }) => {
   if (status === 'available') {
@@ -63,28 +63,18 @@ export const ToolsContent = () => (
   <HelpPanel
     header={<h2>Instances</h2>}
     footer={
-      <>
-        <h3>
-          Learn more{' '}
-          <span role="img" aria-label="Icon external Link">
-            <Icon name="external" />
-          </span>
-        </h3>
-        <ul>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.html"
-              text="Amazon RDS database instances"
-            />
-          </li>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.Status.html"
-              text="DB instance status"
-            />
-          </li>
-        </ul>
-      </>
+      <ExternalLinkGroup
+        items={[
+          {
+            href: 'https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.html',
+            text: 'Amazon RDS database instances',
+          },
+          {
+            href: 'https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.Status.html',
+            text: 'DB instance status',
+          },
+        ]}
+      />
     }
   >
     <p>

@@ -1,39 +1,23 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import { HelpPanel, Icon, Button, Header } from '@cloudscape-design/components';
-import { ExternalLinkItem, InfoLink } from '../../commons/common-components';
+import { HelpPanel, Header } from '@cloudscape-design/components';
+import { ExternalLinkGroup, InfoLink } from '../../commons';
 
-export function EC2Info() {
+export function DashboardMainInfo() {
   return (
     <HelpPanel
       header={<h2>Service</h2>}
       footer={
-        <>
-          <h3>
-            Learn more{' '}
-            <span role="img" aria-label="Icon external Link">
-              <Icon name="external" />
-            </span>
-          </h3>
-          <ul>
-            <li>
-              <ExternalLinkItem href="#" text="User Guide for Linux Instances" />
-            </li>
-            <li>
-              <ExternalLinkItem href="#" text="User Guide for Windows Instances" />
-            </li>
-            <li>
-              <ExternalLinkItem href="#" text="API Reference" />
-            </li>
-            <li>
-              <ExternalLinkItem href="#" text="EC2 section of the AWS CLI Reference" />
-            </li>
-            <li>
-              <ExternalLinkItem href="#" text="EC2 Instance Connect API Reference" />
-            </li>
-          </ul>
-        </>
+        <ExternalLinkGroup
+          items={[
+            { href: '#', text: 'User Guide for Linux Instances' },
+            { href: '#', text: 'User Guide for Windows Instances' },
+            { href: '#', text: 'API Reference' },
+            { href: '#', text: 'EC2 section of the AWS CLI Reference' },
+            { href: '#', text: 'EC2 Instance Connect API Reference' },
+          ]}
+        />
       }
     >
       <p>
@@ -51,11 +35,11 @@ export function DashboardHeader(props) {
       variant="h1"
       info={
         <InfoLink
-          onFollow={() => props.loadHelpPanelContent(<EC2Info />)}
+          onFollow={() => props.loadHelpPanelContent(<DashboardMainInfo />)}
           ariaLabel={'Information about service dashboard.'}
         />
       }
-      actions={<Button variant="primary">Launch instance</Button>}
+      actions={props.actions}
     >
       Service Dashboard
     </Header>

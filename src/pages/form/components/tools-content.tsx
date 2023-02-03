@@ -1,42 +1,30 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import { HelpPanel, Icon } from '@cloudscape-design/components';
-import { ExternalLinkItem } from '../../commons/common-components';
+import { HelpPanel } from '@cloudscape-design/components';
+import { ExternalLink, ExternalLinkGroup } from '../../commons';
 
 /*eslint-disable react/jsx-key*/
 export default [
   <HelpPanel
     header={<h2>Create distribution</h2>}
     footer={
-      <>
-        <h3>
-          Learn more{' '}
-          <span role="img" aria-label="Icon external Link">
-            <Icon name="external" />
-          </span>
-        </h3>
-        <ul>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/GettingStarted.html"
-              text="Getting started"
-            />
-          </li>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/HowCloudFrontWorks.html"
-              text="How CloudFront delivers content to your users"
-            />
-          </li>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-working-with.html"
-              text="Working with distributions"
-            />
-          </li>
-        </ul>
-      </>
+      <ExternalLinkGroup
+        items={[
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/GettingStarted.html',
+            text: 'Getting started',
+          },
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/HowCloudFrontWorks.html',
+            text: 'How CloudFront delivers content to your users',
+          },
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-working-with.html',
+            text: 'Working with distributions',
+          },
+        ]}
+      />
     }
   >
     <p>
@@ -55,34 +43,22 @@ export default [
   <HelpPanel
     header={<h2>Delivery method</h2>}
     footer={
-      <>
-        <h3>
-          Learn more{' '}
-          <span role="img" aria-label="Icon external Link">
-            <Icon name="external" />
-          </span>
-        </h3>
-        <ul>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DownloadDistS3AndCustomOrigins.html"
-              text="Using Amazon S3 origins, MediaPackage channels, and custom origins for web distributions"
-            />
-          </li>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-rtmp.html"
-              text="Working with RTMP distributions"
-            />
-          </li>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesMethod"
-              text="Values that you specify when you create or update a distribution"
-            />
-          </li>
-        </ul>
-      </>
+      <ExternalLinkGroup
+        items={[
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DownloadDistS3AndCustomOrigins.html',
+            text: 'Using Amazon S3 origins, MediaPackage channels, and custom origins for web distributions',
+          },
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-rtmp.html',
+            text: 'Working with RTMP distributions',
+          },
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesMethod',
+            text: 'Values that you specify when you create or update a distribution',
+          },
+        ]}
+      />
     }
   >
     <p>
@@ -117,22 +93,14 @@ export default [
   <HelpPanel
     header={<h2>SSL/TLS certificate</h2>}
     footer={
-      <>
-        <h3>
-          Learn more{' '}
-          <span role="img" aria-label="Icon external Link">
-            <Icon name="external" />
-          </span>
-        </h3>
-        <ul>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html"
-              text="Requirements for using SSL/TLS certificates with CloudFront"
-            />
-          </li>
-        </ul>
-      </>
+      <ExternalLinkGroup
+        items={[
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html',
+            text: 'Requirements for using SSL/TLS certificates with CloudFront',
+          },
+        ]}
+      />
     }
   >
     <p>
@@ -155,22 +123,14 @@ export default [
   <HelpPanel
     header={<h2>Root object</h2>}
     footer={
-      <>
-        <h3>
-          Learn more{' '}
-          <span role="img" aria-label="Icon external Link">
-            <Icon name="external" />
-          </span>
-        </h3>
-        <ul>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DefaultRootObject.html#DefaultRootObjectHowToDefine"
-              text="Specifying a default root object"
-            />
-          </li>
-        </ul>
-      </>
+      <ExternalLinkGroup
+        items={[
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DefaultRootObject.html#DefaultRootObjectHowToDefine',
+            text: 'Specifying a default root object',
+          },
+        ]}
+      />
     }
   >
     <p>
@@ -182,22 +142,14 @@ export default [
   <HelpPanel
     header={<h2>Alternative domain names (CNAMEs)</h2>}
     footer={
-      <>
-        <h3>
-          Learn more{' '}
-          <span role="img" aria-label="Icon external Link">
-            <Icon name="external" />
-          </span>
-        </h3>
-        <ul>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-alternate-domain-names.html"
-              text="Requirements for using alternate domain names (CNAMEs)"
-            />
-          </li>
-        </ul>
-      </>
+      <ExternalLinkGroup
+        items={[
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-alternate-domain-names.html',
+            text: 'Requirements for using alternate domain names (CNAMEs)',
+          },
+        ]}
+      />
     }
   >
     <p>
@@ -223,22 +175,14 @@ export default [
   <HelpPanel
     header={<h2>Content origin</h2>}
     footer={
-      <>
-        <h3>
-          Learn more{' '}
-          <span role="img" aria-label="Icon external Link">
-            <Icon name="external" />
-          </span>
-        </h3>
-        <ul>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesOrigin"
-              text="Origin settings"
-            />
-          </li>
-        </ul>
-      </>
+      <ExternalLinkGroup
+        items={[
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesOrigin',
+            text: 'Origin settings',
+          },
+        ]}
+      />
     }
   >
     <p>
@@ -279,22 +223,14 @@ export default [
   <HelpPanel
     header={<h2>Path to content</h2>}
     footer={
-      <>
-        <h3>
-          Learn more{' '}
-          <span role="img" aria-label="Icon external Link">
-            <Icon name="external" />
-          </span>
-        </h3>
-        <ul>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesOriginPath"
-              text="Origin path"
-            />
-          </li>
-        </ul>
-      </>
+      <ExternalLinkGroup
+        items={[
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesOriginPath',
+            text: 'Origin path',
+          },
+        ]}
+      />
     }
   >
     <p>
@@ -322,34 +258,22 @@ export default [
   <HelpPanel
     header={<h2>Origin ID</h2>}
     footer={
-      <>
-        <h3>
-          Learn more{' '}
-          <span role="img" aria-label="Icon external Link">
-            <Icon name="external" />
-          </span>
-        </h3>
-        <ul>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DownloadDistS3AndCustomOrigins.html#concept_origin_groups"
-              text="Using CloudFront origin groups"
-            />
-          </li>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/high_availability_origin_failover.html#concept_origin_groups.creating"
-              text="Creating an origin group"
-            />
-          </li>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesCacheBehavior"
-              text="Cache behavior settings"
-            />
-          </li>
-        </ul>
-      </>
+      <ExternalLinkGroup
+        items={[
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DownloadDistS3AndCustomOrigins.html#concept_origin_groups',
+            text: 'Using CloudFront origin groups',
+          },
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/high_availability_origin_failover.html#concept_origin_groups.creating',
+            text: 'Creating an origin group',
+          },
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesCacheBehavior',
+            text: 'Cache behavior settings',
+          },
+        ]}
+      />
     }
   >
     <p>
@@ -362,22 +286,14 @@ export default [
   <HelpPanel
     header={<h2>Custom headers</h2>}
     footer={
-      <>
-        <h3>
-          Learn more{' '}
-          <span role="img" aria-label="Icon external Link">
-            <Icon name="external" />
-          </span>
-        </h3>
-        <ul>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/forward-custom-headers.html"
-              text="Forwarding custom headers to your origin"
-            />
-          </li>
-        </ul>
-      </>
+      <ExternalLinkGroup
+        items={[
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/forward-custom-headers.html',
+            text: 'Forwarding custom headers to your origin',
+          },
+        ]}
+      />
     }
   >
     <p>
@@ -391,10 +307,9 @@ export default [
         You can identify the requests that are forwarded to your custom origin by CloudFront. This is useful if you want
         to know whether users are bypassing CloudFront or if you're using more than one CDN and you want information
         about which requests are coming from each CDN. (If you're using an Amazon S3 origin and you turn on{' '}
-        <ExternalLinkItem
-          href="https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerLogs.html"
-          text="Amazon S3 server access logging"
-        />
+        <ExternalLink href="https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerLogs.html">
+          Amazon S3 server access logging
+        </ExternalLink>
         , the logs don't include header information.)
       </li>
       <li>
@@ -417,22 +332,14 @@ export default [
   <HelpPanel
     header={<h2>Cache behavior settings</h2>}
     footer={
-      <>
-        <h3>
-          Learn more{' '}
-          <span role="img" aria-label="Icon external Link">
-            <Icon name="external" />
-          </span>
-        </h3>
-        <ul>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesCacheBehavior"
-              text="Cache behavior settings"
-            />
-          </li>
-        </ul>
-      </>
+      <ExternalLinkGroup
+        items={[
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesCacheBehavior',
+            text: 'Cache behavior settings',
+          },
+        ]}
+      />
     }
   >
     <p>
@@ -474,22 +381,14 @@ export default [
   <HelpPanel
     header={<h2>Tags</h2>}
     footer={
-      <>
-        <h3>
-          Learn more{' '}
-          <span role="img" aria-label="Icon external Link">
-            <Icon name="external" />
-          </span>
-        </h3>
-        <ul>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/tagging.html"
-              text="Tagging Amazon CloudFront Distributions"
-            />
-          </li>
-        </ul>
-      </>
+      <ExternalLinkGroup
+        items={[
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/tagging.html',
+            text: 'Tagging Amazon CloudFront Distributions',
+          },
+        ]}
+      />
     }
   >
     <p>
@@ -501,22 +400,14 @@ export default [
   <HelpPanel
     header={<h2>Tag restrictions</h2>}
     footer={
-      <>
-        <h3>
-          Learn more{' '}
-          <span role="img" aria-label="Icon external Link">
-            <Icon name="external" />
-          </span>
-        </h3>
-        <ul>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/tagging.html"
-              text="Tagging Amazon CloudFront Distributions"
-            />
-          </li>
-        </ul>
-      </>
+      <ExternalLinkGroup
+        items={[
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/tagging.html',
+            text: 'Tagging Amazon CloudFront Distributions',
+          },
+        ]}
+      />
     }
   >
     <p>The following basic restrictions apply to tags:</p>

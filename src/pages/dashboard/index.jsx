@@ -5,6 +5,7 @@ import { createRoot } from 'react-dom/client';
 
 import AppLayout from '@cloudscape-design/components/app-layout';
 import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
+import Button from '@cloudscape-design/components/button';
 import ContentLayout from '@cloudscape-design/components/content-layout';
 import Grid from '@cloudscape-design/components/grid';
 
@@ -13,7 +14,7 @@ import '../../styles/dashboard.scss';
 
 import { appLayoutAriaLabels } from '../../i18n-strings';
 
-import { DashboardHeader, EC2Info } from './components/header';
+import { DashboardHeader, DashboardMainInfo } from './components/header';
 import { FeaturesSpotlight, AccountAttributes } from './components/related-resources';
 import ServiceOverview from './components/overview';
 import ServiceHealth from './components/service-health';
@@ -72,7 +73,7 @@ function Content(props) {
 
 function App() {
   const [toolsOpen, setToolsOpen] = useState(false);
-  const [toolsContent, setToolsContent] = useState(<EC2Info />);
+  const [toolsContent, setToolsContent] = useState(<DashboardMainInfo />);
   const appLayout = useRef();
 
   const loadHelpPanelContent = toolsContent => {
@@ -85,7 +86,14 @@ function App() {
     <AppLayout
       ref={appLayout}
       content={
-        <ContentLayout header={<DashboardHeader loadHelpPanelContent={loadHelpPanelContent} />}>
+        <ContentLayout
+          header={
+            <DashboardHeader
+              loadHelpPanelContent={loadHelpPanelContent}
+              actions={<Button variant="primary">Launch instance</Button>}
+            />
+          }
+        >
           <Content loadHelpPanelContent={loadHelpPanelContent} />
         </ContentLayout>
       }

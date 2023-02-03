@@ -14,7 +14,7 @@ import {
   StatusIndicator,
   SpaceBetween,
 } from '@cloudscape-design/components';
-import { externalLinkProps } from '../../../common/labels';
+import { ExternalLink } from '../../commons';
 import { CustomAppLayout } from '../layout';
 import { useStore } from '../store';
 
@@ -107,11 +107,11 @@ export const TranscriptionJobDetailsPage = () => {
                 </SpaceBetween>
                 <SpaceBetween size="l">
                   <ValueWithLabel label="Input data location">
-                    <Link {...externalLinkProps} href="#">
+                    <ExternalLink>
                       <span style={{ wordBreak: 'break-all' }}>
                         s3://audiofile001001001/transcribe-sample.5fc2109bb28268d10fbc677e64b7e59256783d3c.mp3
                       </span>
-                    </Link>
+                    </ExternalLink>
                   </ValueWithLabel>
                   <ValueWithLabel label="Output data location">Service-managed S3 bucket</ValueWithLabel>
                 </SpaceBetween>

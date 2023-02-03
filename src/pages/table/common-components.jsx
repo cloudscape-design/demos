@@ -1,9 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import { BreadcrumbGroup, HelpPanel, Icon } from '@cloudscape-design/components';
+import { BreadcrumbGroup, HelpPanel } from '@cloudscape-design/components';
 import { resourcesBreadcrumbs } from '../../common/breadcrumbs';
-import { ExternalLinkItem } from '../commons';
+import { ExternalLinkGroup } from '../commons';
 
 export const Breadcrumbs = () => (
   <BreadcrumbGroup items={resourcesBreadcrumbs} expandAriaLabel="Show path" ariaLabel="Breadcrumbs" />
@@ -13,28 +13,18 @@ export const ToolsContent = () => (
   <HelpPanel
     header={<h2>Distributions</h2>}
     footer={
-      <>
-        <h3>
-          Learn more{' '}
-          <span role="img" aria-label="Icon external Link">
-            <Icon name="external" />
-          </span>
-        </h3>
-        <ul>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-working-with.html"
-              text="Working with distributions"
-            />
-          </li>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-returned.html"
-              text="Values that CloudFront displays on the console"
-            />
-          </li>
-        </ul>
-      </>
+      <ExternalLinkGroup
+        items={[
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-working-with.html',
+            text: 'Working with distributions',
+          },
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-returned.html',
+            text: 'Values that CloudFront displays on the console',
+          },
+        ]}
+      />
     }
   >
     <p>
