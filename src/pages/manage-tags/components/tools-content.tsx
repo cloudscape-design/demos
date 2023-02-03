@@ -1,30 +1,22 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import { HelpPanel, Icon } from '@cloudscape-design/components';
-import { ExternalLinkItem } from '../../commons/common-components';
+import { HelpPanel } from '@cloudscape-design/components';
+import { ExternalLinkGroup } from '../../commons';
 
 /*eslint-disable react/jsx-key*/
 export default [
   <HelpPanel
     header={<h2>Tags</h2>}
     footer={
-      <>
-        <h3>
-          Learn more{' '}
-          <span role="img" aria-label="Icon external Link">
-            <Icon name="external" />
-          </span>
-        </h3>
-        <ul>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/tagging.html"
-              text="Tagging Amazon CloudFront Distributions"
-            />
-          </li>
-        </ul>
-      </>
+      <ExternalLinkGroup
+        items={[
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/tagging.html',
+            text: 'Tagging Amazon CloudFront Distributions',
+          },
+        ]}
+      />
     }
   >
     <p>
@@ -36,22 +28,14 @@ export default [
   <HelpPanel
     header={<h2>Tag restrictions</h2>}
     footer={
-      <>
-        <h3>
-          Learn more{' '}
-          <span role="img" aria-label="Icon external Link">
-            <Icon name="external" />
-          </span>
-        </h3>
-        <ul>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/tagging.html"
-              text="Tagging Amazon CloudFront Distributions"
-            />
-          </li>
-        </ul>
-      </>
+      <ExternalLinkGroup
+        items={[
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/tagging.html',
+            text: 'Tagging Amazon CloudFront Distributions',
+          },
+        ]}
+      />
     }
   >
     <p>The following basic restrictions apply to tags:</p>

@@ -10,7 +10,7 @@ import Details from './stepComponents/step2.jsx';
 import Advanced from './stepComponents/step3.jsx';
 import Review from './stepComponents/step4.jsx';
 import { DEFAULT_STEP_INFO, TOOLS_CONTENT } from './steps-config';
-import { ExternalLinkItem, InfoLink, Notifications } from '../commons/common-components';
+import { ExternalLinkGroup, InfoLink, Notifications } from '../commons';
 import '../../styles/wizard.scss';
 
 const steps = [
@@ -51,26 +51,7 @@ const i18nStrings = {
 const getDefaultToolsContent = activeIndex => TOOLS_CONTENT[steps[activeIndex].stateKey].default;
 
 const getFormattedToolsContent = tools => (
-  <HelpPanel
-    header={<h2>{tools.title}</h2>}
-    footer={
-      <>
-        <h3>
-          Learn more{' '}
-          <span role="img" aria-label="Icon external Link">
-            <Icon name="external" />
-          </span>
-        </h3>
-        <ul>
-          {tools.links.map((link, i) => (
-            <li key={i}>
-              <ExternalLinkItem href={link.href} text={link.text} />
-            </li>
-          ))}
-        </ul>
-      </>
-    }
-  >
+  <HelpPanel header={<h2>{tools.title}</h2>} footer={<ExternalLinkGroup items={tools.links} />}>
     {tools.content}
   </HelpPanel>
 );

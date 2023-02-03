@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 import { Box, Link, TextContent } from '@cloudscape-design/components';
-import { externalLinkProps } from '../../common/labels';
+import { ExternalLink } from '../commons';
 
 export const ENGINES = [
   {
@@ -689,12 +689,9 @@ export const TOOLS_CONTENT = {
             <b>Note</b>
             <br />
             Before you can create a DB instance, you must complete the tasks in{' '}
-            <Link
-              href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SettingUp.html"
-              {...externalLinkProps}
-            >
+            <ExternalLink href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SettingUp.html">
               Setting up for Amazon RDS
-            </Link>
+            </ExternalLink>
             .
           </p>
           <p>

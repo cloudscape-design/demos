@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 import { Box, ColumnLayout, Container, Header, Link } from '@cloudscape-design/components';
-import { externalLinkProps } from '../../../common/labels';
+import { ExternalLink } from '../../commons';
 
 export function AccountAttributes() {
   return (
@@ -13,9 +13,7 @@ export function AccountAttributes() {
         default VPC.
       </Box>
       <Box padding={{ vertical: 'xxs' }}>
-        <Link href="#" {...externalLinkProps}>
-          Learn more
-        </Link>
+        <ExternalLink>Learn more</ExternalLink>
       </Box>
     </Container>
   );
@@ -42,9 +40,7 @@ export function FeaturesSpotlight() {
             performance, and cost.
           </Box>
           <Box padding={{ vertical: 'xxs' }}>
-            <Link href="#" {...externalLinkProps}>
-              Learn more
-            </Link>
+            <ExternalLink>Learn more</ExternalLink>
           </Box>
         </div>
         <div>
@@ -57,9 +53,7 @@ export function FeaturesSpotlight() {
             Instances running Amazon Linux 2, in addition to Amazon Linux and Ubuntu 18.04 LTS OS.
           </Box>
           <Box padding={{ vertical: 'xxs' }}>
-            <Link href="#" {...externalLinkProps}>
-              Learn more
-            </Link>
+            <ExternalLink>Learn more</ExternalLink>
           </Box>
         </div>
       </ColumnLayout>

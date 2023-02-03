@@ -1,9 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import { Box, HelpPanel, Icon, Link, SpaceBetween } from '@cloudscape-design/components';
-import { externalLinkProps } from '../../common/labels';
-import { ExternalLinkItem } from '../commons/common-components';
+import { Box, HelpPanel, SpaceBetween } from '@cloudscape-design/components';
+import { ExternalLink, ExternalLinkGroup } from '../commons';
 
 export const helpPanelContent = {
   default: (
@@ -19,32 +18,19 @@ export const helpPanelContent = {
       </Box>
       <Box color="text-body-secondary" textAlign="center" margin={{ horizontal: 'xxl' }} fontSize="body-s">
         There is no additional help content on this page. See{' '}
-        <Link fontSize="body-s" href="#" {...externalLinkProps}>
-          AWS documentation
-        </Link>{' '}
-        for more.
+        <ExternalLink fontSize="body-s">AWS documentation</ExternalLink> for more.
       </Box>
     </SpaceBetween>
   ),
   name: (
     <HelpPanel
       footer={
-        <div>
-          <h3>
-            Learn more{' '}
-            <span role="img" aria-label="Icon external Link">
-              <Icon name="external" />
-            </span>
-          </h3>
-          <ul>
-            <li>
-              <ExternalLinkItem href="#" text="How Amazon Transcribe works" />
-            </li>
-            <li>
-              <ExternalLinkItem href="#" text="Getting Started with Amazon Simple Storage Service" />
-            </li>
-          </ul>
-        </div>
+        <ExternalLinkGroup
+          items={[
+            { href: '#', text: 'How Amazon Transcribe works' },
+            { href: '#', text: 'Getting Started with Amazon Simple Storage Service' },
+          ]}
+        />
       }
     >
       <div>
@@ -59,25 +45,13 @@ export const helpPanelContent = {
   'create-transcription-job': (
     <HelpPanel
       footer={
-        <div>
-          <h3>
-            Learn more{' '}
-            <span role="img" aria-label="Icon external Link">
-              <Icon name="external" />
-            </span>
-          </h3>
-          <ul>
-            <li>
-              <ExternalLinkItem href="#" text="How Amazon Transcribe works" />
-            </li>
-            <li>
-              <ExternalLinkItem href="#" text="Getting Started with Amazon Simple Storage Service" />
-            </li>
-            <li>
-              <ExternalLinkItem href="#" text="Working with Amazon S3 Buckets" />
-            </li>
-          </ul>
-        </div>
+        <ExternalLinkGroup
+          items={[
+            { href: '#', text: 'How Amazon Transcribe works' },
+            { href: '#', text: 'Getting Started with Amazon Simple Storage Service' },
+            { href: '#', text: 'Working with Amazon S3 Buckets' },
+          ]}
+        />
       }
     >
       <div>
@@ -94,22 +68,12 @@ export const helpPanelContent = {
   'model-type': (
     <HelpPanel
       footer={
-        <div>
-          <h3>
-            Learn more{' '}
-            <span role="img" aria-label="Icon external Link">
-              <Icon name="external" />
-            </span>
-          </h3>
-          <ul>
-            <li>
-              <ExternalLinkItem href="#" text="Improving domain specific transcription accuracy with model training" />
-            </li>
-            <li>
-              <ExternalLinkItem href="#" text="Custom vocabularies" />
-            </li>
-          </ul>
-        </div>
+        <ExternalLinkGroup
+          items={[
+            { href: '#', text: 'Improving domain specific transcription accuracy with model training' },
+            { href: '#', text: 'Custom vocabularies' },
+          ]}
+        />
       }
     >
       <div>
@@ -125,22 +89,12 @@ export const helpPanelContent = {
   'specific-language': (
     <HelpPanel
       footer={
-        <div>
-          <h3>
-            Learn more{' '}
-            <span role="img" aria-label="Icon external Link">
-              <Icon name="external" />
-            </span>
-          </h3>
-          <ul>
-            <li>
-              <ExternalLinkItem href="#" text="How Amazon Transcribe Works" />
-            </li>
-            <li>
-              <ExternalLinkItem href="#" text="What is Amazon Transcribe" />
-            </li>
-          </ul>
-        </div>
+        <ExternalLinkGroup
+          items={[
+            { href: '#', text: 'How Amazon Transcribe Works' },
+            { href: '#', text: 'What is Amazon Transcribe' },
+          ]}
+        />
       }
     >
       <div>
@@ -157,22 +111,12 @@ export const helpPanelContent = {
   'automatic-language': (
     <HelpPanel
       footer={
-        <div>
-          <h3>
-            Learn more{' '}
-            <span role="img" aria-label="Icon external Link">
-              <Icon name="external" />
-            </span>
-          </h3>
-          <ul>
-            <li>
-              <ExternalLinkItem href="#" text="How Amazon Transcribe Works" />
-            </li>
-            <li>
-              <ExternalLinkItem href="#" text="What is Amazon Transcribe" />
-            </li>
-          </ul>
-        </div>
+        <ExternalLinkGroup
+          items={[
+            { href: '#', text: 'How Amazon Transcribe Works' },
+            { href: '#', text: 'What is Amazon Transcribe' },
+          ]}
+        />
       }
     >
       <div>
@@ -201,22 +145,12 @@ export const helpPanelContent = {
   'input-data': (
     <HelpPanel
       footer={
-        <div>
-          <h3>
-            Learn more{' '}
-            <span role="img" aria-label="Icon external Link">
-              <Icon name="external" />
-            </span>
-          </h3>
-          <ul>
-            <li>
-              <ExternalLinkItem href="#" text="Working with S3 buckets" />
-            </li>
-            <li>
-              <ExternalLinkItem href="#" text="Recognizing voices" />
-            </li>
-          </ul>
-        </div>
+        <ExternalLinkGroup
+          items={[
+            { href: '#', text: 'Working with S3 buckets' },
+            { href: '#', text: 'Recognizing voices' },
+          ]}
+        />
       }
     >
       <div>
@@ -233,22 +167,12 @@ export const helpPanelContent = {
   'choose-output-location': (
     <HelpPanel
       footer={
-        <div>
-          <h3>
-            Learn more{' '}
-            <span role="img" aria-label="Icon external Link">
-              <Icon name="external" />
-            </span>
-          </h3>
-          <ul>
-            <li>
-              <ExternalLinkItem href="#" text="Working with S3 buckets" />
-            </li>
-            <li>
-              <ExternalLinkItem href="#" text="Recognizing voices" />
-            </li>
-          </ul>
-        </div>
+        <ExternalLinkGroup
+          items={[
+            { href: '#', text: 'Working with S3 buckets' },
+            { href: '#', text: 'Recognizing voices' },
+          ]}
+        />
       }
     >
       <div>
@@ -267,23 +191,7 @@ export const helpPanelContent = {
     </HelpPanel>
   ),
   'transcription-jobs': (
-    <HelpPanel
-      footer={
-        <div>
-          <h3>
-            Learn more{' '}
-            <span role="img" aria-label="Icon external Link">
-              <Icon name="external" />
-            </span>
-          </h3>
-          <ul>
-            <li>
-              <ExternalLinkItem href="#" text="How Amazon Transcribe works" />
-            </li>
-          </ul>
-        </div>
-      }
-    >
+    <HelpPanel footer={<ExternalLinkGroup items={[{ href: '#', text: 'How Amazon Transcribe works' }]} />}>
       <div>
         <h2>Transcription jobs</h2>
         <p>
@@ -295,23 +203,7 @@ export const helpPanelContent = {
     </HelpPanel>
   ),
   expiration: (
-    <HelpPanel
-      footer={
-        <div>
-          <h3>
-            Learn more{' '}
-            <span role="img" aria-label="Icon external Link">
-              <Icon name="external" />
-            </span>
-          </h3>
-          <ul>
-            <li>
-              <ExternalLinkItem href="#" text="How Amazon Transcribe works" />
-            </li>
-          </ul>
-        </div>
-      }
-    >
+    <HelpPanel footer={<ExternalLinkGroup items={[{ href: '#', text: 'How Amazon Transcribe works' }]} />}>
       <div>
         <h2>Expiration</h2>
         <p>

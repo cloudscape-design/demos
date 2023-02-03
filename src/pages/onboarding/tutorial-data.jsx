@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import { Box, Link } from '@cloudscape-design/components';
 import React, { useState, useCallback } from 'react';
-import { externalLinkProps } from '../../common/labels';
+import { ExternalLink } from '../commons';
 
 const tutorialData = makeHelpPanelHandler => [
   {
@@ -86,8 +86,8 @@ const tutorialData = makeHelpPanelHandler => [
                   </Link>
                 </Box>
                 <Box variant="p">
-                  If you haven't yet uploaded your file, go to <Link {...externalLinkProps}>Amazon S3</Link> to upload
-                  it to a bucket.
+                  If you haven't yet uploaded your file, go to <ExternalLink>Amazon S3</ExternalLink> to upload it to a
+                  bucket.
                 </Box>
               </>
             ),
@@ -144,12 +144,9 @@ const tutorialData = makeHelpPanelHandler => [
       <>
         Transcribe audio first to complete this tutorial.
         <br />
-        <Link
-          href="https://aws.amazon.com/getting-started/hands-on/create-audio-transcript-transcribe/"
-          {...externalLinkProps}
-        >
+        <ExternalLink href="https://aws.amazon.com/getting-started/hands-on/create-audio-transcript-transcribe/">
           Create an Audio Transcript
-        </Link>
+        </ExternalLink>
       </>
     ),
     prerequisitesNeeded: true,

@@ -1,8 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import { HelpPanel, Icon } from '@cloudscape-design/components';
-import { ExternalLinkItem } from '../commons/common-components';
+import { HelpPanel } from '@cloudscape-design/components';
+import { ExternalLinkGroup } from '../commons';
 
 export const PRICE_CLASS_OPTIONS = [
   { label: 'Use all edge locations (best performance)', value: '0' },
@@ -33,28 +33,18 @@ export const TOOLS_CONTENT = [
   <HelpPanel
     header={<h2>Edit distribution</h2>}
     footer={
-      <>
-        <h3>
-          Learn more{' '}
-          <span role="img" aria-label="Icon external Link">
-            <Icon name="external" />
-          </span>
-        </h3>
-        <ul>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/HowCloudFrontWorks.html"
-              text="How CloudFront delivers content to your users"
-            />
-          </li>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-working-with.html"
-              text="Working with distributions"
-            />
-          </li>
-        </ul>
-      </>
+      <ExternalLinkGroup
+        items={[
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/HowCloudFrontWorks.html',
+            text: 'How CloudFront delivers content to your users',
+          },
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-working-with.html',
+            text: 'Working with distributions',
+          },
+        ]}
+      />
     }
   >
     <p>You can update your CloudFront distribution by editing its settings and saving your changes.</p>
@@ -62,22 +52,14 @@ export const TOOLS_CONTENT = [
   <HelpPanel
     header={<h2>Alternate domain names (CNAMEs)</h2>}
     footer={
-      <>
-        <h3>
-          Learn more{' '}
-          <span role="img" aria-label="Icon external Link">
-            <Icon name="external" />
-          </span>
-        </h3>
-        <ul>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-alternate-domain-names.html"
-              text="Requirements for using alternate domain names (CNAMEs)"
-            />
-          </li>
-        </ul>
-      </>
+      <ExternalLinkGroup
+        items={[
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-alternate-domain-names.html',
+            text: 'Requirements for using alternate domain names (CNAMEs)',
+          },
+        ]}
+      />
     }
   >
     <p>
@@ -103,22 +85,14 @@ export const TOOLS_CONTENT = [
   <HelpPanel
     header={<h2>SSL/TLS certificate</h2>}
     footer={
-      <>
-        <h3>
-          Learn more{' '}
-          <span role="img" aria-label="Icon external Link">
-            <Icon name="external" />
-          </span>
-        </h3>
-        <ul>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html"
-              text="Requirements for using SSL/TLS certificates with CloudFront"
-            />
-          </li>
-        </ul>
-      </>
+      <ExternalLinkGroup
+        items={[
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html',
+            text: 'Requirements for using SSL/TLS certificates with CloudFront',
+          },
+        ]}
+      />
     }
   >
     <p>
@@ -141,22 +115,14 @@ export const TOOLS_CONTENT = [
   <HelpPanel
     header={<h2>Root object</h2>}
     footer={
-      <>
-        <h3>
-          Learn more{' '}
-          <span role="img" aria-label="Icon external Link">
-            <Icon name="external" />
-          </span>
-        </h3>
-        <ul>
-          <li>
-            <ExternalLinkItem
-              href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DefaultRootObject.html#DefaultRootObjectHowToDefine"
-              text="Specifying a default root object"
-            />
-          </li>
-        </ul>
-      </>
+      <ExternalLinkGroup
+        items={[
+          {
+            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DefaultRootObject.html#DefaultRootObjectHowToDefine',
+            text: 'Specifying a default root object',
+          },
+        ]}
+      />
     }
   >
     <p>
