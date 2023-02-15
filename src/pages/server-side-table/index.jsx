@@ -80,6 +80,7 @@ function ServerSideTable({ columnDefinitions, saveWidths, loadHelpPanelContent }
       onColumnWidthsChange={saveWidths}
       wrapLines={preferences.wrapLines}
       stripedRows={preferences.stripedRows}
+      contentDensity={preferences.contentDensity}
       header={
         <FullPageHeader
           selectedItemsCount={selectedItems.length}

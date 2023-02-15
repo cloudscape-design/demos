@@ -91,6 +91,7 @@ export const DEFAULT_PREFERENCES = {
   visibleContent: ['id', 'domainName', 'createdAt', 'deliveryMethod', 'sslCertificate', 'status', 'state'],
   wraplines: false,
   stripedRows: false,
+  contentDensity: 'comfortable',
 };
 
 export const FILTERING_PROPERTIES = [

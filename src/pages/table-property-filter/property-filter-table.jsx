@@ -61,6 +61,7 @@ export function PropertyFilterTable({
       resizableColumns={true}
       wrapLines={preferences.wrapLines}
       stripedRows={preferences.stripedRows}
+      contentDensity={preferences.contentDensity}
       onColumnWidthsChange={saveWidths}
       header={
         <FullPageHeader

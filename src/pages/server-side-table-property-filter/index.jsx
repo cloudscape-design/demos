@@ -91,6 +91,7 @@ function ServerSidePropertyFilterTable({ columnDefinitions, saveWidths, loadHelp
       onColumnWidthsChange={saveWidths}
       wrapLines={preferences.wrapLines}
       stripedRows={preferences.stripedRows}
+      contentDensity={preferences.contentDensity}
       header={
         <FullPageHeader
           selectedItemsCount={selectedItems.length}

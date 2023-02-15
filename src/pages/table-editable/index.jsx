@@ -135,6 +135,7 @@ function TableContent({ loadHelpPanelContent, distributions }) {
       onColumnWidthsChange={saveWidths}
       wrapLines={preferences.wrapLines}
       stripedRows={preferences.stripedRows}
+      contentDensity={preferences.contentDensity}
       selectionType="multi"
       loading={loading}
       header={

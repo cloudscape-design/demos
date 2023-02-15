@@ -68,6 +68,7 @@ function TableSelectFilter({ loadHelpPanelContent }) {
     visibleContent: ['id', 'engine', 'version', 'status', 'activity', 'class'],
     wrapLines: false,
     stripedRows: false,
+    contentDensity: 'comfortable',
     custom: 'table',
   });
   const { items, actions, filteredItemsCount, collectionProps, filterProps, paginationProps } = useCollection(DATA, {
@@ -114,6 +115,7 @@ function TableSelectFilter({ loadHelpPanelContent }) {
       onColumnWidthsChange={saveWidths}
       wrapLines={preferences.wrapLines}
       stripedRows={preferences.stripedRows}
+      contentDensity={preferences.contentDensity}
       selectionType="single"
       ariaLabels={{
         itemSelectionLabel: (data, row) => `Select DB instance ${row.id}`,
@@ -201,6 +203,10 @@ function TableSelectFilter({ loadHelpPanelContent }) {
           stripedRowsPreference={{
             label: 'Striped rows',
             description: 'Check to add alternating shaded rows',
+          }}
+          contentDensityPreference={{
+            label: 'Compact mode',
+            description: 'Check to display table content in a denser, more compact mode',
           }}
           visibleContentPreference={{
             title: 'Select visible columns',

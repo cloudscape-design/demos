@@ -98,4 +98,5 @@ export const DEFAULT_PREFERENCES = {
   visibleContent: ['id', 'type', 'publicDns', 'monitoring', 'state'],
   wrapLines: false,
   stripedRows: false,
+  contentDensity: 'comfortable',
 };
