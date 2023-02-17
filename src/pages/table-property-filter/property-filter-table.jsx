@@ -15,7 +15,7 @@ import {
   paginationAriaLabels,
   propertyFilterI18nStrings,
 } from '../../i18n-strings';
-import { Preferences } from '../table/table-config';
+import { Preferences } from '../commons/table-config';
 
 import '../../styles/base.scss';
 

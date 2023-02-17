@@ -31,7 +31,7 @@ import {
   serverSideErrorsStore,
   domainNameRegex,
   INVALID_DOMAIN_MESSAGE,
-} from '../table/table-config';
+} from '../commons/table-config';
 
 const withSideEffect =
   (fn, sideEffect) =>

@@ -20,7 +20,7 @@ import {
 import { useLocalStorage } from '../commons/use-local-storage';
 import '../../styles/base.scss';
 import { useColumnWidths } from '../commons/use-column-widths';
-import { DEFAULT_PREFERENCES, Preferences } from '../table/table-config';
+import { DEFAULT_PREFERENCES, Preferences } from '../commons/table-config';
 import { useDistributions } from '../server-side-table/hooks';
 import { useDistributionsPropertyFiltering } from './hooks';
 
