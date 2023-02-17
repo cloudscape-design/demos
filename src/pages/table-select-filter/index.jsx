@@ -3,7 +3,7 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { useCollection } from '@cloudscape-design/collection-hooks';
-import { COLUMN_DEFINITIONS, SEARCHABLE_COLUMNS } from './table-select-filter-config';
+import { COLUMN_DEFINITIONS, SEARCHABLE_COLUMNS, VISIBLE_CONTENT_OPTIONS } from './table-select-filter-config';
 import { Preferences } from '../commons/table-config';
 import { Button, Input, Pagination, SpaceBetween, Select, Table } from '@cloudscape-design/components';
 import { Navigation, Breadcrumbs, ToolsContent } from './table-select-filter-components';
@@ -173,7 +173,13 @@ function TableSelectFilter({ loadHelpPanelContent }) {
         </div>
       }
       pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels} />}
-      preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}
+      preferences={
+        <Preferences
+          preferences={preferences}
+          setPreferences={setPreferences}
+          visibleContentOptions={VISIBLE_CONTENT_OPTIONS}
+        />
+      }
     />
   );
 }
