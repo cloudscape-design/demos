@@ -1,7 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
+
 import {
   Alert,
   AppLayout,
@@ -25,31 +26,59 @@ import '../../styles/base.scss';
 import DistributionsTable from './distributions-table';
 import useLocationHash from './use-location-hash';
 import useNotifications from './use-notifications';
+import { flashbarI18nStrings } from '../../i18n-strings';
+import fakeDelay from '../commons/fake-delay';
+
+const delay = 3000;
 
 function App() {
   const [distributions, setDistributions] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
-  const [deletedTotal, setDeletedTotal] = useState(0);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const failingDistributions = useRef([]);
 
   const locationHash = useLocationHash();
   const locationDistribution = distributions.find(it => it.id === locationHash);
-  const { notifications } = useNotifications({ deletedTotal, resourceName: 'distribution' });
+  const { clearFailed, notifications, notifyDeleted, notifyFailed, notifyInProgress } = useNotifications({
+    resourceName: 'distribution',
+  });
+
+  const deletionWillFail = distribution => !!failingDistributions.current.find(item => item.id === distribution.id);
 
   const onDeleteInit = () => setShowDeleteModal(true);
   const onDeleteDiscard = () => setShowDeleteModal(false);
-  const onDeleteConfirm = () => {
-    const deleted = locationDistribution ? [locationDistribution] : selectedItems;
-    setDistributions(distributions.filter(d => !deleted.includes(d)));
+  const onDeleteConfirm = async () => {
+    const itemsToDelete = locationDistribution ? [locationDistribution] : selectedItems;
+    const itemsThatWillSucceed = itemsToDelete.filter(item => !deletionWillFail(item));
+    const itemsThatWillFail = itemsToDelete.filter(deletionWillFail);
     setSelectedItems([]);
     setShowDeleteModal(false);
-    setDeletedTotal(prev => prev + deleted.size);
+    notifyInProgress(itemsToDelete);
+    await fakeDelay(delay);
+    const deletedIds = new Set(itemsThatWillSucceed.map(({ id }) => id));
+    setDistributions(distributions => distributions.filter(({ id }) => !deletedIds.has(id)));
+    notifyInProgress(itemsThatWillFail);
+    notifyDeleted(itemsThatWillSucceed);
+    await fakeDelay(delay / 2);
+    notifyFailed(itemsThatWillFail, {
+      retry: async distribution => {
+        notifyInProgress([distribution]);
+        clearFailed(distribution);
+        await fakeDelay(delay);
+        setDistributions(distributions => distributions.filter(({ id }) => id !== distribution.id));
+        notifyInProgress([]);
+        notifyDeleted([distribution]);
+      },
+    });
+    notifyInProgress([]);
   };
 
   useEffect(() => {
     new DataProvider().getData('distributions').then(distributions => {
       setDistributions(distributions);
-      setSelectedItems(distributions.sort((a, b) => a.id.localeCompare(b.id)).slice(0, 5));
+      const sorted = [...distributions].sort((a, b) => a.id.localeCompare(b.id));
+      failingDistributions.current = [sorted[0]];
+      setSelectedItems(sorted.slice(0, 5));
       setShowDeleteModal(true);
     });
   }, []);
@@ -96,7 +125,6 @@ function DistributionsPage({ distributions, selectedItems, setSelectedItems, onD
           onDelete={onDeleteInit}
         />
       }
-      headerSelector="#header"
       breadcrumbs={
         <BreadcrumbGroup
           items={[
@@ -107,7 +135,7 @@ function DistributionsPage({ distributions, selectedItems, setSelectedItems, onD
           ariaLabel="Breadcrumbs"
         />
       }
-      notifications={<Flashbar items={notifications} />}
+      notifications={<Flashbar items={notifications} stackItems={true} i18nStrings={flashbarI18nStrings} />}
       navigation={<Navigation activeHref="#" />}
       navigationOpen={false}
       toolsHide={true}
@@ -141,7 +169,6 @@ function DistributionDetailsPage({ distribution, onDeleteInit, notifications }) 
           </Container>
         </ContentLayout>
       }
-      headerSelector="#header"
       breadcrumbs={
         <BreadcrumbGroup
           items={[
@@ -153,7 +180,7 @@ function DistributionDetailsPage({ distribution, onDeleteInit, notifications }) 
           ariaLabel="Breadcrumbs"
         />
       }
-      notifications={<Flashbar items={notifications} />}
+      notifications={<Flashbar items={notifications} stackItems={true} i18nStrings={flashbarI18nStrings} />}
       navigation={<Navigation activeHref="#" />}
       navigationOpen={false}
       toolsHide={true}
@@ -176,7 +203,7 @@ function DeleteModal({ distributions, visible, onDiscard, onDelete }) {
             <Button variant="link" onClick={onDiscard}>
               Cancel
             </Button>
-            <Button variant="primary" onClick={onDelete}>
+            <Button variant="primary" onClick={onDelete} data-testid="submit">
               Delete
             </Button>
           </SpaceBetween>

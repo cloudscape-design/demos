@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
+
 import {
   Alert,
   AppLayout,
@@ -28,27 +29,53 @@ import ItemState from '../delete-with-simple-confirmation/item-state';
 import useLocationHash from '../delete-with-simple-confirmation/use-location-hash';
 import useNotifications from '../delete-with-simple-confirmation/use-notifications';
 import InstancesTable from './instances-table';
+import { flashbarI18nStrings } from '../../i18n-strings';
+import fakeDelay from '../commons/fake-delay';
+
+const delay = 3000;
+const failingInstances = [INSTANCES[0]];
 
 function App() {
   const [instances, setInstances] = useState(INSTANCES);
   const [selectedItems, setSelectedItems] = useState([]);
-  const [deletedTotal, setDeletedTotal] = useState(0);
   const [showDeleteModal, setShowDeleteModal] = useState(true);
 
   const locationHash = useLocationHash();
   const locationInstance = instances.find(it => it.id === locationHash);
-  const { notifications, notifyInProgress } = useNotifications({ deletedTotal, resourceName: 'instance' });
+  const { clearFailed, notifications, notifyDeleted, notifyFailed, notifyInProgress } = useNotifications({
+    resourceName: 'instance',
+  });
+
+  const deletionWillFail = instance => {
+    return !!failingInstances.find(item => item.id === instance.id);
+  };
 
   const onDeleteInit = () => setShowDeleteModal(true);
   const onDeleteDiscard = () => setShowDeleteModal(false);
-  const onDeleteConfirm = () => {
-    const deleted = locationInstance ? [locationInstance] : selectedItems;
-    const updated = instances.map(it =>
-      deleted.includes(it) ? { ...it, state: 'deleting', timestamp: Date.now() } : it
-    );
-    setInstances(updated);
+  const onDeleteConfirm = async () => {
+    const itemsToDelete = locationInstance ? [locationInstance] : selectedItems;
+    const itemsThatWillSucceed = itemsToDelete.filter(item => !deletionWillFail(item));
+    const itemsThatWillFail = itemsToDelete.filter(deletionWillFail);
     setSelectedItems([]);
     setShowDeleteModal(false);
+    notifyInProgress(itemsToDelete);
+    await fakeDelay(delay);
+    const deletedIds = new Set(itemsThatWillSucceed.map(({ id }) => id));
+    setInstances(instances => instances.filter(({ id }) => !deletedIds.has(id)));
+    notifyInProgress(itemsThatWillFail);
+    notifyDeleted(itemsThatWillSucceed);
+    await fakeDelay(delay / 2);
+    notifyFailed(itemsThatWillFail, {
+      retry: async instance => {
+        notifyInProgress([instance]);
+        clearFailed(instance);
+        await fakeDelay(delay);
+        setInstances(instances => instances.filter(({ id }) => id !== instance.id));
+        notifyInProgress([]);
+        notifyDeleted([instance]);
+      },
+    });
+    notifyInProgress([]);
   };
 
   useEffect(() => {
@@ -57,17 +84,6 @@ function App() {
 
   useEffect(() => {
     setSelectedItems(INSTANCES.slice(0, 3));
-  }, []);
-
-  useEffect(() => {
-    setDeletedTotal(INSTANCES.length - instances.length);
-    notifyInProgress(instances.filter(it => it.state === 'deleting').length);
-  }, [instances, notifyInProgress]);
-
-  useEffect(() => {
-    setInterval(() => {
-      setInstances(instances => instances.filter(it => it.state !== 'deleting' || Date.now() - it.timestamp < 5000));
-    }, 5000);
   }, []);
 
   return (
@@ -104,7 +120,6 @@ function InstancesPage({ instances, selectedItems, setSelectedItems, onDeleteIni
           onDelete={onDeleteInit}
         />
       }
-      headerSelector="#header"
       breadcrumbs={
         <BreadcrumbGroup
           items={[
@@ -115,7 +130,7 @@ function InstancesPage({ instances, selectedItems, setSelectedItems, onDeleteIni
           ariaLabel="Breadcrumbs"
         />
       }
-      notifications={<Flashbar items={notifications} />}
+      notifications={<Flashbar items={notifications} stackItems={true} i18nStrings={flashbarI18nStrings} />}
       navigation={<Navigation activeHref="#" />}
       navigationOpen={false}
       toolsHide={true}
@@ -174,7 +189,6 @@ function InstanceDetailsPage({ instance, onDeleteInit, notifications }) {
           </Container>
         </ContentLayout>
       }
-      headerSelector="#header"
       breadcrumbs={
         <BreadcrumbGroup
           items={[
@@ -186,7 +200,7 @@ function InstanceDetailsPage({ instance, onDeleteInit, notifications }) {
           ariaLabel="Breadcrumbs"
         />
       }
-      notifications={<Flashbar items={notifications} />}
+      notifications={<Flashbar items={notifications} stackItems={true} i18nStrings={flashbarI18nStrings} />}
       navigation={<Navigation activeHref="#" />}
       navigationOpen={false}
       toolsHide={true}
@@ -225,7 +239,7 @@ function DeleteModal({ instances, visible, onDiscard, onDelete }) {
             <Button variant="link" onClick={onDiscard}>
               Cancel
             </Button>
-            <Button variant="primary" onClick={onDelete} disabled={!inputMatchesConsentText}>
+            <Button variant="primary" onClick={onDelete} disabled={!inputMatchesConsentText} data-testid="submit">
               Delete
             </Button>
           </SpaceBetween>
