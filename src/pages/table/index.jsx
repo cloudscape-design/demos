@@ -4,7 +4,7 @@ import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { useCollection } from '@cloudscape-design/collection-hooks';
 import DataProvider from '../commons/data-provider';
-import { COLUMN_DEFINITIONS, DEFAULT_PREFERENCES, Preferences } from './table-config';
+import { COLUMN_DEFINITIONS, DEFAULT_PREFERENCES, Preferences } from '../commons/table-config';
 import { Pagination, Table, TextFilter } from '@cloudscape-design/components';
 import { FullPageHeader } from '../commons';
 import { Breadcrumbs, ToolsContent } from './common-components';
@@ -54,6 +54,7 @@ function TableContent({ distributions, loadHelpPanelContent }) {
       onColumnWidthsChange={saveWidths}
       wrapLines={preferences.wrapLines}
       stripedRows={preferences.stripedRows}
+      contentDensity={preferences.contentDensity}
       header={
         <FullPageHeader
           selectedItemsCount={collectionProps.selectedItems.length}

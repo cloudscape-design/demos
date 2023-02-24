@@ -6,7 +6,7 @@ import intersection from 'lodash/intersection';
 import Pagination from '@cloudscape-design/components/pagination';
 import Table from '@cloudscape-design/components/table';
 import TextFilter from '@cloudscape-design/components/text-filter';
-import { COLUMN_DEFINITIONS, DEFAULT_PREFERENCES, Preferences } from '../table/table-config';
+import { COLUMN_DEFINITIONS, DEFAULT_PREFERENCES, Preferences } from '../commons/table-config';
 import { Breadcrumbs, ToolsContent } from '../table/common-components';
 import { CustomAppLayout, Navigation, Notifications, TableNoMatchState } from '../commons/common-components';
 import { FullPageHeader } from '../commons';
@@ -80,6 +80,7 @@ function ServerSideTable({ columnDefinitions, saveWidths, loadHelpPanelContent }
       onColumnWidthsChange={saveWidths}
       wrapLines={preferences.wrapLines}
       stripedRows={preferences.stripedRows}
+      contentDensity={preferences.contentDensity}
       header={
         <FullPageHeader
           selectedItemsCount={selectedItems.length}
