@@ -9,7 +9,7 @@ import { useLocalStorage } from '../commons/use-local-storage';
 import { Breadcrumbs, ToolsContent } from '../table/common-components';
 import { CustomAppLayout, Navigation, Notifications } from '../commons/common-components';
 import { COLUMN_DEFINITIONS, FILTERING_PROPERTIES } from './table-property-filter-config';
-import { DEFAULT_PREFERENCES } from '../table/table-config';
+import { DEFAULT_PREFERENCES } from '../commons/table-config';
 import { PropertyFilterTable } from './property-filter-table';
 import '../../styles/base.scss';
 

@@ -15,7 +15,7 @@ import {
   paginationAriaLabels,
   propertyFilterI18nStrings,
 } from '../../i18n-strings';
-import { Preferences } from '../table/table-config';
+import { Preferences } from '../commons/table-config';
 
 import '../../styles/base.scss';
 
@@ -61,6 +61,7 @@ export function PropertyFilterTable({
       resizableColumns={true}
       wrapLines={preferences.wrapLines}
       stripedRows={preferences.stripedRows}
+      contentDensity={preferences.contentDensity}
       onColumnWidthsChange={saveWidths}
       header={
         <FullPageHeader

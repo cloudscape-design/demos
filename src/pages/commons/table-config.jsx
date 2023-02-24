@@ -229,6 +229,7 @@ export const DEFAULT_PREFERENCES = {
   visibleContent: ['id', 'domainName', 'deliveryMethod', 'sslCertificate', 'status', 'state'],
   wrapLines: false,
   stripedRows: false,
+  contentDensity: 'comfortable',
 };
 
 export const EDITABLE_PREFERENCES = {
@@ -236,6 +237,7 @@ export const EDITABLE_PREFERENCES = {
   visibleContent: ['id', 'domainName', 'deliveryMethod', 'sslCertificate', 'state'],
   wrapLines: false,
   stripedRows: false,
+  contentDensity: 'comfortable',
 };
 
 export const Preferences = ({
@@ -263,6 +265,10 @@ export const Preferences = ({
     stripedRowsPreference={{
       label: 'Striped rows',
       description: 'Check to add alternating shaded rows',
+    }}
+    contentDensityPreference={{
+      label: 'Compact mode',
+      description: 'Check to display table content in a denser, more compact mode',
     }}
     visibleContentPreference={{
       title: 'Select visible columns',

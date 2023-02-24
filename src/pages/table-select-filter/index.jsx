@@ -3,21 +3,9 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { useCollection } from '@cloudscape-design/collection-hooks';
-import {
-  COLUMN_DEFINITIONS,
-  VISIBLE_CONTENT_OPTIONS,
-  PAGE_SIZE_OPTIONS,
-  SEARCHABLE_COLUMNS,
-} from './table-select-filter-config';
-import {
-  Button,
-  CollectionPreferences,
-  Input,
-  Pagination,
-  SpaceBetween,
-  Select,
-  Table,
-} from '@cloudscape-design/components';
+import { COLUMN_DEFINITIONS, SEARCHABLE_COLUMNS, VISIBLE_CONTENT_OPTIONS } from './table-select-filter-config';
+import { Preferences } from '../commons/table-config';
+import { Button, Input, Pagination, SpaceBetween, Select, Table } from '@cloudscape-design/components';
 import { Navigation, Breadcrumbs, ToolsContent } from './table-select-filter-components';
 import '../../styles/table-select.scss';
 import DATA from '../../resources/instances';
@@ -68,6 +56,7 @@ function TableSelectFilter({ loadHelpPanelContent }) {
     visibleContent: ['id', 'engine', 'version', 'status', 'activity', 'class'],
     wrapLines: false,
     stripedRows: false,
+    contentDensity: 'comfortable',
     custom: 'table',
   });
   const { items, actions, filteredItemsCount, collectionProps, filterProps, paginationProps } = useCollection(DATA, {
@@ -114,6 +103,7 @@ function TableSelectFilter({ loadHelpPanelContent }) {
       onColumnWidthsChange={saveWidths}
       wrapLines={preferences.wrapLines}
       stripedRows={preferences.stripedRows}
+      contentDensity={preferences.contentDensity}
       selectionType="single"
       ariaLabels={{
         itemSelectionLabel: (data, row) => `Select DB instance ${row.id}`,
@@ -184,28 +174,10 @@ function TableSelectFilter({ loadHelpPanelContent }) {
       }
       pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels} />}
       preferences={
-        <CollectionPreferences
-          title="Preferences"
-          confirmLabel="Confirm"
-          cancelLabel="Cancel"
+        <Preferences
           preferences={preferences}
-          onConfirm={({ detail }) => setPreferences(detail)}
-          pageSizePreference={{
-            title: 'Page size',
-            options: PAGE_SIZE_OPTIONS,
-          }}
-          wrapLinesPreference={{
-            label: 'Wrap lines',
-            description: 'Check to see all the text and wrap the lines',
-          }}
-          stripedRowsPreference={{
-            label: 'Striped rows',
-            description: 'Check to add alternating shaded rows',
-          }}
-          visibleContentPreference={{
-            title: 'Select visible columns',
-            options: VISIBLE_CONTENT_OPTIONS,
-          }}
+          setPreferences={setPreferences}
+          visibleContentOptions={VISIBLE_CONTENT_OPTIONS}
         />
       }
     />
