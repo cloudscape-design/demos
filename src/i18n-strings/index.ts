@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 
 export * from './app-layout';
+export * from './flashbar';
 export * from './header';
 export * from './pagination';
 export * from './property-filter';
