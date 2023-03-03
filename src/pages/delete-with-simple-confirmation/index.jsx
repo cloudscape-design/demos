@@ -214,24 +214,26 @@ function DeleteModal({ distributions, visible, onDiscard, onDelete }) {
         <SpaceBetween size="m">
           {isMultiple ? (
             <Box variant="span">
-              Delete{' '}
+              Permanently delete{' '}
               <Box variant="span" fontWeight="bold">
                 {distributions.length} distributions
-              </Box>{' '}
-              permanently? This action cannot be undone.
+              </Box>
+              ? You can’t undo this action.
             </Box>
           ) : (
             <Box variant="span">
-              Delete distribution{' '}
+              Permanently delete distribution{' '}
               <Box variant="span" fontWeight="bold">
                 {distributions[0].id}
-              </Box>{' '}
-              permanently? This action cannot be undone.
+              </Box>
+              ? You can’t undo this action.
             </Box>
           )}
 
           <Alert statusIconAriaLabel="Info">
-            Proceeding with this action will delete distribution(s) with all content and can impact related resources.{' '}
+            Proceeding with this action will delete the
+            {isMultiple ? ' distributions with all their content ' : ' distribution with all its content'} and can
+            affect related resources.{' '}
             <Link external={true} href="#">
               Learn more
             </Link>

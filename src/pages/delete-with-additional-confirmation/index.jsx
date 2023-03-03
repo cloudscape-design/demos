@@ -250,34 +250,36 @@ function DeleteModal({ instances, visible, onDiscard, onDelete }) {
         <SpaceBetween size="m">
           {isMultiple ? (
             <Box variant="span">
-              Delete{' '}
+              Permanently delete{' '}
               <Box variant="span" fontWeight="bold">
                 {instances.length} instances
-              </Box>{' '}
-              permanently? This action cannot be undone.
+              </Box>
+              ? You can’t undo this action.
             </Box>
           ) : (
             <Box variant="span">
-              Delete instance{' '}
+              Permanently delete instance{' '}
               <Box variant="span" fontWeight="bold">
                 {instances[0].id}
-              </Box>{' '}
-              permanently? This action cannot be undone.
+              </Box>
+              ? You can’t undo this action.
             </Box>
           )}
 
           <Alert type="warning" statusIconAriaLabel="Warning">
-            Proceeding with this action will delete instance(s) with all content and can impact related resources.{' '}
+            Proceeding with this action will delete the
+            {isMultiple ? ' instances with all their content ' : ' instance with all its content'} and can affect
+            related resources.{' '}
             <Link external={true} href="#">
               Learn more
             </Link>
           </Alert>
 
-          <Box>To avoid accidental deletions we ask you to provide additional written consent.</Box>
+          <Box>To avoid accidental deletions, we ask you to provide additional written consent.</Box>
 
           <ColumnLayout columns={2}>
             <form onSubmit={handleDeleteSubmit}>
-              <FormField label={`Type "${deleteConsentText}" to agree.`}>
+              <FormField label={`To confirm this deletion, type "${deleteConsentText}".`}>
                 <Input
                   placeholder={deleteConsentText}
                   onChange={event => setDeleteInputText(event.detail.value)}
