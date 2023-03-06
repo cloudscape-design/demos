@@ -29,6 +29,14 @@ function filterIgnored(results: Axe.Result[]) {
         return !chartIssue;
       }
 
+      // allow presentational dividers inside lists
+      if (result.id === 'list') {
+        const presentationRoleIssue = result.nodes.every(
+          node => node.failureSummary?.indexOf('role=presentation') !== -1
+        );
+        return !presentationRoleIssue;
+      }
+
       return true;
     }
     return false;
