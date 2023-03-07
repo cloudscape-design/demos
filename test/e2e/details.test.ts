@@ -3,7 +3,6 @@
 import useBrowser from '@cloudscape-design/browser-test-tools/use-browser';
 import createWrapper from '@cloudscape-design/components/test-utils/selectors';
 import { BasePageObject } from '@cloudscape-design/browser-test-tools/page-objects';
-import legalDisclaimerTest from './common/legal-disclaimer';
 
 const tableWrapper = createWrapper().findTable('#tags-panel');
 class PageObject extends BasePageObject {
@@ -26,8 +25,6 @@ const setupTest = (testFn: { (page: PageObject): Promise<void> }) => {
     await testFn(page);
   });
 };
-
-legalDisclaimerTest(setupTest);
 
 describe('Tags Table (react)', () => {
   test(

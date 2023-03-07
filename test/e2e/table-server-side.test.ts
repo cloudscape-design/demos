@@ -5,7 +5,6 @@ import commonTableTests from './common/table/table-tests';
 import TableFilteringPageObject from './page/table-filtering-page-object';
 import commonFilteringTests from './common/table/table-filtering-tests';
 import commonPreferencesTests from './common/table/table-preferences-tests';
-import legalDisclaimerTest from './common/legal-disclaimer';
 import commonFlashTests from './common/flashbar-tests';
 
 describe('Table - Server side', () => {
@@ -17,8 +16,6 @@ describe('Table - Server side', () => {
       await testFn(page);
     });
   };
-
-  legalDisclaimerTest(setupTest);
 
   commonTableTests(setupTest);
   commonFlashTests(setupTest);

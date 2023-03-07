@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MIT-0
 import useBrowser from '@cloudscape-design/browser-test-tools/use-browser';
 import createWrapper from '@cloudscape-design/components/test-utils/selectors';
-import legalDisclaimerTest from './common/legal-disclaimer';
 import S3PageObject from './page/s3-page-object';
 
 const s3ResourceSelector = createWrapper().findS3ResourceSelector();
@@ -31,8 +30,6 @@ describe('S3 Resource Selector - Read mode', () => {
       await testFn(page);
     });
   };
-
-  legalDisclaimerTest(setupTest);
 
   test(
     'does not allow selecting buckets and folders',

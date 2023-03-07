@@ -5,7 +5,6 @@ import TablePropertyFilteringPageObject from './page/table-property-filtering-pa
 import commonTableTests from './common/table/table-tests';
 import commonPropertyFilteringTests from './common/table/table-property-filtering-tests';
 import commonPreferencesTests from './common/table/table-preferences-tests';
-import legalDisclaimerTest from './common/legal-disclaimer';
 import commonFlashTests from './common/flashbar-tests';
 
 describe('Table - Property Filtering', () => {
@@ -17,8 +16,6 @@ describe('Table - Property Filtering', () => {
       await testFn(page);
     });
   };
-
-  legalDisclaimerTest(setupTest);
 
   commonTableTests(setupTest);
   commonFlashTests(setupTest);

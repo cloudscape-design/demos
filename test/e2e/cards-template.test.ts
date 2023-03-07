@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import useBrowser from '@cloudscape-design/browser-test-tools/use-browser';
-import legalDisclaimerTest from './common/legal-disclaimer';
 import Page from './page/cards-page-object';
 import commonFlashTests from './common/flashbar-tests';
 
@@ -15,7 +14,6 @@ describe('React Cards - Client side', () => {
     });
   };
 
-  legalDisclaimerTest(setupTest);
   commonFlashTests(setupTest);
 
   test(

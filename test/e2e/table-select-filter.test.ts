@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import useBrowser from '@cloudscape-design/browser-test-tools/use-browser';
-import legalDisclaimerTest from './common/legal-disclaimer';
 import Page from './page/table-select-filter-page-object';
 
 describe('Table Select Filter', () => {
@@ -13,8 +12,6 @@ describe('Table Select Filter', () => {
       await testFn(page);
     });
   };
-
-  legalDisclaimerTest(setupTest);
 
   test(
     'Initial layout is correct',
