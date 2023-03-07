@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import useBrowser from '@cloudscape-design/browser-test-tools/use-browser';
-import legalDisclaimerTest from './common/legal-disclaimer';
 import Page from './page/details-tabs-page-object';
 
 describe('Details Tabs', () => {
@@ -13,8 +12,6 @@ describe('Details Tabs', () => {
       await testFn(page);
     });
   };
-
-  legalDisclaimerTest(setupTest);
 
   test(
     'Initial state is correct',

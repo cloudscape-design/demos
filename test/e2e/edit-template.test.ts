@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import useBrowser from '@cloudscape-design/browser-test-tools/use-browser';
-import legalDisclaimerTest from './common/legal-disclaimer';
 import Page from './page/edit-form-page-object';
 
 const setupTest = (testFn: { (page: Page): Promise<void> }) => {
@@ -12,8 +11,6 @@ const setupTest = (testFn: { (page: Page): Promise<void> }) => {
     await testFn(page);
   });
 };
-
-legalDisclaimerTest(setupTest);
 
 describe('Edit', () => {
   test(

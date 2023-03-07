@@ -4,7 +4,6 @@
 import useBrowser from '@cloudscape-design/browser-test-tools/use-browser';
 import TableEditablePageObject from './page/table-editable-page-object';
 import commonTableTests, { SetupTest } from './common/table/table-tests';
-import legalDisclaimerTest from './common/legal-disclaimer';
 
 describe('Table - Inline Editing', () => {
   const setupTest: SetupTest<TableEditablePageObject> = testFn => {
@@ -15,8 +14,6 @@ describe('Table - Inline Editing', () => {
       await testFn(page);
     });
   };
-
-  legalDisclaimerTest(setupTest);
 
   commonTableTests(setupTest);
 

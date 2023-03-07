@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MIT-0
 import useBrowser from '@cloudscape-design/browser-test-tools/use-browser';
 import createWrapper from '@cloudscape-design/components/test-utils/selectors';
-import legalDisclaimerTest from './common/legal-disclaimer';
 import S3PageObject from './page/s3-page-object';
 
 ['read-from-s3', 'write-to-s3'].forEach(pageName =>
@@ -15,8 +14,6 @@ import S3PageObject from './page/s3-page-object';
         await testFn(page);
       });
     };
-
-    legalDisclaimerTest(setupTest);
 
     test(
       'shows validation errors when invalid and enables view link when valid',

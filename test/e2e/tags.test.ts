@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import useBrowser from '@cloudscape-design/browser-test-tools/use-browser';
-import legalDisclaimerTest from './common/legal-disclaimer';
 import PageObject from './page/tags-page-object';
 
 const setupTest = (testFn: { (page: PageObject): Promise<void> }) => {
@@ -12,8 +11,6 @@ const setupTest = (testFn: { (page: PageObject): Promise<void> }) => {
     await testFn(page);
   });
 };
-
-legalDisclaimerTest(setupTest);
 
 describe('Manage Tags', () => {
   test(

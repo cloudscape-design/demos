@@ -3,7 +3,6 @@
 import useBrowser from '@cloudscape-design/browser-test-tools/use-browser';
 import createWrapper from '@cloudscape-design/components/test-utils/selectors';
 import { BasePageObject } from '@cloudscape-design/browser-test-tools/page-objects';
-import legalDisclaimerTest from './common/legal-disclaimer';
 
 const setupTest = (testFn: (page: TagsTab) => Promise<void>) => {
   return useBrowser(async browser => {
@@ -13,8 +12,6 @@ const setupTest = (testFn: (page: TagsTab) => Promise<void>) => {
     await testFn(tagsTab);
   });
 };
-
-legalDisclaimerTest(setupTest);
 
 describe('Tags Table', () => {
   test(

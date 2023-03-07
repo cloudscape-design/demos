@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import useBrowser from '@cloudscape-design/browser-test-tools/use-browser';
-import legalDisclaimerTest from './common/legal-disclaimer';
 import FormTemplatePage from './page/form-template-page-object';
 
 const setupTest = (testFn: { (page: FormTemplatePage): Promise<void> }) => {
@@ -13,8 +12,6 @@ const setupTest = (testFn: { (page: FormTemplatePage): Promise<void> }) => {
     await testFn(page);
   });
 };
-
-legalDisclaimerTest(setupTest);
 
 describe('Form validation example', () => {
   test(
