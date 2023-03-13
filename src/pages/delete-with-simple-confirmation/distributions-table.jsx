@@ -60,13 +60,6 @@ const rawColumns = [
     cell: item => item.origin,
     minWidth: 100,
   },
-  {
-    id: 'status',
-    sortingField: 'status',
-    header: 'Status',
-    cell: item => item.status,
-    minWidth: 100,
-  },
 ];
 const columnDefinitions = rawColumns.map(column => ({ ...column, ariaLabel: createTableSortLabelFn(column) }));
 

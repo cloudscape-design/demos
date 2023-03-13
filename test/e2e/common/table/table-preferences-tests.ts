@@ -45,9 +45,8 @@ export default function commonPreferencesTests(setupTest: {
         await page.openTablePreferences();
         await page.setTablePreferenceTableColumns(2);
         await page.setTablePreferenceTableColumns(3);
+        await page.setTablePreferenceTableColumns(4);
         await page.setTablePreferenceTableColumns(5);
-        await page.setTablePreferenceTableColumns(7);
-        await page.setTablePreferenceTableColumns(8);
         await page.confirmTablePreferenceChanges();
 
         expect(await page.countTableColumns()).toBe(2);
@@ -55,15 +54,15 @@ export default function commonPreferencesTests(setupTest: {
     );
 
     test(
-      'has 10 column when changing all editable columns to visible',
+      'has 9 columns when changing all editable columns to visible',
       setupTest(async page => {
         await page.openTablePreferences();
-        await page.setTablePreferenceTableColumns(4);
         await page.setTablePreferenceTableColumns(6);
-        await page.setTablePreferenceTableColumns(9);
+        await page.setTablePreferenceTableColumns(7);
+        await page.setTablePreferenceTableColumns(8);
         await page.confirmTablePreferenceChanges();
 
-        expect(await page.countTableColumns()).toBe(10);
+        expect(await page.countTableColumns()).toBe(9);
       })
     );
   });

@@ -47,13 +47,6 @@ const rawColumns = [
     minWidth: 100,
   },
   {
-    id: 'priceClass',
-    sortingField: 'priceClass',
-    header: 'Price class',
-    cell: item => item.priceClass,
-    minWidth: 100,
-  },
-  {
     id: 'sslCertificate',
     sortingField: 'sslCertificate',
     header: 'SSL certificate',
@@ -61,17 +54,10 @@ const rawColumns = [
     minWidth: 100,
   },
   {
-    id: 'origin',
-    sortingField: 'origin',
-    header: 'Origin',
-    cell: item => item.origin,
-    minWidth: 100,
-  },
-  {
-    id: 'status',
-    sortingField: 'status',
-    header: 'Status',
-    cell: item => item.status,
+    id: 'priceClass',
+    sortingField: 'priceClass',
+    header: 'Price class',
+    cell: item => item.priceClass,
     minWidth: 100,
   },
   {
@@ -79,6 +65,13 @@ const rawColumns = [
     sortingField: 'logging',
     header: 'Logging',
     cell: item => item.logging,
+    minWidth: 100,
+  },
+  {
+    id: 'origin',
+    sortingField: 'origin',
+    header: 'Origin',
+    cell: item => item.origin,
     minWidth: 100,
   },
 ];
@@ -205,15 +198,14 @@ const VISIBLE_CONTENT_OPTIONS = [
   {
     label: 'Main distribution properties',
     options: [
-      { id: 'id', label: 'Distribution ID' },
+      { id: 'id', label: 'Distribution ID', editable: false },
+      { id: 'state', label: 'State' },
       { id: 'domainName', label: 'Domain name' },
       { id: 'deliveryMethod', label: 'Delivery method' },
-      { id: 'priceClass', label: 'Price class' },
       { id: 'sslCertificate', label: 'SSL certificate' },
-      { id: 'origin', label: 'Origin' },
-      { id: 'status', label: 'Status' },
-      { id: 'state', label: 'State' },
+      { id: 'priceClass', label: 'Price class' },
       { id: 'logging', label: 'Logging' },
+      { id: 'origin', label: 'Origin' },
     ],
   },
 ];
@@ -260,15 +252,15 @@ export const Preferences = ({
     }}
     wrapLinesPreference={{
       label: 'Wrap lines',
-      description: 'Check to see all the text and wrap the lines',
+      description: 'Select to see all the text and wrap the lines',
     }}
     stripedRowsPreference={{
       label: 'Striped rows',
-      description: 'Check to add alternating shaded rows',
+      description: 'Select to add alternating shaded rows',
     }}
     contentDensityPreference={{
       label: 'Compact mode',
-      description: 'Check to display table content in a denser, more compact mode',
+      description: 'Select to display table content in a denser, more compact mode',
     }}
     visibleContentPreference={{
       title: 'Select visible columns',
