@@ -48,13 +48,6 @@ const rawColumns = [
     minWidth: 100,
   },
   {
-    id: 'priceClass',
-    sortingField: 'priceClass',
-    header: 'Price class',
-    cell: item => item.priceClass,
-    minWidth: 100,
-  },
-  {
     id: 'sslCertificate',
     sortingField: 'sslCertificate',
     header: 'SSL certificate',
@@ -62,17 +55,10 @@ const rawColumns = [
     minWidth: 100,
   },
   {
-    id: 'origin',
-    sortingField: 'origin',
-    header: 'Origin',
-    cell: item => item.origin,
-    minWidth: 100,
-  },
-  {
-    id: 'status',
-    sortingField: 'status',
-    header: 'Status',
-    cell: item => item.status,
+    id: 'priceClass',
+    sortingField: 'priceClass',
+    header: 'Price class',
+    cell: item => item.priceClass,
     minWidth: 100,
   },
   {
@@ -82,13 +68,20 @@ const rawColumns = [
     cell: item => item.logging,
     minWidth: 100,
   },
+  {
+    id: 'origin',
+    sortingField: 'origin',
+    header: 'Origin',
+    cell: item => item.origin,
+    minWidth: 100,
+  },
 ];
 
 export const COLUMN_DEFINITIONS = rawColumns.map(column => ({ ...column, ariaLabel: createTableSortLabelFn(column) }));
 
 export const DEFAULT_PREFERENCES = {
   pageSize: 30,
-  visibleContent: ['id', 'domainName', 'createdAt', 'deliveryMethod', 'sslCertificate', 'status', 'state'],
+  visibleContent: ['id', 'state', 'domainName', 'createdAt', 'deliveryMethod', 'sslCertificate'],
   wraplines: false,
   stripedRows: false,
   contentDensity: 'comfortable',
@@ -117,12 +110,6 @@ export const FILTERING_PROPERTIES = [
     propertyLabel: 'Origin',
     key: 'origin',
     groupValuesLabel: 'Origin values',
-    operators: [':', '!:', '=', '!='],
-  },
-  {
-    propertyLabel: 'Status',
-    key: 'status',
-    groupValuesLabel: 'Status values',
     operators: [':', '!:', '=', '!='],
   },
   { propertyLabel: 'State', key: 'state', groupValuesLabel: 'State values', operators: [':', '!:', '=', '!='] },

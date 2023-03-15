@@ -56,7 +56,7 @@ const rawColumns = [
   },
   {
     id: 'iops',
-    header: 'Iops',
+    header: 'IOPS',
     cell: item => <Box textAlign="right">{item.iops}</Box>,
     sortingField: 'iops',
   },
@@ -71,14 +71,14 @@ export const VISIBLE_CONTENT_OPTIONS = [
     label: 'Main instance properties',
     options: [
       { id: 'id', label: 'DB instance', editable: false },
+      { id: 'status', label: 'Status' },
       { id: 'engine', label: 'Engine' },
       { id: 'version', label: 'Engine version' },
-      { id: 'status', label: 'Status' },
-      { id: 'activity', label: 'Current activity' },
+      { id: 'activity', label: 'Active connections' },
       { id: 'maint', label: 'Maintenance' },
-      { id: 'class', label: 'Class', editable: false },
+      { id: 'class', label: 'Class' },
       { id: 'zone', label: 'Zone' },
-      { id: 'iops', label: 'Iops' },
+      { id: 'iops', label: 'IOPS' },
     ],
   },
 ];

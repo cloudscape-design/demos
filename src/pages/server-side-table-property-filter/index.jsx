@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import intersection from 'lodash/intersection';
-import { COLUMN_DEFINITIONS, FILTERING_PROPERTIES } from '../table-property-filter/table-property-filter-config';
+import { FILTERING_PROPERTIES } from '../table-property-filter/table-property-filter-config';
 import Pagination from '@cloudscape-design/components/pagination';
 import Table from '@cloudscape-design/components/table';
 import PropertyFilter from '@cloudscape-design/components/property-filter';
@@ -20,7 +20,7 @@ import {
 import { useLocalStorage } from '../commons/use-local-storage';
 import '../../styles/base.scss';
 import { useColumnWidths } from '../commons/use-column-widths';
-import { DEFAULT_PREFERENCES, Preferences } from '../commons/table-config';
+import { COLUMN_DEFINITIONS, DEFAULT_PREFERENCES, Preferences } from '../commons/table-config';
 import { useDistributions } from '../server-side-table/hooks';
 import { useDistributionsPropertyFiltering } from './hooks';
 
