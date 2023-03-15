@@ -196,7 +196,7 @@ describe('React Cards - Client side', () => {
       await page.openCardsPreferences();
       await page.setItemsCountCardsPreferences(1);
       await page.setItemsCountCardsPreferences(2);
-      await page.setItemsCountCardsPreferences(6);
+      await page.setItemsCountCardsPreferences(7);
       await page.confirmCardsPreferencesChanges();
 
       await expect(page.countCardSections()).resolves.toBe(0);
@@ -210,11 +210,10 @@ describe('React Cards - Client side', () => {
       await page.setItemsCountCardsPreferences(3);
       await page.setItemsCountCardsPreferences(4);
       await page.setItemsCountCardsPreferences(5);
-      await page.setItemsCountCardsPreferences(7);
-      await page.setItemsCountCardsPreferences(8);
+      await page.setItemsCountCardsPreferences(6);
       await page.confirmCardsPreferencesChanges();
 
-      await expect(page.countCardSections()).resolves.toBe(8);
+      await expect(page.countCardSections()).resolves.toBe(7);
     })
   );
 

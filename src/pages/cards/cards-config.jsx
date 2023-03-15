@@ -23,14 +23,19 @@ export const CARD_DEFINITIONS = {
       content: item => item.deliveryMethod,
     },
     {
+      id: 'sslCertificate',
+      header: 'SSL certificate',
+      content: item => item.sslCertificate,
+    },
+    {
       id: 'priceClass',
       header: 'Price class',
       content: item => item.priceClass,
     },
     {
-      id: 'sslCertificate',
-      header: 'SSL certificate',
-      content: item => item.sslCertificate,
+      id: 'logging',
+      header: 'Logging',
+      content: item => item.logging,
     },
     {
       id: 'origin',
@@ -38,21 +43,11 @@ export const CARD_DEFINITIONS = {
       content: item => item.origin,
     },
     {
-      id: 'status',
-      header: 'Status',
-      content: item => item.status,
-    },
-    {
       id: 'state',
       header: 'State',
       content: item => (
         <StatusIndicator type={item.state === 'Deactivated' ? 'error' : 'success'}>{item.state}</StatusIndicator>
       ),
-    },
-    {
-      id: 'logging',
-      header: 'Logging',
-      content: item => item.logging,
     },
   ],
 };
@@ -63,12 +58,11 @@ export const VISIBLE_CONTENT_OPTIONS = [
     options: [
       { id: 'domainName', label: 'Domain name' },
       { id: 'deliveryMethod', label: 'Delivery method' },
-      { id: 'priceClass', label: 'Price class' },
       { id: 'sslCertificate', label: 'SSL certificate' },
-      { id: 'origin', label: 'Origin' },
-      { id: 'status', label: 'Status' },
-      { id: 'state', label: 'State' },
+      { id: 'priceClass', label: 'Price class' },
       { id: 'logging', label: 'Logging' },
+      { id: 'origin', label: 'Origin' },
+      { id: 'state', label: 'State' },
     ],
   },
 ];
@@ -81,5 +75,5 @@ export const PAGE_SIZE_OPTIONS = [
 
 export const DEFAULT_PREFERENCES = {
   pageSize: 30,
-  visibleContent: ['domainName', 'deliveryMethod', 'status'],
+  visibleContent: ['domainName', 'deliveryMethod', 'state'],
 };
