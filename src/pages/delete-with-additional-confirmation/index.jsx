@@ -277,18 +277,18 @@ function DeleteModal({ instances, visible, onDiscard, onDelete }) {
 
           <Box>To avoid accidental deletions, we ask you to provide additional written consent.</Box>
 
-          <ColumnLayout columns={2}>
-            <form onSubmit={handleDeleteSubmit}>
-              <FormField label={`To confirm this deletion, type "${deleteConsentText}".`}>
+          <form onSubmit={handleDeleteSubmit}>
+            <FormField label={`To confirm this deletion, type "${deleteConsentText}".`}>
+              <ColumnLayout columns={2}>
                 <Input
                   placeholder={deleteConsentText}
                   onChange={event => setDeleteInputText(event.detail.value)}
                   value={deleteInputText}
                   ariaRequired={true}
                 />
-              </FormField>
-            </form>
-          </ColumnLayout>
+              </ColumnLayout>
+            </FormField>
+          </form>
         </SpaceBetween>
       )}
     </Modal>
