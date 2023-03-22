@@ -5,7 +5,7 @@ import * as Axe from 'axe-core';
 import createWrapper from '@cloudscape-design/components/test-utils/selectors';
 import { BasePageObject } from '@cloudscape-design/browser-test-tools/page-objects';
 import useBrowser from '@cloudscape-design/browser-test-tools/use-browser';
-import examplesList from '../../examples-list.json';
+import { allTestPages } from './common/all-test-pages';
 
 declare const axe: typeof Axe;
 
@@ -35,11 +35,6 @@ function filterIgnored(results: Axe.Result[]) {
   });
 }
 
-const testPagesList = examplesList.map(example => ({
-  pagePath: `/${example.path}.html`,
-  discardLogs: example.discardLogs,
-}));
-
 function findUndefinedNodes() {
   const result = [];
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
@@ -53,13 +48,12 @@ function findUndefinedNodes() {
 }
 
 describe('Checking examples accessibility', function () {
-  testPagesList.forEach(({ pagePath, discardLogs }) => {
+  allTestPages.forEach(({ pagePath, discardLogs }) => {
     test(
       `Visit ${pagePath}`,
       useBrowser(async browser => {
         await browser.url(pagePath);
         const page = new BasePageObject(browser);
-
         if (pagePath.includes('server-side-table')) {
           // server-side-table needs extra time to load items before we can make assertions
           await page.waitForVisible(tableRowSelector, true, 30000);

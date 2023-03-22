@@ -6,6 +6,9 @@ import * as localStorage from './localStorage';
 
 (window as any).disableMotionForTests = disableMotion;
 
+// always `true` in this design
+export const isVisualRefresh = true;
+
 export let currentDensity: Density = localStorage.load('Awsui-Density-Preference') ?? Density.Comfortable;
 applyDensity(currentDensity);
 

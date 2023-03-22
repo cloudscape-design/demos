@@ -3,6 +3,7 @@
 const path = require('path');
 const { writeFileAsync } = require('./utils/fsAsync');
 const { runAsyncTask } = require('./utils/runAsyncTask');
+const { outputPath } = require('./config');
 const examplesList = require('../examples-list');
 
 function getPageContent(pageName, { title }) {
@@ -15,8 +16,8 @@ function getPageContent(pageName, { title }) {
     <link href="vendor.css" rel="stylesheet">
     <link href="${pageName}.css" rel="stylesheet">
   </head>
-  <body>
-    <header id="header">
+  <body id="b">
+    <header class="custom-main-header" id="h">
       <ul class="menu-list awsui-context-top-navigation">
         <li class="title"><a href="/">Cloudscape Demos</a></li>
       </ul>
@@ -33,7 +34,7 @@ function getPageContent(pageName, { title }) {
 function generateHtmlFile(page) {
   const pageName = page.path.split('/').pop();
   const content = getPageContent(pageName, page);
-  const filePath = path.join(path.resolve('build'), `${pageName}.html`);
+  const filePath = path.join(outputPath, `${pageName}.html`);
   return writeFileAsync(filePath, content);
 }
 
