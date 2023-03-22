@@ -32,7 +32,7 @@ describe('Table Select Filter', () => {
   test(
     'When filter has no match the no match state is displayed',
     setupTest(async page => {
-      await page.typeFilterQuery('0000');
+      await page.typeFilterQuery('00000');
 
       await expect(page.isTableNoMatchButtonVisible()).resolves.toBe(true);
     })
@@ -41,7 +41,7 @@ describe('Table Select Filter', () => {
   test(
     'When clear filter button is pressed filtering text is reset',
     setupTest(async page => {
-      await page.typeFilterQuery('0000');
+      await page.typeFilterQuery('00000');
       await page.clearFilterFromNoMatchRegion();
 
       await expect(page.getFilterQuery()).resolves.toBe('');
@@ -94,7 +94,7 @@ describe('Table Select Filter', () => {
   test(
     'When clear filter button is pressed select-filter are reset to Any',
     setupTest(async page => {
-      await page.typeFilterQuery('0000');
+      await page.typeFilterQuery('00000');
       await page.selectEngine(3);
       await page.selectClass(11);
       await page.clearFilterFromNoMatchRegion();

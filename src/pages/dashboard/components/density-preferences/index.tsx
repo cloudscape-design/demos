@@ -8,9 +8,8 @@ import Button from '@cloudscape-design/components/button';
 import FormField from '@cloudscape-design/components/form-field';
 import Tiles from '@cloudscape-design/components/tiles';
 import Modal from '@cloudscape-design/components/modal';
-import comfortableVisualRefreshImage from './images/comfortable-visual-refresh';
-import compactVisualRefreshImage from './images/compact-visual-refresh';
 import { currentDensity, updateDensity } from '../../../../common/apply-mode';
+import { comfortableModeImage, compactModeImage } from './images';
 
 interface DensityPreferencesDialogProps {
   onDismiss: () => void;
@@ -53,13 +52,13 @@ export function DensityPreferencesDialog({ onDismiss }: DensityPreferencesDialog
               value: 'comfortable',
               label: 'Comfortable',
               description: 'Default spacing that optimizes information consumption.',
-              image: comfortableVisualRefreshImage,
+              image: comfortableModeImage,
             },
             {
               value: 'compact',
               label: 'Compact',
               description: 'Reduced spacing that provides more visibility over content.',
-              image: compactVisualRefreshImage,
+              image: compactModeImage,
             },
           ]}
         />

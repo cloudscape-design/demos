@@ -4,7 +4,7 @@ import React from 'react';
 import { HelpPanel } from '@cloudscape-design/components';
 import { ExternalLink, ExternalLinkGroup } from '../../commons';
 
-/*eslint-disable react/jsx-key*/
+/* eslint-disable react/jsx-key */
 export default [
   <HelpPanel
     header={<h2>Create distribution</h2>}
@@ -423,4 +423,4 @@ export default [
     </ul>
   </HelpPanel>,
 ];
-/*eslint-enable react/jsx-key*/
+/* eslint-enable react/jsx-key */

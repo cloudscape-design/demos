@@ -4,12 +4,12 @@ import { useState } from 'react';
 import { load, save } from '../../common/localStorage';
 
 export function useLocalStorage<T>(key: string, defaultValue?: T) {
-  const [value, setValue] = useState(() => load(key) ?? defaultValue);
+  const [value, setValue] = useState<T>(() => load(key) ?? defaultValue);
 
   function handleValueChange(newValue: T) {
     setValue(newValue);
     save(key, newValue);
   }
 
-  return [value, handleValueChange];
+  return [value, handleValueChange] as const;
 }

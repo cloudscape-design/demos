@@ -7,7 +7,7 @@ import fakeDelay from './utils/fake-delay';
 
 // @see https://docs.aws.amazon.com/resourcegroupstagging/latest/APIReference/API_GetResources.html
 export async function GetResources() {
-  const [{ resourceTags }] = await Promise.all([fetchJson('../resources/tags.json'), fakeDelay()]);
+  const [{ resourceTags }] = await Promise.all([fetchJson('./resources/tags.json'), fakeDelay()]);
   return {
     ResourceTagMappingList: [
       {
@@ -22,7 +22,7 @@ export async function GetTagValues(key) {
   if (!key) {
     return Promise.reject();
   }
-  const [{ valueMap }] = await Promise.all([fetchJson('../resources/tags.json'), fakeDelay()]);
+  const [{ valueMap }] = await Promise.all([fetchJson('./resources/tags.json'), fakeDelay()]);
   return {
     TagValues: valueMap[key] || [],
   };
@@ -30,7 +30,7 @@ export async function GetTagValues(key) {
 
 // @see https://docs.aws.amazon.com/resourcegroupstagging/latest/APIReference/API_GetTagKeys.html
 export async function GetTagKeys() {
-  const [{ valueMap }] = await Promise.all([fetchJson('../resources/tags.json'), fakeDelay()]);
+  const [{ valueMap }] = await Promise.all([fetchJson('./resources/tags.json'), fakeDelay()]);
   return {
     TagKeys: Object.keys(valueMap),
   };

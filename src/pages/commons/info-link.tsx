@@ -8,8 +8,8 @@ interface InfoLinkProps {
   ariaLabel?: string;
   onFollow: LinkProps['onFollow'];
 }
-export const InfoLink = ({ id, onFollow, ariaLabel }: InfoLinkProps) => (
-  <Link variant="info" id={id} onFollow={onFollow} ariaLabel={ariaLabel}>
+export const InfoLink = (props: InfoLinkProps) => (
+  <Link variant="info" {...props}>
     Info
   </Link>
 );

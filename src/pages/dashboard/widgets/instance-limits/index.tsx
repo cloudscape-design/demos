@@ -1,0 +1,111 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+import React, { createContext, Dispatch, SetStateAction, useContext, useState } from 'react';
+import {
+  Box,
+  Button,
+  Header,
+  Link,
+  StatusIndicator,
+  StatusIndicatorProps,
+  TableProps,
+} from '@cloudscape-design/components';
+import { WidgetConfig } from '../interfaces';
+import { isVisualRefresh } from '../../../../common/apply-mode';
+import { EmbeddedTable } from '../../components/embedded-table-wrapper';
+
+export const instanceLimits: WidgetConfig = {
+  definition: { defaultRowSpan: 3, defaultColumnSpan: 2 },
+  data: {
+    icon: 'table',
+    title: 'Instance limits',
+    description: 'Current utilization of instance types',
+    disableContentPaddings: !isVisualRefresh,
+    provider: InstanceLimitsProvider,
+    header: InstanceLimitsHeader,
+    content: InstanceLimitsContent,
+    footer: InstanceLimitsFooter,
+  },
+};
+
+const WidgetContext = createContext<[string | null, Dispatch<SetStateAction<string | null>>]>([null, () => {}]);
+
+function InstanceLimitsProvider({ children }: { children: React.ReactNode }) {
+  const state = useState<string | null>(null);
+  return <WidgetContext.Provider value={state}>{children}</WidgetContext.Provider>;
+}
+
+function InstanceLimitsHeader() {
+  const [selectedId] = useContext(WidgetContext);
+  return (
+    <Header
+      variant="h2"
+      actions={
+        <Button
+          variant="normal"
+          href="#"
+          iconName="external"
+          iconAlign="right"
+          disabled={!selectedId}
+          data-testid="instance-limits-increase-button"
+        >
+          Request limit increase
+        </Button>
+      }
+    >
+      On-demand instance limits
+    </Header>
+  );
+}
+
+function InstanceLimitsFooter() {
+  return (
+    <Box textAlign="center">
+      <Link href="#">View all instance limits</Link>
+    </Box>
+  );
+}
+
+const instanceLimitsItems = [
+  { name: 'Running on-demand all G instances', statusText: '900 used/920 limit', status: 'warning' },
+  { name: 'Running on-demand all P instances', statusText: '692 used/692 limit', status: 'warning' },
+  { name: 'Running on-demand all Standard instances', statusText: '50 used/10304 limit', status: 'success' },
+  { name: 'Running on-demand all F instances', statusText: '0 used/176 limit', status: 'success' },
+];
+const instanceLimitsDefinition: Array<TableProps.ColumnDefinition<(typeof instanceLimitsItems)[0]>> = [
+  {
+    id: 'name',
+    header: 'Name',
+    cell: item => item.name,
+    width: 320,
+  },
+  {
+    id: 'status',
+    header: 'Status (usage/limit)',
+    cell: ({ statusText, status }) => (
+      <StatusIndicator type={status as StatusIndicatorProps.Type}>{statusText}</StatusIndicator>
+    ),
+  },
+];
+
+export default function InstanceLimitsContent() {
+  const [selectedId, setSelectedId] = useContext(WidgetContext);
+
+  return (
+    <EmbeddedTable
+      data-testid="instance-limits-table"
+      resizableColumns={true}
+      items={instanceLimitsItems}
+      columnDefinitions={instanceLimitsDefinition}
+      selectionType="single"
+      trackBy="name"
+      selectedItems={selectedId ? ([{ name: selectedId }] as typeof instanceLimitsItems) : []}
+      onSelectionChange={event => setSelectedId(event.detail.selectedItems[0].name)}
+      ariaLabels={{
+        itemSelectionLabel: (data, row) => `select ${row.name}`,
+        allItemsSelectionLabel: () => 'select all',
+        selectionGroupLabel: 'On-demand instance limit selection',
+      }}
+    />
+  );
+}

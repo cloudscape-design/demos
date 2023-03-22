@@ -59,7 +59,6 @@ class App extends React.Component {
             </SpaceBetween>
           </ContentLayout>
         }
-        headerSelector="#header"
         breadcrumbs={<Breadcrumbs />}
         navigation={<Navigation activeHref="#/distributions" />}
         tools={ToolsContent[this.state.toolsIndex]}
@@ -73,5 +72,4 @@ class App extends React.Component {
   }
 }
 
-const root = createRoot(document.getElementById('app'));
-root.render(<App />);
+createRoot(document.getElementById('app')).render(<App />);

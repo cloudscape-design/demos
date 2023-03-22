@@ -14,6 +14,7 @@ import {
   getTextFilterCounterText,
   paginationAriaLabels,
   propertyFilterI18nStrings,
+  renderAriaLive,
 } from '../../i18n-strings';
 import { Preferences } from '../commons/table-config';
 
@@ -55,6 +56,7 @@ export function PropertyFilterTable({
       columnDefinitions={columnDefinitions}
       visibleColumns={preferences.visibleContent}
       ariaLabels={distributionTableAriaLabels}
+      renderAriaLive={renderAriaLive}
       selectionType="multi"
       variant="full-page"
       stickyHeader={true}
@@ -79,7 +81,7 @@ export function PropertyFilterTable({
           expandToViewport={true}
         />
       }
-      pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels} />}
+      pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels(paginationProps.pagesCount)} />}
       preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}
     />
   );

@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useState, useEffect, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
-
 import {
   Alert,
   AppLayout,
@@ -244,5 +243,4 @@ function DeleteModal({ distributions, visible, onDiscard, onDelete }) {
   );
 }
 
-const root = createRoot(document.getElementById('app'));
-root.render(<App />);
+createRoot(document.getElementById('app')).render(<App />);

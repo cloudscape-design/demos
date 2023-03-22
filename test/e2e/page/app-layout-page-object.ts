@@ -26,13 +26,9 @@ export default class Page extends BasePageObject {
     return page.findLink('[aria-label*=Information]').toSelector();
   }
 
-  disableMotion() {
-    return this.browser.execute('disableMotionForTests()');
-  }
-
   // Flash
   findLastFlash() {
-    return createWrapper().findFlashbar().findItems().get(2); //disclaimer banner is item 1
+    return createWrapper().findFlashbar().findItems().get(2);
   }
 
   async dismissFlash() {

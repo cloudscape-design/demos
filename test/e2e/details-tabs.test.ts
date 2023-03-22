@@ -4,7 +4,7 @@ import useBrowser from '@cloudscape-design/browser-test-tools/use-browser';
 import createWrapper from '@cloudscape-design/components/test-utils/selectors';
 import { BasePageObject } from '@cloudscape-design/browser-test-tools/page-objects';
 
-const setupTest = (testFn: (page: TagsTab) => Promise<void>) => {
+const setupTagsTest = (testFn: (page: TagsTab) => Promise<void>) => {
   return useBrowser(async browser => {
     await browser.url('/details-tabs.html');
     const tagsTab = new TagsTab(browser);
@@ -16,7 +16,7 @@ const setupTest = (testFn: (page: TagsTab) => Promise<void>) => {
 describe('Tags Table', () => {
   test(
     'loads tags from server',
-    setupTest(async page => {
+    setupTagsTest(async page => {
       const tags = await page.getTableRows();
       expect(tags).toHaveLength(4);
       tags.forEach(tag => {

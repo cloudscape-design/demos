@@ -76,7 +76,13 @@ function DetailsCards({ loadHelpPanelContent }) {
           disabled={loading}
         />
       }
-      pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels} disabled={loading} />}
+      pagination={
+        <Pagination
+          {...paginationProps}
+          ariaLabels={paginationAriaLabels(paginationProps.pagesCount)}
+          disabled={loading}
+        />
+      }
       preferences={
         <CollectionPreferences
           title="Preferences"
@@ -125,5 +131,4 @@ function App() {
   );
 }
 
-const root = createRoot(document.getElementById('app'));
-root.render(<App />);
+createRoot(document.getElementById('app')).render(<App />);

@@ -9,6 +9,7 @@ import {
   getHeaderCounterText,
   getTextFilterCounterText,
   paginationAriaLabels,
+  renderAriaLive,
   splitPanelI18nStrings,
 } from '../../i18n-strings';
 import { FullPageHeader } from '../commons';
@@ -47,11 +48,11 @@ const App = () => {
     collectionProps.selectedItems
   );
   const appLayout = useRef();
+
   return (
     <AppLayout
       ref={appLayout}
       contentType="table"
-      headerSelector="#header"
       navigation={<Navigation items={ec2NavItems} activeHref="#/instances" />}
       breadcrumbs={<Breadcrumbs />}
       notifications={<Notifications successNotification={true} />}
@@ -88,6 +89,7 @@ const App = () => {
           stickyHeader={true}
           selectionType="multi"
           ariaLabels={SELECTION_LABELS}
+          renderAriaLive={renderAriaLive}
           filter={
             <TextFilter
               {...filterProps}
@@ -100,7 +102,7 @@ const App = () => {
           wrapLines={preferences.wrapLines}
           stripedRows={preferences.stripedRows}
           contentDensity={preferences.contentDensity}
-          pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels} />}
+          pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels(paginationProps.pagesCount)} />}
           preferences={<EC2Preferences preferences={preferences} setPreferences={setPreferences} />}
         />
       }
@@ -109,7 +111,6 @@ const App = () => {
   );
 };
 
-const root = createRoot(document.getElementById('app'));
-root.render(<App />);
+createRoot(document.getElementById('app')).render(<App />);
 
 export default App;

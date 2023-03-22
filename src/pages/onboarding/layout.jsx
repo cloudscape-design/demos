@@ -26,7 +26,6 @@ export function CustomAppLayout({ initialHelpPanelPage, ...props }) {
       onNavigationChange={() => {
         /*this functionality is not represented in this demo*/
       }}
-      headerSelector="#header"
       ariaLabels={appLayoutAriaLabels}
       toolsOpen={state.toolsOpen}
       onToolsChange={event => actions.setToolsOpen(event.detail.open)}

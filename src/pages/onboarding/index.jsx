@@ -42,8 +42,7 @@ function App({ children }) {
   );
 }
 
-const root = createRoot(document.getElementById('app'));
-root.render(
+createRoot(document.getElementById('app')).render(
   <StoreProvider>
     <App>
       <Router initialPage="create-transcription-job" />

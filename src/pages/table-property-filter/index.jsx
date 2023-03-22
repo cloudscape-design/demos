@@ -55,5 +55,4 @@ function App() {
   );
 }
 
-const root = createRoot(document.getElementById('app'));
-root.render(<App />);
+createRoot(document.getElementById('app')).render(<App />);

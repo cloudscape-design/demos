@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 export default class DataProvider {
   getData(name) {
-    return fetch(`../resources/${name}.json`)
+    return fetch(`./resources/${name}.json`)
       .then(response => {
         if (!response.ok) {
           throw new Error(`Response error: ${response.status}`);

@@ -1,0 +1,17 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
+.measureRoot {
+  position: relative;
+  height: 100%;
+  // extra min-height to prevent charts from collapsing
+  min-height: 210px;
+}
+
+.content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}

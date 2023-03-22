@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useState, useCallback, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
-import { AppLayout, HelpPanel, Icon, Wizard } from '@cloudscape-design/components';
+import { AppLayout, HelpPanel, Wizard } from '@cloudscape-design/components';
 import { Breadcrumbs, Navigation } from './wizard-components.jsx';
 import { appLayoutAriaLabels } from '../../i18n-strings';
 import Engine from './stepComponents/step1.jsx';
@@ -173,7 +173,6 @@ const App = () => {
   return (
     <AppLayout
       ref={appLayoutRef}
-      headerSelector="#header"
       navigation={<Navigation />}
       tools={toolsContent}
       toolsOpen={isToolsOpen}
@@ -196,7 +195,6 @@ const App = () => {
   );
 };
 
-const root = createRoot(document.getElementById('app'));
-root.render(<App />);
+createRoot(document.getElementById('app')).render(<App />);
 
 export default App;

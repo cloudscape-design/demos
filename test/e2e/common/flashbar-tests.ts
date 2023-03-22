@@ -1,6 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-
 import Page from '../page/app-layout-page-object';
 import TableFilteringPageObject from '../page/table-filtering-page-object';
 import TablePropertyFilteringPageObject from '../page/table-property-filtering-page-object';
