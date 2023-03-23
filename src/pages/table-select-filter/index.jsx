@@ -167,9 +167,11 @@ function TableSelectFilter({ loadHelpPanelContent }) {
               expandToViewport={true}
             />
           </div>
-          {(filterProps.filteringText || engine !== defaultEngine || instanceClass !== defaultClass) && (
-            <span className="filtering-results">{getTextFilterCounterText(filteredItemsCount)}</span>
-          )}
+          <div aria-live="polite">
+            {(filterProps.filteringText || engine !== defaultEngine || instanceClass !== defaultClass) && (
+              <span className="filtering-results">{getTextFilterCounterText(filteredItemsCount)}</span>
+            )}
+          </div>
         </div>
       }
       pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels} />}
