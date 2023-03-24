@@ -8,34 +8,32 @@ export const ENGINES = [
   {
     label: 'Amazon Aurora',
     value: 'aurora',
-    image: <img height="150px" src="../resources/image-placeholder.png" alt="Amazon Aurora" aria-hidden="true" />,
+    image: <img height="150px" src="./resources/image-placeholder.png" alt="Amazon Aurora" aria-hidden="true" />,
   },
   {
     label: 'MySQL',
     value: 'mysql',
-    image: <img height="150px" src="../resources/image-placeholder.png" alt="MySQL" aria-hidden="true" />,
+    image: <img height="150px" src="./resources/image-placeholder.png" alt="MySQL" aria-hidden="true" />,
   },
   {
     label: 'MariaDB',
     value: 'maria',
-    image: <img height="150px" src="../resources/image-placeholder.png" alt="MariaDB" aria-hidden="true" />,
+    image: <img height="150px" src="./resources/image-placeholder.png" alt="MariaDB" aria-hidden="true" />,
   },
   {
     label: 'PostgreSQL',
     value: 'postgres',
-    image: <img height="150px" src="../resources/image-placeholder.png" alt="PostgreSQL" aria-hidden="true" />,
+    image: <img height="150px" src="./resources/image-placeholder.png" alt="PostgreSQL" aria-hidden="true" />,
   },
   {
     label: 'Oracle',
     value: 'oracle',
-    image: <img height="150px" src="../resources/image-placeholder.png" alt="Oracle" aria-hidden="true" />,
+    image: <img height="150px" src="./resources/image-placeholder.png" alt="Oracle" aria-hidden="true" />,
   },
   {
     label: 'Microsoft SQL Server',
     value: 'microsoft',
-    image: (
-      <img height="150px" src="../resources/image-placeholder.png" alt="Microsoft SQL Server" aria-hidden="true" />
-    ),
+    image: <img height="150px" src="./resources/image-placeholder.png" alt="Microsoft SQL Server" aria-hidden="true" />,
   },
 ];
 

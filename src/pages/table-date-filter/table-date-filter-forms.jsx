@@ -60,7 +60,7 @@ export function DateTimeForm({ filter, operator, value, onChange }) {
 
       <Calendar
         value={dateValue}
-        locale="en-GB"
+        locale="en-EN"
         previousMonthAriaLabel="Previous month"
         nextMonthAriaLabel="Next month"
         todayAriaLabel="Today"
@@ -101,7 +101,7 @@ function formatTimezoneOffset(isoDate, offsetInMinutes) {
   // Using default browser offset if not explicitly specified.
   offsetInMinutes = offsetInMinutes ?? 0 - new Date(isoDate).getTimezoneOffset();
 
-  const sign = offsetInMinutes < 0 ? '-' : '';
+  const sign = offsetInMinutes < 0 ? '-' : '+';
   const hoursOffset = Math.floor(Math.abs(offsetInMinutes) / 60)
     .toFixed(0)
     .padStart(2, '0');

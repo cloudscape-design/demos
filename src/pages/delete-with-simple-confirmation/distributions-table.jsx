@@ -11,6 +11,7 @@ import {
   distributionTableAriaLabels,
   createTableSortLabelFn,
   getHeaderCounterText,
+  renderAriaLive,
 } from '../../i18n-strings';
 
 const rawColumns = [
@@ -86,6 +87,7 @@ export default function DistributionsTable({ distributions, selectedItems, onSel
       items={items}
       selectionType="multi"
       ariaLabels={distributionTableAriaLabels}
+      renderAriaLive={renderAriaLive}
       variant="full-page"
       stickyHeader={true}
       header={
@@ -114,7 +116,7 @@ export default function DistributionsTable({ distributions, selectedItems, onSel
           countText={getTextFilterCounterText(filteredItemsCount)}
         />
       }
-      pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels} />}
+      pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels(paginationProps.pagesCount)} />}
     />
   );
 }

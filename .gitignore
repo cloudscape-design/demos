@@ -1,5 +1,2 @@
-build
-.sass-cache
-.tscache
+lib
 node_modules
-.DS_Store

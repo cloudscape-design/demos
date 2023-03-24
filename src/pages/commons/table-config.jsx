@@ -155,7 +155,6 @@ const editableColumns = {
       ariaLabel: 'Edit SSL certificate',
       errorIconAriaLabel: 'Certificate Validation Error',
       editIconAriaLabel: 'editable',
-
       editingCell: (item, { setValue, currentValue }) => {
         const options = [
           { value: 'Default', label: 'Default ' },
@@ -171,7 +170,7 @@ const editableColumns = {
             enteredTextLabel={value => `Use custom certificate "${value}"`}
             expandToViewport={true}
             ariaLabel="SSL Certificate"
-            clearAriaLabel="Clear"
+            clearAriaLabel="clear"
             placeholder="Select an SSL certificate"
           />
         );
@@ -260,7 +259,7 @@ export const Preferences = ({
     }}
     contentDensityPreference={{
       label: 'Compact mode',
-      description: 'Select to display table content in a denser, more compact mode',
+      description: 'Select to display content in a denser, more compact mode',
     }}
     visibleContentPreference={{
       title: 'Select visible columns',

@@ -129,7 +129,6 @@ class App extends Component {
       <AppLayout
         contentType="form"
         content={this.content()}
-        headerSelector="#header"
         breadcrumbs={<Breadcrumbs />}
         navigation={<Navigation activeHref="#/distributions" />}
         ariaLabels={appLayoutAriaLabels}
@@ -140,5 +139,4 @@ class App extends Component {
   }
 }
 
-const root = createRoot(document.getElementById('app'));
-root.render(<App />);
+createRoot(document.getElementById('app')).render(<App />);

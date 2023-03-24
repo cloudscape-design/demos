@@ -101,7 +101,6 @@ class App extends Component {
         ref={this.appLayout}
         contentType="form"
         content={this.content()}
-        headerSelector="#header"
         breadcrumbs={<Breadcrumbs />}
         navigation={<Navigation activeHref="#/distributions" />}
         toolsOpen={this.state.toolsOpen}
@@ -114,5 +113,4 @@ class App extends Component {
   }
 }
 
-const root = createRoot(document.getElementById('app'));
-root.render(<App />);
+createRoot(document.getElementById('app')).render(<App />);

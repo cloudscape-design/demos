@@ -5,3 +5,13 @@ declare module '*.module.scss' {
   const classes: CSSModuleClasses;
   export default classes;
 }
+
+declare module '*.svg' {
+  const icon: string;
+  export default icon;
+}
+
+declare module '*.png' {
+  const url: string;
+  export default url;
+}

@@ -9,7 +9,12 @@ import { Button, Input, Pagination, SpaceBetween, Select, Table } from '@cloudsc
 import { Navigation, Breadcrumbs, ToolsContent } from './table-select-filter-components';
 import '../../styles/table-select.scss';
 import DATA from '../../resources/instances';
-import { getTextFilterCounterText, getHeaderCounterText, paginationAriaLabels } from '../../i18n-strings';
+import {
+  getTextFilterCounterText,
+  getHeaderCounterText,
+  paginationAriaLabels,
+  renderAriaLive,
+} from '../../i18n-strings';
 import { CustomAppLayout, Notifications, TableEmptyState, TableNoMatchState } from '../commons/common-components';
 import { FullPageHeader } from '../commons';
 import { useColumnWidths } from '../commons/use-column-widths';
@@ -110,6 +115,7 @@ function TableSelectFilter({ loadHelpPanelContent }) {
         allItemsSelectionLabel: () => 'Select all DB instances',
         selectionGroupLabel: 'Instances selection',
       }}
+      renderAriaLive={renderAriaLive}
       header={
         <FullPageHeader
           title="Instances"
@@ -137,7 +143,7 @@ function TableSelectFilter({ loadHelpPanelContent }) {
               }}
               placeholder="Find instances"
               label="Find instances"
-              clearAriaLabel="Clear"
+              clearAriaLabel="clear"
               ariaDescribedby={null}
             />
           </div>
@@ -174,7 +180,7 @@ function TableSelectFilter({ loadHelpPanelContent }) {
           </div>
         </div>
       }
-      pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels} />}
+      pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels(paginationProps.pagesCount)} />}
       preferences={
         <Preferences
           preferences={preferences}
@@ -189,6 +195,7 @@ function TableSelectFilter({ loadHelpPanelContent }) {
 function App() {
   const [toolsOpen, setToolsOpen] = useState(false);
   const appLayout = useRef();
+
   return (
     <CustomAppLayout
       ref={appLayout}
@@ -198,8 +205,8 @@ function App() {
       content={
         <TableSelectFilter
           loadHelpPanelContent={() => {
-            appLayout.current?.focusToolsClose();
             setToolsOpen(true);
+            appLayout.current?.focusToolsClose();
           }}
         />
       }
@@ -211,5 +218,4 @@ function App() {
   );
 }
 
-const root = createRoot(document.getElementById('app'));
-root.render(<App />);
+createRoot(document.getElementById('app')).render(<App />);

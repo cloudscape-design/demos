@@ -1,6 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-
 import { createRoot } from 'react-dom/client';
 import React, { useRef, useState } from 'react';
 import { useCollection } from '@cloudscape-design/collection-hooks';
@@ -10,6 +9,7 @@ import {
   getHeaderCounterText,
   getTextFilterCounterText,
   paginationAriaLabels,
+  renderAriaLive,
 } from '../../i18n-strings';
 import { FullPageHeader } from '../commons';
 import { useLocalStorage } from '../commons/use-local-storage';
@@ -50,11 +50,11 @@ function TableContent({ loadHelpPanelContent, distributions }) {
     'React-EditableDistributionsTable-Preferences',
     EDITABLE_PREFERENCES
   );
-  const [currentPageItemsSnapshot, setCurrentPageItemsSnapshot] = useState(null);
+  const [itemsSnap, setItemsSnap] = useState(null);
 
   const persistChanges = () => {
     setTableItems(tableItems);
-    setCurrentPageItemsSnapshot(null);
+    setItemsSnap(null);
   };
 
   const { items, actions, filteredItemsCount, collectionProps, filterProps, paginationProps, allPageItems } =
@@ -115,7 +115,7 @@ function TableContent({ loadHelpPanelContent, distributions }) {
     }
 
     if (collectionProps.sortingColumn === column || filterProps.filteringText) {
-      setCurrentPageItemsSnapshot(items.map(item => (item === currentItem ? newItem : item)));
+      setItemsSnap(items.map(item => (item === currentItem ? newItem : item)));
     }
 
     setTableItems(fullCollection.map(item => (item === currentItem ? newItem : item)));
@@ -126,9 +126,10 @@ function TableContent({ loadHelpPanelContent, distributions }) {
       {...tableCollectionProps}
       columnDefinitions={columnDefinitions}
       visibleColumns={preferences.visibleContent}
-      items={currentPageItemsSnapshot || items}
+      items={itemsSnap || items}
       submitEdit={handleSubmit}
       ariaLabels={distributionEditableTableAriaLabels}
+      renderAriaLive={renderAriaLive}
       variant="full-page"
       stickyHeader={true}
       resizableColumns={true}
@@ -155,7 +156,9 @@ function TableContent({ loadHelpPanelContent, distributions }) {
           countText={getTextFilterCounterText(filteredItemsCount)}
         />
       }
-      pagination={<Pagination {...tablePaginationProps} ariaLabels={paginationAriaLabels} />}
+      pagination={
+        <Pagination {...tablePaginationProps} ariaLabels={paginationAriaLabels(tablePaginationProps.pagesCount)} />
+      }
       preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}
     />
   );
@@ -191,8 +194,6 @@ function App({ distributions }) {
 
 const dataProvider = new DataProvider();
 
-const root = createRoot(document.getElementById('app'));
-
 dataProvider.getData('distributions').then(distributions => {
-  root.render(<App distributions={distributions} />);
+  createRoot(document.getElementById('app')).render(<App distributions={distributions} />);
 });

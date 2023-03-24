@@ -4,6 +4,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { mergeWith } = require('lodash');
+const { outputPath, devServerPort } = require('./scripts/config');
 const examplesList = require('./examples-list');
 
 const mergeArrays = (a, b) => (Array.isArray(a) ? a.concat(b) : undefined);
@@ -16,54 +17,53 @@ const addEntryIteration = (entries, example) => {
 
 const entries = examplesList.reduce(addEntryIteration, {});
 
-const configs = ({ outputPath }) =>
-  [
-    {
-      entry: {
-        'fake-server': './src/fake-server',
-      },
-      optimization: {
-        splitChunks: {
-          cacheGroups: {
-            vendor: {
-              // disable vendor chunk for fake-server
-              test: () => false,
-            },
+const configs = [
+  {
+    entry: {
+      'fake-server': './src/fake-server',
+    },
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          vendor: {
+            // disable vendor chunk for fake-server
+            test: () => false,
           },
         },
       },
-      output: {
-        libraryTarget: 'window',
-        library: 'FakeServer',
-        path: path.join(outputPath, 'libs'),
-      },
-      plugins: [
-        new CopyWebpackPlugin({
-          patterns: [
-            {
-              from: '**/*',
-              to: path.join(outputPath, 'libs', 'ace'),
-              context: 'node_modules/ace-builds/src-min-noconflict/',
-            },
-            {
-              from: '*',
-              to: path.join(outputPath, 'resources'),
-              context: 'src/resources',
-            },
-          ],
-        }),
-      ],
     },
-    //
-    // React
-    //
-    {
-      entry: entries,
-      output: {
-        path: outputPath,
-      },
+    output: {
+      libraryTarget: 'window',
+      library: 'FakeServer',
+      path: path.join(outputPath, 'libs'),
     },
-  ].filter(i => !!i);
+    plugins: [
+      new CopyWebpackPlugin({
+        patterns: [
+          {
+            from: '**/*',
+            to: path.join(outputPath, 'libs', 'ace'),
+            context: 'node_modules/ace-builds/src-min-noconflict/',
+          },
+          {
+            from: '*',
+            to: path.join(outputPath, 'resources'),
+            context: 'src/resources',
+          },
+        ],
+      }),
+    ],
+  },
+  //
+  // React
+  //
+  {
+    entry: entries,
+    output: {
+      path: outputPath,
+    },
+  },
+].filter(i => !!i);
 
 const createWebpackConfig = (config, { outputPath, includeDevServer }) => {
   const defaults = {
@@ -81,7 +81,7 @@ const createWebpackConfig = (config, { outputPath, includeDevServer }) => {
                 filter: filename => filename.endsWith('.html'),
               },
             },
-            port: 9615,
+            port: devServerPort,
           },
         }
       : {}),
@@ -185,8 +185,4 @@ const createWebpackConfig = (config, { outputPath, includeDevServer }) => {
   return mergeWith(defaults, config, mergeArrays);
 };
 
-const options = { outputPath: path.resolve('build') };
-
-module.exports = configs(options).map((config, index) =>
-  createWebpackConfig(config, { ...options, includeDevServer: index === 1 })
-);
+module.exports = configs.map((config, index) => createWebpackConfig(config, { includeDevServer: index === 1 }));

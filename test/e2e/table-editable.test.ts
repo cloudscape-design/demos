@@ -1,6 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-
 import useBrowser from '@cloudscape-design/browser-test-tools/use-browser';
 import TableEditablePageObject from './page/table-editable-page-object';
 import commonTableTests, { SetupTest } from './common/table/table-tests';

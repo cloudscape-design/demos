@@ -16,6 +16,7 @@ import {
   getHeaderCounterServerSideText,
   getTextFilterCounterServerSideText,
   propertyFilterI18nStrings,
+  renderAriaLive,
 } from '../../i18n-strings';
 import { useLocalStorage } from '../commons/use-local-storage';
 import '../../styles/base.scss';
@@ -84,6 +85,7 @@ function ServerSidePropertyFilterTable({ columnDefinitions, saveWidths, loadHelp
       columnDefinitions={columnDefinitions}
       visibleColumns={preferences.visibleContent}
       ariaLabels={distributionTableAriaLabels}
+      renderAriaLive={renderAriaLive}
       selectionType="multi"
       variant="full-page"
       stickyHeader={true}
@@ -121,7 +123,7 @@ function ServerSidePropertyFilterTable({ columnDefinitions, saveWidths, loadHelp
           disabled={loading}
           currentPageIndex={serverPageIndex}
           onChange={event => setCurrentPageIndex(event.detail.currentPageIndex)}
-          ariaLabels={paginationAriaLabels}
+          ariaLabels={paginationAriaLabels(pagesCount)}
         />
       }
       preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}
@@ -158,5 +160,4 @@ function App() {
   );
 }
 
-const root = createRoot(document.getElementById('app'));
-root.render(<App />);
+createRoot(document.getElementById('app')).render(<App />);

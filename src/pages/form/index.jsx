@@ -34,7 +34,6 @@ function App() {
           <FormContent loadHelpPanelContent={loadHelpPanelContent} />
         </ContentLayout>
       }
-      headerSelector="#header"
       breadcrumbs={<Breadcrumbs />}
       navigation={<Navigation activeHref="#/distributions" />}
       tools={ToolsContent[toolsIndex]}
@@ -46,5 +45,4 @@ function App() {
   );
 }
 
-const root = createRoot(document.getElementById('app'));
-root.render(<App />);
+createRoot(document.getElementById('app')).render(<App />);

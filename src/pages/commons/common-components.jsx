@@ -58,7 +58,7 @@ export const TableEmptyState = ({ resourceName }) => (
 );
 
 export const CustomAppLayout = forwardRef((props, ref) => {
-  return <AppLayout ref={ref} {...props} headerSelector="#header" ariaLabels={appLayoutAriaLabels} />;
+  return <AppLayout ref={ref} ariaLabels={appLayoutAriaLabels} {...props} />;
 });
 
 export const CounterLink = ({ children }) => {

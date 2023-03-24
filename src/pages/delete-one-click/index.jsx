@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-
 import {
   Alert,
   AppLayout,
@@ -118,7 +117,6 @@ function App() {
           </SpaceBetween>
         </ContentLayout>
       }
-      headerSelector="#header"
       breadcrumbs={<Breadcrumbs />}
       navigation={<Navigation activeHref="#/distributions" />}
       toolsHide={true}
@@ -128,5 +126,4 @@ function App() {
   );
 }
 
-const root = createRoot(document.getElementById('app'));
-root.render(<App />);
+createRoot(document.getElementById('app')).render(<App />);

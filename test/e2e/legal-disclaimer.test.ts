@@ -1,16 +1,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import examplesList from '../../examples-list.json';
 import createWrapper from '@cloudscape-design/components/test-utils/selectors';
 import useBrowser from '@cloudscape-design/browser-test-tools/use-browser';
 import { BasePageObject } from '@cloudscape-design/browser-test-tools/page-objects';
-
-const testPagesList = examplesList.map(example => ({
-  pagePath: `/${example.path}.html`,
-}));
+import { allTestPages } from './common/all-test-pages';
 
 describe('Legal disclaimer', () => {
-  testPagesList.forEach(({ pagePath }) => {
+  allTestPages.forEach(({ pagePath }) => {
     test(
       `Visit ${pagePath}`,
       useBrowser(async browser => {

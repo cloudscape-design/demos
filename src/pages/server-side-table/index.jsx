@@ -16,6 +16,7 @@ import {
   paginationAriaLabels,
   distributionTableAriaLabels,
   getTextFilterCounterServerSideText,
+  renderAriaLive,
 } from '../../i18n-strings';
 import { useColumnWidths } from '../commons/use-column-widths';
 import { useDistributions } from './hooks';
@@ -73,6 +74,7 @@ function ServerSideTable({ columnDefinitions, saveWidths, loadHelpPanelContent }
       columnDefinitions={columnDefinitions}
       visibleColumns={preferences.visibleContent}
       ariaLabels={distributionTableAriaLabels}
+      renderAriaLive={renderAriaLive}
       selectionType="multi"
       variant="full-page"
       stickyHeader={true}
@@ -107,7 +109,7 @@ function ServerSideTable({ columnDefinitions, saveWidths, loadHelpPanelContent }
           currentPageIndex={serverPageIndex}
           disabled={loading}
           onChange={event => setCurrentPageIndex(event.detail.currentPageIndex)}
-          ariaLabels={paginationAriaLabels}
+          ariaLabels={paginationAriaLabels(pagesCount)}
         />
       }
       preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}
@@ -143,5 +145,4 @@ function App() {
   );
 }
 
-const root = createRoot(document.getElementById('app'));
-root.render(<App />);
+createRoot(document.getElementById('app')).render(<App />);

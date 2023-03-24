@@ -15,12 +15,11 @@ import SpaceBetween from '@cloudscape-design/components/space-between';
 import Table from '@cloudscape-design/components/table';
 import TopNavigation from '@cloudscape-design/components/top-navigation';
 
-import { Notifications } from '../commons/common-components';
-
 import '../../styles/base.scss';
 import '../../styles/top-navigation.scss';
 
 import logo from './logo.svg';
+import { Notifications } from './notifications';
 
 const navItems = [
   {
@@ -160,7 +159,7 @@ const Content = () => {
  * header used on the Demo page.
  */
 const DemoHeaderPortal = ({ children }) => {
-  const domNode = document.querySelector('#header');
+  const domNode = document.querySelector('#h');
   return createPortal(children, domNode);
 };
 
@@ -208,7 +207,6 @@ function App() {
       <AppLayout
         stickyNotifications
         toolsHide
-        headerSelector="#header"
         ariaLabels={{ navigationClose: 'close' }}
         navigation={<SideNavigation activeHref="#/pages" items={navItems} />}
         breadcrumbs={<BreadcrumbGroup items={breadcrumbs} expandAriaLabel="Show path" ariaLabel="Breadcrumbs" />}
@@ -220,5 +218,4 @@ function App() {
   );
 }
 
-const root = createRoot(document.getElementById('app'));
-root.render(<App />);
+createRoot(document.getElementById('app')).render(<App />);

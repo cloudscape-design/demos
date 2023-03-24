@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Alert, AppLayout, BreadcrumbGroup, ContentLayout, SpaceBetween } from '@cloudscape-design/components';
+import { Alert, AppLayout, BreadcrumbGroup, ContentLayout, Link, SpaceBetween } from '@cloudscape-design/components';
 import { Navigation, Notifications } from '../commons/common-components';
 import { appLayoutAriaLabels } from '../../i18n-strings';
 import { resourceCreateBreadcrumbs } from '../../common/breadcrumbs';
@@ -44,7 +44,6 @@ function App() {
           <FormContentReadOnlyWithErrors loadHelpPanelContent={loadHelpPanelContent} />
         </ContentLayout>
       }
-      headerSelector="#header"
       breadcrumbs={<Breadcrumbs />}
       navigation={<Navigation activeHref="#/distributions" />}
       tools={ToolsContent[toolsIndex]}
@@ -56,5 +55,4 @@ function App() {
   );
 }
 
-const root = createRoot(document.getElementById('app'));
-root.render(<App />);
+createRoot(document.getElementById('app')).render(<App />);

@@ -38,6 +38,7 @@ import {
   getHeaderCounterText,
   getTextFilterCounterText,
   paginationAriaLabels,
+  renderAriaLive,
 } from '../../i18n-strings';
 import ToolsContent from '../details/tools-content';
 import { logsTableAriaLabels } from '../details-hub/commons';
@@ -81,6 +82,7 @@ function LogsTable() {
       columnDefinitions={LOGS_COLUMN_DEFINITIONS}
       items={items}
       ariaLabels={logsTableAriaLabels}
+      renderAriaLive={renderAriaLive}
       selectionType="multi"
       selectedItems={selectedItems}
       onSelectionChange={evt => setSelectedItems(evt.detail.selectedItems)}
@@ -107,7 +109,7 @@ function LogsTable() {
           countText={getTextFilterCounterText(filteredItemsCount)}
         />
       }
-      pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels} />}
+      pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels(paginationProps.pagesCount)} />}
     />
   );
 }
@@ -175,7 +177,6 @@ class App extends React.Component {
             </SpaceBetween>
           </ContentLayout>
         }
-        headerSelector="#header"
         breadcrumbs={<Breadcrumbs />}
         navigation={<Navigation activeHref="#/distributions" />}
         tools={ToolsContent[this.state.toolsIndex]}
@@ -188,5 +189,4 @@ class App extends React.Component {
   }
 }
 
-const root = createRoot(document.getElementById('app'));
-root.render(<App />);
+createRoot(document.getElementById('app')).render(<App />);

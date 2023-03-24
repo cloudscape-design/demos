@@ -20,6 +20,7 @@ import {
   distributionTableAriaLabels,
   getTextFilterCounterText,
   getHeaderCounterText,
+  renderAriaLive,
 } from '../../i18n-strings';
 import '../../styles/base.scss';
 import { useColumnWidths } from '../commons/use-column-widths';
@@ -48,6 +49,7 @@ function TableContent({ distributions, loadHelpPanelContent }) {
       items={items}
       selectionType="multi"
       ariaLabels={distributionTableAriaLabels}
+      renderAriaLive={renderAriaLive}
       variant="full-page"
       stickyHeader={true}
       resizableColumns={true}
@@ -71,7 +73,7 @@ function TableContent({ distributions, loadHelpPanelContent }) {
           countText={getTextFilterCounterText(filteredItemsCount)}
         />
       }
-      pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels} />}
+      pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels(paginationProps.pagesCount)} />}
       preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}
     />
   );
@@ -105,7 +107,6 @@ function App({ distributions }) {
   );
 }
 
-const root = createRoot(document.getElementById('app'));
 new DataProvider().getData('distributions').then(distributions => {
-  root.render(<App distributions={distributions} />);
+  createRoot(document.getElementById('app')).render(<App distributions={distributions} />);
 });

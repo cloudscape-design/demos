@@ -165,7 +165,7 @@ function prepareResponse(options) {
 
 export function fetchDistributions(options = {}, callback) {
   if (items.length === 0) {
-    fetchJson('../resources/distributions.json').then(response => {
+    fetchJson('./resources/distributions.json').then(response => {
       items = response;
       if (options.filteringOptions) {
         fetchDistributionFilteringOptions(options, callback);
@@ -179,7 +179,7 @@ export function fetchDistributions(options = {}, callback) {
 }
 
 export function fetchDistributionFilteringOptions(options, callback) {
-  fetchJson('../resources/distributionsFilteringProperties.json').then(response => {
+  fetchJson('./resources/distributionsFilteringProperties.json').then(response => {
     filteringProperties = response;
     setTimeout(() => callback(prepareResponse(options)), 500);
   });
