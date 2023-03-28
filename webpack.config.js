@@ -65,7 +65,7 @@ const configs = [
   },
 ].filter(i => !!i);
 
-const createWebpackConfig = (config, { outputPath, includeDevServer }) => {
+const createWebpackConfig = (config, { includeDevServer }) => {
   const defaults = {
     mode: process.env.NODE_ENV,
 
