@@ -28,7 +28,13 @@ const Review = ({ info: { engine, details, advanced }, setActiveStepIndex }) => 
           >
             Step 1: Engine type
           </Header>
-          <Container header={<Header variant="h2">Engine options</Header>}>
+          <Container
+            header={
+              <Header variant="h2" headingTagOverride="h3">
+                Engine options
+              </Header>
+            }
+          >
             <ColumnLayout columns={2} variant="text-grid">
               <div>
                 <Box variant="awsui-key-label">Engine</Box>
@@ -77,7 +83,11 @@ const Review = ({ info: { engine, details, advanced }, setActiveStepIndex }) => 
 
           <SpaceBetween size="l">
             <Container
-              header={<Header variant="h2">Instance options</Header>}
+              header={
+                <Header variant="h2" headingTagOverride="h3">
+                  Instance options
+                </Header>
+              }
               footer={
                 <ExpandableSection headerText="Additional options" variant="footer">
                   <ColumnLayout columns={2} variant="text-grid">
@@ -122,7 +132,13 @@ const Review = ({ info: { engine, details, advanced }, setActiveStepIndex }) => 
               </ColumnLayout>
             </Container>
 
-            <Container header={<Header variant="h2">Names and password</Header>}>
+            <Container
+              header={
+                <Header variant="h2" headingTagOverride="h3">
+                  Names and password
+                </Header>
+              }
+            >
               <ColumnLayout columns={2} variant="text-grid">
                 <div>
                   <Box variant="awsui-key-label">DB instance identifier</Box>
@@ -156,7 +172,13 @@ const Review = ({ info: { engine, details, advanced }, setActiveStepIndex }) => 
             Step 3: Settings
           </Header>
           <SpaceBetween size="l">
-            <Container header={<Header variant="h2">Network and security</Header>}>
+            <Container
+              header={
+                <Header variant="h2" headingTagOverride="h3">
+                  Network and security
+                </Header>
+              }
+            >
               <ColumnLayout columns={2} variant="text-grid">
                 <div>
                   <Box variant="awsui-key-label">Virtual Private Cloud (VPC)</Box>
@@ -186,7 +208,11 @@ const Review = ({ info: { engine, details, advanced }, setActiveStepIndex }) => 
             </Container>
 
             <Container
-              header={<Header variant="h2">Maintenance and monitoring</Header>}
+              header={
+                <Header variant="h2" headingTagOverride="h3">
+                  Maintenance and monitoring
+                </Header>
+              }
               footer={
                 <ExpandableSection headerText="Additional options" variant="footer">
                   <ColumnLayout columns={2} variant="text-grid">

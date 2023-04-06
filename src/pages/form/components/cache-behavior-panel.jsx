@@ -20,9 +20,6 @@ import {
 } from '../form-config';
 import { InfoLink } from '../../commons/common-components';
 import CacheBehaviorFooter from './cache-behavior-footer';
-import 'ace-builds/css/ace.css';
-import 'ace-builds/css/theme/dawn.css';
-import 'ace-builds/css/theme/tomorrow_night_bright.css';
 
 export default function CacheBehaviorPanel({ loadHelpPanelContent, readOnlyWithErrors = false }) {
   const [minimumTtl, setMinimumTtl] = useState(0);
@@ -40,9 +37,7 @@ export default function CacheBehaviorPanel({ loadHelpPanelContent, readOnlyWithE
   useEffect(() => {
     setCodeEditorLoading(true);
     import('ace-builds').then(ace => {
-      ace.config.set('basePath', '../libs/ace/');
-      ace.config.set('useStrictCSP', true);
-      ace.config.set('loadWorkerFromBlob', false);
+      ace.config.set('basePath', './libs/ace/');
       setAce(ace);
       setCodeEditorLoading(false);
     });
