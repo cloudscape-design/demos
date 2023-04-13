@@ -1,9 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 import Flashbar, { FlashbarProps } from '@cloudscape-design/components/flashbar';
 import { useDisclaimerFlashbarItem } from './disclaimer-flashbar-item';
-import { useId } from './use-id';
 
 function useNotifications(showSuccessNotification = false) {
   const successId = useId();
