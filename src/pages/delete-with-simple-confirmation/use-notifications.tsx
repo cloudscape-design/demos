@@ -1,10 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { useCallback, useState } from 'react';
-import { useId } from '../commons/use-id';
+import React, { useCallback, useId, useState } from 'react';
 import { useDisclaimerFlashbarItem } from '../commons/disclaimer-flashbar-item';
 import { Button, FlashbarProps } from '@cloudscape-design/components';
-import { v4 as uuid4 } from 'uuid';
 
 type Resource = Record<string, any> & {
   id: string;
@@ -38,7 +36,7 @@ export default function useNotifications({ resourceName }: { resourceName: strin
   const notifyDeleted = useCallback(
     (resources: Resource[]) => {
       if (resources?.length) {
-        const id = uuid4();
+        const messageId = `delete-notification-${resources[0].id}`;
         const content =
           resources.length === 1
             ? `Successfully deleted ${resourceName} ${resources[0].id}.`
@@ -50,8 +48,8 @@ export default function useNotifications({ resourceName }: { resourceName: strin
           statusIconAriaLabel: 'success',
           dismissLabel: 'Dismiss message',
           content,
-          id,
-          onDismiss: () => dismissNotification(id),
+          id: messageId,
+          onDismiss: () => dismissNotification(messageId),
         });
       }
     },

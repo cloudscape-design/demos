@@ -1,11 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 import Box from '@cloudscape-design/components/box';
 import ColumnLayout from '@cloudscape-design/components/column-layout';
 import Modal from '@cloudscape-design/components/modal';
 import Toggle from '@cloudscape-design/components/toggle';
-import { useId } from '../../../commons/use-id';
 import styles from './preferences.module.scss';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import Button from '@cloudscape-design/components/button';
