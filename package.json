@@ -28,7 +28,7 @@
     "axe-core": "^4.4.3",
     "babel-loader": "^8.1.0",
     "copy-webpack-plugin": "^11.0.0",
-    "cpy": "^8.1.2",
+    "cpy": "^9.0.1",
     "css-loader": "^6.7.1",
     "date-fns": "^2.29.2",
     "del": "^4.1.1",
