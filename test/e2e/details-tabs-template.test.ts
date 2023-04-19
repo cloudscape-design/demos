@@ -9,6 +9,11 @@ describe('Details Tabs', () => {
       await browser.url('/details-tabs.html');
       const page = new Page(browser);
       await page.waitForPageLoaded();
+
+      // Increase window height to ensure sticky-scrollbar doesn't overlap
+      // clickable table elements in the standard viewport size
+      await page.setWindowSize({ width: 1200, height: 800 });
+
       await testFn(page);
     });
   };
