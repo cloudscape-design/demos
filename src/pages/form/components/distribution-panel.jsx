@@ -14,6 +14,7 @@ import {
   Textarea,
   TimeInput,
   DatePicker,
+  FileUpload,
 } from '@cloudscape-design/components';
 import { InfoLink } from '../../commons/common-components';
 import useContentOrigins from '../../commons/use-content-origins';
@@ -54,7 +55,23 @@ const defaultState = {
   certificateExpiryTime: '',
   httpVersion: 'http2',
   ipv6isOn: false,
+  functions: [],
 };
+
+const sampleFunctionFiles = [
+  new File([new Blob(['Cloudfront function code'])], 'index.js', {
+    type: 'text/javascript',
+    lastModified: 1590962400000,
+  }),
+  new File([new Blob(['Cloudfront function test object'])], 'test-success.json', {
+    type: 'application/json',
+    lastModified: 1590962400000,
+  }),
+  new File([new Blob(['Cloudfront function test object'])], 'test-failure.json', {
+    type: 'application/json',
+    lastModified: 1590962400000,
+  }),
+];
 
 const noop = () => {
   /*noop*/
@@ -62,7 +79,9 @@ const noop = () => {
 
 export default function DistributionPanel({ loadHelpPanelContent, updateDirty = noop, readOnlyWithErrors = false }) {
   const [contentOriginsState, contentOriginsHandlers] = useContentOrigins();
-  const [distributionPanelData, setDistributionPanelData] = useState(defaultState);
+  const [distributionPanelData, setDistributionPanelData] = useState(
+    !readOnlyWithErrors ? defaultState : { ...defaultState, functions: sampleFunctionFiles }
+  );
 
   useEffect(() => {
     const isDirty = JSON.stringify(distributionPanelData) !== JSON.stringify(defaultState);
@@ -82,6 +101,10 @@ export default function DistributionPanel({ loadHelpPanelContent, updateDirty = 
   const getErrorText = errorMessage => {
     return readOnlyWithErrors ? errorMessage : undefined;
   };
+
+  const functionFileErrors = readOnlyWithErrors
+    ? [null, 'Invalid test event structure', 'Invalid test event structure']
+    : undefined;
 
   return (
     <Container
@@ -223,6 +246,35 @@ export default function DistributionPanel({ loadHelpPanelContent, updateDirty = 
               />
             </FormField>
           </SpaceBetween>
+        </FormField>
+
+        <FormField
+          label="Functions"
+          description="Upload Cloudfront function and test objects"
+          info={
+            <InfoLink onFollow={() => loadHelpPanelContent(12)} ariaLabel={'Information about Cloudfront functions.'} />
+          }
+        >
+          <FileUpload
+            multiple={true}
+            showFileSize={true}
+            showFileLastModified={true}
+            accept="text/javascript, application/json"
+            value={distributionPanelData.functions}
+            tokenLimit={3}
+            onChange={({ detail: { value } }) => onChange('functions', value)}
+            errorText={getErrorText('2 files have errors')}
+            fileErrors={functionFileErrors}
+            constraintText="Upload function code as *.js file and optional test objects as *.json files"
+            i18nStrings={{
+              uploadButtonText: multiple => (multiple ? 'Choose files' : 'Choose file'),
+              dropzoneText: multiple => (multiple ? 'Drop files to upload' : 'Drop file to upload'),
+              removeFileAriaLabel: fileIndex => `Remove file ${fileIndex + 1}`,
+              limitShowFewer: 'Show fewer files',
+              limitShowMore: 'Show more files',
+              errorIconAriaLabel: 'Error',
+            }}
+          />
         </FormField>
       </SpaceBetween>
     </Container>
