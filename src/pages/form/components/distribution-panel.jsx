@@ -250,7 +250,7 @@ export default function DistributionPanel({ loadHelpPanelContent, updateDirty = 
 
         <FormField
           label="Functions"
-          description="Upload Cloudfront function and test objects"
+          description="Upload Cloudfront function and test objects."
           info={
             <InfoLink onFollow={() => loadHelpPanelContent(12)} ariaLabel={'Information about Cloudfront functions.'} />
           }
@@ -265,7 +265,7 @@ export default function DistributionPanel({ loadHelpPanelContent, updateDirty = 
             onChange={({ detail: { value } }) => onChange('functions', value)}
             errorText={getErrorText('2 files have errors')}
             fileErrors={functionFileErrors}
-            constraintText="Upload function code as *.js file and optional test objects as *.json files"
+            constraintText="Upload function code as *.js file and optional test objects as *.json files."
             i18nStrings={{
               uploadButtonText: multiple => (multiple ? 'Choose files' : 'Choose file'),
               dropzoneText: multiple => (multiple ? 'Drop files to upload' : 'Drop file to upload'),
