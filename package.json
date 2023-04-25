@@ -16,7 +16,7 @@
     "@cloudscape-design/global-styles": "^1.0.0",
     "@cloudscape-design/test-utils-core": "^1.0.0",
     "@cloudscape-design/theming-runtime": "^1.0.0",
-    "@svgr/webpack": "^6.3.1",
+    "@svgr/webpack": "^7.0.0",
     "@types/jest": "^28.1.8",
     "@types/lodash": "^4.14.184",
     "@types/node": "^16.18.11",
