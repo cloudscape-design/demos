@@ -9,7 +9,7 @@ import {
   Input,
   Autosuggest,
 } from '@cloudscape-design/components';
-import { createTableSortLabelFn } from '../../i18n-strings';
+import { contentDisplayPreferenceI18nStrings, createTableSortLabelFn } from '../../i18n-strings';
 
 const rawColumns = [
   {
@@ -193,20 +193,15 @@ export const EDITABLE_COLUMN_DEFINITIONS = COLUMN_DEFINITIONS.map(column => {
   return column;
 });
 
-const VISIBLE_CONTENT_OPTIONS = [
-  {
-    label: 'Main distribution properties',
-    options: [
-      { id: 'id', label: 'Distribution ID', editable: false },
-      { id: 'state', label: 'State' },
-      { id: 'domainName', label: 'Domain name' },
-      { id: 'deliveryMethod', label: 'Delivery method' },
-      { id: 'sslCertificate', label: 'SSL certificate' },
-      { id: 'priceClass', label: 'Price class' },
-      { id: 'logging', label: 'Logging' },
-      { id: 'origin', label: 'Origin' },
-    ],
-  },
+const CONTENT_DISPLAY_OPTIONS = [
+  { id: 'id', label: 'Distribution ID', alwaysVisible: true },
+  { id: 'state', label: 'State' },
+  { id: 'domainName', label: 'Domain name' },
+  { id: 'deliveryMethod', label: 'Delivery method' },
+  { id: 'sslCertificate', label: 'SSL certificate' },
+  { id: 'priceClass', label: 'Price class' },
+  { id: 'logging', label: 'Logging' },
+  { id: 'origin', label: 'Origin' },
 ];
 
 export const PAGE_SIZE_OPTIONS = [
@@ -217,15 +212,16 @@ export const PAGE_SIZE_OPTIONS = [
 
 export const DEFAULT_PREFERENCES = {
   pageSize: 30,
-  visibleContent: ['id', 'domainName', 'deliveryMethod', 'sslCertificate', 'status', 'state'],
-  wrapLines: false,
-  stripedRows: false,
-  contentDensity: 'comfortable',
-};
-
-export const EDITABLE_PREFERENCES = {
-  pageSize: 30,
-  visibleContent: ['id', 'domainName', 'deliveryMethod', 'sslCertificate', 'state'],
+  contentDisplay: [
+    { id: 'id', visible: true },
+    { id: 'state', visible: true },
+    { id: 'domainName', visible: true },
+    { id: 'deliveryMethod', visible: true },
+    { id: 'sslCertificate', visible: true },
+    { id: 'priceClass', visible: false },
+    { id: 'logging', visible: false },
+    { id: 'origin', visible: false },
+  ],
   wrapLines: false,
   stripedRows: false,
   contentDensity: 'comfortable',
@@ -236,7 +232,7 @@ export const Preferences = ({
   setPreferences,
   disabled,
   pageSizeOptions = PAGE_SIZE_OPTIONS,
-  visibleContentOptions = VISIBLE_CONTENT_OPTIONS,
+  contentDisplayOptions = CONTENT_DISPLAY_OPTIONS,
 }) => (
   <CollectionPreferences
     title="Preferences"
@@ -261,9 +257,11 @@ export const Preferences = ({
       label: 'Compact mode',
       description: 'Select to display content in a denser, more compact mode',
     }}
-    visibleContentPreference={{
-      title: 'Select visible columns',
-      options: visibleContentOptions,
+    contentDisplayPreference={{
+      title: 'Column preferences',
+      description: 'Customize the columns visibility and order.',
+      options: contentDisplayOptions,
+      ...contentDisplayPreferenceI18nStrings,
     }}
   />
 );

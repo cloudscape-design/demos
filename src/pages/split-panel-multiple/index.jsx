@@ -91,6 +91,7 @@ const App = () => {
           variant="full-page"
           stickyHeader={true}
           columnDefinitions={COLUMN_DEFINITIONS_MAIN}
+          columnDisplay={preferences.contentDisplay}
           items={items}
           selectionType="multi"
           ariaLabels={SELECTION_LABELS}

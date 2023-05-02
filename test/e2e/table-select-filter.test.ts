@@ -216,10 +216,10 @@ describe('Table Select Filter', () => {
       'has only 3 columns when changing all editable columns to invisible',
       setupTest(async page => {
         await page.openTablePreferences();
-        await page.setTablePreferenceTableColumns(2);
-        await page.setTablePreferenceTableColumns(3);
-        await page.setTablePreferenceTableColumns(4);
-        await page.setTablePreferenceTableColumns(5);
+        await page.toggleColumnVisibility(2);
+        await page.toggleColumnVisibility(3);
+        await page.toggleColumnVisibility(4);
+        await page.toggleColumnVisibility(5);
         await page.confirmTablePreferenceChanges();
 
         expect(await page.countTableColumns()).toBe(3);
@@ -230,9 +230,9 @@ describe('Table Select Filter', () => {
       'has 10 columns when changing all editable columns to visible',
       setupTest(async page => {
         await page.openTablePreferences();
-        await page.setTablePreferenceTableColumns(6);
-        await page.setTablePreferenceTableColumns(8);
-        await page.setTablePreferenceTableColumns(9);
+        await page.toggleColumnVisibility(6);
+        await page.toggleColumnVisibility(8);
+        await page.toggleColumnVisibility(9);
         await page.confirmTablePreferenceChanges();
 
         expect(await page.countTableColumns()).toBe(10);

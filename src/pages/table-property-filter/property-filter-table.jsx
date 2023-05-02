@@ -24,6 +24,7 @@ export function PropertyFilterTable({
   data,
   loadHelpPanelContent,
   columnDefinitions,
+  contentDisplayOptions,
   saveWidths,
   preferences,
   setPreferences,
@@ -54,7 +55,7 @@ export function PropertyFilterTable({
       {...collectionProps}
       items={items}
       columnDefinitions={columnDefinitions}
-      visibleColumns={preferences.visibleContent}
+      columnDisplay={preferences.contentDisplay}
       ariaLabels={distributionTableAriaLabels}
       renderAriaLive={renderAriaLive}
       selectionType="multi"
@@ -82,7 +83,13 @@ export function PropertyFilterTable({
         />
       }
       pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels(paginationProps.pagesCount)} />}
-      preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}
+      preferences={
+        <Preferences
+          preferences={preferences}
+          setPreferences={setPreferences}
+          contentDisplayOptions={contentDisplayOptions}
+        />
+      }
     />
   );
 }

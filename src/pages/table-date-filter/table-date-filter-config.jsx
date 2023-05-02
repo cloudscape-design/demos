@@ -79,9 +79,31 @@ const rawColumns = [
 
 export const COLUMN_DEFINITIONS = rawColumns.map(column => ({ ...column, ariaLabel: createTableSortLabelFn(column) }));
 
+export const CONTENT_DISPLAY_OPTIONS = [
+  { id: 'id', label: 'Distribution ID', alwaysVisible: true },
+  { id: 'state', label: 'State' },
+  { id: 'domainName', label: 'Domain name' },
+  { id: 'createdAt', label: 'Created at' },
+  { id: 'deliveryMethod', label: 'Delivery method' },
+  { id: 'sslCertificate', label: 'SSL certificate' },
+  { id: 'priceClass', label: 'Price class' },
+  { id: 'logging', label: 'Logging' },
+  { id: 'origin', label: 'Origin' },
+];
+
 export const DEFAULT_PREFERENCES = {
   pageSize: 30,
-  visibleContent: ['id', 'state', 'domainName', 'createdAt', 'deliveryMethod', 'sslCertificate'],
+  contentDisplay: [
+    { id: 'id', visible: true },
+    { id: 'state', visible: true },
+    { id: 'domainName', visible: true },
+    { id: 'createdAt', visible: true },
+    { id: 'deliveryMethod', visible: true },
+    { id: 'sslCertificate', visible: true },
+    { id: 'priceClass', visible: false },
+    { id: 'logging', visible: false },
+    { id: 'origin', visible: false },
+  ],
   wraplines: false,
   stripedRows: false,
   contentDensity: 'comfortable',
