@@ -83,7 +83,7 @@ function ServerSidePropertyFilterTable({ columnDefinitions, saveWidths, loadHelp
       sortingColumn={sortingColumn}
       sortingDescending={sortingDescending}
       columnDefinitions={columnDefinitions}
-      visibleColumns={preferences.visibleContent}
+      columnDisplay={preferences.contentDisplay}
       ariaLabels={distributionTableAriaLabels}
       renderAriaLive={renderAriaLive}
       selectionType="multi"

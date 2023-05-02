@@ -12,17 +12,12 @@ export const EC2Preferences = props => (
       { value: 30, label: '30 instances' },
       { value: 50, label: '50 instances' },
     ]}
-    visibleContentOptions={[
-      {
-        label: 'Main instance properties',
-        options: [
-          { id: 'id', label: 'Instance ID', editable: false },
-          { id: 'type', label: 'Instance type' },
-          { id: 'publicDns', label: 'Public DNS' },
-          { id: 'monitoring', label: 'Monitoring' },
-          { id: 'state', label: 'Instance state' },
-        ],
-      },
+    contentDisplayOptions={[
+      { id: 'id', label: 'Instance ID', alwaysVisible: true },
+      { id: 'type', label: 'Instance type' },
+      { id: 'publicDns', label: 'Public DNS' },
+      { id: 'monitoring', label: 'Monitoring' },
+      { id: 'state', label: 'Instance state' },
     ]}
     {...props}
   />
@@ -95,7 +90,13 @@ export const SELECTION_LABELS = {
 
 export const DEFAULT_PREFERENCES = {
   pageSize: 30,
-  visibleContent: ['id', 'type', 'publicDns', 'monitoring', 'state'],
+  contentDisplay: [
+    { id: 'id', visible: true },
+    { id: 'type', visible: true },
+    { id: 'publicDns', visible: true },
+    { id: 'monitoring', visible: true },
+    { id: 'state', visible: true },
+  ],
   wrapLines: false,
   stripedRows: false,
   contentDensity: 'comfortable',

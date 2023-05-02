@@ -45,7 +45,7 @@ function TableContent({ distributions, loadHelpPanelContent }) {
     <Table
       {...collectionProps}
       columnDefinitions={columnDefinitions}
-      visibleColumns={preferences.visibleContent}
+      columnDisplay={preferences.contentDisplay}
       items={items}
       selectionType="multi"
       ariaLabels={distributionTableAriaLabels}

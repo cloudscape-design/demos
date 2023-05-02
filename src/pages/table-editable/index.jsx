@@ -25,7 +25,7 @@ import DataProvider from '../commons/data-provider';
 import { useColumnWidths } from '../commons/use-column-widths';
 import { Breadcrumbs, ToolsContent } from '../table/common-components';
 import {
-  EDITABLE_PREFERENCES,
+  DEFAULT_PREFERENCES,
   EDITABLE_COLUMN_DEFINITIONS,
   Preferences,
   serverSideErrorsStore,
@@ -48,7 +48,7 @@ function TableContent({ loadHelpPanelContent, distributions }) {
   const [columnDefinitions, saveWidths] = useColumnWidths('React-EditableTable-Widths', EDITABLE_COLUMN_DEFINITIONS);
   const [preferences, setPreferences] = useLocalStorage(
     'React-EditableDistributionsTable-Preferences',
-    EDITABLE_PREFERENCES
+    DEFAULT_PREFERENCES
   );
   const [itemsSnap, setItemsSnap] = useState(null);
 
@@ -125,7 +125,7 @@ function TableContent({ loadHelpPanelContent, distributions }) {
     <Table
       {...tableCollectionProps}
       columnDefinitions={columnDefinitions}
-      visibleColumns={preferences.visibleContent}
+      columnDisplay={preferences.contentDisplay}
       items={itemsSnap || items}
       submitEdit={handleSubmit}
       ariaLabels={distributionEditableTableAriaLabels}

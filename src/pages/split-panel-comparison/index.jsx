@@ -84,6 +84,7 @@ const App = () => {
             />
           }
           columnDefinitions={COLUMN_DEFINITIONS_MAIN}
+          columnDisplay={preferences.contentDisplay}
           items={items}
           variant="full-page"
           stickyHeader={true}

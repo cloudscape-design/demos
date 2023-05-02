@@ -7,7 +7,12 @@ import DataProvider from '../commons/data-provider';
 import { useColumnWidths } from '../commons/use-column-widths';
 import { Breadcrumbs, ToolsContent } from '../table/common-components';
 import { CustomAppLayout, Navigation, Notifications } from '../commons/common-components';
-import { COLUMN_DEFINITIONS, FILTERING_PROPERTIES, DEFAULT_PREFERENCES } from './table-date-filter-config';
+import {
+  CONTENT_DISPLAY_OPTIONS,
+  COLUMN_DEFINITIONS,
+  FILTERING_PROPERTIES,
+  DEFAULT_PREFERENCES,
+} from './table-date-filter-config';
 import { PropertyFilterTable } from '../table-property-filter/property-filter-table';
 
 import '../../styles/table-date-filter.scss';
@@ -40,6 +45,7 @@ function App() {
             appLayout.current?.focusToolsClose();
           }}
           columnDefinitions={columnDefinitions}
+          contentDisplayOptions={CONTENT_DISPLAY_OPTIONS}
           saveWidths={saveWidths}
           preferences={preferences}
           setPreferences={setPreferences}

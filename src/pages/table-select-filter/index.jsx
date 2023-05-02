@@ -3,7 +3,7 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { useCollection } from '@cloudscape-design/collection-hooks';
-import { COLUMN_DEFINITIONS, SEARCHABLE_COLUMNS, VISIBLE_CONTENT_OPTIONS } from './table-select-filter-config';
+import { COLUMN_DEFINITIONS, SEARCHABLE_COLUMNS, CONTENT_DISPLAY_OPTIONS } from './table-select-filter-config';
 import { Preferences } from '../commons/table-config';
 import { Button, Input, Pagination, SpaceBetween, Select, Table } from '@cloudscape-design/components';
 import { Navigation, Breadcrumbs, ToolsContent } from './table-select-filter-components';
@@ -58,7 +58,17 @@ function TableSelectFilter({ loadHelpPanelContent }) {
   const [instanceClass, setInstanceClass] = useState(defaultClass);
   const [preferences, setPreferences] = useLocalStorage('React-DBInstancesTable-Preferences', {
     pageSize: 30,
-    visibleContent: ['id', 'engine', 'version', 'status', 'activity', 'class'],
+    contentDisplay: [
+      { id: 'id', visible: true },
+      { id: 'engine', visible: true },
+      { id: 'version', visible: true },
+      { id: 'status', visible: true },
+      { id: 'activity', visible: true },
+      { id: 'maint', visible: false },
+      { id: 'class', visible: true },
+      { id: 'zone', visible: false },
+      { id: 'iops', visible: false },
+    ],
     wrapLines: false,
     stripedRows: false,
     contentDensity: 'comfortable',
@@ -100,7 +110,7 @@ function TableSelectFilter({ loadHelpPanelContent }) {
     <Table
       {...collectionProps}
       columnDefinitions={columnDefinitions}
-      visibleColumns={preferences.visibleContent}
+      columnDisplay={preferences.contentDisplay}
       items={items}
       variant="full-page"
       stickyHeader={true}
@@ -185,7 +195,7 @@ function TableSelectFilter({ loadHelpPanelContent }) {
         <Preferences
           preferences={preferences}
           setPreferences={setPreferences}
-          visibleContentOptions={VISIBLE_CONTENT_OPTIONS}
+          contentDisplayOptions={CONTENT_DISPLAY_OPTIONS}
         />
       }
     />

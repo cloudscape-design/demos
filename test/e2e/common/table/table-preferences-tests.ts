@@ -43,10 +43,10 @@ export default function commonPreferencesTests(setupTest: {
       'has only 2 columns when changing all editable columns to invisible',
       setupTest(async page => {
         await page.openTablePreferences();
-        await page.setTablePreferenceTableColumns(2);
-        await page.setTablePreferenceTableColumns(3);
-        await page.setTablePreferenceTableColumns(4);
-        await page.setTablePreferenceTableColumns(5);
+        await page.toggleColumnVisibility(2);
+        await page.toggleColumnVisibility(3);
+        await page.toggleColumnVisibility(4);
+        await page.toggleColumnVisibility(5);
         await page.confirmTablePreferenceChanges();
 
         expect(await page.countTableColumns()).toBe(2);
@@ -57,13 +57,29 @@ export default function commonPreferencesTests(setupTest: {
       'has 9 columns when changing all editable columns to visible',
       setupTest(async page => {
         await page.openTablePreferences();
-        await page.setTablePreferenceTableColumns(6);
-        await page.setTablePreferenceTableColumns(7);
-        await page.setTablePreferenceTableColumns(8);
+        await page.toggleColumnVisibility(6);
+        await page.toggleColumnVisibility(7);
+        await page.toggleColumnVisibility(8);
         await page.confirmTablePreferenceChanges();
 
         expect(await page.countTableColumns()).toBe(9);
       })
     );
+
+    test('reorders columns', () => {
+      setupTest(async page => {
+        await page.openTablePreferences();
+        await page.reorderColumn(0, 1);
+        await page.confirmTablePreferenceChanges();
+
+        expect(await page.getColumnHeaderTexts()).toBe([
+          'State',
+          'Distribution ID',
+          'Domain name',
+          'Delivery method',
+          'SSL certificate',
+        ]);
+      });
+    });
   });
 }

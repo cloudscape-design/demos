@@ -66,21 +66,16 @@ export const COLUMN_DEFINITIONS = rawColumns.map(column => ({ ...column, ariaLab
 
 export const SEARCHABLE_COLUMNS = ['id', 'engine', 'version', 'status', 'class', 'activity', 'zone', 'iops', 'maint'];
 
-export const VISIBLE_CONTENT_OPTIONS = [
-  {
-    label: 'Main instance properties',
-    options: [
-      { id: 'id', label: 'DB instance', editable: false },
-      { id: 'status', label: 'Status' },
-      { id: 'engine', label: 'Engine' },
-      { id: 'version', label: 'Engine version' },
-      { id: 'activity', label: 'Active connections' },
-      { id: 'maint', label: 'Maintenance' },
-      { id: 'class', label: 'Class' },
-      { id: 'zone', label: 'Zone' },
-      { id: 'iops', label: 'IOPS' },
-    ],
-  },
+export const CONTENT_DISPLAY_OPTIONS = [
+  { id: 'id', label: 'DB instance', alwaysVisible: true },
+  { id: 'status', label: 'Status' },
+  { id: 'engine', label: 'Engine' },
+  { id: 'version', label: 'Engine version' },
+  { id: 'activity', label: 'Active connections' },
+  { id: 'maint', label: 'Maintenance' },
+  { id: 'class', label: 'Class' },
+  { id: 'zone', label: 'Zone' },
+  { id: 'iops', label: 'IOPS' },
 ];
 
 export const PAGE_SIZE_OPTIONS = [

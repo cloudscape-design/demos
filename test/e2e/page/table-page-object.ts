@@ -29,6 +29,11 @@ export default class TablePageObject extends AppLayoutPage {
     return this.getElementsCount(this.tableWrapper.findColumnHeaders().toSelector());
   }
 
+  async getColumnHeaderTexts() {
+    const headers = await this.browser.$$(this.tableWrapper.findColumnHeaders().toSelector());
+    return headers.map(header => header.getText());
+  }
+
   // Table - Header Buttons
   protected async isTableHeaderButtonEnabled(index: number) {
     const el = await this.browser.$(
@@ -109,16 +114,35 @@ export default class TablePageObject extends AppLayoutPage {
     await el.click();
   }
 
-  async setTablePreferenceTableColumns(index: number) {
+  async toggleColumnVisibility(index: number) {
     const el = await this.browser.$(
       this.tableWrapper
         .findCollectionPreferences()
         .findModal()
-        .findVisibleContentPreference()
-        .findToggleByIndex(1, index)
+        .findContentDisplayPreference()
+        .findOptionByIndex(index)
+        .findVisibilityToggle()
         .findNativeInput()
         .toSelector()
     );
     await el.click();
+  }
+
+  async reorderColumn(index: number, positionDelta: number) {
+    const options = this.tableWrapper
+      .findCollectionPreferences()
+      .findModal()
+      .findContentDisplayPreference()
+      .findOptions();
+    const activeColumn = options.get(index);
+    const activeColumnSelector = options.get(index).toSelector();
+    const activeColumnElement = await this.browser.$(activeColumnSelector);
+    const targetColumnElement = await this.browser.$(options.get(index + positionDelta).toSelector());
+    const activeColumnCenter =
+      (await activeColumnElement.getLocation('y')) + (await activeColumnElement.getSize('height')) / 2;
+    const targetColumnCenter =
+      (await targetColumnElement.getLocation('y')) + (await targetColumnElement.getSize('height')) / 2;
+    const offset = targetColumnCenter - activeColumnCenter;
+    this.dragAndDrop(activeColumn.findDragHandle().toSelector(), 0, offset);
   }
 }

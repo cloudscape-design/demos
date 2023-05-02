@@ -72,7 +72,7 @@ function ServerSideTable({ columnDefinitions, saveWidths, loadHelpPanelContent }
       sortingColumn={sortingColumn}
       sortingDescending={descendingSorting}
       columnDefinitions={columnDefinitions}
-      visibleColumns={preferences.visibleContent}
+      columnDisplay={preferences.contentDisplay}
       ariaLabels={distributionTableAriaLabels}
       renderAriaLive={renderAriaLive}
       selectionType="multi"
