@@ -8,6 +8,7 @@ export const ORIGINS_COLUMN_DEFINITIONS = [
     id: 'name',
     header: 'Name and path',
     cell: item => item.name,
+    isRowHeader: true,
   },
   {
     id: 'id',
@@ -36,6 +37,7 @@ export const BEHAVIORS_COLUMN_DEFINITIONS = [
     id: 'pathPattern',
     header: 'Path pattern',
     cell: item => item.pathPattern,
+    isRowHeader: true,
   },
   {
     id: 'origin',
@@ -59,6 +61,7 @@ export const LOGS_COLUMN_DEFINITIONS = [
     id: 'name',
     header: 'Name',
     cell: item => <Link href="#">{item.name}</Link>,
+    isRowHeader: true,
   },
   {
     id: 'lastWritten',
@@ -91,6 +94,7 @@ export const INVALIDATIONS_COLUMN_DEFINITIONS = [
   {
     id: 'id',
     header: 'Invalidation ID',
+    isRowHeader: true,
   },
   {
     id: 'status',
@@ -108,6 +112,7 @@ export const TAGS_COLUMN_DEFINITIONS = [
     header: 'Key',
     cell: item => item.key,
     width: 300,
+    isRowHeader: true,
   },
   {
     id: 'value',

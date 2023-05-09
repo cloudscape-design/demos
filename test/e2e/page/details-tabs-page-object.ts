@@ -27,7 +27,7 @@ export default class Page extends BasePage {
     await this.click(pageWrapper.findTabs().findTabLinkById(id).toSelector());
   }
   countTableRows() {
-    return this.getElementsCount(activeTabContentWrapper.find('tbody tr').toSelector());
+    return this.getElementsCount(activeTabContentWrapper.findTable().findRows().toSelector());
   }
   getTabsHeaderText() {
     return this.getText(activeTabContentWrapper.find('h2').toSelector());
@@ -36,10 +36,10 @@ export default class Page extends BasePage {
     return this.getText(pageWrapper.findTabs().findActiveTab().toSelector());
   }
   async waitForTableContentLoaded() {
-    await this.waitForVisible(activeTabContentWrapper.find('tbody tr:first-child td:nth-child(2)').toSelector());
+    await this.waitForVisible(activeTabContentWrapper.findTable().findBodyCell(1, 2).toSelector());
   }
 
   async selectFirstTableItem() {
-    await this.click(activeTabContentWrapper.find('tbody tr:first-child input').toSelector());
+    await this.click(activeTabContentWrapper.findTable().findRowSelectionArea(1).toSelector());
   }
 }

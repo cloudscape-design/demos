@@ -39,6 +39,7 @@ const rawColumns = [
     cell: item => item.domainName,
     header: 'Domain name',
     minWidth: 160,
+    isRowHeader: true,
   },
   {
     id: 'deliveryMethod',
