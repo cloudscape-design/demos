@@ -18,6 +18,7 @@ const COLUMN_DEFINITIONS = [
     id: 'id',
     header: 'Instance ID',
     cell: item => <Link href={`#${item.id}`}>{item.id}</Link>,
+    isRowHeader: true,
   },
   {
     id: 'state',

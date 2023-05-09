@@ -59,6 +59,7 @@ const alarmsDefinition: TableProps<Item>['columnDefinitions'] = [
     header: 'Alarm name',
     cell: item => <Link href="#">{item.name}</Link>,
     width: 341,
+    isRowHeader: true,
   },
   {
     id: 'status',

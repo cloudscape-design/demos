@@ -78,6 +78,7 @@ const instanceLimitsDefinition: Array<TableProps.ColumnDefinition<(typeof instan
     header: 'Name',
     cell: item => item.name,
     width: 320,
+    isRowHeader: true,
   },
   {
     id: 'status',

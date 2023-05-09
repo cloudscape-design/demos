@@ -93,6 +93,7 @@ const columnDefinitions = [
     cell: item => item.name,
     header: 'Name',
     minWidth: 160,
+    isRowHeader: true,
   },
   {
     id: 'type',

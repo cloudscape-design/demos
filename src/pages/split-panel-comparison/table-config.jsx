@@ -28,6 +28,7 @@ export const COLUMN_DEFINITIONS_MAIN = [
     id: 'id',
     header: 'Instance ID',
     cell: item => <Link href="#">{item.id}</Link>,
+    isRowHeader: true,
   },
   {
     id: 'state',
@@ -60,6 +61,7 @@ export const COLUMN_DEFINITIONS_PANEL_CONTENT_SINGLE = [
     id: 'type',
     header: 'Type',
     cell: item => item.type,
+    isRowHeader: true,
   },
   {
     id: 'protocol',

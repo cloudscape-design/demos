@@ -39,6 +39,7 @@ const eventsDefinition: Array<TableProps.ColumnDefinition<(typeof eventsItems)[0
     cell: item => item.name,
     minWidth: 135,
     width: 140,
+    isRowHeader: true,
   },
   {
     id: 'status',

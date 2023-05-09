@@ -29,6 +29,7 @@ const columnDefinitions = [
         )}
       </>
     ),
+    isRowHeader: true,
   },
   { id: 'status', header: 'Status', cell: () => <StatusIndicator>Complete</StatusIndicator> },
   { id: 'language', header: 'Language', cell: () => 'English, US (en-US)' },
