@@ -226,6 +226,7 @@ export const DEFAULT_PREFERENCES = {
   wrapLines: false,
   stripedRows: false,
   contentDensity: 'comfortable',
+  stickyColumns: { first: 0, last: 0 },
 };
 
 export const Preferences = ({
@@ -253,6 +254,25 @@ export const Preferences = ({
     stripedRowsPreference={{
       label: 'Striped rows',
       description: 'Select to add alternating shaded rows',
+    }}
+    stickyColumnsPreference={{
+      firstColumns: {
+        title: 'Stick first column(s)',
+        description: 'Keep the first column(s) visible while horizontally scrolling the table content.',
+        options: [
+          { label: 'None', value: 0 },
+          { label: 'First column', value: 1 },
+          { label: 'First two columns', value: 2 },
+        ],
+      },
+      lastColumns: {
+        title: 'Stick last column',
+        description: 'Keep the last column visible while horizontally scrolling the table content.',
+        options: [
+          { label: 'None', value: 0 },
+          { label: 'Last column', value: 1 },
+        ],
+      },
     }}
     contentDensityPreference={{
       label: 'Compact mode',

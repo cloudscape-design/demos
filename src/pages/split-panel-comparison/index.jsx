@@ -103,6 +103,7 @@ const App = () => {
           wrapLines={preferences.wrapLines}
           stripedRows={preferences.stripedRows}
           contentDensity={preferences.contentDensity}
+          stickyColumns={preferences.stickyColumns}
           pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels(paginationProps.pagesCount)} />}
           preferences={<EC2Preferences preferences={preferences} setPreferences={setPreferences} />}
         />

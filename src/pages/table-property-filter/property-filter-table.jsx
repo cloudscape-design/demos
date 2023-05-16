@@ -65,6 +65,7 @@ export function PropertyFilterTable({
       wrapLines={preferences.wrapLines}
       stripedRows={preferences.stripedRows}
       contentDensity={preferences.contentDensity}
+      stickyColumns={preferences.stickyColumns}
       onColumnWidthsChange={saveWidths}
       header={
         <FullPageHeader

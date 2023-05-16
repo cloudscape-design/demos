@@ -57,6 +57,7 @@ function TableContent({ distributions, loadHelpPanelContent }) {
       wrapLines={preferences.wrapLines}
       stripedRows={preferences.stripedRows}
       contentDensity={preferences.contentDensity}
+      stickyColumns={preferences.stickyColumns}
       header={
         <FullPageHeader
           selectedItemsCount={collectionProps.selectedItems.length}
