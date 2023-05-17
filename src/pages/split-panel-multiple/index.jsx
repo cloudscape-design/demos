@@ -92,6 +92,7 @@ const App = () => {
           stickyHeader={true}
           columnDefinitions={COLUMN_DEFINITIONS_MAIN}
           columnDisplay={preferences.contentDisplay}
+          stickyColumns={preferences.stickyColumns}
           items={items}
           selectionType="multi"
           ariaLabels={SELECTION_LABELS}

@@ -137,6 +137,7 @@ function TableContent({ loadHelpPanelContent, distributions }) {
       wrapLines={preferences.wrapLines}
       stripedRows={preferences.stripedRows}
       contentDensity={preferences.contentDensity}
+      stickyColumns={preferences.stickyColumns}
       selectionType="multi"
       loading={loading}
       header={
