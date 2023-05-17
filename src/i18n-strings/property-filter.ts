@@ -7,7 +7,7 @@ export const propertyFilterI18nStrings: PropertyFilterProps.I18nStrings = {
   dismissAriaLabel: 'Dismiss',
   clearAriaLabel: 'Clear',
 
-  filteringPlaceholder: 'Filter distributions by text, property or value',
+  filteringPlaceholder: 'Find distributions',
   groupValuesText: 'Values',
   groupPropertiesText: 'Properties',
   operatorsText: 'Operators',

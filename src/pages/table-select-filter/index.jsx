@@ -5,7 +5,7 @@ import { createRoot } from 'react-dom/client';
 import { useCollection } from '@cloudscape-design/collection-hooks';
 import { COLUMN_DEFINITIONS, SEARCHABLE_COLUMNS, CONTENT_DISPLAY_OPTIONS } from './table-select-filter-config';
 import { Preferences } from '../commons/table-config';
-import { Button, Input, Pagination, SpaceBetween, Select, Table } from '@cloudscape-design/components';
+import { Button, Input, FormField, Pagination, SpaceBetween, Select, Table } from '@cloudscape-design/components';
 import { Navigation, Breadcrumbs, ToolsContent } from './table-select-filter-components';
 import '../../styles/table-select.scss';
 import DATA from '../../resources/instances';
@@ -153,36 +153,39 @@ function TableSelectFilter({ loadHelpPanelContent }) {
                 actions.setFiltering(event.detail.value);
               }}
               placeholder="Find instances"
-              label="Find instances"
               clearAriaLabel="clear"
               ariaDescribedby={null}
             />
           </div>
           <div className="select-filter">
-            <Select
-              data-testid="engine-filter"
-              options={selectEngineOptions}
-              selectedAriaLabel="Selected"
-              selectedOption={engine}
-              onChange={event => {
-                setEngine(event.detail.selectedOption);
-              }}
-              ariaDescribedby={null}
-              expandToViewport={true}
-            />
+            <FormField label="Filter engine">
+              <Select
+                data-testid="engine-filter"
+                options={selectEngineOptions}
+                selectedAriaLabel="Selected"
+                selectedOption={engine}
+                onChange={event => {
+                  setEngine(event.detail.selectedOption);
+                }}
+                ariaDescribedby={null}
+                expandToViewport={true}
+              />
+            </FormField>
           </div>
           <div className="select-filter">
-            <Select
-              data-testid="class-filter"
-              options={selectClassOptions}
-              selectedAriaLabel="Selected"
-              selectedOption={instanceClass}
-              onChange={event => {
-                setInstanceClass(event.detail.selectedOption);
-              }}
-              ariaDescribedby={null}
-              expandToViewport={true}
-            />
+            <FormField label="Filter class">
+              <Select
+                data-testid="class-filter"
+                options={selectClassOptions}
+                selectedAriaLabel="Selected"
+                selectedOption={instanceClass}
+                onChange={event => {
+                  setInstanceClass(event.detail.selectedOption);
+                }}
+                ariaDescribedby={null}
+                expandToViewport={true}
+              />
+            </FormField>
           </div>
           <div aria-live="polite">
             {(filterProps.filteringText || engine !== defaultEngine || instanceClass !== defaultClass) && (

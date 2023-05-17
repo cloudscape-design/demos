@@ -15,7 +15,7 @@ const navItems: SideNavigationProps['items'] = [
     text: 'Events',
     href: '#/events',
     info: (
-      <Box color="text-status-info" display="inline">
+      <Box color="text-status-info" variant="span">
         <Popover
           header="Introducing events"
           size="medium"
@@ -32,6 +32,7 @@ const navItems: SideNavigationProps['items'] = [
           dismissAriaLabel="Close"
         >
           <Box
+            variant="span"
             color="text-status-info"
             fontSize="body-s"
             fontWeight="bold"
@@ -57,7 +58,7 @@ const navItems: SideNavigationProps['items'] = [
         text: 'Launch templates',
         href: '#/launch_templates',
         info: (
-          <Box color="text-status-info" display="inline">
+          <Box color="text-status-info" variant="span">
             <Popover
               header="Introducing launch templates"
               size="medium"
@@ -72,7 +73,7 @@ const navItems: SideNavigationProps['items'] = [
               renderWithPortal={true}
               dismissAriaLabel="Close"
             >
-              <Box color="text-status-info" fontSize="body-s" fontWeight="bold">
+              <Box color="text-status-info" fontSize="body-s" fontWeight="bold" variant="span">
                 New
               </Box>
             </Popover>
@@ -87,7 +88,7 @@ const navItems: SideNavigationProps['items'] = [
         text: 'Scheduled instances',
         href: '#/scheduled_instances',
         info: (
-          <Box color="text-status-info" display="inline">
+          <Box color="text-status-info" variant="span">
             <Popover
               data-testid="beta"
               header="Beta feature"
@@ -101,7 +102,7 @@ const navItems: SideNavigationProps['items'] = [
               renderWithPortal={true}
               dismissAriaLabel="Close"
             >
-              <Box color="text-status-info" fontSize="body-s" fontWeight="bold">
+              <Box color="text-status-info" fontSize="body-s" fontWeight="bold" variant="span">
                 Beta
               </Box>
             </Popover>

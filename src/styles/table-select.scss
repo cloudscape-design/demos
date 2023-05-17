@@ -6,14 +6,15 @@
 .input-container {
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-end;
   order: 0;
   flex-grow: 10;
   margin-right: 0;
-  margin-bottom: -1rem;
+  margin-bottom: calc(-1 * #{cs.$space-scaled-m});
 
   > *:not(:empty) {
-    margin-right: 1rem;
-    margin-bottom: 1rem;
+    margin-right: cs.$space-scaled-m;
+    margin-bottom: cs.$space-scaled-s;
   }
 }
 
@@ -38,7 +39,7 @@
 
 @media (max-width: 1152px) {
   .input-container {
-    margin-right: -1rem;
+    margin-right: calc(-1 * #{cs.$space-scaled-m});
   }
 
   .select-filter {

@@ -255,6 +255,16 @@ export const Preferences = ({
       label: 'Striped rows',
       description: 'Select to add alternating shaded rows',
     }}
+    contentDensityPreference={{
+      label: 'Compact mode',
+      description: 'Select to display content in a denser, more compact mode',
+    }}
+    contentDisplayPreference={{
+      title: 'Column preferences',
+      description: 'Customize the columns visibility and order.',
+      options: contentDisplayOptions,
+      ...contentDisplayPreferenceI18nStrings,
+    }}
     stickyColumnsPreference={{
       firstColumns: {
         title: 'Stick first column(s)',
@@ -273,16 +283,6 @@ export const Preferences = ({
           { label: 'Last column', value: 1 },
         ],
       },
-    }}
-    contentDensityPreference={{
-      label: 'Compact mode',
-      description: 'Select to display content in a denser, more compact mode',
-    }}
-    contentDisplayPreference={{
-      title: 'Column preferences',
-      description: 'Customize the columns visibility and order.',
-      options: contentDisplayOptions,
-      ...contentDisplayPreferenceI18nStrings,
     }}
   />
 );
