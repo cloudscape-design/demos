@@ -92,7 +92,6 @@ const App = () => {
           stickyHeader={true}
           columnDefinitions={COLUMN_DEFINITIONS_MAIN}
           columnDisplay={preferences.contentDisplay}
-          stickyColumns={preferences.stickyColumns}
           items={items}
           selectionType="multi"
           ariaLabels={SELECTION_LABELS}
@@ -109,6 +108,7 @@ const App = () => {
           wrapLines={preferences.wrapLines}
           stripedRows={preferences.stripedRows}
           contentDensity={preferences.contentDensity}
+          stickyColumns={preferences.stickyColumns}
           pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels(paginationProps.pagesCount)} />}
           preferences={<EC2Preferences preferences={preferences} setPreferences={setPreferences} />}
         />

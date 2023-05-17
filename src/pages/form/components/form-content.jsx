@@ -36,7 +36,9 @@ function BaseFormContent({ content, onCancelClick, errorText = null }) {
             <Button variant="link" onClick={onCancelClick}>
               Cancel
             </Button>
-            <Button variant="primary">Create distribution</Button>
+            <Button data-testid="create" variant="primary">
+              Create distribution
+            </Button>
           </SpaceBetween>
         }
         errorText={errorText}
