@@ -20,6 +20,7 @@ import {
   paginationAriaLabels,
   distributionTableAriaLabels,
   getHeaderCounterText,
+  renderAriaLive,
 } from '../../i18n-strings';
 import { useLocalStorage } from '../commons/use-local-storage';
 import '../../styles/base.scss';
@@ -59,6 +60,7 @@ function DetailsCards({ loadHelpPanelContent }) {
       selectionType="multi"
       variant="full-page"
       ariaLabels={distributionTableAriaLabels}
+      renderAriaLive={renderAriaLive}
       header={
         <FullPageHeader
           selectedItemsCount={collectionProps.selectedItems.length}
