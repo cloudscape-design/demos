@@ -1,11 +1,18 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import { Box, Header, Link, StatusIndicator, StatusIndicatorProps, TableProps } from '@cloudscape-design/components';
+import {
+  Box,
+  Header,
+  Link,
+  StatusIndicator,
+  StatusIndicatorProps,
+  Table,
+  TableProps,
+} from '@cloudscape-design/components';
 import { WidgetConfig } from '../interfaces';
 import { eventsItems } from './data';
 import { isVisualRefresh } from '../../../../common/apply-mode';
-import { EmbeddedTable } from '../../components/embedded-table-wrapper';
 
 export const events: WidgetConfig = {
   definition: { defaultRowSpan: 4, defaultColumnSpan: 2 },
@@ -67,5 +74,7 @@ const eventsDefinition: Array<TableProps.ColumnDefinition<(typeof eventsItems)[0
 ];
 
 export default function EventsContent() {
-  return <EmbeddedTable resizableColumns={true} items={eventsItems} columnDefinitions={eventsDefinition} />;
+  return (
+    <Table variant="borderless" resizableColumns={true} items={eventsItems} columnDefinitions={eventsDefinition} />
+  );
 }
