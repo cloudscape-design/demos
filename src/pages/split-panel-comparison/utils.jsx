@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Header, Table, BreadcrumbGroup, ColumnLayout, Box } from '@cloudscape-design/components';
 import { COLUMN_DEFINITIONS_PANEL_CONTENT_SINGLE, SELECTION_LABELS } from './table-config';
 import { CounterLink } from '../commons/common-components';
+import { isVisualRefresh } from '../../common/apply-mode';
 
 const EMPTY_PANEL_CONTENT = {
   header: '0 instances selected',
@@ -38,7 +39,7 @@ export const getPanelContentSingle = items => {
         }
         columnDefinitions={COLUMN_DEFINITIONS_PANEL_CONTENT_SINGLE}
         items={item.inboundRules}
-        variant="embedded"
+        variant={isVisualRefresh ? 'borderless' : 'container'}
       ></Table>
     ),
   };
@@ -150,7 +151,7 @@ export const getPanelContentComparison = items => {
           header={<Header variant="h2">Compare details</Header>}
           items={transformedData}
           columnDefinitions={columnDefinitions}
-          variant="embedded"
+          variant={isVisualRefresh ? 'borderless' : 'container'}
         />
       </Box>
     ),
