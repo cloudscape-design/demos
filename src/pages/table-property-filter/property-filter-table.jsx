@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCollection } from '@cloudscape-design/collection-hooks';
 import PropertyFilter from '@cloudscape-design/components/property-filter';
 import Pagination from '@cloudscape-design/components/pagination';
@@ -16,12 +16,12 @@ import {
   propertyFilterI18nStrings,
   renderAriaLive,
 } from '../../i18n-strings';
+import DataProvider from '../commons/data-provider';
 import { Preferences } from '../commons/table-config';
 
 import '../../styles/base.scss';
 
 export function PropertyFilterTable({
-  data,
   loadHelpPanelContent,
   columnDefinitions,
   contentDisplayOptions,
@@ -30,8 +30,10 @@ export function PropertyFilterTable({
   setPreferences,
   filteringProperties,
 }) {
+  const [distributions, setDistributions] = useState([]);
+  const [loading, setLoading] = useState(false);
   const { items, actions, filteredItemsCount, collectionProps, paginationProps, propertyFilterProps } = useCollection(
-    data,
+    distributions,
     {
       propertyFiltering: {
         filteringProperties,
@@ -49,6 +51,13 @@ export function PropertyFilterTable({
       selection: {},
     }
   );
+
+  useEffect(() => {
+    new DataProvider().getData('distributions').then(distributions => {
+      setDistributions(distributions);
+      setLoading(false);
+    });
+  }, []);
 
   return (
     <Table
@@ -70,10 +79,11 @@ export function PropertyFilterTable({
       header={
         <FullPageHeader
           selectedItemsCount={collectionProps.selectedItems.length}
-          counter={getHeaderCounterText(data, collectionProps.selectedItems)}
+          counter={!loading && getHeaderCounterText(distributions, collectionProps.selectedItems)}
           onInfoLinkClick={loadHelpPanelContent}
         />
       }
+      loading={loading}
       loadingText="Loading distributions"
       filter={
         <PropertyFilter

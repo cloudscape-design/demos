@@ -40,7 +40,7 @@ function LogsTable() {
       onSelectionChange={event => setSelectedItems(event.detail.selectedItems)}
       header={
         <Header
-          counter={getHeaderCounterText(logs, selectedItems)}
+          counter={!logsLoading && getHeaderCounterText(logs, selectedItems)}
           actions={
             <SpaceBetween direction="horizontal" size="xs">
               <Button disabled={!isOnlyOneSelected}>View</Button>

@@ -209,7 +209,7 @@ export function OriginsTable() {
       onSelectionChange={event => setSelectedItems(event.detail.selectedItems)}
       header={
         <Header
-          counter={getHeaderCounterText(origins, selectedItems)}
+          counter={!originsLoading && getHeaderCounterText(origins, selectedItems)}
           actions={
             <SpaceBetween direction="horizontal" size="xs">
               <Button disabled={!isOnlyOneSelected}>Edit</Button>
@@ -250,7 +250,7 @@ export function BehaviorsTable() {
       onSelectionChange={event => setSelectedItems(event.detail.selectedItems)}
       header={
         <Header
-          counter={getHeaderCounterText(behaviors, selectedItems)}
+          counter={!behaviorsLoading && getHeaderCounterText(behaviors, selectedItems)}
           actions={
             <SpaceBetween direction="horizontal" size="xs">
               <Button disabled={!isOnlyOneSelected}>Edit</Button>
@@ -282,7 +282,7 @@ export function TagsTable({ loadHelpPanelContent }) {
       header={
         <Header
           variant="h2"
-          counter={`(${tags.length})`}
+          counter={!tagsLoading && `(${tags.length})`}
           info={<InfoLink onFollow={() => loadHelpPanelContent(2)} ariaLabel={'Information about tags.'} />}
           actions={<Button>Manage tags</Button>}
           description={

@@ -143,7 +143,7 @@ function TableContent({ loadHelpPanelContent, distributions }) {
       header={
         <FullPageHeader
           selectedItemsCount={tableCollectionProps.selectedItems.length}
-          counter={getHeaderCounterText(distributions, tableCollectionProps.selectedItems)}
+          counter={!loading && getHeaderCounterText(distributions, tableCollectionProps.selectedItems)}
           extraActions={<Button iconName="refresh" ariaLabel="Refresh" {...refreshButtonProps} />}
           onInfoLinkClick={loadHelpPanelContent}
         />
