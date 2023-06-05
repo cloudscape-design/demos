@@ -64,7 +64,7 @@ function DetailsCards({ loadHelpPanelContent }) {
       header={
         <FullPageHeader
           selectedItemsCount={collectionProps.selectedItems.length}
-          counter={getHeaderCounterText(distributions, collectionProps.selectedItems)}
+          counter={!loading && getHeaderCounterText(distributions, collectionProps.selectedItems)}
           onInfoLinkClick={loadHelpPanelContent}
         />
       }

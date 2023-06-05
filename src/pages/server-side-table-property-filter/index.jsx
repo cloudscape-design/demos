@@ -98,7 +98,7 @@ function ServerSidePropertyFilterTable({ columnDefinitions, saveWidths, loadHelp
       header={
         <FullPageHeader
           selectedItemsCount={selectedItems.length}
-          counter={getHeaderCounterServerSideText(totalCount, selectedItems.length)}
+          counter={!loading && getHeaderCounterServerSideText(totalCount, selectedItems.length)}
           onInfoLinkClick={loadHelpPanelContent}
         />
       }

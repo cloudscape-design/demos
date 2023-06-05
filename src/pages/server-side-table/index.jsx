@@ -87,7 +87,7 @@ function ServerSideTable({ columnDefinitions, saveWidths, loadHelpPanelContent }
       header={
         <FullPageHeader
           selectedItemsCount={selectedItems.length}
-          counter={getHeaderCounterServerSideText(totalCount, selectedItems.length)}
+          counter={!loading && getHeaderCounterServerSideText(totalCount, selectedItems.length)}
           onInfoLinkClick={loadHelpPanelContent}
         />
       }
