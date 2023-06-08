@@ -26,7 +26,7 @@ function ServiceOverviewHeader() {
 
 function ServiceOverviewWidget() {
   return (
-    <ColumnLayout columns={4} variant="text-grid">
+    <ColumnLayout columns={4} variant="text-grid" minColumnWidth={170}>
       <div>
         <Box variant="awsui-key-label">Running instances</Box>
         <Link variant="awsui-value-large" href="#">
