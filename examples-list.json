@@ -56,6 +56,10 @@
     "title": "Table property filter"
   },
   {
+    "path": "table-fintech-dashboard",
+    "title": "Table Fintech dashboard"
+  },
+  {
     "path": "table-select-filter",
     "title": "Table with select filter"
   },
