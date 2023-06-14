@@ -14,7 +14,7 @@ import {
   SpaceBetween,
   Table,
   TextFilter,
-} from '@amzn/awsui-components-react';
+} from '@cloudscape-design/components';
 import { useAsyncData } from '../commons/use-async-data';
 import DataProvider from '../commons/data-provider';
 import { TableEmptyState, InfoLink } from '../commons/common-components';
@@ -22,7 +22,7 @@ import { ORIGINS_COLUMN_DEFINITIONS, BEHAVIORS_COLUMN_DEFINITIONS, TAGS_COLUMN_D
 import { resourceDetailBreadcrumbs } from '../../common/breadcrumbs';
 import CopyText from '../commons/copy-text';
 import { baseTableAriaLabels, getHeaderCounterText, getTextFilterCounterText } from '../../i18n-strings';
-import { useCollection } from '@amzn/awsui-collection-hooks';
+import { useCollection } from '@cloudscape-design/collection-hooks';
 
 export const DEMO_DISTRIBUTION = {
   id: 'SLCCSMWOHOFUY0',
