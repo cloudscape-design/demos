@@ -86,7 +86,7 @@ export const helpPanelContent = {
       </div>
     </HelpPanel>
   ),
-  'specific-language': (
+  'language-settings': (
     <HelpPanel
       footer={
         <ExternalLinkGroup
@@ -98,29 +98,15 @@ export const helpPanelContent = {
       }
     >
       <div>
-        <h2>Specific language</h2>
+        <h2>Language settings</h2>
+        <h3>Specific language</h3>
         <p>
           To transcribe your audio file in a specific language, choose <b>Specific language</b>, then choose the
           language. When you start a transcription job using the API, you specify the language code for that language.
           For example, to transcribe a file in US English, you use the language code en-US.
         </p>
         <p>Some processing options, such as Custom vocabulary, are not supported with Custom language models.</p>
-      </div>
-    </HelpPanel>
-  ),
-  'automatic-language': (
-    <HelpPanel
-      footer={
-        <ExternalLinkGroup
-          items={[
-            { href: '#', text: 'How Amazon Transcribe Works' },
-            { href: '#', text: 'What is Amazon Transcribe' },
-          ]}
-        />
-      }
-    >
-      <div>
-        <h2>Automatic language identification</h2>
+        <h3>Automatic language identification</h3>
         <p>
           If you want Amazon Transcribe to automatically identify the predominant language in your source audio files,
           choose <b>Automatic language identification</b>. When you run a transcription job, you won't need to specify a

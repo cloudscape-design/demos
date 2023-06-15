@@ -162,6 +162,11 @@ export const CreateTranscriptionJobPage = () => {
                     <FormField
                       label="Language settings"
                       description="You can transcribe your audio file in a language that you specify or have Amazon Transcribe identify and transcribe it in the predominant language."
+                      info={
+                        <Link variant="info" onFollow={makeHelpPanelHandler('language-settings')}>
+                          Info
+                        </Link>
+                      }
                       stretch={true}
                     >
                       <RadioGroup
@@ -170,35 +175,13 @@ export const CreateTranscriptionJobPage = () => {
                         items={[
                           {
                             value: 'specific-language',
-                            label: (
-                              <>
-                                Specific language{' '}
-                                <Link
-                                  variant="info"
-                                  onFollow={makeHelpPanelHandler('specific-language')}
-                                  ariaLabel={'Information about specific language.'}
-                                >
-                                  Info
-                                </Link>
-                              </>
-                            ),
+                            label: 'Specific language',
                             description:
                               'If you know the language spoken in your source audio, choose this option to get the most accurate results. The options available for additional processing vary between languages.',
                           },
                           {
                             value: 'automatic-language',
-                            label: (
-                              <>
-                                Automatic language identification{' '}
-                                <Link
-                                  variant="info"
-                                  onFollow={makeHelpPanelHandler('automatic-language')}
-                                  ariaLabel={'Information about automatic language identification.'}
-                                >
-                                  Info
-                                </Link>
-                              </>
-                            ),
+                            label: 'Automatic language identification',
                             description: (
                               <>
                                 If you don't know the language spoken in your audio files, choose this option. You have
