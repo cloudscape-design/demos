@@ -29,7 +29,7 @@ export function App() {
 
   const [toolsOpen, setToolsOpen] = useState(false);
   const [splitPanelOpen, setSplitPanelOpen] = useState(false);
-  const [splitPanelSize, setSplitPanelSize] = useLocalStorage('ConfigurableDashboards-split-panel-size', 360);
+  const [splitPanelSize, setSplitPanelSize] = useLocalStorage('React-ConfigurableDashboard-SplitPanelSize', 360);
   const [ref, layout, setLayout, resetLayout] = useItemsLayout();
   const [toolsContent, setToolsContent] = useState<React.ReactNode>(() => <DashboardMainInfo />);
 

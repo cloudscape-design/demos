@@ -56,7 +56,7 @@ function TableSelectFilter({ loadHelpPanelContent }) {
   const [columnDefinitions, saveWidths] = useColumnWidths('React-TableSelectFilter-Widths', COLUMN_DEFINITIONS);
   const [engine, setEngine] = useState(defaultEngine);
   const [instanceClass, setInstanceClass] = useState(defaultClass);
-  const [preferences, setPreferences] = useLocalStorage('React-DBInstancesTable-Preferences', {
+  const [preferences, setPreferences] = useLocalStorage('React-TableSelectFilter-Preferences', {
     pageSize: 30,
     contentDisplay: [
       { id: 'id', visible: true },

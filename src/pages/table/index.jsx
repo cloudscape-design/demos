@@ -28,7 +28,7 @@ import { useLocalStorage } from '../commons/use-local-storage';
 
 function TableContent({ distributions, loadHelpPanelContent }) {
   const [columnDefinitions, saveWidths] = useColumnWidths('React-Table-Widths', COLUMN_DEFINITIONS);
-  const [preferences, setPreferences] = useLocalStorage('React-DistributionsTable-Preferences', DEFAULT_PREFERENCES);
+  const [preferences, setPreferences] = useLocalStorage('React-Table-Preferences', DEFAULT_PREFERENCES);
   const { items, actions, filteredItemsCount, collectionProps, filterProps, paginationProps } = useCollection(
     distributions,
     {

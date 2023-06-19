@@ -13,8 +13,8 @@ import { PropertyFilterTable } from './property-filter-table';
 import '../../styles/base.scss';
 
 function App() {
-  const [columnDefinitions, saveWidths] = useColumnWidths('React-TableServerSide-Widths', COLUMN_DEFINITIONS);
-  const [preferences, setPreferences] = useLocalStorage('React-DistributionsTable-Preferences', DEFAULT_PREFERENCES);
+  const [columnDefinitions, saveWidths] = useColumnWidths('React-TablePropertyFilter-Widths', COLUMN_DEFINITIONS);
+  const [preferences, setPreferences] = useLocalStorage('React-TablePropertyFilter-Preferences', DEFAULT_PREFERENCES);
   const [toolsOpen, setToolsOpen] = useState(false);
   const appLayout = useRef();
 
