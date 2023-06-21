@@ -45,11 +45,8 @@ const fakeDataFetch = delay => new Promise(resolve => setTimeout(() => resolve()
 function TableContent({ loadHelpPanelContent, distributions }) {
   const [loading, setLoading] = useState(false);
   const [tableItems, setTableItems] = useState(distributions);
-  const [columnDefinitions, saveWidths] = useColumnWidths('React-EditableTable-Widths', EDITABLE_COLUMN_DEFINITIONS);
-  const [preferences, setPreferences] = useLocalStorage(
-    'React-EditableDistributionsTable-Preferences',
-    DEFAULT_PREFERENCES
-  );
+  const [columnDefinitions, saveWidths] = useColumnWidths('React-TableEditable-Widths', EDITABLE_COLUMN_DEFINITIONS);
+  const [preferences, setPreferences] = useLocalStorage('React-TableEditable-Preferences', DEFAULT_PREFERENCES);
   const [itemsSnap, setItemsSnap] = useState(null);
 
   const persistChanges = () => {

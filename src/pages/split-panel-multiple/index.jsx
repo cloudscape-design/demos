@@ -35,7 +35,7 @@ import { getPanelContent, Breadcrumbs, useSplitPanel } from '../split-panel-comp
 import '../../styles/base.scss';
 
 const App = () => {
-  const [preferences, setPreferences] = useLocalStorage('React-InstancesTable-Preferences', DEFAULT_PREFERENCES);
+  const [preferences, setPreferences] = useLocalStorage('React-SplitPanelMultiple-Preferences', DEFAULT_PREFERENCES);
   const { items, actions, filteredItemsCount, collectionProps, filterProps, paginationProps } = useCollection(
     INSTANCES,
     {

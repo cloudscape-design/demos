@@ -29,7 +29,10 @@ const DEFAULT_FILTERING_QUERY = { tokens: [], operation: 'and' };
 
 function ServerSidePropertyFilterTable({ columnDefinitions, saveWidths, loadHelpPanelContent }) {
   const [selectedItems, setSelectedItems] = useState([]);
-  const [preferences, setPreferences] = useLocalStorage('React-DistributionsTable-Preferences', DEFAULT_PREFERENCES);
+  const [preferences, setPreferences] = useLocalStorage(
+    'React-ServerSideTablePropertyFilter-Preferences',
+    DEFAULT_PREFERENCES
+  );
   const [sortingDescending, setSortingDescending] = useState(false);
   const [currentPageIndex, setCurrentPageIndex] = useState(1);
   const [filteringQuery, setFilteringQuery] = useState(DEFAULT_FILTERING_QUERY);
@@ -133,7 +136,10 @@ function ServerSidePropertyFilterTable({ columnDefinitions, saveWidths, loadHelp
 }
 
 function App() {
-  const [columnDefinitions, saveWidths] = useColumnWidths('React-TableServerSide-Widths', COLUMN_DEFINITIONS);
+  const [columnDefinitions, saveWidths] = useColumnWidths(
+    'React-ServerSideTablePropertyFilter-Widths',
+    COLUMN_DEFINITIONS
+  );
   const [toolsOpen, setToolsOpen] = useState(false);
   const appLayout = useRef();
   return (

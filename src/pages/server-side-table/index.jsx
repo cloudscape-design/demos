@@ -25,7 +25,7 @@ import '../../styles/base.scss';
 
 function ServerSideTable({ columnDefinitions, saveWidths, loadHelpPanelContent }) {
   const [selectedItems, setSelectedItems] = useState([]);
-  const [preferences, setPreferences] = useLocalStorage('React-DistributionsTable-Preferences', DEFAULT_PREFERENCES);
+  const [preferences, setPreferences] = useLocalStorage('React-ServerSideTable-Preferences', DEFAULT_PREFERENCES);
   const [descendingSorting, setDescendingSorting] = useState(false);
   const [currentPageIndex, setCurrentPageIndex] = useState(1);
   const [filteringText, setFilteringText] = useState('');
