@@ -115,13 +115,7 @@ export default function DistributionPanel({ loadHelpPanelContent, updateDirty = 
       <SpaceBetween size="l">
         <FormField
           label="SSL/TLS certificate"
-          info={
-            <InfoLink
-              id="certificate-method-info-link"
-              onFollow={() => loadHelpPanelContent(2)}
-              ariaLabel={'Information about SSL/TLS certificate.'}
-            />
-          }
+          info={<InfoLink id="certificate-method-info-link" onFollow={() => loadHelpPanelContent(2)} />}
           stretch={true}
         >
           <RadioGroup
@@ -133,13 +127,7 @@ export default function DistributionPanel({ loadHelpPanelContent, updateDirty = 
         </FormField>
         <FormField
           label="Root object"
-          info={
-            <InfoLink
-              id="root-object-info-link"
-              onFollow={() => loadHelpPanelContent(3)}
-              ariaLabel={'Information about root object.'}
-            />
-          }
+          info={<InfoLink id="root-object-info-link" onFollow={() => loadHelpPanelContent(3)} />}
           description="Enter the name of the object that you want CloudFront to return when a viewer request points to your root URL."
           errorText={getErrorText('You must specify a root object.')}
           i18nStrings={{ errorIconAriaLabel: 'Error' }}
@@ -157,13 +145,7 @@ export default function DistributionPanel({ loadHelpPanelContent, updateDirty = 
               Alternative domain names (CNAMEs)<i> - optional</i>
             </>
           }
-          info={
-            <InfoLink
-              id="cnames-info-link"
-              onFollow={() => loadHelpPanelContent(4)}
-              ariaLabel={'Information about alternative domain names.'}
-            />
-          }
+          info={<InfoLink id="cnames-info-link" onFollow={() => loadHelpPanelContent(4)} />}
           description="List any custom domain names that you use in addition to the CloudFront domain name for the URLs for your files."
           constraintText="Specify up to 100 CNAMEs separated with commas, or put each on a new line."
           stretch={true}
@@ -251,9 +233,7 @@ export default function DistributionPanel({ loadHelpPanelContent, updateDirty = 
         <FormField
           label="Functions"
           description="Upload Cloudfront function and test objects."
-          info={
-            <InfoLink onFollow={() => loadHelpPanelContent(12)} ariaLabel={'Information about Cloudfront functions.'} />
-          }
+          info={<InfoLink onFollow={() => loadHelpPanelContent(12)} />}
         >
           <FileUpload
             multiple={true}

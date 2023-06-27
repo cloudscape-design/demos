@@ -22,8 +22,15 @@ export default class Page extends BasePageObject {
     return this.getElementsCount(page.findSideNavigation().findItemByIndex(index).findItems().toSelector());
   }
 
+  // should be used for info links with aria-label specified
   infoLinkSelector() {
     return page.findLink('[aria-label*=Information]').toSelector();
+  }
+
+  // should be used for info links with aria-label delivered from context
+  // (inside header / form field)
+  contextInfoLinkSelector() {
+    return page.findLink('[aria-labelledby*=link-info]').toSelector();
   }
 
   // Flash

@@ -47,11 +47,7 @@ import '../../styles/base.scss';
 const Details = ({ loadHelpPanelContent }) => (
   <Container
     header={
-      <Header
-        variant="h2"
-        info={<InfoLink onFollow={() => loadHelpPanelContent(1)} ariaLabel={'Information about details.'} />}
-        actions={<Button>Edit</Button>}
-      >
+      <Header variant="h2" info={<InfoLink onFollow={() => loadHelpPanelContent(1)} />} actions={<Button>Edit</Button>}>
         Details
       </Header>
     }

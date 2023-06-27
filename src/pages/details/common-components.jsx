@@ -283,7 +283,7 @@ export function TagsTable({ loadHelpPanelContent }) {
         <Header
           variant="h2"
           counter={!tagsLoading && `(${tags.length})`}
-          info={<InfoLink onFollow={() => loadHelpPanelContent(2)} ariaLabel={'Information about tags.'} />}
+          info={<InfoLink onFollow={() => loadHelpPanelContent(2)} />}
           actions={<Button>Manage tags</Button>}
           description={
             <>

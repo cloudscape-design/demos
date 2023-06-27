@@ -23,7 +23,7 @@ const navItems: SideNavigationProps['items'] = [
           content={
             <>
               AWS can schedule events for your instances, such as reboot, stop/start, or retirement.{' '}
-              <Link external={true} href="#">
+              <Link external={true} ariaLabel="Learn more about events management, opens in new tab" href="#">
                 Learn more
               </Link>
             </>
@@ -67,7 +67,10 @@ const navItems: SideNavigationProps['items'] = [
                 <>
                   Launch templates is a new capability that enables a new way to templatize your launch requests. Launch
                   templates streamline and simplify the launch process for auto scaling, spot fleet, spot, and on-demand
-                  instances. <Link external>Learn more</Link>
+                  instances.{' '}
+                  <Link external ariaLabel="Learn more about launch templates, opens in new tab">
+                    Learn more
+                  </Link>
                 </>
               }
               renderWithPortal={true}
@@ -96,7 +99,10 @@ const navItems: SideNavigationProps['items'] = [
               triggerType="text"
               content={
                 <>
-                  We are improving the way to create scheduled instances. <Link external>Learn more</Link>
+                  We are improving the way to create scheduled instances.{' '}
+                  <Link external ariaLabel="Learn more about instance scheduling, opens in new tab">
+                    Learn more
+                  </Link>
                 </>
               }
               renderWithPortal={true}

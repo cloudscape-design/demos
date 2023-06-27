@@ -56,15 +56,7 @@ export default function CacheBehaviorPanel({ loadHelpPanelContent, readOnlyWithE
       id="cache-behavior-panel"
       className="custom-screenshot-hide"
       header={
-        <Header
-          variant="h2"
-          info={
-            <InfoLink
-              onFollow={() => loadHelpPanelContent(9)}
-              ariaLabel={'Information about cache behavior settings.'}
-            />
-          }
-        >
+        <Header variant="h2" info={<InfoLink onFollow={() => loadHelpPanelContent(9)} />}>
           Cache behavior settings
         </Header>
       }

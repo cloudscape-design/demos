@@ -11,13 +11,7 @@ export default function ContentDeliveryPanel({ loadHelpPanelContent }) {
     <Container className="custom-screenshot-hide" header={<Header variant="h2">Distribution content delivery</Header>}>
       <FormField
         label="Delivery method"
-        info={
-          <InfoLink
-            id="delivery-method-info-link"
-            onFollow={() => loadHelpPanelContent(1)}
-            ariaLabel={'Information about delivery method.'}
-          />
-        }
+        info={<InfoLink id="delivery-method-info-link" onFollow={() => loadHelpPanelContent(1)} />}
         stretch={true}
       >
         <Tiles

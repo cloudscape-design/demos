@@ -79,11 +79,7 @@ export const CreateTranscriptionJobPage = () => {
             <Header
               variant="h1"
               info={
-                <Link
-                  variant="info"
-                  onFollow={makeHelpPanelHandler('create-transcription-job')}
-                  ariaLabel={'Information about create transcription job.'}
-                >
+                <Link variant="info" onFollow={makeHelpPanelHandler('create-transcription-job')}>
                   Info
                 </Link>
               }
@@ -131,11 +127,7 @@ export const CreateTranscriptionJobPage = () => {
                       label="Model type"
                       stretch={true}
                       info={
-                        <Link
-                          variant="info"
-                          onFollow={makeHelpPanelHandler('model-type')}
-                          ariaLabel={'Information about model type.'}
-                        >
+                        <Link variant="info" onFollow={makeHelpPanelHandler('model-type')}>
                           Info
                         </Link>
                       }
@@ -209,11 +201,7 @@ export const CreateTranscriptionJobPage = () => {
                   header={
                     <Header
                       info={
-                        <Link
-                          variant="info"
-                          onFollow={makeHelpPanelHandler('input-data')}
-                          ariaLabel={'Information about input data.'}
-                        >
+                        <Link variant="info" onFollow={makeHelpPanelHandler('input-data')}>
                           Info
                         </Link>
                       }

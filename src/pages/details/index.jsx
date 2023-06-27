@@ -12,12 +12,7 @@ import '../../styles/base.scss';
 const DistSettings = ({ loadHelpPanelContent, isInProgress }) => (
   <Container
     header={
-      <Header
-        variant="h2"
-        info={
-          <InfoLink onFollow={() => loadHelpPanelContent(0)} ariaLabel={'Information about distribution settings.'} />
-        }
-      >
+      <Header variant="h2" info={<InfoLink onFollow={() => loadHelpPanelContent(0)} />}>
         Distribution settings
       </Header>
     }

@@ -13,13 +13,7 @@ export function FormHeader({ loadHelpPanelContent }) {
   return (
     <Header
       variant="h1"
-      info={
-        <InfoLink
-          id="form-main-info-link"
-          onFollow={() => loadHelpPanelContent(0)}
-          ariaLabel={'Information about how to create a distribution.'}
-        />
-      }
+      info={<InfoLink id="form-main-info-link" onFollow={() => loadHelpPanelContent(0)} />}
       description="When you create an Amazon CloudFront distribution, you tell CloudFront where to find your content by specifying your origin servers."
     >
       Create distribution

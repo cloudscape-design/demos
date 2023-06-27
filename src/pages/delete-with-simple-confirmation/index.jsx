@@ -233,7 +233,7 @@ function DeleteModal({ distributions, visible, onDiscard, onDelete }) {
             Proceeding with this action will delete the
             {isMultiple ? ' distributions with all their content ' : ' distribution with all its content'} and can
             affect related resources.{' '}
-            <Link external={true} href="#">
+            <Link external={true} href="#" ariaLabel="Learn more about distributions management, opens in new tab">
               Learn more
             </Link>
           </Alert>

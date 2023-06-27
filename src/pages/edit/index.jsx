@@ -58,13 +58,7 @@ const DistributionsFooter = props => {
         </FormField>
         <FormField
           label="Root object"
-          info={
-            <InfoLink
-              id="root-info-link"
-              onFollow={() => props.loadHelpPanelContent(3)}
-              ariaLabel={'Information about root object.'}
-            />
-          }
+          info={<InfoLink id="root-info-link" onFollow={() => props.loadHelpPanelContent(3)} />}
           description="Type the name of the object that you want CloudFront to return when a viewer request points to your root URL."
         >
           <Input
@@ -124,13 +118,7 @@ const Content = props => {
                   Alternative domain names (CNAMEs)<i> - optional</i>
                 </>
               }
-              info={
-                <InfoLink
-                  id="cname-info-link"
-                  onFollow={() => props.loadHelpPanelContent(1)}
-                  ariaLabel={'Information about alternative domain names.'}
-                />
-              }
+              info={<InfoLink id="cname-info-link" onFollow={() => props.loadHelpPanelContent(1)} />}
               description="You must list any custom domain names that you use in addition to the CloudFront domain name for the URLs for your files."
               constraintText="Specify up to 100 CNAMEs separated with commas or put each on a new line."
               stretch={true}
@@ -143,13 +131,7 @@ const Content = props => {
             </FormField>
             <FormField
               label="SSL/TLS certificate"
-              info={
-                <InfoLink
-                  id="ssl-info-link"
-                  onFollow={() => props.loadHelpPanelContent(2)}
-                  ariaLabel={'Information about SSL/TLS certificate.'}
-                />
-              }
+              info={<InfoLink id="ssl-info-link" onFollow={() => props.loadHelpPanelContent(2)} />}
               stretch={true}
             >
               <RadioGroup
@@ -190,12 +172,7 @@ class App extends React.Component {
               <Header
                 variant="h1"
                 info={
-                  <Link
-                    id="main-info-link"
-                    variant="info"
-                    onFollow={() => this.loadHelpPanelContent(0)}
-                    ariaLabel="Information about edit distribution."
-                  >
+                  <Link id="main-info-link" variant="info" onFollow={() => this.loadHelpPanelContent(0)}>
                     Info
                   </Link>
                 }

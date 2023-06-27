@@ -152,6 +152,7 @@ function TableSelectFilter({ loadHelpPanelContent }) {
               onChange={event => {
                 actions.setFiltering(event.detail.value);
               }}
+              ariaLabel="Find instances"
               placeholder="Find instances"
               clearAriaLabel="clear"
               ariaDescribedby={null}

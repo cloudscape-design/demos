@@ -34,12 +34,7 @@ export function DashboardHeader({ actions }: { actions: React.ReactNode }) {
   return (
     <Header
       variant="h1"
-      info={
-        <InfoLink
-          onFollow={() => loadHelpPanelContent(<DashboardMainInfo />)}
-          ariaLabel="Information about service dashboard."
-        />
-      }
+      info={<InfoLink onFollow={() => loadHelpPanelContent(<DashboardMainInfo />)} />}
       actions={actions}
     >
       Service Dashboard
