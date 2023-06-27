@@ -88,5 +88,8 @@
     "package-lock.json": [
       "./scripts/clean-package-lock.js"
     ]
+  },
+  "dependencies": {
+    "@iot-app-kit/related-table": "^6.1.0"
   }
 }

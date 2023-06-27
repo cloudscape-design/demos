@@ -21,7 +21,7 @@ const Breadcrumbs = () => {
       items={[
         { text: 'Sample company', href: '#' },
         { text: 'Report list', href: '#' },
-        { text: "Craig's Design and Landscaping Services", href: '#' },
+        { text: "Adam's Interior Design Services", href: '#' },
       ]}
       ariaLabel="Breadcrumbs"
     />
@@ -36,7 +36,7 @@ function App() {
     <AppLayout
       breadcrumbs={<Breadcrumbs />}
       content={
-        <ContentLayout header={<Header variant="h1">Craig's Design and Landscaping Services</Header>}>
+        <ContentLayout header={<Header variant="h1">Adam's Interior Design Services</Header>}>
           <SpaceBetween direction="vertical" size="l">
             <FilterContainer />
             <ProfitAndLossTable

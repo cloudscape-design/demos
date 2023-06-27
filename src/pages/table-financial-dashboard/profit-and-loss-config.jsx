@@ -2,20 +2,20 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 import { Box } from '@cloudscape-design/components';
-import { createTableSortLabelFn } from '../../i18n-strings';
 
 export const DEFAULT_PREFERENCES = {
   pageSize: 30,
   visibleContent: [
     'name',
-    'amysbirdsanctuary',
-    'billswindsurfshop',
-    'coolcars',
-    'diegorodriguez',
-    'medicalSupplies',
-    'pyesCakes',
-    'barnettDesign',
-    'totalSharaBarnett',
+    'olgasbakery',
+    'francescosgardentools',
+    'wesscomics',
+    'lidiasbooks',
+    'thecarmechanics',
+    'jeffsspaceships',
+    'designtools',
+    'keyboardkings',
+    'monitormogals',
     'total',
   ],
   wrapLines: false,
@@ -32,16 +32,21 @@ export const PAGE_SIZE_OPTIONS = [
 
 export const CONTENT_DISPLAY_OPTIONS = [
   { id: 'name', label: 'Line item', alwaysVisible: true },
-  { id: 'amysbirdsanctuary', label: 'Amys Bird Sanctuary' },
-  { id: 'billswindsurfshop', label: 'Bills Windsurf Shop' },
-  { id: 'coolcars', label: 'Cool cars' },
-  { id: 'diegorodriguez', label: 'Diego Rodriguez' },
-  { id: 'medicalSupplies', label: 'Medical supplies' },
-  { id: 'pyesCakes', label: 'Pyes Cakes' },
-  { id: 'barnettDesign', label: 'Barnett Design' },
-  { id: 'totalSharaBarnett', label: 'Total Shara Barnett' },
+  { id: 'olgasbakery', label: `Olga's Bakery` },
+  { id: 'francescosgardentools', label: `Francesco's Garden Tools` },
+  { id: 'wesscomics', label: `Wes's Comics` },
+  { id: 'lidiasbooks', label: `Lidia's Books` },
+  { id: 'thecarmechanics', label: `The Car Mechanics` },
+  { id: 'jeffsspaceships', label: `Jeff's Spaceships` },
+  { id: 'designtools', label: `Design Tools` },
+  { id: 'keyboardkings', label: `Keyboard Kings` },
+  { id: 'monitorMogals', label: `Monitor Mogals` },
   { id: 'total', label: 'Total' },
 ];
+
+const getAriaLabel = (label, sorted, descending) => {
+  return `${label}, ${sorted ? `sorted ${descending ? 'descending' : 'ascending'}` : 'not sorted'}.`;
+};
 
 export const relatedColumnDefinitions = [
   {
@@ -57,115 +62,142 @@ export const relatedColumnDefinitions = [
         {item.name}
       </Box>
     ),
+    ariaLabel: ({ sorted, descending }) => {
+      return getAriaLabel('Line item', sorted, descending);
+    },
   },
 
   {
-    id: 'amysbirdsanctuary',
+    id: 'olgasbakery',
     header: (
       <Box fontWeight="heavy" textAlign="right" color="text-body-secondary">
-        Amy's Bird Sanctuary
+        Olga's Bakery
       </Box>
     ),
     cell: item => (
       <Box textAlign="right" fontWeight={item.isTotal ? 'bold' : 'normal'}>
-        {item.medicalSupplies?.toFixed(2)}
+        {item.jeffsSpaceships?.toFixed(2)}
       </Box>
     ),
+    ariaLabel: ({ sorted, descending }) => {
+      return getAriaLabel(`Olga's Bakery`, sorted, descending);
+    },
   },
   {
-    id: 'billswindsurfshop',
+    id: 'francescosgardentools',
     header: (
       <Box fontWeight="heavy" textAlign="right" color="text-body-secondary">
-        Bill's Windsurf Shop
+        Francesco's Garden Tools
       </Box>
     ),
     cell: item => (
       <Box textAlign="right" fontWeight={item.isTotal ? 'bold' : 'normal'}>
-        {item.medicalSupplies?.toFixed(2)}
+        {item.jeffsSpaceships?.toFixed(2)}
       </Box>
     ),
+    ariaLabel: ({ sorted, descending }) => {
+      return getAriaLabel(`Francesco's Garden Tools`, sorted, descending);
+    },
   },
   {
-    id: 'coolcars',
+    id: 'wesscomics',
     header: (
       <Box fontWeight="heavy" textAlign="right" color="text-body-secondary">
-        Cool cars
+        Wes's Comics
       </Box>
     ),
     cell: item => (
       <Box textAlign="right" fontWeight={item.isTotal ? 'bold' : 'normal'}>
-        {item.medicalSupplies?.toFixed(2)}
+        {item.jeffsSpaceships?.toFixed(2)}
       </Box>
     ),
+    ariaLabel: ({ sorted, descending }) => {
+      return getAriaLabel(`Wes's Comics`, sorted, descending);
+    },
   },
   {
-    id: 'diegorodriguez',
+    id: 'thecarmechanics',
     header: (
       <Box fontWeight="heavy" textAlign="right" color="text-body-secondary">
-        Diego Rodriguez
+        The Car Mechanics
       </Box>
     ),
     cell: item => (
       <Box textAlign="right" fontWeight={item.isTotal ? 'bold' : 'normal'}>
-        {item.medicalSupplies?.toFixed(2)}
+        {item.jeffsSpaceships?.toFixed(2)}
       </Box>
     ),
+    ariaLabel: ({ sorted, descending }) => {
+      return getAriaLabel(`The Car Mechanics`, sorted, descending);
+    },
   },
 
   {
-    id: 'medicalSupplies',
+    id: 'jeffsspaceships',
     header: (
       <Box fontWeight="heavy" textAlign="right" color="text-body-secondary">
-        Medical supplies
+        Jeff's Spaceships
       </Box>
     ),
     cell: item => (
       <Box textAlign="right" fontWeight={item.isTotal ? 'bold' : 'normal'}>
-        {item.medicalSupplies?.toFixed(2)}
+        {item.jeffsSpaceships?.toFixed(2)}
       </Box>
     ),
+    ariaLabel: ({ sorted, descending }) => {
+      return getAriaLabel(`Jeff's Spaceships`, sorted, descending);
+    },
   },
   {
-    sortingField: 'pyesCakes',
-    id: 'pyesCakes',
+    sortingField: 'designtools',
+    id: 'designtools',
     header: (
       <Box fontWeight="heavy" textAlign="right" color="text-body-secondary">
-        Pye's cakes
+        Design Tools
       </Box>
     ),
     cell: item => (
       <Box textAlign="right" fontWeight={item.isTotal ? 'bold' : 'normal'}>
-        {item.pyesCakes?.toFixed(2)}
+        {item.designTools?.toFixed(2)}
       </Box>
     ),
+    ariaLabel: ({ sorted, descending }) => {
+      return getAriaLabel('Design Tools', sorted, descending);
+    },
   },
   {
-    sortingField: 'barnettDesign',
-    id: 'barnettDesign',
+    sortingField: 'keyboardkings',
+    id: 'keyboardkings',
     header: (
       <Box fontWeight="heavy" textAlign="right" color="text-body-secondary">
-        Barnett Design
+        Keyboard Kings
       </Box>
     ),
     cell: item => (
       <Box textAlign="right" fontWeight={item.isTotal ? 'bold' : 'normal'}>
-        {item.barnettDesign?.toFixed(2)}
+        {item.keyboardKings?.toFixed(2)}
       </Box>
     ),
+    ariaLabel: ({ sorted, descending }) => {
+      return getAriaLabel('Keyboard Kings', sorted, descending);
+    },
   },
   {
-    sortingField: 'totalSharaBarnett',
-    id: 'totalSharaBarnett',
+    sortingField: 'monitorMogals',
+    id: 'monitorMogals',
     header: (
       <Box fontWeight="heavy" textAlign="right" color="text-body-secondary">
-        Total Shara Barnett
+        Monitor Mogals
       </Box>
     ),
     cell: item => (
       <Box textAlign="right" fontWeight={item.isTotal ? 'bold' : 'normal'}>
-        {item.totalSharaBarnett?.toFixed(2)}
+        {item.monitorMogals?.toFixed(2)}
       </Box>
     ),
+    ariaLabel: ({ sorted, descending }) => {
+      return getAriaLabel('Monitor Mogals', sorted, descending);
+    },
   },
   {
     sortingField: 'total',
@@ -180,12 +212,14 @@ export const relatedColumnDefinitions = [
         {item.total ? item.total.toFixed(2) : '-'}
       </Box>
     ),
+    ariaLabel: ({ sorted, descending }) => {
+      return getAriaLabel('Total', sorted, descending);
+    },
   },
 ];
 
 export const COLUMN_DEFINITIONS = relatedColumnDefinitions.map(column => ({
   ...column,
-  ariaLabel: createTableSortLabelFn(column),
 }));
 
 export const PROPERTY_FILTERING_I18N_CONSTANTS = {
@@ -234,110 +268,110 @@ export const genData = () => {
     {
       id: 'design-income',
       name: 'Design income',
-      medicalSupplies: 300,
+      jeffsSpaceships: 300,
       total: 1500,
       parentId: 'income',
     },
     {
       id: 'discounts-given',
       name: 'Discounts given',
-      medicalSupplies: -50,
-      pyesCakes: -20,
-      barnettDesign: -30.5,
-      totalSharaBarnett: -30.5,
+      jeffsSpaceships: -50,
+      monitorMogals: -20,
+      keyboardKings: -30.5,
+      designTools: -30.5,
       total: -331,
       parentId: 'income',
     },
     {
-      id: 'landscaping-services',
-      name: 'Landscaping services',
-      medicalSupplies: 40,
-      pyesCakes: 10,
-      barnettDesign: 30,
-      totalSharaBarnett: 30,
+      id: 'interior-design-services',
+      name: 'Interior design services',
+      jeffsSpaceships: 40,
+      monitorMogals: 10,
+      keyboardKings: 30,
+      designTools: 30,
       total: 270,
     },
     {
       id: 'job-materials',
       name: 'Job materials',
-      parentId: 'landscaping-services',
+      parentId: 'interior-design-services',
     },
     {
       id: 'labor',
       name: 'Labor',
-      parentId: 'landscaping-services',
+      parentId: 'interior-design-services',
     },
     {
       id: 'installation',
       name: 'Installation',
-      medicalSupplies: 50.25,
-      pyesCakes: 10,
-      barnettDesign: 30.5,
-      totalSharaBarnett: 30.5,
+      jeffsSpaceships: 50.25,
+      monitorMogals: 10,
+      keyboardKings: 30.5,
+      designTools: 30.5,
       total: 322.25,
       parentId: 'labor',
     },
     {
       id: 'maintainence-and-repair',
       name: 'Maintenance and repair',
-      medicalSupplies: 50.25,
-      pyesCakes: 10,
-      barnettDesign: 30.5,
-      totalSharaBarnett: 30.5,
+      jeffsSpaceships: 50.25,
+      monitorMogals: 10,
+      keyboardKings: 30.5,
+      designTools: 30.5,
       total: 322.25,
       parentId: 'labor',
     },
     {
       id: 'total-labor',
       name: 'Total labor',
-      medicalSupplies: 100.5,
-      pyesCakes: 20,
-      barnettDesign: 61,
-      totalSharaBarnett: 61,
+      jeffsSpaceships: 100.5,
+      monitorMogals: 20,
+      keyboardKings: 61,
+      designTools: 61,
       total: 644.5,
       parentId: 'labor',
       isTotal: true,
     },
     {
-      id: 'fountains-and-garden',
-      name: 'Fountains and garden',
-      medicalSupplies: 50.25,
-      pyesCakes: 10,
-      barnettDesign: 30.5,
-      totalSharaBarnett: 30.5,
+      id: 'furnishings',
+      name: 'Furnishings',
+      jeffsSpaceships: 50.25,
+      monitorMogals: 10,
+      keyboardKings: 30.5,
+      designTools: 30.5,
       total: 322.25,
       parentId: 'job-materials',
     },
     {
-      id: 'plants-and-soil',
-      name: 'Plants and soil',
-      medicalSupplies: 50.25,
-      pyesCakes: 10,
-      barnettDesign: 30.5,
-      totalSharaBarnett: 30.5,
+      id: 'rugs-and-carpeting',
+      name: 'Rugs and carpeting',
+      jeffsSpaceships: 50.25,
+      monitorMogals: 10,
+      keyboardKings: 30.5,
+      designTools: 30.5,
       total: 322.25,
       parentId: 'job-materials',
     },
     {
       id: 'total-job-materials',
       name: 'Total job materials',
-      medicalSupplies: 100.5,
-      pyesCakes: 20,
-      barnettDesign: 61,
-      totalSharaBarnett: 61,
+      jeffsSpaceships: 100.5,
+      monitorMogals: 20,
+      keyboardKings: 61,
+      designTools: 61,
       total: 644.5,
       parentId: 'job-materials',
       isTotal: true,
     },
     {
-      id: 'total-landscaping',
+      id: 'total-interior-design',
       name: 'Total',
-      medicalSupplies: 241,
-      pyesCakes: 50,
-      barnettDesign: 152.5,
-      totalSharaBarnett: 152.5,
+      jeffsSpaceships: 241,
+      monitorMogals: 50,
+      keyboardKings: 152.5,
+      designTools: 152.5,
       total: 1560,
-      parentId: 'landscaping-services',
+      parentId: 'interior-design-services',
       isTotal: true,
     },
   ];
