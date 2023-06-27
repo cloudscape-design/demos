@@ -155,12 +155,7 @@ const App = () => {
 
   const wizardSteps = steps.map(({ title, stateKey, StepContent }) => ({
     title,
-    info: (
-      <InfoLink
-        onFollow={() => setHelpPanelContent(TOOLS_CONTENT[stateKey].default)}
-        ariaLabel={`Information about ${title}.`}
-      />
-    ),
+    info: <InfoLink onFollow={() => setHelpPanelContent(TOOLS_CONTENT[stateKey].default)} />,
     content: (
       <StepContent
         info={stepsInfo}

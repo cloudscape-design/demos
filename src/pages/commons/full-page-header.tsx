@@ -25,7 +25,7 @@ export function FullPageHeader({
   return (
     <Header
       variant="awsui-h1-sticky"
-      info={onInfoLinkClick && <InfoLink onFollow={onInfoLinkClick} ariaLabel={`Information about ${title}.`} />}
+      info={onInfoLinkClick && <InfoLink onFollow={onInfoLinkClick} />}
       actions={
         <SpaceBetween size="xs" direction="horizontal">
           {extraActions}

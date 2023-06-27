@@ -68,7 +68,7 @@ describe('React Cards - Client side', () => {
   test(
     'tools panel can be opened by info link',
     setupTest(async page => {
-      await page.click(page.infoLinkSelector());
+      await page.click(page.contextInfoLinkSelector());
       await expect(page.isToolsOpen()).resolves.toBe(true);
     })
   );
@@ -76,8 +76,8 @@ describe('React Cards - Client side', () => {
   test(
     'tools panel is re-focused after clicking multiple info links',
     setupTest(async page => {
-      await page.click(page.infoLinkSelector());
-      await page.click(page.infoLinkSelector());
+      await page.click(page.contextInfoLinkSelector());
+      await page.click(page.contextInfoLinkSelector());
       await expect(page.isToolsCloseFocused()).resolves.toBe(true);
     })
   );

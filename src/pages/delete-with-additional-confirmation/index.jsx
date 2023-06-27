@@ -269,7 +269,7 @@ function DeleteModal({ instances, visible, onDiscard, onDelete }) {
             Proceeding with this action will delete the
             {isMultiple ? ' instances with all their content ' : ' instance with all its content'} and can affect
             related resources.{' '}
-            <Link external={true} href="#">
+            <Link external={true} href="#" ariaLabel="Learn more about resource management, opens in new tab">
               Learn more
             </Link>
           </Alert>

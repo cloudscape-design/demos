@@ -5,12 +5,13 @@ import styles from './styles.module.scss';
 
 interface SeparatedListProps {
   ariaLabel?: string;
+  ariaLabelledBy?: string;
   items: Array<React.ReactNode>;
 }
 
-export function SeparatedList({ ariaLabel, items }: SeparatedListProps) {
+export function SeparatedList({ ariaLabel, ariaLabelledBy, items }: SeparatedListProps) {
   return (
-    <ul aria-label={ariaLabel} className={styles.root}>
+    <ul aria-label={ariaLabel} aria-labelledby={ariaLabelledBy} className={styles.root}>
       {items.map((item, index) => (
         <li key={index}>{item}</li>
       ))}

@@ -44,24 +44,14 @@ const NetworkAndSecurity = ({
       <SpaceBetween size="l">
         <FormField
           label="Virtual Private Cloud (VPC)"
-          info={
-            <InfoLink
-              onFollow={() => setHelpPanelContent(advancedToolsContent.vpc)}
-              ariaLabel={'Information about virtual private cloud.'}
-            />
-          }
+          info={<InfoLink onFollow={() => setHelpPanelContent(advancedToolsContent.vpc)} />}
           description="VPC defines the virtual networking environment for this DB instance."
         >
           <Select onChange={onVPCChange} selectedAriaLabel="Selected" selectedOption={vpc} options={VPC_OPTIONS} />
         </FormField>
         <FormField
           label="Subnet group"
-          info={
-            <InfoLink
-              onFollow={() => setHelpPanelContent(advancedToolsContent.subnet)}
-              ariaLabel={'Information about subnet group.'}
-            />
-          }
+          info={<InfoLink onFollow={() => setHelpPanelContent(advancedToolsContent.subnet)} />}
           description="Subnet group that defines which subnets and IP ranges the DB instance can use in the VPC you selected."
         >
           <Select
@@ -73,12 +63,7 @@ const NetworkAndSecurity = ({
         </FormField>
         <FormField
           label="VPC security groups"
-          info={
-            <InfoLink
-              onFollow={() => setHelpPanelContent(advancedToolsContent.securityGroups)}
-              ariaLabel={'Information about VPC security groups.'}
-            />
-          }
+          info={<InfoLink onFollow={() => setHelpPanelContent(advancedToolsContent.securityGroups)} />}
           description="Security groups have rules authorizing connections from all the EC2 instances and devices that need to access the DB instance."
         >
           <Select
@@ -90,12 +75,7 @@ const NetworkAndSecurity = ({
         </FormField>
         <FormField
           label="Public accessibility"
-          info={
-            <InfoLink
-              onFollow={() => setHelpPanelContent(advancedToolsContent.accessibility)}
-              ariaLabel={'Information about public accessibility.'}
-            />
-          }
+          info={<InfoLink onFollow={() => setHelpPanelContent(advancedToolsContent.accessibility)} />}
           stretch={true}
         >
           <RadioGroup
@@ -119,12 +99,7 @@ const NetworkAndSecurity = ({
         </FormField>
         <FormField
           label="Encryption"
-          info={
-            <InfoLink
-              onFollow={() => setHelpPanelContent(advancedToolsContent.encryption)}
-              ariaLabel={'Information about encryption.'}
-            />
-          }
+          info={<InfoLink onFollow={() => setHelpPanelContent(advancedToolsContent.encryption)} />}
           stretch={true}
         >
           <RadioGroup
@@ -169,12 +144,7 @@ const MaintenanceAndMonitoring = ({
           <SpaceBetween size="l">
             <FormField
               label="Failover priority"
-              info={
-                <InfoLink
-                  onFollow={() => setHelpPanelContent(advancedToolsContent.failover)}
-                  ariaLabel={'Information about failover priority.'}
-                />
-              }
+              info={<InfoLink onFollow={() => setHelpPanelContent(advancedToolsContent.failover)} />}
             >
               <Select
                 options={FAILOVER_PRIORITIES}
@@ -186,12 +156,7 @@ const MaintenanceAndMonitoring = ({
 
             <FormField
               label="Backtrack"
-              info={
-                <InfoLink
-                  onFollow={() => setHelpPanelContent(advancedToolsContent.backtrack)}
-                  ariaLabel={'Information about backtrack.'}
-                />
-              }
+              info={<InfoLink onFollow={() => setHelpPanelContent(advancedToolsContent.backtrack)} />}
               stretch={true}
             >
               <RadioGroup
@@ -239,12 +204,7 @@ const MaintenanceAndMonitoring = ({
         </FormField>
         <FormField
           label="Enhanced monitoring"
-          info={
-            <InfoLink
-              onFollow={() => setHelpPanelContent(advancedToolsContent.monitoring)}
-              ariaLabel={'Information about enhanced monitoring.'}
-            />
-          }
+          info={<InfoLink onFollow={() => setHelpPanelContent(advancedToolsContent.monitoring)} />}
           stretch={true}
         >
           <RadioGroup

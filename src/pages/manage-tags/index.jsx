@@ -73,7 +73,7 @@ class App extends Component {
               header={
                 <Header
                   variant="h2"
-                  info={<InfoLink onFollow={handleInfoClick} ariaLabel={'Information about tags.'} />}
+                  info={<InfoLink onFollow={handleInfoClick} />}
                   description="A tag is a label that you assign to an AWS resource. Each tag consists of a key and an optional value. You can use tags to search and filter your resources or track your AWS costs."
                 >
                   Tags

@@ -77,11 +77,7 @@ export const TranscriptionJobDetailsPage = () => {
                     label={
                       <>
                         Expiration{' '}
-                        <Link
-                          variant="info"
-                          onFollow={makeHelpPanelHandler('expiration')}
-                          ariaLabel={'Information about expiration.'}
-                        >
+                        <Link variant="info" onFollow={makeHelpPanelHandler('expiration')}>
                           Info
                         </Link>
                       </>

@@ -26,13 +26,7 @@ export default function OriginPanel({ loadHelpPanelContent, readOnlyWithErrors =
       <SpaceBetween size="l">
         <FormField
           label="Content origin"
-          info={
-            <InfoLink
-              id="content-origin-info-link"
-              onFollow={() => loadHelpPanelContent(5)}
-              ariaLabel={'Information about setting content origin.'}
-            />
-          }
+          info={<InfoLink id="content-origin-info-link" onFollow={() => loadHelpPanelContent(5)} />}
           description="The Amazon S3 bucket or web server that you want CloudFront to get your web content from."
           errorText={getErrorText('You must specify a content origin.')}
           i18nStrings={{ errorIconAriaLabel: 'Error' }}
@@ -63,13 +57,7 @@ export default function OriginPanel({ loadHelpPanelContent, readOnlyWithErrors =
         </FormField>
         <FormField
           label="Path to content"
-          info={
-            <InfoLink
-              id="path-info-link"
-              onFollow={() => loadHelpPanelContent(6)}
-              ariaLabel={'Information about path to content.'}
-            />
-          }
+          info={<InfoLink id="path-info-link" onFollow={() => loadHelpPanelContent(6)} />}
           description="The directory in your Amazon S3 bucket or your custom origin."
           errorText={getErrorText('You must specify a path to content.')}
           i18nStrings={{ errorIconAriaLabel: 'Error' }}
@@ -83,13 +71,7 @@ export default function OriginPanel({ loadHelpPanelContent, readOnlyWithErrors =
         </FormField>
         <FormField
           label="Origin ID"
-          info={
-            <InfoLink
-              id="origin-id-info-link"
-              onFollow={() => loadHelpPanelContent(7)}
-              ariaLabel={'Information about origin ID.'}
-            />
-          }
+          info={<InfoLink id="origin-id-info-link" onFollow={() => loadHelpPanelContent(7)} />}
           description="This value lets you distinguish multiple origins in the same distribution from one another."
           errorText={getErrorText('You must specify a origin ID.')}
           i18nStrings={{ errorIconAriaLabel: 'Error' }}
@@ -103,13 +85,7 @@ export default function OriginPanel({ loadHelpPanelContent, readOnlyWithErrors =
         <div>
           <Header
             variant="h3"
-            info={
-              <InfoLink
-                id="custom-headers-info-link"
-                onFollow={() => loadHelpPanelContent(8)}
-                ariaLabel={'Information about custom headers.'}
-              />
-            }
+            info={<InfoLink id="custom-headers-info-link" onFollow={() => loadHelpPanelContent(8)} />}
           >
             Custom headers
           </Header>

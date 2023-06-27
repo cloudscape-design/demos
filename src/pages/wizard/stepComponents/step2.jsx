@@ -75,12 +75,7 @@ const InstanceOptions = ({
             </FormField>
             <FormField
               label="IAM DB authentication"
-              info={
-                <InfoLink
-                  onFollow={() => setHelpPanelContent(detailsToolsContent.iamAuth)}
-                  ariaLabel={'Information about IAM DB authentication.'}
-                />
-              }
+              info={<InfoLink onFollow={() => setHelpPanelContent(detailsToolsContent.iamAuth)} />}
               stretch={true}
             >
               <RadioGroup
@@ -106,12 +101,7 @@ const InstanceOptions = ({
       <SpaceBetween size="l">
         <FormField
           label="Class"
-          info={
-            <InfoLink
-              onFollow={() => setHelpPanelContent(detailsToolsContent.instanceClass)}
-              ariaLabel={'Information about class.'}
-            />
-          }
+          info={<InfoLink onFollow={() => setHelpPanelContent(detailsToolsContent.instanceClass)} />}
           description="Instance class allocates the computational, network, and memory capacity required by planned workload of this DB instance."
         >
           <Select
@@ -124,12 +114,7 @@ const InstanceOptions = ({
 
         <FormField
           label="Storage type"
-          info={
-            <InfoLink
-              onFollow={() => setHelpPanelContent(detailsToolsContent.storageType)}
-              ariaLabel={'Information about storage type.'}
-            />
-          }
+          info={<InfoLink onFollow={() => setHelpPanelContent(detailsToolsContent.storageType)} />}
           stretch={true}
         >
           <RadioGroup onChange={onStorageTypeChange} items={STORAGE_TYPES} value={storageType} />
@@ -166,12 +151,7 @@ const NameAndPassword = ({ identifier, username, password, confirmPassword, onCh
       <SpaceBetween size="l">
         <FormField
           label="DB instance identifier"
-          info={
-            <InfoLink
-              onFollow={() => setHelpPanelContent(detailsToolsContent.identifier)}
-              ariaLabel={'Information about DB instance identifier.'}
-            />
-          }
+          info={<InfoLink onFollow={() => setHelpPanelContent(detailsToolsContent.identifier)} />}
           description="A name that is unique for all DB instances owned by your AWS account in the current region."
           constraintText="Case insensitive, but stored as all lower-case. Must contain from 1 to 63 alphanumeric characters or hyphens  (1 to 15 for SQL Server). First character must be a letter. Cannot end with a hyphen or contain two consecutive hyphens."
         >
@@ -179,12 +159,7 @@ const NameAndPassword = ({ identifier, username, password, confirmPassword, onCh
         </FormField>
         <FormField
           label="Primary user name"
-          info={
-            <InfoLink
-              onFollow={() => setHelpPanelContent(detailsToolsContent.username)}
-              ariaLabel={'Information about primary user name.'}
-            />
-          }
+          info={<InfoLink onFollow={() => setHelpPanelContent(detailsToolsContent.username)} />}
           description="A string that defines the login ID for the primary user."
           constraintText="Must start with a letter. Must contain 1 to 64 alphanumeric characters."
         >
@@ -193,12 +168,7 @@ const NameAndPassword = ({ identifier, username, password, confirmPassword, onCh
         <ColumnLayout columns={2}>
           <FormField
             label="Primary password"
-            info={
-              <InfoLink
-                onFollow={() => setHelpPanelContent(detailsToolsContent.password)}
-                ariaLabel={'Information about primary password.'}
-              />
-            }
+            info={<InfoLink onFollow={() => setHelpPanelContent(detailsToolsContent.password)} />}
             constraintText="Must be at least eight characters long. Can be any printable ASCII character except “/”, ““”, or “@”."
           >
             <Input type="password" value={password} onChange={onPasswordChange} />

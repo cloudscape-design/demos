@@ -23,11 +23,7 @@ function ServiceHealthHeader() {
     <Header
       variant="h2"
       info={
-        <InfoLink
-          data-testid="service-health-info-link"
-          onFollow={() => loadHelpPanelContent(<ServiceHealthInfo />)}
-          ariaLabel={'Information about service health.'}
-        />
+        <InfoLink data-testid="service-health-info-link" onFollow={() => loadHelpPanelContent(<ServiceHealthInfo />)} />
       }
     >
       Service health
