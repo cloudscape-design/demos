@@ -13,6 +13,7 @@ import {
   StatusIndicator,
   SpaceBetween,
   Table,
+  TextFilter,
 } from '@cloudscape-design/components';
 import { useAsyncData } from '../commons/use-async-data';
 import DataProvider from '../commons/data-provider';
@@ -20,7 +21,8 @@ import { TableEmptyState, InfoLink } from '../commons/common-components';
 import { ORIGINS_COLUMN_DEFINITIONS, BEHAVIORS_COLUMN_DEFINITIONS, TAGS_COLUMN_DEFINITIONS } from './details-config';
 import { resourceDetailBreadcrumbs } from '../../common/breadcrumbs';
 import CopyText from '../commons/copy-text';
-import { baseTableAriaLabels, getHeaderCounterText } from '../../i18n-strings';
+import { baseTableAriaLabels, getHeaderCounterText, getTextFilterCounterText } from '../../i18n-strings';
+import { useCollection } from '@cloudscape-design/collection-hooks';
 
 export const DEMO_DISTRIBUTION = {
   id: 'SLCCSMWOHOFUY0',
@@ -272,13 +274,39 @@ export function TagsTable({ loadHelpPanelContent }) {
     return ResourceTagMappingList.reduce((tags, resourceTagMapping) => [...tags, ...resourceTagMapping.Tags], []);
   });
 
+  const { items, collectionProps, filteredItemsCount, filterProps, actions } = useCollection(tags, {
+    filtering: {
+      noMatch: (
+        <Box textAlign="center" color="inherit">
+          <Box variant="strong" textAlign="center" color="inherit">
+            No matches
+          </Box>
+          <Box variant="p" padding={{ bottom: 's' }} color="inherit">
+            No tags matched the search text.
+          </Box>
+          <Button onClick={() => actions.setFiltering('')}>Clear filter</Button>
+        </Box>
+      ),
+    },
+    sorting: {},
+  });
+
   return (
     <Table
       id="tags-panel"
       columnDefinitions={TAGS_COLUMN_DEFINITIONS}
-      items={tags}
+      items={items}
+      {...collectionProps}
       loading={tagsLoading}
       loadingText="Loading tags"
+      filter={
+        <TextFilter
+          {...filterProps}
+          filteringPlaceholder="Find tags"
+          filteringAriaLabel="Filter tags"
+          countText={getTextFilterCounterText(filteredItemsCount)}
+        />
+      }
       header={
         <Header
           variant="h2"
