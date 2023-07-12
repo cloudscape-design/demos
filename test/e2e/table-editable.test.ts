@@ -45,6 +45,7 @@ describe('Table - Inline Editing', () => {
   test(
     'Saves SSL certificate edit',
     setupTest(async page => {
+      await page.hideActionsColumn();
       const afterEditText = await page.performSSLEdit(5);
       expect(afterEditText).toBe('ACM');
     })
