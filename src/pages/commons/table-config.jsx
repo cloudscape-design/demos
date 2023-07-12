@@ -8,6 +8,7 @@ import {
   Select,
   Input,
   Autosuggest,
+  ButtonDropdown,
 } from '@cloudscape-design/components';
 import { contentDisplayPreferenceI18nStrings, createTableSortLabelFn } from '../../i18n-strings';
 
@@ -74,6 +75,23 @@ const rawColumns = [
     header: 'Origin',
     cell: item => item.origin,
     minWidth: 100,
+  },
+  {
+    id: 'actions',
+    header: 'Actions',
+    minWidth: 100,
+    cell: item => (
+      <ButtonDropdown
+        variant="inline-icon"
+        ariaLabel={`${item.id} actions`}
+        expandToViewport={true}
+        items={[
+          { id: 'view', text: 'View details' },
+          { id: 'edit', text: 'Edit' },
+          { id: 'delete', text: 'Delete' },
+        ]}
+      />
+    ),
   },
 ];
 
@@ -203,6 +221,7 @@ const CONTENT_DISPLAY_OPTIONS = [
   { id: 'priceClass', label: 'Price class' },
   { id: 'logging', label: 'Logging' },
   { id: 'origin', label: 'Origin' },
+  { id: 'actions', label: 'Actions' },
 ];
 
 export const PAGE_SIZE_OPTIONS = [
@@ -222,11 +241,12 @@ export const DEFAULT_PREFERENCES = {
     { id: 'priceClass', visible: false },
     { id: 'logging', visible: false },
     { id: 'origin', visible: false },
+    { id: 'actions', visible: true },
   ],
   wrapLines: false,
   stripedRows: false,
   contentDensity: 'comfortable',
-  stickyColumns: { first: 0, last: 0 },
+  stickyColumns: { first: 0, last: 1 },
 };
 
 export const Preferences = ({

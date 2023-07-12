@@ -70,6 +70,32 @@ export default class TableEditablePageObject extends TableFilteringPageObject {
     return this.getText(bodyCell.toSelector());
   }
 
+  async hideActionsColumn() {
+    const collectionPreferences = this.tableWrapper.findCollectionPreferences();
+    const radioButtonSelector = collectionPreferences
+      .findModal()
+      .findStickyColumnsPreference('last')
+      .findRadioGroup()
+      .findInputByValue('0')
+      .toSelector();
+
+    // Open collection preferences
+    await this.click(collectionPreferences.findTriggerButton().toSelector());
+
+    // Scroll to the sticky column preferences
+    const radioButton = await this.browser.$(radioButtonSelector);
+    await radioButton.scrollIntoView();
+
+    // Hide actions column
+    await this.toggleColumnVisibility(9);
+
+    // Remove sticky last column and save
+    await this.click(radioButtonSelector);
+
+    // Save changes
+    await this.click(collectionPreferences.findModal().findConfirmButton().toSelector());
+  }
+
   getErrorText() {
     const bodyCell = this.tableWrapper.findEditingCell();
     return this.getText(bodyCell.findFormField().findError().toSelector());
