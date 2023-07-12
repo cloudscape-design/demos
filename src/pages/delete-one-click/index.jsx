@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
   Alert,
-  AppLayout,
   Button,
   Container,
   ContentLayout,
@@ -14,10 +13,12 @@ import {
   TagEditor,
 } from '@cloudscape-design/components';
 import { Navigation, Notifications } from '../commons/common-components';
+import { CustomAppLayout } from '../commons/common-components';
 import { Breadcrumbs } from '../details/common-components';
-import { appLayoutAriaLabels, tagEditorI18nStrings } from '../../i18n-strings';
 
 import '../../styles/base.scss';
+
+import { tagEditorI18nStrings } from '../../i18n-strings/tag-editor';
 
 async function loadTags() {
   const isUserTag = tag => tag.key.indexOf('aws:') !== 0;
@@ -74,7 +75,7 @@ function App() {
   };
 
   return (
-    <AppLayout
+    <CustomAppLayout
       contentType="form"
       content={
         <ContentLayout header={<Header variant="h1">Manage tags</Header>}>
@@ -104,12 +105,12 @@ function App() {
                   }
                 >
                   <TagEditor
-                    i18nStrings={tagEditorI18nStrings}
                     tags={tags}
                     onChange={onChange}
                     keysRequest={loadTagKeys}
                     valuesRequest={loadTagValues}
                     loading={loading}
+                    i18nStrings={tagEditorI18nStrings}
                   />
                 </Container>
               </Form>
@@ -120,7 +121,6 @@ function App() {
       breadcrumbs={<Breadcrumbs />}
       navigation={<Navigation activeHref="#/distributions" />}
       toolsHide={true}
-      ariaLabels={appLayoutAriaLabels}
       notifications={<Notifications />}
     />
   );

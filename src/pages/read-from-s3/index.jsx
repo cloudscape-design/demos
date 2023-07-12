@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import {
-  AppLayout,
   BreadcrumbGroup,
   Button,
   Container,
@@ -15,8 +14,7 @@ import {
   SpaceBetween,
   S3ResourceSelector,
 } from '@cloudscape-design/components';
-import { Navigation, Notifications } from '../commons/common-components';
-import { appLayoutAriaLabels, s3ResourceSelectorI18nStrings } from '../../i18n-strings';
+import { CustomAppLayout, Navigation, Notifications } from '../commons/common-components';
 import { readFromS3Breadcrumbs } from '../../common/breadcrumbs';
 import { getItems, requestAsyncAttribute } from '../../common/s3-resource-selector/mock-request';
 import { ErrorAlert } from './common';
@@ -81,7 +79,7 @@ class S3ResourceSelectorContainer extends React.Component {
       selectableItemsTypes: ['objects', 'versions'],
       objectsIsItemDisabled: object => object.IsFolder,
       bucketsVisibleColumns: ['Name', 'Region', 'CreationDate'],
-      i18nStrings: s3ResourceSelectorI18nStrings,
+      i18nStrings: { inContextInputPlaceholder: 's3://bucket/prefix/object' },
       fetchBuckets: () => this.fetch('buckets'),
       fetchObjects: (bucket, path) => this.fetch('objects', bucket, path),
       fetchVersions: (bucket, path) => this.fetch('versions', bucket, path),
@@ -94,7 +92,6 @@ class S3ResourceSelectorContainer extends React.Component {
         constraintText="Use s3://bucket/prefix/object format."
         errorText={errorText}
         stretch={true}
-        i18nStrings={{ errorIconAriaLabel: 'Error' }}
       >
         <S3ResourceSelector {...s3ResourceSelectorProps} />
       </FormField>
@@ -126,12 +123,11 @@ class App extends Component {
 
   render() {
     return (
-      <AppLayout
+      <CustomAppLayout
         contentType="form"
         content={this.content()}
         breadcrumbs={<Breadcrumbs />}
         navigation={<Navigation activeHref="#/distributions" />}
-        ariaLabels={appLayoutAriaLabels}
         toolsHide={true}
         notifications={<Notifications />}
       />

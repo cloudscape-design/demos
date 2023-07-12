@@ -2,9 +2,8 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { AppLayout, BreadcrumbGroup, ContentLayout } from '@cloudscape-design/components';
-import { Navigation, Notifications } from '../commons/common-components';
-import { appLayoutAriaLabels } from '../../i18n-strings';
+import { BreadcrumbGroup, ContentLayout } from '@cloudscape-design/components';
+import { CustomAppLayout, Navigation, Notifications } from '../commons/common-components';
 import { resourceCreateBreadcrumbs } from '../../common/breadcrumbs';
 import { FormContent, FormHeader } from './components/form-content';
 import ToolsContent from './components/tools-content';
@@ -26,7 +25,7 @@ function App() {
   };
 
   return (
-    <AppLayout
+    <CustomAppLayout
       ref={appLayout}
       contentType="form"
       content={
@@ -39,7 +38,6 @@ function App() {
       tools={ToolsContent[toolsIndex]}
       toolsOpen={toolsOpen}
       onToolsChange={({ detail }) => setToolsOpen(detail.open)}
-      ariaLabels={appLayoutAriaLabels}
       notifications={<Notifications />}
     />
   );

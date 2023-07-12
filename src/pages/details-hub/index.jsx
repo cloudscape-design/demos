@@ -5,19 +5,10 @@ import { createRoot } from 'react-dom/client';
 import DataProvider from '../commons/data-provider';
 import { useAsyncData } from '../commons/use-async-data';
 import { INSTANCE_DROPDOWN_ITEMS, LOGS_COLUMN_DEFINITIONS } from '../details/details-config';
-import {
-  AppLayout,
-  Box,
-  Button,
-  ContentLayout,
-  Header,
-  Link,
-  SpaceBetween,
-  Table,
-} from '@cloudscape-design/components';
+import { Box, Button, ContentLayout, Header, Link, SpaceBetween, Table } from '@cloudscape-design/components';
 import { Breadcrumbs, GeneralConfig, OriginsTable, PageHeader } from '../details/common-components';
-import { Navigation, Notifications } from '../commons/common-components';
-import { appLayoutAriaLabels, getHeaderCounterText } from '../../i18n-strings';
+import { CustomAppLayout, Navigation, Notifications } from '../commons/common-components';
+import { getHeaderCounterText } from '../../i18n-strings';
 import { logsTableAriaLabels } from './commons';
 import '../../styles/base.scss';
 
@@ -64,7 +55,7 @@ function LogsTable() {
 class App extends React.Component {
   render() {
     return (
-      <AppLayout
+      <CustomAppLayout
         content={
           <ContentLayout
             header={
@@ -84,7 +75,6 @@ class App extends React.Component {
         navigation={<Navigation activeHref="#/distributions" />}
         toolsHide={true}
         contentType="default"
-        ariaLabels={appLayoutAriaLabels}
         notifications={<Notifications />}
       />
     );

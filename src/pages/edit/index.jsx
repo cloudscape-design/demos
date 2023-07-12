@@ -9,7 +9,6 @@ import {
   TOOLS_CONTENT,
 } from './edit-config';
 import {
-  AppLayout,
   BreadcrumbGroup,
   Button,
   Checkbox,
@@ -25,8 +24,7 @@ import {
   Link,
   Textarea,
 } from '@cloudscape-design/components';
-import { Navigation } from '../commons/common-components';
-import { appLayoutAriaLabels } from '../../i18n-strings';
+import { Navigation, CustomAppLayout } from '../commons/common-components';
 import { resourceEditBreadcrumbs } from '../../common/breadcrumbs';
 import { InfoLink, Notifications } from '../commons/common-components';
 import '../../styles/form.scss';
@@ -163,7 +161,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <AppLayout
+      <CustomAppLayout
         ref={this.appLayout}
         contentType="form"
         content={
@@ -189,7 +187,6 @@ class App extends React.Component {
         tools={TOOLS_CONTENT[this.state.toolsIndex]}
         toolsOpen={this.state.toolsOpen}
         onToolsChange={({ detail }) => this.setState({ toolsOpen: detail.open })}
-        ariaLabels={appLayoutAriaLabels}
         notifications={<Notifications />}
       />
     );

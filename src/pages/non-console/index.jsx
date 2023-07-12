@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { createRoot } from 'react-dom/client';
 
-import AppLayout from '@cloudscape-design/components/app-layout';
 import Button from '@cloudscape-design/components/button';
 import Box from '@cloudscape-design/components/box';
 import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
@@ -20,6 +19,7 @@ import '../../styles/top-navigation.scss';
 
 import logo from './logo.svg';
 import { Notifications } from './notifications';
+import { CustomAppLayout } from '../commons/common-components';
 
 const navItems = [
   {
@@ -205,10 +205,9 @@ function App() {
           ]}
         />
       </DemoHeaderPortal>
-      <AppLayout
+      <CustomAppLayout
         stickyNotifications
         toolsHide
-        ariaLabels={{ navigationClose: 'close' }}
         navigation={<SideNavigation activeHref="#/pages" items={navItems} />}
         breadcrumbs={<BreadcrumbGroup items={breadcrumbs} expandAriaLabel="Show path" ariaLabel="Breadcrumbs" />}
         contentType="table"

@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
   Alert,
-  AppLayout,
   Box,
   BreadcrumbGroup,
   Button,
@@ -20,7 +19,7 @@ import {
   SpaceBetween,
 } from '@cloudscape-design/components';
 import { Navigation } from '../commons/common-components';
-import { appLayoutAriaLabels } from '../../i18n-strings';
+import { CustomAppLayout } from '../commons/common-components';
 import INSTANCES from '../../resources/ec2-instances';
 import '../../styles/base.scss';
 
@@ -28,7 +27,6 @@ import ItemState from '../delete-with-simple-confirmation/item-state';
 import useLocationHash from '../delete-with-simple-confirmation/use-location-hash';
 import useNotifications from '../delete-with-simple-confirmation/use-notifications';
 import InstancesTable from './instances-table';
-import { flashbarI18nStrings } from '../../i18n-strings';
 import fakeDelay from '../commons/fake-delay';
 
 const delay = 3000;
@@ -110,7 +108,7 @@ function App() {
 
 function InstancesPage({ instances, selectedItems, setSelectedItems, onDeleteInit, notifications }) {
   return (
-    <AppLayout
+    <CustomAppLayout
       content={
         <InstancesTable
           instances={instances}
@@ -129,11 +127,10 @@ function InstancesPage({ instances, selectedItems, setSelectedItems, onDeleteIni
           ariaLabel="Breadcrumbs"
         />
       }
-      notifications={<Flashbar items={notifications} stackItems={true} i18nStrings={flashbarI18nStrings} />}
+      notifications={<Flashbar items={notifications} stackItems={true} />}
       navigation={<Navigation activeHref="#" />}
       navigationOpen={false}
       toolsHide={true}
-      ariaLabels={appLayoutAriaLabels}
       contentType="table"
     />
   );
@@ -141,7 +138,7 @@ function InstancesPage({ instances, selectedItems, setSelectedItems, onDeleteIni
 
 function InstanceDetailsPage({ instance, onDeleteInit, notifications }) {
   return (
-    <AppLayout
+    <CustomAppLayout
       content={
         <ContentLayout
           header={
@@ -199,11 +196,10 @@ function InstanceDetailsPage({ instance, onDeleteInit, notifications }) {
           ariaLabel="Breadcrumbs"
         />
       }
-      notifications={<Flashbar items={notifications} stackItems={true} i18nStrings={flashbarI18nStrings} />}
+      notifications={<Flashbar items={notifications} stackItems={true} />}
       navigation={<Navigation activeHref="#" />}
       navigationOpen={false}
       toolsHide={true}
-      ariaLabels={appLayoutAriaLabels}
     />
   );
 }

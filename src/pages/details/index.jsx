@@ -2,11 +2,10 @@
 // SPDX-License-Identifier: MIT-0
 import React, { createRef } from 'react';
 import { createRoot } from 'react-dom/client';
-import { AppLayout, Container, ContentLayout, Header, SpaceBetween } from '@cloudscape-design/components';
+import { Container, ContentLayout, Header, SpaceBetween } from '@cloudscape-design/components';
 import { BehaviorsTable, Breadcrumbs, OriginsTable, PageHeader, SettingsDetails, TagsTable } from './common-components';
-import { Navigation, InfoLink, Notifications } from '../commons/common-components';
+import { Navigation, InfoLink, Notifications, CustomAppLayout } from '../commons/common-components';
 import ToolsContent from './tools-content';
-import { appLayoutAriaLabels } from '../../i18n-strings';
 import '../../styles/base.scss';
 
 const DistSettings = ({ loadHelpPanelContent, isInProgress }) => (
@@ -35,7 +34,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <AppLayout
+      <CustomAppLayout
         ref={this.appLayout}
         content={
           <ContentLayout
@@ -60,7 +59,6 @@ class App extends React.Component {
         toolsOpen={this.state.toolsOpen}
         onToolsChange={({ detail }) => this.setState({ toolsOpen: detail.open })}
         contentType="default"
-        ariaLabels={appLayoutAriaLabels}
         notifications={<Notifications />}
       />
     );

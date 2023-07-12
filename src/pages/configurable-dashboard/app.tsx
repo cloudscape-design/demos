@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useRef, useState } from 'react';
 import Board from '@cloudscape-design/board-components/board';
-import AppLayout, { AppLayoutProps } from '@cloudscape-design/components/app-layout';
+import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import Button from '@cloudscape-design/components/button';
 import ContentLayout from '@cloudscape-design/components/content-layout';
 import SplitPanel from '@cloudscape-design/components/split-panel';
@@ -10,8 +10,8 @@ import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { Breadcrumbs, Notifications, HelpPanelProvider } from '../commons';
 import { useLocalStorage } from '../commons/use-local-storage';
-import { appLayoutAriaLabels, splitPanelI18nStrings } from '../../i18n-strings';
 import { DashboardHeader, DashboardMainInfo } from '../dashboard/components/header';
+import { CustomAppLayout } from '../commons/common-components';
 import { EmptyState } from '../dashboard/components/empty-state';
 import { DashboardSideNavigation } from '../dashboard/components/side-navigation';
 import { getBoardWidgets, getPaletteWidgets, exportLayout } from './widgets';
@@ -41,7 +41,7 @@ export function App() {
 
   return (
     <HelpPanelProvider value={loadHelpPanelContent}>
-      <AppLayout
+      <CustomAppLayout
         ref={appLayoutRef}
         contentType="dashboard"
         breadcrumbs={<Breadcrumbs items={[{ text: 'Dashboard', href: '#/' }]} />}
@@ -49,7 +49,6 @@ export function App() {
         toolsOpen={toolsOpen}
         tools={toolsContent}
         onToolsChange={({ detail }) => setToolsOpen(detail.open)}
-        ariaLabels={appLayoutAriaLabels}
         notifications={<Notifications />}
         content={
           <ContentLayout
@@ -104,12 +103,7 @@ export function App() {
           </ContentLayout>
         }
         splitPanel={
-          <SplitPanel
-            header="Add widgets"
-            closeBehavior="hide"
-            hidePreferencesButton={true}
-            i18nStrings={splitPanelI18nStrings}
-          >
+          <SplitPanel header="Add widgets" closeBehavior="hide" hidePreferencesButton={true}>
             <Palette items={getPaletteWidgets(layout)} />
           </SplitPanel>
         }

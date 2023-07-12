@@ -8,7 +8,6 @@ import {
   distributionEditableTableAriaLabels,
   getHeaderCounterText,
   getTextFilterCounterText,
-  paginationAriaLabels,
   renderAriaLive,
 } from '../../i18n-strings';
 import { FullPageHeader } from '../commons';
@@ -154,9 +153,7 @@ function TableContent({ loadHelpPanelContent, distributions }) {
           countText={getTextFilterCounterText(filteredItemsCount)}
         />
       }
-      pagination={
-        <Pagination {...tablePaginationProps} ariaLabels={paginationAriaLabels(tablePaginationProps.pagesCount)} />
-      }
+      pagination={<Pagination {...tablePaginationProps} />}
       preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}
     />
   );
