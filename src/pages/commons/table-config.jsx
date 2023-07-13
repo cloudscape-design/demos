@@ -10,7 +10,7 @@ import {
   Autosuggest,
   ButtonDropdown,
 } from '@cloudscape-design/components';
-import { contentDisplayPreferenceI18nStrings, createTableSortLabelFn } from '../../i18n-strings';
+import { createTableSortLabelFn } from '../../i18n-strings';
 
 const rawColumns = [
   {
@@ -257,34 +257,14 @@ export const Preferences = ({
   contentDisplayOptions = CONTENT_DISPLAY_OPTIONS,
 }) => (
   <CollectionPreferences
-    title="Preferences"
-    confirmLabel="Confirm"
-    cancelLabel="Cancel"
     disabled={disabled}
     preferences={preferences}
     onConfirm={({ detail }) => setPreferences(detail)}
-    pageSizePreference={{
-      title: 'Page size',
-      options: pageSizeOptions,
-    }}
-    wrapLinesPreference={{
-      label: 'Wrap lines',
-      description: 'Select to see all the text and wrap the lines',
-    }}
-    stripedRowsPreference={{
-      label: 'Striped rows',
-      description: 'Select to add alternating shaded rows',
-    }}
-    contentDensityPreference={{
-      label: 'Compact mode',
-      description: 'Select to display content in a denser, more compact mode',
-    }}
-    contentDisplayPreference={{
-      title: 'Column preferences',
-      description: 'Customize the columns visibility and order.',
-      options: contentDisplayOptions,
-      ...contentDisplayPreferenceI18nStrings,
-    }}
+    pageSizePreference={{ options: pageSizeOptions }}
+    wrapLinesPreference={{}}
+    stripedRowsPreference={{}}
+    contentDensityPreference={{}}
+    contentDisplayPreference={{ options: contentDisplayOptions }}
     stickyColumnsPreference={{
       firstColumns: {
         title: 'Stick first column(s)',

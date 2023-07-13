@@ -2,15 +2,15 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useState, useCallback, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
-import { AppLayout, HelpPanel, Wizard } from '@cloudscape-design/components';
+import { HelpPanel, Wizard } from '@cloudscape-design/components';
 import { Breadcrumbs, Navigation } from './wizard-components.jsx';
-import { appLayoutAriaLabels } from '../../i18n-strings';
 import Engine from './stepComponents/step1.jsx';
 import Details from './stepComponents/step2.jsx';
 import Advanced from './stepComponents/step3.jsx';
 import Review from './stepComponents/step4.jsx';
 import { DEFAULT_STEP_INFO, TOOLS_CONTENT } from './steps-config';
 import { ExternalLinkGroup, InfoLink, Notifications } from '../commons';
+import { CustomAppLayout } from '../commons/common-components';
 import '../../styles/wizard.scss';
 
 const steps = [
@@ -37,15 +37,9 @@ const steps = [
 ];
 
 const i18nStrings = {
+  submitButton: 'Create DB instance',
   stepNumberLabel: stepNumber => `Step ${stepNumber}`,
   collapsedStepsLabel: (stepNumber, stepsCount) => `Step ${stepNumber} of ${stepsCount}`,
-  errorIconAriaLabel: 'Error',
-  navigationAriaLabel: 'Steps',
-  cancelButton: 'Cancel',
-  previousButton: 'Previous',
-  nextButton: 'Next',
-  submitButton: 'Create DB instance',
-  optional: 'optional',
 };
 
 const getDefaultToolsContent = activeIndex => TOOLS_CONTENT[steps[activeIndex].stateKey].default;
@@ -166,7 +160,7 @@ const App = () => {
     ),
   }));
   return (
-    <AppLayout
+    <CustomAppLayout
       ref={appLayoutRef}
       navigation={<Navigation />}
       tools={toolsContent}
@@ -184,7 +178,6 @@ const App = () => {
           onSubmit={onSubmit}
         />
       }
-      ariaLabels={appLayoutAriaLabels}
       notifications={<Notifications />}
     />
   );

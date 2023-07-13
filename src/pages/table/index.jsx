@@ -16,7 +16,6 @@ import {
   TableNoMatchState,
 } from '../commons/common-components';
 import {
-  paginationAriaLabels,
   distributionTableAriaLabels,
   getTextFilterCounterText,
   getHeaderCounterText,
@@ -74,7 +73,7 @@ function TableContent({ distributions, loadHelpPanelContent }) {
           countText={getTextFilterCounterText(filteredItemsCount)}
         />
       }
-      pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels(paginationProps.pagesCount)} />}
+      pagination={<Pagination {...paginationProps} />}
       preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}
     />
   );

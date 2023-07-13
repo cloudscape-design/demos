@@ -11,9 +11,8 @@ import Grid from '@cloudscape-design/components/grid';
 import '@cloudscape-design/global-styles/dark-mode-utils.css';
 import '../../styles/base.scss';
 
-import { appLayoutAriaLabels } from '../../i18n-strings';
-
 import { DashboardHeader, DashboardMainInfo } from './components/header';
+import { CustomAppLayout } from '../commons/common-components';
 import { DashboardSideNavigation } from './components/side-navigation';
 import { Breadcrumbs, Notifications, HelpPanelProvider } from '../commons';
 import {
@@ -77,7 +76,7 @@ function App() {
 
   return (
     <HelpPanelProvider value={handleToolsContentChange}>
-      <AppLayout
+      <CustomAppLayout
         ref={appLayout}
         content={
           <ContentLayout header={<DashboardHeader actions={<Button variant="primary">Launch instance</Button>} />}>
@@ -89,7 +88,6 @@ function App() {
         tools={toolsContent}
         toolsOpen={toolsOpen}
         onToolsChange={({ detail }) => setToolsOpen(detail.open)}
-        ariaLabels={appLayoutAriaLabels}
         notifications={<Notifications />}
       />
     </HelpPanelProvider>

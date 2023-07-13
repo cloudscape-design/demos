@@ -2,18 +2,12 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { AppLayout, Table, Pagination, SplitPanel, TextFilter } from '@cloudscape-design/components';
+import { Table, Pagination, SplitPanel, TextFilter } from '@cloudscape-design/components';
 import { useCollection } from '@cloudscape-design/collection-hooks';
-import {
-  appLayoutAriaLabels,
-  getHeaderCounterText,
-  getTextFilterCounterText,
-  paginationAriaLabels,
-  renderAriaLive,
-  splitPanelI18nStrings,
-} from '../../i18n-strings';
+import { getHeaderCounterText, getTextFilterCounterText, renderAriaLive } from '../../i18n-strings';
 import { FullPageHeader } from '../commons';
 import {
+  CustomAppLayout,
   Navigation,
   ec2NavItems,
   Notifications,
@@ -50,7 +44,7 @@ const App = () => {
   const appLayout = useRef();
 
   return (
-    <AppLayout
+    <CustomAppLayout
       ref={appLayout}
       contentType="table"
       navigation={<Navigation items={ec2NavItems} activeHref="#/instances" />}
@@ -63,11 +57,7 @@ const App = () => {
       onSplitPanelToggle={onSplitPanelToggle}
       splitPanelSize={splitPanelSize}
       onSplitPanelResize={onSplitPanelResize}
-      splitPanel={
-        <SplitPanel header={panelHeader} i18nStrings={splitPanelI18nStrings}>
-          {panelBody}
-        </SplitPanel>
-      }
+      splitPanel={<SplitPanel header={panelHeader}>{panelBody}</SplitPanel>}
       content={
         <Table
           {...collectionProps}
@@ -96,7 +86,6 @@ const App = () => {
               {...filterProps}
               filteringAriaLabel="Filter instances"
               filteringPlaceholder="Find instances"
-              filteringClearAriaLabel="Clear"
               countText={getTextFilterCounterText(filteredItemsCount)}
             />
           }
@@ -104,11 +93,10 @@ const App = () => {
           stripedRows={preferences.stripedRows}
           contentDensity={preferences.contentDensity}
           stickyColumns={preferences.stickyColumns}
-          pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels(paginationProps.pagesCount)} />}
+          pagination={<Pagination {...paginationProps} />}
           preferences={<EC2Preferences preferences={preferences} setPreferences={setPreferences} />}
         />
       }
-      ariaLabels={appLayoutAriaLabels}
     />
   );
 };

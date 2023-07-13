@@ -113,10 +113,12 @@ export const TAGS_COLUMN_DEFINITIONS = [
     cell: item => item.key,
     width: 300,
     isRowHeader: true,
+    sortingField: 'key',
   },
   {
     id: 'value',
     header: 'Value',
     cell: item => item.value || '-',
+    sortingField: 'value',
   },
 ];

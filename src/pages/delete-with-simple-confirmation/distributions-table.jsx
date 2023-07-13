@@ -7,7 +7,6 @@ import { FullPageHeader, TableEmptyState, TableNoMatchState } from '../commons/c
 import ItemState from './item-state';
 import {
   getTextFilterCounterText,
-  paginationAriaLabels,
   distributionTableAriaLabels,
   createTableSortLabelFn,
   getHeaderCounterText,
@@ -117,7 +116,7 @@ export default function DistributionsTable({ distributions, selectedItems, onSel
           countText={getTextFilterCounterText(filteredItemsCount)}
         />
       }
-      pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels(paginationProps.pagesCount)} />}
+      pagination={<Pagination {...paginationProps} />}
     />
   );
 }

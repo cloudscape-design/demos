@@ -13,7 +13,6 @@ import { FullPageHeader } from '../commons';
 import { useLocalStorage } from '../commons/use-local-storage';
 import {
   getHeaderCounterServerSideText,
-  paginationAriaLabels,
   distributionTableAriaLabels,
   getTextFilterCounterServerSideText,
   renderAriaLive,
@@ -110,7 +109,6 @@ function ServerSideTable({ columnDefinitions, saveWidths, loadHelpPanelContent }
           currentPageIndex={serverPageIndex}
           disabled={loading}
           onChange={event => setCurrentPageIndex(event.detail.currentPageIndex)}
-          ariaLabels={paginationAriaLabels(pagesCount)}
         />
       }
       preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}

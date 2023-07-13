@@ -12,7 +12,6 @@ import {
   distributionTableAriaLabels,
   getHeaderCounterText,
   getTextFilterCounterText,
-  paginationAriaLabels,
   propertyFilterI18nStrings,
   renderAriaLive,
 } from '../../i18n-strings';
@@ -93,7 +92,7 @@ export function PropertyFilterTable({
           expandToViewport={true}
         />
       }
-      pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels(paginationProps.pagesCount)} />}
+      pagination={<Pagination {...paginationProps} />}
       preferences={
         <Preferences
           preferences={preferences}

@@ -4,7 +4,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
   Alert,
-  AppLayout,
   Box,
   BreadcrumbGroup,
   Button,
@@ -18,14 +17,13 @@ import {
 } from '@cloudscape-design/components';
 import { SettingsDetails } from '../details/common-components';
 import { Navigation } from '../commons/common-components';
-import { appLayoutAriaLabels } from '../../i18n-strings';
+import { CustomAppLayout } from '../commons/common-components';
 import DataProvider from '../commons/data-provider';
 import '../../styles/base.scss';
 
 import DistributionsTable from './distributions-table';
 import useLocationHash from './use-location-hash';
 import useNotifications from './use-notifications';
-import { flashbarI18nStrings } from '../../i18n-strings';
 import fakeDelay from '../commons/fake-delay';
 
 const delay = 3000;
@@ -115,7 +113,7 @@ function App() {
 
 function DistributionsPage({ distributions, selectedItems, setSelectedItems, onDeleteInit, notifications }) {
   return (
-    <AppLayout
+    <CustomAppLayout
       content={
         <DistributionsTable
           distributions={distributions}
@@ -134,11 +132,10 @@ function DistributionsPage({ distributions, selectedItems, setSelectedItems, onD
           ariaLabel="Breadcrumbs"
         />
       }
-      notifications={<Flashbar items={notifications} stackItems={true} i18nStrings={flashbarI18nStrings} />}
+      notifications={<Flashbar items={notifications} stackItems={true} />}
       navigation={<Navigation activeHref="#" />}
       navigationOpen={false}
       toolsHide={true}
-      ariaLabels={appLayoutAriaLabels}
       contentType="table"
     />
   );
@@ -146,7 +143,7 @@ function DistributionsPage({ distributions, selectedItems, setSelectedItems, onD
 
 function DistributionDetailsPage({ distribution, onDeleteInit, notifications }) {
   return (
-    <AppLayout
+    <CustomAppLayout
       content={
         <ContentLayout
           header={
@@ -179,11 +176,10 @@ function DistributionDetailsPage({ distribution, onDeleteInit, notifications }) 
           ariaLabel="Breadcrumbs"
         />
       }
-      notifications={<Flashbar items={notifications} stackItems={true} i18nStrings={flashbarI18nStrings} />}
+      notifications={<Flashbar items={notifications} stackItems={true} />}
       navigation={<Navigation activeHref="#" />}
       navigationOpen={false}
       toolsHide={true}
-      ariaLabels={appLayoutAriaLabels}
     />
   );
 }

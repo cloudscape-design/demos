@@ -3,7 +3,6 @@
 import React, { createRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
-  AppLayout,
   Button,
   Container,
   ContentLayout,
@@ -32,14 +31,15 @@ import {
   SettingsDetails,
   TagsTable,
 } from '../details/common-components';
-import { Navigation, TableEmptyState, TableNoMatchState, InfoLink, Notifications } from '../commons/common-components';
 import {
-  appLayoutAriaLabels,
-  getHeaderCounterText,
-  getTextFilterCounterText,
-  paginationAriaLabels,
-  renderAriaLive,
-} from '../../i18n-strings';
+  CustomAppLayout,
+  Navigation,
+  TableEmptyState,
+  TableNoMatchState,
+  InfoLink,
+  Notifications,
+} from '../commons/common-components';
+import { getHeaderCounterText, getTextFilterCounterText, renderAriaLive } from '../../i18n-strings';
 import ToolsContent from '../details/tools-content';
 import { logsTableAriaLabels } from '../details-hub/commons';
 import '../../styles/base.scss';
@@ -105,7 +105,7 @@ function LogsTable() {
           countText={getTextFilterCounterText(filteredItemsCount)}
         />
       }
-      pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels(paginationProps.pagesCount)} />}
+      pagination={<Pagination {...paginationProps} />}
     />
   );
 }
@@ -157,7 +157,7 @@ class App extends React.Component {
     ];
 
     return (
-      <AppLayout
+      <CustomAppLayout
         ref={this.appLayout}
         content={
           <ContentLayout
@@ -178,7 +178,6 @@ class App extends React.Component {
         tools={ToolsContent[this.state.toolsIndex]}
         toolsOpen={this.state.toolsOpen}
         onToolsChange={({ detail }) => this.setState({ toolsOpen: detail.open })}
-        ariaLabels={appLayoutAriaLabels}
         notifications={<Notifications />}
       />
     );

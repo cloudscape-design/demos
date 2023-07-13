@@ -2,18 +2,8 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import {
-  Alert,
-  AppLayout,
-  Box,
-  BreadcrumbGroup,
-  ContentLayout,
-  Modal,
-  Button,
-  SpaceBetween,
-} from '@cloudscape-design/components';
-import { Navigation, Notifications } from '../commons/common-components';
-import { appLayoutAriaLabels } from '../../i18n-strings';
+import { Alert, Box, BreadcrumbGroup, ContentLayout, Modal, Button, SpaceBetween } from '@cloudscape-design/components';
+import { CustomAppLayout, Navigation, Notifications } from '../commons/common-components';
 import { resourceCreateBreadcrumbs } from '../../common/breadcrumbs';
 import { FormHeader, FormLimitedContent } from '../form/components/form-content';
 import ToolsContent from '../form/components/tools-content';
@@ -60,7 +50,7 @@ function App() {
   };
 
   return (
-    <AppLayout
+    <CustomAppLayout
       ref={appLayout}
       contentType="form"
       content={
@@ -122,7 +112,6 @@ function App() {
       onToolsChange={({ detail }) => setToolsOpen(detail.open)}
       navigationOpen={navigationOpen}
       onNavigationChange={({ detail }) => setNavigationOpen(detail.open)}
-      ariaLabels={appLayoutAriaLabels}
       notifications={<Notifications />}
     />
   );

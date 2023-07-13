@@ -3,8 +3,7 @@
 import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Alert, AppLayout, BreadcrumbGroup, ContentLayout, Link, SpaceBetween } from '@cloudscape-design/components';
-import { Navigation, Notifications } from '../commons/common-components';
-import { appLayoutAriaLabels } from '../../i18n-strings';
+import { CustomAppLayout, Navigation, Notifications } from '../commons/common-components';
 import { resourceCreateBreadcrumbs } from '../../common/breadcrumbs';
 import { FormContentReadOnlyWithErrors, FormHeader } from '../form/components/form-content';
 import ToolsContent from '../form/components/tools-content';
@@ -26,7 +25,7 @@ function App() {
   };
 
   return (
-    <AppLayout
+    <CustomAppLayout
       ref={appLayout}
       contentType="form"
       content={
@@ -49,7 +48,6 @@ function App() {
       tools={ToolsContent[toolsIndex]}
       toolsOpen={toolsOpen}
       onToolsChange={({ detail }) => setToolsOpen(detail.open)}
-      ariaLabels={appLayoutAriaLabels}
       notifications={<Notifications />}
     />
   );

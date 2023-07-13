@@ -9,12 +9,7 @@ import { Button, Input, FormField, Pagination, SpaceBetween, Select, Table } fro
 import { Navigation, Breadcrumbs, ToolsContent } from './table-select-filter-components';
 import '../../styles/table-select.scss';
 import DATA from '../../resources/instances';
-import {
-  getTextFilterCounterText,
-  getHeaderCounterText,
-  paginationAriaLabels,
-  renderAriaLive,
-} from '../../i18n-strings';
+import { getTextFilterCounterText, getHeaderCounterText, renderAriaLive } from '../../i18n-strings';
 import { CustomAppLayout, Notifications, TableEmptyState, TableNoMatchState } from '../commons/common-components';
 import { FullPageHeader } from '../commons';
 import { useColumnWidths } from '../commons/use-column-widths';
@@ -195,7 +190,7 @@ function TableSelectFilter({ loadHelpPanelContent }) {
           </div>
         </div>
       }
-      pagination={<Pagination {...paginationProps} ariaLabels={paginationAriaLabels(paginationProps.pagesCount)} />}
+      pagination={<Pagination {...paginationProps} />}
       preferences={
         <Preferences
           preferences={preferences}

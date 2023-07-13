@@ -11,7 +11,6 @@ import { Breadcrumbs, ToolsContent } from '../table/common-components';
 import { CustomAppLayout, Navigation, Notifications, TableNoMatchState } from '../commons/common-components';
 import { FullPageHeader } from '../commons';
 import {
-  paginationAriaLabels,
   distributionTableAriaLabels,
   getHeaderCounterServerSideText,
   getTextFilterCounterServerSideText,
@@ -127,7 +126,6 @@ function ServerSidePropertyFilterTable({ columnDefinitions, saveWidths, loadHelp
           disabled={loading}
           currentPageIndex={serverPageIndex}
           onChange={event => setCurrentPageIndex(event.detail.currentPageIndex)}
-          ariaLabels={paginationAriaLabels(pagesCount)}
         />
       }
       preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}

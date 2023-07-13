@@ -17,7 +17,6 @@ import {
 import { FullPageHeader } from '../commons';
 import {
   getTextFilterCounterText,
-  paginationAriaLabels,
   distributionTableAriaLabels,
   getHeaderCounterText,
   renderAriaLive,
@@ -78,13 +77,7 @@ function DetailsCards({ loadHelpPanelContent }) {
           disabled={loading}
         />
       }
-      pagination={
-        <Pagination
-          {...paginationProps}
-          ariaLabels={paginationAriaLabels(paginationProps.pagesCount)}
-          disabled={loading}
-        />
-      }
+      pagination={<Pagination {...paginationProps} disabled={loading} />}
       preferences={
         <CollectionPreferences
           title="Preferences"
