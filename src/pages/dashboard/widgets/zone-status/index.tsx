@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import { Header, PieChart, PieChartProps } from '@cloudscape-design/components';
+import { Header, PieChart } from '@cloudscape-design/components';
 import { colorChartsStatusPositive, colorChartsStatusHigh } from '@cloudscape-design/design-tokens';
 import { percentageFormatter } from '../chart-commons';
 import { WidgetConfig } from '../interfaces';
@@ -24,16 +24,6 @@ function ZoneStatusHeader() {
       Zone status - <i>beta</i>
     </Header>
   );
-}
-
-function getChartSize(height: number): PieChartProps['size'] {
-  if (height < 150) {
-    return 'small';
-  }
-  if (height < 300) {
-    return 'medium';
-  }
-  return 'large';
 }
 
 function ZoneStatusContent() {
