@@ -5,7 +5,6 @@ import { Header, LineChart } from '@cloudscape-design/components';
 import { commonChartProps, dateTimeFormatter, lineChartInstructions } from '../chart-commons';
 import { WidgetConfig } from '../interfaces';
 import { networkTrafficDomain, networkTrafficSeries } from './data';
-import { ResponsiveChartContainer } from '../../components/responsive-chart-container';
 
 export const networkTraffic: WidgetConfig = {
   definition: { defaultRowSpan: 4, defaultColumnSpan: 2, minRowSpan: 3 },
@@ -29,29 +28,25 @@ function NetworkTrafficHeader() {
 
 export default function NetworkTrafficContent() {
   return (
-    <ResponsiveChartContainer
+    <LineChart
+      {...commonChartProps}
       hideFilter={true}
-      render={height => (
-        <LineChart
-          {...commonChartProps}
-          hideFilter={true}
-          height={height}
-          series={networkTrafficSeries}
-          yDomain={[0, 200000]}
-          xDomain={networkTrafficDomain}
-          xScaleType="time"
-          xTitle="Time (UTC)"
-          yTitle="Data transferred"
-          ariaLabel="Network traffic"
-          ariaDescription={`Line chart showing transferred data of all your instances. ${lineChartInstructions}`}
-          i18nStrings={{
-            ...commonChartProps.i18nStrings,
-            filterLabel: 'Filter displayed instances',
-            filterPlaceholder: 'Filter instances',
-            xTickFormatter: dateTimeFormatter,
-          }}
-        />
-      )}
+      fitHeight={true}
+      height={25}
+      series={networkTrafficSeries}
+      yDomain={[0, 200000]}
+      xDomain={networkTrafficDomain}
+      xScaleType="time"
+      xTitle="Time (UTC)"
+      yTitle="Data transferred"
+      ariaLabel="Network traffic"
+      ariaDescription={`Line chart showing transferred data of all your instances. ${lineChartInstructions}`}
+      i18nStrings={{
+        ...commonChartProps.i18nStrings,
+        filterLabel: 'Filter displayed instances',
+        filterPlaceholder: 'Filter instances',
+        xTickFormatter: dateTimeFormatter,
+      }}
     />
   );
 }

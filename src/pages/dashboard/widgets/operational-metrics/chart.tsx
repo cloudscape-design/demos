@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 import BarChart, { BarChartProps } from '@cloudscape-design/components/bar-chart';
-import { ResponsiveChartContainer } from '../../components/responsive-chart-container';
 
 const costs: BarChartProps<string>['series'] = [
   {
@@ -20,23 +19,16 @@ const costs: BarChartProps<string>['series'] = [
 ];
 
 export function BreakdownChart() {
-  const hideFilter = true;
-  const hideLegend = true;
   return (
-    <ResponsiveChartContainer
-      hideFilter={hideFilter}
-      hideLegend={hideLegend}
-      render={height => (
-        <BarChart
-          hideFilter={hideFilter}
-          hideLegend={hideLegend}
-          xScaleType="categorical"
-          xTitle="Chars"
-          yTitle="Numbers"
-          series={costs}
-          height={height}
-        />
-      )}
+    <BarChart
+      hideFilter={true}
+      hideLegend={true}
+      fitHeight={true}
+      height={25}
+      xScaleType="categorical"
+      xTitle="Chars"
+      yTitle="Numbers"
+      series={costs}
     />
   );
 }
