@@ -5,7 +5,6 @@ import { BarChart, Header } from '@cloudscape-design/components';
 import { commonChartProps, dateFormatter, barChartInstructions } from '../chart-commons';
 import { cpuSeries, cpuDomain } from './data';
 import { WidgetConfig } from '../interfaces';
-import { ResponsiveChartContainer } from '../../components/responsive-chart-container';
 
 export const instanceHours: WidgetConfig = {
   definition: { defaultRowSpan: 4, defaultColumnSpan: 2, minRowSpan: 3 },
@@ -29,30 +28,26 @@ function InstanceHoursHeader() {
 
 function InstanceHoursContent() {
   return (
-    <ResponsiveChartContainer
+    <BarChart
+      {...commonChartProps}
+      fitHeight={true}
+      height={25}
+      yDomain={[0, 2000]}
+      xDomain={cpuDomain}
+      xScaleType="categorical"
+      stackedBars={true}
       hideFilter={true}
-      render={height => (
-        <BarChart
-          {...commonChartProps}
-          height={height}
-          yDomain={[0, 2000]}
-          xDomain={cpuDomain}
-          xScaleType="categorical"
-          stackedBars={true}
-          hideFilter={true}
-          series={cpuSeries}
-          xTitle="Date"
-          yTitle="Total instance hours"
-          ariaLabel="Instance hours"
-          ariaDescription={`Bar chart showing total instance hours per instance type over the last 15 days. ${barChartInstructions}`}
-          i18nStrings={{
-            ...commonChartProps.i18nStrings,
-            filterLabel: 'Filter displayed instance types',
-            filterPlaceholder: 'Filter instance types',
-            xTickFormatter: dateFormatter,
-          }}
-        />
-      )}
+      series={cpuSeries}
+      xTitle="Date"
+      yTitle="Total instance hours"
+      ariaLabel="Instance hours"
+      ariaDescription={`Bar chart showing total instance hours per instance type over the last 15 days. ${barChartInstructions}`}
+      i18nStrings={{
+        ...commonChartProps.i18nStrings,
+        filterLabel: 'Filter displayed instance types',
+        filterPlaceholder: 'Filter instance types',
+        xTickFormatter: dateFormatter,
+      }}
     />
   );
 }
