@@ -1,6 +1,27 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-export const save = (key: string, value: any) => localStorage.setItem(key, JSON.stringify(value));
+import { CookieConsent } from './types';
+
+declare global {
+  interface Window {
+    AwsUiConsent: CookieConsent;
+  }
+}
+
+const hasConsent = () => {
+  if (typeof window.AwsUiConsent === 'undefined') {
+    return false;
+  }
+
+  const cookieConsent = window.AwsUiConsent.getConsentCookie();
+  return cookieConsent?.functional ?? false;
+};
+
+export const save = (key: string, value: any) => {
+  if (hasConsent()) {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+};
 
 export const remove = (key: string) => localStorage.removeItem(key);
 
