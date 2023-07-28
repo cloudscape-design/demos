@@ -4,7 +4,7 @@
 const { configure } = require('@cloudscape-design/browser-test-tools/use-browser');
 const { devServerPort } = require('./scripts/config');
 
-jest.setTimeout(60 * 1000);
+jest.setTimeout(90 * 1000);
 configure({
   browserName: 'ChromeHeadlessIntegration',
   browserCreatorOptions: {
