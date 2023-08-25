@@ -47,7 +47,9 @@ function AlarmsHeader() {
 function AlarmsFooter() {
   return (
     <Box textAlign="center">
-      <Link href="#">View all alarms</Link>
+      <Link href="#" variant="primary">
+        View all alarms
+      </Link>
     </Box>
   );
 }

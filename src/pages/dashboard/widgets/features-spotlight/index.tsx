@@ -27,7 +27,9 @@ function FeaturesSpotlightHeader() {
 function FeaturesSpotlightFooter() {
   return (
     <Box textAlign="center">
-      <Link href="#">View all posts</Link>
+      <Link href="#" variant="primary">
+        View all posts
+      </Link>
     </Box>
   );
 }
@@ -38,7 +40,9 @@ export function FeaturesSpotlightContent() {
       <div>
         <Box color="text-label">August 26, 2019</Box>
         <Box padding={{ vertical: 'xxs' }}>
-          <Link href="#">Amazon EC2 Fleet Functionality</Link>
+          <Link href="#" variant="primary">
+            Amazon EC2 Fleet Functionality
+          </Link>
         </Box>
         <Box variant="p">
           Amazon EC2 Auto Scaling now lets you provision and automatically scale instances across purchase options,
@@ -49,7 +53,9 @@ export function FeaturesSpotlightContent() {
       <div>
         <Box color="text-label">September 9, 2019</Box>
         <Box padding={{ vertical: 'xxs' }}>
-          <Link href="#">Amazon EC2 Hibernation Now Available on Amazon Linux 2</Link>
+          <Link href="#" variant="primary">
+            Amazon EC2 Hibernation Now Available on Amazon Linux 2
+          </Link>
         </Box>
         <Box variant="p">
           Amazon EC2 expands Hibernation support for Amazon Linux 2. You can now hibernate newly launched EC2 Instances

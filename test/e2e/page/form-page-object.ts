@@ -47,6 +47,8 @@ export default class PageObject extends AppLayoutPage {
     const optionSelector = this.originsMultiselect.findDropdown().findOptionByValue(value)!.toSelector();
     await this.click(triggerSelector);
     await this.waitForVisible(optionSelector);
+    // wait for options to be fully loaded
+    await this.waitForVisible(this.originsMultiselect.findDropdown().findFooterRegion().toSelector(), false);
     await this.click(optionSelector);
     // close the dropdown, because multiselect keeps it open by default
     await this.click(triggerSelector);

@@ -23,7 +23,9 @@ function AccountAttributesHeader() {
 function AccountAttributesFooter() {
   return (
     <Box textAlign="center">
-      <Link href="#">Learn more</Link>
+      <Link href="#" variant="primary">
+        Learn more
+      </Link>
     </Box>
   );
 }

@@ -34,7 +34,9 @@ function EventsHeader() {
 function EventsFooter() {
   return (
     <Box textAlign="center">
-      <Link href="#">View all events</Link>
+      <Link href="#" variant="primary">
+        View all events
+      </Link>
     </Box>
   );
 }
