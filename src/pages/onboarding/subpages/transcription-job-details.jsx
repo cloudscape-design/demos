@@ -103,7 +103,7 @@ export const TranscriptionJobDetailsPage = () => {
                 </SpaceBetween>
                 <SpaceBetween size="l">
                   <ValueWithLabel label="Input data location">
-                    <ExternalLink>
+                    <ExternalLink variant="primary">
                       <span style={{ wordBreak: 'break-all' }}>
                         s3://audiofile001001001/transcribe-sample.5fc2109bb28268d10fbc677e64b7e59256783d3c.mp3
                       </span>

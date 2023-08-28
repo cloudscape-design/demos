@@ -86,8 +86,8 @@ const tutorialData = makeHelpPanelHandler => [
                   </Link>
                 </Box>
                 <Box variant="p">
-                  If you haven't yet uploaded your file, go to <ExternalLink>Amazon S3</ExternalLink> to upload it to a
-                  bucket.
+                  If you haven't yet uploaded your file, go to <ExternalLink variant="primary">Amazon S3</ExternalLink>{' '}
+                  to upload it to a bucket.
                 </Box>
               </>
             ),
@@ -144,7 +144,10 @@ const tutorialData = makeHelpPanelHandler => [
       <>
         Transcribe audio first to complete this tutorial.
         <br />
-        <ExternalLink href="https://aws.amazon.com/getting-started/hands-on/create-audio-transcript-transcribe/">
+        <ExternalLink
+          href="https://aws.amazon.com/getting-started/hands-on/create-audio-transcript-transcribe/"
+          variant="primary"
+        >
           Create an Audio Transcript
         </ExternalLink>
       </>

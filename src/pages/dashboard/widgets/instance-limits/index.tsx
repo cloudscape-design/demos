@@ -61,7 +61,9 @@ function InstanceLimitsHeader() {
 function InstanceLimitsFooter() {
   return (
     <Box textAlign="center">
-      <Link href="#">View all instance limits</Link>
+      <Link href="#" variant="primary">
+        View all instance limits
+      </Link>
     </Box>
   );
 }
