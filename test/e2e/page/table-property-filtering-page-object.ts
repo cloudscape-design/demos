@@ -71,7 +71,13 @@ export default class TablePropertyFilteringPageObject extends TablePageObject {
   }
 
   async removeAllTokens() {
-    await this.click(this.findPropertyFiltering().findRemoveAllButton().toSelector());
+    const removeAllButton = this.findPropertyFiltering().findRemoveAllButton().toSelector();
+    if (await this.isExisting(removeAllButton)) {
+      await this.click(removeAllButton);
+    } else {
+      // For saved filter sets, use the custom filter actions for clearing
+      await this.click(wrapper().findButtonDropdown('[data-testid="filter-actions"]').findMainAction().toSelector());
+    }
   }
 
   async openTokenOperationsList(tokenPosition: number) {

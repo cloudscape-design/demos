@@ -64,6 +64,10 @@
     "title": "Table view with date range picker filter"
   },
   {
+    "path": "table-saved-filters",
+    "title": "Table view with saved filter sets"
+  },
+  {
     "path": "table",
     "title": "Table view"
   },
