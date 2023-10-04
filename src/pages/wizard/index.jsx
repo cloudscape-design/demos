@@ -8,6 +8,7 @@ import Engine from './stepComponents/step1.jsx';
 import Details from './stepComponents/step2.jsx';
 import Advanced from './stepComponents/step3.jsx';
 import Review from './stepComponents/step4.jsx';
+import SummaryDrawer from './summary-drawer.jsx';
 import { DEFAULT_STEP_INFO, TOOLS_CONTENT } from './steps-config';
 import { ExternalLinkGroup, InfoLink, Notifications } from '../commons';
 import { CustomAppLayout } from '../commons/common-components';
@@ -146,7 +147,7 @@ const App = () => {
     onCancel,
     onSubmit,
   } = useWizard(closeTools, setFormattedToolsContent);
-
+  const [activeDrawerId, setActiveDrawerId] = useState('summary');
   const wizardSteps = steps.map(({ title, stateKey, StepContent }) => ({
     title,
     info: <InfoLink onFollow={() => setHelpPanelContent(TOOLS_CONTENT[stateKey].default)} />,
@@ -159,6 +160,36 @@ const App = () => {
       />
     ),
   }));
+
+  const drawers =
+    activeStepIndex < 3
+      ? {
+          drawers: {
+            ariaLabel: 'Drawers',
+            overflowAriaLabel: 'Overflow drawers',
+            activeDrawerId: activeDrawerId,
+            items: [
+              {
+                ariaLabels: {
+                  closeButton: `Summary close button`,
+                  content: `Summary`,
+                  triggerButton: `Summary trigger button`,
+                  resizeHandle: `Summary resize handle`,
+                },
+                content: <SummaryDrawer info={stepsInfo} activeStepIndex={activeStepIndex} />,
+                id: 'summary',
+                resizable: true,
+                trigger: {
+                  iconName: 'suggestions',
+                },
+              },
+            ],
+            onChange: event => {
+              setActiveDrawerId(event.detail);
+            },
+          },
+        }
+      : null;
   return (
     <CustomAppLayout
       ref={appLayoutRef}
@@ -166,6 +197,7 @@ const App = () => {
       tools={toolsContent}
       toolsOpen={isToolsOpen}
       onToolsChange={onToolsChange}
+      {...drawers}
       breadcrumbs={<Breadcrumbs />}
       contentType="wizard"
       content={
