@@ -20,7 +20,7 @@ class ConfigurableDashboardPageObject extends BasePageObject {
 
   async addNewWidget() {
     await this.click('button=Add widget');
-    await this.moveWidget(paletteWrapper.findItemById('operationalMetrics').findDragHandle().toSelector(), -800, 180);
+    await this.moveWidget(paletteWrapper.findItemById('operationalMetrics').findDragHandle().toSelector(), -800, 170);
   }
 
   async moveWidget(selector: string, xOffset: number, yOffset: number) {

@@ -30,7 +30,7 @@ export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject)
         await page.selectOption(1);
 
         await page.waitUntilPropertyFilterLoaded();
-        await expect(page.countDropdownItems()).resolves.toBe(4);
+        await expect(page.countDropdownItems()).resolves.toBe(5);
       })
     );
 
