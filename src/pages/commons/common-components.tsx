@@ -66,11 +66,3 @@ export const CustomAppLayout = forwardRef<AppLayoutProps.Ref, AppLayoutProps>((p
     </I18nProvider>
   );
 });
-
-export const CounterLink = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <Link variant="awsui-value-large" href="#">
-      {children}
-    </Link>
-  );
-};

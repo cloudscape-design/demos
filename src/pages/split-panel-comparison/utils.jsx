@@ -1,9 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React, { useState, useEffect } from 'react';
-import { Header, Table, BreadcrumbGroup, ColumnLayout, Box } from '@cloudscape-design/components';
+import { Header, Table, BreadcrumbGroup, ColumnLayout, Box, Link } from '@cloudscape-design/components';
 import { COLUMN_DEFINITIONS_PANEL_CONTENT_SINGLE, SELECTION_LABELS } from './table-config';
-import { CounterLink } from '../commons/common-components';
 import { isVisualRefresh } from '../../common/apply-mode';
 
 const EMPTY_PANEL_CONTENT = {
@@ -74,19 +73,27 @@ export const getPanelContentMultiple = items => {
       <ColumnLayout columns="4" variant="text-grid">
         <div>
           <Box variant="awsui-key-label">Running instances</Box>
-          <CounterLink>{enabled}</CounterLink>
+          <Link variant="awsui-value-large" href="#" ariaLabel={`Running instances (${enabled})`}>
+            {enabled}
+          </Link>
         </div>
         <div>
           <Box variant="awsui-key-label">Volumes</Box>
-          <CounterLink>{volumes}</CounterLink>
+          <Link variant="awsui-value-large" href="#" ariaLabel={`Volumes (${volumes})`}>
+            {volumes}
+          </Link>
         </div>
         <div>
           <Box variant="awsui-key-label">Security groups</Box>
-          <CounterLink>{securityGroups}</CounterLink>
+          <Link variant="awsui-value-large" href="#" ariaLabel={`Security groups (${securityGroups})`}>
+            {securityGroups}
+          </Link>
         </div>
         <div>
           <Box variant="awsui-key-label">Load balancers</Box>
-          <CounterLink>{loadBalancers}</CounterLink>
+          <Link variant="awsui-value-large" href="#" ariaLabel={`Load balancers (${loadBalancers})`}>
+            {loadBalancers}
+          </Link>
         </div>
       </ColumnLayout>
     ),
