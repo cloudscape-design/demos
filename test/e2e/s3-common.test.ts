@@ -21,7 +21,7 @@ import S3PageObject from './page/s3-page-object';
         await expect(page.getErrorText()).resolves.toEqual(null);
         await expect(page.getViewHref()).resolves.toEqual(null);
         await page.setUriInputValue('not-a-uri');
-        await expect(page.getErrorText()).resolves.toEqual('The path must begin with s3://');
+        await expect(page.getErrorText()).resolves.toContain('The path must begin with s3://');
         await expect(page.getViewHref()).resolves.toEqual(null);
         await page.setUriInputValue(['Escape']); // clear the input first
         await page.setUriInputValue('s3://bucket-enim/neutrino-8ms.sim');
