@@ -65,11 +65,10 @@ const i18nStrings = {
 };
 
 const profileActions = [
-  { type: 'button', id: 'profile', text: 'Profile' },
-  { type: 'button', id: 'preferences', text: 'Preferences' },
-  { type: 'button', id: 'security', text: 'Security' },
+  { id: 'profile', text: 'Profile' },
+  { id: 'preferences', text: 'Preferences' },
+  { id: 'security', text: 'Security' },
   {
-    type: 'menu-dropdown',
     id: 'support-group',
     text: 'Support',
     items: [
@@ -84,7 +83,7 @@ const profileActions = [
       { id: 'support', text: 'Customer support' },
     ],
   },
-  { type: 'button', id: 'signout', text: 'Sign out' },
+  { id: 'signout', text: 'Sign out' },
 ];
 
 const columnDefinitions = [
