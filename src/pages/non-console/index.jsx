@@ -7,6 +7,7 @@ import { createRoot } from 'react-dom/client';
 import Button from '@cloudscape-design/components/button';
 import Box from '@cloudscape-design/components/box';
 import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
+import ContentLayout from '@cloudscape-design/components/content-layout';
 import Header from '@cloudscape-design/components/header';
 import Input from '@cloudscape-design/components/input';
 import SideNavigation from '@cloudscape-design/components/side-navigation';
@@ -92,66 +93,67 @@ const columnDefinitions = [
     id: 'name',
     cell: item => item.name,
     header: 'Name',
-    minWidth: 160,
+    minWidth: 100,
     isRowHeader: true,
   },
   {
     id: 'type',
     header: 'Type',
     cell: item => item.type,
-    minWidth: 100,
+    minWidth: 80,
   },
   {
     id: 'size',
     header: 'Size',
     cell: item => item.size,
-    minWidth: 100,
+    minWidth: 80,
   },
   {
     id: 'description',
     header: 'Description',
     cell: item => item.description,
-    minWidth: 100,
+    minWidth: 120,
   },
 ];
 
 const Content = () => {
   return (
-    <Table
-      items={[]}
-      columnDefinitions={columnDefinitions}
-      variant="full-page"
-      header={
-        <Header
-          variant="awsui-h1-sticky"
-          counter="(0)"
-          actions={
-            <SpaceBetween size="xs" direction="horizontal">
-              <Button disabled>View details</Button>
-              <Button disabled>Edit</Button>
-              <Button disabled>Delete</Button>
-              <Button variant="primary">Create page</Button>
+    <ContentLayout>
+      <Table
+        items={[]}
+        columnDefinitions={columnDefinitions}
+        header={
+          <Header
+            variant="awsui-h1-sticky"
+            counter="(0)"
+            actions={
+              <SpaceBetween size="xs" direction="horizontal">
+                <Button disabled>View details</Button>
+                <Button disabled>Edit</Button>
+                <Button disabled>Delete</Button>
+                <Button variant="primary">Create page</Button>
+              </SpaceBetween>
+            }
+          >
+            Pages
+          </Header>
+        }
+        stickyHeader={true}
+        empty={
+          <Box margin={{ vertical: 'xs' }} textAlign="center" color="inherit">
+            <SpaceBetween size="xxs">
+              <div>
+                <b>No pages</b>
+                <Box variant="p" color="inherit">
+                  You don't have any pages.
+                </Box>
+              </div>
+              <Button>Create page</Button>
             </SpaceBetween>
-          }
-        >
-          Pages
-        </Header>
-      }
-      stickyHeader={true}
-      empty={
-        <Box margin={{ vertical: 'xs' }} textAlign="center" color="inherit">
-          <SpaceBetween size="xxs">
-            <div>
-              <b>No pages</b>
-              <Box variant="p" color="inherit">
-                You don't have any pages.
-              </Box>
-            </div>
-            <Button>Create page</Button>
-          </SpaceBetween>
-        </Box>
-      }
-    />
+          </Box>
+        }
+      />
+    </ContentLayout>
   );
 };
 
@@ -210,7 +212,6 @@ function App() {
         toolsHide
         navigation={<SideNavigation activeHref="#/pages" items={navItems} />}
         breadcrumbs={<BreadcrumbGroup items={breadcrumbs} expandAriaLabel="Show path" ariaLabel="Breadcrumbs" />}
-        contentType="table"
         content={<Content />}
         notifications={<Notifications />}
       />
