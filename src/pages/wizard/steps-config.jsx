@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import { Box, Link, TextContent } from '@cloudscape-design/components';
+import { Box, TextContent } from '@cloudscape-design/components';
 import { ExternalLink } from '../commons';
 
 export const ENGINES = [

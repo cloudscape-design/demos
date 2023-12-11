@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Alert, AppLayout, BreadcrumbGroup, ContentLayout, Link, SpaceBetween } from '@cloudscape-design/components';
+import { Alert, BreadcrumbGroup, ContentLayout, Link, SpaceBetween } from '@cloudscape-design/components';
 import { CustomAppLayout, Navigation, Notifications } from '../commons/common-components';
 import { resourceCreateBreadcrumbs } from '../../common/breadcrumbs';
 import { FormContentReadOnlyWithErrors, FormHeader } from '../form/components/form-content';

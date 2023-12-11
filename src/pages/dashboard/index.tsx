@@ -3,7 +3,7 @@
 import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import AppLayout, { AppLayoutProps } from '@cloudscape-design/components/app-layout';
+import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import Button from '@cloudscape-design/components/button';
 import ContentLayout from '@cloudscape-design/components/content-layout';
 import Grid from '@cloudscape-design/components/grid';
