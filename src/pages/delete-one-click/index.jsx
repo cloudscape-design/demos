@@ -78,44 +78,48 @@ function App() {
     <CustomAppLayout
       contentType="form"
       content={
-        <ContentLayout header={<Header variant="h1">Manage tags</Header>}>
-          <SpaceBetween size="m">
-            <Info />
-            <form onSubmit={onSubmit}>
-              <Form
-                actions={
-                  <SpaceBetween direction="horizontal" size="xs">
-                    <Button variant="link" onClick={onCancel}>
-                      Cancel
-                    </Button>
-                    <Button variant="primary" disabled={loading || !isValid}>
-                      Save changes
-                    </Button>
-                  </SpaceBetween>
+        <ContentLayout
+          header={
+            <SpaceBetween size="m">
+              <Header variant="h1">Manage tags</Header>
+              <Info />
+            </SpaceBetween>
+          }
+        >
+          <form onSubmit={onSubmit}>
+            <Form
+              actions={
+                <SpaceBetween direction="horizontal" size="xs">
+                  <Button variant="link" onClick={onCancel}>
+                    Cancel
+                  </Button>
+                  <Button variant="primary" disabled={loading || !isValid}>
+                    Save changes
+                  </Button>
+                </SpaceBetween>
+              }
+            >
+              <Container
+                header={
+                  <Header
+                    variant="h2"
+                    description="A tag is a label that you assign to an AWS resource. Each tag consists of a key and an optional value. You can use tags to search and filter your resources or track your AWS costs."
+                  >
+                    Tags
+                  </Header>
                 }
               >
-                <Container
-                  header={
-                    <Header
-                      variant="h2"
-                      description="A tag is a label that you assign to an AWS resource. Each tag consists of a key and an optional value. You can use tags to search and filter your resources or track your AWS costs."
-                    >
-                      Tags
-                    </Header>
-                  }
-                >
-                  <TagEditor
-                    tags={tags}
-                    onChange={onChange}
-                    keysRequest={loadTagKeys}
-                    valuesRequest={loadTagValues}
-                    loading={loading}
-                    i18nStrings={tagEditorI18nStrings}
-                  />
-                </Container>
-              </Form>
-            </form>
-          </SpaceBetween>
+                <TagEditor
+                  tags={tags}
+                  onChange={onChange}
+                  keysRequest={loadTagKeys}
+                  valuesRequest={loadTagValues}
+                  loading={loading}
+                  i18nStrings={tagEditorI18nStrings}
+                />
+              </Container>
+            </Form>
+          </form>
         </ContentLayout>
       }
       breadcrumbs={<Breadcrumbs />}
