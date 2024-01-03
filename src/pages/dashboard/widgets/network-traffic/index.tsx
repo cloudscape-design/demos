@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import { Header, LineChart } from '@cloudscape-design/components';
+import { Header, LineChart, Link } from '@cloudscape-design/components';
 import { commonChartProps, dateTimeFormatter, lineChartInstructions } from '../chart-commons';
 import { WidgetConfig } from '../interfaces';
 import { networkTrafficDomain, networkTrafficSeries } from './data';
@@ -47,6 +47,14 @@ export default function NetworkTrafficContent() {
         filterPlaceholder: 'Filter instances',
         xTickFormatter: dateTimeFormatter,
       }}
+      detailPopoverSeriesContent={({ series, y }) => ({
+        key: (
+          <Link external={true} href="#">
+            {series.title}
+          </Link>
+        ),
+        value: y,
+      })}
     />
   );
 }

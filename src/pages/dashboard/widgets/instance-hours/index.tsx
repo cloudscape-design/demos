@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import { BarChart, Header } from '@cloudscape-design/components';
+import { BarChart, Header, Link } from '@cloudscape-design/components';
 import { commonChartProps, dateFormatter, barChartInstructions } from '../chart-commons';
 import { cpuSeries, cpuDomain } from './data';
 import { WidgetConfig } from '../interfaces';
@@ -48,6 +48,18 @@ function InstanceHoursContent() {
         filterPlaceholder: 'Filter instance types',
         xTickFormatter: dateFormatter,
       }}
+      detailPopoverSeriesContent={({ series, y }) => ({
+        key: series.title,
+        value: (
+          <Link
+            external={true}
+            href="#"
+            ariaLabel={`See details for ${y} hours on ${series.title} (opens in a new tab)`}
+          >
+            {y}
+          </Link>
+        ),
+      })}
     />
   );
 }
