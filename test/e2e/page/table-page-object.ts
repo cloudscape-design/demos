@@ -34,6 +34,16 @@ export default class TablePageObject extends AppLayoutPage {
     return headers.map(header => header.getText());
   }
 
+  // Selector for the manual refresh button
+  refreshButton() {
+    return this.pageWrapper.find('[data-testid="manual-refresh"]').findButton().toSelector();
+  }
+
+  // Selector of the ARIA live region that contains the "Last updated" information for manual refresh
+  lastRefresh() {
+    return this.pageWrapper.find('[data-testid="manual-refresh"] [aria-live]').toSelector();
+  }
+
   // Table - Header Buttons
   protected async isTableHeaderButtonEnabled(index: number) {
     const el = await this.browser.$(

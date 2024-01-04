@@ -1,9 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import { createRoot } from 'react-dom/client';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useCollection } from '@cloudscape-design/collection-hooks';
-import { Button, Pagination, Table, TextFilter } from '@cloudscape-design/components';
+import { Pagination, Table, TextFilter } from '@cloudscape-design/components';
 import {
   distributionEditableTableAriaLabels,
   getHeaderCounterText,
@@ -22,7 +22,7 @@ import {
 } from '../commons/common-components';
 import DataProvider from '../commons/data-provider';
 import { useColumnWidths } from '../commons/use-column-widths';
-import { Breadcrumbs, ToolsContent } from '../table/common-components';
+import { Breadcrumbs, ManualRefresh, ToolsContent } from '../table/common-components';
 import {
   DEFAULT_PREFERENCES,
   EDITABLE_COLUMN_DEFINITIONS,
@@ -42,7 +42,9 @@ const withSideEffect =
 const fakeDataFetch = delay => new Promise(resolve => setTimeout(() => resolve(), delay));
 
 function TableContent({ loadHelpPanelContent, distributions }) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const [lastRefresh, setLastRefresh] = useState(null);
   const [tableItems, setTableItems] = useState(distributions);
   const [columnDefinitions, saveWidths] = useColumnWidths('React-TableEditable-Widths', EDITABLE_COLUMN_DEFINITIONS);
   const [preferences, setPreferences] = useLocalStorage('React-TableEditable-Preferences', DEFAULT_PREFERENCES);
@@ -80,13 +82,17 @@ function TableContent({ loadHelpPanelContent, distributions }) {
   };
 
   const onRefresh = async () => {
-    setLoading(true);
+    setRefreshing(true);
     await fakeDataFetch(500);
     persistChanges();
-    setLoading(false);
+    setLastRefresh(new Date());
+    setRefreshing(false);
   };
 
-  const refreshButtonProps = { onClick: onRefresh };
+  useEffect(() => {
+    // Demonstrates an initial fetching of the data from the backend.
+    setTimeout(() => setLoading(false), 500);
+  }, []);
 
   const handleSubmit = async (currentItem, column, value) => {
     await new Promise(resolve => setTimeout(resolve, 1500));
@@ -140,7 +146,7 @@ function TableContent({ loadHelpPanelContent, distributions }) {
         <FullPageHeader
           selectedItemsCount={tableCollectionProps.selectedItems.length}
           counter={!loading && getHeaderCounterText(distributions, tableCollectionProps.selectedItems)}
-          extraActions={<Button iconName="refresh" ariaLabel="Refresh" {...refreshButtonProps} />}
+          extraActions={<ManualRefresh onRefresh={onRefresh} loading={refreshing} lastRefresh={lastRefresh} />}
           onInfoLinkClick={loadHelpPanelContent}
         />
       }
