@@ -45,7 +45,7 @@ export const EC2ToolsContent = () => (
   </HelpPanel>
 );
 
-export const ManualRefresh = ({ onRefresh, loading, lastRefresh }) => {
+export const ManualRefresh = ({ onRefresh, loading, lastRefresh, disabled }) => {
   return (
     <SpaceBetween data-testid="manual-refresh" direction="horizontal" size="xs" alignItems="center">
       {lastRefresh && (
@@ -63,6 +63,7 @@ export const ManualRefresh = ({ onRefresh, loading, lastRefresh }) => {
         loadingText="Refreshing table content"
         loading={loading}
         onClick={onRefresh}
+        disabled={disabled}
       />
     </SpaceBetween>
   );

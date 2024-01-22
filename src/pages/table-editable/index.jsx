@@ -44,6 +44,7 @@ const fakeDataFetch = delay => new Promise(resolve => setTimeout(() => resolve()
 function TableContent({ loadHelpPanelContent, distributions }) {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [lastRefresh, setLastRefresh] = useState(null);
   const [tableItems, setTableItems] = useState(distributions);
   const [columnDefinitions, saveWidths] = useColumnWidths('React-TableEditable-Widths', EDITABLE_COLUMN_DEFINITIONS);
@@ -95,6 +96,7 @@ function TableContent({ loadHelpPanelContent, distributions }) {
   }, []);
 
   const handleSubmit = async (currentItem, column, value) => {
+    setSubmitting(true);
     await new Promise(resolve => setTimeout(resolve, 1500));
     let fullCollection = tableItems;
 
@@ -121,6 +123,7 @@ function TableContent({ loadHelpPanelContent, distributions }) {
     }
 
     setTableItems(fullCollection.map(item => (item === currentItem ? newItem : item)));
+    setSubmitting(false);
   };
 
   return (
@@ -146,7 +149,9 @@ function TableContent({ loadHelpPanelContent, distributions }) {
         <FullPageHeader
           selectedItemsCount={tableCollectionProps.selectedItems.length}
           counter={!loading && getHeaderCounterText(distributions, tableCollectionProps.selectedItems)}
-          extraActions={<ManualRefresh onRefresh={onRefresh} loading={refreshing} lastRefresh={lastRefresh} />}
+          extraActions={
+            <ManualRefresh onRefresh={onRefresh} loading={refreshing} disabled={submitting} lastRefresh={lastRefresh} />
+          }
           onInfoLinkClick={loadHelpPanelContent}
         />
       }
@@ -157,9 +162,10 @@ function TableContent({ loadHelpPanelContent, distributions }) {
           filteringPlaceholder="Find distributions"
           filteringClearAriaLabel="Clear"
           countText={getTextFilterCounterText(filteredItemsCount)}
+          disabled={submitting}
         />
       }
-      pagination={<Pagination {...tablePaginationProps} />}
+      pagination={<Pagination {...tablePaginationProps} disabled={submitting} />}
       preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}
     />
   );
