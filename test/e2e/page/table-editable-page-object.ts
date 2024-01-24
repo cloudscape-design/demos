@@ -49,7 +49,7 @@ export default class TableEditablePageObject extends TableFilteringPageObject {
     await this.keys(backspaces);
     await this.browser.$(input.toSelector()).setValue(value);
 
-    await this.click(bodyCell.findButton('[aria-label="Submit edit Domain name"]').toSelector());
+    await this.click(this.tableWrapper.findEditingCellSaveButton().toSelector());
     await this.waitForEditSave();
 
     return this.getText(bodyCell.toSelector());
@@ -63,7 +63,7 @@ export default class TableEditablePageObject extends TableFilteringPageObject {
     await this.click(autosuggest.toSelector());
     await this.click(dropdown.findOptionByValue('ACM').toSelector());
 
-    await this.click(bodyCell.findButton('[aria-label="Submit edit SSL certificate"]').toSelector());
+    await this.click(this.tableWrapper.findEditingCellSaveButton().toSelector());
     await this.waitForEditSave();
 
     return this.getText(bodyCell.toSelector());
