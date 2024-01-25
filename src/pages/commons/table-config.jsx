@@ -163,6 +163,12 @@ const editableColumns = {
           />
         );
       },
+      disabledReason: item => {
+        if (item.deliveryMethod === 'RTMP') {
+          return 'You cannot change the domain name of an RTMP distribution.';
+        }
+        return undefined;
+      },
     },
     cell: item => {
       return item.domainName;
