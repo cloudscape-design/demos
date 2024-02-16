@@ -14,13 +14,13 @@ import {
   SpaceBetween,
   Table,
   TextFilter,
+  CopyToClipboard,
 } from '@cloudscape-design/components';
 import { useAsyncData } from '../commons/use-async-data';
 import DataProvider from '../commons/data-provider';
 import { TableEmptyState, InfoLink } from '../commons/common-components';
 import { ORIGINS_COLUMN_DEFINITIONS, BEHAVIORS_COLUMN_DEFINITIONS, TAGS_COLUMN_DEFINITIONS } from './details-config';
 import { resourceDetailBreadcrumbs } from '../../common/breadcrumbs';
-import CopyText from '../commons/copy-text';
 import { baseTableAriaLabels, getHeaderCounterText, getTextFilterCounterText } from '../../i18n-strings';
 import { useCollection } from '@cloudscape-design/collection-hooks';
 
@@ -98,11 +98,12 @@ export const SettingsDetails = ({ distribution = DEMO_DISTRIBUTION, isInProgress
       </div>
       <div>
         <Box variant="awsui-key-label">ARN</Box>
-        <CopyText
-          copyText={`arn:aws:cloudfront::${distribution.domainName}/${distribution.id}`}
-          copyButtonLabel="Copy ARN"
-          successText="ARN copied"
-          errorText="ARN failed to copy"
+        <CopyToClipboard
+          variant="inline"
+          textToCopy={`arn:aws:cloudfront::${distribution.domainName}/${distribution.id}`}
+          copyButtonAriaLabel="Copy ARN"
+          copySuccessText="ARN copied"
+          copyErrorText="ARN failed to copy"
         />
       </div>
     </SpaceBetween>
