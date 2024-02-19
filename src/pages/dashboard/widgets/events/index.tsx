@@ -77,6 +77,12 @@ const eventsDefinition: Array<TableProps.ColumnDefinition<(typeof eventsItems)[0
 
 export default function EventsContent() {
   return (
-    <Table variant="borderless" resizableColumns={true} items={eventsItems} columnDefinitions={eventsDefinition} />
+    <Table
+      variant="borderless"
+      resizableColumns={true}
+      items={eventsItems}
+      columnDefinitions={eventsDefinition}
+      enableKeyboardNavigation={true}
+    />
   );
 }

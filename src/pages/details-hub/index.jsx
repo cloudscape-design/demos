@@ -48,6 +48,7 @@ function LogsTable() {
           <Link href="#">View all logs</Link>
         </Box>
       }
+      enableKeyboardNavigation={true}
     />
   );
 }

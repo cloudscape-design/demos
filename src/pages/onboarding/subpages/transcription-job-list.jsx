@@ -87,6 +87,7 @@ export const TranscriptionJobListPage = () => {
           stickyHeader={true}
           variant="full-page"
           columnDefinitions={columnDefinitions}
+          enableKeyboardNavigation={true}
         />
       }
     />

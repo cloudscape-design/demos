@@ -95,6 +95,7 @@ const App = () => {
           stickyColumns={preferences.stickyColumns}
           pagination={<Pagination {...paginationProps} />}
           preferences={<EC2Preferences preferences={preferences} setPreferences={setPreferences} />}
+          enableKeyboardNavigation={true}
         />
       }
     />

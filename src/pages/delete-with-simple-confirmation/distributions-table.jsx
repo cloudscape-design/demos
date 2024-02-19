@@ -117,6 +117,7 @@ export default function DistributionsTable({ distributions, selectedItems, onSel
         />
       }
       pagination={<Pagination {...paginationProps} />}
+      enableKeyboardNavigation={true}
     />
   );
 }

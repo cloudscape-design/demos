@@ -39,6 +39,7 @@ export const getPanelContentSingle = items => {
         columnDefinitions={COLUMN_DEFINITIONS_PANEL_CONTENT_SINGLE}
         items={item.inboundRules}
         variant={isVisualRefresh ? 'borderless' : 'container'}
+        enableKeyboardNavigation={true}
       ></Table>
     ),
   };
@@ -159,6 +160,7 @@ export const getPanelContentComparison = items => {
           items={transformedData}
           columnDefinitions={columnDefinitions}
           variant={isVisualRefresh ? 'borderless' : 'container'}
+          enableKeyboardNavigation={true}
         />
       </Box>
     ),

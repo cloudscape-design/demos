@@ -129,6 +129,7 @@ function ServerSidePropertyFilterTable({ columnDefinitions, saveWidths, loadHelp
         />
       }
       preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}
+      enableKeyboardNavigation={true}
     />
   );
 }

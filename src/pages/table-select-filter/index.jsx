@@ -198,6 +198,7 @@ function TableSelectFilter({ loadHelpPanelContent }) {
           contentDisplayOptions={CONTENT_DISPLAY_OPTIONS}
         />
       }
+      enableKeyboardNavigation={true}
     />
   );
 }

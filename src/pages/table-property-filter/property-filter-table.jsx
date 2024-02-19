@@ -100,6 +100,7 @@ export function PropertyFilterTable({
           contentDisplayOptions={contentDisplayOptions}
         />
       }
+      enableKeyboardNavigation={true}
     />
   );
 }
