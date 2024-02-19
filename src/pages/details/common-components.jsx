@@ -182,6 +182,7 @@ export const EmptyTable = props => {
           }
         >{`${resourceType}s`}</Header>
       }
+      enableKeyboardNavigation={true}
     />
   );
 };
@@ -223,6 +224,7 @@ export function OriginsTable() {
           Origins
         </Header>
       }
+      enableKeyboardNavigation={true}
     />
   );
 }
@@ -264,6 +266,7 @@ export function BehaviorsTable() {
           Cache behavior settings
         </Header>
       }
+      enableKeyboardNavigation={true}
     />
   );
 }
@@ -323,6 +326,7 @@ export function TagsTable({ loadHelpPanelContent }) {
           Tags
         </Header>
       }
+      enableKeyboardNavigation={true}
     />
   );
 }

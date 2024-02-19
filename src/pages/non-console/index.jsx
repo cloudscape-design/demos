@@ -151,6 +151,7 @@ const Content = () => {
             </SpaceBetween>
           </Box>
         }
+        enableKeyboardNavigation={true}
       />
     </ContentLayout>
   );

@@ -112,6 +112,7 @@ function ServerSideTable({ columnDefinitions, saveWidths, loadHelpPanelContent }
         />
       }
       preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}
+      enableKeyboardNavigation={true}
     />
   );
 }

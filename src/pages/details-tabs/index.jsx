@@ -106,6 +106,7 @@ function LogsTable() {
         />
       }
       pagination={<Pagination {...paginationProps} />}
+      enableKeyboardNavigation={true}
     />
   );
 }

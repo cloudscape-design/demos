@@ -94,6 +94,7 @@ export default function InstancesTable({ instances, selectedItems, onSelectionCh
         />
       }
       pagination={<Pagination {...paginationProps} />}
+      enableKeyboardNavigation={true}
     />
   );
 }

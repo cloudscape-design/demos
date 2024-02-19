@@ -75,6 +75,7 @@ function TableContent({ distributions, loadHelpPanelContent }) {
       }
       pagination={<Pagination {...paginationProps} />}
       preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}
+      enableKeyboardNavigation={true}
     />
   );
 }

@@ -110,6 +110,7 @@ export default function InstanceLimitsContent() {
         allItemsSelectionLabel: () => 'select all',
         selectionGroupLabel: 'On-demand instance limit selection',
       }}
+      enableKeyboardNavigation={true}
     />
   );
 }
