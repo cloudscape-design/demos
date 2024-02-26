@@ -24,7 +24,7 @@
     "@types/react-dom": "^18.0.10",
     "@typescript-eslint/eslint-plugin": "^5.36.0",
     "@typescript-eslint/parser": "^5.36.0",
-    "ace-builds": "^1.9.6",
+    "ace-builds": "^1.32.6",
     "axe-core": "^4.4.3",
     "babel-loader": "^8.1.0",
     "copy-webpack-plugin": "^11.0.0",
