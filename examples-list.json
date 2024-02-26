@@ -44,6 +44,10 @@
     "title": "Form validation"
   },
   {
+    "path": "product-detail-page",
+    "title": "Product detail page"
+  },
+  {
     "path": "server-side-table",
     "title": "Table view (server-side)"
   },
