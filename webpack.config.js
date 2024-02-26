@@ -164,7 +164,7 @@ const createWebpackConfig = (config, { includeDevServer }) => {
           use: [MiniCssExtractPlugin.loader, 'css-loader'],
         },
         {
-          test: /\.png$/,
+          test: /\.(png|jpg)$/,
           use: ['url-loader'],
         },
         {
