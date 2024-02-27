@@ -59,7 +59,7 @@ describe('Checking examples accessibility', function () {
           await page.waitForVisible(tableRowSelector, true, 30000);
         } else if (pagePath.match(/form.html$/)) {
           // ace is loaded asynchronously
-          await page.waitForVisible('.ace_editor.ace-cloud_editor', true);
+          await page.waitForVisible(createWrapper().findCodeEditor().findEditor().toSelector(), true);
         } else {
           await page.waitForVisible('main', true);
         }
