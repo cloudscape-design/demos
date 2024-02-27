@@ -14,9 +14,9 @@ import {
 } from '@cloudscape-design/components';
 import {
   ALLOWED_HTTP_METHOD_OPTIONS,
-  CODE_EDITOR_I18N_STRINGS,
   FORWARD_HEADER_OPTIONS,
   VIEWER_PROTOCOL_POLICY_OPTIONS,
+  CODE_EDITOR_THEMES,
 } from '../form-config';
 import { InfoLink } from '../../commons/common-components';
 import CacheBehaviorFooter from './cache-behavior-footer';
@@ -127,7 +127,7 @@ export default function CacheBehaviorPanel({ loadHelpPanelContent, readOnlyWithE
             preferences={codeEditorPreferences}
             onPreferencesChange={onCodeEditorPreferencesChange}
             loading={codeEditorLoading}
-            i18nStrings={CODE_EDITOR_I18N_STRINGS}
+            themes={CODE_EDITOR_THEMES}
           />
         </FormField>
       </SpaceBetween>
