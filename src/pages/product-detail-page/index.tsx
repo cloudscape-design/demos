@@ -17,6 +17,7 @@ import TextContent from '@cloudscape-design/components/text-content';
 import { I18nProvider } from '@cloudscape-design/components/i18n';
 import enMessages from '@cloudscape-design/components/i18n/messages/all.en.json';
 import { useDisclaimerFlashbarItem } from '../commons/disclaimer-flashbar-item';
+import { isVisualRefresh } from '../../common/apply-mode';
 import { UserFeedback } from './user-feedback';
 import { OnThisPageNavigation } from './on-this-page';
 import { HeroHeader } from './hero-header';
@@ -113,7 +114,7 @@ function ProductOverview() {
               The current version of this product contains a security profile, and has acquired the certifications
               below.
               <br />
-              <Link href="#" external={true}>
+              <Link href="#" variant="primary" external={true}>
                 View all profiles for this product
               </Link>
             </Box>
@@ -136,7 +137,11 @@ function Pricing() {
           <Box variant="p">
             Use this tool to estimate the software and infrastructure costs based your configuration choices. Your usage
             and costs might be different from this estimate. The costs will be reflected on your monthly billing
-            reports. <Link href="#">Contact us</Link> to request contract pricing for this product.
+            reports.{' '}
+            <Link href="#" variant="primary">
+              Contact us
+            </Link>{' '}
+            to request contract pricing for this product.
           </Box>
         </div>
 
@@ -192,7 +197,12 @@ function Details() {
             <strong>Software as a Service (SaaS)</strong> is a delivery model for software applications whereby the
             vendor hosts and operates the application over the Internet. Customers pay for using the software without
             owning the underlying infrastructure. With SaaS Contracts, customers will pay for usage through their bill.{' '}
-            <Link href="#" external={true} ariaLabel="Learn more about Software as a Service (opens in new tab)">
+            <Link
+              href="#"
+              external={true}
+              variant="primary"
+              ariaLabel="Learn more about Software as a Service (opens in new tab)"
+            >
               Learn more
             </Link>
           </Box>
@@ -202,7 +212,7 @@ function Details() {
           <Header variant="h3">Terms and conditions</Header>
           <Box variant="p">
             By subscribing to this product you agree to terms and conditions outlined in the product{' '}
-            <Link href="#" external={true}>
+            <Link href="#" variant="primary" external={true}>
               End User License Agreement (EULA)
             </Link>
             .
@@ -289,7 +299,11 @@ function Support() {
           <Box variant="p">
             Your purchase also includes 24x7 support from Cloud Data. You can log a support ticket for any issues
             directly from your Cloud One console. If you experience any issues or have questions, please contact our
-            Cloud Security experts by email at <Link href="#">mock@example.com</Link>.
+            Cloud Security experts by email at{' '}
+            <Link href="#" variant="primary">
+              mock@example.com
+            </Link>
+            .
           </Box>
         </div>
         <div>
@@ -299,7 +313,7 @@ function Support() {
             technical support engineers. The service helps customers of all sizes and technical abilities to
             successfully utilize the products and features provided by Cloud Data.
           </Box>
-          <Link href="#" external={true} ariaLabel="Learn more about Cloud Support">
+          <Link href="#" external={true} variant="primary" ariaLabel="Learn more about Cloud Support">
             Learn more
           </Link>
         </div>
@@ -354,6 +368,7 @@ function App() {
         },
       },
     },
+    baseThemeId: isVisualRefresh ? 'visual-refresh' : undefined,
   });
 
   return (
