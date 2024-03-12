@@ -3,7 +3,15 @@
 import React, { createRef } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Container, ContentLayout, Header, SpaceBetween } from '@cloudscape-design/components';
-import { BehaviorsTable, Breadcrumbs, OriginsTable, PageHeader, SettingsDetails, TagsTable } from './common-components';
+import {
+  BehaviorsTable,
+  Breadcrumbs,
+  DistributionDetails,
+  OriginsTable,
+  PageHeader,
+  SettingsDetails,
+  TagsTable,
+} from './common-components';
 import { Navigation, InfoLink, Notifications, CustomAppLayout } from '../commons/common-components';
 import ToolsContent from './tools-content';
 import '../../styles/base.scss';
@@ -50,6 +58,7 @@ class App extends React.Component {
               <OriginsTable />
               <BehaviorsTable />
               <TagsTable loadHelpPanelContent={this.loadHelpPanelContent.bind(this)} />
+              <DistributionDetails />
             </SpaceBetween>
           </ContentLayout>
         }

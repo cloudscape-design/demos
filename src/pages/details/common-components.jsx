@@ -13,10 +13,16 @@ import {
   StatusIndicator,
   SpaceBetween,
   Table,
+  Tabs,
   TextFilter,
   CopyToClipboard,
 } from '@cloudscape-design/components';
 import { useAsyncData } from '../commons/use-async-data';
+import { CodeView } from '@cloudscape-design/code-view';
+import jsonHighlight from '@cloudscape-design/code-view/highlight/json';
+import yamlHighlight from '@cloudscape-design/code-view/highlight/yaml';
+import xmlHighlight from '@cloudscape-design/code-view/highlight/xml';
+import { codeSnippets } from './details-code-snippets';
 import DataProvider from '../commons/data-provider';
 import { TableEmptyState, InfoLink } from '../commons/common-components';
 import { ORIGINS_COLUMN_DEFINITIONS, BEHAVIORS_COLUMN_DEFINITIONS, TAGS_COLUMN_DEFINITIONS } from './details-config';
@@ -185,6 +191,32 @@ export const EmptyTable = props => {
       }
       enableKeyboardNavigation={true}
     />
+  );
+};
+
+export const DistributionDetails = () => {
+  return (
+    <Container header={<Header variant="h2">Distribution configuration details</Header>}>
+      <Tabs
+        tabs={[
+          {
+            label: 'JSON',
+            id: 'json',
+            content: <CodeView highlight={jsonHighlight} lineNumbers content={codeSnippets.json} />,
+          },
+          {
+            label: 'YAML',
+            id: 'yaml',
+            content: <CodeView highlight={yamlHighlight} lineNumbers content={codeSnippets.yaml} />,
+          },
+          {
+            label: 'XML',
+            id: 'xml',
+            content: <CodeView highlight={xmlHighlight} lineNumbers content={codeSnippets.xml} />,
+          },
+        ]}
+      />
+    </Container>
   );
 };
 
