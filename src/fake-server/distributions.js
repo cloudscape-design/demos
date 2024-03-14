@@ -23,6 +23,10 @@ const getComparatorForOperator = operator => (a, b) => {
       return (a + '').toLowerCase().indexOf((b + '').toLowerCase()) > -1;
     case '!:':
       return (a + '').toLowerCase().indexOf((b + '').toLowerCase()) === -1;
+    case '^':
+      return (a + '').toLowerCase().startsWith((b + '').toLowerCase());
+    case '!^':
+      return !(a + '').toLowerCase().startsWith((b + '').toLowerCase());
   }
   return false;
 };

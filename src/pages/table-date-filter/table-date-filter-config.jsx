@@ -4,6 +4,7 @@ import React from 'react';
 import { StatusIndicator, Link } from '@cloudscape-design/components';
 import { createTableSortLabelFn } from '../../i18n-strings';
 import { DateTimeForm, formatDateTime } from './table-date-filter-forms';
+import { stringOperators } from '../../common/property-filter-operators';
 
 const rawColumns = [
   {
@@ -114,38 +115,38 @@ export const FILTERING_PROPERTIES = [
     propertyLabel: 'Domain name',
     key: 'domainName',
     groupValuesLabel: 'Domain name values',
-    operators: [':', '!:', '=', '!='],
+    operators: stringOperators,
   },
   {
     propertyLabel: 'Delivery method',
     key: 'deliveryMethod',
     groupValuesLabel: 'Delivery method values',
-    operators: [':', '!:', '=', '!='],
+    operators: stringOperators,
   },
   {
     propertyLabel: 'Price class',
     key: 'priceClass',
     groupValuesLabel: 'Price class values',
-    operators: [':', '!:', '=', '!='],
+    operators: stringOperators,
   },
   {
     propertyLabel: 'Origin',
     key: 'origin',
     groupValuesLabel: 'Origin values',
-    operators: [':', '!:', '=', '!='],
+    operators: stringOperators,
   },
-  { propertyLabel: 'State', key: 'state', groupValuesLabel: 'State values', operators: [':', '!:', '=', '!='] },
+  { propertyLabel: 'State', key: 'state', groupValuesLabel: 'State values', operators: stringOperators },
   {
     propertyLabel: 'Logging',
     key: 'logging',
     groupValuesLabel: 'Logging values',
-    operators: [':', '!:', '=', '!='],
+    operators: stringOperators,
   },
   {
     propertyLabel: 'SSL certificate',
     key: 'sslCertificate',
     groupValuesLabel: 'SSL certificate values',
-    operators: [':', '!:', '=', '!='],
+    operators: stringOperators,
   },
   {
     key: 'date',
