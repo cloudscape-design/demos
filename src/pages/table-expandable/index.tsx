@@ -1,75 +1,74 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import { createRoot } from 'react-dom/client';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useCollection } from '@cloudscape-design/collection-hooks';
 import {
   Table,
   CollectionPreferencesProps,
-  AppLayoutProps,
-  Header,
   PropertyFilter,
+  SpaceBetween,
+  Button,
+  TableProps,
 } from '@cloudscape-design/components';
-import { getHeaderCounterText } from '../../i18n-strings';
+import { getHeaderCounterText, getTextFilterCounterText, renderAriaLive } from '../../i18n-strings';
 import '../../styles/base.scss';
-import { CustomAppLayout, Navigation, Notifications } from '../commons/common-components';
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import { Breadcrumbs, ToolsContent } from '../table/common-components';
-import { allInstances } from './expandable-rows-data';
-import { createColumns, createPreferences, filteringProperties } from './expandable-rows-configs';
-import { ariaLabels, getMatchesCountText } from './common';
+import { FullPageHeader } from '../commons/common-components';
+import { tableAriaLabels, createColumns, filteringProperties, TablePreferences } from './table-configs';
+import allInstances, { Instance } from '../../resources/related-instances';
+import '../../styles/base.scss';
+import { PageLayout } from './page-components';
 
 function App() {
-  const appLayout = useRef<AppLayoutProps.Ref>(null);
-  const [toolsOpen, setToolsOpen] = useState(false);
+  const [ariaLiveMessage, setAriaLiveMessage] = useState('');
   const [preferences, setPreferences] = useState<CollectionPreferencesProps.Preferences>({
-    pageSize: 10,
     wrapLines: true,
     stickyColumns: { first: 0, last: 1 },
   });
-  const getScopedInstances = (selected: null | string) =>
-    selected === null ? allInstances : allInstances.filter(i => i.path.includes(selected));
 
   const { items, collectionProps, propertyFilterProps, filteredItemsCount, actions } = useCollection(allInstances, {
-    pagination: undefined,
     sorting: {},
-    filtering: {},
-    propertyFiltering: { filteringProperties },
-    selection: { trackBy: 'name', keepSelection: false },
+    propertyFiltering: {
+      filteringProperties,
+    },
+    selection: {},
     expandableRows: {
       getId: item => item.name,
       getParentId: item => item.parentName,
     },
   });
 
-  // Decorate path options to only show the last node and not the full path.
-  const filteringOptions = propertyFilterProps.filteringOptions.map(option =>
-    option.propertyKey === 'path' ? { ...option, value: option.value.split(',')[0] } : option
-  );
-
-  const expandedInstances = collectionProps.expandableRows?.expandedItems ?? [];
-
+  const isItemExpandable = collectionProps.expandableRows?.isItemExpandable ?? (() => false);
+  const getItemChildren = collectionProps.expandableRows?.getItemChildren ?? (() => []);
+  const allFilteredClusters = getFlatItems(items, getItemChildren).filter(isItemExpandable);
+  const expandedItems = collectionProps.expandableRows?.expandedItems ?? [];
   const columnDefinitions = createColumns({
     getInstanceProps: instance => {
-      const children = collectionProps.expandableRows?.getItemChildren(instance).length ?? 0;
-      const scopedInstances = getScopedInstances(instance.name);
+      const children = getItemChildren(instance).length;
+      const clusterInstances = allFilteredClusters.filter(item => item.path.includes(instance.name));
+      const isClusterFullyExpanded = clusterInstances.every(item => expandedItems.includes(item));
+      const isClusterFullyCollapsed = clusterInstances.every(item => !expandedItems.includes(item));
       const instanceActions = [
         {
           id: 'expand-all',
           text: `Expand cluster`,
           hidden: !children,
+          disabled: isClusterFullyExpanded,
           onClick: () => {
-            actions.setExpandedItems([...expandedInstances, ...scopedInstances]);
+            actions.setExpandedItems([...expandedItems, ...clusterInstances]);
+            setAriaLiveMessage(
+              `Displaying all ${clusterInstances.length - 1} related instances for cluster ${instance.name}`
+            );
           },
         },
         {
           id: 'collapse-all',
           text: `Collapse cluster`,
           hidden: !children,
+          disabled: isClusterFullyCollapsed,
           onClick: () => {
-            actions.setExpandedItems(expandedInstances.filter(i => !scopedInstances.includes(i)));
+            actions.setExpandedItems(expandedItems.filter(item => !clusterInstances.includes(item)));
+            setAriaLiveMessage('');
           },
         },
       ];
@@ -77,49 +76,84 @@ function App() {
     },
   });
 
+  const onExpandableItemToggle: TableProps.OnExpandableItemToggle<Instance> = event => {
+    // Call collection-hooks-provided handler to update state.
+    collectionProps.expandableRows?.onExpandableItemToggle(event);
+
+    // Add custom logic on cluster expand.
+    const cluster = event.detail.item;
+    const clusterExpanded = event.detail.expanded;
+    if (clusterExpanded) {
+      setAriaLiveMessage(`Displaying ${getItemChildren(cluster).length} related instances for cluster ${cluster.name}`);
+    } else {
+      setAriaLiveMessage('');
+    }
+  };
+  const expandableRows = collectionProps.expandableRows
+    ? { ...collectionProps.expandableRows, onExpandableItemToggle }
+    : undefined;
+
   return (
-    <CustomAppLayout
-      ref={appLayout}
-      navigation={<Navigation activeHref="#/distributions" />}
-      notifications={<Notifications />}
-      breadcrumbs={<Breadcrumbs />}
-      content={
-        <Table
-          {...collectionProps}
-          stickyColumns={preferences.stickyColumns}
-          resizableColumns={true}
-          stickyHeader={true}
-          selectionType="single"
-          columnDefinitions={columnDefinitions}
-          items={items}
-          ariaLabels={ariaLabels}
-          wrapLines={preferences.wrapLines}
-          columnDisplay={preferences.contentDisplay}
-          preferences={createPreferences({ preferences, setPreferences })}
-          submitEdit={() => {}}
-          variant="full-page"
-          header={
-            <Header variant="h1" counter={getHeaderCounterText(allInstances, collectionProps.selectedItems)}>
-              Databases
-            </Header>
-          }
-          filter={
-            <PropertyFilter
-              {...propertyFilterProps}
-              filteringOptions={filteringOptions}
-              countText={getMatchesCountText(filteredItemsCount ?? 0)}
-              filteringPlaceholder="Search databases"
-            />
-          }
-        />
-      }
-      contentType="table"
-      tools={<ToolsContent />}
-      toolsOpen={toolsOpen}
-      onToolsChange={({ detail }) => setToolsOpen(detail.open)}
-      stickyNotifications={true}
-    />
+    <PageLayout>
+      {({ openTools }) => (
+        <>
+          <Table
+            {...collectionProps}
+            stickyColumns={preferences.stickyColumns}
+            resizableColumns={true}
+            stickyHeader={true}
+            selectionType="single"
+            columnDefinitions={columnDefinitions}
+            items={items}
+            ariaLabels={tableAriaLabels}
+            wrapLines={preferences.wrapLines}
+            columnDisplay={preferences.contentDisplay}
+            preferences={<TablePreferences preferences={preferences} setPreferences={setPreferences} />}
+            submitEdit={() => {}}
+            variant="full-page"
+            renderAriaLive={renderAriaLive}
+            header={
+              <FullPageHeader
+                title="Instances"
+                selectedItemsCount={collectionProps.selectedItems?.length ?? 0}
+                counter={getHeaderCounterText(allInstances, collectionProps.selectedItems)}
+                actions={
+                  <SpaceBetween size="xs" direction="horizontal">
+                    <Button disabled={collectionProps.selectedItems?.length === 0}>Instance actions</Button>
+                    <Button>Restore from S3</Button>
+                    <Button variant="primary">Launch DB instance</Button>
+                  </SpaceBetween>
+                }
+                onInfoLinkClick={openTools}
+              />
+            }
+            filter={
+              <PropertyFilter
+                {...propertyFilterProps}
+                countText={getTextFilterCounterText(filteredItemsCount ?? 0)}
+                filteringPlaceholder="Search databases"
+              />
+            }
+            expandableRows={expandableRows}
+          />
+
+          <span aria-live="polite" aria-atomic="true" className="screenreader-only">
+            {ariaLiveMessage}
+          </span>
+        </>
+      )}
+    </PageLayout>
   );
+}
+
+function getFlatItems<T>(items: readonly T[], getItemChildren: (item: T) => T[]): T[] {
+  const flatItems: T[] = [];
+  function traverse(item: T) {
+    flatItems.push(item);
+    getItemChildren(item).forEach(traverse);
+  }
+  items.forEach(traverse);
+  return flatItems;
 }
 
 createRoot(document.getElementById('app')!).render(<App />);

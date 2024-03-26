@@ -1,9 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-
 import React from 'react';
 import {
-  Box,
   ButtonDropdown,
   CollectionPreferences,
   CollectionPreferencesProps,
@@ -14,27 +12,15 @@ import {
   StatusIndicator,
   TableProps,
 } from '@cloudscape-design/components';
-import { Instance, InstanceType } from './common';
+import { Instance } from '../../resources/related-instances';
 
-const columnLabel = (column: string) => (sortState: TableProps.LabelData) => {
-  const ascending = !sortState.descending;
-  return `${column}, ${sortState.sorted ? `sorted ${ascending ? 'ascending' : 'descending'}` : 'not sorted'}.`;
-};
-
-const contentDisplayPreferenceI18nStrings: Partial<CollectionPreferencesProps.ContentDisplayPreference> = {
-  liveAnnouncementDndStarted: (position, total) => `Picked up item at position ${position} of ${total}`,
-  liveAnnouncementDndDiscarded: 'Reordering canceled',
-  liveAnnouncementDndItemReordered: (initialPosition, currentPosition, total) =>
-    initialPosition === currentPosition
-      ? `Moving item back to position ${currentPosition} of ${total}`
-      : `Moving item to position ${currentPosition} of ${total}`,
-  liveAnnouncementDndItemCommitted: (initialPosition, finalPosition, total) =>
-    initialPosition === finalPosition
-      ? `Item moved back to its original position ${initialPosition} of ${total}`
-      : `Item moved from position ${initialPosition} to position ${finalPosition} of ${total}`,
-  dragHandleAriaDescription:
-    "Use Space or Enter to activate drag for an item, then use the arrow keys to move the item's position. To complete the position move, use Space or Enter, or to discard the move, use Escape.",
-  dragHandleAriaLabel: 'Drag handle',
+export const tableAriaLabels: TableProps<{ name: string }>['ariaLabels'] = {
+  selectionGroupLabel: 'group label',
+  itemSelectionLabel: ({ selectedItems }, item) => {
+    const isItemSelected = selectedItems.filter(i => i.name === item.name).length;
+    return `${item.name} is ${isItemSelected ? '' : 'not'} selected`;
+  },
+  tableLabel: 'Instances table',
 };
 
 export function createColumns({
@@ -56,30 +42,20 @@ export function createColumns({
       id: 'name',
       header: 'DB Name',
       cell: item => <Link href={`#${item.name}`}>{item.name}</Link>,
-      ariaLabel: columnLabel('DB Name'),
       sortingField: 'name',
-      minWidth: 200,
+      minWidth: 300,
+      isRowHeader: true,
     },
     {
       id: 'role',
       header: 'Role',
-      cell: item => (
-        <InstanceTypeWrapper instanceType={item.type}>
-          {item.type === 'instance' ? item.role : `${item.role} (${getInstanceProps(item).children})`}
-        </InstanceTypeWrapper>
-      ),
-      ariaLabel: columnLabel('Role'),
+      cell: item => (item.type === 'instance' ? item.role : `${item.role} (${getInstanceProps(item).children})`),
       sortingField: 'role',
     },
     {
       id: 'activity',
       header: 'Activity',
-      cell: item => (
-        <Box fontSize="body-s" color="text-body-secondary">
-          {item.selectsPerSecond !== null ? `${item.selectsPerSecond} Selects/Sec` : '-'}
-        </Box>
-      ),
-      ariaLabel: columnLabel('Activity'),
+      cell: item => (item.selectsPerSecond !== null ? `${item.selectsPerSecond} Selects/Sec` : '-'),
       sortingField: 'selectsPerSecond',
     },
     {
@@ -96,10 +72,9 @@ export function createColumns({
               return <StatusIndicator type="error">Terminated</StatusIndicator>;
           }
         })();
-        if (item.type === 'instance') {
-          return selfState;
-        }
-        return (
+        return item.type === 'instance' ? (
+          selfState
+        ) : (
           <Popover
             dismissButton={false}
             position="top"
@@ -116,48 +91,35 @@ export function createColumns({
           </Popover>
         );
       },
-      ariaLabel: columnLabel('State'),
       sortingField: 'state',
     },
     {
       id: 'engine',
       header: 'Engine',
       cell: item => item.engine,
-      ariaLabel: columnLabel('Engine'),
       sortingField: 'engine',
     },
     {
       id: 'size',
       header: 'Size',
-      cell: item => <InstanceTypeWrapper instanceType={item.type}>{item.sizeGrouped || '-'}</InstanceTypeWrapper>,
-      ariaLabel: columnLabel('Size'),
+      cell: item => item.sizeGrouped || '-',
       sortingField: 'sizeGrouped',
     },
     {
       id: 'region',
       header: 'Region & AZ',
-      cell: item => <InstanceTypeWrapper instanceType={item.type}>{item.regionGrouped}</InstanceTypeWrapper>,
-      ariaLabel: columnLabel('Region & AZ'),
+      cell: item => item.regionGrouped,
       sortingField: 'regionGrouped',
     },
     {
       id: 'actions',
       header: 'Actions',
       cell: item => {
-        const { actions } = getInstanceProps(item);
-        if (actions.filter(action => !action.hidden).length === 0) {
-          return (
-            <ButtonDropdown
-              variant="inline-icon"
-              ariaLabel={`Instance ${item.name} actions`}
-              disabled={true}
-              items={[]}
-            />
-          );
-        }
+        const actions = getInstanceProps(item).actions.filter(action => !action.hidden);
         return (
           <ButtonDropdown
             expandToViewport={true}
+            disabled={actions.length === 0}
             items={actions.filter(action => !action.hidden)}
             variant="inline-icon"
             ariaLabel={`Instance ${item.name} actions`}
@@ -169,7 +131,60 @@ export function createColumns({
   ];
 }
 
-export function createPreferences({
+export const filteringProperties: PropertyFilterProps.FilteringProperty[] = [
+  {
+    key: 'name',
+    propertyLabel: 'DB Name',
+    groupValuesLabel: 'DB Name values',
+    operators: ['=', ':'],
+  },
+  {
+    key: 'path',
+    propertyLabel: 'DB Path',
+    groupValuesLabel: 'DB Path values',
+    // Every instance or cluster includes self name and all parent cluster names in the path field.
+    // To match filtering token against the path a custom matcher is needed.
+    // The result includes a sub-tree of elements having the specified cluster as parent.
+    operators: [
+      {
+        operator: '=',
+        match: (path: unknown, token: null | string) => Array.isArray(path) && path.includes(token),
+      },
+    ],
+  },
+  {
+    key: 'role',
+    propertyLabel: 'Role',
+    groupValuesLabel: 'Role values',
+    operators: ['='],
+  },
+  {
+    key: 'state',
+    propertyLabel: 'State',
+    groupValuesLabel: 'State values',
+    operators: ['=', '!='],
+  },
+  {
+    key: 'engine',
+    propertyLabel: 'Engine',
+    groupValuesLabel: 'Engine values',
+    operators: ['=', '!=', ':'],
+  },
+  {
+    key: 'size',
+    propertyLabel: 'Size',
+    groupValuesLabel: 'Size values',
+    operators: ['=', '!=', ':'],
+  },
+  {
+    key: 'region',
+    propertyLabel: 'Region',
+    groupValuesLabel: 'Region values',
+    operators: ['=', '!=', ':'],
+  },
+];
+
+export function TablePreferences({
   preferences,
   setPreferences,
 }: {
@@ -183,14 +198,6 @@ export function createPreferences({
       cancelLabel="Cancel"
       onConfirm={({ detail }) => setPreferences(detail)}
       preferences={preferences}
-      pageSizePreference={{
-        title: 'Select page size',
-        options: [
-          { value: 10, label: '10 Instances' },
-          { value: 25, label: '25 Instances' },
-          { value: 50, label: '50 Instances' },
-        ],
-      }}
       contentDisplayPreference={{
         title: 'Column preferences',
         description: 'Customize the columns visibility and order.',
@@ -229,7 +236,6 @@ export function createPreferences({
             label: 'Actions',
           },
         ],
-        ...contentDisplayPreferenceI18nStrings,
       }}
       wrapLinesPreference={{
         label: 'Wrap lines',
@@ -255,67 +261,5 @@ export function createPreferences({
         },
       }}
     />
-  );
-}
-
-export const filteringProperties: PropertyFilterProps.FilteringProperty[] = [
-  {
-    key: 'path',
-    propertyLabel: 'DB Name',
-    groupValuesLabel: 'DB Name values',
-    // Use custom matchers so that when filtering item by name all its children are matched as well.
-    operators: [
-      {
-        operator: '=',
-        match: (path: unknown, token: null | string) => Array.isArray(path) && path.includes(token),
-      },
-      // The contains operator is listed to support free-text matching.
-      {
-        operator: ':',
-        match: (path: unknown, token: null | string) =>
-          Array.isArray(path) && path.some(entry => entry.includes(token)),
-      },
-    ],
-  },
-  {
-    key: 'role',
-    propertyLabel: 'Role',
-    groupValuesLabel: 'Role values',
-    operators: ['='],
-  },
-  {
-    key: 'state',
-    propertyLabel: 'State',
-    groupValuesLabel: 'State values',
-    operators: ['=', '!='],
-  },
-  {
-    key: 'engine',
-    propertyLabel: 'Engine',
-    groupValuesLabel: 'Engine values',
-    operators: ['=', '!=', ':'],
-  },
-  {
-    key: 'size',
-    propertyLabel: 'Size',
-    groupValuesLabel: 'Size values',
-    operators: ['=', '!=', ':'],
-  },
-  {
-    key: 'region',
-    propertyLabel: 'Region',
-    groupValuesLabel: 'Region values',
-    operators: ['=', '!=', ':'],
-  },
-];
-
-function InstanceTypeWrapper({ instanceType, children }: { instanceType: InstanceType; children: React.ReactNode }) {
-  return (
-    <Box
-      fontWeight={instanceType === 'instance' ? 'normal' : 'bold'}
-      color={instanceType === 'instance' ? 'inherit' : 'text-body-secondary'}
-    >
-      {children}
-    </Box>
   );
 }
