@@ -80,6 +80,10 @@
     "title": "Table view with inline editing"
   },
   {
+    "path": "table-expandable",
+    "title": "Table view with expandable rows"
+  },
+  {
     "path": "manage-tags",
     "title": "Manage tags"
   },
