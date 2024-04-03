@@ -77,6 +77,7 @@ function ServerSidePropertyFilterTable({ columnDefinitions, saveWidths, loadHelp
 
   return (
     <Table
+      enableKeyboardNavigation={true}
       loading={loading}
       selectedItems={selectedItems}
       items={items}
@@ -129,7 +130,6 @@ function ServerSidePropertyFilterTable({ columnDefinitions, saveWidths, loadHelp
         />
       }
       preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}
-      enableKeyboardNavigation={true}
     />
   );
 }

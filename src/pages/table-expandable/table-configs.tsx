@@ -81,9 +81,9 @@ export function createColumns({
             size="small"
             content={
               <SpaceBetween size="s" direction="horizontal">
-                <StatusIndicator type="success">{item.stateGrouped.RUNNING}</StatusIndicator>
-                <StatusIndicator type="stopped">{item.stateGrouped.STOPPED}</StatusIndicator>
-                <StatusIndicator type="error">{item.stateGrouped.TERMINATED}</StatusIndicator>
+                <StatusIndicator type="success">{item.stateGrouped.RUNNING} Running</StatusIndicator>
+                <StatusIndicator type="stopped">{item.stateGrouped.STOPPED} Stopped</StatusIndicator>
+                <StatusIndicator type="error">{item.stateGrouped.TERMINATED} Terminated</StatusIndicator>
               </SpaceBetween>
             }
           >
@@ -116,16 +116,15 @@ export function createColumns({
       header: 'Actions',
       cell: item => {
         const actions = getInstanceProps(item).actions.filter(action => !action.hidden);
-        return (
+        return actions.length > 0 ? (
           <ButtonDropdown
             expandToViewport={true}
-            disabled={actions.length === 0}
             items={actions.filter(action => !action.hidden)}
             variant="inline-icon"
             ariaLabel={`Instance ${item.name} actions`}
             onItemClick={event => actions.find(action => action.id === event.detail.id)!.onClick()}
           />
-        );
+        ) : null;
       },
     },
   ];

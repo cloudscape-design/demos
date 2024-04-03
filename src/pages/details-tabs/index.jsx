@@ -71,6 +71,7 @@ function LogsTable() {
 
   return (
     <Table
+      enableKeyboardNavigation={true}
       className="logs-table"
       {...collectionProps}
       loading={logsLoading}
@@ -106,7 +107,6 @@ function LogsTable() {
         />
       }
       pagination={<Pagination {...paginationProps} />}
-      enableKeyboardNavigation={true}
     />
   );
 }

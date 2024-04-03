@@ -27,6 +27,19 @@ import badgePartnerAdvanced from './images/aws-partner-badge.png';
 
 import '../../styles/product-page.scss';
 
+// Apply runtime theming for a more suitable page background color
+applyTheme({
+  theme: {
+    tokens: {
+      colorBackgroundLayoutMain: {
+        light: 'white',
+        dark: '{colorGrey900}',
+      },
+    },
+  },
+  baseThemeId: isVisualRefresh ? 'visual-refresh' : undefined,
+});
+
 function ProductOverview() {
   return (
     <section className="page-section" aria-label="Product overview">
@@ -357,19 +370,6 @@ function App() {
   const [disclaimerDismissed, dismissDisclaimer] = useState(false);
   const disclaimerItem = useDisclaimerFlashbarItem(() => dismissDisclaimer(true));
   const showFlashbar = !disclaimerDismissed && disclaimerItem;
-
-  // Apply runtime theming for a more suitable page background color
-  applyTheme({
-    theme: {
-      tokens: {
-        colorBackgroundLayoutMain: {
-          light: 'white',
-          dark: '{colorGrey900}',
-        },
-      },
-    },
-    baseThemeId: isVisualRefresh ? 'visual-refresh' : undefined,
-  });
 
   return (
     <I18nProvider locale="en" messages={[enMessages]}>

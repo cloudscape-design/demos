@@ -81,6 +81,7 @@ export default function DistributionsTable({ distributions, selectedItems, onSel
   return (
     <Table
       {...collectionProps}
+      enableKeyboardNavigation={true}
       selectedItems={selectedItems}
       onSelectionChange={onSelectionChange}
       columnDefinitions={columnDefinitions}
@@ -117,7 +118,6 @@ export default function DistributionsTable({ distributions, selectedItems, onSel
         />
       }
       pagination={<Pagination {...paginationProps} />}
-      enableKeyboardNavigation={true}
     />
   );
 }

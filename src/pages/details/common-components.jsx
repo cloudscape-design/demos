@@ -13,22 +13,22 @@ import {
   StatusIndicator,
   SpaceBetween,
   Table,
-  Tabs,
   TextFilter,
+  Tabs,
   CopyToClipboard,
 } from '@cloudscape-design/components';
-import { useAsyncData } from '../commons/use-async-data';
 import { CodeView } from '@cloudscape-design/code-view';
 import jsonHighlight from '@cloudscape-design/code-view/highlight/json';
 import yamlHighlight from '@cloudscape-design/code-view/highlight/yaml';
 import xmlHighlight from '@cloudscape-design/code-view/highlight/xml';
-import { codeSnippets } from './details-code-snippets';
+import { useAsyncData } from '../commons/use-async-data';
 import DataProvider from '../commons/data-provider';
 import { TableEmptyState, InfoLink } from '../commons/common-components';
 import { ORIGINS_COLUMN_DEFINITIONS, BEHAVIORS_COLUMN_DEFINITIONS, TAGS_COLUMN_DEFINITIONS } from './details-config';
 import { resourceDetailBreadcrumbs } from '../../common/breadcrumbs';
 import { baseTableAriaLabels, getHeaderCounterText, getTextFilterCounterText } from '../../i18n-strings';
 import { useCollection } from '@cloudscape-design/collection-hooks';
+import { codeSnippets } from './details-code-snippets';
 
 export const DEMO_DISTRIBUTION = {
   id: 'SLCCSMWOHOFUY0',
@@ -175,6 +175,7 @@ export const EmptyTable = props => {
   const colDefs = props.columnDefinitions || TAGS_COLUMN_DEFINITIONS;
   return (
     <Table
+      enableKeyboardNavigation={true}
       empty={<TableEmptyState resourceName={resourceType} />}
       columnDefinitions={colDefs}
       items={[]}
@@ -189,7 +190,6 @@ export const EmptyTable = props => {
           }
         >{`${resourceType}s`}</Header>
       }
-      enableKeyboardNavigation={true}
     />
   );
 };
@@ -234,6 +234,7 @@ export function OriginsTable() {
 
   return (
     <Table
+      enableKeyboardNavigation={true}
       className="origins-table"
       columnDefinitions={ORIGINS_COLUMN_DEFINITIONS}
       loading={originsLoading}
@@ -257,7 +258,6 @@ export function OriginsTable() {
           Origins
         </Header>
       }
-      enableKeyboardNavigation={true}
     />
   );
 }
@@ -276,6 +276,7 @@ export function BehaviorsTable() {
 
   return (
     <Table
+      enableKeyboardNavigation={true}
       className="cache-table"
       columnDefinitions={BEHAVIORS_COLUMN_DEFINITIONS}
       items={behaviors}
@@ -299,7 +300,6 @@ export function BehaviorsTable() {
           Cache behavior settings
         </Header>
       }
-      enableKeyboardNavigation={true}
     />
   );
 }
@@ -329,6 +329,7 @@ export function TagsTable({ loadHelpPanelContent }) {
 
   return (
     <Table
+      enableKeyboardNavigation={true}
       id="tags-panel"
       columnDefinitions={TAGS_COLUMN_DEFINITIONS}
       items={items}
@@ -359,7 +360,6 @@ export function TagsTable({ loadHelpPanelContent }) {
           Tags
         </Header>
       }
-      enableKeyboardNavigation={true}
     />
   );
 }

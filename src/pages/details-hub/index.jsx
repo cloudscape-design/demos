@@ -20,6 +20,7 @@ function LogsTable() {
 
   return (
     <Table
+      enableKeyboardNavigation={true}
       className="logs-table"
       loading={logsLoading}
       loadingText="Loading logs"
@@ -48,7 +49,6 @@ function LogsTable() {
           <Link href="#">View all logs</Link>
         </Box>
       }
-      enableKeyboardNavigation={true}
     />
   );
 }

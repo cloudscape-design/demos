@@ -61,6 +61,7 @@ const App = () => {
       content={
         <Table
           {...collectionProps}
+          enableKeyboardNavigation={true}
           header={
             <FullPageHeader
               title="Instances"
@@ -95,7 +96,6 @@ const App = () => {
           stickyColumns={preferences.stickyColumns}
           pagination={<Pagination {...paginationProps} />}
           preferences={<EC2Preferences preferences={preferences} setPreferences={setPreferences} />}
-          enableKeyboardNavigation={true}
         />
       }
     />
