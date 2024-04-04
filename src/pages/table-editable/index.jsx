@@ -129,6 +129,7 @@ function TableContent({ loadHelpPanelContent, distributions }) {
   return (
     <Table
       {...tableCollectionProps}
+      enableKeyboardNavigation={true}
       columnDefinitions={columnDefinitions}
       columnDisplay={preferences.contentDisplay}
       items={itemsSnap || items}
@@ -167,7 +168,6 @@ function TableContent({ loadHelpPanelContent, distributions }) {
       }
       pagination={<Pagination {...tablePaginationProps} disabled={submitting} />}
       preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}
-      enableKeyboardNavigation={true}
     />
   );
 }

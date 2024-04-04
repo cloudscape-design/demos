@@ -135,6 +135,7 @@ function App() {
         <>
           <Table
             {...collectionProps}
+            enableKeyboardNavigation={true}
             columnDefinitions={columnDefinitions}
             columnDisplay={preferences.contentDisplay}
             items={items}
@@ -179,7 +180,6 @@ function App() {
             }
             pagination={<Pagination {...paginationProps} />}
             preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}
-            enableKeyboardNavigation={true}
           />
           {actionModal}
         </>

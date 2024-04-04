@@ -5,7 +5,16 @@ import { createRoot } from 'react-dom/client';
 import { useCollection } from '@cloudscape-design/collection-hooks';
 import { COLUMN_DEFINITIONS, SEARCHABLE_COLUMNS, CONTENT_DISPLAY_OPTIONS } from './table-select-filter-config';
 import { Preferences } from '../commons/table-config';
-import { Button, Input, FormField, Pagination, SpaceBetween, Select, Table } from '@cloudscape-design/components';
+import {
+  Button,
+  ButtonDropdown,
+  Input,
+  FormField,
+  Pagination,
+  SpaceBetween,
+  Select,
+  Table,
+} from '@cloudscape-design/components';
 import { Navigation, Breadcrumbs, ToolsContent } from './table-select-filter-components';
 import '../../styles/table-select.scss';
 import DATA from '../../resources/instances';
@@ -104,6 +113,7 @@ function TableSelectFilter({ loadHelpPanelContent }) {
   return (
     <Table
       {...collectionProps}
+      enableKeyboardNavigation={true}
       columnDefinitions={columnDefinitions}
       columnDisplay={preferences.contentDisplay}
       items={items}
@@ -129,7 +139,25 @@ function TableSelectFilter({ loadHelpPanelContent }) {
           counter={getHeaderCounterText(DATA, collectionProps.selectedItems)}
           actions={
             <SpaceBetween size="xs" direction="horizontal">
-              <Button disabled={collectionProps.selectedItems.length === 0}>Instance actions</Button>
+              <ButtonDropdown
+                disabled={collectionProps.selectedItems.length === 0}
+                items={[
+                  {
+                    id: 'terminate',
+                    text: 'Terminate DB instance',
+                    disabled: true,
+                    disabledReason: 'No permission granted',
+                  },
+                  {
+                    id: 'create-replica',
+                    text: 'Create DB instance replica',
+                    disabled: true,
+                    disabledReason: 'No permission granted',
+                  },
+                ]}
+              >
+                Instance actions
+              </ButtonDropdown>
               <Button>Restore from S3</Button>
               <Button variant="primary">Launch DB instance</Button>
             </SpaceBetween>
@@ -198,7 +226,6 @@ function TableSelectFilter({ loadHelpPanelContent }) {
           contentDisplayOptions={CONTENT_DISPLAY_OPTIONS}
         />
       }
-      enableKeyboardNavigation={true}
     />
   );
 }

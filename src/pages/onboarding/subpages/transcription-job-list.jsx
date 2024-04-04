@@ -59,6 +59,7 @@ export const TranscriptionJobListPage = () => {
       }
       content={
         <Table
+          enableKeyboardNavigation={true}
           selectionType="single"
           trackBy="name"
           header={
@@ -87,7 +88,6 @@ export const TranscriptionJobListPage = () => {
           stickyHeader={true}
           variant="full-page"
           columnDefinitions={columnDefinitions}
-          enableKeyboardNavigation={true}
         />
       }
     />

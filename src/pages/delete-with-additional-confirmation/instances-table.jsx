@@ -55,6 +55,7 @@ export default function InstancesTable({ instances, selectedItems, onSelectionCh
   return (
     <Table
       {...collectionProps}
+      enableKeyboardNavigation={true}
       selectedItems={selectedItems}
       onSelectionChange={onSelectionChange}
       columnDefinitions={COLUMN_DEFINITIONS}
@@ -94,7 +95,6 @@ export default function InstancesTable({ instances, selectedItems, onSelectionCh
         />
       }
       pagination={<Pagination {...paginationProps} />}
-      enableKeyboardNavigation={true}
     />
   );
 }

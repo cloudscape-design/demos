@@ -31,6 +31,7 @@ export const getPanelContentSingle = items => {
     header: item.id,
     body: (
       <Table
+        enableKeyboardNavigation={true}
         header={
           <Header variant="h2" counter={`(${item.inboundRules.length})`}>
             Inbound rules
@@ -39,7 +40,6 @@ export const getPanelContentSingle = items => {
         columnDefinitions={COLUMN_DEFINITIONS_PANEL_CONTENT_SINGLE}
         items={item.inboundRules}
         variant={isVisualRefresh ? 'borderless' : 'container'}
-        enableKeyboardNavigation={true}
       ></Table>
     ),
   };
@@ -155,12 +155,12 @@ export const getPanelContentComparison = items => {
     body: (
       <Box padding={{ bottom: 'l' }}>
         <Table
+          enableKeyboardNavigation={true}
           ariaLabels={SELECTION_LABELS}
           header={<Header variant="h2">Compare details</Header>}
           items={transformedData}
           columnDefinitions={columnDefinitions}
           variant={isVisualRefresh ? 'borderless' : 'container'}
-          enableKeyboardNavigation={true}
         />
       </Box>
     ),

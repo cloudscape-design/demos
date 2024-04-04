@@ -10,10 +10,11 @@ import {
   SpaceBetween,
   Button,
   TableProps,
+  ButtonDropdown,
 } from '@cloudscape-design/components';
 import { getHeaderCounterText, getTextFilterCounterText, renderAriaLive } from '../../i18n-strings';
 import '../../styles/base.scss';
-import { FullPageHeader } from '../commons/common-components';
+import { FullPageHeader, TableEmptyState, TableNoMatchState } from '../commons/common-components';
 import { tableAriaLabels, createColumns, filteringProperties, TablePreferences } from './table-configs';
 import allInstances, { Instance } from '../../resources/related-instances';
 import '../../styles/base.scss';
@@ -30,12 +31,23 @@ function App() {
     sorting: {},
     propertyFiltering: {
       filteringProperties,
+      empty: <TableEmptyState resourceName="Instance" />,
+      noMatch: (
+        <TableNoMatchState onClearFilter={() => actions.setPropertyFiltering({ operation: 'and', tokens: [] })} />
+      ),
     },
     selection: {},
     expandableRows: {
       getId: item => item.name,
       getParentId: item => item.parentName,
     },
+  });
+
+  const filteringOptions = propertyFilterProps.filteringOptions.map(option => {
+    if (option.propertyKey === 'path') {
+      return { ...option, value: option.value.split(',')[0] };
+    }
+    return option;
   });
 
   const isItemExpandable = collectionProps.expandableRows?.isItemExpandable ?? (() => false);
@@ -119,7 +131,25 @@ function App() {
                 counter={getHeaderCounterText(allInstances, collectionProps.selectedItems)}
                 actions={
                   <SpaceBetween size="xs" direction="horizontal">
-                    <Button disabled={collectionProps.selectedItems?.length === 0}>Instance actions</Button>
+                    <ButtonDropdown
+                      disabled={collectionProps.selectedItems?.length === 0}
+                      items={[
+                        {
+                          id: 'terminate',
+                          text: 'Terminate DB instance',
+                          disabled: true,
+                          disabledReason: 'No permission granted',
+                        },
+                        {
+                          id: 'create-replica',
+                          text: 'Create DB instance replica',
+                          disabled: true,
+                          disabledReason: 'No permission granted',
+                        },
+                      ]}
+                    >
+                      Instance actions
+                    </ButtonDropdown>
                     <Button>Restore from S3</Button>
                     <Button variant="primary">Launch DB instance</Button>
                   </SpaceBetween>
@@ -130,6 +160,7 @@ function App() {
             filter={
               <PropertyFilter
                 {...propertyFilterProps}
+                filteringOptions={filteringOptions}
                 countText={getTextFilterCounterText(filteredItemsCount ?? 0)}
                 filteringPlaceholder="Search databases"
               />

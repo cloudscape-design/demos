@@ -61,6 +61,7 @@ export function PropertyFilterTable({
   return (
     <Table
       {...collectionProps}
+      enableKeyboardNavigation={true}
       items={items}
       columnDefinitions={columnDefinitions}
       columnDisplay={preferences.contentDisplay}
@@ -100,7 +101,6 @@ export function PropertyFilterTable({
           contentDisplayOptions={contentDisplayOptions}
         />
       }
-      enableKeyboardNavigation={true}
     />
   );
 }

@@ -80,11 +80,11 @@ const alarmsItems: TableProps<Item>['items'] = [
 function AlarmsContent() {
   return (
     <Table
+      enableKeyboardNavigation={true}
       variant="borderless"
       resizableColumns={true}
       items={alarmsItems}
       columnDefinitions={alarmsDefinition}
-      enableKeyboardNavigation={true}
     />
   );
 }

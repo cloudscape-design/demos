@@ -96,6 +96,7 @@ export default function InstanceLimitsContent() {
 
   return (
     <Table
+      enableKeyboardNavigation={true}
       data-testid="instance-limits-table"
       variant="borderless"
       resizableColumns={true}
@@ -110,7 +111,6 @@ export default function InstanceLimitsContent() {
         allItemsSelectionLabel: () => 'select all',
         selectionGroupLabel: 'On-demand instance limit selection',
       }}
-      enableKeyboardNavigation={true}
     />
   );
 }

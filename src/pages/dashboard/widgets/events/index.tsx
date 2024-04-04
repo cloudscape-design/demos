@@ -78,11 +78,11 @@ const eventsDefinition: Array<TableProps.ColumnDefinition<(typeof eventsItems)[0
 export default function EventsContent() {
   return (
     <Table
+      enableKeyboardNavigation={true}
       variant="borderless"
       resizableColumns={true}
       items={eventsItems}
       columnDefinitions={eventsDefinition}
-      enableKeyboardNavigation={true}
     />
   );
 }

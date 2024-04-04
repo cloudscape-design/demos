@@ -43,6 +43,7 @@ function TableContent({ distributions, loadHelpPanelContent }) {
   return (
     <Table
       {...collectionProps}
+      enableKeyboardNavigation={true}
       columnDefinitions={columnDefinitions}
       columnDisplay={preferences.contentDisplay}
       items={items}
@@ -75,7 +76,6 @@ function TableContent({ distributions, loadHelpPanelContent }) {
       }
       pagination={<Pagination {...paginationProps} />}
       preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}
-      enableKeyboardNavigation={true}
     />
   );
 }
