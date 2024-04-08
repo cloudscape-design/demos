@@ -13,6 +13,7 @@ import {
   RadioGroup,
   SpaceBetween,
   Select,
+  Slider,
 } from '@cloudscape-design/components';
 import { InfoLink } from '../../commons/common-components';
 import { CLASS_OPTIONS, TIME_ZONES, AVAILABILITY_ZONES, STORAGE_TYPES, TOOLS_CONTENT } from '../steps-config';
@@ -38,6 +39,14 @@ const InstanceOptions = ({
   const onInstanceClassChange = getFieldOnChange('select', 'instanceClass', onChange);
   const onStorageTypeChange = getFieldOnChange('radio', 'storageType', onChange);
   const onStorageChange = getFieldOnChange('input', 'storage', onChange);
+  const onStorageSliderChange = getFieldOnChange('slider', 'storage', onChange);
+
+  const validateStorageValue = (value, range) => {
+    if (!value) {
+      return false;
+    }
+    return value < range[0] || value > range[1];
+  };
 
   return (
     <Container
@@ -122,14 +131,31 @@ const InstanceOptions = ({
         <FormField
           label="Allocated storage"
           description="Higher allocated storage may improve IOPS performance."
-          constraintText="Min: 20, Max: 16384."
+          errorText={validateStorageValue(Number(storage), [20, 128]) ? 'Enter a valid storage amount.' : undefined}
         >
-          <div className="custom-input-small">
-            <Input type="number" autocomplete={true} controlId="storage" value={storage} onChange={onStorageChange} />
+          <div className="flex-wrapper">
+            <div className="slider-wrapper">
+              <Slider
+                ariaLabel="allocated-storage-slider"
+                value={Number(storage)}
+                onChange={onStorageSliderChange}
+                min={20}
+                max={128}
+              />
+            </div>
+            <SpaceBetween size="m" alignItems="center" direction="horizontal">
+              <div className="input-wrapper">
+                <Input
+                  type="number"
+                  autocomplete={true}
+                  controlId="storage"
+                  value={storage}
+                  onChange={onStorageChange}
+                />
+              </div>
+              <Box>GiB</Box>
+            </SpaceBetween>
           </div>
-          <Box variant="span" padding={{ left: 's' }}>
-            GiB
-          </Box>
         </FormField>
         <Alert type="info" statusIconAriaLabel="Info">
           Provisioning less than 100 GiB of General Purpose (SSD) storage for high throughput workloads could result in
