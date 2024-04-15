@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React, { useState } from 'react';
-import { Container, Header, TagEditor } from '@cloudscape-design/components';
+import { Container, Header, SpaceBetween, TagEditor } from '@cloudscape-design/components';
 import { InfoLink } from '../../commons/common-components';
 import { tagEditorI18nStrings } from '../../../i18n-strings/tag-editor';
 
@@ -21,16 +21,18 @@ export default function TagsPanel({ loadHelpPanelContent, readOnlyWithErrors = f
         </Header>
       }
     >
-      <TagEditor
-        tags={tags}
-        onChange={({ detail }) => {
-          const { tags } = detail;
-          !readOnlyWithErrors && setTags(tags);
-        }}
-        keysRequest={() => window.FakeServer.GetTagKeys().then(({ TagKeys }) => TagKeys)}
-        valuesRequest={key => window.FakeServer.GetTagValues(key).then(({ TagValues }) => TagValues)}
-        i18nStrings={tagEditorI18nStrings}
-      />
+      <SpaceBetween size="m">
+        <TagEditor
+          tags={tags}
+          onChange={({ detail }) => {
+            const { tags } = detail;
+            !readOnlyWithErrors && setTags(tags);
+          }}
+          keysRequest={() => window.FakeServer.GetTagKeys().then(({ TagKeys }) => TagKeys)}
+          valuesRequest={key => window.FakeServer.GetTagValues(key).then(({ TagValues }) => TagValues)}
+          i18nStrings={tagEditorI18nStrings}
+        />
+      </SpaceBetween>
     </Container>
   );
 }

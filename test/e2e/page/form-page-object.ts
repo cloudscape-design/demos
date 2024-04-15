@@ -36,7 +36,7 @@ export default class PageObject extends AppLayoutPage {
   getFormErrorMessages() {
     return this.getElementsText(this.pageWrapper.findForm().findError().toSelector());
   }
-  async filterDisributionsOptions(text: string) {
+  async filterDistributionsOptions(text: string) {
     await this.setValue(this.distributionsSelect.findFilteringInput()!.findNativeInput().toSelector(), text);
     await this.pause(DEBOUNCE_FILTERING_DELAY);
     await this.waitForVisible(this.distributionOptionsSelector);
@@ -47,8 +47,6 @@ export default class PageObject extends AppLayoutPage {
     const optionSelector = this.originsMultiselect.findDropdown().findOptionByValue(value)!.toSelector();
     await this.click(triggerSelector);
     await this.waitForVisible(optionSelector);
-    // wait for options to be fully loaded
-    await this.waitForVisible(this.originsMultiselect.findDropdown().findFooterRegion().toSelector(), false);
     await this.click(optionSelector);
     // close the dropdown, because multiselect keeps it open by default
     await this.click(triggerSelector);

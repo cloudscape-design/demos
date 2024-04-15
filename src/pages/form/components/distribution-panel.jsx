@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   Container,
   Checkbox,
@@ -19,6 +19,7 @@ import {
 import { InfoLink } from '../../commons/common-components';
 import useContentOrigins from '../../commons/use-content-origins';
 import { SSL_CERTIFICATE_OPTIONS, SUPPORTED_HTTP_VERSIONS_OPTIONS } from '../form-config';
+import validateField from '../form-validation-config';
 
 function DistributionsFooter({ state, onChange }) {
   return (
@@ -46,71 +47,73 @@ function DistributionsFooter({ state, onChange }) {
   );
 }
 
-const defaultState = {
-  sslCertificate: 'default',
-  cloudFrontRootObject: '',
-  alternativeDomainNames: '',
-  s3BucketSelectedOption: null,
-  certificateExpiryDate: '',
-  certificateExpiryTime: '',
-  httpVersion: 'http2',
-  ipv6isOn: false,
-  functions: [],
-};
+const getErrorAttribute = attribute => attribute + 'Error';
 
-const sampleFunctionFiles = [
-  new File([new Blob(['Cloudfront function code'])], 'index.js', {
-    type: 'text/javascript',
-    lastModified: 1590962400000,
-  }),
-  new File([new Blob(['Cloudfront function test object'])], 'test-success.json', {
-    type: 'application/json',
-    lastModified: 1590962400000,
-  }),
-  new File([new Blob(['Cloudfront function test object'])], 'test-failure.json', {
-    type: 'application/json',
-    lastModified: 1590962400000,
-  }),
-];
-
-const noop = () => {
-  /*noop*/
-};
-
-export default function DistributionPanel({ loadHelpPanelContent, updateDirty = noop, readOnlyWithErrors = false }) {
+export default function DistributionPanel({ loadHelpPanelContent, validation = false, data, setData, refs }) {
   const [contentOriginsState, contentOriginsHandlers] = useContentOrigins();
-  const [distributionPanelData, setDistributionPanelData] = useState(
-    !readOnlyWithErrors ? defaultState : { ...defaultState, functions: sampleFunctionFiles }
-  );
-
-  useEffect(() => {
-    const isDirty = JSON.stringify(distributionPanelData) !== JSON.stringify(defaultState);
-    updateDirty(isDirty);
-  }, [distributionPanelData]);
-
   const onChange = (attribute, value) => {
-    if (readOnlyWithErrors) {
+    const newState = { ...data };
+    newState[attribute] = value;
+    const { errorText } = validateField(attribute, value);
+
+    if (validation) {
+      const errorAttribute = getErrorAttribute(attribute);
+      // validates on key press after submission attempt or if there is an error message in the field
+
+      if (errorText === `CloudFront isn't allowed to write logs to this bucket.`) {
+        setData({ ...newState, s3BucketSelectedOptionError: '' });
+        return;
+      }
+
+      if (newState[errorAttribute]?.length > 0) {
+        const { errorText } = validateField(attribute, value);
+        newState[errorAttribute] = errorText;
+      }
+    }
+
+    setData(newState);
+  };
+
+  const onFunctionsChange = functions => {
+    if (!validation) {
+      return setData({ ...data, functions });
+    }
+
+    const fileValidationTexts = functions.map(file => validateField('functionFile', file));
+    const functionsFileErrors = fileValidationTexts.map(({ errorText }) => errorText);
+    const { errorText: functionsError } = validateField('functions', functions);
+
+    setData({
+      ...data,
+      functions,
+      functionsFileErrors,
+      functionsError,
+    });
+  };
+
+  const onBlur = attribute => {
+    if (!validation) {
       return;
     }
 
-    const newState = { ...distributionPanelData };
-    newState[attribute] = value;
-    setDistributionPanelData(newState);
-  };
+    const value = data[attribute];
 
-  const getErrorText = errorMessage => {
-    return readOnlyWithErrors ? errorMessage : undefined;
-  };
+    const errorAttribute = getErrorAttribute(attribute);
+    const { errorText } = validateField(attribute, value);
 
-  const functionFileErrors = readOnlyWithErrors
-    ? [null, 'Invalid test event structure', 'Invalid test event structure']
-    : undefined;
+    if (errorText === `CloudFront isn't allowed to write logs to this bucket.`) {
+      setData({ ...data, s3BucketSelectedOptionError: '' });
+      return;
+    }
+
+    setData({ ...data, [errorAttribute]: errorText });
+  };
 
   return (
     <Container
       id="distribution-panel"
       header={<Header variant="h2">Distribution settings</Header>}
-      footer={<DistributionsFooter state={distributionPanelData} onChange={onChange} />}
+      footer={<DistributionsFooter state={data} onChange={onChange} />}
     >
       <SpaceBetween size="l">
         <FormField
@@ -120,23 +123,26 @@ export default function DistributionPanel({ loadHelpPanelContent, updateDirty = 
         >
           <RadioGroup
             items={SSL_CERTIFICATE_OPTIONS}
-            value={distributionPanelData.sslCertificate}
-            ariaRequired={true}
+            value={data.sslCertificate}
             onChange={({ detail: { value } }) => onChange('sslCertificate', value)}
           />
         </FormField>
         <FormField
           label="Root object"
           info={<InfoLink id="root-object-info-link" onFollow={() => loadHelpPanelContent(3)} />}
-          description="Enter the name of the object that you want CloudFront to return when a viewer request points to your root URL."
-          errorText={getErrorText('You must specify a root object.')}
+          description="Enter the URL of the object that you want CloudFront to return when a viewer request points to your root URL."
+          constraintText="Enter a  valid root object. Example: https://example.com"
+          errorText={data.cloudFrontRootObjectError}
           i18nStrings={{ errorIconAriaLabel: 'Error' }}
         >
           <Input
-            value={distributionPanelData.cloudFrontRootObject}
+            value={data.cloudFrontRootObject}
             ariaRequired={true}
-            placeholder="index.html"
+            placeholder="https://example.com"
             onChange={({ detail: { value } }) => onChange('cloudFrontRootObject', value)}
+            onBlur={() => onBlur('cloudFrontRootObject')}
+            ref={refs?.cloudFrontRootRef}
+            data-testid="root-input"
           />
         </FormField>
         <FormField
@@ -147,21 +153,22 @@ export default function DistributionPanel({ loadHelpPanelContent, updateDirty = 
           }
           info={<InfoLink id="cnames-info-link" onFollow={() => loadHelpPanelContent(4)} />}
           description="List any custom domain names that you use in addition to the CloudFront domain name for the URLs for your files."
-          constraintText="Specify up to 100 CNAMEs separated with commas, or put each on a new line."
+          constraintText="Specify up to 3 CNAMEs separated with commas."
           stretch={true}
-          errorText={getErrorText('You must specify at least one alternative domain name.')}
+          errorText={data.alternativeDomainNamesError}
           i18nStrings={{ errorIconAriaLabel: 'Error' }}
         >
           <Textarea
             placeholder={'www.one.example.com\nwww.two.example.com'}
-            value={distributionPanelData.alternativeDomainNames}
+            value={data.alternativeDomainNames}
             onChange={({ detail: { value } }) => onChange('alternativeDomainNames', value)}
+            onBlur={() => onBlur('alternativeDomainNames')}
           />
         </FormField>
         <FormField
           label="S3 bucket for logs"
           description="The Amazon S3 bucket that you want CloudFront to store your access logs in."
-          errorText={getErrorText('You must specify a S3 bucket.')}
+          errorText={data.s3BucketSelectedOptionError}
           i18nStrings={{ errorIconAriaLabel: 'Error' }}
         >
           <Select
@@ -183,8 +190,10 @@ export default function DistributionPanel({ loadHelpPanelContent, updateDirty = 
             filteringAriaLabel="Filter buckets"
             filteringClearAriaLabel="Clear"
             ariaRequired={true}
-            selectedOption={distributionPanelData.s3BucketSelectedOption}
+            selectedOption={data.s3BucketSelectedOption}
             onChange={({ detail: { selectedOption } }) => onChange('s3BucketSelectedOption', selectedOption)}
+            onBlur={() => onBlur('s3BucketSelectedOption')}
+            ref={refs?.s3BucketSelectedOptionRef}
           />
         </FormField>
 
@@ -194,7 +203,7 @@ export default function DistributionPanel({ loadHelpPanelContent, updateDirty = 
               stretch={true}
               description="Specify the date when the certificate should expire."
               className="date-time-container"
-              errorText={getErrorText('Invalid date format.')}
+              errorText={data.certificateExpiryDateError}
               constraintText={'Use YYYY/MM/DD format.'}
               i18nStrings={{ errorIconAriaLabel: 'Error' }}
             >
@@ -204,11 +213,14 @@ export default function DistributionPanel({ loadHelpPanelContent, updateDirty = 
                 previousMonthAriaLabel="Previous month"
                 nextMonthAriaLabel="Next month"
                 todayAriaLabel="Today"
-                value={distributionPanelData.certificateExpiryDate}
+                value={data.certificateExpiryDate}
+                ariaRequired={true}
                 onChange={({ detail: { value } }) => onChange('certificateExpiryDate', value)}
                 openCalendarAriaLabel={selectedDate =>
                   'Choose certificate expiry date' + (selectedDate ? `, selected date is ${selectedDate}` : '')
                 }
+                onBlur={() => onBlur('certificateExpiryDate')}
+                ref={refs?.certificateExpiryDateRef}
               />
             </FormField>
             <FormField
@@ -216,15 +228,18 @@ export default function DistributionPanel({ loadHelpPanelContent, updateDirty = 
               description="Specify the time when the certificate should expire"
               constraintText="Use 24-hour format."
               className="date-time-container"
-              errorText={getErrorText('Invalid time format.')}
+              errorText={data.certificateExpiryTimeError}
               i18nStrings={{ errorIconAriaLabel: 'Error' }}
             >
               <TimeInput
                 ariaLabelledby="certificate-expiry-label"
                 use24Hour={true}
                 placeholder="hh:mm:ss"
-                value={distributionPanelData.certificateExpiryTime}
+                ariaRequired={true}
+                value={data.certificateExpiryTime}
                 onChange={({ detail: { value } }) => onChange('certificateExpiryTime', value)}
+                onBlur={() => onBlur('certificateExpiryTime')}
+                ref={refs?.certificateExpiryTimeRef}
               />
             </FormField>
           </SpaceBetween>
@@ -240,11 +255,12 @@ export default function DistributionPanel({ loadHelpPanelContent, updateDirty = 
             showFileSize={true}
             showFileLastModified={true}
             accept="text/javascript, application/json"
-            value={distributionPanelData.functions}
+            value={data.functions}
             tokenLimit={3}
-            onChange={({ detail: { value } }) => onChange('functions', value)}
-            errorText={getErrorText('2 files have errors')}
-            fileErrors={functionFileErrors}
+            onChange={({ detail: { value } }) => onFunctionsChange(value)}
+            errorText={data.functionsError}
+            fileErrors={data.functionsFileErrors}
+            ariaRequired={true}
             constraintText="Upload function code as *.js file and optional test objects as *.json files."
             i18nStrings={{
               uploadButtonText: multiple => (multiple ? 'Choose files' : 'Choose file'),
@@ -254,6 +270,7 @@ export default function DistributionPanel({ loadHelpPanelContent, updateDirty = 
               limitShowMore: 'Show more files',
               errorIconAriaLabel: 'Error',
             }}
+            ref={refs?.functionsRef}
           />
         </FormField>
       </SpaceBetween>
