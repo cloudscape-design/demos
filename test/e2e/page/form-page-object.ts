@@ -36,10 +36,21 @@ export default class PageObject extends AppLayoutPage {
   getFormErrorMessages() {
     return this.getElementsText(this.pageWrapper.findForm().findError().toSelector());
   }
-  async filterDisributionsOptions(text: string) {
+  async filterDistributionsOptions(text: string) {
     await this.setValue(this.distributionsSelect.findFilteringInput()!.findNativeInput().toSelector(), text);
     await this.pause(DEBOUNCE_FILTERING_DELAY);
     await this.waitForVisible(this.distributionOptionsSelector);
+  }
+
+  async waitUntilOriginsLoaded() {
+    await this.browser.waitUntil(
+      async () => {
+        return (await this.getText(this.originsMultiselect.findDropdown().findFooterRegion().toSelector())).includes(
+          'End of all results'
+        );
+      },
+      { timeoutMsg: 'Origins footer text not found: End of all results' }
+    );
   }
 
   async selectOrigin(value: string) {
@@ -47,8 +58,7 @@ export default class PageObject extends AppLayoutPage {
     const optionSelector = this.originsMultiselect.findDropdown().findOptionByValue(value)!.toSelector();
     await this.click(triggerSelector);
     await this.waitForVisible(optionSelector);
-    // wait for options to be fully loaded
-    await this.waitForVisible(this.originsMultiselect.findDropdown().findFooterRegion().toSelector(), false);
+    await this.waitUntilOriginsLoaded();
     await this.click(optionSelector);
     // close the dropdown, because multiselect keeps it open by default
     await this.click(triggerSelector);
