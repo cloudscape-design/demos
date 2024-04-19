@@ -26,7 +26,7 @@ describe('Single page create', () => {
       'loads filtered options from server',
       setupTest(async page => {
         await page.openDistributionSelector();
-        await page.filterDisributionsOptions('26');
+        await page.filterDistributionsOptions('16');
         await expect(page.countDistributionSelectorOptions()).resolves.toBe(1);
       })
     );

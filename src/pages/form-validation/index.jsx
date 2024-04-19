@@ -5,7 +5,7 @@ import { createRoot } from 'react-dom/client';
 import { Alert, BreadcrumbGroup, ContentLayout, Link, SpaceBetween } from '@cloudscape-design/components';
 import { CustomAppLayout, Navigation, Notifications } from '../commons/common-components';
 import { resourceCreateBreadcrumbs } from '../../common/breadcrumbs';
-import { FormContentReadOnlyWithErrors, FormHeader } from '../form/components/form-content';
+import { FormValidationContent, FormHeader } from '../form/components/form-content';
 import ToolsContent from '../form/components/tools-content';
 import '../../styles/form.scss';
 
@@ -29,18 +29,8 @@ function App() {
       ref={appLayout}
       contentType="form"
       content={
-        <ContentLayout
-          header={
-            <SpaceBetween size="m">
-              <FormHeader loadHelpPanelContent={loadHelpPanelContent} />
-              <Alert statusIconAriaLabel="Info" header="Read-only form validation">
-                This demo showcases a read-only form validation by marking any fields that contain an error and display
-                an error message under the field.
-              </Alert>
-            </SpaceBetween>
-          }
-        >
-          <FormContentReadOnlyWithErrors loadHelpPanelContent={loadHelpPanelContent} />
+        <ContentLayout header={<FormHeader loadHelpPanelContent={loadHelpPanelContent} />}>
+          <FormValidationContent loadHelpPanelContent={loadHelpPanelContent} />
         </ContentLayout>
       }
       breadcrumbs={<Breadcrumbs />}

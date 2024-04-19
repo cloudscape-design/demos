@@ -5,6 +5,8 @@ import FormPage from './form-page-object';
 
 const page = createWrapper('body');
 
+const rootInput = page.findInput('[data-testid="root-input"]').findNativeInput().toSelector();
+
 function expandableSectionItems(index: number) {
   return page.findSideNavigation().findItemByIndex(index).findItems().toSelector();
 }
@@ -54,6 +56,12 @@ export default class Page extends FormPage {
   }
   async openMainInfo() {
     await this.click('#form-main-info-link');
+  }
+  async submitForm() {
+    await this.click('[data-testid="create"]');
+  }
+  isRootInputFocused() {
+    return this.isFocused(rootInput);
   }
   countExpandableSectionLinks(index: number) {
     return this.getElementsCount(expandableSectionItems(index));
