@@ -7,7 +7,6 @@ import {
   BreadcrumbGroup,
   Button,
   Container,
-  ContentLayout,
   Header,
   Form,
   FormField,
@@ -102,22 +101,21 @@ class S3ResourceSelectorContainer extends React.Component {
 class App extends Component {
   content() {
     return (
-      <ContentLayout header={<Header variant="h1">Run simulation</Header>}>
-        <form onSubmit={event => event.preventDefault()}>
-          <Form
-            actions={
-              <SpaceBetween direction="horizontal" size="xs">
-                <Button variant="link">Cancel</Button>
-                <Button variant="primary">Run</Button>
-              </SpaceBetween>
-            }
-          >
-            <Container header={<Header variant="h2">Simulations</Header>}>
-              <S3ResourceSelectorContainer />
-            </Container>
-          </Form>
-        </form>
-      </ContentLayout>
+      <form onSubmit={event => event.preventDefault()}>
+        <Form
+          header={<Header variant="h1">Run simulation</Header>}
+          actions={
+            <SpaceBetween direction="horizontal" size="xs">
+              <Button variant="link">Cancel</Button>
+              <Button variant="primary">Run</Button>
+            </SpaceBetween>
+          }
+        >
+          <Container header={<Header variant="h2">Simulations</Header>}>
+            <S3ResourceSelectorContainer />
+          </Container>
+        </Form>
+      </form>
     );
   }
 

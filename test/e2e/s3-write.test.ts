@@ -23,6 +23,13 @@ describe('S3 Resource Selector - Write mode', () => {
   };
 
   test(
+    'Has header in form header slot',
+    setupTest(async page => {
+      await expect(page.getHeader()).resolves.toBe('Create simulation');
+    })
+  );
+
+  test(
     'does not allow selecting versions',
     setupTest(async page => {
       await expect(

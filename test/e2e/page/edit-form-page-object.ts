@@ -9,6 +9,9 @@ export default class Page extends AppLayoutPage {
   isAdditionSettingVisible() {
     return this.isDisplayed(page.findContainer().findFooter().findExpandableSection().findContent().toSelector());
   }
+  getHeader() {
+    return this.getText(createWrapper(page.findForm().findHeader().toSelector()).findHeader().find('h1').toSelector());
+  }
   async openAdditionalTools() {
     await this.click(page.findContainer().findFooter().findExpandableSection().findHeader().toSelector());
   }

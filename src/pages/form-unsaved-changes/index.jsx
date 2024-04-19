@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Alert, Box, BreadcrumbGroup, ContentLayout, Modal, Button, SpaceBetween } from '@cloudscape-design/components';
+import { Alert, Box, BreadcrumbGroup, Modal, Button, SpaceBetween } from '@cloudscape-design/components';
 import { CustomAppLayout, Navigation, Notifications } from '../commons/common-components';
 import { resourceCreateBreadcrumbs } from '../../common/breadcrumbs';
-import { FormHeader, FormLimitedContent } from '../form/components/form-content';
+import { FormHeader, LimitedForm } from '../form/components/form';
 import ToolsContent from '../form/components/tools-content';
 import '../../styles/form.scss';
 
@@ -54,24 +54,24 @@ function App() {
       ref={appLayout}
       contentType="form"
       content={
-        <ContentLayout
-          header={
-            <SpaceBetween size="m">
-              <FormHeader loadHelpPanelContent={loadHelpPanelContent} />
-              <Alert statusIconAriaLabel="Info" header="Communicate unsaved changes on the page">
-                This demo showcases how to communicate to users that the changes will be discarded when they leave the
-                page. To see the confirmation modal, make some edits on the form then leave the page. The Cloudscape
-                modal will be triggered when you use the buttons/links to exit the form. The browser-native modal will
-                be triggered when you close or reload the browser tab.
-              </Alert>
-            </SpaceBetween>
-          }
-        >
-          <FormLimitedContent
+        <>
+          <LimitedForm
+            header={
+              <SpaceBetween size="m">
+                <FormHeader loadHelpPanelContent={loadHelpPanelContent} />
+                <Alert statusIconAriaLabel="Info" header="Communicate unsaved changes on the page">
+                  This demo showcases how to communicate to users that the changes will be discarded when they leave the
+                  page. To see the confirmation modal, make some edits on the form then leave the page. The Cloudscape
+                  modal will be triggered when you use the buttons/links to exit the form. The browser-native modal will
+                  be triggered when you close or reload the browser tab.
+                </Alert>
+              </SpaceBetween>
+            }
             onCancelClick={onNavigate}
             loadHelpPanelContent={loadHelpPanelContent}
             updateDirty={dirty => setDirty(dirty)}
           />
+
           <Modal
             visible={modalVisible}
             header="Leave page"
@@ -96,7 +96,7 @@ function App() {
               Are you sure that you want to leave the current page? The changes that you made won't be saved.
             </Alert>
           </Modal>
-        </ContentLayout>
+        </>
       }
       breadcrumbs={
         <BreadcrumbGroup

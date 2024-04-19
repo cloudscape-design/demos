@@ -32,6 +32,13 @@ describe('S3 Resource Selector - Read mode', () => {
   };
 
   test(
+    'Has header in form header slot',
+    setupTest(async page => {
+      await expect(page.getHeader()).resolves.toBe('Run simulation');
+    })
+  );
+
+  test(
     'does not allow selecting buckets and folders',
     setupTest(async page => {
       await page.openBrowseDialog();

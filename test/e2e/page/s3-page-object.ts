@@ -12,6 +12,12 @@ export default class S3PageObject extends BasePageObject {
     return elementIsDisplayed ? this.getText(selector) : null;
   }
 
+  getHeader() {
+    return this.getText(
+      createWrapper(wrapper.findForm().findHeader().toSelector()).findHeader().find('h1').toSelector()
+    );
+  }
+
   getErrorText() {
     return this.getOptionalText(wrapper.findFormField().findError().toSelector());
   }
