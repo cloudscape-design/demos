@@ -26,6 +26,13 @@ describe('Form validation example', () => {
   );
 
   test(
+    'Has header in form header slot',
+    setupTest(async page => {
+      await expect(page.getHeader()).resolves.toBe('Create distribution');
+    })
+  );
+
+  test(
     'Navigation panel opens properly and expandable sections are expanded',
     setupTest(async formTemplatePage => {
       await formTemplatePage.openSideNavigation();

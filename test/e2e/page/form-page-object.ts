@@ -16,8 +16,15 @@ export default class PageObject extends AppLayoutPage {
   private addButtonSelector = this.tagEditorWrapper.findAddButton().toSelector();
   private rowDeleteButtonSelector = (row: number) => this.tagEditorWrapper.findRow(row).findRemoveButton().toSelector();
   private tagEditorRows = this.tagEditorWrapper.findRows().toSelector();
+  private headerSelector = createWrapper(this.pageWrapper.findForm().findHeader().toSelector())
+    .findHeader()
+    .find('h1')
+    .toSelector();
   async waitForPageLoaded() {
     await this.waitForVisible(this.pageWrapper.findForm().toSelector());
+  }
+  getHeader() {
+    return this.getText(this.headerSelector);
   }
   async openDistributionSelector() {
     await this.click(this.distributionsSelect.findTrigger().toSelector());

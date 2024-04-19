@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Alert, BreadcrumbGroup, ContentLayout, Link, SpaceBetween } from '@cloudscape-design/components';
+import { BreadcrumbGroup } from '@cloudscape-design/components';
 import { CustomAppLayout, Navigation, Notifications } from '../commons/common-components';
 import { resourceCreateBreadcrumbs } from '../../common/breadcrumbs';
-import { FormValidationContent, FormHeader } from '../form/components/form-content';
+import { FormWithValidation, FormHeader } from '../form/components/form';
 import ToolsContent from '../form/components/tools-content';
 import '../../styles/form.scss';
 
@@ -29,9 +29,10 @@ function App() {
       ref={appLayout}
       contentType="form"
       content={
-        <ContentLayout header={<FormHeader loadHelpPanelContent={loadHelpPanelContent} />}>
-          <FormValidationContent loadHelpPanelContent={loadHelpPanelContent} />
-        </ContentLayout>
+        <FormWithValidation
+          loadHelpPanelContent={loadHelpPanelContent}
+          header={<FormHeader loadHelpPanelContent={loadHelpPanelContent} />}
+        />
       }
       breadcrumbs={<Breadcrumbs />}
       navigation={<Navigation activeHref="#/distributions" />}

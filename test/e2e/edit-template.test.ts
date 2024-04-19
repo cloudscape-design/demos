@@ -24,6 +24,13 @@ describe('Edit', () => {
   );
 
   test(
+    'Has header in form header slot',
+    setupTest(async page => {
+      await expect(page.getHeader()).resolves.toBe('Edit SLCCSMWOHOFUY0');
+    })
+  );
+
+  test(
     'Tools panel opens properly and has correct default content',
     setupTest(async page => {
       await page.openTools();

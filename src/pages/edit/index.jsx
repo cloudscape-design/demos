@@ -13,7 +13,6 @@ import {
   Button,
   Checkbox,
   Container,
-  ContentLayout,
   Form,
   Header,
   ExpandableSection,
@@ -89,61 +88,50 @@ const Content = props => {
   const [priceClass, setPriceClass] = useState(PRICE_CLASS_OPTIONS[0].value);
   const [tlsCertificate, setTlsCertificate] = useState(SSL_CERTIFICATE_OPTIONS[0].value);
   return (
-    <form onSubmit={event => event.preventDefault()}>
-      <Form
-        actions={
-          <SpaceBetween direction="horizontal" size="xs">
-            <Button variant="link">Cancel</Button>
-            <Button variant="primary">Save changes</Button>
-          </SpaceBetween>
-        }
-      >
-        <Container
-          header={<Header variant="h2">Distribution settings</Header>}
-          footer={<DistributionsFooter loadHelpPanelContent={index => props.loadHelpPanelContent(index)} />}
+    <Container
+      header={<Header variant="h2">Distribution settings</Header>}
+      footer={<DistributionsFooter loadHelpPanelContent={index => props.loadHelpPanelContent(index)} />}
+    >
+      <SpaceBetween size="l">
+        <FormField label="Price class" stretch={true}>
+          <RadioGroup
+            items={PRICE_CLASS_OPTIONS}
+            value={priceClass}
+            onChange={event => setPriceClass(event.detail.value)}
+          />
+        </FormField>
+        <FormField
+          label={
+            <>
+              Alternative domain names (CNAMEs)<i> - optional</i>
+            </>
+          }
+          info={<InfoLink id="cname-info-link" onFollow={() => props.loadHelpPanelContent(1)} />}
+          description="You must list any custom domain names that you use in addition to the CloudFront domain name for the URLs for your files."
+          constraintText="Specify up to 100 CNAMEs separated with commas or put each on a new line."
+          stretch={true}
         >
-          <SpaceBetween size="l">
-            <FormField label="Price class" stretch={true}>
-              <RadioGroup
-                items={PRICE_CLASS_OPTIONS}
-                value={priceClass}
-                onChange={event => setPriceClass(event.detail.value)}
-              />
-            </FormField>
-            <FormField
-              label={
-                <>
-                  Alternative domain names (CNAMEs)<i> - optional</i>
-                </>
-              }
-              info={<InfoLink id="cname-info-link" onFollow={() => props.loadHelpPanelContent(1)} />}
-              description="You must list any custom domain names that you use in addition to the CloudFront domain name for the URLs for your files."
-              constraintText="Specify up to 100 CNAMEs separated with commas or put each on a new line."
-              stretch={true}
-            >
-              <Textarea
-                placeholder="www.one.example.com,www.two.example.com"
-                value={cNames}
-                onChange={({ detail }) => setCnames(detail.value)}
-              />
-            </FormField>
-            <FormField
-              label="SSL/TLS certificate"
-              info={<InfoLink id="ssl-info-link" onFollow={() => props.loadHelpPanelContent(2)} />}
-              stretch={true}
-            >
-              <RadioGroup
-                items={SSL_CERTIFICATE_OPTIONS}
-                value={tlsCertificate}
-                onChange={event => setTlsCertificate(event.detail.value)}
-                ariaRequired={true}
-              />
-            </FormField>
-            <Button>Request or import a certificate with AWS Certificate Manager (ACM)</Button>
-          </SpaceBetween>
-        </Container>
-      </Form>
-    </form>
+          <Textarea
+            placeholder="www.one.example.com,www.two.example.com"
+            value={cNames}
+            onChange={({ detail }) => setCnames(detail.value)}
+          />
+        </FormField>
+        <FormField
+          label="SSL/TLS certificate"
+          info={<InfoLink id="ssl-info-link" onFollow={() => props.loadHelpPanelContent(2)} />}
+          stretch={true}
+        >
+          <RadioGroup
+            items={SSL_CERTIFICATE_OPTIONS}
+            value={tlsCertificate}
+            onChange={event => setTlsCertificate(event.detail.value)}
+            ariaRequired={true}
+          />
+        </FormField>
+        <Button>Request or import a certificate with AWS Certificate Manager (ACM)</Button>
+      </SpaceBetween>
+    </Container>
   );
 };
 
@@ -165,22 +153,30 @@ class App extends React.Component {
         ref={this.appLayout}
         contentType="form"
         content={
-          <ContentLayout
-            header={
-              <Header
-                variant="h1"
-                info={
-                  <Link id="main-info-link" variant="info" onFollow={() => this.loadHelpPanelContent(0)}>
-                    Info
-                  </Link>
-                }
-              >
-                Edit SLCCSMWOHOFUY0
-              </Header>
-            }
-          >
-            <Content loadHelpPanelContent={index => this.loadHelpPanelContent(index)} />
-          </ContentLayout>
+          <form onSubmit={event => event.preventDefault()}>
+            <Form
+              header={
+                <Header
+                  variant="h1"
+                  info={
+                    <Link id="main-info-link" variant="info" onFollow={() => this.loadHelpPanelContent(0)}>
+                      Info
+                    </Link>
+                  }
+                >
+                  Edit SLCCSMWOHOFUY0
+                </Header>
+              }
+              actions={
+                <SpaceBetween direction="horizontal" size="xs">
+                  <Button variant="link">Cancel</Button>
+                  <Button variant="primary">Save changes</Button>
+                </SpaceBetween>
+              }
+            >
+              <Content loadHelpPanelContent={index => this.loadHelpPanelContent(index)} />
+            </Form>
+          </form>
         }
         breadcrumbs={<Breadcrumbs />}
         navigation={<Navigation activeHref="#/distributions" />}
