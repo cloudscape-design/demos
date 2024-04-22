@@ -5,7 +5,7 @@ import { Container, Header, TagEditor } from '@cloudscape-design/components';
 import { InfoLink } from '../../commons/common-components';
 import { tagEditorI18nStrings } from '../../../i18n-strings/tag-editor';
 
-export default function TagsPanel({ loadHelpPanelContent, readOnlyWithErrors = false }) {
+export default function TagsPanel({ loadHelpPanelContent }) {
   const [tags, setTags] = useState([{ key: '', value: '' }]);
 
   return (
@@ -25,7 +25,7 @@ export default function TagsPanel({ loadHelpPanelContent, readOnlyWithErrors = f
         tags={tags}
         onChange={({ detail }) => {
           const { tags } = detail;
-          !readOnlyWithErrors && setTags(tags);
+          setTags(tags);
         }}
         keysRequest={() => window.FakeServer.GetTagKeys().then(({ TagKeys }) => TagKeys)}
         valuesRequest={key => window.FakeServer.GetTagValues(key).then(({ TagValues }) => TagValues)}

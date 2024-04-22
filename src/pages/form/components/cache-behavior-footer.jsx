@@ -14,7 +14,7 @@ import {
 } from '@cloudscape-design/components';
 import { COOKIE_OPTIONS, CURRENT_COMPRESSION_OPTIONS, QUERY_STRING_OPTIONS } from '../form-config';
 
-export default function CacheBehaviorFooter({ readOnlyWithErrors = false }) {
+export default function CacheBehaviorFooter() {
   const [lambdaType, setLambdaType] = useState('');
   const [lambdaArn, setLambdaArn] = useState('');
   const [cookies, setCookies] = useState(COOKIE_OPTIONS[0].value);
@@ -24,9 +24,6 @@ export default function CacheBehaviorFooter({ readOnlyWithErrors = false }) {
   const [compressionMode, setCompressionMode] = useState(CURRENT_COMPRESSION_OPTIONS[0].value);
 
   const changeHandler = (callBackFn, value) => {
-    if (readOnlyWithErrors) {
-      return;
-    }
     callBackFn(value);
   };
 
