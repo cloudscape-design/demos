@@ -23,7 +23,7 @@ import { PageLayout } from './page-components';
 function App() {
   const [ariaLiveMessage, setAriaLiveMessage] = useState('');
   const [preferences, setPreferences] = useState<CollectionPreferencesProps.Preferences>({
-    wrapLines: true,
+    wrapLines: false,
     stickyColumns: { first: 0, last: 1 },
   });
 
