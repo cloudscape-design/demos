@@ -21,10 +21,19 @@ import {
 import { InfoLink } from '../../commons/common-components';
 import CacheBehaviorFooter from './cache-behavior-footer';
 
-export default function CacheBehaviorPanel({ loadHelpPanelContent }) {
-  const [minimumTtl, setMinimumTtl] = useState(0);
-  const [maximumTtl, setMaximumTtl] = useState(31536000);
-  const [defaultTtl, setDefaultTtl] = useState(86400);
+const defaultState = { minimumTtl: 0, maximumTtl: 31536000, defaultTtl: 86400 };
+
+export default function CacheBehaviorPanel({
+  loadHelpPanelContent,
+  validation,
+  errors = {},
+  setErrors,
+  setData,
+  refs,
+}) {
+  const [minimumTtl, setMinimumTtl] = useState(defaultState.minimumTtl);
+  const [maximumTtl, setMaximumTtl] = useState(defaultState.maximumTtl);
+  const [defaultTtl, setDefaultTtl] = useState(defaultState.defaultTtl);
 
   const [viewerProtocolPolicy, setViewerProtocolPolicy] = useState(VIEWER_PROTOCOL_POLICY_OPTIONS[0].value);
   const [allowedHttpMethods, setAllowedHttpMethods] = useState(ALLOWED_HTTP_METHOD_OPTIONS[0].value);
@@ -44,11 +53,23 @@ export default function CacheBehaviorPanel({ loadHelpPanelContent }) {
   }, []);
 
   const onCodeEditorChange = e => {
-    setCodeEditorValue(e.detail.value);
+    const { value } = e.detail;
+    setCodeEditorValue(value);
+
+    if (validation) {
+      setData({ codeEditor: value });
+      setErrors({ codeEditor: '' });
+    }
   };
 
   const onCodeEditorPreferencesChange = e => {
     setCodeEditorPreferences(e.detail);
+  };
+
+  const onSetToDefault = () => {
+    setMinimumTtl(defaultState.minimumTtl);
+    setMaximumTtl(defaultState.maximumTtl);
+    setDefaultTtl(defaultState.defaultTtl);
   };
 
   return (
@@ -114,11 +135,18 @@ export default function CacheBehaviorPanel({ loadHelpPanelContent }) {
               />
             </FormField>
             <div className="custom-header">
-              <Button>Set to default</Button>
+              <Button formAction="none" onClick={onSetToDefault}>
+                Set to default
+              </Button>
             </div>
           </ColumnLayout>
         </FormField>
-        <FormField label="Create policy" description="Create a policy for your cache behavior settings." stretch={true}>
+        <FormField
+          label="Create policy"
+          description="Create a policy for your cache behavior settings."
+          stretch={true}
+          errorText={errors.codeEditor}
+        >
           <CodeEditor
             ace={ace}
             value={codeEditorValue}
@@ -128,6 +156,7 @@ export default function CacheBehaviorPanel({ loadHelpPanelContent }) {
             onPreferencesChange={onCodeEditorPreferencesChange}
             loading={codeEditorLoading}
             themes={CODE_EDITOR_THEMES}
+            ref={refs?.codeEditor}
           />
         </FormField>
       </SpaceBetween>

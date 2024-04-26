@@ -23,11 +23,11 @@ export default function OriginPanel({
   const validateOriginId = (value = data.originId) => {
     const { errorText } = validateField('originId', value, value);
 
-    setErrors({ ...errors, originId: errorText });
+    setErrors({ originId: errorText });
   };
 
   const onChangeOriginId = ({ detail: { value } }) => {
-    setData({ ...data, originId: value });
+    setData({ originId: value });
 
     if (validation && errors.originId?.length > 0) {
       validateOriginId(value);

@@ -5,8 +5,17 @@ import { Container, Header, TagEditor } from '@cloudscape-design/components';
 import { InfoLink } from '../../commons/common-components';
 import { tagEditorI18nStrings } from '../../../i18n-strings/tag-editor';
 
-export default function TagsPanel({ loadHelpPanelContent }) {
-  const [tags, setTags] = useState([{ key: '', value: '' }]);
+export default function TagsPanel({ loadHelpPanelContent, refs, setErrors }) {
+  const [tags, setTags] = useState([]);
+
+  const onChange = ({ detail }) => {
+    const { tags } = detail;
+    setTags(tags);
+
+    if (setErrors) {
+      setErrors({ tags: !detail.valid ? 'invalid' : '' });
+    }
+  };
 
   return (
     <Container
@@ -23,13 +32,11 @@ export default function TagsPanel({ loadHelpPanelContent }) {
     >
       <TagEditor
         tags={tags}
-        onChange={({ detail }) => {
-          const { tags } = detail;
-          setTags(tags);
-        }}
+        onChange={onChange}
         keysRequest={() => window.FakeServer.GetTagKeys().then(({ TagKeys }) => TagKeys)}
         valuesRequest={key => window.FakeServer.GetTagValues(key).then(({ TagValues }) => TagValues)}
         i18nStrings={tagEditorI18nStrings}
+        ref={refs?.tags}
       />
     </Container>
   );

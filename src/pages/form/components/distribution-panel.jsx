@@ -64,7 +64,7 @@ export default function DistributionPanel({
   const [contentOriginsState, contentOriginsHandlers] = useContentOrigins();
 
   const onChange = (attribute, value) => {
-    setData({ ...data, [attribute]: value });
+    setData({ [attribute]: value });
 
     // Validates when there is an error message in the field
     if (validation && errors[attribute]?.length > 0) {
@@ -74,15 +74,15 @@ export default function DistributionPanel({
       // so the error message is set only upon form submission and
       // error message is resetted when a bucket is selected
       if (isS3PermissionError(attribute, errorText)) {
-        setErrors({ ...errors, [attribute]: '' });
+        setErrors({ [attribute]: '' });
       } else {
-        setErrors({ ...errors, [attribute]: errorText });
+        setErrors({ [attribute]: errorText });
       }
     }
   };
 
   const onFunctionsChange = functions => {
-    setData({ ...data, functions });
+    setData({ functions });
 
     if (validation) {
       const { errorText: functionsError } = validateField('functions', functions);
@@ -90,7 +90,10 @@ export default function DistributionPanel({
       // Setting to empty array so that on submit, valid files are not focused
       const areErrorsEmpty = functionsFileErrors.every(fileError => !fileError || fileError.length === 0);
 
-      setErrors({ ...errors, functions: functionsError, functionFiles: areErrorsEmpty ? [] : functionsFileErrors });
+      setErrors({
+        functions: functionsError,
+        functionFiles: areErrorsEmpty ? [] : functionsFileErrors,
+      });
     }
   };
 
@@ -106,7 +109,7 @@ export default function DistributionPanel({
       return;
     }
 
-    setErrors({ ...errors, [attribute]: errorText });
+    setErrors({ [attribute]: errorText });
   };
 
   return (
@@ -159,7 +162,7 @@ export default function DistributionPanel({
           i18nStrings={{ errorIconAriaLabel: 'Error' }}
         >
           <Textarea
-            placeholder={'www.one.example.com\nwww.two.example.com'}
+            placeholder={'www.one.example.com, www.two.example.com'}
             value={data.alternativeDomainNames}
             onChange={({ detail: { value } }) => onChange('alternativeDomainNames', value)}
             onBlur={() => onBlur('alternativeDomainNames')}

@@ -55,12 +55,12 @@ export default function HeadersEditor({ validation = false, refs, data, setData 
     },
   ];
 
-  const onAddHeader = () => setData({ ...data, customHeaders: [...items, {}] });
+  const onAddHeader = () => setData({ customHeaders: [...items, {}] });
 
   const onRemoveHeader = ({ detail: { itemIndex } }) => {
     const itemsCopy = items.slice();
     itemsCopy.splice(itemIndex, 1);
-    setData({ ...data, customHeaders: itemsCopy });
+    setData({ customHeaders: itemsCopy });
   };
 
   const onChange = (key, item, index) => {
@@ -90,7 +90,7 @@ export default function HeadersEditor({ validation = false, refs, data, setData 
     const itemsCopy = items.slice();
     const updatedItem = { ...item, ...update };
     itemsCopy.splice(index, 1, updatedItem);
-    setData({ ...data, customHeaders: itemsCopy });
+    setData({ customHeaders: itemsCopy });
   };
 
   return (
