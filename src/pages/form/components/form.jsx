@@ -69,6 +69,7 @@ const defaultData = {
   functions: [],
   originId: '',
   customHeaders: [{}],
+  codeEditor: '',
 };
 const defaultErrors = {
   cloudFrontRootObject: '',
@@ -80,6 +81,8 @@ const defaultErrors = {
   functionFiles: [],
   originId: '',
   customHeaders: '',
+  codeEditor: '',
+  tags: '',
 };
 
 const fieldsToValidate = [
@@ -90,10 +93,12 @@ const fieldsToValidate = [
   'certificateExpiryTime',
   'functions',
   'originId',
+  'codeEditor',
 ];
 
 export function FormFull({ loadHelpPanelContent, header }) {
-  const [data, setData] = useState(defaultData);
+  const [data, _setData] = useState(defaultData);
+  const setData = (updateObj = {}) => _setData(prevData => ({ ...prevData, ...updateObj }));
 
   return (
     <BaseForm
@@ -112,7 +117,8 @@ export function FormFull({ loadHelpPanelContent, header }) {
 }
 
 export const LimitedForm = ({ loadHelpPanelContent, updateDirty, onCancelClick, header }) => {
-  const [data, setData] = useState(defaultData);
+  const [data, _setData] = useState(defaultData);
+  const setData = (updateObj = {}) => _setData(prevData => ({ ...prevData, ...updateObj }));
 
   useEffect(() => {
     const isDirty = JSON.stringify(data) !== JSON.stringify(defaultData);
@@ -130,8 +136,11 @@ export const LimitedForm = ({ loadHelpPanelContent, updateDirty, onCancelClick, 
 
 export const FormWithValidation = ({ loadHelpPanelContent, header }) => {
   const [formErrorText, setFormErrorText] = useState(null);
-  const [data, setData] = useState(defaultData);
-  const [errors, setErrors] = useState(defaultErrors);
+  const [data, _setData] = useState(defaultData);
+  const [errors, _setErrors] = useState(defaultErrors);
+
+  const setErrors = (updateObj = {}) => _setErrors(prevErrors => ({ ...prevErrors, ...updateObj }));
+  const setData = (updateObj = {}) => _setData(prevData => ({ ...prevData, ...updateObj }));
 
   const refs = {
     cloudFrontRootObject: useRef(null),
@@ -142,13 +151,15 @@ export const FormWithValidation = ({ loadHelpPanelContent, header }) => {
     functions: useRef(null),
     originId: useRef(null),
     customHeaders: useRef(null),
+    codeEditor: useRef(null),
+    tags: useRef(null),
   };
 
   const onSubmit = () => {
     setFormErrorText(
       <>
         You have reached the maximum amount of distributions you can create.{' '}
-        <Link external href="#">
+        <Link external variant="primary" href="#">
           Learn more about distribution limits
         </Link>
       </>
@@ -205,7 +216,7 @@ export const FormWithValidation = ({ loadHelpPanelContent, header }) => {
       return { ...item, keyError, valueError };
     });
 
-    setData({ ...data, customHeaders: validatedItems });
+    setData({ customHeaders: validatedItems });
 
     return customHeadersError;
   };
@@ -233,8 +244,15 @@ export const FormWithValidation = ({ loadHelpPanelContent, header }) => {
             setErrors={setErrors}
             refs={refs}
           />
-          <CacheBehaviorPanel loadHelpPanelContent={loadHelpPanelContent} />
-          <TagsPanel loadHelpPanelContent={loadHelpPanelContent} />
+          <CacheBehaviorPanel
+            loadHelpPanelContent={loadHelpPanelContent}
+            refs={refs}
+            validation={true}
+            errors={errors}
+            setErrors={setErrors}
+            setData={setData}
+          />
+          <TagsPanel loadHelpPanelContent={loadHelpPanelContent} refs={refs} setErrors={setErrors} />
         </SpaceBetween>
       }
       onSubmitClick={onSubmit}

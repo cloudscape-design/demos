@@ -16,24 +16,17 @@ type FormDataAttributes =
   | 'customHeaders';
 
 const validateEmpty = (value: string | undefined | null | File[]) => Boolean(value && value.length > 0);
-const validateURL = (value: string) => {
-  try {
-    new URL(value);
-    return true;
-  } catch (err) {
-    return false;
-  }
-};
-const validateDNS = (value: string) => {
-  const DNS_NAME = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}$/;
-  let url = value;
 
+const validateURLPrefix = (value: string) => value.startsWith('https://') || value.startsWith('http://');
+
+const validateURLFormat = (value: string) => {
+  const urlFormatRegex = new RegExp(/^([a-zA-Z0-9]{1,63}\.)+[a-zA-Z]{2,}$/);
   // strip valid url prefixes
+  let url = value;
   url = url.replace('http://', '');
   url = url.replace('https://', '');
-  url = url.replace('www.', '');
 
-  return DNS_NAME.test(url);
+  return urlFormatRegex.test(url);
 };
 
 const validateCNAMEs = (value: string) => {
@@ -50,16 +43,19 @@ const validateS3Bucket = (value: string) => {
   return !value.includes('NO-ACCESS');
 };
 
-const specialCharacterRegex = new RegExp(/[^A-Za-z0-9-.]/gm);
-const validateSpecialChar = (value: string) => {
-  const isValid = !specialCharacterRegex.test(value);
+const URLSpecialCharacterRegex = new RegExp(/[^A-Za-z0-9:/.]/gm);
+const originIdSpecialCharacterRegex = new RegExp(/[^A-Za-z0-9-.]/gm);
+const validateSpecialCharacter = (value: string, regex: RegExp) => {
+  const isValid = !regex.test(value);
 
   return isValid;
 };
-const getSpecialCharacters = (value: string) => {
-  const specialCharacters = value.match(specialCharacterRegex);
+const getSpecialCharacters = (value: string, regex: RegExp) => {
+  const specialCharacters = value.match(regex);
   return uniq(specialCharacters);
 };
+
+const validateCodeEditor = (value: string | undefined | null) => Boolean(!value || value.length === 0);
 
 type ValidationFunction = (value: any) => boolean;
 type ErrorTextFunction = (value: string) => string;
@@ -70,8 +66,18 @@ const validationConfig: Record<
 > = {
   cloudFrontRootObject: [
     { validate: validateEmpty, errorText: 'Root object is required.' },
-    { validate: validateURL, errorText: 'Enter a valid root object.' },
-    { validate: validateDNS, errorText: 'Enter a valid root object.' },
+    { validate: validateURLPrefix, errorText: 'Root object must start with "https://" or "http://".' },
+    {
+      validate: value => validateSpecialCharacter(value, URLSpecialCharacterRegex),
+      errorText: (value: string) =>
+        `The root object has characters that aren’t valid: ${getSpecialCharacters(value, URLSpecialCharacterRegex).join(
+          ', '
+        )}`,
+    },
+    {
+      validate: validateURLFormat,
+      errorText: 'Enter a valid root object URL. Example: https://example.com',
+    },
   ],
   alternativeDomainNames: [{ validate: validateCNAMEs, errorText: 'Too many CNAMEs.' }],
   certificateExpiryDate: [{ validate: validateEmpty, errorText: 'Certificate expiry date is required.' }],
@@ -92,16 +98,18 @@ const validationConfig: Record<
   originId: [
     { validate: validateEmpty, errorText: 'Origin ID is required.' },
     {
-      validate: validateSpecialChar,
+      validate: value => validateSpecialCharacter(value, originIdSpecialCharacterRegex),
       errorText: (value: string) =>
-        `The name has characters that aren’t valid: ${getSpecialCharacters(value).join(', ')}`,
+        `The name has characters that aren’t valid: ${getSpecialCharacters(value, originIdSpecialCharacterRegex).join(
+          ', '
+        )}`,
     },
   ],
   customHeaders: [{ validate: validateEmpty, errorText: (value: string) => `Custom header ${value} is required.` }],
-  tags: [{ validate: validateEmpty, errorText: 'Tag key is required.' }],
+  codeEditor: [{ validate: validateCodeEditor, errorText: 'Policy is invalid.' }],
 };
 
-export default function validateField(attribute: FormDataAttributes, value: any, customValue: string) {
+export default function validateField(attribute: FormDataAttributes, value: any, customValue: string = value) {
   const validations = validationConfig[attribute];
 
   for (const validation of validations) {

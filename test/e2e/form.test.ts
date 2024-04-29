@@ -48,16 +48,12 @@ describe('Single page create', () => {
 
   describe('Tag Editor', () => {
     test(
-      'renders default tag row by default',
-      setupTest(async page => {
-        await expect(page.countTags()).resolves.toBe(1);
-      })
-    );
-
-    test(
       'can add and remove tags',
       setupTest(async page => {
-        await page.addTag();
+        await page.addTag(true);
+        await expect(page.countTags()).resolves.toBe(1);
+
+        await page.addTag(true);
         await expect(page.countTags()).resolves.toBe(2);
 
         await page.removeTag(2);

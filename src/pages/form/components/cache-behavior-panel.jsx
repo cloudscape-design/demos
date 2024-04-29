@@ -21,17 +21,26 @@ import {
 import { InfoLink } from '../../commons/common-components';
 import CacheBehaviorFooter from './cache-behavior-footer';
 
-export default function CacheBehaviorPanel({ loadHelpPanelContent, readOnlyWithErrors = false }) {
-  const [minimumTtl, setMinimumTtl] = useState(0);
-  const [maximumTtl, setMaximumTtl] = useState(31536000);
-  const [defaultTtl, setDefaultTtl] = useState(86400);
+const defaultState = { minimumTtl: 0, maximumTtl: 31536000, defaultTtl: 86400 };
+
+export default function CacheBehaviorPanel({
+  loadHelpPanelContent,
+  validation,
+  errors = {},
+  setErrors,
+  setData,
+  refs,
+}) {
+  const [minimumTtl, setMinimumTtl] = useState(defaultState.minimumTtl);
+  const [maximumTtl, setMaximumTtl] = useState(defaultState.maximumTtl);
+  const [defaultTtl, setDefaultTtl] = useState(defaultState.defaultTtl);
 
   const [viewerProtocolPolicy, setViewerProtocolPolicy] = useState(VIEWER_PROTOCOL_POLICY_OPTIONS[0].value);
   const [allowedHttpMethods, setAllowedHttpMethods] = useState(ALLOWED_HTTP_METHOD_OPTIONS[0].value);
   const [forwardHeaders, setForwardHeaders] = useState(FORWARD_HEADER_OPTIONS[0].value);
   const [ace, setAce] = useState(undefined);
   const [codeEditorLoading, setCodeEditorLoading] = useState(true);
-  const [codeEditorValue, setCodeEditorValue] = useState(readOnlyWithErrors ? '{ invalidJson }' : '');
+  const [codeEditorValue, setCodeEditorValue] = useState('');
   const [codeEditorPreferences, setCodeEditorPreferences] = useState(undefined);
 
   useEffect(() => {
@@ -44,11 +53,23 @@ export default function CacheBehaviorPanel({ loadHelpPanelContent, readOnlyWithE
   }, []);
 
   const onCodeEditorChange = e => {
-    !readOnlyWithErrors && setCodeEditorValue(e.detail.value);
+    const { value } = e.detail;
+    setCodeEditorValue(value);
+
+    if (validation) {
+      setData({ codeEditor: value });
+      setErrors({ codeEditor: '' });
+    }
   };
 
   const onCodeEditorPreferencesChange = e => {
-    !readOnlyWithErrors && setCodeEditorPreferences(e.detail);
+    setCodeEditorPreferences(e.detail);
+  };
+
+  const onSetToDefault = () => {
+    setMinimumTtl(defaultState.minimumTtl);
+    setMaximumTtl(defaultState.maximumTtl);
+    setDefaultTtl(defaultState.defaultTtl);
   };
 
   return (
@@ -60,14 +81,14 @@ export default function CacheBehaviorPanel({ loadHelpPanelContent, readOnlyWithE
           Cache behavior settings
         </Header>
       }
-      footer={<CacheBehaviorFooter readOnlyWithErrors={readOnlyWithErrors} />}
+      footer={<CacheBehaviorFooter />}
     >
       <SpaceBetween size="l">
         <FormField label="Viewer protocol policy" stretch={true}>
           <RadioGroup
             items={VIEWER_PROTOCOL_POLICY_OPTIONS}
             value={viewerProtocolPolicy}
-            onChange={event => !readOnlyWithErrors && setViewerProtocolPolicy(event.detail.value)}
+            onChange={event => setViewerProtocolPolicy(event.detail.value)}
             ariaRequired={true}
           />
         </FormField>
@@ -75,7 +96,7 @@ export default function CacheBehaviorPanel({ loadHelpPanelContent, readOnlyWithE
           <RadioGroup
             items={ALLOWED_HTTP_METHOD_OPTIONS}
             value={allowedHttpMethods}
-            onChange={event => !readOnlyWithErrors && setAllowedHttpMethods(event.detail.value)}
+            onChange={event => setAllowedHttpMethods(event.detail.value)}
             ariaRequired={true}
           />
         </FormField>
@@ -83,7 +104,7 @@ export default function CacheBehaviorPanel({ loadHelpPanelContent, readOnlyWithE
           <RadioGroup
             items={FORWARD_HEADER_OPTIONS}
             value={forwardHeaders}
-            onChange={event => !readOnlyWithErrors && setForwardHeaders(event.detail.value)}
+            onChange={event => setForwardHeaders(event.detail.value)}
             ariaRequired={true}
           />
         </FormField>
@@ -93,7 +114,7 @@ export default function CacheBehaviorPanel({ loadHelpPanelContent, readOnlyWithE
               <Input
                 type="number"
                 value={minimumTtl}
-                onChange={event => !readOnlyWithErrors && setMinimumTtl(event.detail.value)}
+                onChange={event => setMinimumTtl(event.detail.value)}
                 ariaRequired={true}
               />
             </FormField>
@@ -101,7 +122,7 @@ export default function CacheBehaviorPanel({ loadHelpPanelContent, readOnlyWithE
               <Input
                 type="number"
                 value={maximumTtl}
-                onChange={event => !readOnlyWithErrors && setMaximumTtl(event.detail.value)}
+                onChange={event => setMaximumTtl(event.detail.value)}
                 ariaRequired={true}
               />
             </FormField>
@@ -109,16 +130,23 @@ export default function CacheBehaviorPanel({ loadHelpPanelContent, readOnlyWithE
               <Input
                 type="number"
                 value={defaultTtl}
-                onChange={event => !readOnlyWithErrors && setDefaultTtl(event.detail.value)}
+                onChange={event => setDefaultTtl(event.detail.value)}
                 ariaRequired={true}
               />
             </FormField>
             <div className="custom-header">
-              <Button>Set to default</Button>
+              <Button formAction="none" onClick={onSetToDefault}>
+                Set to default
+              </Button>
             </div>
           </ColumnLayout>
         </FormField>
-        <FormField label="Create policy" description="Create a policy for your cache behavior settings." stretch={true}>
+        <FormField
+          label="Create policy"
+          description="Create a policy for your cache behavior settings."
+          stretch={true}
+          errorText={errors.codeEditor}
+        >
           <CodeEditor
             ace={ace}
             value={codeEditorValue}
@@ -128,6 +156,7 @@ export default function CacheBehaviorPanel({ loadHelpPanelContent, readOnlyWithE
             onPreferencesChange={onCodeEditorPreferencesChange}
             loading={codeEditorLoading}
             themes={CODE_EDITOR_THEMES}
+            ref={refs?.codeEditor}
           />
         </FormField>
       </SpaceBetween>

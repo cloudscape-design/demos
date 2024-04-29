@@ -12,10 +12,11 @@ export default class PageObject extends AppLayoutPage {
   private distributionOptionsSelector = this.distributionsSelect.findDropdown().findOptions().toSelector();
   private originsPanelWrapper = createWrapper('#origin-panel');
   private originsMultiselect = this.originsPanelWrapper.findMultiselect();
-  private tagEditorWrapper = createWrapper('#tags-panel').findTagEditor();
-  private addButtonSelector = this.tagEditorWrapper.findAddButton().toSelector();
-  private rowDeleteButtonSelector = (row: number) => this.tagEditorWrapper.findRow(row).findRemoveButton().toSelector();
-  private tagEditorRows = this.tagEditorWrapper.findRows().toSelector();
+  private tagEditorWrapper = createWrapper('#tags-panel');
+  private tagEditor = this.tagEditorWrapper.findTagEditor();
+  private addButtonSelector = this.tagEditor.findAddButton().toSelector();
+  private rowDeleteButtonSelector = (row: number) => this.tagEditor.findRow(row).findRemoveButton().toSelector();
+  private tagEditorRows = this.tagEditor.findRows().toSelector();
   private headerSelector = createWrapper(this.pageWrapper.findForm().findHeader().toSelector())
     .findHeader()
     .find('h1')
@@ -82,8 +83,15 @@ export default class PageObject extends AppLayoutPage {
   countTags() {
     return this.getElementsCount(this.tagEditorRows);
   }
-  async addTag() {
+  async addTag(closeDropdown = false) {
     await this.click(this.addButtonSelector);
+
+    if (closeDropdown) {
+      // When a new tag gets added the dropdown opens automatically and
+      // it blocks "Add new tag" button so by clicking to header we close it
+      const header = this.tagEditorWrapper.findHeader().toSelector();
+      await this.click(header);
+    }
   }
   async removeTag(index: number) {
     const selector = this.rowDeleteButtonSelector(index);
