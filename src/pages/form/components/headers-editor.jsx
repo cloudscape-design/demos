@@ -5,10 +5,11 @@ import { Autosuggest, AttributeEditor } from '@cloudscape-design/components';
 import validateField from '../form-validation-config';
 
 const validateHeader = (key, value, messageValue) => {
-  const { errorText } = validateField('customHeaders', value, messageValue);
+  const { warningText, errorText } = validateField('customHeaders', value, messageValue);
 
   const errorAttribute = key + 'Error';
-  return { [errorAttribute]: errorText };
+  const warningAttribute = key + 'Warning';
+  return { [errorAttribute]: errorText, [warningAttribute]: warningText };
 };
 
 export default function HeadersEditor({ validation = false, refs, data, setData }) {
@@ -33,6 +34,7 @@ export default function HeadersEditor({ validation = false, refs, data, setData 
         );
       },
       errorText: ({ keyError }) => keyError,
+      warningText: ({ keyWarning }) => keyWarning,
     },
     {
       label: 'Custom header value',
@@ -52,6 +54,7 @@ export default function HeadersEditor({ validation = false, refs, data, setData 
         );
       },
       errorText: ({ valueError }) => valueError,
+      warningText: ({ valueWarning }) => valueWarning,
     },
   ];
 
@@ -67,7 +70,7 @@ export default function HeadersEditor({ validation = false, refs, data, setData 
     return ({ detail }) => {
       let updateObj = { [key]: detail.value };
 
-      if (validation && item[key + 'Error']) {
+      if (validation && (item[key + 'Error'] || item[key + 'Warning'])) {
         const validationTexts = validateHeader(key, detail.value, key === 'key' ? 'name' : key);
         updateObj = { ...updateObj, ...validationTexts };
       }
