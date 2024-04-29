@@ -97,7 +97,8 @@ const fieldsToValidate = [
 ];
 
 export function FormFull({ loadHelpPanelContent, header }) {
-  const [data, setData] = useState(defaultData);
+  const [data, _setData] = useState(defaultData);
+  const setData = (updateObj = {}) => _setData(prevData => ({ ...prevData, ...updateObj }));
 
   return (
     <BaseForm
@@ -116,7 +117,8 @@ export function FormFull({ loadHelpPanelContent, header }) {
 }
 
 export const LimitedForm = ({ loadHelpPanelContent, updateDirty, onCancelClick, header }) => {
-  const [data, setData] = useState(defaultData);
+  const [data, _setData] = useState(defaultData);
+  const setData = (updateObj = {}) => _setData(prevData => ({ ...prevData, ...updateObj }));
 
   useEffect(() => {
     const isDirty = JSON.stringify(data) !== JSON.stringify(defaultData);
@@ -250,7 +252,7 @@ export const FormWithValidation = ({ loadHelpPanelContent, header }) => {
             setErrors={setErrors}
             setData={setData}
           />
-          <TagsPanel loadHelpPanelContent={loadHelpPanelContent} refs={refs} errors={errors} setErrors={setErrors} />
+          <TagsPanel loadHelpPanelContent={loadHelpPanelContent} refs={refs} setErrors={setErrors} />
         </SpaceBetween>
       }
       onSubmitClick={onSubmit}
