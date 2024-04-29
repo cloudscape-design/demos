@@ -43,9 +43,13 @@ const InstanceOptions = ({
 
   const validateStorageValue = (value, range) => {
     if (!value) {
-      return false;
+      return '';
     }
-    return value < range[0] || value > range[1];
+    if (value < range[0] || value > range[1]) {
+      return 'Enter a valid storage amount.';
+    }
+
+    return '';
   };
 
   return (
@@ -131,7 +135,7 @@ const InstanceOptions = ({
         <FormField
           label="Allocated storage"
           description="Higher allocated storage may improve IOPS performance."
-          errorText={validateStorageValue(Number(storage), [20, 128]) ? 'Enter a valid storage amount.' : undefined}
+          errorText={validateStorageValue(Number(storage), [20, 128])}
         >
           <div className="flex-wrapper">
             <div className="slider-wrapper">
