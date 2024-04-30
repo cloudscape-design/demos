@@ -42,7 +42,7 @@ const InstanceOptions = ({
   const onStorageSliderChange = getFieldOnChange('slider', 'storage', onChange);
 
   const validateStorageValue = (value, range) => {
-    if (!value) {
+    if (value === undefined) {
       return '';
     }
     if (value < range[0] || value > range[1]) {
@@ -140,7 +140,7 @@ const InstanceOptions = ({
           <div className="flex-wrapper">
             <div className="slider-wrapper">
               <Slider
-                ariaLabel="allocated-storage-slider"
+                ariaLabel="Allocated storage slider"
                 value={Number(storage)}
                 onChange={onStorageSliderChange}
                 min={20}
@@ -157,7 +157,7 @@ const InstanceOptions = ({
                   onChange={onStorageChange}
                 />
               </div>
-              <Box>GiB</Box>
+              <div>GiB</div>
             </SpaceBetween>
           </div>
         </FormField>
