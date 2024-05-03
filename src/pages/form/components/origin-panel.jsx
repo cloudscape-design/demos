@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React, { useState } from 'react';
-import { Container, Header, Input, FormField, SpaceBetween, Multiselect } from '@cloudscape-design/components';
+import { Container, Header, Input, FormField, SpaceBetween, Multiselect, Alert } from '@cloudscape-design/components';
 import { InfoLink } from '../../commons/common-components';
 import useContentOrigins from '../../commons/use-content-origins';
 import HeadersEditor from './headers-editor';
@@ -118,6 +118,11 @@ export default function OriginPanel({
           >
             Custom headers
           </Header>
+          {validation && (
+            <Alert statusIconAriaLabel="Info">
+              To see the warning text, add empty character (space) into the "Custom header name" field.
+            </Alert>
+          )}
           <HeadersEditor validation={validation} refs={refs} data={data} setData={setData} />
         </SpaceBetween>
       </SpaceBetween>

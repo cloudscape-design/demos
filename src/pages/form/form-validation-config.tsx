@@ -55,14 +55,15 @@ const getSpecialCharacters = (value: string, regex: RegExp) => {
   return uniq(specialCharacters);
 };
 
+const validateEmptyCharacter = (value: string) => !value?.includes(' ');
 const validateCodeEditor = (value: string | undefined | null) => Boolean(!value || value.length === 0);
 
 type ValidationFunction = (value: any) => boolean;
-type ErrorTextFunction = (value: string) => string;
+type ValidationText = string | ((value: string) => string);
 
 const validationConfig: Record<
   string,
-  Array<{ validate: ValidationFunction; errorText: string | ErrorTextFunction }>
+  Array<{ validate: ValidationFunction; errorText?: ValidationText; warningText?: ValidationText }>
 > = {
   cloudFrontRootObject: [
     { validate: validateEmpty, errorText: 'Root object is required.' },
@@ -105,7 +106,13 @@ const validationConfig: Record<
         )}`,
     },
   ],
-  customHeaders: [{ validate: validateEmpty, errorText: (value: string) => `Custom header ${value} is required.` }],
+  customHeaders: [
+    { validate: validateEmpty, errorText: (value: string) => `Custom header ${value} is required.` },
+    {
+      validate: validateEmptyCharacter,
+      warningText: (value: string) => `The ${value} has empty (space) characters.`,
+    },
+  ],
   codeEditor: [{ validate: validateCodeEditor, errorText: 'Policy is invalid.' }],
 };
 
@@ -113,12 +120,13 @@ export default function validateField(attribute: FormDataAttributes, value: any,
   const validations = validationConfig[attribute];
 
   for (const validation of validations) {
-    const { validate, errorText } = validation;
+    const { validate, errorText, warningText } = validation;
 
     const isValid = validate(value);
     if (!isValid) {
       return {
         errorText: typeof errorText === 'function' ? errorText(customValue) : errorText,
+        warningText: typeof warningText === 'function' ? warningText(customValue) : warningText,
       };
     }
   }

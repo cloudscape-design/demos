@@ -12,6 +12,9 @@ export default class PageObject extends AppLayoutPage {
   private distributionOptionsSelector = this.distributionsSelect.findDropdown().findOptions().toSelector();
   private originsPanelWrapper = createWrapper('#origin-panel');
   private originsMultiselect = this.originsPanelWrapper.findMultiselect();
+  private customHeaderRows = this.originsPanelWrapper.findAttributeEditor();
+  private customHeaderInputSelector = (row: number, column: number) =>
+    this.customHeaderRows.findRow(row).findField(column).findControl().findAutosuggest().findNativeInput().toSelector();
   private tagEditorWrapper = createWrapper('#tags-panel');
   private tagEditor = this.tagEditorWrapper.findTagEditor();
   private addButtonSelector = this.tagEditor.findAddButton().toSelector();
@@ -41,6 +44,9 @@ export default class PageObject extends AppLayoutPage {
   getOriginSettingsErrorMessages() {
     return this.getElementsText(this.originsPanelWrapper.findFormField().findError().toSelector());
   }
+  getOriginSettingsWarningMessages() {
+    return this.getElementsText(this.originsPanelWrapper.findFormField().findWarning().toSelector());
+  }
   getFormErrorMessages() {
     return this.getElementsText(this.pageWrapper.findForm().findError().toSelector());
   }
@@ -48,6 +54,14 @@ export default class PageObject extends AppLayoutPage {
     await this.setValue(this.distributionsSelect.findFilteringInput()!.findNativeInput().toSelector(), text);
     await this.pause(DEBOUNCE_FILTERING_DELAY);
     await this.waitForVisible(this.distributionOptionsSelector);
+  }
+
+  async setCustomHeaderFieldText(row: number, column: number, text: string) {
+    const input = this.customHeaderInputSelector(row, column);
+    await this.click(input);
+    await this.setValue(input, text);
+    // blur to validate
+    await this.click(this.originsPanelWrapper.findHeader().toSelector());
   }
 
   async waitUntilOriginsLoaded() {

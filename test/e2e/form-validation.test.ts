@@ -226,6 +226,18 @@ describe('Form validation example', () => {
   );
 
   test(
+    'Contains expected warning messages in origin panel',
+    setupTest(async page => {
+      await page.setCustomHeaderFieldText(1, 1, 'value with empty character'); // custom header name
+      await page.setCustomHeaderFieldText(1, 2, 'value with empty character'); // custom header value
+      await expect(page.getOriginSettingsWarningMessages()).resolves.toEqual([
+        'The name has empty (space) characters.',
+        'The value has empty (space) characters.',
+      ]);
+    })
+  );
+
+  test(
     'Top most error is focused',
     setupTest(async page => {
       await page.submitForm();
