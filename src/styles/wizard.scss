@@ -7,3 +7,18 @@
   max-width: 11rem;
   display: inline-block;
 }
+
+.flex-wrapper {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.slider-wrapper {
+  flex: 1;
+  max-inline-size: 800px;
+}
+
+.input-wrapper {
+  max-inline-size: 70px;
+}
