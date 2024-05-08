@@ -15,15 +15,16 @@ export const TableRow = ({ offset, separator = true, compact = false, isHeader =
   const offsetBottom = 3.4482;
   const separatorDistance = compact ? 7 : 8;
   return (
-    <g transform={`translate(0, ${offset})`} className={isHeader ? styles['column-header'] : styles.disabled}>
-      <path d={`M53 ${offsetTop}H56V${offsetBottom}H53V${offsetTop}Z`} />
+    <g transform={`translate(-22, ${offset})`} className={isHeader ? styles['column-header'] : styles.disabled}>
+      <path d={`M53 ${offsetTop}H56V${offsetBottom}H53V${offsetTop}Z`} strokeLinecap="round" />
       <path
         d={`M61 ${offsetTop}H85V${offsetBottom}H61V${offsetTop}Z`}
         className={!isHeader ? styles.secondary : undefined}
+        strokeLinecap="round"
       />
-      <path d={`M138 ${offsetTop}H118V${offsetBottom}H138V${offsetTop}Z`} />
-      <path d={`M185 ${offsetTop}H141V${offsetBottom}H185V${offsetTop}Z`} />
-      {separator && <path d={`M48 ${separatorDistance}H187.387`} className={styles.separator} strokeLinecap="square" />}
+      <path d={`M138 ${offsetTop}H118V${offsetBottom}H138V${offsetTop}Z`} className={styles.secondary} />
+      <path d={`M185 ${offsetTop}H141V${offsetBottom}H185V${offsetTop}Z`} className={styles.secondary} />
+      {separator && <path d={`M48 ${separatorDistance}H187.387`} className={styles.separator} strokeLinecap="round" />}
     </g>
   );
 };
@@ -47,7 +48,7 @@ export const TableRows = ({ offsetTop, rows, compact = false }: TableRowsProps) 
 
 export const WindowPath = () => (
   <path
-    d="M24 1.00006H211C211.552 1.00006 212 1.44778 212 2.00006V105C212 105.552 211.552 106 211 106H24C23.4477 106 23 105.552 23 105V2.00006C23 1.44778 23.4477 1.00006 24 1.00006Z"
+    d="M186 1H6C3.23858 1 1 3.23858 1 6V100C1 102.761 3.23858 105 6 105H186C188.761 105 191 102.761 191 100V6C191 3.23858 188.761 1 186 1Z"
     className={styles.window}
     strokeWidth="2"
   />

@@ -4,7 +4,7 @@
 @use '~@cloudscape-design/design-tokens' as cs;
 
 .window {
-  stroke: cs.$color-background-home-header;
+  stroke: cs.$color-border-input-default;
   fill: cs.$color-background-container-content;
 }
 .top-navigation {
