@@ -9,7 +9,6 @@ import {
   Button,
   ColumnLayout,
   Container,
-  ContentLayout,
   Flashbar,
   FormField,
   Header,
@@ -140,21 +139,18 @@ function InstanceDetailsPage({ instance, onDeleteInit, notifications }) {
   return (
     <CustomAppLayout
       content={
-        <ContentLayout
-          header={
-            <Header
-              variant="h1"
-              actions={
-                <SpaceBetween direction="horizontal" size="xs">
-                  <Button>Edit</Button>
-                  <Button onClick={onDeleteInit}>Delete</Button>
-                </SpaceBetween>
-              }
-            >
-              {instance.id}
-            </Header>
-          }
-        >
+        <SpaceBetween size="m">
+          <Header
+            variant="h1"
+            actions={
+              <SpaceBetween direction="horizontal" size="xs">
+                <Button>Edit</Button>
+                <Button onClick={onDeleteInit}>Delete</Button>
+              </SpaceBetween>
+            }
+          >
+            {instance.id}
+          </Header>
           <Container header={<Header variant="h2">Instance details</Header>}>
             <ColumnLayout columns={4} variant="text-grid">
               <SpaceBetween size="l">
@@ -183,7 +179,7 @@ function InstanceDetailsPage({ instance, onDeleteInit, notifications }) {
               </div>
             </ColumnLayout>
           </Container>
-        </ContentLayout>
+        </SpaceBetween>
       }
       breadcrumbs={
         <BreadcrumbGroup

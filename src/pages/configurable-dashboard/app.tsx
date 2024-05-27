@@ -4,7 +4,6 @@ import React, { useRef, useState } from 'react';
 import Board from '@cloudscape-design/board-components/board';
 import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import Button from '@cloudscape-design/components/button';
-import ContentLayout from '@cloudscape-design/components/content-layout';
 import SplitPanel from '@cloudscape-design/components/split-panel';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 
@@ -51,23 +50,18 @@ export function App() {
         onToolsChange={({ detail }) => setToolsOpen(detail.open)}
         notifications={<Notifications />}
         content={
-          <ContentLayout
-            header={
-              <>
-                <DashboardHeader
-                  actions={
-                    <SpaceBetween size="xs" direction="horizontal">
-                      <ResetButton onReset={resetLayout}>Reset to default layout</ResetButton>
-                      <Button iconName="add-plus" onClick={() => setSplitPanelOpen(true)}>
-                        Add widget
-                      </Button>
-                    </SpaceBetween>
-                  }
-                />
-                <PageBanner />
-              </>
-            }
-          >
+          <SpaceBetween size="m">
+            <DashboardHeader
+              actions={
+                <SpaceBetween size="xs" direction="horizontal">
+                  <ResetButton onReset={resetLayout}>Reset to default layout</ResetButton>
+                  <Button iconName="add-plus" onClick={() => setSplitPanelOpen(true)}>
+                    Add widget
+                  </Button>
+                </SpaceBetween>
+              }
+            />
+            <PageBanner />
             <div ref={ref}>
               <Board
                 empty={
@@ -100,7 +94,7 @@ export function App() {
                 }}
               />
             </div>
-          </ContentLayout>
+          </SpaceBetween>
         }
         splitPanel={
           <SplitPanel header="Add widgets" closeBehavior="hide" hidePreferencesButton={true}>

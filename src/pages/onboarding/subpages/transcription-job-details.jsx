@@ -7,7 +7,6 @@ import {
   Box,
   Container,
   ColumnLayout,
-  ContentLayout,
   Hotspot,
   Header,
   Link,
@@ -45,22 +44,19 @@ export const TranscriptionJobDetailsPage = () => {
         />
       }
       content={
-        <ContentLayout
-          header={
-            <Header
-              variant="h1"
-              actions={
-                <SpaceBetween direction="horizontal" size="xs">
-                  <Button>Download full transcript</Button>
-                  <Button>Delete</Button>
-                  <Button>Copy</Button>
-                </SpaceBetween>
-              }
-            >
-              MyTranscriptionJob
-            </Header>
-          }
-        >
+        <SpaceBetween size="m">
+          <Header
+            variant="h1"
+            actions={
+              <SpaceBetween direction="horizontal" size="xs">
+                <Button>Download full transcript</Button>
+                <Button>Delete</Button>
+                <Button>Copy</Button>
+              </SpaceBetween>
+            }
+          >
+            MyTranscriptionJob
+          </Header>
           <SpaceBetween size="xl">
             <Container header={<Header>Job settings</Header>}>
               <ColumnLayout columns={4} variant="text-grid">
@@ -135,7 +131,7 @@ export const TranscriptionJobDetailsPage = () => {
               </div>
             </Container>
           </SpaceBetween>
-        </ContentLayout>
+        </SpaceBetween>
       }
     />
   );

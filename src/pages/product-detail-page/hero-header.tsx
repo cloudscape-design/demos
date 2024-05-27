@@ -9,7 +9,7 @@ import SpaceBetween from '@cloudscape-design/components/space-between';
 
 function HeroHeader() {
   return (
-    <div data-testid="hero-header">
+    <Box data-testid="hero-header" padding={{ top: 'xs', bottom: 'l' }}>
       <Grid gridDefinition={[{ colspan: { default: 12, xs: 8, s: 9 } }, { colspan: { default: 12, xs: 4, s: 3 } }]}>
         <div>
           <Box variant="h1">Cloud Data Solution</Box>
@@ -37,7 +37,7 @@ function HeroHeader() {
           </SpaceBetween>
         </Box>
       </Grid>
-    </div>
+    </Box>
   );
 }
 

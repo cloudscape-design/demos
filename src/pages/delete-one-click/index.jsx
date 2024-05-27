@@ -2,16 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import {
-  Alert,
-  Button,
-  Container,
-  ContentLayout,
-  Form,
-  Header,
-  SpaceBetween,
-  TagEditor,
-} from '@cloudscape-design/components';
+import { Alert, Button, Container, Form, Header, SpaceBetween, TagEditor } from '@cloudscape-design/components';
 import { Navigation, Notifications } from '../commons/common-components';
 import { CustomAppLayout } from '../commons/common-components';
 import { Breadcrumbs } from '../details/common-components';
@@ -78,14 +69,9 @@ function App() {
     <CustomAppLayout
       contentType="form"
       content={
-        <ContentLayout
-          header={
-            <SpaceBetween size="m">
-              <Header variant="h1">Manage tags</Header>
-              <Info />
-            </SpaceBetween>
-          }
-        >
+        <SpaceBetween size="m">
+          <Header variant="h1">Manage tags</Header>
+          <Info />
           <form onSubmit={onSubmit}>
             <Form
               actions={
@@ -120,7 +106,7 @@ function App() {
               </Container>
             </Form>
           </form>
-        </ContentLayout>
+        </SpaceBetween>
       }
       breadcrumbs={<Breadcrumbs />}
       navigation={<Navigation activeHref="#/distributions" />}

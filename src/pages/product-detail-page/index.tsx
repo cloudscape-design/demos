@@ -8,6 +8,7 @@ import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
 import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
 import Container from '@cloudscape-design/components/container';
+import ContentLayout from '@cloudscape-design/components/content-layout';
 import Flashbar from '@cloudscape-design/components/flashbar';
 import Link from '@cloudscape-design/components/link';
 import Header from '@cloudscape-design/components/header';
@@ -28,17 +29,18 @@ import badgePartnerAdvanced from './images/aws-partner-badge.png';
 import '../../styles/product-page.scss';
 
 // Apply runtime theming for a more suitable page background color
-applyTheme({
-  theme: {
-    tokens: {
-      colorBackgroundLayoutMain: {
-        light: 'white',
-        dark: '{colorGrey900}',
+if (!isVisualRefresh) {
+  applyTheme({
+    theme: {
+      tokens: {
+        colorBackgroundLayoutMain: {
+          light: 'white',
+          dark: '{colorGrey900}',
+        },
       },
     },
-  },
-  baseThemeId: isVisualRefresh ? 'visual-refresh' : undefined,
-});
+  });
+}
 
 function ProductOverview() {
   return (
@@ -370,30 +372,29 @@ function App() {
   const [disclaimerDismissed, dismissDisclaimer] = useState(false);
   const disclaimerItem = useDisclaimerFlashbarItem(() => dismissDisclaimer(true));
   const showFlashbar = !disclaimerDismissed && disclaimerItem;
+  const headerVariant = isVisualRefresh ? 'high-contrast' : 'divider';
 
   return (
     <I18nProvider locale="en" messages={[enMessages]}>
-      <main className="product-page">
-        <div className="product-page-container">
-          <div className="product-page-header" role="region" aria-label="Product: Cloud Data Solution">
-            {showFlashbar && (
-              <Box margin={{ top: 'xs' }}>
-                <Flashbar items={[disclaimerItem]} />
-              </Box>
-            )}
-            <Box margin={{ top: 'm', bottom: 'm' }}>
-              <BreadcrumbGroup
-                items={[
-                  { href: '/', text: 'Marketplace' },
-                  { href: '#/product', text: 'Cloud Data Solution' },
-                ]}
-                expandAriaLabel="Show path"
-                ariaLabel="Breadcrumbs"
-              />
-            </Box>
-            <HeroHeader />
-          </div>
-
+      <ContentLayout
+        notifications={showFlashbar && <Flashbar items={[disclaimerItem]} />}
+        breadcrumbs={
+          <BreadcrumbGroup
+            items={[
+              { href: '/', text: 'Marketplace' },
+              { href: '#/product', text: 'Cloud Data Solution' },
+            ]}
+            expandAriaLabel="Show path"
+            ariaLabel="Breadcrumbs"
+          />
+        }
+        headerVariant={headerVariant}
+        header={<HeroHeader />}
+        defaultPadding={true}
+        maxContentWidth={1040}
+        disableOverlap={true}
+      >
+        <div className="product-page-content-grid">
           <div className="on-this-page--mobile">
             <OnThisPageNavigation variant="mobile" />
           </div>
@@ -410,20 +411,20 @@ function App() {
             </div>
           </aside>
 
-          <div className="product-page-content">
+          <main className="product-page-content">
             <ProductOverview />
             <Pricing />
             <Details />
             <MoreFromVendor />
             <Support />
             <RelatedProducts />
-          </div>
+          </main>
 
           <aside className="product-page-mobile" aria-label="Side bar">
             <UserFeedback />
           </aside>
         </div>
-      </main>
+      </ContentLayout>
     </I18nProvider>
   );
 }

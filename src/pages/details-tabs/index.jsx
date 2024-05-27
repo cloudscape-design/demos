@@ -5,7 +5,6 @@ import { createRoot } from 'react-dom/client';
 import {
   Button,
   Container,
-  ContentLayout,
   Header,
   Pagination,
   SpaceBetween,
@@ -161,18 +160,15 @@ class App extends React.Component {
       <CustomAppLayout
         ref={this.appLayout}
         content={
-          <ContentLayout
-            header={
-              <PageHeader
-                buttons={[{ text: 'Actions', items: INSTANCE_DROPDOWN_ITEMS }, { text: 'Edit' }, { text: 'Delete' }]}
-              />
-            }
-          >
+          <SpaceBetween size="m">
+            <PageHeader
+              buttons={[{ text: 'Actions', items: INSTANCE_DROPDOWN_ITEMS }, { text: 'Edit' }, { text: 'Delete' }]}
+            />
             <SpaceBetween size="l">
               <GeneralConfig />
               <Tabs tabs={tabs} ariaLabel="Resource details" />
             </SpaceBetween>
-          </ContentLayout>
+          </SpaceBetween>
         }
         breadcrumbs={<Breadcrumbs />}
         navigation={<Navigation activeHref="#/distributions" />}
