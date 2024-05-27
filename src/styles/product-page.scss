@@ -10,43 +10,35 @@ body {
   background: cs.$color-background-layout-main;
 }
 
-/* General page layout */
-.product-page {
-  display: flex;
-  position: relative;
-  width: 100%;
-  justify-content: center;
-  box-sizing: border-box;
-  padding-inline: cs.$space-scaled-m;
-  padding-block-end: cs.$space-scaled-xxxl;
-}
-
-.product-page-container {
+.product-page-content-grid {
   display: grid;
-  grid-template-columns: auto minmax(auto, 240px);
-  column-gap: cs.$space-scaled-xxl;
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 1040px;
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: 0 auto 0;
+  margin-block-start: cs.$space-static-xxl;
 }
 
-.product-page-header {
-  grid-column: span 2;
-
-  padding-block-end: cs.$space-static-xxxl;
+.on-this-page--mobile {
+  grid-row: 1;
+  grid-column: 1 / 3;
+  display: none;
   margin-block-end: cs.$space-static-xxl;
-  border-block-end: 1px solid cs.$color-border-divider-default;
-}
-
-.product-page-content {
-  grid-column: 1;
-  grid-row: 2;
-  min-width: 0;
 }
 
 .product-page-aside {
-  grid-column: 2;
-  min-width: 240px;
+  grid-row: 2;
+  grid-column: 2 / 3;
+  padding-inline-start: calc(#{cs.$space-scaled-xxxl} /2);
+}
+.product-page-content {
+  grid-row: 2;
+  grid-column: 1 / 2;
+  padding-inline-end: calc(#{cs.$space-scaled-xxxl} /2);
+}
+
+.product-page-mobile {
+  grid-row: 3;
+  grid-column: 1 / 3;
+  display: none;
 }
 
 .product-page-aside-sticky {
@@ -54,36 +46,15 @@ body {
   top: 40px;
 }
 
-.on-this-page--mobile {
-  display: none;
-  margin-block-end: cs.$space-static-xxl;
-}
-.on-this-page--side {
-  display: block;
-}
-
-.product-page-mobile {
-  display: none;
-}
-
-/* Adjust layout and content for smaller viewports */
 @media only screen and (max-width: $viewport-breakpoint-s) {
-  .product-page-mobile {
+  .product-page-content-grid {
+    grid-template-columns: 100%;
+    grid-template-rows: auto auto auto;
+  }
+  .on-this-page--mobile {
     display: block;
   }
-
-  .product-page-container {
-    grid-template-columns: 1fr;
-  }
-
-  .product-page-header,
-  .product-page-content,
-  .product-page-aside {
-    grid-column: 1;
-    grid-row: auto;
-  }
-
-  .on-this-page--mobile {
+  .product-page-mobile {
     display: block;
   }
   .product-page-aside {

@@ -8,7 +8,6 @@ import {
   BreadcrumbGroup,
   Button,
   Container,
-  ContentLayout,
   Flashbar,
   Header,
   Link,
@@ -145,25 +144,22 @@ function DistributionDetailsPage({ distribution, onDeleteInit, notifications }) 
   return (
     <CustomAppLayout
       content={
-        <ContentLayout
-          header={
-            <Header
-              variant="h1"
-              actions={
-                <SpaceBetween direction="horizontal" size="xs">
-                  <Button>Edit</Button>
-                  <Button onClick={onDeleteInit}>Delete</Button>
-                </SpaceBetween>
-              }
-            >
-              {distribution.id}
-            </Header>
-          }
-        >
+        <SpaceBetween size="m">
+          <Header
+            variant="h1"
+            actions={
+              <SpaceBetween direction="horizontal" size="xs">
+                <Button>Edit</Button>
+                <Button onClick={onDeleteInit}>Delete</Button>
+              </SpaceBetween>
+            }
+          >
+            {distribution.id}
+          </Header>
           <Container header={<Header variant="h2">Distribution settings</Header>}>
             <SettingsDetails distribution={distribution} />
           </Container>
-        </ContentLayout>
+        </SpaceBetween>
       }
       breadcrumbs={
         <BreadcrumbGroup

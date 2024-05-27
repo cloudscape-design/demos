@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useState } from 'react';
 import Alert from '@cloudscape-design/components/alert';
-import Box from '@cloudscape-design/components/box';
 import { ExternalLink } from '../../commons';
 
 export function PageBanner() {

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import React, { createRef } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Container, ContentLayout, Header, SpaceBetween } from '@cloudscape-design/components';
+import { Container, Header, SpaceBetween } from '@cloudscape-design/components';
 import {
   BehaviorsTable,
   Breadcrumbs,
@@ -45,14 +45,11 @@ class App extends React.Component {
       <CustomAppLayout
         ref={this.appLayout}
         content={
-          <ContentLayout
-            header={
-              <PageHeader
-                buttons={[{ text: 'Edit' }, { text: 'Delete' }]}
-                loadHelpPanelContent={this.loadHelpPanelContent.bind(this)}
-              />
-            }
-          >
+          <SpaceBetween size="m">
+            <PageHeader
+              buttons={[{ text: 'Edit' }, { text: 'Delete' }]}
+              loadHelpPanelContent={this.loadHelpPanelContent.bind(this)}
+            />
             <SpaceBetween size="l">
               <DistSettings isInProgress={true} loadHelpPanelContent={this.loadHelpPanelContent.bind(this)} />
               <OriginsTable />
@@ -60,7 +57,7 @@ class App extends React.Component {
               <TagsTable loadHelpPanelContent={this.loadHelpPanelContent.bind(this)} />
               <DistributionDetails />
             </SpaceBetween>
-          </ContentLayout>
+          </SpaceBetween>
         }
         breadcrumbs={<Breadcrumbs />}
         navigation={<Navigation activeHref="#/distributions" />}

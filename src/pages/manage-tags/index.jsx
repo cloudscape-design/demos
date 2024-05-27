@@ -7,7 +7,6 @@ import {
   BreadcrumbGroup,
   Button,
   Container,
-  ContentLayout,
   Form,
   Header,
   SpaceBetween,
@@ -59,7 +58,8 @@ class App extends Component {
       this.appLayout.current?.focusToolsClose();
     };
     return (
-      <ContentLayout header={<Header variant="h1">Manage tags</Header>}>
+      <SpaceBetween size="m">
+        <Header variant="h1">Manage tags</Header>
         <form onSubmit={event => event.preventDefault()}>
           <Form
             actions={
@@ -91,7 +91,7 @@ class App extends Component {
             </Container>
           </Form>
         </form>
-      </ContentLayout>
+      </SpaceBetween>
     );
   }
 

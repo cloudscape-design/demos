@@ -5,7 +5,7 @@ import { createRoot } from 'react-dom/client';
 import DataProvider from '../commons/data-provider';
 import { useAsyncData } from '../commons/use-async-data';
 import { INSTANCE_DROPDOWN_ITEMS, LOGS_COLUMN_DEFINITIONS } from '../details/details-config';
-import { Box, Button, ContentLayout, Header, Link, SpaceBetween, Table } from '@cloudscape-design/components';
+import { Box, Button, Header, Link, SpaceBetween, Table } from '@cloudscape-design/components';
 import { Breadcrumbs, GeneralConfig, OriginsTable, PageHeader } from '../details/common-components';
 import { CustomAppLayout, Navigation, Notifications } from '../commons/common-components';
 import { getHeaderCounterText } from '../../i18n-strings';
@@ -58,19 +58,16 @@ class App extends React.Component {
     return (
       <CustomAppLayout
         content={
-          <ContentLayout
-            header={
-              <PageHeader
-                buttons={[{ text: 'Actions', items: INSTANCE_DROPDOWN_ITEMS }, { text: 'Edit' }, { text: 'Delete' }]}
-              />
-            }
-          >
+          <SpaceBetween size="m">
+            <PageHeader
+              buttons={[{ text: 'Actions', items: INSTANCE_DROPDOWN_ITEMS }, { text: 'Edit' }, { text: 'Delete' }]}
+            />
             <SpaceBetween size="l">
               <GeneralConfig />
               <LogsTable />
               <OriginsTable />
             </SpaceBetween>
-          </ContentLayout>
+          </SpaceBetween>
         }
         breadcrumbs={<Breadcrumbs />}
         navigation={<Navigation activeHref="#/distributions" />}

@@ -5,8 +5,8 @@ import { createRoot } from 'react-dom/client';
 
 import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import Button from '@cloudscape-design/components/button';
-import ContentLayout from '@cloudscape-design/components/content-layout';
 import Grid from '@cloudscape-design/components/grid';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import '@cloudscape-design/global-styles/dark-mode-utils.css';
 import '../../styles/base.scss';
@@ -79,9 +79,10 @@ function App() {
       <CustomAppLayout
         ref={appLayout}
         content={
-          <ContentLayout header={<DashboardHeader actions={<Button variant="primary">Launch instance</Button>} />}>
+          <SpaceBetween size="m">
+            <DashboardHeader actions={<Button variant="primary">Launch instance</Button>} />
             <Content />
-          </ContentLayout>
+          </SpaceBetween>
         }
         breadcrumbs={<Breadcrumbs items={[{ text: 'Dashboard', href: '#/' }]} />}
         navigation={<DashboardSideNavigation />}
