@@ -8,7 +8,7 @@ const comfortableImage = (
   <svg viewBox="0 0 230 107" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden={true}>
     <WindowPath />
     <TopNavigation />
-    <g className="awsui-context-content-header">
+    <g>
       <path className={styles.header} d="M24 8.00006H211V28.0001H24V8.00006Z" />
       <g className={styles.default}>
         <circle cx="29" cy="17.5001" r="2.5" className={styles.disabled} />
