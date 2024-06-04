@@ -13,6 +13,7 @@ import SideNavigation from '@cloudscape-design/components/side-navigation';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import Table from '@cloudscape-design/components/table';
 import TopNavigation from '@cloudscape-design/components/top-navigation';
+import { isVisualRefresh } from '../../common/apply-mode';
 
 import '../../styles/base.scss';
 import '../../styles/top-navigation.scss';
@@ -116,41 +117,43 @@ const columnDefinitions = [
 
 const Content = () => {
   return (
-    <Table
-      items={[]}
-      columnDefinitions={columnDefinitions}
-      header={
-        <Header
-          variant="awsui-h1-sticky"
-          counter="(0)"
-          actions={
-            <SpaceBetween size="xs" direction="horizontal">
-              <Button disabled>View details</Button>
-              <Button disabled>Edit</Button>
-              <Button disabled>Delete</Button>
-              <Button variant="primary">Create page</Button>
+    <Box padding={{ top: isVisualRefresh ? 's' : 'n' }}>
+      <Table
+        items={[]}
+        columnDefinitions={columnDefinitions}
+        header={
+          <Header
+            variant="awsui-h1-sticky"
+            counter="(0)"
+            actions={
+              <SpaceBetween size="xs" direction="horizontal">
+                <Button disabled>View details</Button>
+                <Button disabled>Edit</Button>
+                <Button disabled>Delete</Button>
+                <Button variant="primary">Create page</Button>
+              </SpaceBetween>
+            }
+          >
+            Pages
+          </Header>
+        }
+        stickyHeader={true}
+        empty={
+          <Box margin={{ vertical: 'xs' }} textAlign="center" color="inherit">
+            <SpaceBetween size="xxs">
+              <div>
+                <b>No pages</b>
+                <Box variant="p" color="inherit">
+                  You don't have any pages.
+                </Box>
+              </div>
+              <Button>Create page</Button>
             </SpaceBetween>
-          }
-        >
-          Pages
-        </Header>
-      }
-      stickyHeader={true}
-      empty={
-        <Box margin={{ vertical: 'xs' }} textAlign="center" color="inherit">
-          <SpaceBetween size="xxs">
-            <div>
-              <b>No pages</b>
-              <Box variant="p" color="inherit">
-                You don't have any pages.
-              </Box>
-            </div>
-            <Button>Create page</Button>
-          </SpaceBetween>
-        </Box>
-      }
-      enableKeyboardNavigation={true}
-    />
+          </Box>
+        }
+        enableKeyboardNavigation={true}
+      />
+    </Box>
   );
 };
 
