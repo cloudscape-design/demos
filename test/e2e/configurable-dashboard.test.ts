@@ -1,16 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import useBrowser from '@cloudscape-design/browser-test-tools/use-browser';
-import { BasePageObject } from '@cloudscape-design/browser-test-tools/page-objects';
 import createWrapper from '@cloudscape-design/components/test-utils/selectors';
 // importing this file has a side effect of installing new components onto the main wrapper
 import '@cloudscape-design/board-components/test-utils/selectors';
+import BaseExamplePage from './common/base-example-page';
 
 const wrapper = createWrapper();
 const boardWrapper = wrapper.findBoard();
 const paletteWrapper = wrapper.findItemsPalette();
 
-class ConfigurableDashboardPageObject extends BasePageObject {
+class ConfigurableDashboardPageObject extends BaseExamplePage {
   async getHeadersTexts() {
     const widgetHeadersSelector = boardWrapper.findAll('h2').toSelector();
     const texts = await this.getElementsText(widgetHeadersSelector);

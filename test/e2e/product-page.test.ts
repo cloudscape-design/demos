@@ -5,8 +5,8 @@ import ProductPagePageObject from './page/product-page-page-object';
 
 const setupTest = (testFn: { (page: ProductPagePageObject): Promise<void> }) => {
   return useBrowser(async browser => {
-    const page = new ProductPagePageObject(browser);
     await browser.url('/product-detail-page.html');
+    const page = new ProductPagePageObject(browser);
     await testFn(page);
   });
 };

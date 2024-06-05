@@ -1,9 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import createWrapper from '@cloudscape-design/components/test-utils/selectors';
-import { BasePageObject } from '@cloudscape-design/browser-test-tools/page-objects';
+import BaseExamplePage from '../common/base-example-page';
 
-export default class ProductPagePageObject extends BasePageObject {
+export default class ProductPagePageObject extends BaseExamplePage {
   protected page = createWrapper();
 
   heroHeader() {
@@ -24,6 +24,6 @@ export default class ProductPagePageObject extends BasePageObject {
 
   async submitUserFeedback(helpful: 'yes' | 'no') {
     const feedbackButton = this.userFeedback().findButton(`[data-testid="user-feedback-${helpful}"]`);
-    await this.click(feedbackButton.toSelector());
+    await this.scrollIntoViewAndClick(feedbackButton.toSelector());
   }
 }

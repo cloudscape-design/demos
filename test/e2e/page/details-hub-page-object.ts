@@ -28,7 +28,7 @@ export default class Page extends BasePage {
     await this.click(logsTableWrapper.findBodyCell(1, 1).toSelector());
   }
   async selectOriginsTableItem() {
-    await this.click(originsTableWrapper.findBodyCell(1, 1).toSelector());
+    await this.scrollIntoViewAndClick(originsTableWrapper.findBodyCell(1, 1).toSelector());
   }
   getLogsTableCounterText() {
     return this.getText(logsTableWrapper.findHeaderSlot().findHeader().findCounter().toSelector());

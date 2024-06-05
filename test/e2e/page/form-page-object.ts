@@ -12,14 +12,14 @@ export default class PageObject extends AppLayoutPage {
   private distributionOptionsSelector = this.distributionsSelect.findDropdown().findOptions().toSelector();
   private originsPanelWrapper = createWrapper('#origin-panel');
   private originsMultiselect = this.originsPanelWrapper.findMultiselect();
-  private customHeaderRows = this.originsPanelWrapper.findAttributeEditor();
-  private customHeaderInputSelector = (row: number, column: number) =>
-    this.customHeaderRows.findRow(row).findField(column).findControl().findAutosuggest().findNativeInput().toSelector();
   private tagEditorWrapper = createWrapper('#tags-panel');
   private tagEditor = this.tagEditorWrapper.findTagEditor();
   private addButtonSelector = this.tagEditor.findAddButton().toSelector();
   private rowDeleteButtonSelector = (row: number) => this.tagEditor.findRow(row).findRemoveButton().toSelector();
   private tagEditorRows = this.tagEditor.findRows().toSelector();
+  private customHeaderRows = this.originsPanelWrapper.findAttributeEditor();
+  private customHeaderInputSelector = (row: number, column: number) =>
+    this.customHeaderRows.findRow(row).findField(column).findControl().findAutosuggest().findNativeInput().toSelector();
   private headerSelector = createWrapper(this.pageWrapper.findForm().findHeader().toSelector())
     .findHeader()
     .find('h1')
@@ -31,7 +31,7 @@ export default class PageObject extends AppLayoutPage {
     return this.getText(this.headerSelector);
   }
   async openDistributionSelector() {
-    await this.click(this.distributionsSelect.findTrigger().toSelector());
+    await this.scrollIntoViewAndClick(this.distributionsSelect.findTrigger().toSelector());
 
     await this.waitForVisible(this.distributionOptionsSelector);
   }
@@ -58,10 +58,10 @@ export default class PageObject extends AppLayoutPage {
 
   async setCustomHeaderFieldText(row: number, column: number, text: string) {
     const input = this.customHeaderInputSelector(row, column);
-    await this.click(input);
+    await this.scrollIntoViewAndClick(input);
     await this.setValue(input, text);
     // blur to validate
-    await this.click(this.originsPanelWrapper.findHeader().toSelector());
+    await this.scrollIntoViewAndClick(this.originsPanelWrapper.findHeader().toSelector());
   }
 
   async waitUntilOriginsLoaded() {
@@ -78,16 +78,16 @@ export default class PageObject extends AppLayoutPage {
   async selectOrigin(value: string) {
     const triggerSelector = this.originsMultiselect.findTrigger().toSelector();
     const optionSelector = this.originsMultiselect.findDropdown().findOptionByValue(value)!.toSelector();
-    await this.click(triggerSelector);
+    await this.scrollIntoViewAndClick(triggerSelector);
     await this.waitForVisible(optionSelector);
     await this.waitUntilOriginsLoaded();
-    await this.click(optionSelector);
+    await this.scrollIntoViewAndClick(optionSelector);
     // close the dropdown, because multiselect keeps it open by default
-    await this.click(triggerSelector);
+    await this.scrollIntoViewAndClick(triggerSelector);
   }
 
   async deselectOrigin() {
-    await this.click(this.originsMultiselect.findToken(1).findDismiss().toSelector());
+    await this.scrollIntoViewAndClick(this.originsMultiselect.findToken(1).findDismiss().toSelector());
   }
 
   getSelectedOrigins() {
@@ -98,17 +98,17 @@ export default class PageObject extends AppLayoutPage {
     return this.getElementsCount(this.tagEditorRows);
   }
   async addTag(closeDropdown = false) {
-    await this.click(this.addButtonSelector);
+    await this.scrollIntoViewAndClick(this.addButtonSelector);
 
     if (closeDropdown) {
       // When a new tag gets added the dropdown opens automatically and
       // it blocks "Add new tag" button so by clicking to header we close it
       const header = this.tagEditorWrapper.findHeader().toSelector();
-      await this.click(header);
+      await this.scrollIntoViewAndClick(header);
     }
   }
   async removeTag(index: number) {
     const selector = this.rowDeleteButtonSelector(index);
-    await this.click(selector);
+    await this.scrollIntoViewAndClick(selector);
   }
 }

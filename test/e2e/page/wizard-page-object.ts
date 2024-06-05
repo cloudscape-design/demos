@@ -7,13 +7,15 @@ const wizardWrapper = createWrapper().findWizard();
 
 export default class Page extends AppLayoutPage {
   async gotoStep1FromEditBtnOnReview() {
-    await this.click(wizardWrapper.findContent().find('.step-1-review').findButton('.edit-step-btn').toSelector());
+    await this.scrollIntoViewAndClick(
+      wizardWrapper.findContent().find('.step-1-review').findButton('.edit-step-btn').toSelector()
+    );
   }
   async gotoPrevStep() {
-    await this.click(wizardWrapper.findPreviousButton().toSelector());
+    await this.scrollIntoViewAndClick(wizardWrapper.findPreviousButton().toSelector());
   }
   async gotoNextStep() {
-    await this.click(wizardWrapper.findPrimaryButton().toSelector());
+    await this.scrollIntoViewAndClick(wizardWrapper.findPrimaryButton().toSelector());
   }
   isStepDisabled(index: number) {
     return this.isExisting(wizardWrapper.findMenuNavigationLink(index, 'disabled').toSelector());

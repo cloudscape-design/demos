@@ -19,10 +19,10 @@ function formExpandableSection(id: string) {
 }
 export default class Page extends FormPage {
   async expandChangeBehaviorPanel() {
-    await this.click(formExpandableSectionHeader('#cache-behavior-panel'));
+    await this.scrollIntoViewAndClick(formExpandableSectionHeader('#cache-behavior-panel'));
   }
   async expandDistributionPanel() {
-    await this.click(formExpandableSectionHeader('#distribution-panel'));
+    await this.scrollIntoViewAndClick(formExpandableSectionHeader('#distribution-panel'));
   }
   isExpandChangeBehaviorContentVisible() {
     return this.isDisplayed(formExpandableSection('#cache-behavior-panel'));
@@ -31,34 +31,34 @@ export default class Page extends FormPage {
     return this.isDisplayed(formExpandableSection('#distribution-panel'));
   }
   async openPathInfo() {
-    await this.click('#path-info-link');
+    await this.scrollIntoViewAndClick('#path-info-link');
   }
   async openOriginIdInfo() {
-    await this.click('#origin-id-info-link');
+    await this.scrollIntoViewAndClick('#origin-id-info-link');
   }
   async openCustomHeadersInfo() {
-    await this.click('#custom-headers-info-link');
+    await this.scrollIntoViewAndClick('#custom-headers-info-link');
   }
   async openOriginInfo() {
-    await this.click('#content-origin-info-link');
+    await this.scrollIntoViewAndClick('#content-origin-info-link');
   }
   async openCnamesInfo() {
-    await this.click('#cnames-info-link');
+    await this.scrollIntoViewAndClick('#cnames-info-link');
   }
   async openRootObjectInfo() {
-    await this.click('#root-object-info-link');
+    await this.scrollIntoViewAndClick('#root-object-info-link');
   }
   async openCertificateInfo() {
-    await this.click('#certificate-method-info-link');
+    await this.scrollIntoViewAndClick('#certificate-method-info-link');
   }
   async openDeliveryMethodInfo() {
-    await this.click('#delivery-method-info-link');
+    await this.scrollIntoViewAndClick('#delivery-method-info-link');
   }
   async openMainInfo() {
-    await this.click('#form-main-info-link');
+    await this.scrollIntoViewAndClick('#form-main-info-link');
   }
   async submitForm() {
-    await this.click('[data-testid="create"]');
+    await this.scrollIntoViewAndClick('[data-testid="create"]');
   }
   isRootInputFocused() {
     return this.isFocused(rootInput);
