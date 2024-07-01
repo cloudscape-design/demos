@@ -55,8 +55,8 @@ const getSpecialCharacters = (value: string, regex: RegExp) => {
   return uniq(specialCharacters);
 };
 
-const validateEmptyCharacter = (value: string) => !value?.includes(' ');
 const validateCodeEditor = (value: string | undefined | null) => Boolean(!value || value.length === 0);
+const validateEmptyCharacter = (value: string) => !value?.includes(' ');
 
 type ValidationFunction = (value: any) => boolean;
 type ValidationText = string | ((value: string) => string);

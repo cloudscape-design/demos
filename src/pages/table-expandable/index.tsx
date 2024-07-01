@@ -12,13 +12,25 @@ import {
   TableProps,
   ButtonDropdown,
 } from '@cloudscape-design/components';
-import { getHeaderCounterText, getTextFilterCounterText, renderAriaLive } from '../../i18n-strings';
+import { getHeaderCounterText, getTextFilterCounterText } from '../../i18n-strings';
 import '../../styles/base.scss';
 import { FullPageHeader, TableEmptyState, TableNoMatchState } from '../commons/common-components';
 import { tableAriaLabels, createColumns, filteringProperties, TablePreferences } from './table-configs';
 import allInstances, { Instance } from '../../resources/related-instances';
 import '../../styles/base.scss';
 import { PageLayout } from './page-components';
+
+const ROOT_FRAME_SIZE = 10;
+const NESTED_FRAME_SIZE = 3;
+
+const renderAriaLive: TableProps['renderAriaLive'] = ({
+  firstIndex,
+  lastIndex,
+  totalItemsCount,
+  visibleItemsCount,
+}) => {
+  return `Displaying clusters ${firstIndex} to ${lastIndex} of ${totalItemsCount}, ${visibleItemsCount} entities visible`;
+};
 
 function App() {
   const [ariaLiveMessage, setAriaLiveMessage] = useState('');
@@ -101,8 +113,24 @@ function App() {
       setAriaLiveMessage('');
     }
   };
+
+  // Progressive loading setup
+  const [pages, setPages] = useState<Record<string, number>>({ ROOT: 1 });
+  const paginatedItems = items.slice(0, pages.ROOT * ROOT_FRAME_SIZE);
+
+  const getItemChildrenWithPagination = (item: Instance): Instance[] => {
+    const from = pages[item.name] ?? 1;
+    return getItemChildren(item).slice(0, from * NESTED_FRAME_SIZE);
+  };
+
+  const getLoadingStatus = (item: null | Instance): TableProps.LoadingStatus => {
+    const all = !item ? items : getItemChildren(item);
+    const paginated = !item ? paginatedItems : getItemChildrenWithPagination(item);
+    return paginated[paginated.length - 1] === all[all.length - 1] ? 'finished' : 'pending';
+  };
+
   const expandableRows = collectionProps.expandableRows
-    ? { ...collectionProps.expandableRows, onExpandableItemToggle }
+    ? { ...collectionProps.expandableRows, onExpandableItemToggle, getItemChildren: getItemChildrenWithPagination }
     : undefined;
 
   return (
@@ -116,7 +144,7 @@ function App() {
             stickyHeader={true}
             selectionType="single"
             columnDefinitions={columnDefinitions}
-            items={items}
+            items={paginatedItems}
             ariaLabels={tableAriaLabels}
             wrapLines={preferences.wrapLines}
             columnDisplay={preferences.contentDisplay}
@@ -166,6 +194,20 @@ function App() {
               />
             }
             expandableRows={expandableRows}
+            getLoadingStatus={getLoadingStatus}
+            renderLoaderPending={({ item }) => (
+              <Button
+                variant="inline-link"
+                iconName="add-plus"
+                onClick={() => {
+                  const itemId = item?.name ?? 'ROOT';
+                  setPages(prev => ({ ...prev, [itemId]: (prev[itemId] ?? 1) + 1 }));
+                }}
+                ariaLabel={item ? `Show more items for ${item.name}` : 'Show more items'}
+              >
+                Show more items
+              </Button>
+            )}
           />
 
           <span aria-live="polite" aria-atomic="true" className="screenreader-only">
