@@ -4,11 +4,11 @@ import React from 'react';
 import {
   Box,
   Button,
-  ColumnLayout,
   Container,
   ExpandableSection,
   Header,
   SpaceBetween,
+  KeyValuePairs,
 } from '@cloudscape-design/components';
 import { getEngineLabel, getEngineLicense } from './step1';
 
@@ -35,36 +35,31 @@ const Review = ({ info: { engine, details, advanced }, setActiveStepIndex }) => 
               </Header>
             }
           >
-            <ColumnLayout columns={2} variant="text-grid">
-              <div>
-                <Box variant="awsui-key-label">Engine</Box>
-                <div>{getEngineLabel(engine.engineOption)}</div>
-              </div>
-
-              <div>
-                <Box variant="awsui-key-label">License model</Box>
-                <div>{getEngineLicense(engine.engineOption)}</div>
-              </div>
-
-              {engine.engineOption === 'aurora' ? (
-                <div>
-                  <Box variant="awsui-key-label">Edition</Box>
-                  <div>{engine.edition}</div>
-                </div>
-              ) : (
-                <div>
-                  <Box variant="awsui-key-label">Use case</Box>
-                  <div>{engine.usecase}</div>
-                </div>
-              )}
-
-              {engine.engineOption !== 'aurora' ? (
-                <div>
-                  <Box variant="awsui-key-label">Version</Box>
-                  <div>{engine.version.label}</div>
-                </div>
-              ) : null}
-            </ColumnLayout>
+            <KeyValuePairs
+              columns={2}
+              items={[
+                {
+                  label: 'Engine',
+                  value: getEngineLabel(engine.engineOption),
+                },
+                {
+                  label: 'License model',
+                  value: getEngineLicense(engine.engineOption),
+                },
+                {
+                  label: engine.engineOption === 'aurora' ? 'Edition' : 'Use case',
+                  value: engine.engineOption === 'aurora' ? engine.edition : engine.usecase,
+                },
+                ...(engine.engineOption !== 'aurora'
+                  ? [
+                      {
+                        label: 'Version',
+                        value: engine.version.label,
+                      },
+                    ]
+                  : []),
+              ]}
+            />
           </Container>
         </SpaceBetween>
 
@@ -90,46 +85,49 @@ const Review = ({ info: { engine, details, advanced }, setActiveStepIndex }) => 
               }
               footer={
                 <ExpandableSection headerText="Additional options" variant="footer">
-                  <ColumnLayout columns={2} variant="text-grid">
-                    <div>
-                      <Box variant="awsui-key-label">Time zone</Box>
-                      <div>{details.timeZone.label}</div>
-                    </div>
+                  <KeyValuePairs
+                    columns={2}
+                    items={[
+                      {
+                        label: 'Time zone',
+                        value: details.timeZone.label,
+                      },
+                      {
+                        label: 'Availability zone',
+                        value: details.availabilityZone.label,
+                      },
 
-                    <div>
-                      <Box variant="awsui-key-label">Availability zone</Box>
-                      <div>{details.availabilityZone.label}</div>
-                    </div>
+                      {
+                        label: 'Database port',
+                        value: details.port,
+                      },
 
-                    <div>
-                      <Box variant="awsui-key-label">Database port</Box>
-                      <div>{details.port}</div>
-                    </div>
-
-                    <div>
-                      <Box variant="awsui-key-label">IAM DB authentication</Box>
-                      <div>{details.iamAuth}</div>
-                    </div>
-                  </ColumnLayout>
+                      {
+                        label: 'IAM DB authentication',
+                        value: details.iamAuth,
+                      },
+                    ]}
+                  />
                 </ExpandableSection>
               }
             >
-              <ColumnLayout columns={2} variant="text-grid">
-                <div>
-                  <Box variant="awsui-key-label">Class</Box>
-                  <div>{details.instanceClass.label}</div>
-                </div>
-
-                <div>
-                  <Box variant="awsui-key-label">Storage type</Box>
-                  <div>{details.storageType}</div>
-                </div>
-
-                <div>
-                  <Box variant="awsui-key-label">Allocated storage</Box>
-                  <div>{details.storage} GiB</div>
-                </div>
-              </ColumnLayout>
+              <KeyValuePairs
+                columns={2}
+                items={[
+                  {
+                    label: 'Class',
+                    value: details.instanceClass.label,
+                  },
+                  {
+                    label: 'Storage type',
+                    value: details.storageType,
+                  },
+                  {
+                    label: 'Allocated storage',
+                    value: <>{details.storage} GiB</>,
+                  },
+                ]}
+              />
             </Container>
 
             <Container
@@ -139,22 +137,23 @@ const Review = ({ info: { engine, details, advanced }, setActiveStepIndex }) => 
                 </Header>
               }
             >
-              <ColumnLayout columns={2} variant="text-grid">
-                <div>
-                  <Box variant="awsui-key-label">DB instance identifier</Box>
-                  <div>{details.identifier || 'example-instance-identifier'}</div>
-                </div>
-
-                <div>
-                  <Box variant="awsui-key-label">Primary username</Box>
-                  <div>{details.username || 'example-username'}</div>
-                </div>
-
-                <div>
-                  <Box variant="awsui-key-label">Primary password</Box>
-                  <div>example-password</div>
-                </div>
-              </ColumnLayout>
+              <KeyValuePairs
+                columns={2}
+                items={[
+                  {
+                    label: 'DB instance identifier',
+                    value: details.identifier || 'example-instance-identifier',
+                  },
+                  {
+                    label: 'Primary username',
+                    value: details.username || 'example-username',
+                  },
+                  {
+                    label: 'Primary password',
+                    value: 'example - password',
+                  },
+                ]}
+              />
             </Container>
           </SpaceBetween>
         </SpaceBetween>
@@ -179,32 +178,31 @@ const Review = ({ info: { engine, details, advanced }, setActiveStepIndex }) => 
                 </Header>
               }
             >
-              <ColumnLayout columns={2} variant="text-grid">
-                <div>
-                  <Box variant="awsui-key-label">Virtual Private Cloud (VPC)</Box>
-                  <div>{advanced.vpc.label}</div>
-                </div>
-
-                <div>
-                  <Box variant="awsui-key-label">Subnet group</Box>
-                  <div>{advanced.subnet.label}</div>
-                </div>
-
-                <div>
-                  <Box variant="awsui-key-label">VPC security groups</Box>
-                  <div>{advanced.securityGroups.label}</div>
-                </div>
-
-                <div>
-                  <Box variant="awsui-key-label">Public accessibility</Box>
-                  <div>{advanced.accessibility}</div>
-                </div>
-
-                <div>
-                  <Box variant="awsui-key-label">Encryption</Box>
-                  <div>{advanced.encryption}</div>
-                </div>
-              </ColumnLayout>
+              <KeyValuePairs
+                columns={2}
+                items={[
+                  {
+                    label: 'Virtual Private Cloud (VPC)',
+                    value: advanced.vpc.label,
+                  },
+                  {
+                    label: 'Subnet group',
+                    value: advanced.subnet.label,
+                  },
+                  {
+                    label: 'VPC security groups',
+                    value: advanced.securityGroups.label,
+                  },
+                  {
+                    label: 'Public accessibility',
+                    value: advanced.accessibility,
+                  },
+                  {
+                    label: 'Encryption',
+                    value: advanced.encryption,
+                  },
+                ]}
+              />
             </Container>
 
             <Container
@@ -215,36 +213,39 @@ const Review = ({ info: { engine, details, advanced }, setActiveStepIndex }) => 
               }
               footer={
                 <ExpandableSection headerText="Additional options" variant="footer">
-                  <ColumnLayout columns={2} variant="text-grid">
-                    <div>
-                      <Box variant="awsui-key-label">Failover priority</Box>
-                      <div>{advanced.failover.label}</div>
-                    </div>
-
-                    <div>
-                      <Box variant="awsui-key-label">Backtrack</Box>
-                      <div>{advanced.backtrack}</div>
-                    </div>
-                  </ColumnLayout>
+                  <KeyValuePairs
+                    columns={2}
+                    items={[
+                      {
+                        label: 'Failover priority',
+                        value: advanced.failover.label,
+                      },
+                      {
+                        label: 'Backtrack',
+                        value: advanced.backtrack,
+                      },
+                    ]}
+                  />
                 </ExpandableSection>
               }
             >
-              <ColumnLayout columns={2} variant="text-grid">
-                <div>
-                  <Box variant="awsui-key-label">Auto minor version upgrades</Box>
-                  <div>{advanced.upgrades}</div>
-                </div>
-
-                <div>
-                  <Box variant="awsui-key-label">Backup retention period</Box>
-                  <div>{advanced.backup.label}</div>
-                </div>
-
-                <div>
-                  <Box variant="awsui-key-label">Enhanced monitoring</Box>
-                  <div>{advanced.monitoring}</div>
-                </div>
-              </ColumnLayout>
+              <KeyValuePairs
+                columns={2}
+                items={[
+                  {
+                    label: 'Auto minor version upgrades',
+                    value: advanced.upgrades,
+                  },
+                  {
+                    label: 'Backup retention period',
+                    value: advanced.backup.label,
+                  },
+                  {
+                    label: 'Enhanced monitoring',
+                    value: advanced.monitoring,
+                  },
+                ]}
+              />
             </Container>
           </SpaceBetween>
         </SpaceBetween>
