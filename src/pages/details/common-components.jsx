@@ -16,6 +16,7 @@ import {
   TextFilter,
   Tabs,
   CopyToClipboard,
+  KeyValuePairs,
 } from '@cloudscape-design/components';
 import { CodeView } from '@cloudscape-design/code-view';
 import jsonHighlight from '@cloudscape-design/code-view/highlight/json';
@@ -70,104 +71,124 @@ export const PageHeader = ({ buttons }) => {
 
 export const GeneralConfig = () => (
   <Container header={<Header variant="h2">General configuration</Header>}>
-    <ColumnLayout columns={4} variant="text-grid">
-      <div>
-        <Box variant="awsui-key-label">Engine</Box>
-        <div>Oracle Enterprise Edition 12.1.0.2.v7</div>
-      </div>
-      <div>
-        <Box variant="awsui-key-label">DB instance class</Box>
-        <div>db.t2.large</div>
-      </div>
-      <div>
-        <Box variant="awsui-key-label">DB instance status</Box>
-        <StatusIndicator type="success">Available</StatusIndicator>
-      </div>
-      <div>
-        <Box variant="awsui-key-label">Pending maintenance</Box>
-        <div>None</div>
-      </div>
-    </ColumnLayout>
+    <KeyValuePairs
+      columns={4}
+      items={[
+        {
+          label: 'Engine',
+          value: 'Oracle Enterprise Edition 12.1.0.2.v7',
+        },
+        {
+          label: 'DB instance class',
+          value: 'db.t2.large',
+        },
+        {
+          label: 'DB instance status',
+          value: <StatusIndicator type="success">Available</StatusIndicator>,
+        },
+        {
+          label: 'Pending maintenance',
+          value: 'None',
+        },
+      ]}
+    />
   </Container>
 );
 
 export const SettingsDetails = ({ distribution = DEMO_DISTRIBUTION, isInProgress }) => (
-  <ColumnLayout columns={4} variant="text-grid">
-    <SpaceBetween size="l">
-      <div>
-        <Box variant="awsui-key-label">Distribution ID</Box>
-        <div>{distribution.id}</div>
-      </div>
-      <div>
-        <Box variant="awsui-key-label">Domain name</Box>
-        <div>{distribution.domainName}</div>
-      </div>
-      <div>
-        <Box variant="awsui-key-label">ARN</Box>
-        <CopyToClipboard
-          variant="inline"
-          textToCopy={`arn:aws:cloudfront::${distribution.domainName}/${distribution.id}`}
-          copyButtonAriaLabel="Copy ARN"
-          copySuccessText="ARN copied"
-          copyErrorText="ARN failed to copy"
-        />
-      </div>
-    </SpaceBetween>
-
-    <SpaceBetween size="l">
-      {distribution.state ? (
-        <StatusIndicator type={distribution.state === 'Deactivated' ? 'error' : 'success'}>
-          {distribution.state}
-        </StatusIndicator>
-      ) : (
-        <ProgressBar
-          value={27}
-          label="Status"
-          description={isInProgress ? 'Update in progress' : undefined}
-          variant="key-value"
-          resultText="Available"
-          status={isInProgress ? 'in-progress' : 'success'}
-        />
-      )}
-
-      <div>
-        <Box variant="awsui-key-label">Price class</Box>
-        <div>{distribution.priceClass}</div>
-      </div>
-      <div>
-        <Box variant="awsui-key-label">CNAMEs</Box>
-        <div>-</div>
-      </div>
-    </SpaceBetween>
-    <SpaceBetween size="l">
-      <div>
-        <Box variant="awsui-key-label">SSL certificate</Box>
-        <div>{distribution.sslCertificate}</div>
-      </div>
-      <div>
-        <Box variant="awsui-key-label">Custom SSL client support</Box>
-        <div>-</div>
-      </div>
-      <div>
-        <Box variant="awsui-key-label">Logging</Box>
-        <div>{distribution.logging}</div>
-      </div>
-    </SpaceBetween>
-    <SpaceBetween size="l">
-      <div>
-        <Box variant="awsui-key-label">IPv6</Box>
-        <div>Off</div>
-      </div>
-      <div>
-        <Box variant="awsui-key-label">Default root object</Box>
-        <div>-</div>
-      </div>
-      <div>
-        <Box variant="awsui-key-label">Comment</Box>
-        <div>To verify</div>
-      </div>
-    </SpaceBetween>
-  </ColumnLayout>
+  <KeyValuePairs
+    columns={4}
+    items={[
+      {
+        type: 'group',
+        items: [
+          {
+            label: 'Distribution ID',
+            value: distribution.id,
+          },
+          {
+            label: 'Domain name',
+            value: distribution.domainName,
+          },
+          {
+            label: 'ARN',
+            value: (
+              <CopyToClipboard
+                variant="inline"
+                textToCopy={`arn:aws:cloudfront::${distribution.domainName}/${distribution.id}`}
+                copyButtonAriaLabel="Copy ARN"
+                copySuccessText="ARN copied"
+                copyErrorText="ARN failed to copy"
+              />
+            ),
+          },
+        ],
+      },
+      {
+        type: 'group',
+        items: [
+          {
+            label: distribution.state ? '' : 'Status',
+            value: distribution.state ? (
+              <StatusIndicator type={distribution.state === 'Deactivated' ? 'error' : 'success'}>
+                {distribution.state}
+              </StatusIndicator>
+            ) : (
+              <ProgressBar
+                value={27}
+                description={isInProgress ? 'Update in progress' : undefined}
+                variant="key-value"
+                resultText="Available"
+                status={isInProgress ? 'in-progress' : 'success'}
+              />
+            ),
+          },
+          {
+            label: 'Price class',
+            value: distribution.priceClass,
+          },
+          {
+            label: 'CNAMEs',
+            value: '-',
+          },
+        ],
+      },
+      {
+        type: 'group',
+        items: [
+          {
+            label: 'SSL certificate',
+            value: distribution.sslCertificate,
+          },
+          {
+            label: 'Custom SSL client support',
+            value: '-',
+          },
+          {
+            label: 'Logging',
+            value: distribution.logging,
+          },
+        ],
+      },
+      {
+        type: 'group',
+        items: [
+          {
+            label: 'IPv6',
+            value: 'Off',
+          },
+          {
+            label: 'Default root object',
+            value: '-',
+          },
+          {
+            label: 'Comment',
+            value: 'To verify',
+          },
+        ],
+      },
+    ]}
+  />
 );
 
 export const EmptyTable = props => {
