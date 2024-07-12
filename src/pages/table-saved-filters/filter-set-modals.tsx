@@ -7,6 +7,7 @@ import Box from '@cloudscape-design/components/box';
 import FormField from '@cloudscape-design/components/form-field';
 import Modal from '@cloudscape-design/components/modal';
 import SpaceBetween from '@cloudscape-design/components/space-between';
+import KeyValuePairs from '@cloudscape-design/components/key-value-pairs';
 import Input, { InputProps } from '@cloudscape-design/components/input';
 import Alert from '@cloudscape-design/components/alert';
 import { FilterSet } from './use-filter-sets';
@@ -189,22 +190,26 @@ export function UpdateFilterSetModal({
         <Alert type="info" statusIconAriaLabel="Info">
           Proceeding with this action will change the saved filter set with the updated configuration.
         </Alert>
-        <div>
-          <Box variant="awsui-key-label">Filter set name</Box>
-          <div>{filterSet.name}</div>
-        </div>
-        <div>
-          <Box variant="awsui-key-label">Filter set description</Box>
-          <div>{filterSet.description ?? '-'}</div>
-        </div>
-        <div>
-          <Box variant="awsui-key-label">Current filter values</Box>
-          <div>{queryToString(filterSet.query, filteringProperties)}</div>
-        </div>
-        <div>
-          <Box variant="awsui-key-label">New filter values</Box>
-          <div>{queryToString(newQuery, filteringProperties)}</div>
-        </div>
+        <KeyValuePairs
+          items={[
+            {
+              label: 'Filter set name',
+              value: filterSet.name,
+            },
+            {
+              label: 'Filter set description',
+              value: filterSet.description ?? '-',
+            },
+            {
+              label: 'Current filter values',
+              value: queryToString(filterSet.query, filteringProperties),
+            },
+            {
+              label: 'New filter values',
+              value: queryToString(newQuery, filteringProperties),
+            },
+          ]}
+        />
       </SpaceBetween>
     </Modal>
   );
