@@ -109,43 +109,38 @@ function OperationalMetricsContent() {
           <SpaceBetween size="s">
             <KeyValuePairs
               items={[
-                {
-                  type: 'group',
-                  items: [
-                    ...(visibleContent.includes('status')
-                      ? [
-                          {
-                            label: 'Status',
-                            value: <StatusIndicator type="success">Running</StatusIndicator>,
-                          },
-                        ]
-                      : []),
-                    ...(visibleContent.includes('running')
-                      ? [
-                          {
-                            label: 'Running resources',
-                            value: '120',
-                          },
-                        ]
-                      : []),
-                    ...(visibleContent.includes('monitoring')
-                      ? [
-                          {
-                            label: 'Monitoring',
-                            value: 'Enabled',
-                          },
-                        ]
-                      : []),
-                    ...(visibleContent.includes('issues')
-                      ? [
-                          {
-                            label: 'Open issues',
-                            value: '0',
-                          },
-                        ]
-                      : []),
-                  ],
-                },
+                ...(visibleContent.includes('status')
+                  ? [
+                      {
+                        label: 'Status',
+                        value: <StatusIndicator type="success">Running</StatusIndicator>,
+                      },
+                    ]
+                  : []),
+                ...(visibleContent.includes('running')
+                  ? [
+                      {
+                        label: 'Running resources',
+                        value: '120',
+                      },
+                    ]
+                  : []),
+                ...(visibleContent.includes('monitoring')
+                  ? [
+                      {
+                        label: 'Monitoring',
+                        value: 'Enabled',
+                      },
+                    ]
+                  : []),
+                ...(visibleContent.includes('issues')
+                  ? [
+                      {
+                        label: 'Open issues',
+                        value: '0',
+                      },
+                    ]
+                  : []),
               ]}
             />
           </SpaceBetween>
