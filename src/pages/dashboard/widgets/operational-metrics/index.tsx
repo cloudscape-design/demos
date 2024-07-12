@@ -7,7 +7,6 @@ import KeyValuePairs from '@cloudscape-design/components/key-value-pairs';
 import { WidgetConfig } from '../interfaces';
 import Select from '@cloudscape-design/components/select';
 import FormField from '@cloudscape-design/components/form-field';
-import Box from '@cloudscape-design/components/box';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import StatusIndicator from '@cloudscape-design/components/status-indicator';
 import { BreakdownChart } from './chart';
