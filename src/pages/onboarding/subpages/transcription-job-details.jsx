@@ -6,23 +6,16 @@ import {
   Button,
   Box,
   Container,
-  ColumnLayout,
   Hotspot,
   Header,
   Link,
   StatusIndicator,
   SpaceBetween,
+  KeyValuePairs,
 } from '@cloudscape-design/components';
 import { ExternalLink } from '../../commons';
 import { CustomAppLayout } from '../layout';
 import { useStore } from '../store';
-
-const ValueWithLabel = ({ label, children }) => (
-  <div>
-    <Box variant="awsui-key-label">{label}</Box>
-    <div>{children}</div>
-  </div>
-);
 
 export const TranscriptionJobDetailsPage = () => {
   const {
@@ -59,55 +52,81 @@ export const TranscriptionJobDetailsPage = () => {
           </Header>
           <SpaceBetween size="xl">
             <Container header={<Header>Job settings</Header>}>
-              <ColumnLayout columns={4} variant="text-grid">
-                <SpaceBetween size="l">
-                  <ValueWithLabel label="Name">MyTranscriptionJob</ValueWithLabel>
-                  <ValueWithLabel label="Status">
-                    <StatusIndicator>Complete</StatusIndicator>
-                  </ValueWithLabel>
-                  <ValueWithLabel label="Language">English, US (en-US)</ValueWithLabel>
-
-                  <ValueWithLabel label="Language settings">Specific language</ValueWithLabel>
-
-                  <ValueWithLabel
-                    label={
-                      <>
-                        Expiration{' '}
-                        <Link variant="info" onFollow={makeHelpPanelHandler('expiration')}>
-                          Info
-                        </Link>
-                      </>
-                    }
-                  >
-                    The transcription is available for 88 more days.
-                  </ValueWithLabel>
-                </SpaceBetween>
-                <SpaceBetween size="l">
-                  <ValueWithLabel label="Model">None</ValueWithLabel>
-                  <ValueWithLabel label="Created">11/12/2020, 11:25:44 AM</ValueWithLabel>
-                  <ValueWithLabel label="Started">11/12/2020, 11:25:44 AM</ValueWithLabel>
-                  <ValueWithLabel label="Ended">11/12/2020, 11:26:39 AM</ValueWithLabel>
-                  <ValueWithLabel label="Input file format">mp3</ValueWithLabel>
-                  <ValueWithLabel label="Audio sampling rate">44100 Hz</ValueWithLabel>
-                </SpaceBetween>
-                <SpaceBetween size="l">
-                  <ValueWithLabel label="Audio identification">Deactivated</ValueWithLabel>
-                  <ValueWithLabel label="Alternative results">Deactivated</ValueWithLabel>
-                  <ValueWithLabel label="Custom vocabulary">None</ValueWithLabel>
-                  <ValueWithLabel label="Automatic content redaction">None</ValueWithLabel>
-                  <ValueWithLabel label="Vocabulary filter">-</ValueWithLabel>
-                </SpaceBetween>
-                <SpaceBetween size="l">
-                  <ValueWithLabel label="Input data location">
-                    <ExternalLink variant="primary">
-                      <span style={{ wordBreak: 'break-all' }}>
-                        s3://audiofile001001001/transcribe-sample.5fc2109bb28268d10fbc677e64b7e59256783d3c.mp3
-                      </span>
-                    </ExternalLink>
-                  </ValueWithLabel>
-                  <ValueWithLabel label="Output data location">Service-managed S3 bucket</ValueWithLabel>
-                </SpaceBetween>
-              </ColumnLayout>
+              <KeyValuePairs
+                columns={4}
+                items={[
+                  {
+                    type: 'group',
+                    items: [
+                      {
+                        label: 'Name',
+                        value: 'MyTranscriptionJob',
+                      },
+                      {
+                        label: 'Status',
+                        value: <StatusIndicator>Complete</StatusIndicator>,
+                      },
+                      {
+                        label: 'Language',
+                        value: 'English, US (en-US)',
+                      },
+                      {
+                        label: 'Language settings',
+                        value: 'Specific language',
+                      },
+                      {
+                        label: 'Expiration',
+                        info: (
+                          <Link variant="info" onFollow={makeHelpPanelHandler('expiration')}>
+                            Info
+                          </Link>
+                        ),
+                        value: 'The transcription is available for 88 more days.',
+                      },
+                    ],
+                  },
+                  {
+                    type: 'group',
+                    items: [
+                      { label: 'Model', value: 'None' },
+                      { label: 'Created', value: '11/12/2020, 11:25:44 AM' },
+                      { label: 'Started', value: '11/12/2020, 11:25:44 AM' },
+                      { label: 'Ended', value: '11/12/2020, 11:26:39 AM' },
+                      { label: 'Input file format', value: 'mp3' },
+                      { label: 'Audio sampling rate', value: '44100 Hz' },
+                    ],
+                  },
+                  {
+                    type: 'group',
+                    items: [
+                      { label: 'Audio identification', value: 'Deactivated' },
+                      { label: 'Alternative results', value: 'Deactivated' },
+                      { label: 'Custom vocabulary', value: 'None' },
+                      { label: 'Automatic content redaction', value: 'None' },
+                      { label: 'Vocabulary filter', value: '-' },
+                    ],
+                  },
+                  {
+                    type: 'group',
+                    items: [
+                      {
+                        label: 'Input data location',
+                        value: (
+                          <ExternalLink variant="primary">
+                            <span style={{ wordBreak: 'break-all' }}>
+                              s3://audiofile001001001/transcribe-sample.5fc2109bb28268d10fbc677e64b7e59256783d3c.mp3
+                            </span>
+                          </ExternalLink>
+                        ),
+                      },
+                      {
+                        label: 'Output data location',
+                        value: 'Service-managed S3 bucket',
+                      },
+                    ],
+                  },
+                ]}
+              />
             </Container>
             <Container
               header={
