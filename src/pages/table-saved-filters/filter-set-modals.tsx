@@ -267,18 +267,22 @@ export function DeleteFilterSetModal({
         <Alert type="info" statusIconAriaLabel="Info">
           Proceeding with this action will delete the saved filter set with the updated configuration.
         </Alert>
-        <div>
-          <Box variant="awsui-key-label">Filter set name</Box>
-          <div>{filterSet.name}</div>
-        </div>
-        <div>
-          <Box variant="awsui-key-label">Filter set description</Box>
-          <div>{filterSet.description ?? '-'}</div>
-        </div>
-        <div>
-          <Box variant="awsui-key-label">Filter values</Box>
-          <div>{queryToString(filterSet.query, filteringProperties)}</div>
-        </div>
+        <KeyValuePairs
+          items={[
+            {
+              label: 'Filter set name',
+              value: filterSet.name,
+            },
+            {
+              label: 'Filter set description',
+              value: filterSet.description ?? '-',
+            },
+            {
+              label: 'Filter values',
+              value: queryToString(filterSet.query, filteringProperties),
+            },
+          ]}
+        />
       </SpaceBetween>
     </Modal>
   );
