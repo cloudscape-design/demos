@@ -6,7 +6,7 @@ import Button from '@cloudscape-design/components/button';
 import { WidgetConfig } from '../interfaces';
 import Select from '@cloudscape-design/components/select';
 import FormField from '@cloudscape-design/components/form-field';
-import Box from '@cloudscape-design/components/box';
+import KeyValuePairs from '@cloudscape-design/components/key-value-pairs';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import StatusIndicator from '@cloudscape-design/components/status-indicator';
 import { BreakdownChart } from './chart';
@@ -106,30 +106,42 @@ function OperationalMetricsContent() {
       {someCostVisible && (
         <ResponsiveLayout.Column header={<Header variant="h3">Overview</Header>}>
           <SpaceBetween size="s">
-            {visibleContent.includes('status') && (
-              <div>
-                <Box variant="awsui-key-label">Status</Box>
-                <StatusIndicator type="success">Running</StatusIndicator>
-              </div>
-            )}
-            {visibleContent.includes('running') && (
-              <div>
-                <Box variant="awsui-key-label">Running resources</Box>
-                <div>120</div>
-              </div>
-            )}
-            {visibleContent.includes('monitoring') && (
-              <div>
-                <Box variant="awsui-key-label">Monitoring</Box>
-                <div>Enabled</div>
-              </div>
-            )}
-            {visibleContent.includes('issues') && (
-              <div>
-                <Box variant="awsui-key-label">Open issues</Box>
-                <div>0</div>
-              </div>
-            )}
+            <KeyValuePairs
+              items={[
+                ...(visibleContent.includes('status')
+                  ? [
+                      {
+                        label: 'Status',
+                        value: <StatusIndicator type="success">Running</StatusIndicator>,
+                      },
+                    ]
+                  : []),
+                ...(visibleContent.includes('running')
+                  ? [
+                      {
+                        label: 'Running resources',
+                        value: '120',
+                      },
+                    ]
+                  : []),
+                ...(visibleContent.includes('monitoring')
+                  ? [
+                      {
+                        label: 'Monitoring',
+                        value: 'Enabled',
+                      },
+                    ]
+                  : []),
+                ...(visibleContent.includes('issues')
+                  ? [
+                      {
+                        label: 'Open issues',
+                        value: '0',
+                      },
+                    ]
+                  : []),
+              ]}
+            />
           </SpaceBetween>
         </ResponsiveLayout.Column>
       )}

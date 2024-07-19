@@ -16,6 +16,7 @@ import {
   Link,
   Modal,
   SpaceBetween,
+  KeyValuePairs,
 } from '@cloudscape-design/components';
 import { Navigation } from '../commons/common-components';
 import { CustomAppLayout } from '../commons/common-components';
@@ -152,32 +153,31 @@ function InstanceDetailsPage({ instance, onDeleteInit, notifications }) {
             {instance.id}
           </Header>
           <Container header={<Header variant="h2">Instance details</Header>}>
-            <ColumnLayout columns={4} variant="text-grid">
-              <SpaceBetween size="l">
-                <div>
-                  <Box variant="awsui-key-label">Instance ID</Box>
-                  <div>{instance.id}</div>
-                </div>
-                <div>
-                  <Box variant="awsui-key-label">Instance type</Box>
-                  <div>{instance.type}</div>
-                </div>
-              </SpaceBetween>
-              <div>
-                <Box variant="awsui-key-label">Public DNS</Box>
-                <div>{instance.publicDns}</div>
-              </div>
-              <div>
-                <Box variant="awsui-key-label">Monitoring</Box>
-                <div>{instance.monitoring}</div>
-              </div>
-              <div>
-                <Box variant="awsui-key-label">Instance state</Box>
-                <div>
-                  <ItemState state={instance.state} />
-                </div>
-              </div>
-            </ColumnLayout>
+            <KeyValuePairs
+              columns={4}
+              items={[
+                {
+                  label: 'Instance ID',
+                  value: instance.id,
+                },
+                {
+                  label: 'Public DNS',
+                  value: instance.publicDns,
+                },
+                {
+                  label: 'Monitoring',
+                  value: instance.monitoring,
+                },
+                {
+                  label: 'Instance state',
+                  value: <ItemState state={instance.state} />,
+                },
+                {
+                  label: 'Instance type',
+                  value: instance.type,
+                },
+              ]}
+            />
           </Container>
         </SpaceBetween>
       }
