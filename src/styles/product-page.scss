@@ -43,7 +43,7 @@ body {
 
 .product-page-aside-sticky {
   position: sticky;
-  top: 40px;
+  inset-block-start: 40px;
 }
 
 @media only screen and (max-width: $viewport-breakpoint-s) {
@@ -64,8 +64,8 @@ body {
 
 /* Simple separator */
 hr {
-  width: 100%;
-  height: 0;
+  inline-size: 100%;
+  block-size: 0;
   border: none;
   border-block-start: 1px solid cs.$color-border-divider-default;
 }
@@ -117,7 +117,7 @@ hr {
 .product-cards-list-item {
   flex: 1;
   flex-basis: 250px;
-  max-width: 312px;
+  max-inline-size: 312px;
 
   list-style-type: none;
   margin: 0;

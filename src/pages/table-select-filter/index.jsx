@@ -182,34 +182,32 @@ function TableSelectFilter({ loadHelpPanelContent }) {
             />
           </div>
           <div className="select-filter">
-            <FormField label="Filter engine">
-              <Select
-                data-testid="engine-filter"
-                options={selectEngineOptions}
-                selectedAriaLabel="Selected"
-                selectedOption={engine}
-                onChange={event => {
-                  setEngine(event.detail.selectedOption);
-                }}
-                ariaDescribedby={null}
-                expandToViewport={true}
-              />
-            </FormField>
+            <Select
+              data-testid="engine-filter"
+              inlineLabelText="Filter engine"
+              options={selectEngineOptions}
+              selectedAriaLabel="Selected"
+              selectedOption={engine}
+              onChange={event => {
+                setEngine(event.detail.selectedOption);
+              }}
+              ariaDescribedby={null}
+              expandToViewport={true}
+            />
           </div>
           <div className="select-filter">
-            <FormField label="Filter class">
-              <Select
-                data-testid="class-filter"
-                options={selectClassOptions}
-                selectedAriaLabel="Selected"
-                selectedOption={instanceClass}
-                onChange={event => {
-                  setInstanceClass(event.detail.selectedOption);
-                }}
-                ariaDescribedby={null}
-                expandToViewport={true}
-              />
-            </FormField>
+            <Select
+              inlineLabelText="Filter class"
+              data-testid="class-filter"
+              options={selectClassOptions}
+              selectedAriaLabel="Selected"
+              selectedOption={instanceClass}
+              onChange={event => {
+                setInstanceClass(event.detail.selectedOption);
+              }}
+              ariaDescribedby={null}
+              expandToViewport={true}
+            />
           </div>
           <div aria-live="polite">
             {(filterProps.filteringText || engine !== defaultEngine || instanceClass !== defaultClass) && (

@@ -2,10 +2,19 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Alert, Button, Container, Form, Header, SpaceBetween, TagEditor } from '@cloudscape-design/components';
+import {
+  Alert,
+  BreadcrumbGroup,
+  Button,
+  Container,
+  Form,
+  Header,
+  SpaceBetween,
+  TagEditor,
+} from '@cloudscape-design/components';
 import { Navigation, Notifications } from '../commons/common-components';
 import { CustomAppLayout } from '../commons/common-components';
-import { Breadcrumbs } from '../details/common-components';
+import { resourceManageTagsBreadcrumbs } from '../../common/breadcrumbs';
 
 import '../../styles/base.scss';
 
@@ -108,7 +117,9 @@ function App() {
           </form>
         </SpaceBetween>
       }
-      breadcrumbs={<Breadcrumbs />}
+      breadcrumbs={
+        <BreadcrumbGroup items={resourceManageTagsBreadcrumbs} expandAriaLabel="Show path" ariaLabel="Breadcrumbs" />
+      }
       navigation={<Navigation activeHref="#/distributions" />}
       toolsHide={true}
       notifications={<Notifications />}

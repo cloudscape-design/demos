@@ -184,7 +184,7 @@ export const Breadcrumbs = () => (
     ariaLabel="Breadcrumbs"
     items={[
       { text: 'Service', href: '#/ec2' },
-      { text: 'Instance', href: '#/ec2/instance' },
+      { text: 'Instances', href: '#/ec2/instances' },
     ]}
   />
 );
