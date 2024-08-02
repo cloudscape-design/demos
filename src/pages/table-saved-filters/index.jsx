@@ -171,9 +171,12 @@ function App() {
                 countText={getTextFilterCounterText(filteredItemsCount)}
                 expandToViewport={true}
                 customControl={
-                  <FormField label="Saved filter sets">
-                    {<Select {...selectProps} data-testid="saved-filters" ref={selectRef} />}
-                  </FormField>
+                  <Select
+                    {...selectProps}
+                    inlineLabelText="Saved filter sets"
+                    data-testid="saved-filters"
+                    ref={selectRef}
+                  />
                 }
                 customFilterActions={<ButtonDropdown {...buttonDropdownProps} data-testid="filter-actions" />}
               />

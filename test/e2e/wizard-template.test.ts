@@ -16,7 +16,7 @@ describe('Wizard', () => {
   test(
     'The initial state is correct',
     setupTest(async page => {
-      await expect(page.countBreadcrumbs()).resolves.toBe(2);
+      await expect(page.countBreadcrumbs()).resolves.toBe(3);
       await expect(page.isNavigationOpen()).resolves.toBe(false);
       await expect(page.isToolsOpen()).resolves.toBe(false);
       await expect(page.countSteps()).resolves.toBe(4);
@@ -31,7 +31,7 @@ describe('Wizard', () => {
     'Active navigation item is correct',
     setupTest(async page => {
       await page.openSideNavigation();
-      await expect(page.getActiveNavigationLinkText()).resolves.toBe('Dashboard');
+      await expect(page.getActiveNavigationLinkText()).resolves.toBe('Instances');
     })
   );
 

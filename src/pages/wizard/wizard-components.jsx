@@ -10,6 +10,7 @@ export const Breadcrumbs = () => (
     ariaLabel="Breadcrumbs"
     items={[
       { text: 'Service', href: '#/rds' },
+      { text: 'Instances', href: '#/instances' },
       { text: 'Launch DB instance', href: '#/launch' },
     ]}
     onFollow={onFollowHandler.bind(this)}
@@ -45,7 +46,7 @@ export const Navigation = () => (
   <SideNavigation
     header={{ text: 'Service', href: '#/home' }}
     items={navigationItems}
-    activeHref="#/dashboard"
+    activeHref="#/instances"
     onFollow={onFollowHandler.bind(this)}
   />
 );
