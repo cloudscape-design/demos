@@ -76,6 +76,9 @@ function App() {
             visible={modalVisible}
             header="Leave page"
             closeAriaLabel="Close modal"
+            onDismiss={() => {
+              setModalVisible(false);
+            }}
             footer={
               <Box float="right">
                 <SpaceBetween direction="horizontal" size="xs">

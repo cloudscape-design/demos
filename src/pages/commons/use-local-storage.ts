@@ -1,15 +1,26 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import { useState } from 'react';
-import { load, save } from '../../common/localStorage';
+import { useCallback, useState } from 'react';
+import { load, remove, save } from '../../common/localStorage';
 
 export function useLocalStorage<T>(key: string, defaultValue?: T) {
   const [value, setValue] = useState<T>(() => load(key) ?? defaultValue);
 
-  function handleValueChange(newValue: T) {
-    setValue(newValue);
-    save(key, newValue);
-  }
+  const handleValueChange = useCallback(
+    (newValue: T) => {
+      setValue(newValue);
+      save(key, newValue);
+    },
+    [key]
+  );
 
-  return [value, handleValueChange] as const;
+  const handleValueReset = useCallback(
+    (newValue: T) => {
+      setValue(newValue);
+      remove(key);
+    },
+    [key]
+  );
+
+  return [value, handleValueChange, handleValueReset] as const;
 }
