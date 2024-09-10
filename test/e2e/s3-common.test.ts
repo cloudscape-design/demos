@@ -20,11 +20,19 @@ import S3PageObject from './page/s3-page-object';
       setupTest(async page => {
         await expect(page.getErrorText()).resolves.toEqual(null);
         await expect(page.getViewHref()).resolves.toEqual(null);
+
         await page.setUriInputValue('not-a-uri');
+        // click somewhere to blur the input and trigger validation
+        await page.click(createWrapper().findHeader().toSelector());
         await expect(page.getErrorText()).resolves.toContain('The path must begin with s3://');
         await expect(page.getViewHref()).resolves.toEqual(null);
-        await page.setUriInputValue(['Escape']); // clear the input first
+
+        // clear the input first
+        await page.setUriInputValue('');
+        await page.keys(['Escape']);
         await page.setUriInputValue('s3://bucket-enim/neutrino-8ms.sim');
+        // click somewhere to blur the input and trigger validation
+        await page.click(createWrapper().findHeader().toSelector());
         await expect(page.getErrorText()).resolves.toEqual(null);
         await expect(page.getViewHref()).resolves.toEqual('https://amazons3.demo.s3-resource-selector/test/1');
       })

@@ -73,7 +73,8 @@ export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject)
       'Allows free-text filtering',
       setupTest(async page => {
         await page.focusFilter();
-        await page.search(['bbb', 'Enter']);
+        await page.search('bbb');
+        await page.keys(['Enter']);
         await expect(page.getFilterText()).resolves.toBe('');
         await expect(page.countTokens()).resolves.toBe(1);
       })

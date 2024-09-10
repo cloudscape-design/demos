@@ -22,10 +22,8 @@ export default class S3PageObject extends BaseExamplePage {
     return this.getOptionalText(wrapper.findFormField().findError().toSelector());
   }
 
-  async setUriInputValue(value: string | string[]) {
+  async setUriInputValue(value: string) {
     await this.setValue(s3ResourceSelector.findInContext().findUriInput().findNativeInput().toSelector(), value);
-    // click somewhere to blur the input and trigger validation
-    await this.click(wrapper.findHeader().toSelector());
   }
 
   getUriInputValue() {
