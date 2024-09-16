@@ -50,7 +50,8 @@ describe('Table - Saved Filters', () => {
 
       // Add a new free text filter
       await page.focusFilter();
-      await page.search(['bbb', 'Enter']);
+      await page.search('bbb');
+      await page.keys(['Enter']);
 
       await expect(page.countTokens()).resolves.toBe(3);
       await expect(page.getSelectedFilterSet()).resolves.toBe('Active web distributions (unsaved)');
@@ -66,7 +67,8 @@ describe('Table - Saved Filters', () => {
 
       // Add a new free text filter
       await page.focusFilter();
-      await page.search(['bbb', 'Enter']);
+      await page.search('bbb');
+      await page.keys(['Enter']);
 
       await expect(page.countTokens()).resolves.toBe(2);
       await expect(page.getSelectedFilterSet()).resolves.toBe('Distributions with buckets (unsaved)');
@@ -88,7 +90,8 @@ describe('Table - Saved Filters', () => {
 
       // Add a new free text filter
       await page.focusFilter();
-      await page.search(['bbb', 'Enter']);
+      await page.search('bbb');
+      await page.keys(['Enter']);
 
       // Save as new filter
       await page.openSaveFilterModal();
@@ -109,7 +112,8 @@ describe('Table - Saved Filters', () => {
 
       // Add a new free text filter
       await page.focusFilter();
-      await page.search(['bbb', 'Enter']);
+      await page.search('bbb');
+      await page.keys(['Enter']);
 
       await expect(page.getSelectedFilterSet()).resolves.toBe('Active web distributions (unsaved)');
 

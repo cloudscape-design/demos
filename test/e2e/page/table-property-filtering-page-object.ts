@@ -31,7 +31,7 @@ export default class TablePropertyFilteringPageObject extends TablePageObject {
     await this.waitUntilLoaded();
   }
 
-  async search(text: string | string[]) {
+  async search(text: string) {
     await this.setValue(filterInput, text);
     await this.waitUntilPropertyFilterLoaded();
   }
