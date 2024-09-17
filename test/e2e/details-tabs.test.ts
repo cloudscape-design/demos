@@ -49,6 +49,6 @@ class TagsTab extends BaseExamplePage {
 
   async getTableRows() {
     const elements = await this.browser.$$(tagsTableRowSelector);
-    return Promise.all(elements.map((el, index) => this.getTableRow(index + 1)));
+    return Promise.all(Array.from(elements).map((el, index) => this.getTableRow(index + 1)));
   }
 }
