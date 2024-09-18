@@ -5,7 +5,6 @@ import Calendar from '@cloudscape-design/components/calendar';
 import DateInput from '@cloudscape-design/components/date-input';
 import FormField from '@cloudscape-design/components/form-field';
 import TimeInput from '@cloudscape-design/components/time-input';
-import SpaceBetween from '@cloudscape-design/components/space-between';
 import DatePicker from '@cloudscape-design/components/date-picker';
 
 export function DateTimeForm({ filter, operator, value, onChange }) {
@@ -61,11 +60,11 @@ export function DateTimeForm({ filter, operator, value, onChange }) {
   if (typeof filter !== 'undefined') {
     return (
       <div className="date-time-form">
-        <FormField description="Date" constraintText="Use YYYY/MM/DD format.">
+        <FormField description="Date">
           <DateInput {...dateInputProps} />
         </FormField>
 
-        <FormField description="Time" constraintText="Use 24-hour format.">
+        <FormField description="Time">
           <TimeInput {...timeInputProps} />
         </FormField>
 
@@ -75,15 +74,15 @@ export function DateTimeForm({ filter, operator, value, onChange }) {
   }
 
   return (
-    <SpaceBetween direction="vertical" size="m">
-      <FormField description="Date" constraintText="Use YYYY/MM/DD format.">
+    <div className="date-time-form">
+      <FormField description="Date">
         <DatePicker {...dateInputProps} {...calendarProps} />
       </FormField>
 
-      <FormField description="Time" constraintText="Use 24-hour format.">
+      <FormField description="Time">
         <TimeInput {...timeInputProps} />
       </FormField>
-    </SpaceBetween>
+    </div>
   );
 }
 
