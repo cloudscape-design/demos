@@ -61,9 +61,9 @@ function filterItemsByProperty(options) {
   const filteringFunction = function (item, tokens, operation) {
     function filterWithToken(include, opFn, tokenOrGroup) {
       if ('operation' in tokenOrGroup) {
-        opFn = operationFn(tokenOrGroup.operation);
+        const nextOpFn = operationFn(tokenOrGroup.operation);
         return tokenOrGroup.tokens.reduce(
-          (include, token) => filterWithToken(include, opFn, token),
+          (include, token) => filterWithToken(include, nextOpFn, token),
           operation === 'and'
         );
       }
