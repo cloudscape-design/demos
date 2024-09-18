@@ -48,7 +48,7 @@ function ServerSidePropertyFilterTable({ columnDefinitions, saveWidths, loadHelp
       sortingDescending,
     },
     filtering: {
-      filteringTokens: filteringQuery.tokens,
+      filteringTokens: filteringQuery.tokenGroups ?? filteringQuery.tokens,
       filteringOperation: filteringQuery.operation,
     },
   };
@@ -119,6 +119,7 @@ function ServerSidePropertyFilterTable({ columnDefinitions, saveWidths, loadHelp
           customGroupsText={[{ group: 'tags', properties: 'Tags', values: 'Tags values' }]}
           countText={getTextFilterCounterServerSideText(items, pagesCount, pageSize)}
           expandToViewport={true}
+          enableTokenGroups={true}
         />
       }
       pagination={

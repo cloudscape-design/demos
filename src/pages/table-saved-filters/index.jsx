@@ -3,15 +3,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { useCollection } from '@cloudscape-design/collection-hooks';
-import {
-  ButtonDropdown,
-  FormField,
-  Flashbar,
-  Pagination,
-  PropertyFilter,
-  Select,
-  Table,
-} from '@cloudscape-design/components';
+import { ButtonDropdown, Flashbar, Pagination, PropertyFilter, Select, Table } from '@cloudscape-design/components';
 import { FILTERING_PROPERTIES } from '../table-property-filter/table-property-filter-config';
 import { COLUMN_DEFINITIONS, DEFAULT_PREFERENCES } from '../commons/table-config';
 import { useDisclaimerFlashbarItem } from '../commons/disclaimer-flashbar-item';
@@ -48,6 +40,23 @@ const defaultFilterSets = [
     query: {
       operation: 'and',
       tokens: [{ propertyKey: 'origin', operator: ':', value: 'BUCKET' }],
+    },
+  },
+  {
+    name: 'Best performance in buckets 1,2',
+    query: {
+      operation: 'and',
+      tokenGroups: [
+        {
+          operation: 'or',
+          tokens: [
+            { propertyKey: 'origin', operator: '=', value: 'EXAMPLE-BUCKET-1.s3.amazon' },
+            { propertyKey: 'origin', operator: '=', value: 'EXAMPLE-BUCKET-2.s3.amazon' },
+          ],
+        },
+        { propertyKey: 'priceClass', operator: '=', value: 'Use all edge locations (best performance)' },
+      ],
+      tokens: [],
     },
   },
 ];
@@ -170,6 +179,7 @@ function App() {
                 i18nStrings={propertyFilterI18nStrings}
                 countText={getTextFilterCounterText(filteredItemsCount)}
                 expandToViewport={true}
+                enableTokenGroups={true}
                 customControl={
                   <Select
                     {...selectProps}

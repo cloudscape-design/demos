@@ -59,16 +59,26 @@ function filterItemsByProperty(options) {
   };
 
   const filteringFunction = function (item, tokens, operation) {
+    function filterWithToken(include, opFn, tokenOrGroup) {
+      if ('operation' in tokenOrGroup) {
+        opFn = operationFn(tokenOrGroup.operation);
+        return tokenOrGroup.tokens.reduce(
+          (include, token) => filterWithToken(include, opFn, token),
+          operation === 'and'
+        );
+      }
+      if ('operator' in tokenOrGroup) {
+        const comparator = getComparatorForOperator(tokenOrGroup.operator);
+        const searchableProps = tokenOrGroup.propertyKey ? [tokenOrGroup.propertyKey] : Object.keys(item);
+        return searchableProps.some(propertyKey => {
+          const matched = match(propertyKey, tokenOrGroup.value, item, comparator);
+          return opFn(include, matched);
+        });
+      }
+      throw new Error('Invariant violation: unexpected token shape.');
+    }
     const opFn = operationFn(operation);
-    return tokens.reduce((include, token) => {
-      const comparator = getComparatorForOperator(token.operator);
-      const searchableProps = token.propertyKey ? [token.propertyKey] : Object.keys(item);
-
-      return searchableProps.some(propertyKey => {
-        const matched = match(propertyKey, token.value, item, comparator);
-        return opFn(include, matched);
-      });
-    }, operation === 'and');
+    return tokens.reduce((include, token) => filterWithToken(include, opFn, token), operation === 'and');
   };
 
   return items.filter(item => filteringFunction(item, options.filteringTokens, options.filteringOperation));

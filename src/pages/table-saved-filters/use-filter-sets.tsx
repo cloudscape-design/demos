@@ -6,6 +6,7 @@ import { ButtonDropdownProps } from '@cloudscape-design/components/button-dropdo
 import { SelectProps } from '@cloudscape-design/components/select';
 import { DeleteFilterSetModal, SaveFilterSetModal, UpdateFilterSetModal } from './filter-set-modals';
 import { FlashbarProps } from '@cloudscape-design/components/flashbar';
+import { isEqual } from 'lodash';
 
 export interface FilterSet {
   name: string;
@@ -34,18 +35,12 @@ export interface UseFilterSetsResult {
 
 type FilterAction = 'update' | 'new' | 'delete';
 
+function isQueryEmpty(query: PropertyFilterProps.Query) {
+  return (!query.tokenGroups || query.tokenGroups.length === 0) && query.tokens.length === 0;
+}
+
 function isQueryEqual(queryA: PropertyFilterProps.Query, queryB: PropertyFilterProps.Query) {
-  return (
-    queryA.operation === queryB.operation &&
-    queryA.tokens.length === queryB.tokens.length &&
-    queryA.tokens.every((_, i) => {
-      return (
-        queryA.tokens[i].operator === queryB.tokens[i].operator &&
-        queryA.tokens[i].value === queryB.tokens[i].value &&
-        queryA.tokens[i].propertyKey === queryB.tokens[i].propertyKey
-      );
-    })
-  );
+  return isEqual(queryA, queryB);
 }
 
 export function useFilterSets({
@@ -89,10 +84,10 @@ export function useFilterSets({
     : filterSetOptions.find(({ value }) => value === selectedFilterSetValue) ?? null;
 
   useEffect(() => {
-    const hasFilters = query.tokens.length > 0;
+    const hasFilters = !isQueryEmpty(query);
 
     // Reset everything if there are no filters
-    if (query.tokens.length === 0) {
+    if (!hasFilters) {
       setHasUnsavedChanges(false);
       setCurrentFilterSet(null);
       setSelectedFilterSetValue(null);
