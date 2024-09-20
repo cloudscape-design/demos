@@ -6,7 +6,7 @@ import { ButtonDropdownProps } from '@cloudscape-design/components/button-dropdo
 import { SelectProps } from '@cloudscape-design/components/select';
 import { DeleteFilterSetModal, SaveFilterSetModal, UpdateFilterSetModal } from './filter-set-modals';
 import { FlashbarProps } from '@cloudscape-design/components/flashbar';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 
 export interface FilterSet {
   name: string;
