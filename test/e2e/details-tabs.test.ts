@@ -3,6 +3,7 @@
 import useBrowser from '@cloudscape-design/browser-test-tools/use-browser';
 import createWrapper from '@cloudscape-design/components/test-utils/selectors';
 import BaseExamplePage from './common/base-example-page';
+import range from 'lodash/range';
 
 const setupTagsTest = (testFn: (page: TagsTab) => Promise<void>) => {
   return useBrowser(async browser => {
@@ -48,7 +49,7 @@ class TagsTab extends BaseExamplePage {
   }
 
   async getTableRows() {
-    const elements = await this.browser.$$(tagsTableRowSelector);
-    return Promise.all(Array.from(elements).map((el, index) => this.getTableRow(index + 1)));
+    const totalTags = await this.getElementsCount(tagsTableRowSelector);
+    return Promise.all(range(0, totalTags).map(index => this.getTableRow(index + 1)));
   }
 }

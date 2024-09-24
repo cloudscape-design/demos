@@ -16,32 +16,39 @@ function queryToString(
   query: PropertyFilterProps.Query,
   filteringProperties?: readonly PropertyFilterProps.FilteringProperty[]
 ): string {
-  return query.tokens
-    .map(({ operator, value, propertyKey }) => {
-      if (propertyKey) {
-        const property = filteringProperties?.find(({ key }) => key === propertyKey);
-        const keyLabel = property?.propertyLabel ?? propertyKey;
+  function tokenToString({ operator, value, propertyKey }: PropertyFilterProps.Token): string {
+    if (propertyKey) {
+      const property = filteringProperties?.find(({ key }) => key === propertyKey);
+      const keyLabel = property?.propertyLabel ?? propertyKey;
 
-        let valueLabel = value;
+      let valueLabel = value;
 
-        // See if there is a custom value formatter defined for this property and operator
-        if (property && property.operators) {
-          property.operators.forEach(propertyOperator => {
-            if (
-              typeof propertyOperator !== 'string' &&
-              propertyOperator.operator === operator &&
-              propertyOperator.format
-            ) {
-              valueLabel = propertyOperator.format(value);
-            }
-          });
-        }
-
-        return `${keyLabel} ${operator} ${valueLabel}`;
+      // See if there is a custom value formatter defined for this property and operator
+      if (property && property.operators) {
+        property.operators.forEach(propertyOperator => {
+          if (
+            typeof propertyOperator !== 'string' &&
+            propertyOperator.operator === operator &&
+            propertyOperator.format
+          ) {
+            valueLabel = propertyOperator.format(value);
+          }
+        });
       }
-      return value;
-    })
-    .join(`, ${query.operation} `);
+      return `${keyLabel} ${operator} ${valueLabel}`;
+    }
+    return operator === ':' ? value : `${operator} ${value}`;
+  }
+
+  function tokenOrGroupToString(tokenOrGroup: PropertyFilterProps.TokenGroup | PropertyFilterProps.Token): string {
+    if ('operation' in tokenOrGroup) {
+      return '(' + tokenOrGroup.tokens.map(tokenOrGroupToString).join(`, ${tokenOrGroup.operation} `) + ')';
+    } else {
+      return tokenToString(tokenOrGroup);
+    }
+  }
+
+  return (query.tokenGroups || query.tokens).map(tokenOrGroupToString).join(`, ${query.operation} `);
 }
 
 export function SaveFilterSetModal({
