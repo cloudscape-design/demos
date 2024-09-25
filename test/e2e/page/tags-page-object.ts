@@ -52,8 +52,8 @@ export default class PageObject extends BaseExamplePage {
   }
 
   async isMarkedForRemoval(row: number) {
-    const items = await this.browser.$$(this.findRow(row).findUndoButton().toSelector());
-    return items.length > 0;
+    const itemsCount = await this.getElementsCount(this.findRow(row).findUndoButton().toSelector());
+    return itemsCount > 0;
   }
 
   async getKeySuggestionsCount(row: number) {
@@ -83,9 +83,9 @@ export default class PageObject extends BaseExamplePage {
   }
 
   async getTags() {
-    const items = await this.browser.$$(this.tagEditorWrapper.findRows().toSelector());
+    const itemsCount = await this.getElementsCount(this.tagEditorWrapper.findRows().toSelector());
     const tags = [];
-    for (let index = 1; index <= items.length; index++) {
+    for (let index = 1; index <= itemsCount; index++) {
       tags.push(await this.getTag(index));
     }
     return tags;

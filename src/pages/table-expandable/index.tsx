@@ -191,6 +191,7 @@ function App() {
                 filteringOptions={filteringOptions}
                 countText={getTextFilterCounterText(filteredItemsCount ?? 0)}
                 filteringPlaceholder="Search databases"
+                enableTokenGroups={true}
               />
             }
             expandableRows={expandableRows}

@@ -91,6 +91,7 @@ export function PropertyFilterTable({
           i18nStrings={propertyFilterI18nStrings}
           countText={getTextFilterCounterText(filteredItemsCount)}
           expandToViewport={true}
+          enableTokenGroups={true}
         />
       }
       pagination={<Pagination {...paginationProps} />}

@@ -5,6 +5,7 @@ import TableSavedFiltersPageObject from './page/table-saved-filters-page-object'
 import commonTableTests from './common/table/table-tests';
 import commonPropertyFilteringTests from './common/table/table-property-filtering-tests';
 import commonPreferencesTests from './common/table/table-preferences-tests';
+import createWrapper from '@cloudscape-design/board-components/test-utils/selectors';
 
 describe('Table - Saved Filters', () => {
   const setupTest = (testFn: { (page: TableSavedFiltersPageObject): Promise<void> }) => {
@@ -21,9 +22,9 @@ describe('Table - Saved Filters', () => {
   commonPropertyFilteringTests(setupTest);
 
   test(
-    'Has two default saved filter sets',
+    'Has three default saved filter sets',
     setupTest(async page => {
-      await expect(page.countSavedFilterSets()).resolves.toBe(2);
+      await expect(page.countSavedFilterSets()).resolves.toBe(3);
     })
   );
 
@@ -138,6 +139,20 @@ describe('Table - Saved Filters', () => {
       await page.submitModal();
 
       await expect(page.getSelectedFilterSet()).resolves.toBe('Choose a filter set');
+    })
+  );
+
+  test(
+    'Parses filter set with groups correctly',
+    setupTest(async page => {
+      await page.selectSavedFilterSet(3);
+      await expect(page.countTokens()).resolves.toBe(2);
+      await expect(page.getSelectedFilterSet()).resolves.toBe('Best performance in buckets 1,2');
+
+      await page.openSaveFilterModal();
+      await expect(page.getText(createWrapper().findModal().toSelector())).resolves.toContain(
+        '(Origin = EXAMPLE-BUCKET-1.s3.amazon, or Origin = EXAMPLE-BUCKET-2.s3.amazon), and Price class = Use all edge locations (best performance)'
+      );
     })
   );
 });
