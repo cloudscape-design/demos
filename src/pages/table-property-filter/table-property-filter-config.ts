@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import { stringOperators } from '../../common/property-filter-operators';
+import { stringOperators, enumOperators } from '../../common/property-filter-operators';
 
 export const FILTERING_PROPERTIES = [
   {
@@ -13,19 +13,19 @@ export const FILTERING_PROPERTIES = [
     propertyLabel: 'Delivery method',
     key: 'deliveryMethod',
     groupValuesLabel: 'Delivery method values',
-    operators: stringOperators,
+    operators: enumOperators,
   },
   {
     propertyLabel: 'Price class',
     key: 'priceClass',
     groupValuesLabel: 'Price class values',
-    operators: stringOperators,
+    operators: enumOperators,
   },
   {
     propertyLabel: 'Origin',
     key: 'origin',
     groupValuesLabel: 'Origin values',
-    operators: stringOperators,
+    operators: enumOperators,
   },
   {
     propertyLabel: 'Status',
@@ -33,17 +33,17 @@ export const FILTERING_PROPERTIES = [
     groupValuesLabel: 'Status values',
     operators: stringOperators,
   },
-  { propertyLabel: 'State', key: 'state', groupValuesLabel: 'State values', operators: stringOperators },
+  { propertyLabel: 'State', key: 'state', groupValuesLabel: 'State values' },
   {
     propertyLabel: 'Logging',
     key: 'logging',
     groupValuesLabel: 'Logging values',
-    operators: stringOperators,
+    operators: enumOperators,
   },
   {
     propertyLabel: 'SSL certificate',
     key: 'sslCertificate',
     groupValuesLabel: 'SSL certificate values',
-    operators: stringOperators,
+    operators: enumOperators,
   },
 ];
