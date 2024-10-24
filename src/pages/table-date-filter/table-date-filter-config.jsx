@@ -4,7 +4,7 @@ import React from 'react';
 import { StatusIndicator, Link } from '@cloudscape-design/components';
 import { createTableSortLabelFn } from '../../i18n-strings';
 import { DateTimeForm, formatDateTime } from './table-date-filter-forms';
-import { stringOperators } from '../../common/property-filter-operators';
+import { stringOperators, enumOperators } from '../../common/property-filter-operators';
 
 const rawColumns = [
   {
@@ -121,21 +121,21 @@ export const FILTERING_PROPERTIES = [
     propertyLabel: 'Delivery method',
     key: 'deliveryMethod',
     groupValuesLabel: 'Delivery method values',
-    operators: stringOperators,
+    operators: enumOperators,
   },
   {
     propertyLabel: 'Price class',
     key: 'priceClass',
     groupValuesLabel: 'Price class values',
-    operators: stringOperators,
+    operators: enumOperators,
   },
   {
     propertyLabel: 'Origin',
     key: 'origin',
     groupValuesLabel: 'Origin values',
-    operators: stringOperators,
+    operators: enumOperators,
   },
-  { propertyLabel: 'State', key: 'state', groupValuesLabel: 'State values', operators: stringOperators },
+  { propertyLabel: 'State', key: 'state', groupValuesLabel: 'State values', operators: enumOperators },
   {
     propertyLabel: 'Logging',
     key: 'logging',
@@ -146,7 +146,7 @@ export const FILTERING_PROPERTIES = [
     propertyLabel: 'SSL certificate',
     key: 'sslCertificate',
     groupValuesLabel: 'SSL certificate values',
-    operators: stringOperators,
+    operators: enumOperators,
   },
   {
     key: 'date',

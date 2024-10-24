@@ -13,6 +13,7 @@ import {
   TableProps,
 } from '@cloudscape-design/components';
 import { Instance } from '../../resources/related-instances';
+import { enumOperators } from '../../common/property-filter-operators';
 
 export const tableAriaLabels: TableProps<{ name: string }>['ariaLabels'] = {
   selectionGroupLabel: 'group label',
@@ -155,31 +156,31 @@ export const filteringProperties: PropertyFilterProps.FilteringProperty[] = [
     key: 'role',
     propertyLabel: 'Role',
     groupValuesLabel: 'Role values',
-    operators: ['='],
+    operators: enumOperators,
   },
   {
     key: 'state',
     propertyLabel: 'State',
     groupValuesLabel: 'State values',
-    operators: ['=', '!='],
+    operators: enumOperators,
   },
   {
     key: 'engine',
     propertyLabel: 'Engine',
     groupValuesLabel: 'Engine values',
-    operators: ['=', '!=', ':'],
+    operators: enumOperators,
   },
   {
     key: 'size',
     propertyLabel: 'Size',
     groupValuesLabel: 'Size values',
-    operators: ['=', '!=', ':'],
+    operators: enumOperators,
   },
   {
     key: 'region',
     propertyLabel: 'Region',
     groupValuesLabel: 'Region values',
-    operators: ['=', '!=', ':'],
+    operators: enumOperators,
   },
 ];
 
