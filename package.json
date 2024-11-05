@@ -85,7 +85,7 @@
       "eslint --fix"
     ],
     "package-lock.json": [
-      "./scripts/clean-package-lock.js"
+      "./scripts/unlock-package-lock.js"
     ]
   }
 }
