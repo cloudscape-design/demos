@@ -11,6 +11,7 @@ import {
   Button,
   TableProps,
   ButtonDropdown,
+  LiveRegion,
 } from '@cloudscape-design/components';
 import { getHeaderCounterText, getTextFilterCounterText } from '../../i18n-strings';
 import '../../styles/base.scss';
@@ -212,9 +213,7 @@ function App() {
             )}
           />
 
-          <span aria-live="polite" aria-atomic="true" className="screenreader-only">
-            {ariaLiveMessage}
-          </span>
+          <LiveRegion hidden={true}>{ariaLiveMessage}</LiveRegion>
         </>
       )}
     </PageLayout>

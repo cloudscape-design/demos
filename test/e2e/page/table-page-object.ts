@@ -41,7 +41,7 @@ export default class TablePageObject extends AppLayoutPage {
 
   // Selector of the ARIA live region that contains the "Last updated" information for manual refresh
   lastRefresh() {
-    return this.pageWrapper.find('[data-testid="manual-refresh"] [aria-live]').toSelector();
+    return this.pageWrapper.find('[data-testid="manual-refresh"]').findLiveRegion().toSelector();
   }
 
   // Table - Header Buttons

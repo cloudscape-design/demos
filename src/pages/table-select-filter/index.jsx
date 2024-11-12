@@ -9,11 +9,11 @@ import {
   Button,
   ButtonDropdown,
   Input,
-  FormField,
   Pagination,
   SpaceBetween,
   Select,
   Table,
+  LiveRegion,
 } from '@cloudscape-design/components';
 import { Navigation, Breadcrumbs, ToolsContent } from './table-select-filter-components';
 import '../../styles/table-select.scss';
@@ -209,11 +209,11 @@ function TableSelectFilter({ loadHelpPanelContent }) {
               expandToViewport={true}
             />
           </div>
-          <div aria-live="polite">
+          <LiveRegion>
             {(filterProps.filteringText || engine !== defaultEngine || instanceClass !== defaultClass) && (
               <span className="filtering-results">{getTextFilterCounterText(filteredItemsCount)}</span>
             )}
-          </div>
+          </LiveRegion>
         </div>
       }
       pagination={<Pagination {...paginationProps} />}
