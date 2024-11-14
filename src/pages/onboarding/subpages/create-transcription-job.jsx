@@ -182,18 +182,18 @@ export const CreateTranscriptionJobPage = () => {
                         },
                       ]}
                     />
-                    <Box display={languageSetting === 'specific-language' ? 'block' : 'none'} margin={{ top: 'xs' }}>
-                      <FormField label="Language" description="Choose the language of the input audio.">
-                        <Hotspot hotspotId="language-selector">
-                          <Select
-                            selectedOption={language}
-                            onChange={onLanguageChange}
-                            options={[{ value: 'English, US (en-US)' }, { value: 'German (de-DE)' }]}
-                          />
-                        </Hotspot>
-                      </FormField>
-                    </Box>
                   </FormField>
+                  {languageSetting === 'specific-language' && (
+                    <FormField label="Language" description="Choose the language of the input audio.">
+                      <Hotspot hotspotId="language-selector">
+                        <Select
+                          selectedOption={language}
+                          onChange={onLanguageChange}
+                          options={[{ value: 'English, US (en-US)' }, { value: 'German (de-DE)' }]}
+                        />
+                      </Hotspot>
+                    </FormField>
+                  )}
                 </SpaceBetween>
               </Container>
               <Container
