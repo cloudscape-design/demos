@@ -3,6 +3,7 @@
 import React, { useState, useCallback } from 'react';
 import {
   BreadcrumbGroup,
+  Box,
   Button,
   Container,
   Form,
@@ -182,16 +183,17 @@ export const CreateTranscriptionJobPage = () => {
                       ]}
                     />
                   </FormField>
-                  <FormField label="Language" description="Choose the language of the input audio.">
-                    <Hotspot hotspotId="language-selector">
-                      <Select
-                        selectedOption={language}
-                        onChange={onLanguageChange}
-                        disabled={languageSetting === 'automatic-language'}
-                        options={[{ value: 'English, US (en-US)' }, { value: 'German (de-DE)' }]}
-                      />
-                    </Hotspot>
-                  </FormField>
+                  {languageSetting === 'specific-language' && (
+                    <FormField label="Language" description="Choose the language of the input audio.">
+                      <Hotspot hotspotId="language-selector">
+                        <Select
+                          selectedOption={language}
+                          onChange={onLanguageChange}
+                          options={[{ value: 'English, US (en-US)' }, { value: 'German (de-DE)' }]}
+                        />
+                      </Hotspot>
+                    </FormField>
+                  )}
                 </SpaceBetween>
               </Container>
               <Container
