@@ -6,12 +6,22 @@ import { useCollection } from '@cloudscape-design/collection-hooks';
 import {
   AppLayoutProps,
   ButtonDropdown,
+  Box,
+  Button,
+  Badge,
+  Container,
   CollectionPreferencesProps,
   Flashbar,
+  Header,
+  Grid,
+  Checkbox,
+  ExpandableSection,
   Pagination,
   PropertyFilter,
   Select,
   Table,
+  ToggleButton,
+  SpaceBetween,
 } from '@cloudscape-design/components';
 
 import { useDisclaimerFlashbarItem } from '../commons/disclaimer-flashbar-item';
@@ -76,6 +86,7 @@ function App() {
 
   const [instances] = useState<EC2Instance[]>(INSTANCES);
   const [loading] = useState(false);
+  const [quickPanelOpen, setQuickPanelOpen] = useState(true);
 
   const [preferences, setPreferences] = useState<CollectionPreferencesProps.Preferences>({
     wrapLines: false,
@@ -133,67 +144,119 @@ function App() {
   return (
     <CustomAppLayout
       ref={appLayout}
-      navigation={<Navigation activeHref="#/distributions" />}
+      navigation={<Navigation activeHref="#/instances" />}
       notifications={<Flashbar stackItems={true} items={flashNotifications} />}
       breadcrumbs={<Breadcrumbs />}
       content={
-        <>
-          <Table
-            {...collectionProps}
-            enableKeyboardNavigation={true}
-            columnDefinitions={COLUMN_DEFINITIONS}
-            columnDisplay={preferences.contentDisplay}
-            items={items}
-            variant="full-page"
-            stickyHeader={true}
-            resizableColumns={true}
-            // onColumnWidthsChange={saveWidths}
-            wrapLines={preferences.wrapLines}
-            stripedRows={preferences.stripedRows}
-            contentDensity={preferences.contentDensity}
-            stickyColumns={preferences.stickyColumns}
-            selectionType="multi"
-            ariaLabels={tableAriaLabels}
-            renderAriaLive={renderAriaLive}
-            header={
-              <FullPageHeader
-                title="Instances"
-                createButtonText="Launch instance"
-                selectedItemsCount={collectionProps.selectedItems?.length || 0}
-                counter={loading ? getHeaderCounterText(instances, collectionProps.selectedItems) : ''}
-                onInfoLinkClick={() => {
-                  setToolsOpen(true);
-                  appLayout.current?.focusToolsClose();
-                }}
-              />
+        <div>
+          <FullPageHeader
+            title="Instances"
+            createButtonText="Launch instance"
+            selectedItemsCount={collectionProps.selectedItems?.length || 0}
+            counter={loading ? getHeaderCounterText(instances, collectionProps.selectedItems) : ''}
+            onInfoLinkClick={() => {
+              setToolsOpen(true);
+              appLayout.current?.focusToolsClose();
+            }}
+          />
+          <Grid
+            gridDefinition={
+              quickPanelOpen
+                ? [{ colspan: { default: 12, xs: 3, m: 2 } }, { colspan: { default: 12, xs: 9, m: 10 } }]
+                : [{ colspan: 12 }]
             }
-            loading={loading}
-            loadingText="Loading distributions"
-            filter={
-              <PropertyFilter
-                {...propertyFilterProps}
-                filteringAriaLabel="Find resources"
-                filteringPlaceholder="Find resources"
-                i18nStrings={propertyFilterI18nStrings}
-                countText={filteredItemsCount ? getTextFilterCounterText(filteredItemsCount) : ''}
-                expandToViewport={true}
-                enableTokenGroups={true}
-                customControl={
-                  <Select
-                    {...selectProps}
-                    inlineLabelText="Saved filter sets"
-                    data-testid="saved-filters"
-                    ref={selectRef}
+          >
+            {quickPanelOpen ? (
+              <Box margin={{ top: 'm' }}>
+                <Container
+                  header={
+                    <div>
+                      <Header
+                        variant="h3"
+                        actions={<Button variant="icon" iconName="close" onClick={() => setQuickPanelOpen(false)} />}
+                      >
+                        Quick filters
+                      </Header>
+                    </div>
+                  }
+                >
+                  {/*<Box variant="h3" margin={{ bottom: 'm' }}>*/}
+                  {/*  Quick filters*/}
+                  {/*</Box>*/}
+                  <SpaceBetween size="m">
+                    <div>
+                      <Box variant="h4">Alarm state</Box>
+                      <Badge color="severity-high">Alarm</Badge>
+                    </div>
+
+                    <ExpandableSection expanded={true} variant="footer" headerText="State">
+                      <Checkbox checked={false}>Running</Checkbox>
+                      <Checkbox checked={false}>Pending</Checkbox>
+                      <Checkbox checked={false}>Terminated</Checkbox>
+                    </ExpandableSection>
+                  </SpaceBetween>
+                </Container>
+              </Box>
+            ) : null}
+            <div>
+              <Table
+                {...collectionProps}
+                enableKeyboardNavigation={true}
+                columnDefinitions={COLUMN_DEFINITIONS}
+                columnDisplay={preferences.contentDisplay}
+                items={items}
+                variant="borderless"
+                stickyHeader={true}
+                resizableColumns={true}
+                // onColumnWidthsChange={saveWidths}
+                wrapLines={preferences.wrapLines}
+                stripedRows={preferences.stripedRows}
+                contentDensity={preferences.contentDensity}
+                stickyColumns={preferences.stickyColumns}
+                selectionType="multi"
+                ariaLabels={tableAriaLabels}
+                renderAriaLive={renderAriaLive}
+                loading={loading}
+                loadingText="Loading distributions"
+                filter={
+                  <PropertyFilter
+                    {...propertyFilterProps}
+                    filteringAriaLabel="Find resources"
+                    filteringPlaceholder="Find resources"
+                    i18nStrings={propertyFilterI18nStrings}
+                    countText={filteredItemsCount ? getTextFilterCounterText(filteredItemsCount) : ''}
+                    expandToViewport={true}
+                    enableTokenGroups={true}
+                    customControl={
+                      <SpaceBetween size="xs" direction="horizontal">
+                        {quickPanelOpen ? null : (
+                          <Box margin={{ top: 'xs' }}>
+                            <Button
+                              ariaLabel="Quick filters panel"
+                              iconName="filter"
+                              variant="icon"
+                              onClick={() => setQuickPanelOpen(true)}
+                            />
+                          </Box>
+                        )}
+                        <Select
+                          {...selectProps}
+                          inlineLabelText="Saved filter sets"
+                          data-testid="saved-filters"
+                          ref={selectRef}
+                        />
+                      </SpaceBetween>
+                    }
+                    customFilterActions={<ButtonDropdown {...buttonDropdownProps} data-testid="filter-actions" />}
                   />
                 }
-                customFilterActions={<ButtonDropdown {...buttonDropdownProps} data-testid="filter-actions" />}
+                pagination={<Pagination {...paginationProps} />}
+                preferences={<TablePreferences preferences={preferences} setPreferences={setPreferences} />}
               />
-            }
-            pagination={<Pagination {...paginationProps} />}
-            preferences={<TablePreferences preferences={preferences} setPreferences={setPreferences} />}
-          />
+            </div>
+          </Grid>
           {actionModal}
-        </>
+        </div>
       }
       contentType="table"
       tools={<ToolsContent />}

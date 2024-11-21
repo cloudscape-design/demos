@@ -16,7 +16,7 @@ function getPageContent(pageName, { title }) {
     <link href="vendor.css" rel="stylesheet">
     <link href="${pageName}.css" rel="stylesheet">
   </head>
-  <body id="b">
+  <body id="b" class="awsui-visual-refresh">
     <header class="custom-main-header" id="h">
       <ul class="menu-list awsui-context-top-navigation">
         <li class="title"><a href="/">Cloudscape Demos</a></li>
