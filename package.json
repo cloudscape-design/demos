@@ -69,7 +69,8 @@
     "start:https": "webpack-dev-server --https --port=4443 --host=$(hostname)",
     "test": "run-p -r start-no-live-reload jest",
     "prepare": "husky install",
-    "lint": "eslint --fix --ignore-path .gitignore --ext ts,tsx,js,jsx,json ."
+    "lint": "eslint --fix --ignore-path .gitignore --ext ts,tsx,js,jsx,json .",
+    "postinstall": "node ./scripts/install-peer-dependency.js collection-hooks:chore-quick-filters && node ./scripts/install-peer-dependency.js components:chore-quick-filters"
   },
   "browserslist": [
     "last 3 Chrome major versions",
