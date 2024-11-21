@@ -21,6 +21,7 @@ import {
   Select,
   Table,
   SpaceBetween,
+  PropertyFilterProps,
 } from '@cloudscape-design/components';
 
 import { useDisclaimerFlashbarItem } from '../commons/disclaimer-flashbar-item';
@@ -56,15 +57,7 @@ const defaultFilterSets: FilterSet[] = [
       operation: 'and',
       tokens: [],
       tokenGroups: [
-        {
-          operation: 'or',
-          tokens: [
-            { propertyKey: 'state', operator: '=', value: 'Stopping' },
-            { propertyKey: 'state', operator: '=', value: 'Stopped' },
-            { propertyKey: 'state', operator: '=', value: 'Shutting down' },
-            { propertyKey: 'state', operator: '=', value: 'Terminated' },
-          ],
-        },
+        { propertyKey: 'state', operator: '=', value: ['Stopping', 'Stopped', 'Shutting down', 'Terminated'] },
         { propertyKey: 'inAlarm', operator: '=', value: 'true' },
       ],
     },
@@ -89,7 +82,7 @@ function App() {
 
   const [preferences, setPreferences] = useState<CollectionPreferencesProps.Preferences>({
     wrapLines: false,
-    stickyColumns: { first: 2, last: 0 },
+    stickyColumns: { first: 1, last: 0 },
   });
 
   const { items, actions, filteredItemsCount, collectionProps, propertyFilterProps, paginationProps } = useCollection(
@@ -140,6 +133,46 @@ function App() {
     },
   });
 
+  const onAddQuickFilter = (
+    token: PropertyFilterProps.Token | PropertyFilterProps.TokenGroup,
+    onAdd: (
+      prev: any,
+      next: PropertyFilterProps.Token | PropertyFilterProps.TokenGroup
+    ) => null | PropertyFilterProps.Token | PropertyFilterProps.TokenGroup
+  ) => {
+    const query = propertyFilterProps.query;
+    const matchToken = (
+      source: PropertyFilterProps.Token | PropertyFilterProps.TokenGroup,
+      target: PropertyFilterProps.Token | PropertyFilterProps.TokenGroup
+    ): boolean => {
+      const sourceTokens = 'operator' in source ? [source] : (source.tokens as PropertyFilterProps.Token[]);
+      const sourceKeys = sourceTokens.map(t => t.propertyKey ?? '');
+      const targetTokens = 'operator' in target ? [target] : (target.tokens as PropertyFilterProps.Token[]);
+      const targetKeys = targetTokens.map(t => t.propertyKey ?? '');
+      return sourceKeys.some(key => targetKeys.includes(key));
+    };
+    const matched = (query.secondaryTokens ?? []).find(source => matchToken(source, token));
+    const secondaryTokens = [...(query.secondaryTokens ?? [])];
+    const matchedIndex = matched ? secondaryTokens.indexOf(matched) : secondaryTokens.length;
+    const tokenToAdd = matched ? onAdd(matched, token) : token;
+    if (tokenToAdd) {
+      secondaryTokens.splice(matchedIndex, 1, tokenToAdd);
+    } else {
+      secondaryTokens.splice(matchedIndex, 1);
+    }
+    actions.setPropertyFiltering({ ...query, secondaryTokens });
+  };
+
+  const onAddStateQuickFilter = (value: string) => {
+    onAddQuickFilter({ propertyKey: 'state', operator: '=', value: [value] }, (prev, next) => {
+      let nextValue = prev.value.includes(value)
+        ? prev.value.filter((v: string) => v !== value)
+        : [...prev.value, value];
+      nextValue = 'operator' in next && prev.operator === next.operator ? nextValue : [value];
+      return nextValue.length === 0 ? null : { ...next, value: nextValue };
+    });
+  };
+
   return (
     <CustomAppLayout
       ref={appLayout}
@@ -152,7 +185,7 @@ function App() {
             title="Instances"
             createButtonText="Launch instance"
             selectedItemsCount={collectionProps.selectedItems?.length || 0}
-            counter={loading ? getHeaderCounterText(instances, collectionProps.selectedItems) : ''}
+            counter={getHeaderCounterText(instances, collectionProps.selectedItems)}
             onInfoLinkClick={() => {
               setToolsOpen(true);
               appLayout.current?.focusToolsClose();
@@ -179,19 +212,27 @@ function App() {
                     </div>
                   }
                 >
-                  {/*<Box variant="h3" margin={{ bottom: 'm' }}>*/}
-                  {/*  Quick filters*/}
-                  {/*</Box>*/}
+                  {/* Quick filters */}
                   <SpaceBetween size="m">
                     <div>
                       <Box variant="h4">Alarm state</Box>
                       <Badge color="severity-high">Alarm</Badge>
                     </div>
 
-                    <ExpandableSection expanded={true} variant="footer" headerText="State">
-                      <Checkbox checked={false}>Running</Checkbox>
-                      <Checkbox checked={false}>Pending</Checkbox>
-                      <Checkbox checked={false}>Terminated</Checkbox>
+                    <ExpandableSection defaultExpanded={true} variant="footer" headerText="State">
+                      {['Running', 'Pending', 'Terminated'].map(state => (
+                        <Checkbox
+                          key={state}
+                          checked={
+                            !!propertyFilterProps.query.secondaryTokens?.some(
+                              t => 'operator' in t && t.operator === '=' && t.value.includes(state)
+                            )
+                          }
+                          onChange={() => onAddStateQuickFilter(state)}
+                        >
+                          {state}
+                        </Checkbox>
+                      ))}
                     </ExpandableSection>
                   </SpaceBetween>
                 </Container>
@@ -207,7 +248,6 @@ function App() {
                 variant="borderless"
                 stickyHeader={true}
                 resizableColumns={true}
-                // onColumnWidthsChange={saveWidths}
                 wrapLines={preferences.wrapLines}
                 stripedRows={preferences.stripedRows}
                 contentDensity={preferences.contentDensity}
