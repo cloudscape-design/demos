@@ -37,8 +37,14 @@ import { CustomAppLayout, TableEmptyState, TableNoMatchState, Navigation } from 
 import { Breadcrumbs, ToolsContent } from '../table/common-components';
 import { FullPageHeader } from '../commons';
 import { useFilterSets, FilterSet } from '../table-saved-filters/use-filter-sets';
-import { TablePreferences, COLUMN_DEFINITIONS, filteringProperties, tableAriaLabels } from './table-configs';
+import {
+  TablePreferences,
+  COLUMN_DEFINITIONS,
+  filteringProperties,
+  tableAriaLabels,
+} from '../table-quick-saved-filters/table-configs';
 import '../../styles/table-select.scss';
+import { isEqual, range } from 'lodash';
 
 const defaultFilterSets: FilterSet[] = [
   {
@@ -58,7 +64,7 @@ const defaultFilterSets: FilterSet[] = [
       tokens: [],
       tokenGroups: [
         { propertyKey: 'state', operator: '=', value: ['Stopping', 'Stopped', 'Shutting down', 'Terminated'] },
-        { propertyKey: 'inAlarm', operator: '=', value: 'true' },
+        { propertyKey: 'alarmState', operator: '=', value: ['ALARM'] },
       ],
     },
   },
@@ -104,6 +110,13 @@ function App() {
       selection: {},
     }
   );
+
+  const filteringOptions = propertyFilterProps.filteringOptions.filter(
+    option => option.propertyKey !== 'loadBalancers'
+  );
+  range(1, 10).forEach(index => {
+    filteringOptions.push({ propertyKey: 'loadBalancers', value: `lb-${index}` });
+  });
 
   const { buttonDropdownProps, selectProps, actionModal } = useFilterSets({
     filterSets: savedFilterSets,
@@ -160,11 +173,13 @@ function App() {
     } else {
       secondaryTokens.splice(matchedIndex, 1);
     }
-    actions.setPropertyFiltering({ ...query, secondaryTokens });
+    const nextQuery = { ...query, secondaryTokens };
+    actions.setPropertyFiltering(nextQuery);
+    updateRecentFilters(nextQuery);
   };
 
-  const onAddStateQuickFilter = (value: string) => {
-    onAddQuickFilter({ propertyKey: 'state', operator: '=', value: [value] }, (prev, next) => {
+  const addEnumQuickFilter = (propertyKey: string, value: string) => {
+    onAddQuickFilter({ propertyKey, operator: '=', value: [value] }, (prev, next) => {
       let nextValue = prev.value.includes(value)
         ? prev.value.filter((v: string) => v !== value)
         : [...prev.value, value];
@@ -172,6 +187,74 @@ function App() {
       return nextValue.length === 0 ? null : { ...next, value: nextValue };
     });
   };
+
+  const checkEnumProperty = (propertyKey: string, value: string) =>
+    propertyFilterProps.query.secondaryTokens?.some(
+      t => 'operator' in t && t.propertyKey === propertyKey && t.operator === '=' && t.value.includes(value)
+    );
+
+  const onAddMultiEnumQuickFilter = (propertyKey: string, value: string) => {
+    onAddQuickFilter({ propertyKey, operator: ':', value: [value] }, (prev, next) => {
+      let nextValue = prev.value.includes(value)
+        ? prev.value.filter((v: string) => v !== value)
+        : [...prev.value, value];
+      nextValue = 'operator' in next && prev.operator === next.operator ? nextValue : [value];
+      return nextValue.length === 0 ? null : { ...next, value: nextValue };
+    });
+  };
+
+  const checkMultiEnumProperty = (propertyKey: string, value: string) =>
+    propertyFilterProps.query.secondaryTokens?.some(
+      t => 'operator' in t && t.propertyKey === propertyKey && t.operator === ':' && t.value.includes(value)
+    );
+
+  const states = ['Running', 'Pending', 'Terminated'];
+  const checkedStates = states.filter(state => checkEnumProperty('state', state));
+
+  const instanceTypes = ['m5.large', 'm5.xlarge', 'm5.4xlarge'];
+  const checkedInstanceTypes = instanceTypes.filter(type => checkEnumProperty('type', type));
+
+  const [visibleLoadBalancers, setVisibleLoadBalancers] = useState(4);
+  const frequentLoadBalancers = ['lb-1', 'lb-4', 'lb-2', 'lb-3', 'lb-5', 'lb-6', 'lb-7', 'lb-8'];
+  const checkedLoadBalancers = frequentLoadBalancers.filter(lb => checkMultiEnumProperty('loadBalancers', lb));
+
+  const [filtersFrequencyMap, setFiltersFrequencyMap] = useState<Record<string, number>>({});
+  const getQueryTokens = (query: PropertyFilterProps.Query) => {
+    const queryTokens: PropertyFilterProps.Token[] = [];
+    const traverse = (token: PropertyFilterProps.Token | PropertyFilterProps.TokenGroup) => {
+      if ('operator' in token) {
+        queryTokens.push(token);
+      } else {
+        token.tokens.forEach(traverse);
+      }
+    };
+    (query.tokenGroups ?? query.tokens).forEach(traverse);
+    (query.secondaryTokens ?? []).forEach(traverse);
+    return queryTokens;
+  };
+  const updateRecentFilters = (query: PropertyFilterProps.Query) => {
+    const queryTokens = getQueryTokens(query);
+    setFiltersFrequencyMap(prev => {
+      const next = { ...prev };
+      for (const token of queryTokens) {
+        const tokenKey = JSON.stringify(token);
+        const tokenFrequency = (next[tokenKey] ?? 0) + 1;
+        next[tokenKey] = tokenFrequency;
+      }
+      return next;
+    });
+  };
+  const onChangeQuery: PropertyFilterProps['onChange'] = event => {
+    propertyFilterProps.onChange(event);
+    updateRecentFilters(event.detail);
+  };
+
+  const queryTokenKeys = getQueryTokens(propertyFilterProps.query).map(token => JSON.stringify(token));
+  const recentFilters = Object.entries(filtersFrequencyMap)
+    .filter(([key]) => !queryTokenKeys.includes(key))
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([tokenKey]) => JSON.parse(tokenKey) as PropertyFilterProps.Token);
 
   return (
     <CustomAppLayout
@@ -216,23 +299,91 @@ function App() {
                   <SpaceBetween size="m">
                     <div>
                       <Box variant="h4">Alarm state</Box>
-                      <Badge color="severity-high">Alarm</Badge>
+                      <SpaceBetween size="xxs" direction="horizontal" alignItems="center">
+                        <Checkbox
+                          checked={!!checkEnumProperty('alarmState', 'ALARM')}
+                          onChange={() => addEnumQuickFilter('alarmState', 'ALARM')}
+                        />
+                        <Badge color="severity-high">ALARM</Badge>
+                        <Box fontSize="body-s" color="text-body-secondary">
+                          ({instances.filter(i => i.alarmState === 'ALARM').length})
+                        </Box>
+                      </SpaceBetween>
                     </div>
 
-                    <ExpandableSection defaultExpanded={true} variant="footer" headerText="State">
-                      {['Running', 'Pending', 'Terminated'].map(state => (
+                    <ExpandableSection
+                      defaultExpanded={true}
+                      variant="footer"
+                      headerText={`State${checkedStates.length > 0 ? ` (${checkedStates.length})` : ''}`}
+                    >
+                      {states.map(state => (
                         <Checkbox
                           key={state}
-                          checked={
-                            !!propertyFilterProps.query.secondaryTokens?.some(
-                              t => 'operator' in t && t.operator === '=' && t.value.includes(state)
-                            )
-                          }
-                          onChange={() => onAddStateQuickFilter(state)}
+                          checked={checkedStates.includes(state)}
+                          onChange={() => addEnumQuickFilter('state', state)}
                         >
-                          {state}
+                          <SpaceBetween size="xxs" direction="horizontal" alignItems="center">
+                            <Box>{state}</Box>
+                            <Box fontSize="body-s" color="text-body-secondary">
+                              ({instances.filter(i => i.state === state).length})
+                            </Box>
+                          </SpaceBetween>
                         </Checkbox>
                       ))}
+                    </ExpandableSection>
+
+                    <ExpandableSection
+                      defaultExpanded={true}
+                      variant="footer"
+                      headerText={`Instance type${
+                        checkedInstanceTypes.length > 0 ? ` (${checkedInstanceTypes.length})` : ''
+                      }`}
+                    >
+                      {instanceTypes.map(type => (
+                        <Checkbox
+                          key={type}
+                          checked={checkedInstanceTypes.includes(type)}
+                          onChange={() => addEnumQuickFilter('type', type)}
+                        >
+                          <SpaceBetween size="xxs" direction="horizontal" alignItems="center">
+                            <Box>{type}</Box>
+                            <Box fontSize="body-s" color="text-body-secondary">
+                              ({instances.filter(i => i.type === type).length})
+                            </Box>
+                          </SpaceBetween>
+                        </Checkbox>
+                      ))}
+                    </ExpandableSection>
+
+                    <ExpandableSection
+                      defaultExpanded={false}
+                      variant="footer"
+                      headerText={`Load balancers${
+                        checkedLoadBalancers.length > 0 ? ` (${checkedLoadBalancers.length})` : ''
+                      }`}
+                    >
+                      {frequentLoadBalancers.slice(0, visibleLoadBalancers).map(lb => (
+                        <Checkbox
+                          key={lb}
+                          checked={checkedLoadBalancers.includes(lb)}
+                          onChange={() => onAddMultiEnumQuickFilter('loadBalancers', lb)}
+                        >
+                          <SpaceBetween size="xxs" direction="horizontal" alignItems="center">
+                            <Box>{lb}</Box>
+                            <Box fontSize="body-s" color="text-body-secondary">
+                              ({instances.filter(i => i.loadBalancers.includes(lb)).length})
+                            </Box>
+                          </SpaceBetween>
+                        </Checkbox>
+                      ))}
+
+                      <Button
+                        variant="inline-link"
+                        iconName={visibleLoadBalancers === 4 ? 'treeview-expand' : 'treeview-collapse'}
+                        onClick={() => setVisibleLoadBalancers(prev => (prev === 4 ? 10 : 4))}
+                      >
+                        {visibleLoadBalancers === 4 ? 'Show more' : 'Show fewer'}
+                      </Button>
                     </ExpandableSection>
                   </SpaceBetween>
                 </Container>
@@ -260,9 +411,15 @@ function App() {
                 filter={
                   <PropertyFilter
                     {...propertyFilterProps}
+                    filteringOptions={filteringOptions}
+                    onChange={onChangeQuery}
+                    recentOptions={recentFilters}
                     filteringAriaLabel="Find resources"
                     filteringPlaceholder="Find resources"
-                    i18nStrings={propertyFilterI18nStrings}
+                    i18nStrings={{
+                      ...propertyFilterI18nStrings,
+                      recentOptionsLabel: 'Recently used filters',
+                    }}
                     countText={filteredItemsCount ? getTextFilterCounterText(filteredItemsCount) : ''}
                     expandToViewport={true}
                     enableTokenGroups={true}

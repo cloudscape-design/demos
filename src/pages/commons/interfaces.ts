@@ -5,7 +5,7 @@ export interface EC2Instance {
   id: string;
   type: InstanceType;
   architecture: InstanceArchitecture;
-  inAlarm: boolean;
+  alarmState: AlarmStateType;
   publicDns: string;
   monitoring: string;
   state: InstanceState;
@@ -23,6 +23,7 @@ export interface EC2Instance {
   averageLatency: number;
 }
 
+export type AlarmStateType = 'ALARM' | 'NORMAL';
 export type InstanceType = 'm5.large' | 'm5.xlarge' | 'm5.4xlarge';
 export type InstanceState = 'Running' | 'Pending' | 'Shutting down' | 'Stopping' | 'Stopped' | 'Terminated';
 export type InstanceArchitecture = 'arm64' | 'i386' | 'x86_64' | 'arm64_mac';

@@ -65,7 +65,7 @@ const defaultFilterSets: FilterSet[] = [
             { propertyKey: 'state', operator: '=', value: 'Terminated' },
           ],
         },
-        { propertyKey: 'inAlarm', operator: '=', value: 'true' },
+        { propertyKey: 'alarmState', operator: '=', value: ['ALARM'] },
       ],
     },
   },

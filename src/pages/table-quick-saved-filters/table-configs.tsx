@@ -9,6 +9,7 @@ import {
   PropertyFilterProps,
   StatusIndicator,
   TableProps,
+  SpaceBetween,
 } from '@cloudscape-design/components';
 import { EC2Instance } from '../commons/interfaces';
 
@@ -62,8 +63,8 @@ export const COLUMN_DEFINITIONS: TableProps.ColumnDefinition<EC2Instance>[] = [
   {
     id: 'alarm',
     header: 'Alarm state',
-    cell: item => (item.inAlarm ? <Badge color="severity-high">ALARM</Badge> : '-'),
-    sortingField: 'inAlarm',
+    cell: item => (item.alarmState === 'ALARM' ? <Badge color="severity-high">ALARM</Badge> : '-'),
+    sortingField: 'alarmState',
   },
   {
     id: 'publicDns',
@@ -125,6 +126,18 @@ export const COLUMN_DEFINITIONS: TableProps.ColumnDefinition<EC2Instance>[] = [
     cell: item => item.availabilityZone,
     sortingField: 'availabilityZone',
   },
+  {
+    id: 'loadBalancers',
+    header: 'Load balancers',
+    minWidth: 250,
+    cell: item => (
+      <SpaceBetween size="s" direction="horizontal">
+        {(item.loadBalancers ?? []).map(tag => (
+          <Badge key={tag}>{tag}</Badge>
+        ))}
+      </SpaceBetween>
+    ),
+  },
 ];
 
 export const filteringProperties: PropertyFilterProps.FilteringProperty[] = [
@@ -138,19 +151,19 @@ export const filteringProperties: PropertyFilterProps.FilteringProperty[] = [
     key: 'type',
     propertyLabel: 'Instance type',
     groupValuesLabel: 'Type values',
-    operators: ['=', '!='],
+    operators: ['=', '!='].map(operator => ({ operator, tokenType: 'enum' })),
   },
   {
     key: 'state',
     propertyLabel: 'State',
     groupValuesLabel: 'State values',
-    operators: ['=', '!='],
+    operators: ['=', '!='].map(operator => ({ operator, tokenType: 'enum' })),
   },
   {
-    key: 'inAlarm',
+    key: 'alarmState',
     propertyLabel: 'Alarm state',
     groupValuesLabel: 'Alarm state values',
-    operators: ['='],
+    operators: [{ operator: '=', tokenType: 'enum' }],
   },
   {
     key: 'platformDetails',
@@ -161,7 +174,7 @@ export const filteringProperties: PropertyFilterProps.FilteringProperty[] = [
   {
     key: 'availabilityZone',
     propertyLabel: 'Availability zone',
-    groupValuesLabel: 'availabilityZone values',
+    groupValuesLabel: 'Availability zone values',
     operators: ['=', ':', '!=', '!:'],
   },
   {
@@ -187,6 +200,17 @@ export const filteringProperties: PropertyFilterProps.FilteringProperty[] = [
     propertyLabel: 'EBS optimized',
     groupValuesLabel: 'EBS optimized values',
     operators: ['='],
+  },
+  {
+    key: 'loadBalancers',
+    propertyLabel: 'Load balancer',
+    groupValuesLabel: 'Load balancer values',
+    operators: [
+      { operator: '=', tokenType: 'enum', match: ((v: unknown[], t: unknown[]) => checkArrayMatches(v, t)) as any },
+      { operator: '!=', tokenType: 'enum', match: ((v: unknown[], t: unknown[]) => !checkArrayMatches(v, t)) as any },
+      { operator: ':', tokenType: 'enum', match: ((v: unknown[], t: unknown[]) => checkArrayContains(v, t)) as any },
+      { operator: '!:', tokenType: 'enum', match: ((v: unknown[], t: unknown[]) => !checkArrayContains(v, t)) as any },
+    ],
   },
 ];
 
@@ -262,6 +286,10 @@ export function TablePreferences({
             id: 'availabilityZone',
             label: 'Availability zone',
           },
+          {
+            id: 'loadBalancers',
+            label: 'Load balancers',
+          },
         ],
       }}
       wrapLinesPreference={{
@@ -289,4 +317,36 @@ export function TablePreferences({
       }}
     />
   );
+}
+
+function checkArrayMatches(value: unknown[], token: unknown[]) {
+  if (!Array.isArray(value) || !Array.isArray(token) || value.length !== token.length) {
+    return false;
+  }
+  const valuesMap = value.reduce<Map<unknown, number>>(
+    (map, value) => map.set(value, (map.get(value) ?? 0) + 1),
+    new Map()
+  );
+  for (const tokenEntry of token) {
+    const count = valuesMap.get(tokenEntry);
+    if (count) {
+      count === 1 ? valuesMap.delete(tokenEntry) : valuesMap.set(tokenEntry, count - 1);
+    } else {
+      return false;
+    }
+  }
+  return valuesMap.size === 0;
+}
+
+function checkArrayContains(value: unknown[], token: unknown[]) {
+  if (!Array.isArray(value) || !Array.isArray(token)) {
+    return false;
+  }
+  const valuesSet = new Set(value);
+  for (const tokenEntry of token) {
+    if (!valuesSet.has(tokenEntry)) {
+      return false;
+    }
+  }
+  return true;
 }

@@ -11,7 +11,7 @@ export default Array.from({ length: 50 }).map((item, i) => ({
   id: `XLOWCQQFJJHM8${i}`,
   type: getElement(['m5.large', 'm5.xlarge', 'm5.4xlarge'], i),
   architecture: getElement(['arm64', 'i386', 'x86_64', 'arm64_mac'], i),
-  inAlarm: i % 4 === 0,
+  alarmState: (i % 4 === 0 ? 'ALARM' : 'NORMAL') as 'ALARM' | 'NORMAL',
   publicDns: `231.50.3.${i}`,
   monitoring: i % 3 === 0 ? 'Default' : '',
   state: getElement(['Running', 'Pending', 'Stopping', 'Stopped', 'Shutting down', 'Terminated'], i),
@@ -21,11 +21,7 @@ export default Array.from({ length: 50 }).map((item, i) => ({
   volume: getElement([1, 2, 3, 4, 5], i),
   securityGroups: getElement([['groupA', 'groupB'], ['groupC', 'groupD', 'groupE'], ['groupF']], i),
   loadBalancers: getElement(
-    [
-      ['lb-1', 'lb-2'],
-      ['lb-3', 'lb-4', 'lb-5'],
-      ['lb-6', 'lb-7', 'lb-8', 'lb-9'],
-    ],
+    [['lb-1'], ['lb-1', 'lb-2', 'lb-4'], ['lb-3', 'lb-4', 'lb-5'], ['lb-6', 'lb-7', 'lb-8', 'lb-9']],
     i
   ),
   availabilityZone: getElement(['AZ 1', 'AZ 2'], i),
