@@ -72,6 +72,12 @@ export const COLUMN_DEFINITIONS: TableProps.ColumnDefinition<EC2Instance>[] = [
     sortingField: 'publicDns',
   },
   {
+    id: 'averageLatency',
+    header: 'Average latency (mb/s)',
+    cell: item => item.averageLatency,
+    sortingField: 'averageLatency',
+  },
+  {
     id: 'monitoring',
     header: 'Monitoring',
     cell: item => item.monitoring || '-',
@@ -165,6 +171,12 @@ export const filteringProperties: PropertyFilterProps.FilteringProperty[] = [
     operators: ['=', '!=', '>', '>=', '<', '<='],
   },
   {
+    key: 'averageLatency',
+    propertyLabel: 'Average latency (mb / s)',
+    groupValuesLabel: 'Average latency values',
+    operators: ['=', '!=', '>', '>=', '<', '<='],
+  },
+  {
     key: 'rootDeviceType',
     propertyLabel: 'Root device typer',
     groupValuesLabel: 'Root device type values',
@@ -217,6 +229,10 @@ export function TablePreferences({
           {
             id: 'publicDns',
             label: 'DNS',
+          },
+          {
+            id: 'averageLatency',
+            label: 'Average latency',
           },
           {
             id: 'monitoring',

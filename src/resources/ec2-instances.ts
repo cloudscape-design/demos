@@ -3,6 +3,10 @@
 
 const getElement = (array: any[], loopedIndex: number) => array[loopedIndex % array.length];
 
+const getRandomInt = (max: number) => {
+  return Math.floor(Math.random() * max);
+};
+
 export default Array.from({ length: 50 }).map((item, i) => ({
   id: `XLOWCQQFJJHM8${i}`,
   type: getElement(['m5.large', 'm5.xlarge', 'm5.4xlarge'], i),
@@ -28,6 +32,7 @@ export default Array.from({ length: 50 }).map((item, i) => ({
   numOfvCpu: getElement([3, 5, 9], i),
   rootDeviceType: i % 3 === 0 ? 'ebs' : 'instance-store',
   isEBSOptimized: i % 5 !== 0,
+  averageLatency: getRandomInt(800),
   inboundRules: [
     {
       type: 'All traffic',

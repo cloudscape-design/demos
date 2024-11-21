@@ -20,6 +20,7 @@ export interface EC2Instance {
   isEBSOptimized: boolean;
   inboundRules: Array<InboundRule>;
   rootDeviceType: string;
+  averageLatency: number;
 }
 
 export type InstanceType = 'm5.large' | 'm5.xlarge' | 'm5.4xlarge';
