@@ -45,7 +45,17 @@ export const EC2ToolsContent = () => (
   </HelpPanel>
 );
 
-export const ManualRefresh = ({ onRefresh, loading, lastRefresh, disabled }) => {
+export const ManualRefresh = ({
+  onRefresh,
+  loading,
+  lastRefresh,
+  disabled,
+}: {
+  onRefresh: () => void;
+  loading: boolean;
+  disabled: boolean;
+  lastRefresh: Date;
+}) => {
   return (
     <SpaceBetween data-testid="manual-refresh" direction="horizontal" size="xs" alignItems="center">
       {lastRefresh && (

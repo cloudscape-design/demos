@@ -1,16 +1,19 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-const getElement = (array, loopedIndex) => array[loopedIndex % array.length];
+
+const getElement = (array: any[], loopedIndex: number) => array[loopedIndex % array.length];
 
 export default Array.from({ length: 50 }).map((item, i) => ({
   id: `XLOWCQQFJJHM8${i}`,
   type: getElement(['m5.large', 'm5.xlarge', 'm5.4xlarge'], i),
+  architecture: getElement(['arm64', 'i386', 'x86_64', 'arm64_mac'], i),
+  inAlarm: i % 4 === 0,
   publicDns: `231.50.3.${i}`,
-  monitoring: 'Default',
-  state: getElement(['Activated', 'Deactivated'], i),
+  monitoring: i % 3 === 0 ? 'Default' : '',
+  state: getElement(['Running', 'Pending', 'Stopping', 'Stopped', 'Shutting down', 'Terminated'], i),
   platformDetails: getElement(['Linux', 'Windows'], i),
   terminalProtection: 'on',
-  launchTime: `2021-05-12 16:53:${i.toString().padStart(2, '0')} GMT+0200 CEST`,
+  launchTime: `2024-05-12 16:53:${i.toString().padStart(2, '0')} GMT+0200 CEST`,
   volume: getElement([1, 2, 3, 4, 5], i),
   securityGroups: getElement([['groupA', 'groupB'], ['groupC', 'groupD', 'groupE'], ['groupF']], i),
   loadBalancers: getElement(
@@ -23,6 +26,8 @@ export default Array.from({ length: 50 }).map((item, i) => ({
   ),
   availabilityZone: getElement(['AZ 1', 'AZ 2'], i),
   numOfvCpu: getElement([3, 5, 9], i),
+  rootDeviceType: i % 3 === 0 ? 'ebs' : 'instance-store',
+  isEBSOptimized: i % 5 !== 0,
   inboundRules: [
     {
       type: 'All traffic',

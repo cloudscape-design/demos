@@ -72,6 +72,10 @@
     "title": "Table view with saved filter sets"
   },
   {
+    "path": "table-quick-saved-filters",
+    "title": "Table view with quick filters and saved filter sets"
+  },
+  {
     "path": "table",
     "title": "Table view"
   },
