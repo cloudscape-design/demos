@@ -10,6 +10,7 @@ import {
   Button,
   Badge,
   Container,
+  Link,
   Cards,
   CollectionPreferencesProps,
   Flashbar,
@@ -49,22 +50,31 @@ function App() {
     custom: { andOrFilter: false },
   });
 
-  const { items, actions, filterProps, filteredItemsCount, collectionProps, propertyFilterProps, paginationProps } =
-    useCollection(goods, {
-      propertyFiltering: {
-        filteringProperties: filteringProperties,
-        empty: <TableEmptyState resourceName="EC2 Instances" />,
-        noMatch: (
-          <TableNoMatchState
-            onClearFilter={() =>
-              actions.setPropertyFiltering({ tokens: [], operation: propertyFilterProps.query.operation })
-            }
-          />
-        ),
-      },
-      pagination: { pageSize: 10 },
-      selection: {},
-    });
+  const {
+    items,
+    allPageItems,
+    actions,
+    filterProps,
+    filteredItemsCount,
+    collectionProps,
+    propertyFilterProps,
+    paginationProps,
+  } = useCollection(goods, {
+    propertyFiltering: {
+      defaultQuery: { operation: 'and', tokens: [] },
+      filteringProperties: filteringProperties,
+      empty: <TableEmptyState resourceName="EC2 Instances" />,
+      noMatch: (
+        <TableNoMatchState
+          onClearFilter={() =>
+            actions.setPropertyFiltering({ tokens: [], operation: propertyFilterProps.query.operation })
+          }
+        />
+      ),
+    },
+    pagination: { pageSize: 10 },
+    selection: {},
+  });
 
   // const paginated = paginationProps.
 
@@ -125,7 +135,6 @@ function App() {
       ? { ...query, secondaryTokens: targetTokens }
       : { ...query, tokenGroups: targetTokens };
     actions.setPropertyFiltering(nextQuery);
-    updateRecentFilters(nextQuery);
   };
 
   const addEnumQuickFilter = (propertyKey: string, value: string) => {
@@ -154,34 +163,6 @@ function App() {
   const pricingModels = ['Usage based', 'Upfront commitment', 'Free'];
   const checkedPricingModels = pricingModels.filter(model => checkEnumProperty('pricingModel', model));
 
-  const [filtersFrequencyMap, setFiltersFrequencyMap] = useState<Record<string, number>>({});
-  const getQueryTokens = (query: PropertyFilterProps.Query) => {
-    const queryTokens: PropertyFilterProps.Token[] = [];
-    const traverse = (token: PropertyFilterProps.Token | PropertyFilterProps.TokenGroup) => {
-      if ('operator' in token) {
-        queryTokens.push(token);
-      } else {
-        token.tokens.forEach(traverse);
-      }
-    };
-    (query.tokenGroups ?? query.tokens).forEach(traverse);
-    (query.secondaryTokens ?? []).forEach(traverse);
-    return queryTokens;
-  };
-  const updateRecentFilters = (query: PropertyFilterProps.Query) => {
-    const queryTokenKeys = getQueryTokens(query).map(token => JSON.stringify(token));
-    setFiltersFrequencyMap(prev => {
-      const next = { ...prev };
-      for (const key of Object.keys(next)) {
-        next[key]++;
-      }
-      for (const key of queryTokenKeys) {
-        next[key] = 0;
-      }
-      return next;
-    });
-  };
-
   const [price, setPrice] = useState({ min: 0, max: 300000 });
   const averageLatencyFilterDebounceTimerRef = useRef<null | any>(null);
   const onUpdateLatencyFilter = (value: { min: number; max: number }) => {
@@ -192,7 +173,7 @@ function App() {
     averageLatencyFilterDebounceTimerRef.current = setTimeout(() => {
       onAddQuickFilter(
         {
-          operation: 'or',
+          operation: 'and',
           tokens: [
             { propertyKey: 'yearlyPrice', operator: '>=', value: value.min },
             { propertyKey: 'yearlyPrice', operator: '<=', value: value.max },
@@ -215,8 +196,17 @@ function App() {
   const hasFilterQuery = propertyFilterProps.query.tokenGroups && propertyFilterProps.query.tokenGroups?.length !== 0;
   let selectedFilterToken: string[] = [];
   propertyFilterProps.query.tokenGroups?.forEach(token => {
-    const filteredToken = token as PropertyFilterProps.Token;
-    selectedFilterToken = selectedFilterToken.concat(filteredToken.value);
+    if ('value' in token) {
+      selectedFilterToken = selectedFilterToken.concat(token.value);
+    } else {
+      const tokenisedValues = token.tokens.map(option => {
+        if ('propertyKey' in option) {
+          return option.propertyKey === 'yearlyPrice' ? `Price ${option.operator} ${option.value}` : '';
+        }
+        return '';
+      });
+      selectedFilterToken = selectedFilterToken.concat(tokenisedValues);
+    }
   });
   console.log(selectedFilterToken);
 
@@ -252,7 +242,21 @@ function App() {
                 >
                   {hasFilterQuery ? (
                     <SpaceBetween size="xxs">
-                      <Box variant="h4">Selected filters</Box>
+                      <SpaceBetween size="xs" direction="horizontal">
+                        <Box variant="h4">Selected filters</Box>
+                        <Box margin={{ top: 'xxs' }}>
+                          <Link
+                            onClick={() => {
+                              actions.setPropertyFiltering({
+                                tokens: [],
+                                operation: propertyFilterProps.query.operation,
+                              });
+                            }}
+                          >
+                            Clear all
+                          </Link>
+                        </Box>
+                      </SpaceBetween>
                       <TokenGroup
                         // onDismiss={({ detail: { itemIndex } }) => {}}
                         items={selectedFilterToken.map(token => ({ label: token }))}
@@ -266,7 +270,7 @@ function App() {
                     title="Pricing model"
                     values={pricingModels}
                     checkedValues={checkedPricingModels}
-                    getTotal={model => goods.filter(i => i.pricingModel === model).length}
+                    getTotal={model => allPageItems.filter(i => i.pricingModel === model).length}
                     onChange={model => addEnumQuickFilter('pricingModel', model)}
                     renderValue={value => <Badge color={value === 'Free' ? 'green' : 'severity-low'}>{value}</Badge>}
                   />
@@ -277,7 +281,7 @@ function App() {
                     hideCounter={true}
                     values={['Yes']}
                     checkedValues={['Yes'].filter(state => checkEnumProperty('freeTrial', state))}
-                    getTotal={() => goods.filter(i => i.freeTrial === 'Yes').length}
+                    getTotal={() => allPageItems.filter(i => i.freeTrial === 'Yes').length}
                     onChange={() => addEnumQuickFilter('freeTrial', 'Yes')}
                   />
 
@@ -285,7 +289,7 @@ function App() {
                     title="Operating System"
                     values={operatingSystems}
                     checkedValues={checkedOperatingSystems}
-                    getTotal={os => goods.filter(i => i.operatingSystem === os).length}
+                    getTotal={os => allPageItems.filter(i => i.operatingSystem === os).length}
                     onChange={os => addEnumQuickFilter('operatingSystem', os)}
                     limit={3}
                   />
@@ -297,7 +301,7 @@ function App() {
                     onChange={onUpdateLatencyFilter}
                     enabled={averageLatencyEnabled}
                     min={0}
-                    max={300000}
+                    max={40000}
                   />
                 </Container>
               </Box>
@@ -326,8 +330,11 @@ function App() {
                         </Box>
                       )}
                       <div style={{ flexGrow: '1' }}>
-                        <TextFilter {...filterProps} countText={`${filteredItemsCount} matches`} />
+                        <TextFilter {...filterProps} filteringPlaceholder="Filter available products" />
                       </div>
+                      {hasFilterQuery ? (
+                        <Box margin={{ left: 'xs', top: 'xs' }}>{filteredItemsCount} matches</Box>
+                      ) : null}
                     </div>
                   </div>
                 }

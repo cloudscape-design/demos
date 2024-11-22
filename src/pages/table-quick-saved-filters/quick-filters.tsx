@@ -43,8 +43,9 @@ export function QuickFilterEnum({
   hideCounter = false,
   ...formProps
 }: QuickFilterEnumProps) {
-  const [effectiveLimit, setEffectiveLimit] = useState(limit ?? 999);
-  const showToggle = limit && values.length > limit;
+  const totalItemsCount = values.length;
+  const [effectiveLimit, setEffectiveLimit] = useState(limit ?? totalItemsCount);
+  const showToggle = limit && totalItemsCount > limit;
   return (
     <QuickFilterForm {...formProps} counter={!hideCounter ? checkedValues.length : undefined}>
       {values.slice(0, effectiveLimit).map(value => (
@@ -61,8 +62,8 @@ export function QuickFilterEnum({
       {showToggle && (
         <Button
           variant="inline-link"
-          iconName={effectiveLimit === 4 ? 'treeview-expand' : 'treeview-collapse'}
-          onClick={() => setEffectiveLimit(prev => (prev === limit ? 999 : limit))}
+          iconName={effectiveLimit === limit ? 'treeview-expand' : 'treeview-collapse'}
+          onClick={() => setEffectiveLimit(prev => (prev === limit ? totalItemsCount : limit))}
         >
           {effectiveLimit === limit ? 'Show more' : 'Show fewer'}
         </Button>
