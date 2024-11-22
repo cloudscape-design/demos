@@ -14,6 +14,7 @@ import {
   ExpandableSection,
 } from '@cloudscape-design/components';
 import { EC2Instance } from '../commons/interfaces';
+import { isAfter, isBefore, isSameDay, startOfWeek, subWeeks } from 'date-fns';
 
 export const tableAriaLabels: TableProps<{ id: string }>['ariaLabels'] = {
   selectionGroupLabel: 'group label',
@@ -87,10 +88,10 @@ export const COLUMN_DEFINITIONS: TableProps.ColumnDefinition<EC2Instance>[] = [
     sortingField: 'monitoring',
   },
   {
-    id: 'launchTime',
-    header: 'Launch time',
-    cell: item => item.launchTime,
-    sortingField: 'launchTime',
+    id: 'launchedAt',
+    header: 'Launched on',
+    cell: item => item.launchedAt,
+    sortingField: 'launchedAt',
   },
   {
     id: 'EBSOptimized',
@@ -232,6 +233,50 @@ export const filteringProperties: PropertyFilterProps.FilteringProperty[] = [
       { operator: '!:', tokenType: 'enum', match: ((v: unknown[], t: unknown[]) => !checkArrayContains(v, t)) as any },
     ],
   },
+  {
+    key: 'launchedAt',
+    propertyLabel: 'Launched on',
+    groupValuesLabel: 'Launched on values',
+    operators: [
+      {
+        operator: '=',
+        match: ((value: string, token: string) => {
+          switch (token.trim()) {
+            case 'today':
+              return isSameDay(new Date(value), new Date());
+            case 'this week':
+              return (
+                isSameDay(new Date(value), startOfWeek(new Date())) || isAfter(new Date(value), startOfWeek(new Date()))
+              );
+            case 'last week':
+              return (
+                (isSameDay(new Date(value), subWeeks(new Date(), 1)) ||
+                  isAfter(new Date(value), subWeeks(new Date(), 1))) &&
+                isBefore(new Date(value), startOfWeek(new Date()))
+              );
+            default:
+              return isSameDay(new Date(value), new Date(token));
+          }
+        }) as any,
+      },
+      {
+        operator: '!=',
+        match: ((value: string, token: string) => !isSameDay(new Date(value), new Date(token))) as any,
+      },
+      { operator: '>', match: ((value: string, token: string) => isAfter(new Date(value), new Date(token))) as any },
+      { operator: '<', match: ((value: string, token: string) => isBefore(new Date(value), new Date(token))) as any },
+      {
+        operator: '>=',
+        match: ((value: string, token: string) =>
+          isSameDay(new Date(value), new Date(token)) || isAfter(new Date(value), new Date(token))) as any,
+      },
+      {
+        operator: '<=',
+        match: ((value: string, token: string) =>
+          isSameDay(new Date(value), new Date(token)) || isBefore(new Date(value), new Date(token))) as any,
+      },
+    ],
+  },
 ];
 
 export interface CustomPrefs {
@@ -311,8 +356,8 @@ export function TablePreferences({
             label: 'Platform',
           },
           {
-            id: 'launchTime',
-            label: 'Launch time',
+            id: 'launchedAt',
+            label: 'Launched on',
           },
           {
             id: 'volume',

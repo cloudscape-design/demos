@@ -11,7 +11,7 @@ export interface EC2Instance {
   state: InstanceState;
   platformDetails: InstancePlatform;
   terminalProtection: string;
-  launchTime: string;
+  launchedAt: string;
   volume: number;
   securityGroups: Array<string>;
   loadBalancers: Array<string>;

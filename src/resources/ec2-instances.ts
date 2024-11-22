@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 
+import { format, subDays } from 'date-fns';
 import { EC2Instance } from '../pages/commons/interfaces';
 
 const getElement = (array: any[], loopedIndex: number) => array[loopedIndex % array.length];
@@ -19,7 +20,7 @@ const instances: EC2Instance[] = Array.from({ length: 50 }).map((item, i) => ({
   state: getElement(['Running', 'Pending', 'Stopping', 'Stopped', 'Shutting down', 'Terminated'], i),
   platformDetails: getElement(['Linux', 'Windows'], i),
   terminalProtection: 'on',
-  launchTime: `2024-05-12 16:53:${i.toString().padStart(2, '0')} GMT+0200 CEST`,
+  launchedAt: format(subDays(new Date(), getRandomInt(12)), 'yyyy-MM-dd'),
   volume: getElement([1, 2, 3, 4, 5], i),
   securityGroups: getElement([['groupA', 'groupB'], ['groupC', 'groupD', 'groupE'], ['groupF']], i),
   loadBalancers: getElement(

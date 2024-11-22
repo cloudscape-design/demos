@@ -126,7 +126,7 @@ export const getPanelContentComparison = items => {
   const keyHeaderMap = {
     platformDetails: 'Platform details',
     numOfvCpu: 'Number of vCPUs',
-    launchTime: 'Launch time',
+    launchedAt: 'Launched at',
     availabilityZone: 'Availability zone',
     monitoring: 'Monitoring',
     securityGroups: 'Security groups',
@@ -134,7 +134,7 @@ export const getPanelContentComparison = items => {
   const transformedData = [
     'platformDetails',
     'numOfvCpu',
-    'launchTime',
+    'launchedAt',
     'availabilityZone',
     'monitoring',
     'securityGroups',

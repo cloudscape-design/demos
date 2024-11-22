@@ -112,6 +112,30 @@ export function QuickFilterRange({ value, min, max, enabled, onChange, ...formPr
   );
 }
 
+interface SingleClickFilter {
+  expandable?: boolean;
+  defaultExpanded?: boolean;
+  title: string;
+  values: string[];
+  onSelect: (value: string) => void;
+}
+
+export function SingleClickFilter({ values, onSelect, ...formProps }: SingleClickFilter) {
+  return (
+    <QuickFilterForm {...formProps}>
+      <ul style={{ padding: '0 0 0 16px', margin: '-8px 0 0 0' }}>
+        {values.map(value => (
+          <li key={value}>
+            <Button variant="inline-link" onClick={() => onSelect(value)}>
+              {value}
+            </Button>
+          </li>
+        ))}
+      </ul>
+    </QuickFilterForm>
+  );
+}
+
 function QuickFilterForm({
   title,
   counter,

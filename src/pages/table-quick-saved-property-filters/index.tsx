@@ -44,7 +44,7 @@ import {
 } from '../table-quick-saved-filters/table-configs';
 import '../../styles/table-select.scss';
 import { range } from 'lodash';
-import { QuickFilterEnum, QuickFilterRange } from '../table-quick-saved-filters/quick-filters';
+import { QuickFilterEnum, QuickFilterRange, SingleClickFilter } from '../table-quick-saved-filters/quick-filters';
 
 const defaultFilterSets: FilterSet[] = [
   {
@@ -383,6 +383,19 @@ function App() {
                       checkedValues={checkedInstanceTypes}
                       getTotal={type => instances.filter(i => i.type === type).length}
                       onChange={type => addEnumQuickFilter('type', type)}
+                    />
+
+                    <SingleClickFilter
+                      title="Launched on"
+                      values={['today', 'this week', 'last week']}
+                      onSelect={value =>
+                        onAddQuickFilter({ propertyKey: 'launchedAt', operator: '=', value }, (prev, next) => {
+                          if ('operator' in next && prev?.value === next?.value) {
+                            return null;
+                          }
+                          return next;
+                        })
+                      }
                     />
 
                     <QuickFilterEnum
