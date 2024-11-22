@@ -1,17 +1,19 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 
+import { EC2Instance } from '../pages/commons/interfaces';
+
 const getElement = (array: any[], loopedIndex: number) => array[loopedIndex % array.length];
 
 const getRandomInt = (max: number) => {
   return Math.floor(Math.random() * max);
 };
 
-export default Array.from({ length: 50 }).map((item, i) => ({
+const instances: EC2Instance[] = Array.from({ length: 50 }).map((item, i) => ({
   id: `XLOWCQQFJJHM8${i}`,
   type: getElement(['m5.large', 'm5.xlarge', 'm5.4xlarge'], i),
   architecture: getElement(['arm64', 'i386', 'x86_64', 'arm64_mac'], i),
-  alarmState: (i % 4 === 0 ? 'ALARM' : 'NORMAL') as 'ALARM' | 'NORMAL',
+  alarmState: (i % 4 === 0 ? 'ALARM' : 'Normal') as 'ALARM' | 'Normal',
   publicDns: `231.50.3.${i}`,
   monitoring: i % 3 === 0 ? 'Default' : '',
   state: getElement(['Running', 'Pending', 'Stopping', 'Stopped', 'Shutting down', 'Terminated'], i),
@@ -27,7 +29,7 @@ export default Array.from({ length: 50 }).map((item, i) => ({
   availabilityZone: getElement(['AZ 1', 'AZ 2'], i),
   numOfvCpu: getElement([3, 5, 9], i),
   rootDeviceType: i % 3 === 0 ? 'ebs' : 'instance-store',
-  isEBSOptimized: i % 5 !== 0,
+  EBSOptimized: i % 5 !== 0 ? 'Yes' : 'No',
   averageLatency: getRandomInt(800),
   inboundRules: [
     {
@@ -46,3 +48,5 @@ export default Array.from({ length: 50 }).map((item, i) => ({
     },
   ],
 }));
+
+export default instances;

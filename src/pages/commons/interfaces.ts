@@ -17,13 +17,14 @@ export interface EC2Instance {
   loadBalancers: Array<string>;
   availabilityZone: string;
   numOfvCpu: number;
-  isEBSOptimized: boolean;
+  EBSOptimized: EBSOptimizedType;
   inboundRules: Array<InboundRule>;
   rootDeviceType: string;
   averageLatency: number;
 }
 
-export type AlarmStateType = 'ALARM' | 'NORMAL';
+export type AlarmStateType = 'ALARM' | 'Normal';
+export type EBSOptimizedType = 'Yes' | 'No';
 export type InstanceType = 'm5.large' | 'm5.xlarge' | 'm5.4xlarge';
 export type InstanceState = 'Running' | 'Pending' | 'Shutting down' | 'Stopping' | 'Stopped' | 'Terminated';
 export type InstanceArchitecture = 'arm64' | 'i386' | 'x86_64' | 'arm64_mac';

@@ -91,10 +91,10 @@ export const COLUMN_DEFINITIONS: TableProps.ColumnDefinition<EC2Instance>[] = [
     sortingField: 'launchTime',
   },
   {
-    id: 'isEBSOptimized',
+    id: 'EBSOptimized',
     header: 'EBS optimized',
-    cell: item => (item.isEBSOptimized ? 'Yes' : 'No'),
-    sortingField: 'isEBSOptimized',
+    cell: item => item.EBSOptimized,
+    sortingField: 'EBSOptimized',
   },
   {
     id: 'rootDeviceType',
@@ -145,19 +145,25 @@ export const filteringProperties: PropertyFilterProps.FilteringProperty[] = [
     key: 'id',
     propertyLabel: 'Instance ID',
     groupValuesLabel: 'Instance ID values',
-    operators: ['=', ':'],
+    operators: ['=', '!='],
   },
   {
     key: 'type',
     propertyLabel: 'Instance type',
     groupValuesLabel: 'Type values',
-    operators: ['=', '!='].map(operator => ({ operator, tokenType: 'enum' })),
+    operators: [
+      { operator: '=', tokenType: 'enum' },
+      { operator: '!=', tokenType: 'enum' },
+    ],
   },
   {
     key: 'state',
     propertyLabel: 'State',
     groupValuesLabel: 'State values',
-    operators: ['=', '!='].map(operator => ({ operator, tokenType: 'enum' })),
+    operators: [
+      { operator: '=', tokenType: 'enum' },
+      { operator: '!=', tokenType: 'enum' },
+    ],
   },
   {
     key: 'alarmState',
@@ -169,13 +175,19 @@ export const filteringProperties: PropertyFilterProps.FilteringProperty[] = [
     key: 'platformDetails',
     propertyLabel: 'Platform',
     groupValuesLabel: 'Platform values',
-    operators: ['=', '!='],
+    operators: [
+      { operator: '=', tokenType: 'enum' },
+      { operator: '!=', tokenType: 'enum' },
+    ],
   },
   {
     key: 'availabilityZone',
     propertyLabel: 'Availability zone',
     groupValuesLabel: 'Availability zone values',
-    operators: ['=', ':', '!=', '!:'],
+    operators: [
+      { operator: '=', tokenType: 'enum' },
+      { operator: '!=', tokenType: 'enum' },
+    ],
   },
   {
     key: 'numOfvCpu',
@@ -187,19 +199,25 @@ export const filteringProperties: PropertyFilterProps.FilteringProperty[] = [
     key: 'averageLatency',
     propertyLabel: 'Average latency (mb / s)',
     groupValuesLabel: 'Average latency values',
-    operators: ['=', '!=', '>', '>=', '<', '<='],
+    operators: ['>', '>=', '<', '<='],
   },
   {
     key: 'rootDeviceType',
-    propertyLabel: 'Root device typer',
+    propertyLabel: 'Root device type',
     groupValuesLabel: 'Root device type values',
-    operators: ['=', '!='],
+    operators: [
+      { operator: '=', tokenType: 'enum' },
+      { operator: '!=', tokenType: 'enum' },
+    ],
   },
   {
-    key: 'isEBSOptimized',
+    key: 'EBSOptimized',
     propertyLabel: 'EBS optimized',
     groupValuesLabel: 'EBS optimized values',
-    operators: ['='],
+    operators: [
+      { operator: '=', tokenType: 'enum' },
+      { operator: '!=', tokenType: 'enum' },
+    ],
   },
   {
     key: 'loadBalancers',
@@ -267,7 +285,7 @@ export function TablePreferences({
             label: 'Root device type',
           },
           {
-            id: 'isEBSOptimized',
+            id: 'EBSOptimized',
             label: 'EBS optimized',
           },
           {
