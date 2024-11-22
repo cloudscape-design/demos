@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MIT-0
 
 import { format, subDays } from 'date-fns';
-import { EC2Instance } from '../pages/commons/interfaces';
 
 const getElement = (array: any[], loopedIndex: number) => array[loopedIndex % array.length];
 
@@ -10,7 +9,7 @@ const getRandomInt = (max: number) => {
   return Math.floor(Math.random() * max);
 };
 
-const instances: EC2Instance[] = Array.from({ length: 50 }).map((item, i) => ({
+const instances = Array.from({ length: 50 }).map((item, i) => ({
   id: `XLOWCQQFJJHM8${i}`,
   type: getElement(['m5.large', 'm5.xlarge', 'm5.4xlarge'], i),
   architecture: getElement(['arm64', 'i386', 'x86_64', 'arm64_mac'], i),
@@ -30,7 +29,7 @@ const instances: EC2Instance[] = Array.from({ length: 50 }).map((item, i) => ({
   availabilityZone: getElement(['AZ 1', 'AZ 2'], i),
   numOfvCpu: getElement([3, 5, 9], i),
   rootDeviceType: i % 3 === 0 ? 'ebs' : 'instance-store',
-  EBSOptimized: i % 5 !== 0 ? 'Yes' : 'No',
+  EBSOptimized: (i % 5 !== 0 ? 'Yes' : 'No') as 'Yes' | 'No',
   averageLatency: getRandomInt(800),
   inboundRules: [
     {
