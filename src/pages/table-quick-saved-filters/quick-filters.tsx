@@ -117,18 +117,24 @@ interface SingleClickFilter {
   defaultExpanded?: boolean;
   title: string;
   values: string[];
+  getTotal: (value: string) => number;
   onSelect: (value: string) => void;
 }
 
-export function SingleClickFilter({ values, onSelect, ...formProps }: SingleClickFilter) {
+export function SingleClickFilter({ values, onSelect, getTotal, ...formProps }: SingleClickFilter) {
   return (
     <QuickFilterForm {...formProps}>
       <ul style={{ padding: '0 0 0 16px', margin: '-8px 0 0 0' }}>
         {values.map(value => (
           <li key={value}>
-            <Button variant="inline-link" onClick={() => onSelect(value)}>
-              {value}
-            </Button>
+            <SpaceBetween size="xxs" direction="horizontal" alignItems="center">
+              <Button variant="inline-link" onClick={() => onSelect(value)}>
+                {value}
+              </Button>
+              <Box fontSize="body-s" color="text-body-secondary">
+                ({getTotal(value)})
+              </Box>
+            </SpaceBetween>
           </li>
         ))}
       </ul>

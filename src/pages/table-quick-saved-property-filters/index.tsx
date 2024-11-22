@@ -41,6 +41,7 @@ import {
   filteringProperties,
   tableAriaLabels,
   CustomPrefs,
+  matchDateEquals,
 } from '../table-quick-saved-filters/table-configs';
 import '../../styles/table-select.scss';
 import { range } from 'lodash';
@@ -396,6 +397,7 @@ function App() {
                           return next;
                         })
                       }
+                      getTotal={value => instances.filter(i => matchDateEquals(i.launchedAt, value)).length}
                     />
 
                     <QuickFilterEnum

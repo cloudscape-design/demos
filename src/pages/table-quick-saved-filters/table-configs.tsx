@@ -240,24 +240,7 @@ export const filteringProperties: PropertyFilterProps.FilteringProperty[] = [
     operators: [
       {
         operator: '=',
-        match: ((value: string, token: string) => {
-          switch (token.trim()) {
-            case 'today':
-              return isSameDay(new Date(value), new Date());
-            case 'this week':
-              return (
-                isSameDay(new Date(value), startOfWeek(new Date())) || isAfter(new Date(value), startOfWeek(new Date()))
-              );
-            case 'last week':
-              return (
-                (isSameDay(new Date(value), subWeeks(new Date(), 1)) ||
-                  isAfter(new Date(value), subWeeks(new Date(), 1))) &&
-                isBefore(new Date(value), startOfWeek(new Date()))
-              );
-            default:
-              return isSameDay(new Date(value), new Date(token));
-          }
-        }) as any,
+        match: ((value: string, token: string) => matchDateEquals(value, token)) as any,
       },
       {
         operator: '!=',
@@ -278,6 +261,22 @@ export const filteringProperties: PropertyFilterProps.FilteringProperty[] = [
     ],
   },
 ];
+
+export function matchDateEquals(value: string, token: string) {
+  switch (token.trim()) {
+    case 'today':
+      return isSameDay(new Date(value), new Date());
+    case 'this week':
+      return isSameDay(new Date(value), startOfWeek(new Date())) || isAfter(new Date(value), startOfWeek(new Date()));
+    case 'last week':
+      return (
+        (isSameDay(new Date(value), subWeeks(new Date(), 1)) || isAfter(new Date(value), subWeeks(new Date(), 1))) &&
+        isBefore(new Date(value), startOfWeek(new Date()))
+      );
+    default:
+      return isSameDay(new Date(value), new Date(token));
+  }
+}
 
 export interface CustomPrefs {
   andOrFilter: boolean;
