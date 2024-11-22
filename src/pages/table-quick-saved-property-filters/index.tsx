@@ -40,6 +40,7 @@ import {
   COLUMN_DEFINITIONS,
   filteringProperties,
   tableAriaLabels,
+  CustomPrefs,
 } from '../table-quick-saved-filters/table-configs';
 import '../../styles/table-select.scss';
 import { range } from 'lodash';
@@ -85,9 +86,10 @@ function App() {
   const [loading] = useState(false);
   const [quickPanelOpen, setQuickPanelOpen] = useState(true);
 
-  const [preferences, setPreferences] = useState<CollectionPreferencesProps.Preferences>({
+  const [preferences, setPreferences] = useState<CollectionPreferencesProps.Preferences<CustomPrefs>>({
     wrapLines: false,
     stickyColumns: { first: 1, last: 0 },
+    custom: { andOrFilter: false },
   });
 
   const { items, actions, filteredItemsCount, collectionProps, propertyFilterProps, paginationProps } = useCollection(
@@ -145,7 +147,7 @@ function App() {
     },
   });
 
-  const matchToken = (
+  const matchTokenApproximate = (
     source: PropertyFilterProps.Token | PropertyFilterProps.TokenGroup,
     target: PropertyFilterProps.Token | PropertyFilterProps.TokenGroup
   ): boolean => {
@@ -156,6 +158,31 @@ function App() {
     return sourceKeys.some(key => targetKeys.includes(key));
   };
 
+  const matchTokenExact = (
+    source: PropertyFilterProps.Token | PropertyFilterProps.TokenGroup,
+    target: PropertyFilterProps.Token | PropertyFilterProps.TokenGroup
+  ): boolean => {
+    if ('operator' in source && 'operator' in target) {
+      return source.propertyKey === target.propertyKey && source.operator === target.operator;
+    }
+    if (
+      'operation' in source &&
+      'operation' in target &&
+      source.operation === target.operation &&
+      source.tokens.length === target.tokens.length
+    ) {
+      for (let i = 0; i < source.tokens.length; i++) {
+        if (!matchTokenExact(source.tokens[i], target.tokens[i])) {
+          return false;
+        }
+      }
+      return true;
+    }
+    return false;
+  };
+
+  const matchToken = preferences.custom?.andOrFilter ? matchTokenApproximate : matchTokenExact;
+
   const onAddQuickFilter = (
     token: PropertyFilterProps.Token | PropertyFilterProps.TokenGroup,
     onAdd: (
@@ -164,16 +191,18 @@ function App() {
     ) => null | PropertyFilterProps.Token | PropertyFilterProps.TokenGroup
   ) => {
     const query = propertyFilterProps.query;
-    const matched = (query.secondaryTokens ?? []).find(source => matchToken(source, token));
-    const secondaryTokens = [...(query.secondaryTokens ?? [])];
-    const matchedIndex = matched ? secondaryTokens.indexOf(matched) : secondaryTokens.length;
+    const targetTokens = [...(preferences.custom?.andOrFilter ? query.secondaryTokens ?? [] : query.tokenGroups ?? [])];
+    const matched = targetTokens.find(source => matchToken(source, token));
+    const matchedIndex = matched ? targetTokens.indexOf(matched) : targetTokens.length;
     const tokenToAdd = matched ? onAdd(matched, token) : token;
     if (tokenToAdd) {
-      secondaryTokens.splice(matchedIndex, 1, tokenToAdd);
+      targetTokens.splice(matchedIndex, 1, tokenToAdd);
     } else {
-      secondaryTokens.splice(matchedIndex, 1);
+      targetTokens.splice(matchedIndex, 1);
     }
-    const nextQuery = { ...query, secondaryTokens };
+    const nextQuery = preferences.custom?.andOrFilter
+      ? { ...query, secondaryTokens: targetTokens }
+      : { ...query, tokenGroups: targetTokens };
     actions.setPropertyFiltering(nextQuery);
     updateRecentFilters(nextQuery);
   };
@@ -188,8 +217,12 @@ function App() {
     });
   };
 
+  const targetTokens = preferences.custom?.andOrFilter
+    ? propertyFilterProps.query.secondaryTokens ?? []
+    : propertyFilterProps.query.tokenGroups ?? [];
+
   const checkEnumProperty = (propertyKey: string, value: string) =>
-    propertyFilterProps.query.secondaryTokens?.some(
+    targetTokens.some(
       t => 'operator' in t && t.propertyKey === propertyKey && t.operator === '=' && t.value.includes(value)
     );
 
@@ -204,7 +237,7 @@ function App() {
   };
 
   const checkMultiEnumProperty = (propertyKey: string, value: string) =>
-    propertyFilterProps.query.secondaryTokens?.some(
+    targetTokens.some(
       t => 'operator' in t && t.propertyKey === propertyKey && t.operator === ':' && t.value.includes(value)
     );
 
@@ -274,7 +307,7 @@ function App() {
       );
     }, 750);
   };
-  const averageLatencyEnabled = (propertyFilterProps.query.secondaryTokens ?? []).some(source =>
+  const averageLatencyEnabled = targetTokens.some(source =>
     matchToken(source, {
       operation: 'and',
       tokens: [
@@ -402,6 +435,7 @@ function App() {
                     recentOptions={recentFilters}
                     filteringAriaLabel="Find resources"
                     filteringPlaceholder="Find resources"
+                    fixedOperations={!preferences.custom?.andOrFilter}
                     i18nStrings={{
                       ...propertyFilterI18nStrings,
                       recentOptionsLabel: 'Recently used filters',
@@ -409,6 +443,7 @@ function App() {
                     countText={filteredItemsCount ? getTextFilterCounterText(filteredItemsCount) : ''}
                     expandToViewport={true}
                     enableTokenGroups={true}
+                    tokenLimit={3}
                     customControl={
                       <SpaceBetween size="xs" direction="horizontal">
                         {quickPanelOpen ? null : (

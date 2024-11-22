@@ -10,6 +10,8 @@ import {
   StatusIndicator,
   TableProps,
   SpaceBetween,
+  Checkbox,
+  ExpandableSection,
 } from '@cloudscape-design/components';
 import { EC2Instance } from '../commons/interfaces';
 
@@ -232,11 +234,15 @@ export const filteringProperties: PropertyFilterProps.FilteringProperty[] = [
   },
 ];
 
+export interface CustomPrefs {
+  andOrFilter: boolean;
+}
+
 export function TablePreferences({
   preferences,
   setPreferences,
 }: {
-  preferences: CollectionPreferencesProps.Preferences;
+  preferences: CollectionPreferencesProps.Preferences<CustomPrefs>;
   setPreferences: (next: CollectionPreferencesProps.Preferences) => void;
 }) {
   return (
@@ -246,6 +252,18 @@ export function TablePreferences({
       cancelLabel="Cancel"
       onConfirm={({ detail }) => setPreferences(detail)}
       preferences={preferences}
+      customPreference={(customValue: CustomPrefs, setCustomValue: (value: CustomPrefs) => void) => (
+        <ExpandableSection variant="footer" defaultExpanded={true} headerText="Filter settings">
+          <SpaceBetween size="xs">
+            <Checkbox
+              checked={customValue?.andOrFilter}
+              onChange={({ detail }) => setCustomValue({ ...customValue, andOrFilter: detail.checked })}
+            >
+              Use and/or filter
+            </Checkbox>
+          </SpaceBetween>
+        </ExpandableSection>
+      )}
       contentDisplayPreference={{
         title: 'Column preferences',
         description: 'Customize the columns visibility and order.',
