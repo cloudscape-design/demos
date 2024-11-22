@@ -14,8 +14,6 @@ import {
   Flashbar,
   Header,
   Grid,
-  Checkbox,
-  ExpandableSection,
   Pagination,
   PropertyFilter,
   Select,
@@ -45,6 +43,7 @@ import {
 } from '../table-quick-saved-filters/table-configs';
 import '../../styles/table-select.scss';
 import { range } from 'lodash';
+import { QuickFilterEnum, QuickFilterRange } from '../table-quick-saved-filters/quick-filters';
 
 const defaultFilterSets: FilterSet[] = [
   {
@@ -146,6 +145,17 @@ function App() {
     },
   });
 
+  const matchToken = (
+    source: PropertyFilterProps.Token | PropertyFilterProps.TokenGroup,
+    target: PropertyFilterProps.Token | PropertyFilterProps.TokenGroup
+  ): boolean => {
+    const sourceTokens = 'operator' in source ? [source] : (source.tokens as PropertyFilterProps.Token[]);
+    const sourceKeys = sourceTokens.map(t => t.propertyKey ?? '');
+    const targetTokens = 'operator' in target ? [target] : (target.tokens as PropertyFilterProps.Token[]);
+    const targetKeys = targetTokens.map(t => t.propertyKey ?? '');
+    return sourceKeys.some(key => targetKeys.includes(key));
+  };
+
   const onAddQuickFilter = (
     token: PropertyFilterProps.Token | PropertyFilterProps.TokenGroup,
     onAdd: (
@@ -154,16 +164,6 @@ function App() {
     ) => null | PropertyFilterProps.Token | PropertyFilterProps.TokenGroup
   ) => {
     const query = propertyFilterProps.query;
-    const matchToken = (
-      source: PropertyFilterProps.Token | PropertyFilterProps.TokenGroup,
-      target: PropertyFilterProps.Token | PropertyFilterProps.TokenGroup
-    ): boolean => {
-      const sourceTokens = 'operator' in source ? [source] : (source.tokens as PropertyFilterProps.Token[]);
-      const sourceKeys = sourceTokens.map(t => t.propertyKey ?? '');
-      const targetTokens = 'operator' in target ? [target] : (target.tokens as PropertyFilterProps.Token[]);
-      const targetKeys = targetTokens.map(t => t.propertyKey ?? '');
-      return sourceKeys.some(key => targetKeys.includes(key));
-    };
     const matched = (query.secondaryTokens ?? []).find(source => matchToken(source, token));
     const secondaryTokens = [...(query.secondaryTokens ?? [])];
     const matchedIndex = matched ? secondaryTokens.indexOf(matched) : secondaryTokens.length;
@@ -214,7 +214,6 @@ function App() {
   const instanceTypes = ['m5.large', 'm5.xlarge', 'm5.4xlarge'];
   const checkedInstanceTypes = instanceTypes.filter(type => checkEnumProperty('type', type));
 
-  const [visibleLoadBalancers, setVisibleLoadBalancers] = useState(4);
   const frequentLoadBalancers = ['lb-1', 'lb-4', 'lb-2', 'lb-3', 'lb-5', 'lb-6', 'lb-7', 'lb-8'];
   const checkedLoadBalancers = frequentLoadBalancers.filter(lb => checkMultiEnumProperty('loadBalancers', lb));
 
@@ -254,6 +253,36 @@ function App() {
     .filter(([, value]) => value !== 0)
     .sort(([, a], [, b]) => a - b)
     .map(([key]) => JSON.parse(key) as PropertyFilterProps.Token);
+
+  const [averageLatencyFilterValue, setAverageLatencyFilterValue] = useState({ min: 0, max: 300 });
+  const averageLatencyFilterDebounceTimerRef = useRef<null | any>(null);
+  const onUpdateLatencyFilter = (value: { min: number; max: number }) => {
+    if (averageLatencyFilterDebounceTimerRef.current) {
+      clearTimeout(averageLatencyFilterDebounceTimerRef.current);
+    }
+    setAverageLatencyFilterValue(value);
+    averageLatencyFilterDebounceTimerRef.current = setTimeout(() => {
+      onAddQuickFilter(
+        {
+          operation: 'and',
+          tokens: [
+            { propertyKey: 'averageLatency', operator: '>=', value: value.min },
+            { propertyKey: 'averageLatency', operator: '<=', value: value.max },
+          ],
+        },
+        (_prev, next) => next
+      );
+    }, 750);
+  };
+  const averageLatencyEnabled = (propertyFilterProps.query.secondaryTokens ?? []).some(source =>
+    matchToken(source, {
+      operation: 'and',
+      tokens: [
+        { propertyKey: 'averageLatency', operator: '>=', value: 0 },
+        { propertyKey: 'averageLatency', operator: '<=', value: 0 },
+      ],
+    })
+  );
 
   return (
     <CustomAppLayout
@@ -296,94 +325,52 @@ function App() {
                 >
                   {/* Quick filters */}
                   <SpaceBetween size="m">
-                    <div>
-                      <Box variant="h4">Alarm state</Box>
-                      <SpaceBetween size="xxs" direction="horizontal" alignItems="center">
-                        <Checkbox
-                          checked={!!checkEnumProperty('alarmState', 'ALARM')}
-                          onChange={() => addEnumQuickFilter('alarmState', 'ALARM')}
-                        />
-                        <Badge color="severity-high">ALARM</Badge>
-                        <Box fontSize="body-s" color="text-body-secondary">
-                          ({instances.filter(i => i.alarmState === 'ALARM').length})
-                        </Box>
-                      </SpaceBetween>
-                    </div>
+                    <QuickFilterEnum
+                      title="Alarm state"
+                      expandable={false}
+                      hideCounter={true}
+                      values={['ALARM']}
+                      checkedValues={['ALARM'].filter(state => checkEnumProperty('alarmState', state))}
+                      getTotal={() => instances.filter(i => i.alarmState === 'ALARM').length}
+                      onChange={() => addEnumQuickFilter('alarmState', 'ALARM')}
+                      renderValue={value => <Badge color="severity-high">{value}</Badge>}
+                    />
 
-                    <ExpandableSection
-                      defaultExpanded={true}
-                      variant="footer"
-                      headerText={`State${checkedStates.length > 0 ? ` (${checkedStates.length})` : ''}`}
-                    >
-                      {states.map(state => (
-                        <Checkbox
-                          key={state}
-                          checked={checkedStates.includes(state)}
-                          onChange={() => addEnumQuickFilter('state', state)}
-                        >
-                          <SpaceBetween size="xxs" direction="horizontal" alignItems="center">
-                            <Box>{state}</Box>
-                            <Box fontSize="body-s" color="text-body-secondary">
-                              ({instances.filter(i => i.state === state).length})
-                            </Box>
-                          </SpaceBetween>
-                        </Checkbox>
-                      ))}
-                    </ExpandableSection>
+                    <QuickFilterEnum
+                      title="State"
+                      values={states}
+                      checkedValues={checkedStates}
+                      getTotal={state => instances.filter(i => i.state === state).length}
+                      onChange={state => addEnumQuickFilter('state', state)}
+                    />
 
-                    <ExpandableSection
-                      defaultExpanded={true}
-                      variant="footer"
-                      headerText={`Instance type${
-                        checkedInstanceTypes.length > 0 ? ` (${checkedInstanceTypes.length})` : ''
-                      }`}
-                    >
-                      {instanceTypes.map(type => (
-                        <Checkbox
-                          key={type}
-                          checked={checkedInstanceTypes.includes(type)}
-                          onChange={() => addEnumQuickFilter('type', type)}
-                        >
-                          <SpaceBetween size="xxs" direction="horizontal" alignItems="center">
-                            <Box>{type}</Box>
-                            <Box fontSize="body-s" color="text-body-secondary">
-                              ({instances.filter(i => i.type === type).length})
-                            </Box>
-                          </SpaceBetween>
-                        </Checkbox>
-                      ))}
-                    </ExpandableSection>
+                    <QuickFilterEnum
+                      title="Instance type"
+                      values={instanceTypes}
+                      checkedValues={checkedInstanceTypes}
+                      getTotal={type => instances.filter(i => i.type === type).length}
+                      onChange={type => addEnumQuickFilter('type', type)}
+                    />
 
-                    <ExpandableSection
+                    <QuickFilterEnum
+                      title="Load balancers"
+                      values={frequentLoadBalancers}
+                      checkedValues={checkedLoadBalancers}
+                      getTotal={lb => instances.filter(i => i.loadBalancers.includes(lb)).length}
+                      onChange={lb => onAddMultiEnumQuickFilter('loadBalancers', lb)}
                       defaultExpanded={false}
-                      variant="footer"
-                      headerText={`Load balancers${
-                        checkedLoadBalancers.length > 0 ? ` (${checkedLoadBalancers.length})` : ''
-                      }`}
-                    >
-                      {frequentLoadBalancers.slice(0, visibleLoadBalancers).map(lb => (
-                        <Checkbox
-                          key={lb}
-                          checked={checkedLoadBalancers.includes(lb)}
-                          onChange={() => onAddMultiEnumQuickFilter('loadBalancers', lb)}
-                        >
-                          <SpaceBetween size="xxs" direction="horizontal" alignItems="center">
-                            <Box>{lb}</Box>
-                            <Box fontSize="body-s" color="text-body-secondary">
-                              ({instances.filter(i => i.loadBalancers.includes(lb)).length})
-                            </Box>
-                          </SpaceBetween>
-                        </Checkbox>
-                      ))}
+                      limit={4}
+                    />
 
-                      <Button
-                        variant="inline-link"
-                        iconName={visibleLoadBalancers === 4 ? 'treeview-expand' : 'treeview-collapse'}
-                        onClick={() => setVisibleLoadBalancers(prev => (prev === 4 ? 10 : 4))}
-                      >
-                        {visibleLoadBalancers === 4 ? 'Show more' : 'Show fewer'}
-                      </Button>
-                    </ExpandableSection>
+                    <QuickFilterRange
+                      title="Avg latency"
+                      defaultExpanded={false}
+                      value={averageLatencyFilterValue}
+                      onChange={onUpdateLatencyFilter}
+                      enabled={averageLatencyEnabled}
+                      min={0}
+                      max={1000}
+                    />
                   </SpaceBetween>
                 </Container>
               </Box>
