@@ -401,6 +401,7 @@ function App() {
                     <QuickFilterEnum
                       title="Load balancers"
                       values={frequentLoadBalancers}
+                      renderValue={value => <Badge>{value}</Badge>}
                       checkedValues={checkedLoadBalancers}
                       getTotal={lb => instances.filter(i => i.loadBalancers.includes(lb)).length}
                       onChange={lb => onAddMultiEnumQuickFilter('loadBalancers', lb)}
