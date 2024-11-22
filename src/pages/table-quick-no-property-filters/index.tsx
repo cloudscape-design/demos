@@ -233,14 +233,13 @@ function App() {
     return queryTokens;
   };
   const updateRecentFilters = (query: PropertyFilterProps.Query) => {
-    const queryTokenKeys = getQueryTokens(query).map(token => JSON.stringify(token));
+    const queryTokens = getQueryTokens(query);
     setFiltersFrequencyMap(prev => {
       const next = { ...prev };
-      for (const key of Object.keys(next)) {
-        next[key]++;
-      }
-      for (const key of queryTokenKeys) {
-        next[key] = 0;
+      for (const token of queryTokens) {
+        const tokenKey = JSON.stringify(token);
+        const tokenFrequency = (next[tokenKey] ?? 0) + 1;
+        next[tokenKey] = tokenFrequency;
       }
       return next;
     });
@@ -250,10 +249,12 @@ function App() {
     updateRecentFilters(event.detail);
   };
 
+  const queryTokenKeys = getQueryTokens(propertyFilterProps.query).map(token => JSON.stringify(token));
   const recentFilters = Object.entries(filtersFrequencyMap)
-    .filter(([, value]) => value !== 0)
-    .sort(([, a], [, b]) => a - b)
-    .map(([key]) => JSON.parse(key) as PropertyFilterProps.Token);
+    .filter(([key]) => !queryTokenKeys.includes(key))
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([tokenKey]) => JSON.parse(tokenKey) as PropertyFilterProps.Token);
 
   return (
     <CustomAppLayout

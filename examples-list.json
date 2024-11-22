@@ -80,6 +80,10 @@
     "title": "Table featuring property filter with saved- and quick filters"
   },
   {
+    "path": "table-quick-no-property-filters",
+    "title": "Table featuring property filter with saved- and quick filters"
+  },
+  {
     "path": "table",
     "title": "Table view"
   },
