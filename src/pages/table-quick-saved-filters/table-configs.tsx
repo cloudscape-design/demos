@@ -143,6 +143,8 @@ export const COLUMN_DEFINITIONS: TableProps.ColumnDefinition<EC2Instance>[] = [
   },
 ];
 
+const formatEnum = (value: string[]) => (Array.isArray(value) ? value.join(', ') : value);
+
 export const filteringProperties: PropertyFilterProps.FilteringProperty[] = [
   {
     key: 'id',
@@ -155,8 +157,8 @@ export const filteringProperties: PropertyFilterProps.FilteringProperty[] = [
     propertyLabel: 'Instance type',
     groupValuesLabel: 'Type values',
     operators: [
-      { operator: '=', tokenType: 'enum' },
-      { operator: '!=', tokenType: 'enum' },
+      { operator: '=', tokenType: 'enum', format: formatEnum },
+      { operator: '!=', tokenType: 'enum', format: formatEnum },
     ],
   },
   {
@@ -164,23 +166,23 @@ export const filteringProperties: PropertyFilterProps.FilteringProperty[] = [
     propertyLabel: 'State',
     groupValuesLabel: 'State values',
     operators: [
-      { operator: '=', tokenType: 'enum' },
-      { operator: '!=', tokenType: 'enum' },
+      { operator: '=', tokenType: 'enum', format: formatEnum },
+      { operator: '!=', tokenType: 'enum', format: formatEnum },
     ],
   },
   {
     key: 'alarmState',
     propertyLabel: 'Alarm state',
     groupValuesLabel: 'Alarm state values',
-    operators: [{ operator: '=', tokenType: 'enum' }],
+    operators: [{ operator: '=', tokenType: 'enum', format: formatEnum }],
   },
   {
     key: 'platformDetails',
     propertyLabel: 'Platform',
     groupValuesLabel: 'Platform values',
     operators: [
-      { operator: '=', tokenType: 'enum' },
-      { operator: '!=', tokenType: 'enum' },
+      { operator: '=', tokenType: 'enum', format: formatEnum },
+      { operator: '!=', tokenType: 'enum', format: formatEnum },
     ],
   },
   {
@@ -188,8 +190,8 @@ export const filteringProperties: PropertyFilterProps.FilteringProperty[] = [
     propertyLabel: 'Availability zone',
     groupValuesLabel: 'Availability zone values',
     operators: [
-      { operator: '=', tokenType: 'enum' },
-      { operator: '!=', tokenType: 'enum' },
+      { operator: '=', tokenType: 'enum', format: formatEnum },
+      { operator: '!=', tokenType: 'enum', format: formatEnum },
     ],
   },
   {
@@ -209,8 +211,8 @@ export const filteringProperties: PropertyFilterProps.FilteringProperty[] = [
     propertyLabel: 'Root device type',
     groupValuesLabel: 'Root device type values',
     operators: [
-      { operator: '=', tokenType: 'enum' },
-      { operator: '!=', tokenType: 'enum' },
+      { operator: '=', tokenType: 'enum', format: formatEnum },
+      { operator: '!=', tokenType: 'enum', format: formatEnum },
     ],
   },
   {
@@ -218,8 +220,8 @@ export const filteringProperties: PropertyFilterProps.FilteringProperty[] = [
     propertyLabel: 'EBS optimized',
     groupValuesLabel: 'EBS optimized values',
     operators: [
-      { operator: '=', tokenType: 'enum' },
-      { operator: '!=', tokenType: 'enum' },
+      { operator: '=', tokenType: 'enum', format: formatEnum },
+      { operator: '!=', tokenType: 'enum', format: formatEnum },
     ],
   },
   {
@@ -227,10 +229,30 @@ export const filteringProperties: PropertyFilterProps.FilteringProperty[] = [
     propertyLabel: 'Load balancer',
     groupValuesLabel: 'Load balancer values',
     operators: [
-      { operator: '=', tokenType: 'enum', match: ((v: unknown[], t: unknown[]) => checkArrayMatches(v, t)) as any },
-      { operator: '!=', tokenType: 'enum', match: ((v: unknown[], t: unknown[]) => !checkArrayMatches(v, t)) as any },
-      { operator: ':', tokenType: 'enum', match: ((v: unknown[], t: unknown[]) => checkArrayContains(v, t)) as any },
-      { operator: '!:', tokenType: 'enum', match: ((v: unknown[], t: unknown[]) => !checkArrayContains(v, t)) as any },
+      {
+        operator: '=',
+        tokenType: 'enum',
+        format: formatEnum,
+        match: ((v: unknown[], t: unknown[]) => checkArrayMatches(v, t)) as any,
+      },
+      {
+        operator: '!=',
+        tokenType: 'enum',
+        format: formatEnum,
+        match: ((v: unknown[], t: unknown[]) => !checkArrayMatches(v, t)) as any,
+      },
+      {
+        operator: ':',
+        tokenType: 'enum',
+        format: formatEnum,
+        match: ((v: unknown[], t: unknown[]) => checkArrayContains(v, t)) as any,
+      },
+      {
+        operator: '!:',
+        tokenType: 'enum',
+        format: formatEnum,
+        match: ((v: unknown[], t: unknown[]) => !checkArrayContains(v, t)) as any,
+      },
     ],
   },
   {
