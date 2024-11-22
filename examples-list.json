@@ -4,10 +4,6 @@
     "title": "Card view"
   },
   {
-    "path": "cards-quick-filters",
-    "title": "Card view with quick filters"
-  },
-  {
     "path": "delete-one-click",
     "title": "One-click delete"
   },

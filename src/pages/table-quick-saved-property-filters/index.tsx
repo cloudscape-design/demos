@@ -456,7 +456,7 @@ function App() {
                             { propertyKey: 'type', operator: '=', value: 'm5.large' },
                             { propertyKey: 'type', operator: '=', value: 'm5.xlarge' },
                           ]
-                        : recentFilters
+                        : recentFilters.slice(0, 5)
                     }
                     filteringAriaLabel="Find resources"
                     filteringPlaceholder="Find resources"

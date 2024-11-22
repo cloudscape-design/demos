@@ -1,7 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 
-import { MarketPlaceItem } from '../pages/cards-quick-filters/interface';
+import { MarketPlaceItem } from '../pages/table-quick-saved-filters/interface';
+
 const items: MarketPlaceItem[] = [
   {
     id: 'websoft-neo4j',
