@@ -432,13 +432,23 @@ function App() {
                     {...propertyFilterProps}
                     filteringOptions={filteringOptions}
                     onChange={onChangeQuery}
-                    recentOptions={recentFilters}
+                    recentOptions={
+                      recentFilters.length === 0
+                        ? [
+                            { propertyKey: 'alarmState', operator: '=', value: 'ALARM' },
+                            { propertyKey: 'state', operator: '=', value: 'running' },
+                            { propertyKey: 'type', operator: '=', value: 'm5.large' },
+                            { propertyKey: 'type', operator: '=', value: 'm5.xlarge' },
+                          ]
+                        : recentFilters
+                    }
                     filteringAriaLabel="Find resources"
                     filteringPlaceholder="Find resources"
                     fixedOperations={!preferences.custom?.andOrFilter}
                     i18nStrings={{
                       ...propertyFilterI18nStrings,
-                      recentOptionsLabel: 'Recently used filters',
+                      recentOptionsLabel:
+                        recentFilters.length === 0 ? 'Frequently used filters' : 'Recently used filters',
                     }}
                     countText={filteredItemsCount ? getTextFilterCounterText(filteredItemsCount) : ''}
                     expandToViewport={true}
