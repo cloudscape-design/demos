@@ -14,8 +14,6 @@ import Palette from './components/palette';
 import { Content } from './content';
 import { StoredWidgetPlacement } from './interfaces';
 
-const splitPanelMaxSize = 360;
-
 export function App() {
   const appLayoutRef = useRef<AppLayoutProps.Ref>(null);
 
@@ -62,7 +60,7 @@ export function App() {
         splitPanelOpen={splitPanelOpen}
         onSplitPanelToggle={({ detail }) => setSplitPanelOpen(detail.open)}
         splitPanelSize={splitPanelSize}
-        onSplitPanelResize={event => setSplitPanelSize(Math.min(event.detail.size, splitPanelMaxSize))}
+        onSplitPanelResize={event => setSplitPanelSize(event.detail.size)}
       />
     </HelpPanelProvider>
   );

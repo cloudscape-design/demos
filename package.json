@@ -69,7 +69,8 @@
     "start:https": "webpack-dev-server --https --port=4443 --host=$(hostname)",
     "test": "run-p -r start-no-live-reload jest",
     "prepare": "husky install",
-    "lint": "eslint --fix --ignore-path .gitignore --ext ts,tsx,js,jsx,json ."
+    "lint": "eslint --fix --ignore-path .gitignore --ext ts,tsx,js,jsx,json .",
+    "postinstall": "node ./scripts/install-peer-dependency.js board-components:feat-column-layout-in-palette"
   },
   "browserslist": [
     "last 3 Chrome major versions",
