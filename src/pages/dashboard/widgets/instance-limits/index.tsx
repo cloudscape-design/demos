@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React, { createContext, Dispatch, SetStateAction, useContext, useState } from 'react';
+
 import {
   Box,
   Button,
@@ -11,8 +12,9 @@ import {
   Table,
   TableProps,
 } from '@cloudscape-design/components';
-import { WidgetConfig } from '../interfaces';
+
 import { isVisualRefresh } from '../../../../common/apply-mode';
+import { WidgetConfig } from '../interfaces';
 
 export const instanceLimits: WidgetConfig = {
   definition: { defaultRowSpan: 3, defaultColumnSpan: 2 },

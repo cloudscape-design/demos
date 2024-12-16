@@ -1,20 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import Header from '@cloudscape-design/components/header';
-import { WidgetConfig } from '../interfaces';
-import { Link, KeyValuePairs } from '@cloudscape-design/components';
 
-export const serviceOverview: WidgetConfig = {
-  definition: { defaultRowSpan: 2, defaultColumnSpan: 3 },
-  data: {
-    icon: 'list',
-    title: 'Service overview',
-    description: 'Overview of all your resources',
-    header: ServiceOverviewHeader,
-    content: ServiceOverviewWidget,
-  },
-};
+import { KeyValuePairs, Link } from '@cloudscape-design/components';
+import Header from '@cloudscape-design/components/header';
+
+import { WidgetConfig } from '../interfaces';
 
 function ServiceOverviewHeader() {
   return (
@@ -65,3 +56,13 @@ function ServiceOverviewWidget() {
     />
   );
 }
+export const serviceOverview: WidgetConfig = {
+  definition: { defaultRowSpan: 2, defaultColumnSpan: 3 },
+  data: {
+    icon: 'list',
+    title: 'Service overview',
+    description: 'Overview of all your resources',
+    header: ServiceOverviewHeader,
+    content: ServiceOverviewWidget,
+  },
+};

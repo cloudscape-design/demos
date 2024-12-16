@@ -1,10 +1,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React, { useState } from 'react';
+
 import Box from '@cloudscape-design/components/box';
-import Popover from '@cloudscape-design/components/popover';
 import Link from '@cloudscape-design/components/link';
+import Popover from '@cloudscape-design/components/popover';
 import { SideNavigationProps } from '@cloudscape-design/components/side-navigation';
+
 import { Navigation as CommonNavigation } from '../../commons';
 import { DensityPreferencesDialog } from './density-preferences';
 

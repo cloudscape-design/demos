@@ -13,7 +13,7 @@
       "jsx": true
     }
   },
-  "plugins": ["react-hooks", "react", "header"],
+  "plugins": ["react-hooks", "react", "header", "@eslint-react/eslint-plugin", "eslint-plugin-simple-import-sort"],
   "rules": {
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/no-explicit-any": "off",
@@ -72,6 +72,35 @@
       },
       "rules": {
         "react-hooks/rules-of-hooks": "off"
+      }
+    },
+    {
+      "files": ["src/**/*.{js,jsx,ts,tsx}"],
+      "rules": {
+        "@typescript-eslint/no-use-before-define": "warn",
+        "@typescript-eslint/no-explicit-any": "warn",
+        "@typescript-eslint/no-empty-function": "warn",
+        "react/display-name": "warn",
+        "@eslint-react/no-class-component": "warn",
+        "@eslint-react/naming-convention/filename": ["warn", { "rule": "kebab-case" }],
+        "@eslint-react/naming-convention/filename-extension": ["warn", "as-needed"],
+        "simple-import-sort/imports": [
+          "warn",
+          {
+            "groups": [
+              // External packages come first.
+              ["^react", "^(?!@cloudscape)@?\\w"],
+              // Cloudscape packages.
+              ["^@cloudscape"],
+              // Things that start with a letter (or digit or underscore), or `~` followed by a letter.
+              ["^~\\w"],
+              // Anything not matched in another group.
+              ["^"],
+              // Styles come last.
+              ["^.+\\.?(css)$", "^.+\\.?(css.js)$", "^.+\\.?(scss)$", "^.+\\.?(selectors.js)$"]
+            ]
+          }
+        ]
       }
     }
   ]

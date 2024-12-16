@@ -1,12 +1,15 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import Header from '@cloudscape-design/components/header';
+
 import BoardItem from '@cloudscape-design/board-components/board-item';
 import Box from '@cloudscape-design/components/box';
+import Header from '@cloudscape-design/components/header';
+
 import { EmptyState } from '../../../dashboard/components/empty-state';
-import { boardItemI18nStrings } from '../../i18n-strings';
 import * as icons from '../../../dashboard/icons';
+import { boardItemI18nStrings } from '../../i18n-strings';
+
 import styles from './styles.module.scss';
 
 type IconName = keyof typeof icons;

@@ -1,7 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React, { useRef, useState } from 'react';
+
 import { AppLayoutProps, BreadcrumbGroup, HelpPanel } from '@cloudscape-design/components';
+
 import { ExternalLinkGroup, Navigation, Notifications } from '../commons';
 import { CustomAppLayout, ec2NavItems } from '../commons/common-components';
 

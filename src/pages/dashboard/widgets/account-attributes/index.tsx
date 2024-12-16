@@ -1,20 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import { Box, Header, Link } from '@cloudscape-design/components';
-import { WidgetConfig } from '../interfaces';
 
-export const accountAttributes: WidgetConfig = {
-  definition: { defaultRowSpan: 3, defaultColumnSpan: 1 },
-  data: {
-    icon: 'list',
-    title: 'Account attributes',
-    description: 'General info about current account',
-    header: AccountAttributesHeader,
-    content: AccountAttributesContent,
-    footer: AccountAttributesFooter,
-  },
-};
+import { Box, Header, Link } from '@cloudscape-design/components';
+
+import { WidgetConfig } from '../interfaces';
 
 function AccountAttributesHeader() {
   return <Header variant="h2">Account attributes</Header>;
@@ -41,3 +31,15 @@ function AccountAttributesContent() {
     </>
   );
 }
+
+export const accountAttributes: WidgetConfig = {
+  definition: { defaultRowSpan: 3, defaultColumnSpan: 1 },
+  data: {
+    icon: 'list',
+    title: 'Account attributes',
+    description: 'General info about current account',
+    header: AccountAttributesHeader,
+    content: AccountAttributesContent,
+    footer: AccountAttributesFooter,
+  },
+};

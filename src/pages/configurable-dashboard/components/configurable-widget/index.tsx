@@ -1,8 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React, { useState } from 'react';
-import ButtonDropdown from '@cloudscape-design/components/button-dropdown';
+
 import BoardItem from '@cloudscape-design/board-components/board-item';
+import ButtonDropdown from '@cloudscape-design/components/button-dropdown';
+
 import { WidgetDataType } from '../../../dashboard/widgets/interfaces';
 import { boardItemI18nStrings } from '../../i18n-strings';
 import { RemoveDialog } from './remove-dialog';

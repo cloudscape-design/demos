@@ -1,20 +1,19 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React, { useRef, useState } from 'react';
+
 import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import SplitPanel from '@cloudscape-design/components/split-panel';
 
-import { Breadcrumbs, Notifications, HelpPanelProvider } from '../commons';
+import { Breadcrumbs, HelpPanelProvider, Notifications } from '../commons';
+import { CustomAppLayout } from '../commons/common-components';
 import { useLocalStorage } from '../commons/use-local-storage';
 import { DashboardMainInfo } from '../dashboard/components/header';
-import { CustomAppLayout } from '../commons/common-components';
 import { DashboardSideNavigation } from '../dashboard/components/side-navigation';
-import { getPaletteWidgets } from './widgets';
 import Palette from './components/palette';
 import { Content } from './content';
 import { StoredWidgetPlacement } from './interfaces';
-
-const splitPanelMaxSize = 360;
+import { getPaletteWidgets } from './widgets';
 
 export function App() {
   const appLayoutRef = useRef<AppLayoutProps.Ref>(null);
@@ -62,7 +61,7 @@ export function App() {
         splitPanelOpen={splitPanelOpen}
         onSplitPanelToggle={({ detail }) => setSplitPanelOpen(detail.open)}
         splitPanelSize={splitPanelSize}
-        onSplitPanelResize={event => setSplitPanelSize(Math.min(event.detail.size, splitPanelMaxSize))}
+        onSplitPanelResize={event => setSplitPanelSize(event.detail.size)}
       />
     </HelpPanelProvider>
   );

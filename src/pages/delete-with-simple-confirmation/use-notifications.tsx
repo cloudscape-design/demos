@@ -1,8 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React, { useCallback, useId, useState } from 'react';
-import { useDisclaimerFlashbarItem } from '../commons/disclaimer-flashbar-item';
+
 import { Button, FlashbarProps } from '@cloudscape-design/components';
+
+import { useDisclaimerFlashbarItem } from '../commons/disclaimer-flashbar-item';
 
 type Resource = Record<string, any> & {
   id: string;
