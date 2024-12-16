@@ -1,21 +1,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import { Box, Header, StatusIndicator, ColumnLayout } from '@cloudscape-design/components';
+
+import { Box, ColumnLayout, Header, StatusIndicator } from '@cloudscape-design/components';
+
 import { InfoLink, useHelpPanel } from '../../../commons';
 import { WidgetConfig } from '../interfaces';
 import { ServiceHealthInfo } from './help-content';
-
-export const serviceHealth: WidgetConfig = {
-  definition: { defaultRowSpan: 2, defaultColumnSpan: 1 },
-  data: {
-    icon: 'list',
-    title: 'Service Health',
-    description: 'General information about service health',
-    header: ServiceHealthHeader,
-    content: ServiceHealthContent,
-  },
-};
 
 function ServiceHealthHeader() {
   const loadHelpPanelContent = useHelpPanel();
@@ -45,3 +36,13 @@ export default function ServiceHealthContent() {
     </ColumnLayout>
   );
 }
+export const serviceHealth: WidgetConfig = {
+  definition: { defaultRowSpan: 2, defaultColumnSpan: 1 },
+  data: {
+    icon: 'list',
+    title: 'Service Health',
+    description: 'General information about service health',
+    header: ServiceHealthHeader,
+    content: ServiceHealthContent,
+  },
+};

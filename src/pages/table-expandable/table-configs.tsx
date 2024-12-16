@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
+
 import {
   ButtonDropdown,
   CollectionPreferences,
@@ -12,8 +13,9 @@ import {
   StatusIndicator,
   TableProps,
 } from '@cloudscape-design/components';
-import { Instance } from '../../resources/related-instances';
+
 import { enumOperators } from '../../common/property-filter-operators';
+import { Instance } from '../../resources/related-instances';
 
 export const tableAriaLabels: TableProps<{ name: string }>['ariaLabels'] = {
   selectionGroupLabel: 'group label',

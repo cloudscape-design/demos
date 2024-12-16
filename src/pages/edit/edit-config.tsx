@@ -1,7 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
+
 import { HelpPanel } from '@cloudscape-design/components';
+
 import { ExternalLinkGroup } from '../commons';
 
 export const PRICE_CLASS_OPTIONS = [

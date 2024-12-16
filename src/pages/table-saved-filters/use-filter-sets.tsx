@@ -1,12 +1,14 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { useEffect, useState } from 'react';
-import { PropertyFilterProps } from '@cloudscape-design/components/property-filter';
-import { ButtonDropdownProps } from '@cloudscape-design/components/button-dropdown';
-import { SelectProps } from '@cloudscape-design/components/select';
-import { DeleteFilterSetModal, SaveFilterSetModal, UpdateFilterSetModal } from './filter-set-modals';
-import { FlashbarProps } from '@cloudscape-design/components/flashbar';
+import React, { ReactNode, useEffect, useState } from 'react';
 import isEqual from 'lodash/isEqual';
+
+import { ButtonDropdownProps } from '@cloudscape-design/components/button-dropdown';
+import { FlashbarProps } from '@cloudscape-design/components/flashbar';
+import { PropertyFilterProps } from '@cloudscape-design/components/property-filter';
+import { SelectProps } from '@cloudscape-design/components/select';
+
+import { DeleteFilterSetModal, SaveFilterSetModal, UpdateFilterSetModal } from './filter-set-modals';
 
 export interface FilterSet {
   name: string;
@@ -144,7 +146,7 @@ export function useFilterSets({
     onItemClick: ({ detail: { id } }) => setFilterSetAction(id as FilterAction),
   };
 
-  let actionModal = null;
+  let actionModal: ReactNode | null = null;
   if (filterSetAction === 'update' && currentFilterSet && hasUnsavedChanges) {
     actionModal = (
       <UpdateFilterSetModal

@@ -1,14 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import { Button, SpaceBetween, TextFilter } from '@cloudscape-design/components';
+
 import ItemsPalette, { ItemsPaletteProps } from '@cloudscape-design/board-components/items-palette';
 import { useCollection } from '@cloudscape-design/collection-hooks';
+import { Button, SpaceBetween, TextFilter } from '@cloudscape-design/components';
+
+import { getTextFilterCounterText } from '../../../i18n-strings';
 import { EmptyState } from '../../dashboard/components/empty-state';
 import { WidgetDataType } from '../../dashboard/widgets/interfaces';
-import { PaletteItem } from './palette-item';
 import { paletteI18nStrings } from '../i18n-strings';
-import { getTextFilterCounterText } from '../../../i18n-strings';
+import { PaletteItem } from './palette-item';
 
 function compareStrings(value: string, query: string) {
   return value.toLowerCase().includes(query.toLowerCase());

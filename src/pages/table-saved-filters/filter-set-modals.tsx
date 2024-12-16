@@ -1,15 +1,17 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React, { useRef, useState } from 'react';
-import { PropertyFilterProps } from '@cloudscape-design/components/property-filter';
-import Button from '@cloudscape-design/components/button';
-import Box from '@cloudscape-design/components/box';
-import FormField from '@cloudscape-design/components/form-field';
-import Modal from '@cloudscape-design/components/modal';
-import SpaceBetween from '@cloudscape-design/components/space-between';
-import Input, { InputProps } from '@cloudscape-design/components/input';
+
 import Alert from '@cloudscape-design/components/alert';
+import Box from '@cloudscape-design/components/box';
+import Button from '@cloudscape-design/components/button';
+import FormField from '@cloudscape-design/components/form-field';
+import Input, { InputProps } from '@cloudscape-design/components/input';
 import KeyValuePairs from '@cloudscape-design/components/key-value-pairs';
+import Modal from '@cloudscape-design/components/modal';
+import { PropertyFilterProps } from '@cloudscape-design/components/property-filter';
+import SpaceBetween from '@cloudscape-design/components/space-between';
+
 import { FilterSet } from './use-filter-sets';
 
 function queryToString(

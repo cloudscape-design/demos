@@ -1,20 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import { Box, ColumnLayout, Header, Link } from '@cloudscape-design/components';
-import { WidgetConfig } from '../interfaces';
 
-export const featuresSpotlight: WidgetConfig = {
-  definition: { defaultRowSpan: 3, defaultColumnSpan: 3 },
-  data: {
-    icon: 'list',
-    title: 'Features spotlight',
-    description: 'Updates on features available in the current region',
-    header: FeaturesSpotlightHeader,
-    content: FeaturesSpotlightContent,
-    footer: FeaturesSpotlightFooter,
-  },
-};
+import { Box, ColumnLayout, Header, Link } from '@cloudscape-design/components';
+
+import { WidgetConfig } from '../interfaces';
 
 function FeaturesSpotlightHeader() {
   return (
@@ -65,3 +55,15 @@ export function FeaturesSpotlightContent() {
     </ColumnLayout>
   );
 }
+
+export const featuresSpotlight: WidgetConfig = {
+  definition: { defaultRowSpan: 3, defaultColumnSpan: 3 },
+  data: {
+    icon: 'list',
+    title: 'Features spotlight',
+    description: 'Updates on features available in the current region',
+    header: FeaturesSpotlightHeader,
+    content: FeaturesSpotlightContent,
+    footer: FeaturesSpotlightFooter,
+  },
+};
