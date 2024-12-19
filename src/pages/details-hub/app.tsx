@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import { SpaceBetween } from '@cloudscape-design/components';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { CustomAppLayout, Navigation, Notifications } from '../commons/common-components';
 import { Breadcrumbs } from '../details/components/breadcrumbs';

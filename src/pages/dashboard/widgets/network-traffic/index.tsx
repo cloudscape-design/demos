@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import { Header, LineChart, Link } from '@cloudscape-design/components';
+import Header from '@cloudscape-design/components/header';
+import LineChart from '@cloudscape-design/components/line-chart';
+import Link from '@cloudscape-design/components/link';
 
 import { commonChartProps, dateTimeFormatter, lineChartInstructions } from '../chart-commons';
 import { WidgetConfig } from '../interfaces';

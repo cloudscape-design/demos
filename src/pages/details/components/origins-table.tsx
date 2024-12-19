@@ -2,7 +2,10 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useState } from 'react';
 
-import { Button, Header, SpaceBetween, Table, TableProps } from '@cloudscape-design/components';
+import Button from '@cloudscape-design/components/button';
+import Header from '@cloudscape-design/components/header';
+import SpaceBetween from '@cloudscape-design/components/space-between';
+import Table, { TableProps } from '@cloudscape-design/components/table';
 
 import { baseTableAriaLabels, getHeaderCounterText } from '../../../i18n-strings';
 import { OriginResource } from '../../../resources/types';
@@ -12,7 +15,7 @@ import { ORIGINS_COLUMN_DEFINITIONS } from '../details-config';
 
 const originsSelectionLabels = {
   ...baseTableAriaLabels,
-  itemSelectionLabel: (_: any, row: { name: string }) => `select ${row.name}`,
+  itemSelectionLabel: (_: unknown, row: { name: string }) => `select ${row.name}`,
   selectionGroupLabel: 'Origins selection',
 };
 

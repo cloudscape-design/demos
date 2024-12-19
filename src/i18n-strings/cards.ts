@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import { CardsProps } from '@cloudscape-design/components';
+import { CardsProps } from '@cloudscape-design/components/cards';
 
 import { Distribution } from '../fake-server/types';
 

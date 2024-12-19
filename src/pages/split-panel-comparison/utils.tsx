@@ -2,16 +2,14 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useEffect, useState } from 'react';
 
-import {
-  AppLayoutProps,
-  Box,
-  BreadcrumbGroup,
-  Header,
-  KeyValuePairs,
-  Link,
-  Table,
-  TableProps,
-} from '@cloudscape-design/components';
+import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
+import Box from '@cloudscape-design/components/box';
+import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
+import Header from '@cloudscape-design/components/header';
+import KeyValuePairs from '@cloudscape-design/components/key-value-pairs';
+import Link from '@cloudscape-design/components/link';
+import Table from '@cloudscape-design/components/table';
+import { TableProps } from '@cloudscape-design/components/table';
 
 import { isVisualRefresh } from '../../common/apply-mode';
 import { EC2Instance } from '../../resources/types';

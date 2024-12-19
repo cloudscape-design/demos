@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import { BreadcrumbGroup, HelpPanel } from '@cloudscape-design/components';
+import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
+import HelpPanel from '@cloudscape-design/components/help-panel';
 
 import { resourcesBreadcrumbs } from '../../common/breadcrumbs';
 import { ExternalLinkGroup } from '../commons';

@@ -2,7 +2,10 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import { CollectionPreferencesProps, Link, StatusIndicator, TableProps } from '@cloudscape-design/components';
+import { CollectionPreferencesProps } from '@cloudscape-design/components/collection-preferences';
+import Link from '@cloudscape-design/components/link';
+import StatusIndicator from '@cloudscape-design/components/status-indicator';
+import { TableProps } from '@cloudscape-design/components/table';
 
 import { baseTableAriaLabels } from '../../i18n-strings';
 import { EC2Instance } from '../../resources/types';

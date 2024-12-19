@@ -2,8 +2,12 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import { Box, ColumnLayout, Header, StatusIndicator } from '@cloudscape-design/components';
+import Box from '@cloudscape-design/components/box';
+import ColumnLayout from '@cloudscape-design/components/column-layout';
+import Header from '@cloudscape-design/components/header';
+import StatusIndicator from '@cloudscape-design/components/status-indicator';
 
+import { formatReadOnlyRegion } from '../../../../common/aws-region-utils';
 import { InfoLink, useHelpPanel } from '../../../commons';
 import { WidgetConfig } from '../interfaces';
 import { ServiceHealthInfo } from './help-content';
@@ -27,7 +31,7 @@ export default function ServiceHealthContent() {
     <ColumnLayout columns={2}>
       <div>
         <Box variant="awsui-key-label">Region</Box>
-        <div>US East (N. Virginia)</div>
+        <div>{formatReadOnlyRegion('us-east-1')}</div>
       </div>
       <div>
         <Box variant="awsui-key-label">Status</Box>

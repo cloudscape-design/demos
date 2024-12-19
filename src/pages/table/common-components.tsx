@@ -3,7 +3,12 @@
 import React from 'react';
 import formatDate from 'date-fns/format';
 
-import { Box, BreadcrumbGroup, Button, HelpPanel, LiveRegion, SpaceBetween } from '@cloudscape-design/components';
+import Box from '@cloudscape-design/components/box';
+import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
+import Button from '@cloudscape-design/components/button';
+import HelpPanel from '@cloudscape-design/components/help-panel';
+import LiveRegion from '@cloudscape-design/components/live-region';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { resourcesBreadcrumbs } from '../../common/breadcrumbs';
 import { ExternalLinkGroup } from '../commons';

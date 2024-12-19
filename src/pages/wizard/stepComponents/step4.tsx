@@ -2,15 +2,13 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import {
-  Box,
-  Button,
-  Container,
-  ExpandableSection,
-  Header,
-  KeyValuePairs,
-  SpaceBetween,
-} from '@cloudscape-design/components';
+import Box from '@cloudscape-design/components/box';
+import Button from '@cloudscape-design/components/button';
+import Container from '@cloudscape-design/components/container';
+import ExpandableSection from '@cloudscape-design/components/expandable-section';
+import Header from '@cloudscape-design/components/header';
+import KeyValuePairs from '@cloudscape-design/components/key-value-pairs';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { WizardState } from '../interfaces';
 import { getEngineLabel, getEngineLicense } from './step1';

@@ -2,13 +2,11 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import {
-  BreadcrumbGroup,
-  HelpPanel,
-  SideNavigation,
-  SideNavigationProps,
-  StatusIndicator,
-} from '@cloudscape-design/components';
+import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
+import HelpPanel from '@cloudscape-design/components/help-panel';
+import SideNavigation from '@cloudscape-design/components/side-navigation';
+import { SideNavigationProps } from '@cloudscape-design/components/side-navigation';
+import StatusIndicator from '@cloudscape-design/components/status-indicator';
 
 import { Instance } from '../../resources/instances';
 import { ExternalLinkGroup } from '../commons';

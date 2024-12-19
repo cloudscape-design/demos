@@ -2,19 +2,15 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useEffect, useState } from 'react';
 
-import {
-  Button,
-  CodeEditor,
-  CodeEditorProps,
-  ColumnLayout,
-  Container,
-  FormField,
-  Header,
-  Input,
-  NonCancelableCustomEvent,
-  RadioGroup,
-  SpaceBetween,
-} from '@cloudscape-design/components';
+import Button from '@cloudscape-design/components/button';
+import CodeEditor, { CodeEditorProps } from '@cloudscape-design/components/code-editor';
+import ColumnLayout from '@cloudscape-design/components/column-layout';
+import Container from '@cloudscape-design/components/container';
+import FormField from '@cloudscape-design/components/form-field';
+import Header from '@cloudscape-design/components/header';
+import Input from '@cloudscape-design/components/input';
+import RadioGroup from '@cloudscape-design/components/radio-group';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { InfoLink } from '../../commons/common-components';
 import {
@@ -68,8 +64,8 @@ export default function CacheBehaviorPanel({
     });
   }, []);
 
-  const onCodeEditorChange = (e: NonCancelableCustomEvent<CodeEditorProps.ChangeDetail>) => {
-    const { value } = e.detail;
+  const onCodeEditorChange: CodeEditorProps['onChange'] = event => {
+    const { value } = event.detail;
     setCodeEditorValue(value);
 
     if (validation) {
@@ -78,8 +74,8 @@ export default function CacheBehaviorPanel({
     }
   };
 
-  const onCodeEditorPreferencesChange = (e: NonCancelableCustomEvent<CodeEditorProps.Preferences>) => {
-    setCodeEditorPreferences(e.detail);
+  const onCodeEditorPreferencesChange: CodeEditorProps['onPreferencesChange'] = event => {
+    setCodeEditorPreferences(event.detail);
   };
 
   const onSetToDefault = () => {

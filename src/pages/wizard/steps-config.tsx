@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: MIT-0
 import React, { ReactNode } from 'react';
 
-import { Box, TextContent } from '@cloudscape-design/components';
+import Box from '@cloudscape-design/components/box';
+import TextContent from '@cloudscape-design/components/text-content';
 
 import { ExternalLink } from '../commons';
 import { EngineType, ToolsContent, WizardState } from './interfaces';
@@ -361,7 +362,7 @@ export const ENGINE_DETAILS: Record<EngineType, ReactNode> = {
         <li>Supports database size up to 16 TB.</li>
         <li>Instances offer up to 32 vCPUs and 244 GiB Memory.</li>
         <li>Supports automated backup and point-in-time recovery.</li>
-        <li>Supports cross-region read replicas.</li>
+        <li>Supports cross-Region read replicas.</li>
       </ul>
     </TextContent>
   ),
@@ -376,7 +377,7 @@ export const ENGINE_DETAILS: Record<EngineType, ReactNode> = {
         <li>Supports database size up to 16 TB.</li>
         <li>Instances offer up to 32 vCPUs and 244 GiB Memory.</li>
         <li>Supports automated backup and point-in-time recovery.</li>
-        <li>Supports cross-region read replicas.</li>
+        <li>Supports cross-Region read replicas.</li>
         <li>Supports global transaction ID (GTID) and thread pooling.</li>
         <li>Developed and supported by the MariaDB open source community.</li>
       </ul>
@@ -1090,7 +1091,7 @@ export const TOOLS_CONTENT: Record<string, Record<string, ToolsContent>> = {
           <p>
             <b>Note</b>
             <br />
-            For encrypted and unencrypted DB instances with cross-region read replicas, data that is in transit between
+            For encrypted and unencrypted DB instances with cross-Region read replicas, data that is in transit between
             the source and the read replicas is encrypted.
           </p>
         </div>

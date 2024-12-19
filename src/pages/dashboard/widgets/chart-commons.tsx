@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import { Box } from '@cloudscape-design/components';
+import Box from '@cloudscape-design/components/box';
 
 export const percentageFormatter = (value: number) => `${(value * 100).toFixed(0)}%`;
 

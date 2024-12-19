@@ -2,13 +2,14 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useCallback, useId, useState } from 'react';
 
-import { Button, FlashbarProps } from '@cloudscape-design/components';
+import Button from '@cloudscape-design/components/button';
+import { FlashbarProps } from '@cloudscape-design/components/flashbar';
 
 import { useDisclaimerFlashbarItem } from '../commons/disclaimer-flashbar-item';
 
-type Resource = Record<string, any> & {
+interface Resource {
   id: string;
-};
+}
 
 export default function useNotifications({ resourceName }: { resourceName: string }) {
   const deletingFlashMessageId = useId();

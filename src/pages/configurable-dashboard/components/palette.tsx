@@ -4,7 +4,9 @@ import React from 'react';
 
 import ItemsPalette, { ItemsPaletteProps } from '@cloudscape-design/board-components/items-palette';
 import { useCollection } from '@cloudscape-design/collection-hooks';
-import { Button, SpaceBetween, TextFilter } from '@cloudscape-design/components';
+import Button from '@cloudscape-design/components/button';
+import SpaceBetween from '@cloudscape-design/components/space-between';
+import TextFilter from '@cloudscape-design/components/text-filter';
 
 import { getTextFilterCounterText } from '../../../i18n-strings';
 import { EmptyState } from '../../dashboard/components/empty-state';

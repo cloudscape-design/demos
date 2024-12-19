@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import { Link, TableProps } from '@cloudscape-design/components';
+import Link from '@cloudscape-design/components/link';
+import { TableProps } from '@cloudscape-design/components/table';
 
 import { BehaviorResource, InvalidationResource, LogResource, OriginResource } from '../../resources/types';
 

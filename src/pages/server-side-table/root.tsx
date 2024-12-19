@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import intersection from 'lodash/intersection';
 
-import { AppLayoutProps, NonCancelableCustomEvent } from '@cloudscape-design/components';
+import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import Pagination from '@cloudscape-design/components/pagination';
 import Table, { TableProps } from '@cloudscape-design/components/table';
 import TextFilter from '@cloudscape-design/components/text-filter';
@@ -27,7 +27,7 @@ import '../../styles/base.scss';
 
 interface ServerSideTableProps {
   columnDefinitions: TableProps.ColumnDefinition<Distribution>[];
-  saveWidths: (event: NonCancelableCustomEvent<TableProps.ColumnWidthsChangeDetail>) => void;
+  saveWidths: TableProps['onColumnWidthsChange'];
   loadHelpPanelContent: () => void;
 }
 
@@ -60,7 +60,7 @@ function ServerSideTable({ columnDefinitions, saveWidths, loadHelpPanelContent }
     setSelectedItems(oldSelected => intersection(items, oldSelected));
   }, [items]);
 
-  const onSortingChange = (event: NonCancelableCustomEvent<TableProps.SortingState<Distribution>>) => {
+  const onSortingChange: TableProps['onSortingChange'] = event => {
     setDescendingSorting(event.detail.isDescending ?? false);
     setSortingColumn(event.detail.sortingColumn);
   };

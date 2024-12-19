@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import { AttributeEditor, AttributeEditorProps, Autosuggest, AutosuggestProps } from '@cloudscape-design/components';
+import AttributeEditor, { AttributeEditorProps } from '@cloudscape-design/components/attribute-editor';
+import Autosuggest, { AutosuggestProps } from '@cloudscape-design/components/autosuggest';
 
 import validateField from '../form-validation-config';
 import { CustomHeader, FormDataAttributesValues, FormRefs } from '../types';

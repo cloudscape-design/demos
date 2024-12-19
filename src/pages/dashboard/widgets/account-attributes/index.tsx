@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import { Box, Header, Link } from '@cloudscape-design/components';
+import Box from '@cloudscape-design/components/box';
+import Header from '@cloudscape-design/components/header';
+import Link from '@cloudscape-design/components/link';
 
 import { WidgetConfig } from '../interfaces';
 
@@ -25,7 +27,7 @@ function AccountAttributesContent() {
     <>
       <Box variant="awsui-key-label">Supported platforms</Box>
       <Box variant="p">
-        The account supports both the EC2-Classic platform and VPCs in this region, but the region does not have a
+        The account supports both the EC2-Classic platform and VPCs in this Region, but the Region does not have a
         default VPC.
       </Box>
     </>

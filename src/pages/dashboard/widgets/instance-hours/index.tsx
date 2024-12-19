@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import { BarChart, Header, Link } from '@cloudscape-design/components';
+import BarChart from '@cloudscape-design/components/bar-chart';
+import Header from '@cloudscape-design/components/header';
+import Link from '@cloudscape-design/components/link';
 
 import { barChartInstructions, commonChartProps, dateFormatter } from '../chart-commons';
 import { WidgetConfig } from '../interfaces';

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useRef, useState } from 'react';
 
-import { AppLayoutProps } from '@cloudscape-design/components';
+import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 
 import { CustomAppLayout, Navigation, Notifications } from '../commons/common-components';
 import { useColumnWidths } from '../commons/use-column-widths';

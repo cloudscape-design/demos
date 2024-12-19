@@ -2,20 +2,18 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import {
-  Alert,
-  Box,
-  ColumnLayout,
-  Container,
-  ExpandableSection,
-  FormField,
-  Header,
-  Input,
-  RadioGroup,
-  Select,
-  Slider,
-  SpaceBetween,
-} from '@cloudscape-design/components';
+import Alert from '@cloudscape-design/components/alert';
+import Box from '@cloudscape-design/components/box';
+import ColumnLayout from '@cloudscape-design/components/column-layout';
+import Container from '@cloudscape-design/components/container';
+import ExpandableSection from '@cloudscape-design/components/expandable-section';
+import FormField from '@cloudscape-design/components/form-field';
+import Header from '@cloudscape-design/components/header';
+import Input from '@cloudscape-design/components/input';
+import RadioGroup from '@cloudscape-design/components/radio-group';
+import Select from '@cloudscape-design/components/select';
+import Slider from '@cloudscape-design/components/slider';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { InfoLink } from '../../commons/common-components';
 import { DetailsState, ToolsContent, WizardState } from '../interfaces';
@@ -191,7 +189,7 @@ const NameAndPassword = ({
         <FormField
           label="DB instance identifier"
           info={<InfoLink onFollow={() => setHelpPanelContent(detailsToolsContent.identifier)} />}
-          description="A name that is unique for all DB instances owned by your AWS account in the current region."
+          description="A name that is unique for all DB instances owned by your AWS account in the current Region."
           constraintText="Case insensitive, but stored as all lower-case. Must contain from 1 to 63 alphanumeric characters or hyphens  (1 to 15 for SQL Server). First character must be a letter. Cannot end with a hyphen or contain two consecutive hyphens."
         >
           <Input

@@ -2,9 +2,13 @@
 // SPDX-License-Identifier: MIT-0
 import React, { forwardRef } from 'react';
 
-import { AppLayout, AppLayoutProps, Badge, Box, Button, SpaceBetween } from '@cloudscape-design/components';
+import AppLayout, { AppLayoutProps } from '@cloudscape-design/components/app-layout';
+import Badge from '@cloudscape-design/components/badge';
+import Box from '@cloudscape-design/components/box';
+import Button from '@cloudscape-design/components/button';
 import { I18nProvider } from '@cloudscape-design/components/i18n';
 import enMessages from '@cloudscape-design/components/i18n/messages/all.en.json';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 
 // backward compatibility
 export * from './index';
@@ -59,7 +63,7 @@ export const TableEmptyState = ({ resourceName }: { resourceName: string }) => (
   </Box>
 );
 
-export const CustomAppLayout = forwardRef<AppLayoutProps.Ref, AppLayoutProps>((props, ref) => {
+export const CustomAppLayout = forwardRef<AppLayoutProps.Ref, AppLayoutProps>(function CustomAppLayout(props, ref) {
   return (
     <I18nProvider locale="en" messages={[enMessages]}>
       <AppLayout ref={ref} {...props} />

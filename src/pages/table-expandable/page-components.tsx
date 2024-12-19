@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useRef, useState } from 'react';
 
-import { AppLayoutProps, BreadcrumbGroup, HelpPanel } from '@cloudscape-design/components';
+import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
+import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
+import HelpPanel from '@cloudscape-design/components/help-panel';
 
 import { ExternalLinkGroup, Navigation, Notifications } from '../commons';
 import { CustomAppLayout, ec2NavItems } from '../commons/common-components';

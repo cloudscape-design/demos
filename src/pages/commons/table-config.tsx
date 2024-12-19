@@ -2,17 +2,16 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import {
-  Autosuggest,
-  ButtonDropdown,
-  CollectionPreferences,
+import Autosuggest from '@cloudscape-design/components/autosuggest';
+import ButtonDropdown from '@cloudscape-design/components/button-dropdown';
+import CollectionPreferences, {
   CollectionPreferencesProps,
-  Input,
-  Link,
-  Select,
-  StatusIndicator,
-  TableProps,
-} from '@cloudscape-design/components';
+} from '@cloudscape-design/components/collection-preferences';
+import Input from '@cloudscape-design/components/input';
+import Link from '@cloudscape-design/components/link';
+import Select from '@cloudscape-design/components/select';
+import StatusIndicator from '@cloudscape-design/components/status-indicator';
+import { TableProps } from '@cloudscape-design/components/table';
 
 import { Distribution } from '../../fake-server/types';
 import { createTableSortLabelFn } from '../../i18n-strings';

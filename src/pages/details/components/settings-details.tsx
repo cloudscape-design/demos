@@ -2,7 +2,10 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import { CopyToClipboard, KeyValuePairs, ProgressBar, StatusIndicator } from '@cloudscape-design/components';
+import CopyToClipboard from '@cloudscape-design/components/copy-to-clipboard';
+import KeyValuePairs from '@cloudscape-design/components/key-value-pairs';
+import ProgressBar from '@cloudscape-design/components/progress-bar';
+import StatusIndicator from '@cloudscape-design/components/status-indicator';
 
 import { DistributionResource } from '../../../resources/types';
 import { DEMO_DISTRIBUTION } from '../config';

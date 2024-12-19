@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: MIT-0
 import React, { ReactNode } from 'react';
 
-import { Box, HelpPanel, SpaceBetween } from '@cloudscape-design/components';
+import Box from '@cloudscape-design/components/box';
+import HelpPanel from '@cloudscape-design/components/help-panel';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { ExternalLink, ExternalLinkGroup } from '../commons';
 

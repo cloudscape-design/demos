@@ -2,18 +2,14 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useState } from 'react';
 
-import {
-  BreadcrumbGroup,
-  Button,
-  Container,
-  Form,
-  FormField,
-  Header,
-  NonCancelableCustomEvent,
-  S3ResourceSelector,
-  S3ResourceSelectorProps,
-  SpaceBetween,
-} from '@cloudscape-design/components';
+import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
+import Button from '@cloudscape-design/components/button';
+import Container from '@cloudscape-design/components/container';
+import Form from '@cloudscape-design/components/form';
+import FormField from '@cloudscape-design/components/form-field';
+import Header from '@cloudscape-design/components/header';
+import S3ResourceSelector, { S3ResourceSelectorProps } from '@cloudscape-design/components/s3-resource-selector';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { readFromS3Breadcrumbs } from '../../common/breadcrumbs';
 import { getItems, requestAsyncRegions, S3FetchError } from '../../common/s3-resource-selector/mock-request';
@@ -61,12 +57,12 @@ function S3ResourceSelectorContainer() {
   // Resource has been confirmed:
   // Modal submit / Version picker selection / Uri input field change event
   //
-  function onChange({ detail }: NonCancelableCustomEvent<S3ResourceSelectorProps.ChangeDetail>) {
+  const onChange: S3ResourceSelectorProps['onChange'] = ({ detail }) => {
     const { errorText, resource } = detail;
     setErrorText(errorText);
     setResource(resource);
     setViewHref(resource.uri !== '' && !errorText ? 'https://amazons3.demo.s3-resource-selector/test/1' : '');
-  }
+  };
 
   return (
     <FormField

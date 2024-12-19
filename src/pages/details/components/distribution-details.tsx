@@ -6,7 +6,9 @@ import { CodeView } from '@cloudscape-design/code-view';
 import jsonHighlight from '@cloudscape-design/code-view/highlight/json';
 import xmlHighlight from '@cloudscape-design/code-view/highlight/xml';
 import yamlHighlight from '@cloudscape-design/code-view/highlight/yaml';
-import { Container, Header, Tabs } from '@cloudscape-design/components';
+import Container from '@cloudscape-design/components/container';
+import Header from '@cloudscape-design/components/header';
+import Tabs from '@cloudscape-design/components/tabs';
 
 import { codeSnippets } from '../details-code-snippets';
 

@@ -2,8 +2,6 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useEffect, useState } from 'react';
 
-import {} from '@cloudscape-design/components';
-
 import INSTANCES from '../../resources/ec2-instances';
 import { EC2Instance } from '../../resources/types';
 import fakeDelay from '../commons/fake-delay';

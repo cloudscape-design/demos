@@ -2,14 +2,16 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import { KeyValuePairs, Link } from '@cloudscape-design/components';
 import Header from '@cloudscape-design/components/header';
+import KeyValuePairs from '@cloudscape-design/components/key-value-pairs';
+import Link from '@cloudscape-design/components/link';
 
+import { formatReadOnlyRegion } from '../../../../common/aws-region-utils';
 import { WidgetConfig } from '../interfaces';
 
 function ServiceOverviewHeader() {
   return (
-    <Header variant="h2" description="Viewing data from N. Virginia region">
+    <Header variant="h2" description={`Viewing data from ${formatReadOnlyRegion('us-east-1')} Region`}>
       Service overview - <em>new</em>
     </Header>
   );

@@ -4,9 +4,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import intersection from 'lodash/intersection';
 
 import { PropertyFilterQuery } from '@cloudscape-design/collection-hooks';
-import { AppLayoutProps, NonCancelableCustomEvent } from '@cloudscape-design/components';
+import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import Pagination from '@cloudscape-design/components/pagination';
-import PropertyFilter from '@cloudscape-design/components/property-filter';
+import PropertyFilter, { PropertyFilterProps } from '@cloudscape-design/components/property-filter';
 import Table, { TableProps } from '@cloudscape-design/components/table';
 
 import { Distribution } from '../../fake-server/types';
@@ -34,7 +34,7 @@ const DEFAULT_SORTING_IS_DESCENDING = false;
 
 interface ServerSidePropertyFilterTable {
   columnDefinitions: TableProps.ColumnDefinition<Distribution>[];
-  saveWidths: (event: NonCancelableCustomEvent<TableProps.ColumnWidthsChangeDetail>) => void;
+  saveWidths: TableProps['onColumnWidthsChange'];
   loadHelpPanelContent: () => void;
 }
 
@@ -80,7 +80,7 @@ function ServerSidePropertyFilterTable({
     setSelectedItems(oldSelected => intersection(items, oldSelected));
   }, [items]);
 
-  const handleSortingChange = (event: NonCancelableCustomEvent<TableProps.SortingState<Distribution>>) => {
+  const handleSortingChange: TableProps['onSortingChange'] = event => {
     setSortingDescending(event.detail.isDescending ?? DEFAULT_SORTING_IS_DESCENDING);
     setSortingColumn(event.detail.sortingColumn);
   };
@@ -89,7 +89,7 @@ function ServerSidePropertyFilterTable({
     setFilteringQuery(DEFAULT_FILTERING_QUERY);
   };
 
-  const handlePropertyFilteringChange = ({ detail }: NonCancelableCustomEvent<PropertyFilterQuery>) => {
+  const handlePropertyFilteringChange: PropertyFilterProps['onChange'] = ({ detail }) => {
     setFilteringQuery(detail);
   };
 

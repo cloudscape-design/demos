@@ -3,7 +3,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import { useCollection } from '@cloudscape-design/collection-hooks';
-import { AppLayoutProps, Cards, CollectionPreferences, Pagination, TextFilter } from '@cloudscape-design/components';
+import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
+import Cards from '@cloudscape-design/components/cards';
+import CollectionPreferences from '@cloudscape-design/components/collection-preferences';
+import Pagination from '@cloudscape-design/components/pagination';
+import TextFilter from '@cloudscape-design/components/text-filter';
 
 import { Distribution } from '../../fake-server/types';
 import {

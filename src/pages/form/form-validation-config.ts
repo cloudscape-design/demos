@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import uniq from 'lodash/uniq';
 
-import { SelectProps } from '@cloudscape-design/components';
+import { SelectProps } from '@cloudscape-design/components/select';
 
 import { FormDataAttributesKeys, FormDataAttributesValues } from './types';
 
@@ -49,6 +49,8 @@ const getSpecialCharacters = (value: string, regex: RegExp) => {
 const validateCodeEditor = (value: string | undefined | null) => Boolean(!value || value.length === 0);
 const validateEmptyCharacter = (value: string) => !value?.includes(' ');
 
+// TODO: Will fix this in a follow up CR
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ValidationFunction = (value: any) => boolean;
 type ValidationText = string | ((value: string) => string);
 

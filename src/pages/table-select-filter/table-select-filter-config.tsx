@@ -2,8 +2,12 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import { Box, CollectionPreferencesProps, Link, TableProps } from '@cloudscape-design/components';
+import Box from '@cloudscape-design/components/box';
+import { CollectionPreferencesProps } from '@cloudscape-design/components/collection-preferences';
+import Link from '@cloudscape-design/components/link';
+import { TableProps } from '@cloudscape-design/components/table';
 
+import { formatReadOnlyRegion } from '../../common/aws-region-utils';
 import { createTableSortLabelFn } from '../../i18n-strings';
 import { Instance } from '../../resources/instances';
 import { StatusComponent } from './table-select-filter-components';
@@ -54,7 +58,7 @@ const rawColumns: TableProps.ColumnDefinition<Instance>[] = [
   {
     id: 'zone',
     header: 'Zone',
-    cell: item => item.zone,
+    cell: item => formatReadOnlyRegion(item.zone),
     sortingField: 'zone',
   },
   {

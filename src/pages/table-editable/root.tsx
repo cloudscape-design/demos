@@ -3,15 +3,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import { useCollection } from '@cloudscape-design/collection-hooks';
-import {
-  AppLayoutProps,
-  Pagination,
-  PaginationProps,
-  Table,
-  TableProps,
-  TextFilter,
-  TextFilterProps,
-} from '@cloudscape-design/components';
+import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
+import Pagination, { PaginationProps } from '@cloudscape-design/components/pagination';
+import Table, { TableProps } from '@cloudscape-design/components/table';
+import TextFilter, { TextFilterProps } from '@cloudscape-design/components/text-filter';
 
 import { Distribution } from '../../fake-server/types';
 import {

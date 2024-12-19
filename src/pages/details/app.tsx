@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useRef, useState } from 'react';
 
-import { AppLayoutProps, SpaceBetween } from '@cloudscape-design/components';
+import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { CustomAppLayout, Navigation, Notifications } from '../commons/common-components';
 import { BehaviorsTable } from './components/behaviors-table';

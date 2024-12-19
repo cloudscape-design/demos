@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import { ReactNode } from 'react';
 
-import { SelectProps } from '@cloudscape-design/components';
+import { SelectProps } from '@cloudscape-design/components/select';
 
 export type EngineType = 'aurora' | 'mysql' | 'maria' | 'postgres' | 'oracle' | 'microsoft';
 

@@ -2,17 +2,14 @@
 // SPDX-License-Identifier: MIT-0
 import { Ref, RefObject } from 'react';
 
-import {
-  AttributeEditorProps,
-  CodeEditorProps,
-  DatePickerProps,
-  FileUploadProps,
-  InputProps,
-  SelectProps,
-  TagEditorProps,
-  TextareaProps,
-} from '@cloudscape-design/components';
-import { OptionDefinition } from '@cloudscape-design/components/internal/components/option/interfaces';
+import { AttributeEditorProps } from '@cloudscape-design/components/attribute-editor';
+import { CodeEditorProps } from '@cloudscape-design/components/code-editor';
+import { DatePickerProps } from '@cloudscape-design/components/date-picker';
+import { FileUploadProps } from '@cloudscape-design/components/file-upload';
+import { InputProps } from '@cloudscape-design/components/input';
+import { SelectProps } from '@cloudscape-design/components/select';
+import { TagEditorProps } from '@cloudscape-design/components/tag-editor';
+import { TextareaProps } from '@cloudscape-design/components/textarea';
 
 export interface CustomHeader {
   key: string;
@@ -27,7 +24,7 @@ export interface FormDataAttributesValues {
   sslCertificate: string;
   cloudFrontRootObject: string;
   alternativeDomainNames: string;
-  s3BucketSelectedOption: OptionDefinition | null;
+  s3BucketSelectedOption: SelectProps.Option | null;
   certificateExpiryDate: string;
   certificateExpiryTime: string;
   httpVersion: string;

@@ -2,31 +2,26 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useCallback, useState } from 'react';
 
-import {
-  BreadcrumbGroup,
-  Button,
-  Container,
-  Form,
-  FormField,
-  Header,
-  Hotspot,
-  Input,
-  InputProps,
-  Link,
-  NonCancelableCustomEvent,
-  RadioGroup,
-  Select,
-  SelectProps,
-  SpaceBetween,
-  Tiles,
-} from '@cloudscape-design/components';
+import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
+import Button from '@cloudscape-design/components/button';
+import Container from '@cloudscape-design/components/container';
+import Form from '@cloudscape-design/components/form';
+import FormField from '@cloudscape-design/components/form-field';
+import Header from '@cloudscape-design/components/header';
+import Hotspot from '@cloudscape-design/components/hotspot';
+import Input, { InputProps } from '@cloudscape-design/components/input';
+import Link from '@cloudscape-design/components/link';
+import RadioGroup from '@cloudscape-design/components/radio-group';
+import Select, { SelectProps } from '@cloudscape-design/components/select';
+import SpaceBetween from '@cloudscape-design/components/space-between';
+import Tiles from '@cloudscape-design/components/tiles';
 
 import { CustomAppLayout } from '../layout';
 import { useRouter } from '../router';
 import { useStore } from '../store';
 
-type InputChangeCallback = (event: NonCancelableCustomEvent<InputProps.ChangeDetail>) => void;
-type OptionChangeCallback = (event: NonCancelableCustomEvent<SelectProps.ChangeDetail>) => void;
+type InputChangeCallback = NonNullable<InputProps['onChange']>;
+type OptionChangeCallback = NonNullable<SelectProps['onChange']>;
 
 const availableS3Buckets = [
   { label: 'EXAMPLE-BUCKET0.s3.amazon.com', value: '0' },

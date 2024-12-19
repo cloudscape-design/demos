@@ -2,7 +2,12 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useRef } from 'react';
 
-import { AppLayoutProps, Button, Form, Header, Link, SpaceBetween } from '@cloudscape-design/components';
+import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
+import Button from '@cloudscape-design/components/button';
+import Form from '@cloudscape-design/components/form';
+import Header from '@cloudscape-design/components/header';
+import Link from '@cloudscape-design/components/link';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { CustomAppLayout, Navigation } from '../commons/common-components';
 import { Notifications } from '../commons/common-components';

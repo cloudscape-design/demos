@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useState } from 'react';
 
-import { Container, Header, TagEditor, TagEditorProps } from '@cloudscape-design/components';
+import Container from '@cloudscape-design/components/container';
+import Header from '@cloudscape-design/components/header';
+import TagEditor, { TagEditorProps } from '@cloudscape-design/components/tag-editor';
 
 import { tagEditorI18nStrings } from '../../../i18n-strings/tag-editor';
 import { InfoLink } from '../../commons/common-components';

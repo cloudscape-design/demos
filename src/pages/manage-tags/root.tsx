@@ -2,18 +2,14 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useEffect, useRef, useState } from 'react';
 
-import {
-  AppLayoutProps,
-  BreadcrumbGroup,
-  Button,
-  Container,
-  Form,
-  Header,
-  NonCancelableCustomEvent,
-  SpaceBetween,
-  TagEditor,
-  TagEditorProps,
-} from '@cloudscape-design/components';
+import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
+import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
+import Button from '@cloudscape-design/components/button';
+import Container from '@cloudscape-design/components/container';
+import Form from '@cloudscape-design/components/form';
+import Header from '@cloudscape-design/components/header';
+import SpaceBetween from '@cloudscape-design/components/space-between';
+import TagEditor, { TagEditorProps } from '@cloudscape-design/components/tag-editor';
 
 import { resourceManageTagsBreadcrumbs } from '../../common/breadcrumbs';
 import { tagEditorI18nStrings } from '../../i18n-strings/tag-editor';
@@ -56,16 +52,16 @@ export function App() {
     loadTags();
   }, []);
 
-  function onChange({ detail }: NonCancelableCustomEvent<TagEditorProps.ChangeDetail>) {
+  const onChange: TagEditorProps['onChange'] = ({ detail }) => {
     const { tags } = detail;
     setTags([...tags]);
-  }
+  };
 
-  function handleInfoClick() {
+  const handleInfoClick = () => {
     setToolsIndex(0);
     setToolsOpen(true);
     appLayoutRef.current?.focusToolsClose();
-  }
+  };
 
   return (
     <CustomAppLayout

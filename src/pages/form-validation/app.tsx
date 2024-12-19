@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useRef, useState } from 'react';
 
-import { AppLayoutProps, BreadcrumbGroup } from '@cloudscape-design/components';
+import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
+import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
 
 import { resourceCreateBreadcrumbs } from '../../common/breadcrumbs';
 import { CustomAppLayout, Navigation, Notifications } from '../commons/common-components';

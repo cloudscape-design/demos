@@ -23,7 +23,9 @@ interface OperationalWidgetContextType {
 
 const OperationalWidgetContext = createContext<OperationalWidgetContextType>({
   visibleContent: [],
-  openPreferences: () => {},
+  openPreferences: () => {
+    // do nothing
+  },
 });
 
 function OperationalMetricsProvider({ children }: { children: React.ReactElement }) {

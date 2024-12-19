@@ -2,7 +2,10 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import { CardsProps, CollectionPreferencesProps, Link, StatusIndicator } from '@cloudscape-design/components';
+import { CardsProps } from '@cloudscape-design/components/cards';
+import { CollectionPreferencesProps } from '@cloudscape-design/components/collection-preferences';
+import Link from '@cloudscape-design/components/link';
+import StatusIndicator from '@cloudscape-design/components/status-indicator';
 
 import { Distribution } from '../../fake-server/types';
 

@@ -3,7 +3,11 @@
 import React, { useRef, useState } from 'react';
 
 import { useCollection } from '@cloudscape-design/collection-hooks';
-import { AppLayoutProps, Pagination, SplitPanel, Table, TextFilter } from '@cloudscape-design/components';
+import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
+import Pagination from '@cloudscape-design/components/pagination';
+import SplitPanel from '@cloudscape-design/components/split-panel';
+import Table from '@cloudscape-design/components/table';
+import TextFilter from '@cloudscape-design/components/text-filter';
 
 import { getHeaderCounterText, getTextFilterCounterText, renderAriaLive } from '../../i18n-strings';
 import INSTANCES from '../../resources/ec2-instances';

@@ -3,17 +3,15 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 
-import {
-  Alert,
-  Box,
-  Button,
-  ColumnLayout,
-  FormField,
-  Input,
-  Link,
-  Modal,
-  SpaceBetween,
-} from '@cloudscape-design/components';
+import Alert from '@cloudscape-design/components/alert';
+import Box from '@cloudscape-design/components/box';
+import Button from '@cloudscape-design/components/button';
+import ColumnLayout from '@cloudscape-design/components/column-layout';
+import FormField from '@cloudscape-design/components/form-field';
+import Input from '@cloudscape-design/components/input';
+import Link from '@cloudscape-design/components/link';
+import Modal from '@cloudscape-design/components/modal';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { EC2Instance } from '../../../resources/types';
 

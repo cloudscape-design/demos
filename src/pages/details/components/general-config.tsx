@@ -2,7 +2,10 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import { Container, Header, KeyValuePairs, StatusIndicator } from '@cloudscape-design/components';
+import Container from '@cloudscape-design/components/container';
+import Header from '@cloudscape-design/components/header';
+import KeyValuePairs from '@cloudscape-design/components/key-value-pairs';
+import StatusIndicator from '@cloudscape-design/components/status-indicator';
 
 export const GeneralConfig = () => (
   <Container header={<Header variant="h2">General configuration</Header>}>

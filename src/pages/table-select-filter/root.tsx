@@ -3,19 +3,16 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 
 import { useCollection } from '@cloudscape-design/collection-hooks';
-import {
-  AppLayoutProps,
-  Button,
-  ButtonDropdown,
-  Input,
-  LiveRegion,
-  Pagination,
-  Select,
-  SelectProps,
-  SpaceBetween,
-  Table,
-} from '@cloudscape-design/components';
-import { OptionDefinition } from '@cloudscape-design/components/internal/components/option/interfaces';
+import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
+import Button from '@cloudscape-design/components/button';
+import ButtonDropdown from '@cloudscape-design/components/button-dropdown';
+import Input from '@cloudscape-design/components/input';
+import LiveRegion from '@cloudscape-design/components/live-region';
+import Pagination from '@cloudscape-design/components/pagination';
+import Select from '@cloudscape-design/components/select';
+import { SelectProps } from '@cloudscape-design/components/select';
+import SpaceBetween from '@cloudscape-design/components/space-between';
+import Table from '@cloudscape-design/components/table';
 
 import { getHeaderCounterText, getTextFilterCounterText, renderAriaLive } from '../../i18n-strings';
 import DATA, { Instance } from '../../resources/instances';
@@ -49,7 +46,7 @@ function prepareSelectOptions(field: keyof Instance, defaultOption: SelectProps.
   // The first element is the default one.
   const options: SelectProps.Option[] = [defaultOption];
 
-  // Adding the other element ot the list.
+  // Adding the other element of the list.
   optionSet.forEach((item, index) => options.push({ label: item, value: (index + 1).toString() }));
   return options;
 }
@@ -59,11 +56,11 @@ const defaultClass = { value: '0', label: 'Any Class' };
 const selectEngineOptions = prepareSelectOptions('engine', defaultEngine);
 const selectClassOptions = prepareSelectOptions('class', defaultClass);
 
-function matchesEngine(item: Instance, selectedEngine: OptionDefinition) {
+function matchesEngine(item: Instance, selectedEngine: SelectProps.Option) {
   return selectedEngine === defaultEngine || item.engine === selectedEngine.label;
 }
 
-function matchesClass(item: Instance, selectedClass: OptionDefinition) {
+function matchesClass(item: Instance, selectedClass: SelectProps.Option) {
   return selectedClass === defaultClass || item.class === selectedClass.label;
 }
 
@@ -73,8 +70,8 @@ interface TableSelectFilter {
 
 function TableSelectFilter({ loadHelpPanelContent }: TableSelectFilter) {
   const [columnDefinitions, saveWidths] = useColumnWidths('React-TableSelectFilter-Widths', COLUMN_DEFINITIONS);
-  const [engine, setEngine] = useState<OptionDefinition>(defaultEngine);
-  const [instanceClass, setInstanceClass] = useState<OptionDefinition>(defaultClass);
+  const [engine, setEngine] = useState<SelectProps.Option>(defaultEngine);
+  const [instanceClass, setInstanceClass] = useState<SelectProps.Option>(defaultClass);
   const [preferences, setPreferences] = useLocalStorage('React-TableSelectFilter-Preferences', PREFERENCES);
   const { items, actions, filteredItemsCount, collectionProps, filterProps, paginationProps } = useCollection(DATA, {
     filtering: {

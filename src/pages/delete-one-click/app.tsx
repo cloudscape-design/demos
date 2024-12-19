@@ -2,16 +2,13 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useEffect, useState } from 'react';
 
-import {
-  BreadcrumbGroup,
-  Button,
-  Container,
-  Form,
-  Header,
-  SpaceBetween,
-  TagEditor,
-  TagEditorProps,
-} from '@cloudscape-design/components';
+import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
+import Button from '@cloudscape-design/components/button';
+import Container from '@cloudscape-design/components/container';
+import Form from '@cloudscape-design/components/form';
+import Header from '@cloudscape-design/components/header';
+import SpaceBetween from '@cloudscape-design/components/space-between';
+import TagEditor, { TagEditorProps } from '@cloudscape-design/components/tag-editor';
 
 import { resourceManageTagsBreadcrumbs } from '../../common/breadcrumbs';
 import { tagEditorI18nStrings } from '../../i18n-strings/tag-editor';

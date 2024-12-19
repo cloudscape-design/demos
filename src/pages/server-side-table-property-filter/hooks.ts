@@ -3,8 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { PropertyFilterProperty } from '@cloudscape-design/collection-hooks';
-import { NonCancelableCustomEvent, PropertyFilterProps } from '@cloudscape-design/components';
-import { DropdownStatusProps } from '@cloudscape-design/components/internal/components/dropdown-status';
+import { PropertyFilterProps } from '@cloudscape-design/components/property-filter';
 
 import {
   FetchDistributionFilteringOptionsParams,
@@ -35,7 +34,7 @@ export function useDistributionsPropertyFiltering(defaultFilteringProperties: Pr
   const [filteringOptions, setFilteringOptions] = useState<PropertyFilterProps.FilteringOption[]>([]);
   const [filteringProperties, setFilteringProperties] =
     useState<PropertyFilterProps.FilteringProperty[]>(defaultFilteringProperties);
-  const [status, setStatus] = useState<DropdownStatusProps.StatusType>('pending');
+  const [status, setStatus] = useState<PropertyFilterProps['filteringStatusType']>('pending');
   const fetchData = async (filteringText: string, filteringProperty?: PropertyFilterProps.FilteringProperty) => {
     try {
       const { filteringOptions, filteringProperties } = await asyncFetchFilteringOptions({
@@ -58,9 +57,9 @@ export function useDistributionsPropertyFiltering(defaultFilteringProperties: Pr
     }
   };
 
-  const handleLoadItems = ({
+  const handleLoadItems: PropertyFilterProps['onLoadItems'] = ({
     detail: { filteringProperty, filteringText, firstPage },
-  }: NonCancelableCustomEvent<PropertyFilterProps.LoadItemsDetail>) => {
+  }) => {
     setStatus('loading');
     if (firstPage) {
       setFilteringOptions([]);

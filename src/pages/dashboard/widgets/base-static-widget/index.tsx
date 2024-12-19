@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import { Container } from '@cloudscape-design/components';
+import Container from '@cloudscape-design/components/container';
 
 import { WidgetDataType } from '../interfaces';
 

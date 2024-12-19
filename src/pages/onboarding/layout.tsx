@@ -2,9 +2,11 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useEffect } from 'react';
 
-import { AppLayout, AppLayoutProps, Tabs, TutorialPanel } from '@cloudscape-design/components';
+import AppLayout, { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import { I18nProvider } from '@cloudscape-design/components/i18n';
 import enMessages from '@cloudscape-design/components/i18n/messages/all.en.json';
+import Tabs from '@cloudscape-design/components/tabs';
+import TutorialPanel from '@cloudscape-design/components/tutorial-panel';
 
 import { Notifications } from '../commons/common-components';
 import { helpPanelContent } from './help-panel-content';

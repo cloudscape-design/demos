@@ -2,21 +2,19 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useEffect, useRef, useState } from 'react';
 
-import {
-  AttributeEditorProps,
-  Button,
-  CodeEditorProps,
-  DatePickerProps,
-  FileUploadProps,
-  Form,
-  Header,
-  InputProps,
-  Link,
-  SelectProps,
-  SpaceBetween,
-  TagEditorProps,
-  TextareaProps,
-} from '@cloudscape-design/components';
+import { AttributeEditorProps } from '@cloudscape-design/components/attribute-editor';
+import Button from '@cloudscape-design/components/button';
+import { CodeEditorProps } from '@cloudscape-design/components/code-editor';
+import { DatePickerProps } from '@cloudscape-design/components/date-picker';
+import { FileUploadProps } from '@cloudscape-design/components/file-upload';
+import Form from '@cloudscape-design/components/form';
+import Header from '@cloudscape-design/components/header';
+import { InputProps } from '@cloudscape-design/components/input';
+import Link from '@cloudscape-design/components/link';
+import { SelectProps } from '@cloudscape-design/components/select';
+import SpaceBetween from '@cloudscape-design/components/space-between';
+import { TagEditorProps } from '@cloudscape-design/components/tag-editor';
+import { TextareaProps } from '@cloudscape-design/components/textarea';
 
 import { InfoLink } from '../../commons/common-components';
 import validateField from '../form-validation-config';
@@ -148,9 +146,13 @@ export function FormFull({
   const [data, _setData] = useState(defaultData);
   const setData = (updateObj = {}) => _setData(prevData => ({ ...prevData, ...updateObj }));
 
+  const handleCancelClick = () => {
+    // do nothing
+  };
+
   return (
     <BaseForm
-      onCancelClick={() => {}}
+      onCancelClick={handleCancelClick}
       header={header}
       content={
         <SpaceBetween size="l">
@@ -182,7 +184,7 @@ export const LimitedForm = ({
   useEffect(() => {
     const isDirty = JSON.stringify(data) !== JSON.stringify(defaultData);
     updateDirty(isDirty);
-  }, [data]);
+  }, [data, updateDirty]);
 
   return (
     <BaseForm
@@ -220,30 +222,6 @@ export const FormWithValidation = ({
     customHeaders: useRef<AttributeEditorProps.Ref>(null),
     codeEditor: useRef<CodeEditorProps.Ref>(null),
     tags: useRef<TagEditorProps.Ref>(null),
-  };
-
-  const onSubmit = () => {
-    setFormErrorText(
-      <>
-        You have reached the maximum amount of distributions you can create.{' '}
-        <Link external variant="primary" href="#">
-          Learn more about distribution limits
-        </Link>
-      </>
-    );
-
-    const newErrors = { ...errors };
-
-    fieldsToValidate.forEach(attribute => {
-      const { errorText } = validateField(attribute, data[attribute], data[attribute]);
-      if (errorText) {
-        newErrors[attribute] = errorText;
-      }
-    });
-    newErrors.customHeaders = validateCustomHeaders();
-
-    setErrors(newErrors);
-    focusTopMostError(newErrors);
   };
 
   const shouldFocus = (errorsState: FormDataAttributesErrors, attribute: FormDataAttributesKeys) => {
@@ -291,6 +269,30 @@ export const FormWithValidation = ({
 
   const handleCancelClick = () => {
     // do nothing
+  };
+
+  const onSubmit = () => {
+    setFormErrorText(
+      <>
+        You have reached the maximum amount of distributions you can create.{' '}
+        <Link external variant="primary" href="#">
+          Learn more about distribution limits
+        </Link>
+      </>
+    );
+
+    const newErrors = { ...errors };
+
+    fieldsToValidate.forEach(attribute => {
+      const { errorText } = validateField(attribute, data[attribute], data[attribute]);
+      if (errorText) {
+        newErrors[attribute] = errorText;
+      }
+    });
+    newErrors.customHeaders = validateCustomHeaders();
+
+    setErrors(newErrors);
+    focusTopMostError(newErrors);
   };
 
   return (

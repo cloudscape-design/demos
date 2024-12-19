@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import { S3ResourceSelectorProps } from '@cloudscape-design/components';
+import { S3ResourceSelectorProps } from '@cloudscape-design/components/s3-resource-selector';
 
 import { amazonS3Data, S3Error, S3ErrorType, S3Resource } from './mock-data';
 

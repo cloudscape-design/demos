@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import { AnnotationContextProps, TutorialPanelProps } from '@cloudscape-design/components';
+import { AnnotationContextProps } from '@cloudscape-design/components/annotation-context';
+import { TutorialPanelProps } from '@cloudscape-design/components/tutorial-panel';
 
 export const tutorialPanelI18nStrings: TutorialPanelProps.I18nStrings = {
   labelsTaskStatus: { pending: 'Pending', 'in-progress': 'In progress', success: 'Success' },

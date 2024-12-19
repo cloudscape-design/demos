@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import { Grid } from '@cloudscape-design/components';
+import Grid from '@cloudscape-design/components/grid';
 
 import {
   accountAttributes,

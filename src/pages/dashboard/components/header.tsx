@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import { Header, HelpPanel } from '@cloudscape-design/components';
+import Header from '@cloudscape-design/components/header';
+import HelpPanel from '@cloudscape-design/components/help-panel';
 
 import { ExternalLinkGroup, InfoLink, useHelpPanel } from '../../commons';
 

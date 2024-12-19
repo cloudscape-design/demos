@@ -3,15 +3,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import { useCollection } from '@cloudscape-design/collection-hooks';
-import {
-  AppLayoutProps,
-  ButtonDropdown,
-  Flashbar,
-  Pagination,
-  PropertyFilter,
-  Select,
-  Table,
-} from '@cloudscape-design/components';
+import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
+import ButtonDropdown from '@cloudscape-design/components/button-dropdown';
+import Flashbar from '@cloudscape-design/components/flashbar';
+import Pagination from '@cloudscape-design/components/pagination';
+import PropertyFilter from '@cloudscape-design/components/property-filter';
+import Select from '@cloudscape-design/components/select';
+import Table from '@cloudscape-design/components/table';
 
 import { Distribution } from '../../fake-server/types';
 import {

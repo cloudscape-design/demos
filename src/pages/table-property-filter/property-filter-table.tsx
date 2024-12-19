@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { PropertyFilterProperty, useCollection } from '@cloudscape-design/collection-hooks';
-import { CollectionPreferencesProps, NonCancelableCustomEvent } from '@cloudscape-design/components';
+import { CollectionPreferencesProps } from '@cloudscape-design/components/collection-preferences';
 import Pagination from '@cloudscape-design/components/pagination';
 import PropertyFilter from '@cloudscape-design/components/property-filter';
 import Table, { TableProps } from '@cloudscape-design/components/table';
@@ -27,7 +27,7 @@ export interface PropertyFilterTableProps {
   loadHelpPanelContent: () => void;
   columnDefinitions: TableProps.ColumnDefinition<Distribution>[];
   contentDisplayOptions?: CollectionPreferencesProps.ContentDisplayOption[];
-  saveWidths: (event: NonCancelableCustomEvent<TableProps.ColumnWidthsChangeDetail>) => void;
+  saveWidths: TableProps['onColumnWidthsChange'];
   preferences: CollectionPreferencesProps.Preferences<Distribution>;
   setPreferences: (preferences: CollectionPreferencesProps<unknown>['preferences']) => void;
   filteringProperties: PropertyFilterProperty[];

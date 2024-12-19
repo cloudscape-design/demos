@@ -2,15 +2,11 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import {
-  Box,
-  Header,
-  Link,
-  StatusIndicator,
-  StatusIndicatorProps,
-  Table,
-  TableProps,
-} from '@cloudscape-design/components';
+import Box from '@cloudscape-design/components/box';
+import Header from '@cloudscape-design/components/header';
+import Link from '@cloudscape-design/components/link';
+import StatusIndicator, { StatusIndicatorProps } from '@cloudscape-design/components/status-indicator';
+import Table, { TableProps } from '@cloudscape-design/components/table';
 
 import { isVisualRefresh } from '../../../../common/apply-mode';
 import { WidgetConfig } from '../interfaces';

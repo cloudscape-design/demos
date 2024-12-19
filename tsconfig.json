@@ -12,6 +12,9 @@
       ],
       "@cloudscape-design/code-view/highlight/json": [
         "./node_modules/@cloudscape-design/code-view/code-view/highlight/json"
+      ],
+      "@cloudscape-design/code-view/highlight/typescript": [
+        "./node_modules/@cloudscape-design/code-view/code-view/highlight/typescript"
       ]
     },
     "allowSyntheticDefaultImports": true,

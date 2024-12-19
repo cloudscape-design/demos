@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import React, { ReactNode, useState } from 'react';
 
-import { Alert, AlertProps } from '@cloudscape-design/components';
+import Alert, { AlertProps } from '@cloudscape-design/components/alert';
 
 export interface ErrorAlertError {
   type: AlertProps.Type;

@@ -2,7 +2,12 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useState } from 'react';
 
-import { Box, Button, Header, Link, SpaceBetween, Table, TableProps } from '@cloudscape-design/components';
+import Box from '@cloudscape-design/components/box';
+import Button from '@cloudscape-design/components/button';
+import Header from '@cloudscape-design/components/header';
+import Link from '@cloudscape-design/components/link';
+import SpaceBetween from '@cloudscape-design/components/space-between';
+import Table, { TableProps } from '@cloudscape-design/components/table';
 
 import { getHeaderCounterText } from '../../../i18n-strings';
 import { LogResource } from '../../../resources/types';

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import { StatusIndicator } from '@cloudscape-design/components';
+import StatusIndicator from '@cloudscape-design/components/status-indicator';
 
 export default function ItemState({ state }: { state: string }) {
   if (state === 'deleting') {

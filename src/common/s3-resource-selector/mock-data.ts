@@ -1,5 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
+import { formatReadOnlyRegion } from '../aws-region-utils';
+
 export type S3ErrorType = 'success' | 'error' | 'warning' | 'info';
 
 export interface S3Error {
@@ -28,7 +30,7 @@ export const amazonS3Data: S3Resource[] = [
   {
     Name: 'bucket-enim',
     CreationDate: 'May 02, 2019, 21:03:21 (UTC+02:00)',
-    __region: 'Middle East (Bahrain) me-south-1',
+    __region: formatReadOnlyRegion('me-south-1'),
     __folders: [],
     __objects: [
       {
@@ -100,7 +102,7 @@ export const amazonS3Data: S3Resource[] = [
   {
     Name: 'bucket-ex',
     CreationDate: 'September 07, 2019, 17:24:10 (UTC+02:00)',
-    __region: 'Canada (Central) ca-central-1',
+    __region: formatReadOnlyRegion('ca-central-1'),
     __folders: [
       {
         Key: 'simulation-nano-2019',
@@ -127,7 +129,7 @@ export const amazonS3Data: S3Resource[] = [
   {
     Name: 'bucket-qui',
     CreationDate: 'February 06, 2020, 19:53:08 (UTC+01:00)',
-    __region: 'US East (Ohio) us-east-2',
+    __region: formatReadOnlyRegion('us-east-2'),
     __folders: [
       {
         Key: 'simulation-micro-2020',
@@ -294,7 +296,7 @@ export const amazonS3Data: S3Resource[] = [
   {
     Name: 'bucket-officia',
     CreationDate: 'August 28, 2019, 01:56:08 (UTC+02:00)',
-    __region: 'Canada (Central) ca-central-1',
+    __region: formatReadOnlyRegion('ca-central-1'),
     __folders: [],
     __objects: [
       {
@@ -353,7 +355,7 @@ export const amazonS3Data: S3Resource[] = [
   {
     Name: 'bucket-sunt',
     CreationDate: 'April 27, 2019, 21:43:48 (UTC+02:00)',
-    __region: 'Canada (Central) ca-central-1',
+    __region: formatReadOnlyRegion('ca-central-1'),
     __folders: [
       {
         Key: 'simulation-micro-2020',
@@ -690,7 +692,7 @@ export const amazonS3Data: S3Resource[] = [
   {
     Name: 'bucket-et',
     CreationDate: 'May 06, 2019, 21:59:30 (UTC+02:00)',
-    __region: 'US East (Ohio) us-east-2',
+    __region: formatReadOnlyRegion('us-east-2'),
     __folders: [],
     __objects: [
       {

@@ -2,7 +2,10 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import { Button, ButtonDropdown, ButtonDropdownProps, Header, SpaceBetween } from '@cloudscape-design/components';
+import Button from '@cloudscape-design/components/button';
+import ButtonDropdown, { ButtonDropdownProps } from '@cloudscape-design/components/button-dropdown';
+import Header from '@cloudscape-design/components/header';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { DEMO_DISTRIBUTION } from '../config';
 

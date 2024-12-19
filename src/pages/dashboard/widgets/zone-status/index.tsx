@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import { Header, PieChart } from '@cloudscape-design/components';
+import Header from '@cloudscape-design/components/header';
+import PieChart from '@cloudscape-design/components/pie-chart';
 import { colorChartsStatusHigh, colorChartsStatusPositive } from '@cloudscape-design/design-tokens';
 
 import { percentageFormatter } from '../chart-commons';

@@ -2,15 +2,13 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useState } from 'react';
 
-import {
-  Button,
-  Container,
-  FormField,
-  Header,
-  RadioGroup,
-  SpaceBetween,
-  Textarea,
-} from '@cloudscape-design/components';
+import Button from '@cloudscape-design/components/button';
+import Container from '@cloudscape-design/components/container';
+import FormField from '@cloudscape-design/components/form-field';
+import Header from '@cloudscape-design/components/header';
+import RadioGroup from '@cloudscape-design/components/radio-group';
+import SpaceBetween from '@cloudscape-design/components/space-between';
+import Textarea from '@cloudscape-design/components/textarea';
 
 import { InfoLink } from '../../commons';
 import { PRICE_CLASS_OPTIONS, SSL_CERTIFICATE_OPTIONS } from '../edit-config';

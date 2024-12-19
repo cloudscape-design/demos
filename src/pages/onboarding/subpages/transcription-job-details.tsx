@@ -2,18 +2,16 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import {
-  Box,
-  BreadcrumbGroup,
-  Button,
-  Container,
-  Header,
-  Hotspot,
-  KeyValuePairs,
-  Link,
-  SpaceBetween,
-  StatusIndicator,
-} from '@cloudscape-design/components';
+import Box from '@cloudscape-design/components/box';
+import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
+import Button from '@cloudscape-design/components/button';
+import Container from '@cloudscape-design/components/container';
+import Header from '@cloudscape-design/components/header';
+import Hotspot from '@cloudscape-design/components/hotspot';
+import KeyValuePairs from '@cloudscape-design/components/key-value-pairs';
+import Link from '@cloudscape-design/components/link';
+import SpaceBetween from '@cloudscape-design/components/space-between';
+import StatusIndicator from '@cloudscape-design/components/status-indicator';
 
 import { ExternalLink } from '../../commons';
 import { CustomAppLayout } from '../layout';

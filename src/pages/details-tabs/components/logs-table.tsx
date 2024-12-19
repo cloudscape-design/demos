@@ -4,7 +4,12 @@ import React from 'react';
 import { useState } from 'react';
 
 import { useCollection } from '@cloudscape-design/collection-hooks';
-import { Button, Header, Pagination, SpaceBetween, Table, TableProps, TextFilter } from '@cloudscape-design/components';
+import Button from '@cloudscape-design/components/button';
+import Header from '@cloudscape-design/components/header';
+import Pagination from '@cloudscape-design/components/pagination';
+import SpaceBetween from '@cloudscape-design/components/space-between';
+import Table, { TableProps } from '@cloudscape-design/components/table';
+import TextFilter from '@cloudscape-design/components/text-filter';
 
 import { getHeaderCounterText, getTextFilterCounterText, renderAriaLive } from '../../../i18n-strings';
 import { TableEmptyState, TableNoMatchState } from '../../commons/common-components';

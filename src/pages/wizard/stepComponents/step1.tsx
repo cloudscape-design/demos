@@ -2,16 +2,14 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import {
-  Box,
-  Container,
-  FormField,
-  Header,
-  RadioGroup,
-  Select,
-  SpaceBetween,
-  Tiles,
-} from '@cloudscape-design/components';
+import Box from '@cloudscape-design/components/box';
+import Container from '@cloudscape-design/components/container';
+import FormField from '@cloudscape-design/components/form-field';
+import Header from '@cloudscape-design/components/header';
+import RadioGroup from '@cloudscape-design/components/radio-group';
+import Select from '@cloudscape-design/components/select';
+import SpaceBetween from '@cloudscape-design/components/space-between';
+import Tiles from '@cloudscape-design/components/tiles';
 
 import { EngineState, EngineType, WizardState } from '../interfaces';
 import { ENGINE_DETAILS, ENGINE_EDITIONS, ENGINE_USECASES, ENGINE_VERSIONS, ENGINES, LICENSES } from '../steps-config';

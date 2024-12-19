@@ -2,16 +2,13 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useState } from 'react';
 
-import {
-  Alert,
-  Container,
-  FormField,
-  Header,
-  Input,
-  Multiselect,
-  MultiselectProps,
-  SpaceBetween,
-} from '@cloudscape-design/components';
+import Alert from '@cloudscape-design/components/alert';
+import Container from '@cloudscape-design/components/container';
+import FormField from '@cloudscape-design/components/form-field';
+import Header from '@cloudscape-design/components/header';
+import Input from '@cloudscape-design/components/input';
+import Multiselect, { MultiselectProps } from '@cloudscape-design/components/multiselect';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { InfoLink } from '../../commons/common-components';
 import useContentOrigins from '../../commons/use-content-origins';

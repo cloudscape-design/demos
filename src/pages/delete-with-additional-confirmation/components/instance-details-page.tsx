@@ -2,16 +2,13 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import {
-  BreadcrumbGroup,
-  Button,
-  Container,
-  Flashbar,
-  FlashbarProps,
-  Header,
-  KeyValuePairs,
-  SpaceBetween,
-} from '@cloudscape-design/components';
+import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
+import Button from '@cloudscape-design/components/button';
+import Container from '@cloudscape-design/components/container';
+import Flashbar, { FlashbarProps } from '@cloudscape-design/components/flashbar';
+import Header from '@cloudscape-design/components/header';
+import KeyValuePairs from '@cloudscape-design/components/key-value-pairs';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { EC2Instance } from '../../../resources/types';
 import { Navigation } from '../../commons';

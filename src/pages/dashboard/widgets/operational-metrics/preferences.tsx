@@ -15,6 +15,27 @@ export const allContent = ['status', 'running', 'monitoring', 'issues', 'breakdo
 
 export type Content = (typeof allContent)[number];
 
+interface PreferencesControlProps {
+  label: string;
+  isGroup?: boolean;
+  toggle?: (id: string) => React.ReactNode;
+}
+
+function PreferencesControl({ label, toggle, isGroup }: PreferencesControlProps) {
+  const id = useId();
+  return (
+    <div className={styles.displayPreference}>
+      <label
+        htmlFor={id}
+        className={`${styles.displayPreferenceLabel} ${isGroup ? styles.displayPreferenceGroup : ''}`}
+      >
+        {label}
+      </label>
+      {toggle?.(id)}
+    </div>
+  );
+}
+
 interface WidgetPreferencesProps {
   preferences: ReadonlyArray<Content>;
   onDismiss: () => void;
@@ -126,26 +147,5 @@ export function WidgetPreferences({ onConfirm, onDismiss, preferences }: WidgetP
         ></PreferencesControl>
       </ColumnLayout>
     </Modal>
-  );
-}
-
-interface PreferencesControlProps {
-  label: string;
-  isGroup?: boolean;
-  toggle?: (id: string) => React.ReactNode;
-}
-
-function PreferencesControl({ label, toggle, isGroup }: PreferencesControlProps) {
-  const id = useId();
-  return (
-    <div className={styles.displayPreference}>
-      <label
-        htmlFor={id}
-        className={`${styles.displayPreferenceLabel} ${isGroup ? styles.displayPreferenceGroup : ''}`}
-      >
-        {label}
-      </label>
-      {toggle?.(id)}
-    </div>
   );
 }

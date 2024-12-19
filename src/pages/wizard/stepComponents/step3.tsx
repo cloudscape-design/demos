@@ -2,16 +2,14 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import {
-  Box,
-  Container,
-  ExpandableSection,
-  FormField,
-  Header,
-  RadioGroup,
-  Select,
-  SpaceBetween,
-} from '@cloudscape-design/components';
+import Box from '@cloudscape-design/components/box';
+import Container from '@cloudscape-design/components/container';
+import ExpandableSection from '@cloudscape-design/components/expandable-section';
+import FormField from '@cloudscape-design/components/form-field';
+import Header from '@cloudscape-design/components/header';
+import RadioGroup from '@cloudscape-design/components/radio-group';
+import Select from '@cloudscape-design/components/select';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { InfoLink } from '../../commons/common-components';
 import { AdvancedState, ToolsContent, WizardState } from '../interfaces';

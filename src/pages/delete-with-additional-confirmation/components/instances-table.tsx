@@ -3,7 +3,12 @@
 import React from 'react';
 
 import { useCollection } from '@cloudscape-design/collection-hooks';
-import { Button, Link, Pagination, SpaceBetween, Table, TableProps, TextFilter } from '@cloudscape-design/components';
+import Button from '@cloudscape-design/components/button';
+import Link from '@cloudscape-design/components/link';
+import Pagination from '@cloudscape-design/components/pagination';
+import SpaceBetween from '@cloudscape-design/components/space-between';
+import Table, { TableProps } from '@cloudscape-design/components/table';
+import TextFilter from '@cloudscape-design/components/text-filter';
 
 import { getHeaderCounterText, getTextFilterCounterText, renderAriaLive } from '../../../i18n-strings';
 import { EC2Instance } from '../../../resources/types';

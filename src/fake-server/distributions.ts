@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import { PropertyFilterToken } from '@cloudscape-design/collection-hooks';
-import { PropertyFilterProps } from '@cloudscape-design/components';
+import { PropertyFilterProps } from '@cloudscape-design/components/property-filter';
 import { TokenGroup } from '@cloudscape-design/components/property-filter/interfaces';
 
 import { Distribution } from './types';
@@ -189,6 +189,8 @@ function prepareResponse(options: FetchDistributionOptions): PrepareResponseRetu
       : filteringProperties.map(property => property.key);
     // an object used as a set to ensure uniqueness of the generated filtering options
     const addedFilteringOptions: Record<string, boolean> = {};
+    // TODO: will fix in a follow up CR
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const addFilteringOption = (propertyKey: string, value: any) => {
       const id = propertyKey + '#' + value;
       if (!addedFilteringOptions[id]) {
@@ -239,6 +241,18 @@ function prepareResponse(options: FetchDistributionOptions): PrepareResponseRetu
   return output;
 }
 
+export function fetchDistributionFilteringOptions(
+  options: FetchDistributionOptions,
+  callback: (data: PrepareResponseReturnType) => void
+) {
+  fetchJson<NonNullable<PropertyFilterProps.FilteringProperty[]>>(
+    './resources/distributionsFilteringProperties.json'
+  ).then(response => {
+    filteringProperties = response;
+    setTimeout(() => callback(prepareResponse(options)), 500);
+  });
+}
+
 export function fetchDistributions(
   options: FetchDistributionOptions,
   callback: (data: PrepareResponseReturnType) => void
@@ -255,16 +269,4 @@ export function fetchDistributions(
   } else {
     setTimeout(() => callback(prepareResponse(options)), 500);
   }
-}
-
-export function fetchDistributionFilteringOptions(
-  options: FetchDistributionOptions,
-  callback: (data: PrepareResponseReturnType) => void
-) {
-  fetchJson<NonNullable<PropertyFilterProps.FilteringProperty[]>>(
-    './resources/distributionsFilteringProperties.json'
-  ).then(response => {
-    filteringProperties = response;
-    setTimeout(() => callback(prepareResponse(options)), 500);
-  });
 }

@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useCallback, useRef, useState } from 'react';
 
-import { AppLayoutProps, HelpPanel, Wizard, WizardProps } from '@cloudscape-design/components';
+import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
+import HelpPanel from '@cloudscape-design/components/help-panel';
+import Wizard, { WizardProps } from '@cloudscape-design/components/wizard';
 
 import { ExternalLinkGroup, InfoLink, Notifications } from '../commons';
 import { CustomAppLayout } from '../commons/common-components';
@@ -112,10 +114,12 @@ const useWizard = (closeTools: () => void, setFormattedToolsContent: (tools: Too
   };
 
   const onCancel = () => {
+    // eslint-disable-next-line no-console
     console.log('Cancel');
   };
 
   const onSubmit = () => {
+    // eslint-disable-next-line no-console
     console.log(stepsInfo);
   };
 

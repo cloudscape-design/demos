@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import { Button, Container, Header } from '@cloudscape-design/components';
+import Button from '@cloudscape-design/components/button';
+import Container from '@cloudscape-design/components/container';
+import Header from '@cloudscape-design/components/header';
 
 import { InfoLink } from '../../commons';
 import { SettingsDetails } from '../../details/components/settings-details';

@@ -3,16 +3,14 @@
 import React, { useState } from 'react';
 
 import { useCollection } from '@cloudscape-design/collection-hooks';
-import {
-  Button,
-  ButtonDropdown,
-  CollectionPreferencesProps,
-  LiveRegion,
-  PropertyFilter,
-  SpaceBetween,
-  Table,
-  TableProps,
-} from '@cloudscape-design/components';
+import Button from '@cloudscape-design/components/button';
+import ButtonDropdown from '@cloudscape-design/components/button-dropdown';
+import { CollectionPreferencesProps } from '@cloudscape-design/components/collection-preferences';
+import LiveRegion from '@cloudscape-design/components/live-region';
+import PropertyFilter from '@cloudscape-design/components/property-filter';
+import SpaceBetween from '@cloudscape-design/components/space-between';
+import Table from '@cloudscape-design/components/table';
+import { TableProps } from '@cloudscape-design/components/table';
 
 import { getHeaderCounterText, getTextFilterCounterText } from '../../i18n-strings';
 import allInstances, { Instance } from '../../resources/related-instances';

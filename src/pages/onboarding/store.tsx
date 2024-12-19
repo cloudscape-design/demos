@@ -10,7 +10,7 @@ import React, {
   useState,
 } from 'react';
 
-import { AppLayoutProps } from '@cloudscape-design/components';
+import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 
 import { Tutorial, useAvailableTutorials } from './tutorial-data';
 

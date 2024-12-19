@@ -2,7 +2,10 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useState } from 'react';
 
-import { Button, Header, SpaceBetween, Table, TableProps } from '@cloudscape-design/components';
+import Button from '@cloudscape-design/components/button';
+import Header from '@cloudscape-design/components/header';
+import SpaceBetween from '@cloudscape-design/components/space-between';
+import Table, { TableProps } from '@cloudscape-design/components/table';
 
 import { baseTableAriaLabels, getHeaderCounterText } from '../../../i18n-strings';
 import { BehaviorResource } from '../../../resources/types';
@@ -13,7 +16,7 @@ import { BEHAVIORS_COLUMN_DEFINITIONS } from '../details-config';
 const behaviorsSelectionLabels = {
   ...baseTableAriaLabels,
   itemSelectionLabel: (
-    _: any,
+    _: unknown,
     row: {
       pathPattern: string;
       origin: string;

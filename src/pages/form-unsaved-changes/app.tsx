@@ -2,15 +2,13 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useEffect, useRef, useState } from 'react';
 
-import {
-  Alert,
-  AppLayoutProps,
-  Box,
-  BreadcrumbGroup,
-  Button,
-  Modal,
-  SpaceBetween,
-} from '@cloudscape-design/components';
+import Alert from '@cloudscape-design/components/alert';
+import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
+import Box from '@cloudscape-design/components/box';
+import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
+import Button from '@cloudscape-design/components/button';
+import Modal from '@cloudscape-design/components/modal';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { resourceCreateBreadcrumbs } from '../../common/breadcrumbs';
 import { CustomAppLayout, Navigation, Notifications } from '../commons/common-components';

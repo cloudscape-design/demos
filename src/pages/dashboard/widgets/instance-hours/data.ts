@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import { BarChartProps } from '@cloudscape-design/components';
+import { BarChartProps } from '@cloudscape-design/components/bar-chart';
 
 const cpuData = [
   { date: new Date(2020, 8, 16), 'm1.large': 878, 'm1.xlarge': 491, 'm1.medium': 284, 'm1.small': 70 },

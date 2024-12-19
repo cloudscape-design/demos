@@ -3,7 +3,11 @@
 import React from 'react';
 
 import { useCollection } from '@cloudscape-design/collection-hooks';
-import { Box, Button, Header, Table, TagEditorProps, TextFilter } from '@cloudscape-design/components';
+import Box from '@cloudscape-design/components/box';
+import Button from '@cloudscape-design/components/button';
+import Header from '@cloudscape-design/components/header';
+import Table from '@cloudscape-design/components/table';
+import TextFilter from '@cloudscape-design/components/text-filter';
 
 import { getTextFilterCounterText } from '../../../i18n-strings';
 import { TagsResource } from '../../../resources/types';

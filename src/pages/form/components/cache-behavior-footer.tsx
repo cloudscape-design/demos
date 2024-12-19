@@ -2,17 +2,15 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useState } from 'react';
 
-import {
-  Box,
-  Button,
-  Checkbox,
-  ColumnLayout,
-  ExpandableSection,
-  FormField,
-  Input,
-  RadioGroup,
-  SpaceBetween,
-} from '@cloudscape-design/components';
+import Box from '@cloudscape-design/components/box';
+import Button from '@cloudscape-design/components/button';
+import Checkbox from '@cloudscape-design/components/checkbox';
+import ColumnLayout from '@cloudscape-design/components/column-layout';
+import ExpandableSection from '@cloudscape-design/components/expandable-section';
+import FormField from '@cloudscape-design/components/form-field';
+import Input from '@cloudscape-design/components/input';
+import RadioGroup from '@cloudscape-design/components/radio-group';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { COOKIE_OPTIONS, CURRENT_COMPRESSION_OPTIONS, QUERY_STRING_OPTIONS } from '../form-config';
 

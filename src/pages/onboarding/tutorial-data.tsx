@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useCallback, useState } from 'react';
 
-import { Box, Link, TutorialPanelProps } from '@cloudscape-design/components';
+import Box from '@cloudscape-design/components/box';
+import Link from '@cloudscape-design/components/link';
+import { TutorialPanelProps } from '@cloudscape-design/components/tutorial-panel';
 
 import { ExternalLink } from '../commons';
 

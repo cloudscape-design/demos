@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import React, { PropsWithChildren, useState } from 'react';
 
-import { AnnotationContext } from '@cloudscape-design/components';
+import AnnotationContext from '@cloudscape-design/components/annotation-context';
 
 import { overlayI18nStrings } from './i18n';
 import { useRouter } from './router';

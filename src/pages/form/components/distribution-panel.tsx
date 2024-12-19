@@ -2,22 +2,19 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import {
-  Checkbox,
-  Container,
-  DatePicker,
-  ExpandableSection,
-  FileUpload,
-  FileUploadProps,
-  FormField,
-  Header,
-  Input,
-  RadioGroup,
-  Select,
-  SpaceBetween,
-  Textarea,
-  TimeInput,
-} from '@cloudscape-design/components';
+import Checkbox from '@cloudscape-design/components/checkbox';
+import Container from '@cloudscape-design/components/container';
+import DatePicker from '@cloudscape-design/components/date-picker';
+import ExpandableSection from '@cloudscape-design/components/expandable-section';
+import FileUpload, { FileUploadProps } from '@cloudscape-design/components/file-upload';
+import FormField from '@cloudscape-design/components/form-field';
+import Header from '@cloudscape-design/components/header';
+import Input from '@cloudscape-design/components/input';
+import RadioGroup from '@cloudscape-design/components/radio-group';
+import Select from '@cloudscape-design/components/select';
+import SpaceBetween from '@cloudscape-design/components/space-between';
+import Textarea from '@cloudscape-design/components/textarea';
+import TimeInput from '@cloudscape-design/components/time-input';
 
 import { InfoLink } from '../../commons/common-components';
 import useContentOrigins from '../../commons/use-content-origins';

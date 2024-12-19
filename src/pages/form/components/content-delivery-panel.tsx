@@ -2,7 +2,10 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useState } from 'react';
 
-import { Container, FormField, Header, Tiles } from '@cloudscape-design/components';
+import Container from '@cloudscape-design/components/container';
+import FormField from '@cloudscape-design/components/form-field';
+import Header from '@cloudscape-design/components/header';
+import Tiles from '@cloudscape-design/components/tiles';
 
 import { InfoLink } from '../../commons/common-components';
 

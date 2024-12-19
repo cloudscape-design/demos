@@ -3,7 +3,10 @@
 import React from 'react';
 
 import { PropertyFilterProperty } from '@cloudscape-design/collection-hooks';
-import { CollectionPreferencesProps, Link, StatusIndicator, TableProps } from '@cloudscape-design/components';
+import { CollectionPreferencesProps } from '@cloudscape-design/components/collection-preferences';
+import Link from '@cloudscape-design/components/link';
+import StatusIndicator from '@cloudscape-design/components/status-indicator';
+import { TableProps } from '@cloudscape-design/components/table';
 
 import { enumOperators, stringOperators } from '../../common/property-filter-operators';
 import { Distribution } from '../../fake-server/types';
