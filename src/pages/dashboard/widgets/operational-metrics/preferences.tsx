@@ -1,17 +1,40 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React, { useId, useState } from 'react';
+
 import Box from '@cloudscape-design/components/box';
+import Button from '@cloudscape-design/components/button';
 import ColumnLayout from '@cloudscape-design/components/column-layout';
 import Modal from '@cloudscape-design/components/modal';
-import Toggle from '@cloudscape-design/components/toggle';
-import styles from './preferences.module.scss';
 import SpaceBetween from '@cloudscape-design/components/space-between';
-import Button from '@cloudscape-design/components/button';
+import Toggle from '@cloudscape-design/components/toggle';
+
+import styles from './preferences.module.scss';
 
 export const allContent = ['status', 'running', 'monitoring', 'issues', 'breakdown'] as const;
 
 export type Content = (typeof allContent)[number];
+
+interface PreferencesControlProps {
+  label: string;
+  isGroup?: boolean;
+  toggle?: (id: string) => React.ReactNode;
+}
+
+function PreferencesControl({ label, toggle, isGroup }: PreferencesControlProps) {
+  const id = useId();
+  return (
+    <div className={styles.displayPreference}>
+      <label
+        htmlFor={id}
+        className={`${styles.displayPreferenceLabel} ${isGroup ? styles.displayPreferenceGroup : ''}`}
+      >
+        {label}
+      </label>
+      {toggle?.(id)}
+    </div>
+  );
+}
 
 interface WidgetPreferencesProps {
   preferences: ReadonlyArray<Content>;
@@ -124,26 +147,5 @@ export function WidgetPreferences({ onConfirm, onDismiss, preferences }: WidgetP
         ></PreferencesControl>
       </ColumnLayout>
     </Modal>
-  );
-}
-
-interface PreferencesControlProps {
-  label: string;
-  isGroup?: boolean;
-  toggle?: (id: string) => React.ReactNode;
-}
-
-function PreferencesControl({ label, toggle, isGroup }: PreferencesControlProps) {
-  const id = useId();
-  return (
-    <div className={styles.displayPreference}>
-      <label
-        htmlFor={id}
-        className={`${styles.displayPreferenceLabel} ${isGroup ? styles.displayPreferenceGroup : ''}`}
-      >
-        {label}
-      </label>
-      {toggle?.(id)}
-    </div>
   );
 }

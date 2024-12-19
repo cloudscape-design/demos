@@ -17,7 +17,7 @@ const hasConsent = () => {
   return cookieConsent?.functional ?? false;
 };
 
-export const save = (key: string, value: any) => {
+export const save = (key: string, value: unknown) => {
   if (hasConsent()) {
     localStorage.setItem(key, JSON.stringify(value));
   }
@@ -30,6 +30,7 @@ export const load = (key: string) => {
   try {
     return value && JSON.parse(value);
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.warn(
       `⚠️ The ${key} value that is stored in localStorage is incorrect. Try to remove the value ${key} from localStorage and reload the page`
     );

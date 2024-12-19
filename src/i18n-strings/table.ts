@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import { TableProps } from '@cloudscape-design/components';
+import { TableProps } from '@cloudscape-design/components/table';
 
 export const baseTableAriaLabels: TableProps.AriaLabels<unknown> = {
   allItemsSelectionLabel: () => 'select all',
@@ -23,9 +23,9 @@ export const distributionEditableTableAriaLabels: TableProps.AriaLabels<{ id: st
   ...baseEditableLabels,
 };
 
-export function createTableSortLabelFn(
-  column: TableProps.ColumnDefinition<unknown>
-): TableProps.ColumnDefinition<unknown>['ariaLabel'] {
+export function createTableSortLabelFn<T>(
+  column: TableProps.ColumnDefinition<T>
+): TableProps.ColumnDefinition<T>['ariaLabel'] {
   if (!column.sortingField && !column.sortingComparator && !column.ariaLabel) {
     return;
   }

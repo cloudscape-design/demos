@@ -1,18 +1,20 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import SpaceBetween from '@cloudscape-design/components/space-between';
-import { DashboardHeader } from '../dashboard/components/header';
-import { ResetButton } from './components/reset-button';
-import Button from '@cloudscape-design/components/button';
-import { PageBanner } from './components/page-banner';
-import Board from '@cloudscape-design/board-components/board';
-import { EmptyState } from '../dashboard/components/empty-state';
-import { boardI18nStrings } from './i18n-strings';
-import { exportLayout, getBoardWidgets, getDefaultLayout } from './widgets';
 import React, { useEffect, useRef } from 'react';
+
+import Board from '@cloudscape-design/board-components/board';
 import { useContainerQuery } from '@cloudscape-design/component-toolkit';
+import Button from '@cloudscape-design/components/button';
+import SpaceBetween from '@cloudscape-design/components/space-between';
+
+import { EmptyState } from '../dashboard/components/empty-state';
+import { DashboardHeader } from '../dashboard/components/header';
 import { ConfigurableWidget } from './components/configurable-widget';
+import { PageBanner } from './components/page-banner';
+import { ResetButton } from './components/reset-button';
+import { boardI18nStrings } from './i18n-strings';
 import { StoredWidgetPlacement } from './interfaces';
+import { exportLayout, getBoardWidgets, getDefaultLayout } from './widgets';
 
 interface ContentProps {
   layout: ReadonlyArray<StoredWidgetPlacement> | null;

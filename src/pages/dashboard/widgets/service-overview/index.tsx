@@ -1,24 +1,17 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import Header from '@cloudscape-design/components/header';
-import { WidgetConfig } from '../interfaces';
-import { Link, KeyValuePairs } from '@cloudscape-design/components';
 
-export const serviceOverview: WidgetConfig = {
-  definition: { defaultRowSpan: 2, defaultColumnSpan: 3 },
-  data: {
-    icon: 'list',
-    title: 'Service overview',
-    description: 'Overview of all your resources',
-    header: ServiceOverviewHeader,
-    content: ServiceOverviewWidget,
-  },
-};
+import Header from '@cloudscape-design/components/header';
+import KeyValuePairs from '@cloudscape-design/components/key-value-pairs';
+import Link from '@cloudscape-design/components/link';
+
+import { formatReadOnlyRegion } from '../../../../common/aws-region-utils';
+import { WidgetConfig } from '../interfaces';
 
 function ServiceOverviewHeader() {
   return (
-    <Header variant="h2" description="Viewing data from N. Virginia region">
+    <Header variant="h2" description={`Viewing data from ${formatReadOnlyRegion('us-east-1')} Region`}>
       Service overview - <em>new</em>
     </Header>
   );
@@ -65,3 +58,13 @@ function ServiceOverviewWidget() {
     />
   );
 }
+export const serviceOverview: WidgetConfig = {
+  definition: { defaultRowSpan: 2, defaultColumnSpan: 3 },
+  data: {
+    icon: 'list',
+    title: 'Service overview',
+    description: 'Overview of all your resources',
+    header: ServiceOverviewHeader,
+    content: ServiceOverviewWidget,
+  },
+};

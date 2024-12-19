@@ -1,19 +1,21 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import {
-  ButtonDropdown,
-  CollectionPreferences,
+
+import ButtonDropdown from '@cloudscape-design/components/button-dropdown';
+import CollectionPreferences, {
   CollectionPreferencesProps,
-  Link,
-  Popover,
-  PropertyFilterProps,
-  SpaceBetween,
-  StatusIndicator,
-  TableProps,
-} from '@cloudscape-design/components';
-import { Instance } from '../../resources/related-instances';
+} from '@cloudscape-design/components/collection-preferences';
+import Link from '@cloudscape-design/components/link';
+import Popover from '@cloudscape-design/components/popover';
+import { PropertyFilterProps } from '@cloudscape-design/components/property-filter';
+import SpaceBetween from '@cloudscape-design/components/space-between';
+import StatusIndicator from '@cloudscape-design/components/status-indicator';
+import { TableProps } from '@cloudscape-design/components/table';
+
+import { formatReadOnlyRegion } from '../../common/aws-region-utils';
 import { enumOperators } from '../../common/property-filter-operators';
+import { Instance } from '../../resources/related-instances';
 
 export const tableAriaLabels: TableProps<{ name: string }>['ariaLabels'] = {
   selectionGroupLabel: 'group label',
@@ -46,18 +48,6 @@ export function createColumns({
       sortingField: 'name',
       minWidth: 300,
       isRowHeader: true,
-    },
-    {
-      id: 'role',
-      header: 'Role',
-      cell: item => (item.type === 'instance' ? item.role : `${item.role} (${getInstanceProps(item).children})`),
-      sortingField: 'role',
-    },
-    {
-      id: 'activity',
-      header: 'Activity',
-      cell: item => (item.selectsPerSecond !== null ? `${item.selectsPerSecond} Selects/Sec` : '-'),
-      sortingField: 'selectsPerSecond',
     },
     {
       id: 'state',
@@ -95,6 +85,24 @@ export function createColumns({
       sortingField: 'state',
     },
     {
+      id: 'region',
+      header: 'Region & AZ',
+      cell: item => formatReadOnlyRegion(item.regionGrouped),
+      sortingField: 'regionGrouped',
+    },
+    {
+      id: 'role',
+      header: 'Role',
+      cell: item => (item.type === 'instance' ? item.role : `${item.role} (${getInstanceProps(item).children})`),
+      sortingField: 'role',
+    },
+    {
+      id: 'activity',
+      header: 'Activity',
+      cell: item => (item.selectsPerSecond !== null ? `${item.selectsPerSecond} Selects/Sec` : '-'),
+      sortingField: 'selectsPerSecond',
+    },
+    {
       id: 'engine',
       header: 'Engine',
       cell: item => item.engine,
@@ -105,12 +113,6 @@ export function createColumns({
       header: 'Size',
       cell: item => item.sizeGrouped || '-',
       sortingField: 'sizeGrouped',
-    },
-    {
-      id: 'region',
-      header: 'Region & AZ',
-      cell: item => item.regionGrouped,
-      sortingField: 'regionGrouped',
     },
     {
       id: 'actions',

@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import { LineChartProps } from '@cloudscape-design/components';
+import { LineChartProps } from '@cloudscape-design/components/line-chart';
 
 const networkTrafficData = [
   { date: new Date(1600984800000), 'i-03736447': 68003, 'i-06f70d90': 46560, 'i-02924ba6': 25865, 'i-0e36f15f': 21350 },

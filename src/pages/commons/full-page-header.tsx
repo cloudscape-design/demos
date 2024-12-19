@@ -1,14 +1,18 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import { Button, Header, HeaderProps, SpaceBetween } from '@cloudscape-design/components';
+
+import Button from '@cloudscape-design/components/button';
+import Header, { HeaderProps } from '@cloudscape-design/components/header';
+import SpaceBetween from '@cloudscape-design/components/space-between';
+
 import { InfoLink } from './info-link';
 
 interface FullPageHeaderProps extends HeaderProps {
   title?: string;
   createButtonText?: string;
   extraActions?: React.ReactNode;
-  selectedItemsCount: number;
+  selectedItemsCount?: number;
   onInfoLinkClick?: () => void;
 }
 

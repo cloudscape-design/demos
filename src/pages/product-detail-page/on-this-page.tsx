@@ -1,9 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
+
 import AnchorNavigation from '@cloudscape-design/components/anchor-navigation';
-import ExpandableSection from '@cloudscape-design/components/expandable-section';
 import Box from '@cloudscape-design/components/box';
+import ExpandableSection from '@cloudscape-design/components/expandable-section';
 
 function OnThisPageNavigation({ variant }: { variant: 'mobile' | 'side' }) {
   const anchorNavigation = (

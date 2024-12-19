@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import { BoardProps, ItemsPaletteProps, BoardItemProps } from '@cloudscape-design/board-components';
+import { BoardItemProps, BoardProps, ItemsPaletteProps } from '@cloudscape-design/board-components';
+
 import { WidgetDataType } from '../dashboard/widgets/interfaces';
 
 export const boardItemI18nStrings: BoardItemProps.I18nStrings = {

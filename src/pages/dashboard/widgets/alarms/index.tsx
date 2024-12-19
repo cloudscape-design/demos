@@ -1,27 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
+
+import Box from '@cloudscape-design/components/box';
+import Button from '@cloudscape-design/components/button';
 import Header from '@cloudscape-design/components/header';
 import Link from '@cloudscape-design/components/link';
 import StatusIndicator, { StatusIndicatorProps } from '@cloudscape-design/components/status-indicator';
 import Table, { TableProps } from '@cloudscape-design/components/table';
-import Box from '@cloudscape-design/components/box';
-import Button from '@cloudscape-design/components/button';
+
 import { isVisualRefresh } from '../../../../common/apply-mode';
 import { WidgetConfig } from '../interfaces';
-
-export const alarms: WidgetConfig = {
-  definition: { defaultRowSpan: 3, defaultColumnSpan: 2 },
-  data: {
-    icon: 'table',
-    title: 'Alarms',
-    description: 'View all your alarms',
-    disableContentPaddings: !isVisualRefresh,
-    header: AlarmsHeader,
-    content: AlarmsContent,
-    footer: AlarmsFooter,
-  },
-};
 
 interface Item {
   name: string;
@@ -88,3 +77,16 @@ function AlarmsContent() {
     />
   );
 }
+
+export const alarms: WidgetConfig = {
+  definition: { defaultRowSpan: 3, defaultColumnSpan: 2 },
+  data: {
+    icon: 'table',
+    title: 'Alarms',
+    description: 'View all your alarms',
+    disableContentPaddings: !isVisualRefresh,
+    header: AlarmsHeader,
+    content: AlarmsContent,
+    footer: AlarmsFooter,
+  },
+};

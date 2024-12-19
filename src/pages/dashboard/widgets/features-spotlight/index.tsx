@@ -1,24 +1,18 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import { Box, ColumnLayout, Header, Link } from '@cloudscape-design/components';
-import { WidgetConfig } from '../interfaces';
 
-export const featuresSpotlight: WidgetConfig = {
-  definition: { defaultRowSpan: 3, defaultColumnSpan: 3 },
-  data: {
-    icon: 'list',
-    title: 'Features spotlight',
-    description: 'Updates on features available in the current region',
-    header: FeaturesSpotlightHeader,
-    content: FeaturesSpotlightContent,
-    footer: FeaturesSpotlightFooter,
-  },
-};
+import Box from '@cloudscape-design/components/box';
+import ColumnLayout from '@cloudscape-design/components/column-layout';
+import Header from '@cloudscape-design/components/header';
+import Link from '@cloudscape-design/components/link';
+
+import { formatReadOnlyRegion } from '../../../../common/aws-region-utils';
+import { WidgetConfig } from '../interfaces';
 
 function FeaturesSpotlightHeader() {
   return (
-    <Header variant="h2" description="Updates on features available in N. Virginia region">
+    <Header variant="h2" description={`Updates on features available in ${formatReadOnlyRegion('us-east-1')} Region`}>
       Features spotlight
     </Header>
   );
@@ -65,3 +59,15 @@ export function FeaturesSpotlightContent() {
     </ColumnLayout>
   );
 }
+
+export const featuresSpotlight: WidgetConfig = {
+  definition: { defaultRowSpan: 3, defaultColumnSpan: 3 },
+  data: {
+    icon: 'list',
+    title: 'Features spotlight',
+    description: 'Updates on features available in the current region',
+    header: FeaturesSpotlightHeader,
+    content: FeaturesSpotlightContent,
+    footer: FeaturesSpotlightFooter,
+  },
+};

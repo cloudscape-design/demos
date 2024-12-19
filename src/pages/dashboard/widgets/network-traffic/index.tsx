@@ -1,22 +1,14 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import { Header, LineChart, Link } from '@cloudscape-design/components';
+
+import Header from '@cloudscape-design/components/header';
+import LineChart from '@cloudscape-design/components/line-chart';
+import Link from '@cloudscape-design/components/link';
+
 import { commonChartProps, dateTimeFormatter, lineChartInstructions } from '../chart-commons';
 import { WidgetConfig } from '../interfaces';
 import { networkTrafficDomain, networkTrafficSeries } from './data';
-
-export const networkTraffic: WidgetConfig = {
-  definition: { defaultRowSpan: 4, defaultColumnSpan: 2, minRowSpan: 3 },
-  data: {
-    icon: 'lineChart',
-    title: 'Network traffic',
-    description: 'Incoming and outgoing network traffic',
-    header: NetworkTrafficHeader,
-    content: NetworkTrafficContent,
-    staticMinHeight: 560,
-  },
-};
 
 function NetworkTrafficHeader() {
   return (
@@ -58,3 +50,14 @@ export default function NetworkTrafficContent() {
     />
   );
 }
+export const networkTraffic: WidgetConfig = {
+  definition: { defaultRowSpan: 4, defaultColumnSpan: 2, minRowSpan: 3 },
+  data: {
+    icon: 'lineChart',
+    title: 'Network traffic',
+    description: 'Incoming and outgoing network traffic',
+    header: NetworkTrafficHeader,
+    content: NetworkTrafficContent,
+    staticMinHeight: 560,
+  },
+};

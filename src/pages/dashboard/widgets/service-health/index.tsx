@@ -1,21 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import { Box, Header, StatusIndicator, ColumnLayout } from '@cloudscape-design/components';
+
+import Box from '@cloudscape-design/components/box';
+import ColumnLayout from '@cloudscape-design/components/column-layout';
+import Header from '@cloudscape-design/components/header';
+import StatusIndicator from '@cloudscape-design/components/status-indicator';
+
+import { formatReadOnlyRegion } from '../../../../common/aws-region-utils';
 import { InfoLink, useHelpPanel } from '../../../commons';
 import { WidgetConfig } from '../interfaces';
 import { ServiceHealthInfo } from './help-content';
-
-export const serviceHealth: WidgetConfig = {
-  definition: { defaultRowSpan: 2, defaultColumnSpan: 1 },
-  data: {
-    icon: 'list',
-    title: 'Service Health',
-    description: 'General information about service health',
-    header: ServiceHealthHeader,
-    content: ServiceHealthContent,
-  },
-};
 
 function ServiceHealthHeader() {
   const loadHelpPanelContent = useHelpPanel();
@@ -36,7 +31,7 @@ export default function ServiceHealthContent() {
     <ColumnLayout columns={2}>
       <div>
         <Box variant="awsui-key-label">Region</Box>
-        <div>US East (N. Virginia)</div>
+        <div>{formatReadOnlyRegion('us-east-1')}</div>
       </div>
       <div>
         <Box variant="awsui-key-label">Status</Box>
@@ -45,3 +40,13 @@ export default function ServiceHealthContent() {
     </ColumnLayout>
   );
 }
+export const serviceHealth: WidgetConfig = {
+  definition: { defaultRowSpan: 2, defaultColumnSpan: 1 },
+  data: {
+    icon: 'list',
+    title: 'Service Health',
+    description: 'General information about service health',
+    header: ServiceHealthHeader,
+    content: ServiceHealthContent,
+  },
+};
