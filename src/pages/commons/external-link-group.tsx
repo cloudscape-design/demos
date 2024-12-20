@@ -1,10 +1,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React, { useId } from 'react';
-import Icon from '@cloudscape-design/components/icon';
-import Link from '@cloudscape-design/components/link';
+
 import Container from '@cloudscape-design/components/container';
 import Header from '@cloudscape-design/components/header';
+import Icon from '@cloudscape-design/components/icon';
+import Link from '@cloudscape-design/components/link';
+
 import { SeparatedList } from './separated-list';
 
 interface ExternalLinkItemProps {

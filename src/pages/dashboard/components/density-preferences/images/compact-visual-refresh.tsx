@@ -1,7 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import { TableRows, TableRow, WindowPath, TopNavigation } from './common';
+
+import { TableRow, TableRows, TopNavigation, WindowPath } from './common';
+
 import styles from './styles.module.scss';
 
 const compactImage = (

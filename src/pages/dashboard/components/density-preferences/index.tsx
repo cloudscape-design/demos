@@ -1,13 +1,15 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React, { useState } from 'react';
-import { Density } from '@cloudscape-design/global-styles';
+
 import Box from '@cloudscape-design/components/box';
-import SpaceBetween from '@cloudscape-design/components/space-between';
 import Button from '@cloudscape-design/components/button';
 import FormField from '@cloudscape-design/components/form-field';
-import Tiles from '@cloudscape-design/components/tiles';
 import Modal from '@cloudscape-design/components/modal';
+import SpaceBetween from '@cloudscape-design/components/space-between';
+import Tiles from '@cloudscape-design/components/tiles';
+import { Density } from '@cloudscape-design/global-styles';
+
 import { currentDensity, updateDensity } from '../../../../common/apply-mode';
 import { comfortableModeImage, compactModeImage } from './images';
 

@@ -1,34 +1,23 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React, { createContext, Dispatch, SetStateAction, useContext, useState } from 'react';
-import {
-  Box,
-  Button,
-  Header,
-  Link,
-  StatusIndicator,
-  StatusIndicatorProps,
-  Table,
-  TableProps,
-} from '@cloudscape-design/components';
-import { WidgetConfig } from '../interfaces';
+
+import Box from '@cloudscape-design/components/box';
+import Button from '@cloudscape-design/components/button';
+import Header from '@cloudscape-design/components/header';
+import Link from '@cloudscape-design/components/link';
+import StatusIndicator, { StatusIndicatorProps } from '@cloudscape-design/components/status-indicator';
+import Table, { TableProps } from '@cloudscape-design/components/table';
+
 import { isVisualRefresh } from '../../../../common/apply-mode';
+import { WidgetConfig } from '../interfaces';
 
-export const instanceLimits: WidgetConfig = {
-  definition: { defaultRowSpan: 3, defaultColumnSpan: 2 },
-  data: {
-    icon: 'table',
-    title: 'Instance limits',
-    description: 'Current utilization of instance types',
-    disableContentPaddings: !isVisualRefresh,
-    provider: InstanceLimitsProvider,
-    header: InstanceLimitsHeader,
-    content: InstanceLimitsContent,
-    footer: InstanceLimitsFooter,
+const WidgetContext = createContext<[string | null, Dispatch<SetStateAction<string | null>>]>([
+  null,
+  () => {
+    // do nothing
   },
-};
-
-const WidgetContext = createContext<[string | null, Dispatch<SetStateAction<string | null>>]>([null, () => {}]);
+]);
 
 function InstanceLimitsProvider({ children }: { children: React.ReactNode }) {
   const state = useState<string | null>(null);
@@ -114,3 +103,17 @@ export default function InstanceLimitsContent() {
     />
   );
 }
+
+export const instanceLimits: WidgetConfig = {
+  definition: { defaultRowSpan: 3, defaultColumnSpan: 2 },
+  data: {
+    icon: 'table',
+    title: 'Instance limits',
+    description: 'Current utilization of instance types',
+    disableContentPaddings: !isVisualRefresh,
+    provider: InstanceLimitsProvider,
+    header: InstanceLimitsHeader,
+    content: InstanceLimitsContent,
+    footer: InstanceLimitsFooter,
+  },
+};

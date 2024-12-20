@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
+
 import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
 import Icon from '@cloudscape-design/components/icon';

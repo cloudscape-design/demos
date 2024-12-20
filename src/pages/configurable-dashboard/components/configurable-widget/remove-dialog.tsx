@@ -1,10 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
+
 import Box from '@cloudscape-design/components/box';
+import Button from '@cloudscape-design/components/button';
 import Modal from '@cloudscape-design/components/modal';
 import SpaceBetween from '@cloudscape-design/components/space-between';
-import Button from '@cloudscape-design/components/button';
 
 interface RemoveDialogProps {
   title: string;

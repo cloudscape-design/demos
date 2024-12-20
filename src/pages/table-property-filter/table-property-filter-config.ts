@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import { stringOperators, enumOperators } from '../../common/property-filter-operators';
+import { enumOperators, stringOperators } from '../../common/property-filter-operators';
 
 export const FILTERING_PROPERTIES = [
   {

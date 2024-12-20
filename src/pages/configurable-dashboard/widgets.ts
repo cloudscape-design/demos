@@ -1,21 +1,22 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import { BoardProps } from '@cloudscape-design/board-components/board';
-import { StoredWidgetPlacement } from './interfaces';
+
 import {
   accountAttributes,
   alarms,
-  serviceOverview,
   events,
-  serviceHealth,
-  instanceLimits,
+  featuresSpotlight,
   instanceHours,
+  instanceLimits,
   networkTraffic,
   operationalMetrics,
+  serviceHealth,
+  serviceOverview,
   zoneStatus,
-  featuresSpotlight,
 } from '../dashboard/widgets';
 import { DashboardWidgetItem, WidgetConfig, WidgetDataType } from '../dashboard/widgets/interfaces';
+import { StoredWidgetPlacement } from './interfaces';
 
 export type { DashboardWidgetItem };
 export { PaletteItem } from './components/palette-item';

@@ -1,31 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import {
-  Box,
-  Header,
-  Link,
-  StatusIndicator,
-  StatusIndicatorProps,
-  Table,
-  TableProps,
-} from '@cloudscape-design/components';
+
+import Box from '@cloudscape-design/components/box';
+import Header from '@cloudscape-design/components/header';
+import Link from '@cloudscape-design/components/link';
+import StatusIndicator, { StatusIndicatorProps } from '@cloudscape-design/components/status-indicator';
+import Table, { TableProps } from '@cloudscape-design/components/table';
+
+import { isVisualRefresh } from '../../../../common/apply-mode';
 import { WidgetConfig } from '../interfaces';
 import { eventsItems } from './data';
-import { isVisualRefresh } from '../../../../common/apply-mode';
-
-export const events: WidgetConfig = {
-  definition: { defaultRowSpan: 4, defaultColumnSpan: 2 },
-  data: {
-    icon: 'table',
-    title: 'Events',
-    description: 'View your service events',
-    disableContentPaddings: !isVisualRefresh,
-    header: EventsHeader,
-    content: EventsContent,
-    footer: EventsFooter,
-  },
-};
 
 function EventsHeader() {
   return <Header counter={`(${eventsItems.length})`}>Events</Header>;
@@ -86,3 +71,16 @@ export default function EventsContent() {
     />
   );
 }
+
+export const events: WidgetConfig = {
+  definition: { defaultRowSpan: 4, defaultColumnSpan: 2 },
+  data: {
+    icon: 'table',
+    title: 'Events',
+    description: 'View your service events',
+    disableContentPaddings: !isVisualRefresh,
+    header: EventsHeader,
+    content: EventsContent,
+    footer: EventsFooter,
+  },
+};

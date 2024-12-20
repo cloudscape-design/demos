@@ -1,22 +1,13 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import { Header, PieChart } from '@cloudscape-design/components';
-import { colorChartsStatusPositive, colorChartsStatusHigh } from '@cloudscape-design/design-tokens';
+
+import Header from '@cloudscape-design/components/header';
+import PieChart from '@cloudscape-design/components/pie-chart';
+import { colorChartsStatusHigh, colorChartsStatusPositive } from '@cloudscape-design/design-tokens';
+
 import { percentageFormatter } from '../chart-commons';
 import { WidgetConfig } from '../interfaces';
-
-export const zoneStatus: WidgetConfig = {
-  definition: { defaultRowSpan: 4, defaultColumnSpan: 2, minRowSpan: 3 },
-  data: {
-    icon: 'pieChart',
-    title: 'Zone status',
-    description: 'Zone status report',
-    header: ZoneStatusHeader,
-    content: ZoneStatusContent,
-    staticMinHeight: 450,
-  },
-};
 
 function ZoneStatusHeader() {
   return (
@@ -62,3 +53,15 @@ function ZoneStatusContent() {
     />
   );
 }
+
+export const zoneStatus: WidgetConfig = {
+  definition: { defaultRowSpan: 4, defaultColumnSpan: 2, minRowSpan: 3 },
+  data: {
+    icon: 'pieChart',
+    title: 'Zone status',
+    description: 'Zone status report',
+    header: ZoneStatusHeader,
+    content: ZoneStatusContent,
+    staticMinHeight: 450,
+  },
+};

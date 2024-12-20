@@ -1,30 +1,20 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React, { createContext, useContext, useState } from 'react';
-import Header from '@cloudscape-design/components/header';
+
 import Button from '@cloudscape-design/components/button';
-import { WidgetConfig } from '../interfaces';
-import Select from '@cloudscape-design/components/select';
 import FormField from '@cloudscape-design/components/form-field';
+import Header from '@cloudscape-design/components/header';
 import KeyValuePairs from '@cloudscape-design/components/key-value-pairs';
+import Select from '@cloudscape-design/components/select';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import StatusIndicator from '@cloudscape-design/components/status-indicator';
-import { BreakdownChart } from './chart';
-import { allContent, WidgetPreferences, Content } from './preferences';
-import { ResponsiveLayout } from '../../components/responsive-layout';
-import { EmptyState } from '../../components/empty-state';
 
-export const operationalMetrics: WidgetConfig = {
-  definition: { defaultRowSpan: 4, defaultColumnSpan: 3 },
-  data: {
-    icon: 'mixedContent',
-    title: 'Operational metrics',
-    description: 'Operational metrics of your service',
-    provider: OperationalMetricsProvider,
-    header: OperationalMetricsHeader,
-    content: OperationalMetricsContent,
-  },
-};
+import { EmptyState } from '../../components/empty-state';
+import { ResponsiveLayout } from '../../components/responsive-layout';
+import { WidgetConfig } from '../interfaces';
+import { BreakdownChart } from './chart';
+import { allContent, Content, WidgetPreferences } from './preferences';
 
 interface OperationalWidgetContextType {
   visibleContent: ReadonlyArray<Content>;
@@ -33,7 +23,9 @@ interface OperationalWidgetContextType {
 
 const OperationalWidgetContext = createContext<OperationalWidgetContextType>({
   visibleContent: [],
-  openPreferences: () => {},
+  openPreferences: () => {
+    // do nothing
+  },
 });
 
 function OperationalMetricsProvider({ children }: { children: React.ReactElement }) {
@@ -153,3 +145,15 @@ function OperationalMetricsContent() {
     </ResponsiveLayout>
   );
 }
+
+export const operationalMetrics: WidgetConfig = {
+  definition: { defaultRowSpan: 4, defaultColumnSpan: 3 },
+  data: {
+    icon: 'mixedContent',
+    title: 'Operational metrics',
+    description: 'Operational metrics of your service',
+    provider: OperationalMetricsProvider,
+    header: OperationalMetricsHeader,
+    content: OperationalMetricsContent,
+  },
+};

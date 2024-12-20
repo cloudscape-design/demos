@@ -1,22 +1,14 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import { BarChart, Header, Link } from '@cloudscape-design/components';
-import { commonChartProps, dateFormatter, barChartInstructions } from '../chart-commons';
-import { cpuSeries, cpuDomain } from './data';
-import { WidgetConfig } from '../interfaces';
 
-export const instanceHours: WidgetConfig = {
-  definition: { defaultRowSpan: 4, defaultColumnSpan: 2, minRowSpan: 3 },
-  data: {
-    icon: 'barChart',
-    title: 'Instance hours',
-    description: 'Daily instance hours by instance type',
-    header: InstanceHoursHeader,
-    content: InstanceHoursContent,
-    staticMinHeight: 560,
-  },
-};
+import BarChart from '@cloudscape-design/components/bar-chart';
+import Header from '@cloudscape-design/components/header';
+import Link from '@cloudscape-design/components/link';
+
+import { barChartInstructions, commonChartProps, dateFormatter } from '../chart-commons';
+import { WidgetConfig } from '../interfaces';
+import { cpuDomain, cpuSeries } from './data';
 
 function InstanceHoursHeader() {
   return (
@@ -63,3 +55,14 @@ function InstanceHoursContent() {
     />
   );
 }
+export const instanceHours: WidgetConfig = {
+  definition: { defaultRowSpan: 4, defaultColumnSpan: 2, minRowSpan: 3 },
+  data: {
+    icon: 'barChart',
+    title: 'Instance hours',
+    description: 'Daily instance hours by instance type',
+    header: InstanceHoursHeader,
+    content: InstanceHoursContent,
+    staticMinHeight: 560,
+  },
+};

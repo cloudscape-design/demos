@@ -4,6 +4,10 @@
     "title": "Card view"
   },
   {
+    "path": "chat",
+    "title": "Chat"
+  },
+  {
     "path": "delete-one-click",
     "title": "One-click delete"
   },
