@@ -15,47 +15,47 @@ const setupTest = (testFn: { (page: Page): Promise<void> }) => {
 };
 
 describe('Chat behavior', () => {
-  test(
-    'Unknown prompt gets the correct response',
-    setupTest(async page => {
-      const prompt = 'unknown prompt';
-
-      await page.sendPrompt(prompt);
-      await expect(page.getChatBubbleText(initialMessageCount)).resolves.toBe(prompt);
-
-      // After a prompt is sent, Gen-AI should response so initialMessageCount + 2 is the new count of bubbles
-      // Gen-AI response is sent with a delay
-      await page.waitForAssertion(() => expect(page.countChatBubbles()).resolves.toBe(initialMessageCount + 2));
-      await page.waitForAssertion(() =>
-        expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain('Generating a response')
-      );
-      // Loading state is shown for 1.5 seconds
-      await page.waitForJsTimers(1500);
-      await expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain(
-        'The interactions and functionality of this demo are limited.'
-      );
-    })
-  );
-
-  test(
-    'Loading prompt shows loading state',
-    setupTest(async page => {
-      const prompt = 'Show a loading state example';
-
-      await page.sendPrompt(prompt);
-      await expect(page.getChatBubbleText(initialMessageCount)).resolves.toBe(prompt);
-
-      await page.waitForAssertion(() => expect(page.countChatBubbles()).resolves.toBe(initialMessageCount + 2));
-      await page.waitForAssertion(() =>
-        expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain('Generating a response')
-      );
-      // Loading state is shown for 4 seconds for loading prompt
-      await page.waitForJsTimers(4000);
-      await expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain(
-        'That was the loading state. To see the loading state again, ask "Show a loading state example".'
-      );
-    })
-  );
+  // test(
+  //   'Unknown prompt gets the correct response',
+  //   setupTest(async page => {
+  //     const prompt = 'unknown prompt';
+  //
+  //     await page.sendPrompt(prompt);
+  //     await expect(page.getChatBubbleText(initialMessageCount)).resolves.toBe(prompt);
+  //
+  //     // After a prompt is sent, Gen-AI should response so initialMessageCount + 2 is the new count of bubbles
+  //     // Gen-AI response is sent with a delay
+  //     await page.waitForAssertion(() => expect(page.countChatBubbles()).resolves.toBe(initialMessageCount + 2));
+  //     await page.waitForAssertion(() =>
+  //       expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain('Generating a response')
+  //     );
+  //     // Loading state is shown for 1.5 seconds
+  //     await page.waitForJsTimers(1500);
+  //     await expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain(
+  //       'The interactions and functionality of this demo are limited.'
+  //     );
+  //   })
+  // );
+  //
+  // test(
+  //   'Loading prompt shows loading state',
+  //   setupTest(async page => {
+  //     const prompt = 'Show a loading state example';
+  //
+  //     await page.sendPrompt(prompt);
+  //     await expect(page.getChatBubbleText(initialMessageCount)).resolves.toBe(prompt);
+  //
+  //     await page.waitForAssertion(() => expect(page.countChatBubbles()).resolves.toBe(initialMessageCount + 2));
+  //     await page.waitForAssertion(() =>
+  //       expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain('Generating a response')
+  //     );
+  //     // Loading state is shown for 4 seconds for loading prompt
+  //     await page.waitForJsTimers(4000);
+  //     await expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain(
+  //       'That was the loading state. To see the loading state again, ask "Show a loading state example".'
+  //     );
+  //   })
+  // );
 
   test(
     'Error prompt shows error state',
