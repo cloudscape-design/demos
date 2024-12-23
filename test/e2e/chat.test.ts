@@ -10,6 +10,7 @@ const setupTest = (testFn: { (page: Page): Promise<void> }) => {
     await browser.url('/chat.html');
     const page = new Page(browser);
     await expect(page.countChatBubbles()).resolves.toBe(initialMessageCount);
+    await page.waitForChat();
     await testFn(page);
   });
 };
