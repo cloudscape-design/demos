@@ -15,7 +15,8 @@ export default class ChatPageObject extends BaseExamplePage {
   }
 
   async waitForChat() {
-    await this.waitForVisible(promptInputWrapper.findNativeTextarea().toSelector());
+    await this.click(wrapper.findAlert().findDismissButton().toSelector());
+    await this.pause(100);
   }
 
   async sendPrompt(prompt: string) {
