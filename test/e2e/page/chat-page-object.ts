@@ -14,11 +14,6 @@ export default class ChatPageObject extends BaseExamplePage {
     return this.getElementsCount(chatBubblesWrapper.toSelector());
   }
 
-  async waitForChat() {
-    await this.click(wrapper.findAlert().findDismissButton().toSelector());
-    await this.pause(100);
-  }
-
   async sendPrompt(prompt: string) {
     const textareaSelector = promptInputWrapper.findNativeTextarea().toSelector();
     await this.setValue(textareaSelector, prompt);
