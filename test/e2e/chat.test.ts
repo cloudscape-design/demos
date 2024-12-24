@@ -9,19 +9,29 @@ const setupTest = (testFn: { (page: Page): Promise<void> }) => {
   return useBrowser(async browser => {
     await browser.url('/chat.html');
     const page = new Page(browser);
+    await page.setWindowSize({ width: 1600, height: 1200 });
     await expect(page.countChatBubbles()).resolves.toBe(initialMessageCount);
+
+    const html = await browser.execute(() => {
+      return document.body.outerHTML;
+    });
+    console.log(html);
+
+    await expect(page.isPromptInputExisting()).resolves.toBeTruthy();
+    await expect(page.isPromptInputDisplayedInViewport()).resolves.toBeTruthy();
+
     await testFn(page);
   });
 };
 
-// These tests are consistently failing in the dry-run.
-// Disabled to unblock other PRs.
-describe.skip('Chat behavior', () => {
+describe('Chat behavior', () => {
   test(
     'Unknown prompt gets the correct response',
     setupTest(async page => {
       const prompt = 'unknown prompt';
 
+      await expect(page.isPromptInputExisting()).resolves.toBeTruthy();
+      await expect(page.isPromptInputDisplayedInViewport()).resolves.toBeTruthy();
       await page.sendPrompt(prompt);
       await expect(page.getChatBubbleText(initialMessageCount)).resolves.toBe(prompt);
 
