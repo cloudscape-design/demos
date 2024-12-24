@@ -11,6 +11,15 @@ const setupTest = (testFn: { (page: Page): Promise<void> }) => {
     const page = new Page(browser);
     await page.setWindowSize({ width: 1600, height: 1200 });
     await expect(page.countChatBubbles()).resolves.toBe(initialMessageCount);
+
+    const html = await browser.execute(() => {
+      return document.body.outerHTML;
+    });
+    console.log(html);
+
+    await expect(page.isPromptInputExisting()).resolves.toBeTruthy();
+    await expect(page.isPromptInputDisplayedInViewport()).resolves.toBeTruthy();
+
     await testFn(page);
   });
 };
@@ -21,6 +30,8 @@ describe('Chat behavior', () => {
     setupTest(async page => {
       const prompt = 'unknown prompt';
 
+      await expect(page.isPromptInputExisting()).resolves.toBeTruthy();
+      await expect(page.isPromptInputDisplayedInViewport()).resolves.toBeTruthy();
       await page.sendPrompt(prompt);
       await expect(page.getChatBubbleText(initialMessageCount)).resolves.toBe(prompt);
 
