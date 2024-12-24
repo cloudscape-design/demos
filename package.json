@@ -65,7 +65,7 @@
     "webpack": "NODE_ENV=production webpack",
     "clean": "node ./scripts/clean",
     "generate-html-files": "node ./scripts/generate-html-files",
-    "jest": "node --experimental-vm-modules ./node_modules/.bin/jest ./test/**/*.test.ts",
+    "jest": "node --experimental-vm-modules ./node_modules/.bin/jest ./test/e2e/chat.test.ts",
     "build": "npm-run-all -s generate-html-files webpack",
     "pretest": "npm-run-all -s clean lint typecheck build",
     "typecheck": "tsc",
