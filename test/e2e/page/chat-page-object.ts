@@ -15,15 +15,20 @@ export default class ChatPageObject extends BaseExamplePage {
   }
 
   isPromptInputExisting() {
-    return this.browser.$(promptInputWrapper.findNativeTextarea().toSelector()).isExisting();
+    return this.isExisting(promptInputWrapper.findNativeTextarea().toSelector());
   }
 
   isPromptInputDisplayedInViewport() {
-    return this.browser.$(promptInputWrapper.findNativeTextarea().toSelector()).isDisplayedInViewport();
+    return this.isDisplayedInViewport(promptInputWrapper.findNativeTextarea().toSelector());
+  }
+
+  isPromptInputClickable() {
+    return this.isClickable(promptInputWrapper.findNativeTextarea().toSelector());
   }
 
   async sendPrompt(prompt: string) {
     const textareaSelector = promptInputWrapper.findNativeTextarea().toSelector();
+    await this.click(textareaSelector);
     await this.setValue(textareaSelector, prompt);
 
     const sendButton = this.browser.$(promptInputWrapper.findActionButton().toSelector());
