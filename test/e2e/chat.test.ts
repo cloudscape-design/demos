@@ -15,7 +15,7 @@ const setupTest = (testFn: { (page: Page): Promise<void> }) => {
     const html = await browser.execute(() => {
       return document.body.outerHTML;
     });
-    console.log(html);
+    console.log('html log 2: ', html);
 
     await expect(page.isPromptInputExisting()).resolves.toBeTruthy();
     await expect(page.isPromptInputDisplayedInViewport()).resolves.toBeTruthy();
