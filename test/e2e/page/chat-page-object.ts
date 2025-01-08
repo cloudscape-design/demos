@@ -19,12 +19,23 @@ export default class ChatPageObject extends BaseExamplePage {
   }
 
   async isPromptInputDisplayedInViewport() {
-    console.log('viewport size: ', await this.getViewportSize());
-    console.log('window scroll: ', await this.getWindowScroll());
+    console.log('window height: ', await this.browser.execute(() => window.innerHeight));
+    console.log('window width: ', await this.browser.execute(() => window.innerWidth));
     console.log(
-      'element scroll position: ',
-      await this.getElementScroll(promptInputWrapper.findNativeTextarea().toSelector())
+      'textarea position: ',
+      await this.browser.execute(() => document.querySelector('textarea')?.getBoundingClientRect())
     );
+
+    console.log(
+      'window scroll height: ',
+      await this.browser.execute(() => window.document.documentElement.scrollHeight)
+    );
+    console.log('window scroll top: ', await this.browser.execute(() => window.document.documentElement.scrollTop));
+    console.log(
+      'window viewport height: ',
+      await this.browser.execute(() => window.document.documentElement.clientHeight)
+    );
+
     return this.isDisplayedInViewport(promptInputWrapper.findNativeTextarea().toSelector());
   }
 
