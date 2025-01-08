@@ -25,6 +25,10 @@ export default class ChatPageObject extends BaseExamplePage {
       'textarea position: ',
       await this.browser.execute(() => document.querySelector('textarea')?.getBoundingClientRect())
     );
+    console.log(
+      'chat container position: ',
+      await this.browser.execute(() => document.querySelector('.chat-container')?.getBoundingClientRect())
+    );
 
     console.log(
       'window scroll height: ',

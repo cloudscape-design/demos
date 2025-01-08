@@ -9,7 +9,7 @@ const setupTest = (testFn: { (page: Page): Promise<void> }) => {
   return useBrowser(async browser => {
     await browser.url('/chat.html');
     const page = new Page(browser);
-    await page.setWindowSize({ width: 1600, height: 1200 });
+    await page.setWindowSize({ width: 1600, height: 2000 });
     await expect(page.countChatBubbles()).resolves.toBe(initialMessageCount);
 
     const html = await browser.execute(() => {
