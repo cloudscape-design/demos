@@ -18,7 +18,13 @@ export default class ChatPageObject extends BaseExamplePage {
     return this.isExisting(promptInputWrapper.findNativeTextarea().toSelector());
   }
 
-  isPromptInputDisplayedInViewport() {
+  async isPromptInputDisplayedInViewport() {
+    console.log('viewport size: ', await this.getViewportSize());
+    console.log('window scroll: ', await this.getWindowScroll());
+    console.log(
+      'element scroll position: ',
+      await this.getElementScroll(promptInputWrapper.findNativeTextarea().toSelector())
+    );
     return this.isDisplayedInViewport(promptInputWrapper.findNativeTextarea().toSelector());
   }
 
