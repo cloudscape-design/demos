@@ -22,6 +22,12 @@ const setupTest = (testFn: { (page: PageObject): Promise<void> }) => {
     await browser.url('/details.html');
     const page = new PageObject(browser);
     await page.waitForTableLoaded();
+
+    const html = await browser.execute(() => {
+      return document.body.outerHTML;
+    });
+    console.log('details html: ', html);
+
     await testFn(page);
   });
 };
