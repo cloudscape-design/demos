@@ -101,32 +101,34 @@ export default function Chat() {
           fitHeight
           disableContentPaddings
           footer={
-            <FormField
-              stretch
-              constraintText={
-                <>
-                  Use of this service is subject to the{' '}
-                  <Link href="#" external variant="primary" fontSize="inherit">
-                    AWS Responsible AI Policy
-                  </Link>
-                  .
-                </>
-              }
-            >
-              {/* During loading, action button looks enabled but functionality is disabled. */}
-              {/* This will be fixed once prompt input receives an update where the action button can receive focus while being disabled. */}
-              {/* In the meantime, changing aria labels of prompt input and action button to reflect this. */}
-              <PromptInput
-                onChange={({ detail }) => setPrompt(detail.value)}
-                onAction={onPromptSend}
-                value={prompt}
-                actionButtonAriaLabel={isGenAiResponseLoading ? 'Send message button - suppressed' : 'Send message'}
-                actionButtonIconName="send"
-                ariaLabel={isGenAiResponseLoading ? 'Prompt input - suppressed' : 'Prompt input'}
-                placeholder="Ask a question"
-                autoFocus
-              />
-            </FormField>
+            <div className="footer-prompt-input">
+              <FormField
+                stretch
+                constraintText={
+                  <>
+                    Use of this service is subject to the{' '}
+                    <Link href="#" external variant="primary" fontSize="inherit">
+                      AWS Responsible AI Policy
+                    </Link>
+                    .
+                  </>
+                }
+              >
+                {/* During loading, action button looks enabled but functionality is disabled. */}
+                {/* This will be fixed once prompt input receives an update where the action button can receive focus while being disabled. */}
+                {/* In the meantime, changing aria labels of prompt input and action button to reflect this. */}
+                <PromptInput
+                  onChange={({ detail }) => setPrompt(detail.value)}
+                  onAction={onPromptSend}
+                  value={prompt}
+                  actionButtonAriaLabel={isGenAiResponseLoading ? 'Send message button - suppressed' : 'Send message'}
+                  actionButtonIconName="send"
+                  ariaLabel={isGenAiResponseLoading ? 'Prompt input - suppressed' : 'Prompt input'}
+                  placeholder="Ask a question"
+                  autoFocus
+                />
+              </FormField>
+            </div>
           }
         >
           <ScrollableContainer ref={messagesContainerRef}>

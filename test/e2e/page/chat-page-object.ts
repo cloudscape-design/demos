@@ -26,6 +26,12 @@ export default class ChatPageObject extends BaseExamplePage {
       await this.browser.execute(() => document.querySelector('textarea')?.getBoundingClientRect())
     );
     console.log(
+      'container footer position: ',
+      await this.browser.execute(() =>
+        document.querySelector('.footer-prompt-input')?.parentElement?.getBoundingClientRect()
+      )
+    );
+    console.log(
       'chat container position: ',
       await this.browser.execute(() => document.querySelector('.chat-container')?.getBoundingClientRect())
     );
