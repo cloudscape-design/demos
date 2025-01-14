@@ -66,7 +66,9 @@ export function DateTimeForm({ filter, operator, value, onChange }: PropertyFilt
   // Parse value from filter text when it changes.
   useEffect(
     () => {
-      filter && setState(parseDateTimeFilter(filter.trim()));
+      if (filter) {
+        setState(parseDateTimeFilter(filter.trim()));
+      }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [filter]

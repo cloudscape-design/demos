@@ -5,7 +5,7 @@ import { useCallback, useState } from 'react';
 import { load, remove, save } from '../../common/localStorage';
 
 export function useLocalStorage<T>(key: string, defaultValue?: T) {
-  const [value, setValue] = useState<T>(() => load(key) ?? defaultValue);
+  const [value, setValue] = useState<T | undefined>(() => load<T>(key) ?? defaultValue);
 
   const handleValueChange = useCallback(
     (newValue: T | undefined) => {

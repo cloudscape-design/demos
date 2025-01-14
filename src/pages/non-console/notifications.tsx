@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 
 import Flashbar, { FlashbarProps } from '@cloudscape-design/components/flashbar';
-import Link from '@cloudscape-design/components/link';
 
 import { useDisclaimerFlashbarItem } from '../commons/disclaimer-flashbar-item';
 

@@ -40,7 +40,7 @@ function ServerSideTable({ columnDefinitions, saveWidths, loadHelpPanelContent }
   const [delayedFilteringText, setDelayedFilteringText] = useState('');
   const [sortingColumn, setSortingColumn] = useState<TableProps.SortingColumn<Distribution>>(columnDefinitions[0]);
 
-  const { pageSize } = preferences;
+  const { pageSize } = preferences ?? {};
   const params: UseDistributionsParams = {
     pagination: {
       currentPageIndex,
@@ -81,7 +81,7 @@ function ServerSideTable({ columnDefinitions, saveWidths, loadHelpPanelContent }
       sortingColumn={sortingColumn}
       sortingDescending={descendingSorting}
       columnDefinitions={columnDefinitions}
-      columnDisplay={preferences.contentDisplay}
+      columnDisplay={preferences?.contentDisplay}
       ariaLabels={distributionTableAriaLabels}
       renderAriaLive={renderAriaLive}
       selectionType="multi"
@@ -89,10 +89,10 @@ function ServerSideTable({ columnDefinitions, saveWidths, loadHelpPanelContent }
       stickyHeader={true}
       resizableColumns={true}
       onColumnWidthsChange={saveWidths}
-      wrapLines={preferences.wrapLines}
-      stripedRows={preferences.stripedRows}
-      contentDensity={preferences.contentDensity}
-      stickyColumns={preferences.stickyColumns}
+      wrapLines={preferences?.wrapLines}
+      stripedRows={preferences?.stripedRows}
+      contentDensity={preferences?.contentDensity}
+      stickyColumns={preferences?.stickyColumns}
       header={
         <FullPageHeader
           selectedItemsCount={selectedItems.length}

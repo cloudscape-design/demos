@@ -12,6 +12,7 @@ import Table, { TableProps } from '@cloudscape-design/components/table';
 import TextFilter from '@cloudscape-design/components/text-filter';
 
 import { getHeaderCounterText, getTextFilterCounterText, renderAriaLive } from '../../../i18n-strings';
+import { LogResource } from '../../../resources/types';
 import { TableEmptyState, TableNoMatchState } from '../../commons/common-components';
 import DataProvider from '../../commons/data-provider';
 import { useAsyncData } from '../../commons/use-async-data';
@@ -19,17 +20,18 @@ import { LOGS_COLUMN_DEFINITIONS } from '../../details/details-config';
 import { logsTableAriaLabels } from '../../details-hub/commons';
 
 export function LogsTable() {
-  const [logs, logsLoading] = useAsyncData(() => new DataProvider().getData('logs'));
+  const [logs, logsLoading] = useAsyncData(() => new DataProvider().getData<LogResource>('logs'));
   const [selectedItems, setSelectedItems] = useState<NonNullable<TableProps['selectedItems']>>([]);
   const isOnlyOneSelected = selectedItems.length === 1;
   const atLeastOneSelected = selectedItems.length > 0;
-  const { items, actions, filteredItemsCount, collectionProps, filterProps, paginationProps } = useCollection(logs, {
-    filtering: {
-      empty: <TableEmptyState resourceName="Log" />,
-      noMatch: <TableNoMatchState onClearFilter={() => actions.setFiltering('')} />,
-    },
-    pagination: { pageSize: 10 },
-  });
+  const { items, actions, filteredItemsCount, collectionProps, filterProps, paginationProps } =
+    useCollection<LogResource>(logs, {
+      filtering: {
+        empty: <TableEmptyState resourceName="Log" />,
+        noMatch: <TableNoMatchState onClearFilter={() => actions.setFiltering('')} />,
+      },
+      pagination: { pageSize: 10 },
+    });
 
   return (
     <Table

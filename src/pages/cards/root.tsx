@@ -46,7 +46,7 @@ function DetailsCards({ loadHelpPanelContent }: DetailsCardsProps) {
         empty: <TableEmptyState resourceName="Distribution" />,
         noMatch: <TableNoMatchState onClearFilter={() => actions.setFiltering('')} />,
       },
-      pagination: { pageSize: preferences.pageSize },
+      pagination: { pageSize: preferences?.pageSize },
       selection: {},
     }
   );
@@ -63,7 +63,7 @@ function DetailsCards({ loadHelpPanelContent }: DetailsCardsProps) {
       {...collectionProps}
       stickyHeader={true}
       cardDefinition={CARD_DEFINITIONS}
-      visibleSections={preferences.visibleContent}
+      visibleSections={preferences?.visibleContent}
       loading={loading}
       loadingText="Loading distributions"
       items={items}

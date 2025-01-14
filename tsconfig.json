@@ -1,22 +1,8 @@
 {
   "compilerOptions": {
     "target": "es2017",
-    "module": "es2020",
-    "moduleResolution": "node",
-    "paths": {
-      "@cloudscape-design/code-view/highlight/yaml": [
-        "./node_modules/@cloudscape-design/code-view/code-view/highlight/yaml"
-      ],
-      "@cloudscape-design/code-view/highlight/xml": [
-        "./node_modules/@cloudscape-design/code-view/code-view/highlight/xml"
-      ],
-      "@cloudscape-design/code-view/highlight/json": [
-        "./node_modules/@cloudscape-design/code-view/code-view/highlight/json"
-      ],
-      "@cloudscape-design/code-view/highlight/typescript": [
-        "./node_modules/@cloudscape-design/code-view/code-view/highlight/typescript"
-      ]
-    },
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
     "lib": ["es2017", "dom", "dom.iterable"],
