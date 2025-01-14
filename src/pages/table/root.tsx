@@ -45,7 +45,7 @@ function TableContent({ distributions, loadHelpPanelContent }: TableContentProps
         empty: <TableEmptyState resourceName="Distribution" />,
         noMatch: <TableNoMatchState onClearFilter={() => actions.setFiltering('')} />,
       },
-      pagination: { pageSize: preferences.pageSize },
+      pagination: { pageSize: preferences?.pageSize },
       sorting: { defaultState: { sortingColumn: columnDefinitions[0] } },
       selection: {},
     }
@@ -55,7 +55,7 @@ function TableContent({ distributions, loadHelpPanelContent }: TableContentProps
       {...collectionProps}
       enableKeyboardNavigation={true}
       columnDefinitions={columnDefinitions}
-      columnDisplay={preferences.contentDisplay}
+      columnDisplay={preferences?.contentDisplay}
       items={items}
       selectionType="multi"
       ariaLabels={distributionTableAriaLabels}
@@ -64,10 +64,10 @@ function TableContent({ distributions, loadHelpPanelContent }: TableContentProps
       stickyHeader={true}
       resizableColumns={true}
       onColumnWidthsChange={saveWidths}
-      wrapLines={preferences.wrapLines}
-      stripedRows={preferences.stripedRows}
-      contentDensity={preferences.contentDensity}
-      stickyColumns={preferences.stickyColumns}
+      wrapLines={preferences?.wrapLines}
+      stripedRows={preferences?.stripedRows}
+      contentDensity={preferences?.contentDensity}
+      stickyColumns={preferences?.stickyColumns}
       header={
         <FullPageHeader
           selectedItemsCount={collectionProps.selectedItems?.length ?? 0}

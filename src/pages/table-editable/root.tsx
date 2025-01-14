@@ -65,7 +65,7 @@ function TableContent({ loadHelpPanelContent, distributions }: TableContentProps
         empty: <TableEmptyState resourceName="Distribution" />,
         noMatch: <TableNoMatchState onClearFilter={() => actions.setFiltering('')} />,
       },
-      pagination: { pageSize: preferences.pageSize },
+      pagination: { pageSize: preferences?.pageSize },
       sorting: { defaultState: { sortingColumn: columnDefinitions[0] } },
       selection: {},
     });
@@ -152,7 +152,7 @@ function TableContent({ loadHelpPanelContent, distributions }: TableContentProps
       {...tableCollectionProps}
       enableKeyboardNavigation={true}
       columnDefinitions={columnDefinitions}
-      columnDisplay={preferences.contentDisplay}
+      columnDisplay={preferences?.contentDisplay}
       items={itemsSnap || items}
       submitEdit={handleSubmit}
       ariaLabels={distributionEditableTableAriaLabels}
@@ -161,10 +161,10 @@ function TableContent({ loadHelpPanelContent, distributions }: TableContentProps
       stickyHeader={true}
       resizableColumns={true}
       onColumnWidthsChange={saveWidths}
-      wrapLines={preferences.wrapLines}
-      stripedRows={preferences.stripedRows}
-      contentDensity={preferences.contentDensity}
-      stickyColumns={preferences.stickyColumns}
+      wrapLines={preferences?.wrapLines}
+      stripedRows={preferences?.stripedRows}
+      contentDensity={preferences?.contentDensity}
+      stickyColumns={preferences?.stickyColumns}
       selectionType="multi"
       loading={loading}
       header={

@@ -204,5 +204,28 @@ export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject)
         await expect(page.countTableRows()).resolves.toBe(30);
       })
     );
+
+    test(
+      'Persists applied filters after page reloading',
+      setupTest(async page => {
+        await page.search('EXAMPLE-BUCKET-4.s3.amazon');
+        await page.selectOption(1);
+
+        await page.search('Default');
+        await page.selectOption(1);
+
+        await page.waitUntilLoaded();
+
+        await expect(page.countTokens()).resolves.toBe(2);
+        await expect(page.countTableRows()).resolves.toBe(11);
+
+        // reload the page
+        await page.reload();
+        await page.waitUntilLoaded();
+
+        await expect(page.countTokens()).resolves.toBe(2);
+        await expect(page.countTableRows()).resolves.toBe(11);
+      })
+    );
   });
 };

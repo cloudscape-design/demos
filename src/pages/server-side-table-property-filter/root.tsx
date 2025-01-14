@@ -1,14 +1,15 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import intersection from 'lodash/intersection';
 
-import { PropertyFilterQuery } from '@cloudscape-design/collection-hooks';
 import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import Pagination from '@cloudscape-design/components/pagination';
 import PropertyFilter, { PropertyFilterProps } from '@cloudscape-design/components/property-filter';
 import Table, { TableProps } from '@cloudscape-design/components/table';
 
+import { parsePropertyFilterQuery } from '../../common/parse-property-filter';
+import { useQueryParams } from '../../common/use-query-params';
 import { Distribution } from '../../fake-server/types';
 import {
   distributionTableAriaLabels,
@@ -29,8 +30,8 @@ import { useDistributionsPropertyFiltering } from './hooks';
 
 import '../../styles/base.scss';
 
-const DEFAULT_FILTERING_QUERY: PropertyFilterQuery = { tokens: [], operation: 'and' };
 const DEFAULT_SORTING_IS_DESCENDING = false;
+const PROPERTY_FILTERS_QUERY_PARAM_KEY = 'propertyFilter';
 
 interface ServerSidePropertyFilterTable {
   columnDefinitions: TableProps.ColumnDefinition<Distribution>[];
@@ -48,12 +49,20 @@ function ServerSidePropertyFilterTable({
     'React-ServerSideTablePropertyFilter-Preferences',
     DEFAULT_PREFERENCES
   );
+  const { getQueryParam, setQueryParam } = useQueryParams();
   const [sortingDescending, setSortingDescending] = useState(DEFAULT_SORTING_IS_DESCENDING);
   const [currentPageIndex, setCurrentPageIndex] = useState(1);
-  const [filteringQuery, setFilteringQuery] = useState<PropertyFilterQuery>(DEFAULT_FILTERING_QUERY);
+  const filteringQueryRaw = getQueryParam(PROPERTY_FILTERS_QUERY_PARAM_KEY);
+  /**
+   * Ensure that all raw data extracted from the URL is properly validated against your expected data format before it is processed by the rest of your application or passed to a Cloudscape component.
+   * If invalid data is detected, default to a valid option to maintain a secure and seamless user experience.
+   * Validate the data coming from the URL to mitigate risks from maliciously crafted URLs.
+   * For further guidance, reach out to your organization’s security team.
+   */
+  const filteringQuery = useMemo(() => parsePropertyFilterQuery(filteringQueryRaw), [filteringQueryRaw]);
   const [sortingColumn, setSortingColumn] = useState<TableProps.SortingColumn<Distribution>>(columnDefinitions[0]);
 
-  const { pageSize } = preferences;
+  const { pageSize } = preferences ?? {};
   const params: UseDistributionsParams = {
     pagination: {
       currentPageIndex,
@@ -86,11 +95,20 @@ function ServerSidePropertyFilterTable({
   };
 
   const handleClearFilter = () => {
-    setFilteringQuery(DEFAULT_FILTERING_QUERY);
+    setQueryParam(PROPERTY_FILTERS_QUERY_PARAM_KEY, null);
   };
 
   const handlePropertyFilteringChange: PropertyFilterProps['onChange'] = ({ detail }) => {
-    setFilteringQuery(detail);
+    /**
+     * Avoid including sensitive information to the URL to prevent potential data exposure.
+     * https://owasp.org/www-community/vulnerabilities/Information_exposure_through_query_strings_in_url
+     * For further guidance, reach out to your organization’s security team.
+     */
+    if (!detail.tokens?.length && !detail?.tokenGroups?.length) {
+      setQueryParam(PROPERTY_FILTERS_QUERY_PARAM_KEY, null);
+    } else {
+      setQueryParam(PROPERTY_FILTERS_QUERY_PARAM_KEY, JSON.stringify(detail));
+    }
   };
 
   return (
@@ -104,7 +122,7 @@ function ServerSidePropertyFilterTable({
       sortingColumn={sortingColumn}
       sortingDescending={sortingDescending}
       columnDefinitions={columnDefinitions}
-      columnDisplay={preferences.contentDisplay}
+      columnDisplay={preferences?.contentDisplay}
       ariaLabels={distributionTableAriaLabels}
       renderAriaLive={renderAriaLive}
       selectionType="multi"
@@ -112,10 +130,10 @@ function ServerSidePropertyFilterTable({
       stickyHeader={true}
       resizableColumns={true}
       onColumnWidthsChange={saveWidths}
-      wrapLines={preferences.wrapLines}
-      stripedRows={preferences.stripedRows}
-      contentDensity={preferences.contentDensity}
-      stickyColumns={preferences.stickyColumns}
+      wrapLines={preferences?.wrapLines}
+      stripedRows={preferences?.stripedRows}
+      contentDensity={preferences?.contentDensity}
+      stickyColumns={preferences?.stickyColumns}
       header={
         <FullPageHeader
           selectedItemsCount={selectedItems.length}
@@ -162,6 +180,7 @@ export function App() {
   );
   const [toolsOpen, setToolsOpen] = useState(false);
   const appLayout = useRef<AppLayoutProps.Ref>(null);
+
   return (
     <CustomAppLayout
       ref={appLayout}

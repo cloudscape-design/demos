@@ -21,9 +21,8 @@ export function App() {
   const [toolsOpen, setToolsOpen] = useState(false);
   const [splitPanelOpen, setSplitPanelOpen] = useState(false);
   const [splitPanelSize, setSplitPanelSize] = useLocalStorage('React-ConfigurableDashboard-SplitPanelSize', 360);
-  const [layout, setLayout, resetLayout] = useLocalStorage<ReadonlyArray<StoredWidgetPlacement> | null>(
-    'ConfigurableDashboards-widgets-layout',
-    null
+  const [layout, setLayout, resetLayout] = useLocalStorage<ReadonlyArray<StoredWidgetPlacement>>(
+    'ConfigurableDashboards-widgets-layout'
   );
   const [toolsContent, setToolsContent] = useState<React.ReactNode>(() => <DashboardMainInfo />);
 
@@ -46,7 +45,7 @@ export function App() {
         notifications={<Notifications />}
         content={
           <Content
-            layout={layout}
+            layout={layout ?? null}
             setLayout={setLayout}
             resetLayout={resetLayout}
             setSplitPanelOpen={setSplitPanelOpen}

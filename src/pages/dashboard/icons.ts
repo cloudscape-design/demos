@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/no-require-imports */
 export const mixedContent = {
   light: require('./assets/mixed-content-light.svg').default,
   dark: require('./assets/mixed-content-dark.svg').default,

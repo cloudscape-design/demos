@@ -26,6 +26,8 @@ export interface UseFilterSetsProps {
   updateSavedFilterSets: (newFilterSets: FilterSet[]) => void;
   showNotification?: (notification: FlashbarProps.MessageDefinition) => void;
   saveAsURL?: (query: PropertyFilterProps.Query) => void;
+  defaultSelectedFilterSetValue?: string | null;
+  updateSelectedFilterValue?: (value: string | null) => void;
 }
 
 export interface UseFilterSetsResult {
@@ -54,6 +56,8 @@ export function useFilterSets({
   updateSavedFilterSets,
   showNotification,
   saveAsURL,
+  defaultSelectedFilterSetValue,
+  updateSelectedFilterValue,
 }: UseFilterSetsProps): UseFilterSetsResult {
   // Represents the last selected *saved* filter set
   const [currentFilterSet, setCurrentFilterSet] = useState<FilterSet | null>(null);
@@ -62,7 +66,9 @@ export function useFilterSets({
   // Determines if there are unsaved changes in the filter set
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   // Value of the currently selected filter set option
-  const [selectedFilterSetValue, setSelectedFilterSetValue] = useState<string | null>(null);
+  const [selectedFilterSetValue, setSelectedFilterSetValue] = useState<string | null>(
+    defaultSelectedFilterSetValue ?? null
+  );
 
   const unsavedFilterSetOption = {
     value: '___unsaved___',
@@ -121,6 +127,7 @@ export function useFilterSets({
         // Apply filters of the selected filter set
         updateFilters(newFilterSet.query);
       }
+      updateSelectedFilterValue?.(detail.selectedOption.value ?? null);
       setSelectedFilterSetValue(detail.selectedOption.value ?? null);
       setHasUnsavedChanges(false);
     },

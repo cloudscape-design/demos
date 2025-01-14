@@ -29,6 +29,7 @@ export default function Chat() {
   const [isGenAiResponseLoading, setIsGenAiResponseLoading] = useState(false);
   const [showAlert, setShowAlert] = useState(true);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
+  const lastMessageContent = messages[messages.length - 1].content;
 
   useEffect(() => {
     // Scroll to the bottom to show the new/latest message
@@ -37,7 +38,7 @@ export default function Chat() {
         messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
       }
     }, 0);
-  }, [messages[messages.length - 1].content]);
+  }, [lastMessageContent]);
 
   const onPromptSend = ({ detail: { value } }: { detail: { value: string } }) => {
     if (!value || value.length === 0 || isGenAiResponseLoading) {

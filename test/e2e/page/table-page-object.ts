@@ -88,6 +88,10 @@ export default class TablePageObject extends AppLayoutPage {
     await this.waitForVisible(this.tableWrapper.findLoadingText().toSelector(), false);
   }
 
+  async reload() {
+    await this.browser.refresh();
+  }
+
   async confirmTablePreferenceChanges() {
     const confirmButton = await this.browser.$(
       this.tableWrapper.findCollectionPreferences().findModal().findConfirmButton().toSelector()

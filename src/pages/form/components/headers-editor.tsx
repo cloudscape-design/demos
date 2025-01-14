@@ -44,17 +44,15 @@ export default function HeadersEditor({ validation = false, refs, data, setData 
 
   const onChange = (key: keyof CustomHeader, item: CustomHeader, index: number): AutosuggestProps['onChange'] => {
     return ({ detail }) => {
-      if (!validation) {
-        return;
-      }
-
       let updateObj: Partial<CustomHeader> = { [key]: detail.value };
 
-      const keyError = `${key}Error` as keyof CustomHeader;
-      const keyWarning = `${key}Warning` as keyof CustomHeader;
-      if (keyError || keyWarning) {
-        const validationTexts = validateHeader(key, detail.value, key === 'key' ? 'name' : key);
-        updateObj = { ...updateObj, ...validationTexts };
+      if (validation) {
+        const keyError = `${key}Error` as keyof CustomHeader;
+        const keyWarning = `${key}Warning` as keyof CustomHeader;
+        if (keyError || keyWarning) {
+          const validationTexts = validateHeader(key, detail.value, key === 'key' ? 'name' : key);
+          updateObj = { ...updateObj, ...validationTexts };
+        }
       }
 
       updateItem(updateObj, item, index);

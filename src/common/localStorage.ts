@@ -25,10 +25,13 @@ export const save = (key: string, value: unknown) => {
 
 export const remove = (key: string) => localStorage.removeItem(key);
 
-export const load = (key: string) => {
+export const load = <T = unknown>(key: string): T | undefined => {
   const value = localStorage.getItem(key);
   try {
-    return value && JSON.parse(value);
+    if (!value) {
+      return undefined;
+    }
+    return JSON.parse(value) as T;
   } catch (e) {
     // eslint-disable-next-line no-console
     console.warn(

@@ -21,6 +21,7 @@
     "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-unused-vars": ["error", { "caughtErrors": "none" }],
     "curly": "error",
     "eqeqeq": "error",
     "no-return-await": "error",
@@ -101,6 +102,16 @@
             ]
           }
         ]
+      }
+    },
+    {
+      "files": ["./*.js", "./scripts/**/*.js"],
+      "env": {
+        "node": true,
+        "browser": false
+      },
+      "rules": {
+        "@typescript-eslint/no-require-imports": "off"
       }
     }
   ]
