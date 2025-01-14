@@ -17,6 +17,12 @@ const setupTest = (testFn: { (page: Page): Promise<void> }) => {
     });
     console.log('html log 2: ', html);
 
+    // console.log('useVisualRefresh: ', (window as any).__awsuiDebug?.logs);
+    const useVisualRefresh = await browser.execute(() => {
+      return (window as any).__awsuiDebug?.logs;
+    });
+    console.log('__awsuiDebug.logs: ', useVisualRefresh);
+
     await expect(page.isPromptInputExisting()).resolves.toBeTruthy();
     await expect(page.isPromptInputDisplayedInViewport()).resolves.toBeTruthy();
     await expect(page.isPromptInputClickable()).resolves.toBeTruthy();

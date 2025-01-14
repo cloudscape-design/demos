@@ -82,6 +82,11 @@ export default function Chat() {
     }, waitTimeBeforeResponse + waitTimeBeforeLoading);
   };
 
+  if (!(window as any).__awsuiDebug?.logs) {
+    (window as any).__awsuiDebug = { logs: [] };
+  }
+  (window as any).__awsuiDebug.logs.push('isVR demos: ' + isVisualRefresh);
+
   return (
     <div className={`chat-container ${!isVisualRefresh && 'classic'}`}>
       {showAlert && (
