@@ -14,9 +14,7 @@ const setupTest = (testFn: { (page: Page): Promise<void> }) => {
   });
 };
 
-// These tests are consistently failing in the dry-run.
-// Disabled to unblock other PRs.
-describe.skip('Chat behavior', () => {
+describe('Chat behavior', () => {
   test(
     'Unknown prompt gets the correct response',
     setupTest(async page => {

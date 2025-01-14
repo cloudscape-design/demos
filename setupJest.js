@@ -15,5 +15,3 @@ configure({
     implicitTimeout: 200,
   },
 });
-
-jest.retryTimes(3, { logErrorsBeforeRetry: true });

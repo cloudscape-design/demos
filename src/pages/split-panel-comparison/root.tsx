@@ -37,7 +37,7 @@ export const App = () => {
         empty: <TableEmptyState resourceName="Instance" />,
         noMatch: <TableNoMatchState onClearFilter={() => actions.setFiltering('')} />,
       },
-      pagination: { pageSize: preferences.pageSize },
+      pagination: { pageSize: preferences?.pageSize },
       selection: {},
     }
   );
@@ -80,7 +80,7 @@ export const App = () => {
             />
           }
           columnDefinitions={COLUMN_DEFINITIONS_MAIN}
-          columnDisplay={preferences.contentDisplay}
+          columnDisplay={preferences?.contentDisplay}
           items={items}
           variant="full-page"
           stickyHeader={true}
@@ -95,10 +95,10 @@ export const App = () => {
               countText={filteredItemsCount ? getTextFilterCounterText(filteredItemsCount) : undefined}
             />
           }
-          wrapLines={preferences.wrapLines}
-          stripedRows={preferences.stripedRows}
-          contentDensity={preferences.contentDensity}
-          stickyColumns={preferences.stickyColumns}
+          wrapLines={preferences?.wrapLines}
+          stripedRows={preferences?.stripedRows}
+          contentDensity={preferences?.contentDensity}
+          stickyColumns={preferences?.stickyColumns}
           pagination={<Pagination {...paginationProps} />}
           preferences={<EC2Preferences preferences={preferences} setPreferences={setPreferences} />}
         />

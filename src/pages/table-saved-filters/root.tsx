@@ -11,6 +11,8 @@ import PropertyFilter from '@cloudscape-design/components/property-filter';
 import Select from '@cloudscape-design/components/select';
 import Table from '@cloudscape-design/components/table';
 
+import { parsePropertyFilterQuery } from '../../common/parse-property-filter';
+import { useQueryParams } from '../../common/use-query-params';
 import { Distribution } from '../../fake-server/types';
 import {
   distributionTableAriaLabels,
@@ -70,6 +72,9 @@ const defaultFilterSets: FilterSet[] = [
   },
 ];
 
+const SELECTED_FILTER_SET_QUERY_PARAM_KEY = 'filterSet';
+const PROPERTY_FILTERS_QUERY_PARAM_KEY = 'propertyFilter';
+
 export function App() {
   const [toolsOpen, setToolsOpen] = useState(false);
   const appLayout = useRef<AppLayoutProps.Ref>(null);
@@ -89,6 +94,7 @@ export function App() {
 
   const [distributions, setDistributions] = useState<Distribution[]>([]);
   const [loading, setLoading] = useState(false);
+  const { getQueryParam, setQueryParam } = useQueryParams();
 
   const { items, actions, filteredItemsCount, collectionProps, propertyFilterProps, paginationProps } = useCollection(
     distributions,
@@ -103,8 +109,15 @@ export function App() {
             }
           />
         ),
+        /**
+         * Ensure that all raw data extracted from the URL is properly validated against your expected data format before it is processed by the rest of your application or passed to a Cloudscape component.
+         * If invalid data is detected, default to a valid option to maintain a secure and seamless user experience.
+         * Validate the data coming from the URL to mitigate risks from maliciously crafted URLs.
+         * For further guidance, reach out to your organization’s security team.
+         */
+        defaultQuery: parsePropertyFilterQuery(getQueryParam(PROPERTY_FILTERS_QUERY_PARAM_KEY)),
       },
-      pagination: { pageSize: preferences.pageSize },
+      pagination: { pageSize: preferences?.pageSize },
       sorting: { defaultState: { sortingColumn: columnDefinitions[0] } },
       selection: {},
     }
@@ -116,6 +129,17 @@ export function App() {
     filteringProperties: propertyFilterProps.filteringProperties,
     selectRef,
     updateFilters: query => {
+      /**
+       * Avoid including sensitive information to the URL to prevent potential data exposure.
+       * https://owasp.org/www-community/vulnerabilities/Information_exposure_through_query_strings_in_url
+       * For further guidance, reach out to your organization’s security team.
+       */
+      if (!query.tokens?.length && !query?.tokenGroups?.length) {
+        setQueryParam(PROPERTY_FILTERS_QUERY_PARAM_KEY, null);
+        setQueryParam(SELECTED_FILTER_SET_QUERY_PARAM_KEY, null);
+      } else {
+        setQueryParam(PROPERTY_FILTERS_QUERY_PARAM_KEY, JSON.stringify(query));
+      }
       actions.setPropertyFiltering(query);
     },
     updateSavedFilterSets: newFilterSets => {
@@ -135,6 +159,15 @@ export function App() {
         },
         ...flashNotifications,
       ]);
+    },
+    defaultSelectedFilterSetValue: getQueryParam(SELECTED_FILTER_SET_QUERY_PARAM_KEY) ?? null,
+    updateSelectedFilterValue: value => {
+      /**
+       * Avoid including sensitive information to the URL to prevent potential data exposure.
+       * https://owasp.org/www-community/vulnerabilities/Information_exposure_through_query_strings_in_url
+       * For further guidance, reach out to your organization’s security team.
+       */
+      setQueryParam(SELECTED_FILTER_SET_QUERY_PARAM_KEY, value);
     },
   });
 
@@ -157,16 +190,16 @@ export function App() {
             {...collectionProps}
             enableKeyboardNavigation={true}
             columnDefinitions={columnDefinitions}
-            columnDisplay={preferences.contentDisplay}
+            columnDisplay={preferences?.contentDisplay}
             items={items}
             variant="full-page"
             stickyHeader={true}
             resizableColumns={true}
             onColumnWidthsChange={saveWidths}
-            wrapLines={preferences.wrapLines}
-            stripedRows={preferences.stripedRows}
-            contentDensity={preferences.contentDensity}
-            stickyColumns={preferences.stickyColumns}
+            wrapLines={preferences?.wrapLines}
+            stripedRows={preferences?.stripedRows}
+            contentDensity={preferences?.contentDensity}
+            stickyColumns={preferences?.stickyColumns}
             selectionType="multi"
             ariaLabels={distributionTableAriaLabels}
             renderAriaLive={renderAriaLive}
@@ -200,6 +233,16 @@ export function App() {
                   />
                 }
                 customFilterActions={<ButtonDropdown {...buttonDropdownProps} data-testid="filter-actions" />}
+                onChange={event => {
+                  /**
+                   * Avoid including sensitive information to the URL to prevent potential data exposure.
+                   * https://owasp.org/www-community/vulnerabilities/Information_exposure_through_query_strings_in_url
+                   * For further guidance, reach out to your organization’s security team.
+                   */
+                  setQueryParam(PROPERTY_FILTERS_QUERY_PARAM_KEY, JSON.stringify(event.detail));
+
+                  propertyFilterProps.onChange(event);
+                }}
               />
             }
             pagination={<Pagination {...paginationProps} />}

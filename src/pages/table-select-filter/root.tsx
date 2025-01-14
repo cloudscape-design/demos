@@ -94,7 +94,7 @@ function TableSelectFilter({ loadHelpPanelContent }: TableSelectFilter) {
         );
       },
     },
-    pagination: { pageSize: preferences.pageSize },
+    pagination: { pageSize: preferences?.pageSize },
     sorting: { defaultState: { sortingColumn: columnDefinitions[0] } },
     selection: {},
   });
@@ -113,16 +113,16 @@ function TableSelectFilter({ loadHelpPanelContent }: TableSelectFilter) {
       {...collectionProps}
       enableKeyboardNavigation={true}
       columnDefinitions={columnDefinitions}
-      columnDisplay={preferences.contentDisplay}
+      columnDisplay={preferences?.contentDisplay}
       items={items}
       variant="full-page"
       stickyHeader={true}
       resizableColumns={true}
       onColumnWidthsChange={saveWidths}
-      wrapLines={preferences.wrapLines}
-      stripedRows={preferences.stripedRows}
-      contentDensity={preferences.contentDensity}
-      stickyColumns={preferences.stickyColumns}
+      wrapLines={preferences?.wrapLines}
+      stripedRows={preferences?.stripedRows}
+      contentDensity={preferences?.contentDensity}
+      stickyColumns={preferences?.stickyColumns}
       selectionType="single"
       ariaLabels={{
         itemSelectionLabel: (data, row) => `Select DB instance ${row.id}`,

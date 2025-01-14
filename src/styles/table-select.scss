@@ -33,9 +33,9 @@
 
 .filtering-results {
   display: block;
-  margin-inline-start: 1rem;
   padding-block-end: calc(1px + #{cs.$space-scaled-xxs});
   color: cs.$color-text-form-default;
+  align-self: center;
 }
 
 @media (max-width: 1152px) {

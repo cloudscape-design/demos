@@ -8,6 +8,8 @@ import Pagination from '@cloudscape-design/components/pagination';
 import PropertyFilter from '@cloudscape-design/components/property-filter';
 import Table, { TableProps } from '@cloudscape-design/components/table';
 
+import { parsePropertyFilterQuery } from '../../common/parse-property-filter';
+import { useQueryParams } from '../../common/use-query-params';
 import { Distribution } from '../../fake-server/types';
 import {
   distributionTableAriaLabels,
@@ -23,12 +25,14 @@ import { Preferences } from '../commons/table-config';
 
 import '../../styles/base.scss';
 
+const PROPERTY_FILTERS_QUERY_PARAM_KEY = 'propertyFilter';
+
 export interface PropertyFilterTableProps {
   loadHelpPanelContent: () => void;
   columnDefinitions: TableProps.ColumnDefinition<Distribution>[];
   contentDisplayOptions?: CollectionPreferencesProps.ContentDisplayOption[];
   saveWidths: TableProps['onColumnWidthsChange'];
-  preferences: CollectionPreferencesProps.Preferences<Distribution>;
+  preferences?: CollectionPreferencesProps.Preferences<Distribution>;
   setPreferences: (preferences: CollectionPreferencesProps<unknown>['preferences']) => void;
   filteringProperties: PropertyFilterProperty[];
 }
@@ -42,8 +46,10 @@ export function PropertyFilterTable({
   setPreferences,
   filteringProperties,
 }: PropertyFilterTableProps) {
+  const { getQueryParam, setQueryParam } = useQueryParams();
   const [distributions, setDistributions] = useState<Distribution[]>([]);
   const [loading, setLoading] = useState(false);
+
   const { items, actions, filteredItemsCount, collectionProps, paginationProps, propertyFilterProps } = useCollection(
     distributions,
     {
@@ -57,8 +63,15 @@ export function PropertyFilterTable({
             }}
           />
         ),
+        /**
+         * Ensure that all raw data extracted from the URL is properly validated against your expected data format before it is processed by the rest of your application or passed to a Cloudscape component.
+         * If invalid data is detected, default to a valid option to maintain a secure and seamless user experience.
+         * Validate the data coming from the URL to mitigate risks from maliciously crafted URLs.
+         * For further guidance, reach out to your organization’s security team.
+         */
+        defaultQuery: parsePropertyFilterQuery(getQueryParam(PROPERTY_FILTERS_QUERY_PARAM_KEY)),
       },
-      pagination: { pageSize: preferences.pageSize },
+      pagination: { pageSize: preferences?.pageSize },
       sorting: { defaultState: { sortingColumn: columnDefinitions[0] } },
       selection: {},
     }
@@ -77,17 +90,17 @@ export function PropertyFilterTable({
       enableKeyboardNavigation={true}
       items={items}
       columnDefinitions={columnDefinitions}
-      columnDisplay={preferences.contentDisplay}
+      columnDisplay={preferences?.contentDisplay}
       ariaLabels={distributionTableAriaLabels}
       renderAriaLive={renderAriaLive}
       selectionType="multi"
       variant="full-page"
       stickyHeader={true}
       resizableColumns={true}
-      wrapLines={preferences.wrapLines}
-      stripedRows={preferences.stripedRows}
-      contentDensity={preferences.contentDensity}
-      stickyColumns={preferences.stickyColumns}
+      wrapLines={preferences?.wrapLines}
+      stripedRows={preferences?.stripedRows}
+      contentDensity={preferences?.contentDensity}
+      stickyColumns={preferences?.stickyColumns}
       onColumnWidthsChange={saveWidths}
       header={
         <FullPageHeader
@@ -105,6 +118,16 @@ export function PropertyFilterTable({
           countText={filteredItemsCount !== undefined ? getTextFilterCounterText(filteredItemsCount) : undefined}
           expandToViewport={true}
           enableTokenGroups={true}
+          onChange={event => {
+            /**
+             * Avoid including sensitive information to the URL to prevent potential data exposure.
+             * https://owasp.org/www-community/vulnerabilities/Information_exposure_through_query_strings_in_url
+             * For further guidance, reach out to your organization’s security team.
+             */
+            setQueryParam(PROPERTY_FILTERS_QUERY_PARAM_KEY, JSON.stringify(event.detail));
+
+            propertyFilterProps.onChange(event);
+          }}
         />
       }
       pagination={<Pagination {...paginationProps} />}

@@ -1,8 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import { PropertyFilterToken } from '@cloudscape-design/collection-hooks';
 import { PropertyFilterProps } from '@cloudscape-design/components/property-filter';
-import { TokenGroup } from '@cloudscape-design/components/property-filter/interfaces';
 
 import { Distribution } from './types';
 import fetchJson from './utils/fetch-json';
@@ -15,7 +13,8 @@ type Mutable<T> = {
 type FilteringOptions = NonNullable<Mutable<PropertyFilterProps['filteringOptions']>>;
 type FilteringProperties = Mutable<PropertyFilterProps['filteringProperties']>;
 
-type Token = PropertyFilterToken;
+type TokenGroup = PropertyFilterProps.TokenGroup;
+type Token = PropertyFilterProps.Token;
 interface FetchDistributionOptions {
   currentPageIndex: number;
   filteringOperation: 'and' | 'or';
