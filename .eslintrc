@@ -34,7 +34,9 @@
     "react/prop-types": "off",
     "react/no-unescaped-entities": "off",
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "@typescript-eslint/no-require-imports": "warn",
+    "@typescript-eslint/no-unused-vars": ["error", { "caughtErrors": "none" }]
   },
   "settings": {
     "react": {
@@ -84,6 +86,7 @@
         "@eslint-react/no-class-component": "warn",
         "@eslint-react/naming-convention/filename": ["warn", { "rule": "kebab-case" }],
         "@eslint-react/naming-convention/filename-extension": ["warn", "as-needed"],
+        "@typescript-eslint/no-require-imports": "error",
         "simple-import-sort/imports": [
           "warn",
           {
