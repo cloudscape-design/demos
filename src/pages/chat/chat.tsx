@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useEffect, useRef, useState } from 'react';
 
+import { useRuntimeVisualRefresh } from '@cloudscape-design/component-toolkit/internal';
 import Alert from '@cloudscape-design/components/alert';
 import Container from '@cloudscape-design/components/container';
 import FormField from '@cloudscape-design/components/form-field';
@@ -22,6 +23,8 @@ import {
 import Messages from './messages';
 
 import '../../styles/chat.scss';
+
+const useVisualRefresh = useRuntimeVisualRefresh;
 
 export default function Chat() {
   const [messages, setMessages] = useState(INITIAL_MESSAGES);
@@ -85,7 +88,8 @@ export default function Chat() {
   if (!(window as any).__awsuiDebug?.logs) {
     (window as any).__awsuiDebug = { logs: [] };
   }
-  (window as any).__awsuiDebug.logs.push('isVR demos: ' + isVisualRefresh);
+  (window as any).__awsuiDebug.logs.push('isVisualRefresh demos: ' + isVisualRefresh);
+  (window as any).__awsuiDebug.logs.push('useVisualRefresh components: ' + useVisualRefresh());
 
   return (
     <div className={`chat-container ${!isVisualRefresh && 'classic'}`}>
