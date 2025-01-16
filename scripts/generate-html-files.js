@@ -33,6 +33,7 @@ function getIndexContent() {
 }
 
 function createHtml({ title, headImports, bodyImports, bodyContent }) {
+  // `awsui-visual-refresh` class is added for our internal tests. It is not needed in real use-cases.
   return `<!DOCTYPE html>
 <html lang="en">
   <head>
