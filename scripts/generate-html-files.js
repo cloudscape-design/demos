@@ -42,7 +42,7 @@ function createHtml({ title, headImports, bodyImports, bodyContent }) {
     <link href="vendor.css" rel="stylesheet">
     ${headImports}
   </head>
-  <body id="b">
+  <body id="b" class="awsui-visual-refresh">
     ${bodyContent}
     <script src="libs/fake-server.js"></script>
     <script src="vendor.js"></script>
