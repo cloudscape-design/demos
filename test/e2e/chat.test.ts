@@ -14,7 +14,7 @@ const setupTest = (testFn: { (page: Page): Promise<void> }) => {
   });
 };
 
-describe.skip('Chat behavior', () => {
+describe('Chat behavior', () => {
   test(
     'Unknown prompt gets the correct response',
     setupTest(async page => {
