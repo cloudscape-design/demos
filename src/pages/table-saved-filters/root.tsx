@@ -239,7 +239,13 @@ export function App() {
                    * https://owasp.org/www-community/vulnerabilities/Information_exposure_through_query_strings_in_url
                    * For further guidance, reach out to your organization’s security team.
                    */
-                  setQueryParam(PROPERTY_FILTERS_QUERY_PARAM_KEY, JSON.stringify(event.detail));
+                  const query = event.detail;
+                  if (!query.tokens?.length && !query?.tokenGroups?.length) {
+                    setQueryParam(PROPERTY_FILTERS_QUERY_PARAM_KEY, null);
+                    setQueryParam(SELECTED_FILTER_SET_QUERY_PARAM_KEY, null);
+                  } else {
+                    setQueryParam(PROPERTY_FILTERS_QUERY_PARAM_KEY, JSON.stringify(query));
+                  }
 
                   propertyFilterProps.onChange(event);
                 }}
