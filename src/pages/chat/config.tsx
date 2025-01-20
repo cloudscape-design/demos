@@ -260,7 +260,17 @@ main();`}
         highlight={typescriptHighlight}
       />
     ),
-    actions: <CodeViewActions />,
+    actions: (
+      <CodeViewActions
+        content={`// This is the main function that will be executed when the script runs
+    function main(): void {
+      // Use console.log to print "Hello, World!" to the console
+      console.log("Hello, World!");
+    }
+    // Call the main function to execute the program
+    main();`}
+      />
+    ),
     timestamp: getTimestampMinutesAgo(4),
     hideAvatar: true,
   },
