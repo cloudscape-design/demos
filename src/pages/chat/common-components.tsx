@@ -16,11 +16,18 @@ export function ChatBubbleAvatar({ type, name, initials, loading }: AuthorAvatar
   return <Avatar initials={initials} tooltipText={name} ariaLabel={name} />;
 }
 
-export function CodeViewActions() {
+export function CodeViewActions({ content }: { content: string }) {
   return (
     <ButtonGroup
       variant="icon"
-      onItemClick={() => void 0}
+      onItemClick={({ detail }) => {
+        if (detail.id !== 'copy' || !navigator.clipboard) {
+          return;
+        }
+
+        // eslint-disable-next-line no-console
+        navigator.clipboard.writeText(content).catch(error => console.log('Failed to copy', error.message));
+      }}
       items={[
         {
           type: 'group',
@@ -84,7 +91,7 @@ export const ScrollableContainer = forwardRef(function ScrollableContainer(
 ) {
   return (
     <div style={{ position: 'relative', blockSize: '100%' }}>
-      <div style={{ position: 'absolute', inset: 0, overflowY: 'auto' }} ref={ref}>
+      <div style={{ position: 'absolute', inset: 0, overflowY: 'auto' }} ref={ref} data-testid="chat-scroll-container">
         {children}
       </div>
     </div>
