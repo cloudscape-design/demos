@@ -57,7 +57,9 @@
     "ts-jest": "^29.2.5",
     "typescript": "^5.6.3",
     "url-loader": "^4.1.1",
-    "webdriverio": "^7.25.2",
+    "@wdio/globals": "^9.4.1",
+    "@wdio/types": "^9.2.2",
+    "webdriverio": "^9.4.1",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.10.0",
@@ -77,7 +79,8 @@
     "test-no-build": "run-p -r start-no-live-reload jest",
     "test": "npm run test-no-build",
     "prepare": "husky install",
-    "lint": "eslint --fix --ignore-path .gitignore --ext ts,tsx,js,jsx ."
+    "lint": "eslint --fix --ignore-path .gitignore --ext ts,tsx,js,jsx .",
+    "postinstall": "node ./scripts/install-peer-dependency.js browser-test-tools:chore-webdriverio9"
   },
   "browserslist": [
     "last 3 Chrome major versions",
