@@ -28,14 +28,14 @@ function HeroHeader() {
           <Box>
             <SpaceBetween size="s" direction="horizontal">
               <Button>
-                <Box color="inherit" variant="code" fontWeight="bold">
-                  Try for free
-                </Box>
+                {/* <Box color="inherit" variant="code" fontWeight="bold"> */}
+                Try for free
+                {/* </Box> */}
               </Button>
               <Button variant="primary">
-                <Box color="inherit" variant="code" fontWeight="bold">
-                  Suggest an idea
-                </Box>
+                {/* <Box color="inherit" variant="code" fontWeight="bold"> */}
+                Suggest an idea
+                {/* </Box> */}
               </Button>
             </SpaceBetween>
           </Box>

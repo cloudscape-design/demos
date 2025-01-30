@@ -504,9 +504,9 @@ export function CustomNavBar() {
           <Button iconName="search" variant="icon" className="search-button" />
           <Button iconName="grid-view" variant="icon" className="grid-button" />
           <Button>
-            <Box color="inherit" variant="code" fontWeight="bold">
-              Sign in
-            </Box>
+            {/* <Box color="inherit" variant="code" fontWeight="bold"> */}
+            Sign in
+            {/* </Box> */}
           </Button>
         </div>
       </div>
