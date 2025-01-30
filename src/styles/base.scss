@@ -29,12 +29,12 @@ ul.menu-list {
   list-style: none;
   font-size: 14px;
 
-  & > li {
+  &>li {
     padding: 0;
     margin: 0;
     margin-right: 8px;
 
-    > a {
+    >a {
       padding: 0 6px;
     }
 
@@ -85,6 +85,23 @@ ul.menu-list {
       a {
         padding: 0;
       }
+    }
+  }
+}
+
+
+//////// Custom styles ////////
+.side-nav {
+  h3 {
+    font-size: 20px !important;
+  }
+}
+
+.custom-style-tabs {
+  button {
+    span {
+      font-size: 16px;
+      font-weight: 500;
     }
   }
 }

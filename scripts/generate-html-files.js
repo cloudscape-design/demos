@@ -11,7 +11,7 @@ function getPageContent(pageName, { title }) {
     title,
     headImports: `<link href="${pageName}.css" rel="stylesheet">`,
     bodyImports: `<script src="${pageName}.js"></script>`,
-    bodyContent: `<header class="custom-main-header" id="h">
+    bodyContent: `<header class="custom-main-header" id="h" style="display: none;">
       <ul class="menu-list awsui-context-top-navigation">
         <li class="title"><a href="index.html">Cloudscape Demos</a></li>
       </ul>

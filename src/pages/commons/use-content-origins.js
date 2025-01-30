@@ -2,42 +2,16 @@
 // SPDX-License-Identifier: MIT-0
 import { useMemo, useRef, useState } from 'react';
 
-import { MultiselectProps } from '@cloudscape-design/components/multiselect';
+export default function useContentOrigins() {
+  const requestParams = useRef({});
+  const [options, setOptions] = useState([]);
+  const [status, setStatus] = useState('finished');
 
-import { ContentOriginsResource } from '../../resources/types';
-
-interface RequestParams {
-  filteringText?: string;
-  currentPageIndex: number;
-}
-
-interface LoadItemsDetail {
-  filteringText: string;
-  firstPage: boolean;
-  samePage: boolean;
-}
-
-interface Handlers {
-  onLoadItems: (args: { detail: LoadItemsDetail }) => void;
-}
-
-export default function useContentOrigins(): [
-  {
-    options: ContentOriginsResource[];
-    filteringText: string | undefined;
-    status: MultiselectProps['statusType'];
-  },
-  Handlers
-] {
-  const requestParams = useRef<RequestParams>({ currentPageIndex: 1 });
-  const [options, setOptions] = useState<ContentOriginsResource[]>([]);
-  const [status, setStatus] = useState<MultiselectProps['statusType']>('finished');
-
-  async function doRequest({ filteringText, currentPageIndex }: RequestParams): Promise<void> {
+  async function doRequest({ filteringText, currentPageIndex }) {
     setStatus('loading');
     try {
       const { origins, hasNextPage } = await window.FakeServer.fetchContentOrigins({
-        filteringText: filteringText!,
+        filteringText,
         currentPageIndex,
       });
       if (filteringText !== requestParams.current.filteringText) {
@@ -56,7 +30,7 @@ export default function useContentOrigins(): [
 
   const handlers = useMemo(() => {
     return {
-      onLoadItems({ detail: { filteringText, firstPage, samePage } }: { detail: LoadItemsDetail }) {
+      onLoadItems({ detail: { filteringText, firstPage, samePage } }) {
         if (firstPage) {
           requestParams.current = {
             filteringText,
@@ -72,7 +46,6 @@ export default function useContentOrigins(): [
         doRequest(requestParams.current);
       },
     };
-  }, []);
-
+  }, [requestParams]);
   return [{ options, filteringText: requestParams.current.filteringText, status }, handlers];
 }

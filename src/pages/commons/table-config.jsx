@@ -2,21 +2,19 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import Autosuggest from '@cloudscape-design/components/autosuggest';
-import ButtonDropdown from '@cloudscape-design/components/button-dropdown';
-import CollectionPreferences, {
-  CollectionPreferencesProps,
-} from '@cloudscape-design/components/collection-preferences';
-import Input from '@cloudscape-design/components/input';
-import Link from '@cloudscape-design/components/link';
-import Select from '@cloudscape-design/components/select';
-import StatusIndicator from '@cloudscape-design/components/status-indicator';
-import { TableProps } from '@cloudscape-design/components/table';
+import {
+  Autosuggest,
+  ButtonDropdown,
+  CollectionPreferences,
+  Input,
+  Link,
+  Select,
+  StatusIndicator,
+} from '@cloudscape-design/components';
 
-import { Distribution } from '../../fake-server/types';
 import { createTableSortLabelFn } from '../../i18n-strings';
 
-const rawColumns: TableProps.ColumnDefinition<Distribution>[] = [
+const rawColumns = [
   {
     id: 'id',
     sortingField: 'id',
@@ -99,10 +97,7 @@ const rawColumns: TableProps.ColumnDefinition<Distribution>[] = [
   },
 ];
 
-export const COLUMN_DEFINITIONS = rawColumns.map(column => ({
-  ...column,
-  ariaLabel: createTableSortLabelFn<Distribution>(column),
-}));
+export const COLUMN_DEFINITIONS = rawColumns.map(column => ({ ...column, ariaLabel: createTableSortLabelFn(column) }));
 
 export const serverSideErrorsStore = new Map();
 
@@ -113,7 +108,7 @@ export const serverSideErrorsStore = new Map();
 export const domainNameRegex = /^(?:[\w_-]+\.){1,3}(?:com|net|org)$/i;
 export const INVALID_DOMAIN_MESSAGE = 'Valid domain name ends with .com, .org, or .net.';
 
-const editableColumns: Record<string, Partial<TableProps.ColumnDefinition<Distribution>>> = {
+const editableColumns = {
   state: {
     minWidth: 200,
     editConfig: {
@@ -134,7 +129,7 @@ const editableColumns: Record<string, Partial<TableProps.ColumnDefinition<Distri
             onChange={event => {
               setValue(event.detail.selectedOption.value);
             }}
-            selectedOption={options.find(option => option.value === (currentValue ?? item.state)) ?? null}
+            selectedOption={options.find(option => option.value === (currentValue ?? item.state))}
           />
         );
       },
@@ -215,17 +210,17 @@ const editableColumns: Record<string, Partial<TableProps.ColumnDefinition<Distri
 };
 
 export const EDITABLE_COLUMN_DEFINITIONS = COLUMN_DEFINITIONS.map(column => {
-  if (editableColumns[column.id!]) {
+  if (editableColumns[column.id]) {
     return {
       ...column,
-      minWidth: Math.max(Number(column.minWidth) || 0, 176),
-      ...editableColumns[column.id!],
+      minWidth: Math.max(column.minWidth || 0, 176),
+      ...editableColumns[column.id],
     };
   }
   return column;
 });
 
-const CONTENT_DISPLAY_OPTIONS: CollectionPreferencesProps.ContentDisplayOption[] = [
+const CONTENT_DISPLAY_OPTIONS = [
   { id: 'id', label: 'Distribution ID', alwaysVisible: true },
   { id: 'state', label: 'State' },
   { id: 'domainName', label: 'Domain name' },
@@ -237,13 +232,13 @@ const CONTENT_DISPLAY_OPTIONS: CollectionPreferencesProps.ContentDisplayOption[]
   { id: 'actions', label: 'Actions' },
 ];
 
-export const PAGE_SIZE_OPTIONS: CollectionPreferencesProps.PageSizePreference['options'] = [
+export const PAGE_SIZE_OPTIONS = [
   { value: 10, label: '10 Distributions' },
   { value: 30, label: '30 Distributions' },
   { value: 50, label: '50 Distributions' },
 ];
 
-export const DEFAULT_PREFERENCES: CollectionPreferencesProps.Preferences = {
+export const DEFAULT_PREFERENCES = {
   pageSize: 30,
   contentDisplay: [
     { id: 'id', visible: true },
@@ -262,20 +257,13 @@ export const DEFAULT_PREFERENCES: CollectionPreferencesProps.Preferences = {
   stickyColumns: { first: 0, last: 1 },
 };
 
-export interface PreferencesProps {
-  preferences: CollectionPreferencesProps<unknown>['preferences'];
-  setPreferences: (preferences: CollectionPreferencesProps<unknown>['preferences']) => void;
-  disabled?: boolean;
-  pageSizeOptions?: CollectionPreferencesProps.PageSizePreference['options'];
-  contentDisplayOptions?: CollectionPreferencesProps.ContentDisplayOption[];
-}
 export const Preferences = ({
   preferences,
   setPreferences,
   disabled,
   pageSizeOptions = PAGE_SIZE_OPTIONS,
   contentDisplayOptions = CONTENT_DISPLAY_OPTIONS,
-}: PreferencesProps) => (
+}) => (
   <CollectionPreferences
     disabled={disabled}
     preferences={preferences}

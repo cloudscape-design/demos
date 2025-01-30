@@ -1,5 +1,13 @@
 [
   {
+    "path": "bingo-home",
+    "title": "Bingo - Home"
+  },
+  {
+    "path": "bingo-ideas",
+    "title": "Bingo - Share an idea"
+  },
+  {
     "path": "cards",
     "title": "Card view"
   },
@@ -10,10 +18,6 @@
   {
     "path": "delete-one-click",
     "title": "One-click delete"
-  },
-  {
-    "path": "delete-with-simple-confirmation",
-    "title": "Delete with simple confirmation"
   },
   {
     "path": "delete-with-additional-confirmation",
@@ -40,24 +44,8 @@
     "title": "Single page create"
   },
   {
-    "path": "form-unsaved-changes",
-    "title": "Communicate unsaved changes"
-  },
-  {
-    "path": "form-validation",
-    "title": "Form validation"
-  },
-  {
     "path": "product-detail-page",
     "title": "Product detail page"
-  },
-  {
-    "path": "server-side-table",
-    "title": "Table view (server-side)"
-  },
-  {
-    "path": "server-side-table-property-filter",
-    "title": "Table property filter (server-side)"
   },
   {
     "path": "table-property-filter",
@@ -68,36 +56,12 @@
     "title": "Table with select filter"
   },
   {
-    "path": "table-date-filter",
-    "title": "Table view with date range picker filter"
-  },
-  {
-    "path": "table-saved-filters",
-    "title": "Table view with saved filter sets"
-  },
-  {
     "path": "table",
     "title": "Table view"
   },
   {
     "path": "table-editable",
     "title": "Table view with inline editing"
-  },
-  {
-    "path": "table-expandable",
-    "title": "Table view with expandable rows"
-  },
-  {
-    "path": "manage-tags",
-    "title": "Manage tags"
-  },
-  {
-    "path": "read-from-s3",
-    "title": "Read from Amazon S3"
-  },
-  {
-    "path": "write-to-s3",
-    "title": "Write to Amazon S3"
   },
   {
     "path": "wizard",
@@ -108,20 +72,8 @@
     "title": "Service dashboard"
   },
   {
-    "path": "configurable-dashboard",
-    "title": "Configurable dashboard"
-  },
-  {
-    "path": "onboarding",
-    "title": "Hands-on tutorials"
-  },
-  {
     "path": "split-panel-multiple",
     "title": "Split view"
-  },
-  {
-    "path": "split-panel-comparison",
-    "title": "Split view with details comparison"
   },
   {
     "path": "non-console",

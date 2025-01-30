@@ -2,194 +2,85 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useState } from 'react';
 
-import Box from '@cloudscape-design/components/box';
-import Link from '@cloudscape-design/components/link';
-import Popover from '@cloudscape-design/components/popover';
 import { SideNavigationProps } from '@cloudscape-design/components/side-navigation';
 
 import { Navigation as CommonNavigation } from '../../commons';
 import { DensityPreferencesDialog } from './density-preferences';
 
 const navItems: SideNavigationProps['items'] = [
-  { type: 'link', text: 'Dashboard', href: '#/' },
   {
     type: 'link',
-    text: 'Events',
-    href: '#/events',
-    info: (
-      <Box color="text-status-info" variant="span">
-        <Popover
-          header="Introducing events"
-          size="medium"
-          triggerType="text"
-          content={
-            <>
-              AWS can schedule events for your instances, such as reboot, stop/start, or retirement.{' '}
-              <Link
-                external={true}
-                ariaLabel="Learn more about events management, opens in new tab"
-                href="#"
-                variant="primary"
-              >
-                Learn more
-              </Link>
-            </>
-          }
-          renderWithPortal={true}
-          dismissAriaLabel="Close"
-        >
-          <Box
-            variant="span"
-            color="text-status-info"
-            fontSize="body-s"
-            fontWeight="bold"
-            data-testid="new-feature-announcement-trigger"
-          >
-            New
-          </Box>
-        </Popover>
-      </Box>
-    ),
+    text: 'Home',
+    href: '#/',
   },
-  { type: 'link', text: 'Tags', href: '#/tags' },
-  { type: 'link', text: 'Reports', href: '#/reports' },
-  { type: 'link', text: 'Limits', href: '#/limits' },
+  { type: 'divider' },
   {
-    text: 'Instances',
-    type: 'section',
-    defaultExpanded: true,
+    title: 'Knowledge',
+    type: 'section-group',
+
     items: [
-      { type: 'link', text: 'Instances', href: '#/instances' },
       {
         type: 'link',
-        text: 'Launch templates',
-        href: '#/launch_templates',
-        info: (
-          <Box color="text-status-info" variant="span">
-            <Popover
-              header="Introducing launch templates"
-              size="medium"
-              triggerType="text"
-              content={
-                <>
-                  Launch templates is a new capability that enables a new way to templatize your launch requests. Launch
-                  templates streamline and simplify the launch process for auto scaling, spot fleet, spot, and on-demand
-                  instances.{' '}
-                  <Link
-                    external
-                    href="#"
-                    ariaLabel="Learn more about launch templates, opens in new tab"
-                    variant="primary"
-                  >
-                    Learn more
-                  </Link>
-                </>
-              }
-              renderWithPortal={true}
-              dismissAriaLabel="Close"
-            >
-              <Box color="text-status-info" fontSize="body-s" fontWeight="bold" variant="span">
-                New
-              </Box>
-            </Popover>
-          </Box>
-        ),
+        text: 'Learning center',
+        href: '#/instances',
       },
-      { type: 'link', text: 'Spot requests', href: '#/spot_requests' },
-      { type: 'link', text: 'Reserved instances', href: '#/reserved_instances' },
-      { type: 'link', text: 'Dedicated hosts', href: '#/dedicated_hosts' },
       {
         type: 'link',
-        text: 'Scheduled instances',
-        href: '#/scheduled_instances',
-        info: (
-          <Box color="text-status-info" variant="span">
-            <Popover
-              data-testid="beta"
-              header="Beta feature"
-              size="medium"
-              triggerType="text"
-              content={
-                <>
-                  We are improving the way to create scheduled instances.{' '}
-                  <Link
-                    external
-                    href="#"
-                    ariaLabel="Learn more about instance scheduling, opens in new tab"
-                    variant="primary"
-                  >
-                    Learn more
-                  </Link>
-                </>
-              }
-              renderWithPortal={true}
-              dismissAriaLabel="Close"
-            >
-              <Box color="text-status-info" fontSize="body-s" fontWeight="bold" variant="span">
-                Beta
-              </Box>
-            </Popover>
-          </Box>
-        ),
+        text: 'Content library',
+        href: '#/instances',
       },
-      { type: 'link', text: 'Capacity reservations', href: '#/capacity_reservations' },
-    ],
-  },
-  {
-    text: 'Images',
-    type: 'section',
-    defaultExpanded: false,
-    items: [
-      { type: 'link', text: 'AMIs', href: '#/amis' },
-      { type: 'link', text: 'Bundle tasks', href: '#/bundle_tasks' },
-    ],
-  },
-  {
-    text: 'Elastic block store',
-    type: 'section',
-    defaultExpanded: false,
-    items: [
-      { type: 'link', text: 'Volumes', href: '#/volumes' },
-      { type: 'link', text: 'Snapshots', href: '#/snapshots' },
-      { type: 'link', text: 'Lifecycle manager', href: '#/lifecycle_manager' },
-    ],
-  },
-  {
-    text: ' Network & security',
-    type: 'section',
-    defaultExpanded: false,
-    items: [
-      { type: 'link', text: 'Security groups', href: '#/security_groups' },
-      { type: 'link', text: 'Elastic IPs', href: '#/elastic_ips' },
-      { type: 'link', text: 'Placement groups', href: '#/placement_groups' },
-      { type: 'link', text: 'Key pairs', href: '#/key_pairs' },
-      { type: 'link', text: 'Network interfaces', href: '#/network_interfaces' },
-    ],
-  },
-  {
-    text: 'Load balancing',
-    type: 'section',
-    defaultExpanded: false,
-    items: [
-      { type: 'link', text: 'Load balancers', href: '#/load_balancers' },
-      { type: 'link', text: 'Target groups', href: '#/target_groups' },
-    ],
-  },
-  {
-    text: 'Auto scaling',
-    type: 'section',
-    defaultExpanded: false,
-    items: [
-      { type: 'link', text: 'Launch configurations', href: '#/launch_configurations' },
-      { type: 'link', text: 'Auto scaling groups', href: '#/auto_scaling_groups' },
+      {
+        type: 'link',
+        text: 'Events',
+        href: '#/instances',
+      },
     ],
   },
   { type: 'divider' },
   {
-    type: 'link',
-    href: '#/density_settings',
-    text: 'Density settings',
+    title: 'Socialize',
+    type: 'section-group',
+
+    items: [
+      { type: 'link', text: 'Connections', href: '#/instances' },
+      { type: 'link', text: 'Groups', href: '#/instances' },
+      { type: 'link', text: 'Forums', href: '#/instances' },
+      { type: 'link', text: 'Community programs', href: '#/instances' },
+    ],
   },
+  { type: 'divider' },
+  {
+    title: 'Elastic block store',
+    type: 'section-group',
+
+    items: [
+      {
+        type: 'link',
+        text: 'Wishlist',
+        href: '#/launch_templates',
+      },
+      { type: 'link', text: 'Code sharing', href: '#/snapshots' },
+    ],
+  },
+  { type: 'divider' },
+  { type: 'link', text: 'Notifications', href: '#/security_groups' },
+  { type: 'link', text: 'Chat', href: '#/security_groups' },
+  { type: 'link', text: 'Resources', href: '#/security_groups' },
+  { type: 'divider' },
+  {
+    title: 'Popular communities',
+    type: 'section-group',
+
+    items: [
+      { type: 'link', text: 'Cloud computing', href: '#/load_balancers' },
+      { type: 'link', text: 'AI', href: '#/target_groups' },
+      { type: 'link', text: 'Serverless', href: '#/target_groups' },
+      { type: 'link', text: 'BigData', href: '#/target_groups' },
+      { type: 'link', text: 'QuantumComputing', href: '#/target_groups' },
+    ],
+  },
+  { type: 'divider' },
+  { type: 'link', text: 'Discover communities', href: '#/target_groups' },
 ];
 
 export function DashboardSideNavigation() {

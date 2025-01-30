@@ -3,7 +3,8 @@
 @use '~@cloudscape-design/design-tokens' as cs;
 @use './base';
 
-$viewport-breakpoint-s: 912px;
+$viewport-breakpoint-s: 980px;
+$viewport-breakpoint-xxs: 690px;
 
 body {
   // Note: This token will be themed (see the product page index.tsx)
@@ -14,7 +15,7 @@ body {
   display: grid;
   grid-template-columns: 3fr 1fr;
   grid-template-rows: 0 auto 0;
-  margin-block-start: cs.$space-static-xxl;
+  margin-block-start: cs.$space-static-s;
 }
 
 .on-this-page--mobile {
@@ -29,6 +30,7 @@ body {
   grid-column: 2 / 3;
   padding-inline-start: calc(#{cs.$space-scaled-xxxl} /2);
 }
+
 .product-page-content {
   grid-row: 2;
   grid-column: 1 / 2;
@@ -46,19 +48,87 @@ body {
   inset-block-start: 40px;
 }
 
+//// Custom style for CustomNavBar component
+.nav-grid-wrapper {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  justify-items: center;
+
+  .header-search-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 480px;
+    .header-search-input {
+      width: 100%;
+    }
+  }
+
+  .header-buttons-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+
+    .search-button {
+      display: none !important;
+    }
+  }
+}
+
+
+@media only screen and (max-width: $viewport-breakpoint-xxs) {
+  div:has(> .nav-grid-wrapper) {
+    //border: 1px solid red;
+    margin-block-end: 0 !important;
+  }
+
+  .header-logo-wrapper {
+    display: flex;
+    align-items: center;
+
+    .service-logo {
+      scale: 0.8;
+      transform: translateY(2px);
+    }
+  }
+
+}
+
 @media only screen and (max-width: $viewport-breakpoint-s) {
   .product-page-content-grid {
     grid-template-columns: 100%;
     grid-template-rows: auto auto auto;
   }
+
   .on-this-page--mobile {
     display: block;
   }
+
   .product-page-mobile {
     display: block;
   }
+
   .product-page-aside {
     display: none;
+  }
+
+
+  //// 
+  .nav-grid-wrapper {
+    .header-buttons-wrapper {
+      .search-button {
+        display: flex !important;
+      }
+    }
+
+    .header-search-input {
+      display: none !important;
+    }
   }
 }
 
