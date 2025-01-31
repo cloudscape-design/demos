@@ -3,11 +3,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import Alert from '@cloudscape-design/components/alert';
+import Box from '@cloudscape-design/components/box';
 import Container from '@cloudscape-design/components/container';
+import FileDropzone, { useFilesDragging } from '@cloudscape-design/components/file-dropzone';
+import FileInput from '@cloudscape-design/components/file-input';
+import FileTokenGroup from '@cloudscape-design/components/file-token-group';
 import FormField from '@cloudscape-design/components/form-field';
 import Header from '@cloudscape-design/components/header';
+import Icon from '@cloudscape-design/components/icon';
 import Link from '@cloudscape-design/components/link';
 import PromptInput from '@cloudscape-design/components/prompt-input';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { isVisualRefresh } from '../../common/apply-mode';
 import { FittedContainer, ScrollableContainer } from './common-components';
@@ -30,6 +36,9 @@ export default function Chat() {
   const [showAlert, setShowAlert] = useState(true);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const lastMessageContent = messages[messages.length - 1].content;
+  const [files, setFiles] = useState<File[]>([]);
+
+  const { areFilesDragging } = useFilesDragging();
 
   useEffect(() => {
     // Scroll to the bottom to show the new/latest message
@@ -126,6 +135,47 @@ export default function Chat() {
                 ariaLabel={isGenAiResponseLoading ? 'Prompt input - suppressed' : 'Prompt input'}
                 placeholder="Ask a question"
                 autoFocus
+                disableSecondaryActionsPaddings
+                secondaryActions={
+                  <Box padding={{ left: 'xxs', top: 'xs' }}>
+                    <FileInput
+                      variant="icon"
+                      multiple={true}
+                      value={files}
+                      onChange={({ detail }) => setFiles(prev => [...prev, ...detail.value])}
+                    />
+                  </Box>
+                }
+                secondaryContent={
+                  areFilesDragging ? (
+                    <FileDropzone onChange={({ detail }) => setFiles(prev => [...prev, ...detail.value])}>
+                      <SpaceBetween size="xs" alignItems="center">
+                        <Icon name="upload" />
+                        <Box>Drop files here</Box>
+                      </SpaceBetween>
+                    </FileDropzone>
+                  ) : (
+                    files.length > 0 && (
+                      <FileTokenGroup
+                        items={files.map(file => ({ file }))}
+                        onDismiss={({ detail }) =>
+                          setFiles(files => files.filter((_, index) => index !== detail.fileIndex))
+                        }
+                        alignment="horizontal"
+                        showFileSize={true}
+                        showFileLastModified={true}
+                        showFileThumbnail={true}
+                        i18nStrings={{
+                          removeFileAriaLabel: () => 'Remove file',
+                          limitShowFewer: 'Show fewer files',
+                          limitShowMore: 'Show more files',
+                          errorIconAriaLabel: 'Error',
+                          warningIconAriaLabel: 'Warning',
+                        }}
+                      />
+                    )
+                  )
+                }
               />
             </FormField>
           }
