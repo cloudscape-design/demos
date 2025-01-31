@@ -4,31 +4,33 @@ import { Theme } from '@cloudscape-design/components/theming';
 
 const customTheme: Theme = {
   tokens: {
-    colorBorderButtonPrimaryActive: '{colorGrey800}',
-    colorBackgroundButtonPrimaryActive: '{colorGrey800}',
-    colorBorderButtonPrimaryDefault: '{colorGrey800}',
-    colorBackgroundButtonPrimaryDefault: '{colorGrey800}',
-    colorBorderButtonPrimaryHover: '{colorGrey800}',
-    colorBackgroundButtonPrimaryHover: '{colorGrey700}',
+    colorBackgroundButtonPrimaryDefault: { light: '{colorGrey800}', dark: '{colorGrey200}' },
+    colorBackgroundButtonPrimaryHover: { light: '{colorGrey650}', dark: '{colorGrey300}' },
+    colorBackgroundButtonPrimaryActive: { light: '{colorGrey800}', dark: '{colorGrey200}' },
 
-    colorBackgroundButtonNormalActive: '{colorGrey100}',
-    colorBackgroundButtonNormalHover: '{colorGrey100}',
+    colorBorderButtonPrimaryDefault: { light: '{colorGrey800}', dark: '{colorGrey200}' },
+    colorBorderButtonPrimaryHover: { light: '{colorGrey650}', dark: '{colorGrey300}' },
+    colorBorderButtonPrimaryActive: { light: '{colorGrey800}', dark: '{colorGrey200}' },
 
-    colorBorderButtonNormalDefault: { light: '{colorGrey900}', dark: '{colorGrey600}' },
-    colorBorderButtonNormalHover: { light: '{colorGrey900}', dark: '{colorGrey600}' },
-    colorBorderButtonNormalActive: { light: '{colorGrey900}', dark: '{colorGrey600}' },
+    colorTextButtonPrimaryActive: { light: '{colorWhite}', dark: '{colorGrey900}' },
+    colorTextButtonPrimaryHover: { light: '{colorGrey100}', dark: '{colorGrey900}' },
+    colorTextButtonPrimaryDefault: { light: '{colorWhite}', dark: '{colorGrey900}' },
 
-    colorTextButtonPrimaryActive: '{colorGrey100}',
-    colorTextButtonPrimaryDefault: '{colorGrey100}',
-    colorTextButtonPrimaryHover: '{colorGrey100}',
+    colorBackgroundButtonNormalDefault: { light: '{colorWhite}', dark: '{colorGrey800}' },
+    colorBackgroundButtonNormalActive: { light: '{colorWhite}', dark: '{colorGrey800}' },
+    colorBackgroundButtonNormalHover: { light: '{colorGrey100}', dark: '{colorGrey800}' },
 
-    colorTextButtonNormalActive: '{colorGrey800}',
-    colorTextButtonNormalDefault: '{colorGrey800}',
-    colorTextButtonNormalHover: '{colorGrey800}',
+    colorBorderButtonNormalDefault: { light: '{colorGrey900}', dark: '{colorGrey200}' },
+    colorBorderButtonNormalHover: { light: '{colorGrey900}', dark: '{colorGrey100}' },
+    colorBorderButtonNormalActive: { light: '{colorGrey900}', dark: '{colorGrey200}' },
+
+    colorTextButtonNormalActive: { light: '{colorGrey800}', dark: '{colorWhite}' },
+    colorTextButtonNormalHover: { light: '{colorGrey800}', dark: '{colorWhite}' },
+    colorTextButtonNormalDefault: { light: '{colorGrey800}', dark: '{colorWhite}' },
 
     colorTextLinkDefault: { light: '{colorGrey900}', dark: '{colorGrey100}' },
     colorTextLinkHover: { light: '{colorGrey700}', dark: '{colorWhite}' },
-    colorTextAccent: { light: '{colorBlue600}', dark: '{colorGrey100}' },
+    colorTextAccent: { light: '{colorBlue600}', dark: '{colorBlue500}' },
 
     colorBackgroundHomeHeader: { light: '{colorAwsSquidInk}', dark: '{colorBlack}' },
     fontFamilyBase: "'Amazon Ember Display', Amazon Ember, Arial, sans-serif",
