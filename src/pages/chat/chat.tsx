@@ -59,10 +59,14 @@ export default function Chat() {
       authorId: 'user-jane-doe',
       content: value,
       timestamp: new Date().toLocaleTimeString(),
+      files,
     };
+
+    let fileValue = files;
 
     setMessages(prevMessages => [...prevMessages, newMessage]);
     setPrompt('');
+    setFiles([]);
 
     const waitTimeBeforeLoading = 300;
 
@@ -80,15 +84,21 @@ export default function Chat() {
     const waitTimeBeforeResponse = isLoadingPrompt ? 4000 : 1500;
 
     // Send Gen-AI response, replacing the loading chat bubble
+
     setTimeout(() => {
-      const validPrompt = VALID_PROMPTS.find(({ prompt }) => prompt.includes(lowerCasePrompt));
+      const validPrompt =
+        fileValue.length > 0
+          ? VALID_PROMPTS.find(({ prompt }) => prompt.includes('file'))
+          : VALID_PROMPTS.find(({ prompt }) => prompt.includes(lowerCasePrompt));
 
       setMessages(prevMessages => {
         const response = validPrompt ? validPrompt.getResponse() : getInvalidPromptResponse();
+
         prevMessages.splice(prevMessages.length - 1, 1, response);
         return prevMessages;
       });
       setIsGenAiResponseLoading(false);
+      fileValue = [];
     }, waitTimeBeforeResponse + waitTimeBeforeLoading);
   };
 

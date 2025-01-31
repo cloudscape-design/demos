@@ -4,6 +4,7 @@ import React from 'react';
 
 import ChatBubble from '@cloudscape-design/chat-components/chat-bubble';
 import Alert from '@cloudscape-design/components/alert';
+import FileTokenGroup from '@cloudscape-design/components/file-token-group';
 import LiveRegion from '@cloudscape-design/components/live-region';
 
 import { ChatBubbleAvatar } from './common-components';
@@ -39,16 +40,43 @@ export default function Messages({ messages = [] }: { messages: Array<Message> }
         const author = AUTHORS[message.authorId];
 
         return (
-          <ChatBubble
-            key={message.authorId + message.timestamp}
-            avatar={<ChatBubbleAvatar {...author} loading={message.avatarLoading} />}
-            ariaLabel={`${author.name} at ${message.timestamp}`}
-            type={author.type === 'gen-ai' ? 'incoming' : 'outgoing'}
-            hideAvatar={message.hideAvatar}
-            actions={message.actions}
-          >
-            {message.content}
-          </ChatBubble>
+          <>
+            {message.files && message.files.length > 0 && (
+              <ChatBubble
+                key={message.authorId + message.timestamp + 'files'}
+                avatar={<ChatBubbleAvatar {...author} loading={message.avatarLoading} />}
+                ariaLabel={`Files from ${author.name} at ${message.timestamp}`}
+                type={'outgoing'}
+              >
+                <FileTokenGroup
+                  readOnly
+                  items={message.files.map(file => ({ file }))}
+                  onDismiss={() => {}}
+                  alignment="horizontal"
+                  showFileSize={true}
+                  showFileLastModified={true}
+                  showFileThumbnail={true}
+                  i18nStrings={{
+                    removeFileAriaLabel: () => 'Remove file',
+                    limitShowFewer: 'Show fewer files',
+                    limitShowMore: 'Show more files',
+                    errorIconAriaLabel: 'Error',
+                    warningIconAriaLabel: 'Warning',
+                  }}
+                />
+              </ChatBubble>
+            )}
+            <ChatBubble
+              key={message.authorId + message.timestamp}
+              avatar={<ChatBubbleAvatar {...author} loading={message.avatarLoading} />}
+              ariaLabel={`${author.name} at ${message.timestamp}`}
+              type={author.type === 'gen-ai' ? 'incoming' : 'outgoing'}
+              hideAvatar={message.hideAvatar}
+              actions={message.actions}
+            >
+              {message.content}
+            </ChatBubble>
+          </>
         );
       })}
     </div>

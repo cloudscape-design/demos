@@ -23,6 +23,7 @@ type ChatBubbleMessage = {
   actions?: React.ReactNode;
   hideAvatar?: boolean;
   avatarLoading?: boolean;
+  files?: File[];
 };
 
 type AlertMessage = {
@@ -51,6 +52,15 @@ export const getLoadingMessage = (): Message => ({
   content: <Box color="text-status-inactive">Generating a response</Box>,
   timestamp: new Date().toLocaleTimeString(),
   avatarLoading: true,
+});
+
+const getFileResponseMessage = (): Message => ({
+  type: 'chat-bubble',
+  authorId: 'gen-ai',
+  content:
+    'I see you have uploaded a file. I cannot parse the file right now, but you can see what an uploaded file looks like.',
+  timestamp: new Date().toLocaleTimeString(),
+  avatarLoading: false,
 });
 
 const getLoadingStateResponseMessage = (): Message => ({
@@ -118,6 +128,10 @@ export const VALID_PROMPTS: Array<ValidPromptType> = [
   {
     prompt: ['show an error state example', 'error state', 'error'],
     getResponse: getErrorStateResponseMessage,
+  },
+  {
+    prompt: ['file'],
+    getResponse: getFileResponseMessage,
   },
 ];
 
