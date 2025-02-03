@@ -62,7 +62,7 @@ const getFileResponseMessage = (): Message => ({
   type: 'chat-bubble',
   authorId: 'gen-ai',
   content:
-    'I see you have uploaded a file. I cannot parse the file right now, but you can see what an uploaded file looks like.',
+    'I see you have uploaded one or more files. I cannot parse the files right now, but you can see what uploaded files look like.',
   timestamp: new Date().toLocaleTimeString(),
   avatarLoading: false,
 });

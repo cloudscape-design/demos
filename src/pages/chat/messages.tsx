@@ -41,16 +41,28 @@ export default function Messages({ messages = [] }: { messages: Array<Message> }
 
         return (
           <>
+            <ChatBubble
+              key={message.authorId + message.timestamp}
+              avatar={<ChatBubbleAvatar {...author} loading={message.avatarLoading} />}
+              ariaLabel={`${author.name} at ${message.timestamp}`}
+              type={author.type === 'gen-ai' ? 'incoming' : 'outgoing'}
+              hideAvatar={message.hideAvatar}
+              actions={message.actions}
+            >
+              {message.content}
+            </ChatBubble>
             {message.files && message.files.length > 0 && (
               <ChatBubble
                 key={message.authorId + message.timestamp + 'files'}
                 avatar={<ChatBubbleAvatar {...author} loading={message.avatarLoading} />}
                 ariaLabel={`Files from ${author.name} at ${message.timestamp}`}
                 type={'outgoing'}
+                hideAvatar
               >
                 <FileTokenGroup
                   readOnly
                   items={message.files.map(file => ({ file }))}
+                  limit={3}
                   onDismiss={() => {}}
                   alignment="horizontal"
                   showFileSize={true}
@@ -66,16 +78,6 @@ export default function Messages({ messages = [] }: { messages: Array<Message> }
                 />
               </ChatBubble>
             )}
-            <ChatBubble
-              key={message.authorId + message.timestamp}
-              avatar={<ChatBubbleAvatar {...author} loading={message.avatarLoading} />}
-              ariaLabel={`${author.name} at ${message.timestamp}`}
-              type={author.type === 'gen-ai' ? 'incoming' : 'outgoing'}
-              hideAvatar={message.hideAvatar}
-              actions={message.actions}
-            >
-              {message.content}
-            </ChatBubble>
             {latestMessage.type === 'chat-bubble' && latestMessage.supportPrompts && index === messages.length - 1 && (
               <div style={{ marginInlineStart: '36px' }}>{message.supportPrompts}</div>
             )}

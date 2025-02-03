@@ -149,9 +149,13 @@ export default function Chat() {
   return (
     <div className={`chat-container ${!isVisualRefresh && 'classic'}`}>
       {showAlert && (
-        <Alert dismissible statusIconAriaLabel="Info" onDismiss={() => setShowAlert(false)}>
-          This demo showcases how to use generative AI components to build a generative AI chat. The interactions and
-          functionality are limited.
+        <Alert
+          dismissible
+          statusIconAriaLabel="Info"
+          onDismiss={() => setShowAlert(false)}
+          header="This demo showcases how to use generative AI components to build a generative AI chat. The interactions and
+          functionality are limited."
+        >
           <div>
             1. To see how an incoming response from generative AI is displayed, ask "Show a loading state example".
           </div>
