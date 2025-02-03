@@ -2,6 +2,9 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useEffect, useState } from 'react';
 
+import { applyTheme } from '@cloudscape-design/components/theming';
+
+import customTheme from '../../common/theme-definition';
 import INSTANCES from '../../resources/ec2-instances';
 import { EC2Instance } from '../../resources/types';
 import fakeDelay from '../commons/fake-delay';
@@ -10,6 +13,7 @@ import useNotifications from '../delete-with-simple-confirmation/use-notificatio
 import { DeleteModal } from './components/delete-modal';
 import { InstanceDetailsPage } from './components/instance-details-page';
 import { InstancesPage } from './components/instances-page';
+applyTheme({ theme: customTheme });
 
 const delay = 3000;
 const failingInstances = [INSTANCES[0]];

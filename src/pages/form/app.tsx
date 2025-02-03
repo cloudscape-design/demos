@@ -4,11 +4,14 @@ import React, { useRef, useState } from 'react';
 
 import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
+import { applyTheme } from '@cloudscape-design/components/theming';
 
 import { resourceCreateBreadcrumbs } from '../../common/breadcrumbs';
+import customTheme from '../../common/theme-definition';
 import { CustomAppLayout, Navigation, Notifications } from '../commons/common-components';
 import { FormFull, FormHeader } from './components/form';
 import ToolsContent from './components/tools-content';
+applyTheme({ theme: customTheme });
 
 const Breadcrumbs = () => (
   <BreadcrumbGroup items={resourceCreateBreadcrumbs} expandAriaLabel="Show path" ariaLabel="Breadcrumbs" />

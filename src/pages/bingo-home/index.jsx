@@ -7,6 +7,7 @@ import { applyTheme } from '@cloudscape-design/components/theming';
 
 import customTheme from '../../common/theme-definition';
 applyTheme({ theme: customTheme });
+
 import { useCollection } from '@cloudscape-design/collection-hooks';
 import {
   AppLayout,

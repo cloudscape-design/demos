@@ -18,7 +18,7 @@ const customTheme: Theme = {
 
     colorBackgroundButtonNormalDefault: { light: '{colorWhite}', dark: '{colorGrey800}' },
     colorBackgroundButtonNormalActive: { light: '{colorWhite}', dark: '{colorGrey800}' },
-    colorBackgroundButtonNormalHover: { light: '{colorGrey100}', dark: '{colorGrey800}' },
+    colorBackgroundButtonNormalHover: { light: '{colorGrey100}', dark: '{colorGrey650}' },
 
     colorBorderButtonNormalDefault: { light: '{colorGrey900}', dark: '{colorGrey200}' },
     colorBorderButtonNormalHover: { light: '{colorGrey900}', dark: '{colorGrey100}' },

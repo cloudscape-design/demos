@@ -11,10 +11,21 @@ function getPageContent(pageName, { title }) {
     title,
     headImports: `<link href="${pageName}.css" rel="stylesheet">`,
     bodyImports: `<script src="${pageName}.js"></script>`,
-    bodyContent: `<header class="custom-main-header" id="h" style="display: none;">
+    bodyContent: `<header class="custom-main-header" id="h">
       <ul class="menu-list awsui-context-top-navigation">
         <li class="title"><a href="index.html">Cloudscape Demos</a></li>
       </ul>
+      <div class="mode-changer">
+          <label>
+            <input type="radio" name="colorModeOption" value="light-mode" checked>
+            Light
+          </label>
+  
+          <label>
+            <input type="radio" name="colorModeOption" value="dark-mode">
+            Dark
+          </label>
+        </div>
     </header>
     <div id="app"></div>`,
   });
@@ -41,12 +52,65 @@ function createHtml({ title, headImports, bodyImports, bodyContent }) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link href="vendor.css" rel="stylesheet">
+    <style>
+    .custom-main-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .mode-changer {
+      display: flex;
+      align-items: center;
+      color: white;
+      font-size: 12px;
+      padding-right: 20px;
+    }
+    .mode-changer label {
+      display: flex;
+      align-items: center;
+      margin-inline: 4px;
+    }
+  </style>
     ${headImports}
   </head>
   <body id="b" class="awsui-visual-refresh">
     ${bodyContent}
     <script src="libs/fake-server.js"></script>
     <script src="vendor.js"></script>
+    <script>
+
+    const element = document.getElementById("b");
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const element = document.getElementById("b");
+
+      //////// Light mode vs. Dark mode
+      const colorModeRadioButtons = document.getElementsByName("colorModeOption");
+
+      // Apply the appropriate class to the body tag on page load
+      const initialColorMode = Array.from(colorModeRadioButtons).find(radio => radio.checked).value;
+      toggleBodyColorMode(initialColorMode);
+
+      // Add event listeners for color mode radio buttons
+      colorModeRadioButtons.forEach((radio) => {
+        radio.addEventListener("change", () => toggleBodyColorMode(radio.value));
+      });
+
+      function toggleBodyColorMode(option) {
+        element.classList.remove("awsui-light-mode", "awsui-dark-mode"); // Remove existing class names
+        switch (option) {
+          case "light-mode":
+            element.classList.add("awsui-light-mode");
+            break;
+          case "dark-mode":
+            element.classList.add("awsui-dark-mode");
+            break;
+          default:
+            break;
+        }
+      }
+      });
+      </script>
     ${bodyImports}
   </body>
 </html>`;

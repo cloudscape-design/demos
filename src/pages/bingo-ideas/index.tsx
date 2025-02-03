@@ -28,7 +28,8 @@ import {
 import Button from '@cloudscape-design/components/button';
 
 import anonymousAvatar from '../commons/avatar-a.png';
-import headerGradientImage from '../commons/bg-gradient-purple-light.png';
+import headerGradientImageDark from '../commons/bg-gradient-purple-dark.png';
+import headerGradientImageLight from '../commons/bg-gradient-purple-light.png';
 import { SideContent } from '../commons/common-components';
 import { DashboardSideNavigation } from '../dashboard/components/side-navigation';
 import { HeroHeader } from './hero-header';
@@ -530,13 +531,13 @@ function App() {
             //breadcrumbs={<div>hello</div>}
             header={<HeroHeader />}
             defaultPadding={true}
-            maxContentWidth={1360}
+            maxContentWidth={1440}
             disableOverlap={true}
             headerBackgroundStyle={mode => {
               if (mode === 'light') {
-                return `center center/cover url(${headerGradientImage})`;
+                return `center center/cover url(${headerGradientImageLight})`;
               } else {
-                return `center center/cover url(${headerGradientImage})`;
+                return `center center/cover url(${headerGradientImageDark})`;
               }
             }}
           >

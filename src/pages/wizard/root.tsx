@@ -4,8 +4,10 @@ import React, { useCallback, useRef, useState } from 'react';
 
 import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import HelpPanel from '@cloudscape-design/components/help-panel';
+import { applyTheme } from '@cloudscape-design/components/theming';
 import Wizard, { WizardProps } from '@cloudscape-design/components/wizard';
 
+import customTheme from '../../common/theme-definition';
 import { ExternalLinkGroup, InfoLink, Notifications } from '../commons';
 import { CustomAppLayout } from '../commons/common-components';
 import { ToolsContent, WizardState } from './interfaces';
@@ -15,6 +17,7 @@ import Advanced from './stepComponents/step3';
 import Review from './stepComponents/step4';
 import { DEFAULT_STEP_INFO, TOOLS_CONTENT } from './steps-config';
 import { Breadcrumbs, Navigation } from './wizard-components';
+applyTheme({ theme: customTheme });
 
 import '../../styles/wizard.scss';
 
