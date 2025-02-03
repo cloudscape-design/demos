@@ -63,11 +63,13 @@ const customTheme: Theme = {
 
     borderRadiusButton: '24px',
 
-    colorBackgroundNotificationSeverityNeutral: { light: '{colorGrey200}', dark: '{colorGrey900}' },
-    colorBackgroundNotificationSeverityLow: { light: '#D9FFD6', dark: '{colorGrey900}' },
-    colorBackgroundNotificationSeverityMedium: { light: '#FFFBBD', dark: '{colorGrey900}' },
+    colorBackgroundNotificationSeverityCritical: { light: '#FFC2C2' },
+    colorBackgroundNotificationSeverityHigh: { light: '#FFC0AD' },
+    colorBackgroundNotificationSeverityMedium: { light: '#FFFBBD' },
+    colorBackgroundNotificationSeverityLow: { light: '#D9FFD6' },
+    colorBackgroundNotificationSeverityNeutral: { light: '{colorGrey200}' },
 
-    colorTextNotificationSeverityNeutral: { light: '{colorGrey700}', dark: '{colorGrey900}' },
+    colorTextNotificationSeverityNeutral: { light: '{colorGrey700}' },
   },
 } as any;
 
