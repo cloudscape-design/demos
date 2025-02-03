@@ -76,6 +76,9 @@ export default function Messages({ messages = [] }: { messages: Array<Message> }
             >
               {message.content}
             </ChatBubble>
+            {latestMessage.type === 'chat-bubble' && latestMessage.supportPrompts && index === messages.length - 1 && (
+              <div style={{ marginInlineStart: '36px' }}>{message.supportPrompts}</div>
+            )}
           </>
         );
       })}

@@ -1,7 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { useEffect, useRef, useState } from 'react';
+import React, { createRef, useEffect, useRef, useState } from 'react';
 
+import { SupportPromptGroupProps } from '@cloudscape-design/chat-components/support-prompt-group';
 import Alert from '@cloudscape-design/components/alert';
 import Box from '@cloudscape-design/components/box';
 import Container from '@cloudscape-design/components/container';
@@ -18,10 +19,13 @@ import SpaceBetween from '@cloudscape-design/components/space-between';
 import { isVisualRefresh } from '../../common/apply-mode';
 import { FittedContainer, ScrollableContainer } from './common-components';
 import {
+  getInitialMessages,
   getInvalidPromptResponse,
   getLoadingMessage,
-  INITIAL_MESSAGES,
   Message,
+  supportPromptItems,
+  supportPromptMessageOne,
+  supportPromptMessageTwo,
   VALID_PROMPTS,
   validLoadingPrompts,
 } from './config';
@@ -30,13 +34,58 @@ import Messages from './messages';
 import '../../styles/chat.scss';
 
 export default function Chat() {
-  const [messages, setMessages] = useState(INITIAL_MESSAGES);
+  const waitTimeBeforeLoading = 300;
+  // The loading state will be shown for 4 seconds for loading prompt and 1.5 seconds for rest of the prompts
+  const waitTimeBeforeResponse = (isLoadingPrompt: boolean = false) => (isLoadingPrompt ? 4000 : 1500);
+
+  const onSupportPromptClick = (detail: SupportPromptGroupProps.ItemClickDetail) => {
+    let newMessage: Message;
+
+    if (detail.id === 'typescript') {
+      newMessage = supportPromptMessageOne;
+    }
+
+    if (detail.id === 'expand') {
+      newMessage = supportPromptMessageTwo;
+    }
+
+    const supportPromptText = supportPromptItems.find(item => item.id === detail.id)?.text;
+
+    const newUserMessage: Message = {
+      type: 'chat-bubble',
+      authorId: 'user-jane-doe',
+      content: supportPromptText,
+      timestamp: new Date().toLocaleTimeString(),
+    };
+
+    setMessages(prevMessages => [...prevMessages, newUserMessage]);
+
+    setTimeout(() => {
+      setIsGenAiResponseLoading(true);
+      setMessages(prevMessages => [...prevMessages, getLoadingMessage()]);
+    }, waitTimeBeforeLoading);
+
+    setTimeout(() => {
+      setMessages(prevMessages => {
+        prevMessages.splice(prevMessages.length - 1, 1, newMessage);
+        return prevMessages;
+      });
+
+      setIsGenAiResponseLoading(false);
+    }, waitTimeBeforeResponse() + waitTimeBeforeLoading);
+    promptInputRef.current?.focus();
+  };
+
+  const initialMessages = getInitialMessages(onSupportPromptClick);
+
+  const [messages, setMessages] = useState(initialMessages);
   const [prompt, setPrompt] = useState('');
   const [isGenAiResponseLoading, setIsGenAiResponseLoading] = useState(false);
   const [showAlert, setShowAlert] = useState(true);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const lastMessageContent = messages[messages.length - 1].content;
   const [files, setFiles] = useState<File[]>([]);
+  const promptInputRef = createRef<HTMLTextAreaElement>();
 
   const { areFilesDragging } = useFilesDragging();
 
@@ -68,8 +117,6 @@ export default function Chat() {
     setPrompt('');
     setFiles([]);
 
-    const waitTimeBeforeLoading = 300;
-
     // Show loading state
     setTimeout(() => {
       setIsGenAiResponseLoading(true);
@@ -80,9 +127,6 @@ export default function Chat() {
 
     const isLoadingPrompt = validLoadingPrompts.includes(lowerCasePrompt);
 
-    // The loading state will be shown for 4 seconds for loading prompt and 1.5 seconds for rest of the prompts
-    const waitTimeBeforeResponse = isLoadingPrompt ? 4000 : 1500;
-
     // Send Gen-AI response, replacing the loading chat bubble
 
     setTimeout(() => {
@@ -92,14 +136,14 @@ export default function Chat() {
           : VALID_PROMPTS.find(({ prompt }) => prompt.includes(lowerCasePrompt));
 
       setMessages(prevMessages => {
-        const response = validPrompt ? validPrompt.getResponse() : getInvalidPromptResponse();
+        const response = validPrompt ? validPrompt.getResponse(onSupportPromptClick) : getInvalidPromptResponse();
 
         prevMessages.splice(prevMessages.length - 1, 1, response);
         return prevMessages;
       });
       setIsGenAiResponseLoading(false);
       fileValue = [];
-    }, waitTimeBeforeResponse + waitTimeBeforeLoading);
+    }, waitTimeBeforeResponse(isLoadingPrompt) + waitTimeBeforeLoading);
   };
 
   return (
@@ -112,6 +156,8 @@ export default function Chat() {
             1. To see how an incoming response from generative AI is displayed, ask "Show a loading state example".
           </div>
           <div>2. To see an error alert that appears when something goes wrong, ask "Show an error state example".</div>
+          <div>3. To see a how a file upload is displayed, upload a file with any prompt.</div>
+          <div>4. To see support prompts, ask "Show support prompts".</div>
         </Alert>
       )}
 
@@ -137,6 +183,7 @@ export default function Chat() {
               {/* This will be fixed once prompt input receives an update where the action button can receive focus while being disabled. */}
               {/* In the meantime, changing aria labels of prompt input and action button to reflect this. */}
               <PromptInput
+                ref={promptInputRef}
                 onChange={({ detail }) => setPrompt(detail.value)}
                 onAction={onPromptSend}
                 value={prompt}
