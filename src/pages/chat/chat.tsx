@@ -9,7 +9,6 @@ import Container from '@cloudscape-design/components/container';
 import FileDropzone, { useFilesDragging } from '@cloudscape-design/components/file-dropzone';
 import FileInput from '@cloudscape-design/components/file-input';
 import FileTokenGroup from '@cloudscape-design/components/file-token-group';
-import FormField from '@cloudscape-design/components/form-field';
 import Header from '@cloudscape-design/components/header';
 import Icon from '@cloudscape-design/components/icon';
 import Link from '@cloudscape-design/components/link';
@@ -171,18 +170,7 @@ export default function Chat() {
           fitHeight
           disableContentPaddings
           footer={
-            <FormField
-              stretch
-              constraintText={
-                <>
-                  Use of this service is subject to the{' '}
-                  <Link href="#" external variant="primary" fontSize="inherit">
-                    AWS Responsible AI Policy
-                  </Link>
-                  .
-                </>
-              }
-            >
+            <>
               {/* During loading, action button looks enabled but functionality is disabled. */}
               {/* This will be fixed once prompt input receives an update where the action button can receive focus while being disabled. */}
               {/* In the meantime, changing aria labels of prompt input and action button to reflect this. */}
@@ -200,6 +188,7 @@ export default function Chat() {
                 secondaryActions={
                   <Box padding={{ left: 'xxs', top: 'xs' }}>
                     <FileInput
+                      ariaLabel="Chat demo file input"
                       variant="icon"
                       multiple={true}
                       value={files}
@@ -238,7 +227,14 @@ export default function Chat() {
                   )
                 }
               />
-            </FormField>
+              <Box color="text-body-secondary" margin={{ top: 'xs' }} fontSize="body-s">
+                Use of this service is subject to the{' '}
+                <Link href="#" external variant="primary" fontSize="inherit">
+                  AWS Responsible AI Policy
+                </Link>
+                .
+              </Box>
+            </>
           }
         >
           <ScrollableContainer ref={messagesContainerRef}>
