@@ -20,10 +20,6 @@
     "title": "Single page create"
   },
   {
-    "path": "table-select-filter",
-    "title": "Table with select filter"
-  },
-  {
     "path": "wizard",
     "title": "Multipage create"
   },

@@ -80,13 +80,12 @@ function Ideator() {
 }
 
 const CustomTable: React.FC = () => {
-  const [selectedItems] = React.useState<Item[]>([
-    { name: 'Item 2', alt: 'Second', description: '27', type: '1B', comments: 'Large' },
-  ]);
   const [sortingColumn, setSortingColumn] = useState<{ sortingField?: string }>({
     sortingField: 'name',
   });
   const [sortingDescending, setSortingDescending] = useState(false);
+
+  const [selectedOption] = React.useState(null);
 
   return (
     <Table
@@ -322,9 +321,7 @@ const CustomTable: React.FC = () => {
       trackBy="name"
       variant="embedded"
       filter={
-        <div
-          style={{ display: 'grid', gridTemplateColumns: `repeat(5, 1fr)`, gridColumnGap: '8px', alignItems: 'end' }}
-        >
+        <div className="input-container">
           <div className="input-filter">
             <Input
               data-testid="input-filter"
@@ -337,23 +334,36 @@ const CustomTable: React.FC = () => {
           </div>
           <div className="select-filter">
             <Select
-              data-testid="engine-filter"
-              inlineLabelText="AWS services"
-              selectedAriaLabel="Selected"
-              selectedOption={null}
+              selectedOption={selectedOption}
+              options={[
+                { label: 'Option 1', value: '1' },
+                { label: 'Option 2', value: '2' },
+                { label: 'Option 3', value: '3' },
+                { label: 'Option 4', value: '4' },
+                { label: 'Option 5', value: '5' },
+              ]}
+              placeholder="Category"
             />
           </div>
           <div className="select-filter">
             <Select
-              inlineLabelText="Status"
+              //inlineLabelText="Status"
               data-testid="class-filter"
               selectedAriaLabel="Selected"
-              selectedOption={null}
+              selectedOption={selectedOption}
+              options={[
+                { label: 'Option 1', value: '1' },
+                { label: 'Option 2', value: '2' },
+                { label: 'Option 3', value: '3' },
+                { label: 'Option 4', value: '4' },
+                { label: 'Option 5', value: '5' },
+              ]}
+              placeholder="AWS service"
             />
           </div>
         </div>
       }
-      header={<Header counter={selectedItems.length ? `(${selectedItems.length}/10)` : '(10)'}>Product ideas</Header>}
+      header={<Header counter={'(10)'}>Product ideas</Header>}
       pagination={<Pagination currentPageIndex={1} pagesCount={2} />}
     />
   );
@@ -535,9 +545,9 @@ function App() {
             disableOverlap={true}
             headerBackgroundStyle={mode => {
               if (mode === 'light') {
-                return `center center/cover url(${headerGradientImageLight})`;
+                return `url(${headerGradientImageLight}) center center/100% 100%`;
               } else {
-                return `center center/cover url(${headerGradientImageDark})`;
+                return `url(${headerGradientImageDark}) center center/100% 100%`;
               }
             }}
           >
