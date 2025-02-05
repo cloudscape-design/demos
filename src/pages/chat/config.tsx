@@ -3,11 +3,13 @@
 import React from 'react';
 
 import SupportPromptGroup from '@cloudscape-design/chat-components/support-prompt-group';
+import { SupportPromptGroupProps } from '@cloudscape-design/chat-components/support-prompt-group';
 import CodeView from '@cloudscape-design/code-view/code-view';
 import typescriptHighlight from '@cloudscape-design/code-view/highlight/typescript';
 import Box from '@cloudscape-design/components/box';
 import CopyToClipboard from '@cloudscape-design/components/copy-to-clipboard';
 import ExpandableSection from '@cloudscape-design/components/expandable-section';
+import { FileTokenGroupProps } from '@cloudscape-design/components/file-token-group';
 import Link from '@cloudscape-design/components/link';
 import Popover from '@cloudscape-design/components/popover';
 import SpaceBetween from '@cloudscape-design/components/space-between';
@@ -146,7 +148,7 @@ main();`}
   timestamp: new Date().toLocaleTimeString(),
   supportPrompts: (
     <SupportPromptGroup
-      ariaLabel="Typescript support prompt group"
+      ariaLabel="Proposed prompts"
       items={supportPromptItems}
       onItemClick={({ detail }) => {
         onSupportPromptClick(detail);
@@ -157,7 +159,7 @@ main();`}
 
 type ValidPromptType = {
   prompt: Array<string>;
-  getResponse: (onSupportPromptClick?: any) => Message;
+  getResponse: (onSupportPromptClick?: (detail: SupportPromptGroupProps.ItemClickDetail) => void) => Message;
 };
 
 export const validLoadingPrompts = ['show a loading state example', 'loading state', 'loading'];
@@ -176,7 +178,7 @@ export const VALID_PROMPTS: Array<ValidPromptType> = [
     getResponse: getFileResponseMessage,
   },
   {
-    prompt: ['show support prompts', 'support prompts'],
+    prompt: ['show support prompts', 'support prompts', 'support prompt'],
     getResponse: onSupportPromptClick => getSupportPromptResponseMessage(onSupportPromptClick),
   },
 ];
@@ -230,7 +232,9 @@ export const supportPromptItems = [
   },
 ];
 
-export const getInitialMessages = (onSupportPromptClick: any): Array<Message> => {
+export const getInitialMessages = (
+  onSupportPromptClick: (detail: SupportPromptGroupProps.ItemClickDetail) => void
+): Array<Message> => {
   return [
     {
       type: 'chat-bubble',
@@ -434,4 +438,12 @@ enhancedMain('Greetings', 'Earth');`}
     />
   ),
   timestamp: new Date().toLocaleTimeString(),
+};
+
+export const fileTokenGroupI18nStrings: FileTokenGroupProps.I18nStrings = {
+  removeFileAriaLabel: index => `Remove file ${index + 1}`,
+  limitShowFewer: 'Show fewer files',
+  limitShowMore: 'Show more files',
+  errorIconAriaLabel: 'Error',
+  warningIconAriaLabel: 'Warning',
 };

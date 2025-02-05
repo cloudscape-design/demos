@@ -6,6 +6,7 @@ import { SupportPromptGroupProps } from '@cloudscape-design/chat-components/supp
 import Alert from '@cloudscape-design/components/alert';
 import Box from '@cloudscape-design/components/box';
 import Container from '@cloudscape-design/components/container';
+import ExpandableSection from '@cloudscape-design/components/expandable-section';
 import FileDropzone, { useFilesDragging } from '@cloudscape-design/components/file-dropzone';
 import FileInput from '@cloudscape-design/components/file-input';
 import FileTokenGroup from '@cloudscape-design/components/file-token-group';
@@ -18,6 +19,7 @@ import SpaceBetween from '@cloudscape-design/components/space-between';
 import { isVisualRefresh } from '../../common/apply-mode';
 import { FittedContainer, ScrollableContainer } from './common-components';
 import {
+  fileTokenGroupI18nStrings,
   getInitialMessages,
   getInvalidPromptResponse,
   getLoadingMessage,
@@ -59,6 +61,8 @@ export default function Chat() {
 
     setMessages(prevMessages => [...prevMessages, newUserMessage]);
 
+    promptInputRef.current?.focus();
+
     setTimeout(() => {
       setIsGenAiResponseLoading(true);
       setMessages(prevMessages => [...prevMessages, getLoadingMessage()]);
@@ -72,7 +76,6 @@ export default function Chat() {
 
       setIsGenAiResponseLoading(false);
     }, waitTimeBeforeResponse() + waitTimeBeforeLoading);
-    promptInputRef.current?.focus();
   };
 
   const initialMessages = getInitialMessages(onSupportPromptClick);
@@ -98,7 +101,7 @@ export default function Chat() {
   }, [lastMessageContent]);
 
   const onPromptSend = ({ detail: { value } }: { detail: { value: string } }) => {
-    if (!value || value.length === 0 || isGenAiResponseLoading) {
+    if ((!value && files.length === 0) || (value.length === 0 && files.length === 0) || isGenAiResponseLoading) {
       return;
     }
 
@@ -148,19 +151,21 @@ export default function Chat() {
   return (
     <div className={`chat-container ${!isVisualRefresh && 'classic'}`}>
       {showAlert && (
-        <Alert
-          dismissible
-          statusIconAriaLabel="Info"
-          onDismiss={() => setShowAlert(false)}
-          header="This demo showcases how to use generative AI components to build a generative AI chat. The interactions and
+        <Alert dismissible statusIconAriaLabel="Info" onDismiss={() => setShowAlert(false)}>
+          <ExpandableSection
+            variant="inline"
+            headerText="This demo showcases how to use generative AI components to build a generative AI chat. The interactions and
           functionality are limited."
-        >
-          <div>
-            1. To see how an incoming response from generative AI is displayed, ask "Show a loading state example".
-          </div>
-          <div>2. To see an error alert that appears when something goes wrong, ask "Show an error state example".</div>
-          <div>3. To see a how a file upload is displayed, upload a file with any prompt.</div>
-          <div>4. To see support prompts, ask "Show support prompts".</div>
+          >
+            <div>
+              1. To see how an incoming response from generative AI is displayed, ask "Show a loading state example".
+            </div>
+            <div>
+              2. To see an error alert that appears when something goes wrong, ask "Show an error state example".
+            </div>
+            <div>3. To see a how a file upload is displayed, upload a file with any prompt.</div>
+            <div>4. To see support prompts, ask "Show support prompts".</div>
+          </ExpandableSection>
         </Alert>
       )}
 
@@ -208,20 +213,16 @@ export default function Chat() {
                     files.length > 0 && (
                       <FileTokenGroup
                         items={files.map(file => ({ file }))}
-                        onDismiss={({ detail }) =>
-                          setFiles(files => files.filter((_, index) => index !== detail.fileIndex))
-                        }
-                        alignment="horizontal"
-                        showFileSize={true}
-                        showFileLastModified={true}
-                        showFileThumbnail={true}
-                        i18nStrings={{
-                          removeFileAriaLabel: () => 'Remove file',
-                          limitShowFewer: 'Show fewer files',
-                          limitShowMore: 'Show more files',
-                          errorIconAriaLabel: 'Error',
-                          warningIconAriaLabel: 'Warning',
+                        onDismiss={({ detail }) => {
+                          setFiles(files => files.filter((_, index) => index !== detail.fileIndex));
+                          if (files.length === 1) {
+                            promptInputRef.current?.focus();
+                          }
                         }}
+                        limit={3}
+                        alignment="horizontal"
+                        showFileThumbnail={true}
+                        i18nStrings={fileTokenGroupI18nStrings}
                       />
                     )
                   )

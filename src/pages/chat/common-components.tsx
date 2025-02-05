@@ -19,6 +19,7 @@ export function ChatBubbleAvatar({ type, name, initials, loading }: AuthorAvatar
 export function CodeViewActions({ content }: { content: string }) {
   return (
     <ButtonGroup
+      ariaLabel="Code snippet actions"
       variant="icon"
       onItemClick={({ detail }) => {
         if (detail.id !== 'copy' || !navigator.clipboard) {
