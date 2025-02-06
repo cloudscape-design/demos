@@ -342,7 +342,8 @@ const CustomTable: React.FC = () => {
                 { label: 'Option 4', value: '4' },
                 { label: 'Option 5', value: '5' },
               ]}
-              placeholder="Category"
+              placeholder="Choose category"
+              inlineLabelText="Category"
             />
           </div>
           <div className="select-filter">
@@ -358,7 +359,8 @@ const CustomTable: React.FC = () => {
                 { label: 'Option 4', value: '4' },
                 { label: 'Option 5', value: '5' },
               ]}
-              placeholder="AWS service"
+              placeholder="Choose AWS service"
+              inlineLabelText="AWS service"
             />
           </div>
         </div>

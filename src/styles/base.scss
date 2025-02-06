@@ -129,12 +129,12 @@ ul.menu-list {
   order: 0;
   flex-grow: 6;
   inline-size: auto;
-  max-inline-size: 480px;
+  max-inline-size: 400px;
   input {min-height: 36px;}
 }
 
 .select-filter {
-  max-inline-size: 160px;
+  max-inline-size: 200px;
   flex-grow: 2;
   inline-size: auto;
 }
