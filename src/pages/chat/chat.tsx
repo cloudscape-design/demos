@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { createRef, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { SupportPromptGroupProps } from '@cloudscape-design/chat-components/support-prompt-group';
 import Alert from '@cloudscape-design/components/alert';
@@ -87,7 +87,7 @@ export default function Chat() {
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const lastMessageContent = messages[messages.length - 1].content;
   const [files, setFiles] = useState<File[]>([]);
-  const promptInputRef = createRef<HTMLTextAreaElement>();
+  const promptInputRef = useRef<HTMLTextAreaElement>(null);
 
   const { areFilesDragging } = useFilesDragging();
 
