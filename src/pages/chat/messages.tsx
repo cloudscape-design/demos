@@ -23,7 +23,7 @@ export default function Messages({ messages = [] }: { messages: Array<Message> }
       <LiveRegion hidden={true} assertive={latestMessage?.type === 'alert'}>
         {latestMessage?.type === 'alert' && latestMessage.header}
         {latestMessage?.content}
-        {latestMessage.type === 'chat-bubble' &&
+        {latestMessage?.type === 'chat-bubble' &&
           latestMessage.supportPrompts &&
           `There are ${promptText.length} support prompts accompanying this message. ${promptText}`}
       </LiveRegion>
@@ -71,7 +71,7 @@ export default function Messages({ messages = [] }: { messages: Array<Message> }
               </SpaceBetween>
             </ChatBubble>
             {latestMessage.type === 'chat-bubble' && latestMessage.supportPrompts && index === messages.length - 1 && (
-              <div style={{ marginInlineStart: '36px' }}>{message.supportPrompts}</div>
+              <div className="support-prompt-group-wrapper">{message.supportPrompts}</div>
             )}
           </>
         );

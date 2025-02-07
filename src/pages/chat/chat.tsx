@@ -46,6 +46,7 @@ export default function Chat() {
 
   const [files, setFiles] = useState<File[]>([]);
   const promptInputRef = useRef<HTMLTextAreaElement>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
 
   const { areFilesDragging } = useFilesDragging();
 
@@ -89,8 +90,11 @@ export default function Chat() {
   };
 
   const initialMessages = getInitialMessages(onSupportPromptClick);
-  const [messages, setMessages] = useState(initialMessages);
-  const lastMessageContent = messages[messages.length - 1].content;
+  const lastMessageContent = messages[messages.length - 1]?.content;
+
+  useEffect(() => {
+    setMessages(initialMessages);
+  }, []);
 
   useEffect(() => {
     // Scroll to the bottom to show the new/latest message
@@ -164,7 +168,7 @@ export default function Chat() {
             <div>
               2. To see an error alert that appears when something goes wrong, ask "Show an error state example".
             </div>
-            <div>3. To see a how a file upload is displayed, upload a file with any prompt.</div>
+            <div>3. To see a how a file upload is displayed, upload one or more files.</div>
             <div>4. To see support prompts, ask "Show support prompts".</div>
           </ExpandableSection>
         </Alert>

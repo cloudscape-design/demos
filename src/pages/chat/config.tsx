@@ -2,8 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import SupportPromptGroup from '@cloudscape-design/chat-components/support-prompt-group';
-import { SupportPromptGroupProps } from '@cloudscape-design/chat-components/support-prompt-group';
+import SupportPromptGroup, { SupportPromptGroupProps } from '@cloudscape-design/chat-components/support-prompt-group';
 import CodeView from '@cloudscape-design/code-view/code-view';
 import typescriptHighlight from '@cloudscape-design/code-view/highlight/typescript';
 import Box from '@cloudscape-design/components/box';
@@ -36,6 +35,17 @@ type AlertMessage = {
   header?: string;
 };
 
+export const supportPromptItems = [
+  {
+    text: 'What else can I do with TypeScript?',
+    id: 'typescript',
+  },
+  {
+    text: 'How would I add parameters and type checking to this function?',
+    id: 'expand',
+  },
+];
+
 // added as function so that timestamp is evaluated when function is called
 export const getInvalidPromptResponse = (): Message => ({
   type: 'chat-bubble',
@@ -45,7 +55,7 @@ export const getInvalidPromptResponse = (): Message => ({
       The interactions and functionality of this demo are limited.
       <div>1. To see how an incoming response from generative AI is displayed, ask "Show a loading state example".</div>
       <div>2. To see an error alert that appears when something goes wrong, ask "Show an error state example".</div>
-      <div>3. To see a how a file upload is displayed, upload a file with any prompt.</div>
+      <div>3. To see a how a file upload is displayed, upload one or more files.</div>
       <div>4. To see support prompts, ask "Show support prompts".</div>
     </>
   ),
@@ -119,7 +129,9 @@ Context: [no identity-based policy allows the AWSS3:ListBuckets action.]
   ),
 });
 
-const getSupportPromptResponseMessage = (onSupportPromptClick: any): Message => ({
+const getSupportPromptResponseMessage = (
+  onSupportPromptClick?: (detail: SupportPromptGroupProps.ItemClickDetail) => void
+): Message => ({
   type: 'chat-bubble',
   authorId: 'gen-ai',
   content: (
@@ -151,7 +163,7 @@ main();`}
       ariaLabel="Proposed prompts"
       items={supportPromptItems}
       onItemClick={({ detail }) => {
-        onSupportPromptClick(detail);
+        onSupportPromptClick?.(detail);
       }}
     />
   ),
@@ -221,17 +233,6 @@ const CitationPopover = ({ count, href }: { count: number; href: string }) => (
   </Box>
 );
 
-export const supportPromptItems = [
-  {
-    text: 'What else can I do with TypeScript?',
-    id: 'typescript',
-  },
-  {
-    text: 'How would I add parameters and type checking to this function?',
-    id: 'expand',
-  },
-];
-
 export const getInitialMessages = (
   onSupportPromptClick: (detail: SupportPromptGroupProps.ItemClickDetail) => void
 ): Array<Message> => {
@@ -260,12 +261,14 @@ export const getInitialMessages = (
       authorId: 'gen-ai',
       content: (
         <>
-          Creating a configuration for Amazon S3 involves setting up a bucket and configuring its properties{' '}
-          <CitationPopover
-            count={1}
-            href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html"
-          />
-          . Here's a step-by-step guide to help you create an S3 configuration:
+          <span>
+            Creating a configuration for Amazon S3 involves setting up a bucket and configuring its properties{' '}
+            <CitationPopover
+              count={1}
+              href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html"
+            />
+            . Here's a step-by-step guide to help you create an S3 configuration:
+          </span>
           <div>1. Sign in to AWS Management Console</div>
           <div>2. Access Amazon S3 console</div>
           <div>3. Create a new S3 bucket</div>
@@ -420,7 +423,7 @@ function enhancedMain(name: string, greeting: string = "Hello"): void {
   console.log(\`\${greeting}, \${name}!\`);
 }
 
-// Call the main function to execute the program
+// Call the enhancedMain function to execute the program
 enhancedMain('Greetings', 'Earth');`}
     />
   ),
@@ -433,7 +436,7 @@ function enhancedMain(name: string, greeting: string = "Hello"): void {
   }
 console.log("{greeting}, {name}!");
 }
-// Call the main function to execute the program
+// Call the enhancedMain function to execute the program
 enhancedMain('Greetings', 'Earth');`}
     />
   ),
