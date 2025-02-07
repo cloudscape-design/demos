@@ -39,6 +39,16 @@ export default function Chat() {
   // The loading state will be shown for 4 seconds for loading prompt and 1.5 seconds for rest of the prompts
   const waitTimeBeforeResponse = (isLoadingPrompt: boolean = false) => (isLoadingPrompt ? 4000 : 1500);
 
+  const [prompt, setPrompt] = useState('');
+  const [isGenAiResponseLoading, setIsGenAiResponseLoading] = useState(false);
+  const [showAlert, setShowAlert] = useState(true);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
+
+  const [files, setFiles] = useState<File[]>([]);
+  const promptInputRef = useRef<HTMLTextAreaElement>(null);
+
+  const { areFilesDragging } = useFilesDragging();
+
   const onSupportPromptClick = (detail: SupportPromptGroupProps.ItemClickDetail) => {
     let newMessage: Message;
 
@@ -79,17 +89,8 @@ export default function Chat() {
   };
 
   const initialMessages = getInitialMessages(onSupportPromptClick);
-
   const [messages, setMessages] = useState(initialMessages);
-  const [prompt, setPrompt] = useState('');
-  const [isGenAiResponseLoading, setIsGenAiResponseLoading] = useState(false);
-  const [showAlert, setShowAlert] = useState(true);
-  const messagesContainerRef = useRef<HTMLDivElement>(null);
   const lastMessageContent = messages[messages.length - 1].content;
-  const [files, setFiles] = useState<File[]>([]);
-  const promptInputRef = useRef<HTMLTextAreaElement>(null);
-
-  const { areFilesDragging } = useFilesDragging();
 
   useEffect(() => {
     // Scroll to the bottom to show the new/latest message
