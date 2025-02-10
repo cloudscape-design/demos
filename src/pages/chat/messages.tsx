@@ -46,9 +46,8 @@ export default function Messages({ messages = [] }: { messages: Array<Message> }
         const author = AUTHORS[message.authorId];
 
         return (
-          <>
+          <SpaceBetween size="xs" key={message.authorId + message.timestamp}>
             <ChatBubble
-              key={message.authorId + message.timestamp}
               avatar={<ChatBubbleAvatar {...author} loading={message.avatarLoading} />}
               ariaLabel={`${author.name} at ${message.timestamp}`}
               type={author.type === 'gen-ai' ? 'incoming' : 'outgoing'}
@@ -56,7 +55,7 @@ export default function Messages({ messages = [] }: { messages: Array<Message> }
               actions={message.actions}
             >
               <SpaceBetween size="xs">
-                {message.content}
+                <div key={message.authorId + message.timestamp + 'content'}>{message.content}</div>
                 {message.files && message.files.length > 0 && (
                   <FileTokenGroup
                     readOnly
@@ -73,7 +72,7 @@ export default function Messages({ messages = [] }: { messages: Array<Message> }
             {latestMessage.type === 'chat-bubble' && latestMessage.supportPrompts && index === messages.length - 1 && (
               <div className="support-prompt-group-wrapper">{message.supportPrompts}</div>
             )}
-          </>
+          </SpaceBetween>
         );
       })}
     </div>

@@ -12,6 +12,7 @@ import { FileTokenGroupProps } from '@cloudscape-design/components/file-token-gr
 import Link from '@cloudscape-design/components/link';
 import Popover from '@cloudscape-design/components/popover';
 import SpaceBetween from '@cloudscape-design/components/space-between';
+import TextContent from '@cloudscape-design/components/text-content';
 
 import { CodeViewActions } from './common-components';
 
@@ -46,6 +47,17 @@ export const supportPromptItems = [
   },
 ];
 
+export const responseList = (
+  <TextContent>
+    <ol>
+      <li>To see how an incoming response from generative AI is displayed, ask "Show a loading state example".</li>
+      <li>To see an error alert that appears when something goes wrong, ask "Show an error state example".</li>
+      <li>To see a how a file upload is displayed, upload one or more files.</li>
+      <li>To see support prompts, ask "Show support prompts".</li>
+    </ol>
+  </TextContent>
+);
+
 // added as function so that timestamp is evaluated when function is called
 export const getInvalidPromptResponse = (): Message => ({
   type: 'chat-bubble',
@@ -53,10 +65,7 @@ export const getInvalidPromptResponse = (): Message => ({
   content: (
     <>
       The interactions and functionality of this demo are limited.
-      <div>1. To see how an incoming response from generative AI is displayed, ask "Show a loading state example".</div>
-      <div>2. To see an error alert that appears when something goes wrong, ask "Show an error state example".</div>
-      <div>3. To see a how a file upload is displayed, upload one or more files.</div>
-      <div>4. To see support prompts, ask "Show support prompts".</div>
+      {responseList}
     </>
   ),
   timestamp: new Date().toLocaleTimeString(),
@@ -260,26 +269,26 @@ export const getInitialMessages = (
       type: 'chat-bubble',
       authorId: 'gen-ai',
       content: (
-        <>
-          <span>
-            Creating a configuration for Amazon S3 involves setting up a bucket and configuring its properties{' '}
-            <CitationPopover
-              count={1}
-              href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html"
-            />
-            . Here's a step-by-step guide to help you create an S3 configuration:
-          </span>
-          <div>1. Sign in to AWS Management Console</div>
-          <div>2. Access Amazon S3 console</div>
-          <div>3. Create a new S3 bucket</div>
-          <div>
-            4. Configure bucket settings{' '}
-            <CitationPopover
-              count={2}
-              href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-creating-configuration-and-profile-S3-source.html"
-            />
-          </div>
-          <div>5. Review and create</div>
+        <TextContent>
+          Creating a configuration for Amazon S3 involves setting up a bucket and configuring its properties{' '}
+          <CitationPopover
+            count={1}
+            href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html"
+          />
+          . Here's a step-by-step guide to help you create an S3 configuration:
+          <ol>
+            <li>Sign in to AWS Management Console</li>
+            <li>Access Amazon S3 console</li>
+            <li>Create a new S3 bucket</li>
+            <li>
+              Configure bucket settings{' '}
+              <CitationPopover
+                count={2}
+                href="https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-creating-configuration-and-profile-S3-source.html"
+              />
+            </li>
+            <li>Review and create</li>
+          </ol>
           <Box padding={{ top: 'xs' }}>
             <ExpandableSection headerText="Sources">
               <div>
@@ -311,7 +320,7 @@ export const getInitialMessages = (
               </div>
             </ExpandableSection>
           </Box>
-        </>
+        </TextContent>
       ),
       timestamp: getTimestampMinutesAgo(7),
     },

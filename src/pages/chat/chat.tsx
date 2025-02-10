@@ -24,6 +24,7 @@ import {
   getInvalidPromptResponse,
   getLoadingMessage,
   Message,
+  responseList,
   supportPromptItems,
   supportPromptMessageOne,
   supportPromptMessageTwo,
@@ -77,23 +78,22 @@ export default function Chat() {
     setTimeout(() => {
       setIsGenAiResponseLoading(true);
       setMessages(prevMessages => [...prevMessages, getLoadingMessage()]);
+
+      setTimeout(() => {
+        setMessages(prevMessages => {
+          prevMessages.splice(prevMessages.length - 1, 1, newMessage);
+          return prevMessages;
+        });
+
+        setIsGenAiResponseLoading(false);
+      }, waitTimeBeforeResponse());
     }, waitTimeBeforeLoading);
-
-    setTimeout(() => {
-      setMessages(prevMessages => {
-        prevMessages.splice(prevMessages.length - 1, 1, newMessage);
-        return prevMessages;
-      });
-
-      setIsGenAiResponseLoading(false);
-    }, waitTimeBeforeResponse() + waitTimeBeforeLoading);
   };
 
-  const initialMessages = getInitialMessages(onSupportPromptClick);
   const lastMessageContent = messages[messages.length - 1]?.content;
 
   useEffect(() => {
-    setMessages(initialMessages);
+    setMessages(getInitialMessages(onSupportPromptClick));
   }, []);
 
   useEffect(() => {
@@ -124,33 +124,32 @@ export default function Chat() {
     setPrompt('');
     setFiles([]);
 
-    // Show loading state
-    setTimeout(() => {
-      setIsGenAiResponseLoading(true);
-      setMessages(prevMessages => [...prevMessages, getLoadingMessage()]);
-    }, waitTimeBeforeLoading);
-
     const lowerCasePrompt = value.toLowerCase();
 
     const isLoadingPrompt = validLoadingPrompts.includes(lowerCasePrompt);
 
-    // Send Gen-AI response, replacing the loading chat bubble
-
+    // Show loading state
     setTimeout(() => {
-      const validPrompt =
-        fileValue.length > 0
-          ? VALID_PROMPTS.find(({ prompt }) => prompt.includes('file'))
-          : VALID_PROMPTS.find(({ prompt }) => prompt.includes(lowerCasePrompt));
+      setIsGenAiResponseLoading(true);
+      setMessages(prevMessages => [...prevMessages, getLoadingMessage()]);
 
-      setMessages(prevMessages => {
-        const response = validPrompt ? validPrompt.getResponse(onSupportPromptClick) : getInvalidPromptResponse();
+      setTimeout(() => {
+        const validPrompt =
+          fileValue.length > 0
+            ? VALID_PROMPTS.find(({ prompt }) => prompt.includes('file'))
+            : VALID_PROMPTS.find(({ prompt }) => prompt.includes(lowerCasePrompt));
 
-        prevMessages.splice(prevMessages.length - 1, 1, response);
-        return prevMessages;
-      });
-      setIsGenAiResponseLoading(false);
-      fileValue = [];
-    }, waitTimeBeforeResponse(isLoadingPrompt) + waitTimeBeforeLoading);
+        // Send Gen-AI response, replacing the loading chat bubble
+        setMessages(prevMessages => {
+          const response = validPrompt ? validPrompt.getResponse(onSupportPromptClick) : getInvalidPromptResponse();
+
+          prevMessages.splice(prevMessages.length - 1, 1, response);
+          return prevMessages;
+        });
+        setIsGenAiResponseLoading(false);
+        fileValue = [];
+      }, waitTimeBeforeResponse(isLoadingPrompt));
+    }, waitTimeBeforeLoading);
   };
 
   return (
@@ -162,14 +161,7 @@ export default function Chat() {
             headerText="This demo showcases how to use generative AI components to build a generative AI chat. The interactions and
           functionality are limited."
           >
-            <div>
-              1. To see how an incoming response from generative AI is displayed, ask "Show a loading state example".
-            </div>
-            <div>
-              2. To see an error alert that appears when something goes wrong, ask "Show an error state example".
-            </div>
-            <div>3. To see a how a file upload is displayed, upload one or more files.</div>
-            <div>4. To see support prompts, ask "Show support prompts".</div>
+            {responseList}
           </ExpandableSection>
         </Alert>
       )}
