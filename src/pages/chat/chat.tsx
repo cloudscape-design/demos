@@ -94,6 +94,7 @@ export default function Chat() {
 
   useEffect(() => {
     setMessages(getInitialMessages(onSupportPromptClick));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
