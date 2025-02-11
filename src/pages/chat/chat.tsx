@@ -2,20 +2,32 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useEffect, useRef, useState } from 'react';
 
+import { SupportPromptGroupProps } from '@cloudscape-design/chat-components/support-prompt-group';
 import Alert from '@cloudscape-design/components/alert';
+import Box from '@cloudscape-design/components/box';
 import Container from '@cloudscape-design/components/container';
-import FormField from '@cloudscape-design/components/form-field';
+import ExpandableSection from '@cloudscape-design/components/expandable-section';
+import FileDropzone, { useFilesDragging } from '@cloudscape-design/components/file-dropzone';
+import FileInput from '@cloudscape-design/components/file-input';
+import FileTokenGroup from '@cloudscape-design/components/file-token-group';
 import Header from '@cloudscape-design/components/header';
+import Icon from '@cloudscape-design/components/icon';
 import Link from '@cloudscape-design/components/link';
 import PromptInput from '@cloudscape-design/components/prompt-input';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { isVisualRefresh } from '../../common/apply-mode';
 import { FittedContainer, ScrollableContainer } from './common-components';
 import {
+  fileTokenGroupI18nStrings,
+  getInitialMessages,
   getInvalidPromptResponse,
   getLoadingMessage,
-  INITIAL_MESSAGES,
   Message,
+  responseList,
+  supportPromptItems,
+  supportPromptMessageOne,
+  supportPromptMessageTwo,
   VALID_PROMPTS,
   validLoadingPrompts,
 } from './config';
@@ -24,12 +36,66 @@ import Messages from './messages';
 import '../../styles/chat.scss';
 
 export default function Chat() {
-  const [messages, setMessages] = useState(INITIAL_MESSAGES);
+  const waitTimeBeforeLoading = 300;
+  // The loading state will be shown for 4 seconds for loading prompt and 1.5 seconds for rest of the prompts
+  const waitTimeBeforeResponse = (isLoadingPrompt: boolean = false) => (isLoadingPrompt ? 4000 : 1500);
+
   const [prompt, setPrompt] = useState('');
   const [isGenAiResponseLoading, setIsGenAiResponseLoading] = useState(false);
   const [showAlert, setShowAlert] = useState(true);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
-  const lastMessageContent = messages[messages.length - 1].content;
+
+  const [files, setFiles] = useState<File[]>([]);
+  const promptInputRef = useRef<HTMLTextAreaElement>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
+
+  const { areFilesDragging } = useFilesDragging();
+
+  const onSupportPromptClick = (detail: SupportPromptGroupProps.ItemClickDetail) => {
+    let newMessage: Message;
+
+    if (detail.id === 'typescript') {
+      newMessage = supportPromptMessageOne;
+    }
+
+    if (detail.id === 'expand') {
+      newMessage = supportPromptMessageTwo;
+    }
+
+    const supportPromptText = supportPromptItems.find(item => item.id === detail.id)?.text;
+
+    const newUserMessage: Message = {
+      type: 'chat-bubble',
+      authorId: 'user-jane-doe',
+      content: supportPromptText,
+      timestamp: new Date().toLocaleTimeString(),
+    };
+
+    setMessages(prevMessages => [...prevMessages, newUserMessage]);
+
+    promptInputRef.current?.focus();
+
+    setTimeout(() => {
+      setIsGenAiResponseLoading(true);
+      setMessages(prevMessages => [...prevMessages, getLoadingMessage()]);
+
+      setTimeout(() => {
+        setMessages(prevMessages => {
+          prevMessages.splice(prevMessages.length - 1, 1, newMessage);
+          return prevMessages;
+        });
+
+        setIsGenAiResponseLoading(false);
+      }, waitTimeBeforeResponse());
+    }, waitTimeBeforeLoading);
+  };
+
+  const lastMessageContent = messages[messages.length - 1]?.content;
+
+  useEffect(() => {
+    setMessages(getInitialMessages(onSupportPromptClick));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     // Scroll to the bottom to show the new/latest message
@@ -41,7 +107,7 @@ export default function Chat() {
   }, [lastMessageContent]);
 
   const onPromptSend = ({ detail: { value } }: { detail: { value: string } }) => {
-    if (!value || value.length === 0 || isGenAiResponseLoading) {
+    if ((!value && files.length === 0) || (value.length === 0 && files.length === 0) || isGenAiResponseLoading) {
       return;
     }
 
@@ -50,49 +116,54 @@ export default function Chat() {
       authorId: 'user-jane-doe',
       content: value,
       timestamp: new Date().toLocaleTimeString(),
+      files,
     };
+
+    let fileValue = files;
 
     setMessages(prevMessages => [...prevMessages, newMessage]);
     setPrompt('');
-
-    const waitTimeBeforeLoading = 300;
-
-    // Show loading state
-    setTimeout(() => {
-      setIsGenAiResponseLoading(true);
-      setMessages(prevMessages => [...prevMessages, getLoadingMessage()]);
-    }, waitTimeBeforeLoading);
+    setFiles([]);
 
     const lowerCasePrompt = value.toLowerCase();
 
     const isLoadingPrompt = validLoadingPrompts.includes(lowerCasePrompt);
 
-    // The loading state will be shown for 4 seconds for loading prompt and 1.5 seconds for rest of the prompts
-    const waitTimeBeforeResponse = isLoadingPrompt ? 4000 : 1500;
-
-    // Send Gen-AI response, replacing the loading chat bubble
+    // Show loading state
     setTimeout(() => {
-      const validPrompt = VALID_PROMPTS.find(({ prompt }) => prompt.includes(lowerCasePrompt));
+      setIsGenAiResponseLoading(true);
+      setMessages(prevMessages => [...prevMessages, getLoadingMessage()]);
 
-      setMessages(prevMessages => {
-        const response = validPrompt ? validPrompt.getResponse() : getInvalidPromptResponse();
-        prevMessages.splice(prevMessages.length - 1, 1, response);
-        return prevMessages;
-      });
-      setIsGenAiResponseLoading(false);
-    }, waitTimeBeforeResponse + waitTimeBeforeLoading);
+      setTimeout(() => {
+        const validPrompt =
+          fileValue.length > 0
+            ? VALID_PROMPTS.find(({ prompt }) => prompt.includes('file'))
+            : VALID_PROMPTS.find(({ prompt }) => prompt.includes(lowerCasePrompt));
+
+        // Send Gen-AI response, replacing the loading chat bubble
+        setMessages(prevMessages => {
+          const response = validPrompt ? validPrompt.getResponse(onSupportPromptClick) : getInvalidPromptResponse();
+
+          prevMessages.splice(prevMessages.length - 1, 1, response);
+          return prevMessages;
+        });
+        setIsGenAiResponseLoading(false);
+        fileValue = [];
+      }, waitTimeBeforeResponse(isLoadingPrompt));
+    }, waitTimeBeforeLoading);
   };
 
   return (
     <div className={`chat-container ${!isVisualRefresh && 'classic'}`}>
       {showAlert && (
         <Alert dismissible statusIconAriaLabel="Info" onDismiss={() => setShowAlert(false)}>
-          This demo showcases how to use generative AI components to build a generative AI chat. The interactions and
-          functionality are limited.
-          <div>
-            1. To see how an incoming response from generative AI is displayed, ask "Show a loading state example".
-          </div>
-          <div>2. To see an error alert that appears when something goes wrong, ask "Show an error state example".</div>
+          <ExpandableSection
+            variant="inline"
+            headerText="This demo showcases how to use generative AI components to build a generative AI chat. The interactions and
+          functionality are limited."
+          >
+            {responseList}
+          </ExpandableSection>
         </Alert>
       )}
 
@@ -102,22 +173,12 @@ export default function Chat() {
           fitHeight
           disableContentPaddings
           footer={
-            <FormField
-              stretch
-              constraintText={
-                <>
-                  Use of this service is subject to the{' '}
-                  <Link href="#" external variant="primary" fontSize="inherit">
-                    AWS Responsible AI Policy
-                  </Link>
-                  .
-                </>
-              }
-            >
+            <>
               {/* During loading, action button looks enabled but functionality is disabled. */}
               {/* This will be fixed once prompt input receives an update where the action button can receive focus while being disabled. */}
               {/* In the meantime, changing aria labels of prompt input and action button to reflect this. */}
               <PromptInput
+                ref={promptInputRef}
                 onChange={({ detail }) => setPrompt(detail.value)}
                 onAction={onPromptSend}
                 value={prompt}
@@ -126,8 +187,53 @@ export default function Chat() {
                 ariaLabel={isGenAiResponseLoading ? 'Prompt input - suppressed' : 'Prompt input'}
                 placeholder="Ask a question"
                 autoFocus
+                disableSecondaryActionsPaddings
+                secondaryActions={
+                  <Box padding={{ left: 'xxs', top: 'xs' }}>
+                    <FileInput
+                      ariaLabel="Chat demo file input"
+                      variant="icon"
+                      multiple={true}
+                      value={files}
+                      onChange={({ detail }) => setFiles(prev => [...prev, ...detail.value])}
+                    />
+                  </Box>
+                }
+                secondaryContent={
+                  areFilesDragging ? (
+                    <FileDropzone onChange={({ detail }) => setFiles(prev => [...prev, ...detail.value])}>
+                      <SpaceBetween size="xs" alignItems="center">
+                        <Icon name="upload" />
+                        <Box>Drop files here</Box>
+                      </SpaceBetween>
+                    </FileDropzone>
+                  ) : (
+                    files.length > 0 && (
+                      <FileTokenGroup
+                        items={files.map(file => ({ file }))}
+                        onDismiss={({ detail }) => {
+                          setFiles(files => files.filter((_, index) => index !== detail.fileIndex));
+                          if (files.length === 1) {
+                            promptInputRef.current?.focus();
+                          }
+                        }}
+                        limit={3}
+                        alignment="horizontal"
+                        showFileThumbnail={true}
+                        i18nStrings={fileTokenGroupI18nStrings}
+                      />
+                    )
+                  )
+                }
               />
-            </FormField>
+              <Box color="text-body-secondary" margin={{ top: 'xs' }} fontSize="body-s">
+                Use of this service is subject to the{' '}
+                <Link href="#" external variant="primary" fontSize="inherit">
+                  AWS Responsible AI Policy
+                </Link>
+                .
+              </Box>
+            </>
           }
         >
           <ScrollableContainer ref={messagesContainerRef}>
