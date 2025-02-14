@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import { useCallback, useState } from 'react';
 
-import { load, remove, save } from '../../common/localStorage';
+import { load, remove, save } from '../../common/local-storage';
 
 export function useLocalStorage<T>(key: string, defaultValue?: T) {
   const [value, setValue] = useState<T | undefined>(() => load<T>(key) ?? defaultValue);

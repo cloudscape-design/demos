@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import { applyDensity, Density, disableMotion } from '@cloudscape-design/global-styles';
 
-import * as localStorage from './localStorage';
+import * as localStorage from './local-storage';
 
 import '@cloudscape-design/global-styles/index.css';
 

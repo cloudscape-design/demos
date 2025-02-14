@@ -61,7 +61,9 @@ export default function Messages({ messages = [] }: { messages: Array<Message> }
                     readOnly
                     items={message.files.map(file => ({ file }))}
                     limit={3}
-                    onDismiss={() => {}}
+                    onDismiss={() => {
+                      /* empty function for read only token */
+                    }}
                     alignment="horizontal"
                     showFileThumbnail={true}
                     i18nStrings={fileTokenGroupI18nStrings}

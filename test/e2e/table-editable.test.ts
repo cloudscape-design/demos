@@ -54,9 +54,11 @@ describe('Table - Inline Editing', () => {
   test(
     'Can manually refresh table data',
     setupTest(async page => {
+      await page.waitForVisible(page.lastRefresh());
+      await expect(page.getText(page.lastRefresh())).resolves.toContain('Last updated');
       await page.click(page.refreshButton());
       await page.waitForVisible(page.lastRefresh());
-      await page.waitForAssertion(() => expect(page.getText(page.lastRefresh())).resolves.toContain('Last updated'));
+      await expect(page.getText(page.lastRefresh())).resolves.toContain('Last updated');
     })
   );
 });
