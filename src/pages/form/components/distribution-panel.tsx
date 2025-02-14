@@ -130,7 +130,7 @@ export default function DistributionPanel({
       return;
     }
 
-    setErrors({ [attribute]: [errorText] });
+    setErrors({ [attribute]: errorText });
   };
 
   return (

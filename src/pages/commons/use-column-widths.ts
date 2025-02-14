@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 
 import { TableProps } from '@cloudscape-design/components/table';
 
-import { addToColumnDefinitions, mapWithColumnDefinitionIds } from '../../common/columnDefinitionsHelper';
+import { addToColumnDefinitions, mapWithColumnDefinitionIds } from '../../common/column-definitions-helper';
 import { useLocalStorage } from './use-local-storage';
 
 export function useColumnWidths<T>(storageKey: string, columnDefinitions: TableProps.ColumnDefinition<T>[]) {

@@ -202,7 +202,7 @@ export function TablePreferences({
       preferences={preferences}
       contentDisplayPreference={{
         title: 'Column preferences',
-        description: 'Customize the columns visibility and order.',
+        description: 'Customize the visibility and order of the columns.',
         options: [
           {
             id: 'name',

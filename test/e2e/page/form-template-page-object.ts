@@ -69,4 +69,14 @@ export default class Page extends FormPage {
   isExpandableSectionVisible(index: number) {
     return this.isDisplayed(expandableSectionItems(index));
   }
+  async enterAndBlurRootObject(text?: string) {
+    await this.waitForVisible(rootInput);
+    if (text) {
+      await this.setValue(rootInput, text);
+    } else {
+      await this.click(rootInput);
+    }
+    // click somewhere to blur the input and trigger validation
+    await this.click(createWrapper().findHeader().toSelector());
+  }
 }

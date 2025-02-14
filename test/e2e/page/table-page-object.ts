@@ -82,10 +82,11 @@ export default class TablePageObject extends AppLayoutPage {
   }
 
   async waitUntilLoaded() {
-    // wait out onDelayedInput handler
-    await this.pause(200);
-    // wait for table content to be loaded
-    await this.waitForVisible(this.tableWrapper.findLoadingText().toSelector(), false);
+    await this.pause(1000);
+
+    if (await this.isDisplayed(this.tableWrapper.findLoadingText().toSelector())) {
+      throw new Error('Loading text is still displayed');
+    }
   }
 
   async reload() {

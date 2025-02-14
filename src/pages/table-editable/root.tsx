@@ -104,7 +104,10 @@ function TableContent({ loadHelpPanelContent, distributions }: TableContentProps
 
   useEffect(() => {
     // Demonstrates an initial fetching of the data from the backend.
-    setTimeout(() => setLoading(false), 500);
+    setTimeout(() => {
+      setLoading(false);
+      setLastRefresh(new Date());
+    }, 500);
   }, []);
 
   const handleSubmit = async (
@@ -188,7 +191,7 @@ function TableContent({ loadHelpPanelContent, distributions }: TableContentProps
         />
       }
       pagination={<Pagination {...tablePaginationProps} disabled={submitting} />}
-      preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}
+      preferences={<Preferences preferences={preferences} setPreferences={setPreferences} disabled={submitting} />}
     />
   );
 }

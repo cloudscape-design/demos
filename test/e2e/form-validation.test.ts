@@ -244,4 +244,25 @@ describe('Form validation example', () => {
       await expect(page.isRootInputFocused()).resolves.toBe(true);
     })
   );
+
+  test(
+    'Shows error message on blur',
+    setupTest(async page => {
+      // Blur when empty
+      await page.enterAndBlurRootObject();
+      await expect(page.getDistributionPanelErrorMessages()).resolves.toEqual(
+        expect.arrayContaining(['Root object is required.'])
+      );
+
+      // Blur with invalid input
+      await page.enterAndBlurRootObject('https://example');
+      await expect(page.getDistributionPanelErrorMessages()).resolves.toEqual(
+        expect.arrayContaining(['Enter a valid root object URL. Example: https://example.com'])
+      );
+
+      // Blur with valid input
+      await page.enterAndBlurRootObject('.com');
+      await expect(page.getDistributionPanelErrorMessages()).resolves.toEqual([]);
+    })
+  );
 });
