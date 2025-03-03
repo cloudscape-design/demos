@@ -38,7 +38,7 @@ class TagsTab extends BaseExamplePage {
     await this.waitForTableToLoad();
   }
   private async waitForTableToLoad() {
-    await this.waitForVisible(tagsTableWrapper.findLoadingText().toSelector(), false);
+    await this.waitForExist(tagsTableWrapper.findLoadingText().toSelector(), false);
   }
 
   private async getTableRow(rowIndex: number) {

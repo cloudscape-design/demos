@@ -17,7 +17,7 @@ class S3ReadPageObject extends S3PageObject {
   }
 
   async waitForSelectLoaded() {
-    await this.waitForVisible(createWrapper(s3ResourceSelector.toSelector()).findSpinner().toSelector(), false);
+    await this.waitForExist(createWrapper(s3ResourceSelector.toSelector()).findSpinner().toSelector(), false);
   }
 }
 

@@ -58,7 +58,7 @@ export default class CardsFilteringPageObject extends AppLayoutPage {
   }
 
   async waitUntilLoaded() {
-    await this.waitForVisible(cardsWrapper.findLoadingText().toSelector(), false);
+    await this.waitForExist(cardsWrapper.findLoadingText().toSelector(), false);
     await this.waitForVisible(cardsWrapper.findItems().toSelector());
   }
 

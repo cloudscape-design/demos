@@ -3,7 +3,7 @@
 import createWrapper from '@cloudscape-design/components/test-utils/selectors';
 import BaseExamplePage from '../common/base-example-page';
 
-const DEBOUNCE_FILTERING_DELAY = 400;
+const DEBOUNCE_FILTERING_DELAY = 2 * 400;
 
 export default class PageObject extends BaseExamplePage {
   private tagEditorWrapper = createWrapper().findTagEditor();
@@ -36,8 +36,9 @@ export default class PageObject extends BaseExamplePage {
     await this.click(this.findKeyAutosuggest(row).findNativeInput().toSelector());
     await this.browser.keys(key);
     await this.browser.pause(DEBOUNCE_FILTERING_DELAY);
-    await this.waitForElementToDisappear(
-      this.findKeyAutosuggest(row).findDropdown().findFooterRegion().findSpinner().toSelector()
+    await this.waitForExist(
+      this.findKeyAutosuggest(row).findDropdown().findFooterRegion().findSpinner().toSelector(),
+      false
     );
   }
 
@@ -46,8 +47,9 @@ export default class PageObject extends BaseExamplePage {
     await el.click();
     await this.browser.keys(key);
     await this.browser.pause(DEBOUNCE_FILTERING_DELAY);
-    await this.waitForElementToDisappear(
-      this.findValueAutosuggest(row).findDropdown().findFooterRegion().findSpinner().toSelector()
+    await this.waitForExist(
+      this.findValueAutosuggest(row).findDropdown().findFooterRegion().findSpinner().toSelector(),
+      false
     );
   }
 
@@ -64,10 +66,6 @@ export default class PageObject extends BaseExamplePage {
   async getValueSuggestionsCount(row: number) {
     const items = await this.browser.$$(this.findValueAutosuggest(row).findDropdown().findOptions().toSelector());
     return items.length;
-  }
-
-  async waitForElementToDisappear(selector: string) {
-    await this.waitForVisible(selector, false);
   }
 
   getTagCount() {
