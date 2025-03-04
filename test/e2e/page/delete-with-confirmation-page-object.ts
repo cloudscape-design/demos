@@ -23,7 +23,7 @@ export default class DeleteWithConfirmationPageObject extends AppLayoutPage {
   }
 
   async waitUntilLoaded() {
-    await this.waitForVisible(this.tableWrapper.findLoadingText().toSelector(), false);
+    await this.waitForExist(this.tableWrapper.findLoadingText().toSelector(), false);
     await this.waitForVisible(this.modalWrapper.toSelector());
   }
 

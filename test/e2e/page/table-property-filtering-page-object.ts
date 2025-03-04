@@ -89,7 +89,7 @@ export default class TablePropertyFilteringPageObject extends TablePageObject {
   }
 
   async waitUntilPropertyFilterLoaded() {
-    await this.waitForVisible(
+    await this.waitForExist(
       this.findPropertyFiltering().findDropdown().findFooterRegion().findSpinner().toSelector(),
       false
     );

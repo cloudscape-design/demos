@@ -16,4 +16,8 @@ export default class BaseExamplePage extends BasePageObject {
     await element.scrollIntoView();
     await element.click();
   }
+
+  waitForExist(selector: string, shouldExist = true) {
+    return this.browser.$(selector).waitForExist({ reverse: !shouldExist });
+  }
 }

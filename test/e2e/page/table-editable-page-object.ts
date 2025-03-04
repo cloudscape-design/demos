@@ -9,7 +9,7 @@ export default class TableEditablePageObject extends TableFilteringPageObject {
   }
 
   waitForEditSave() {
-    return this.waitForVisible(this.tableWrapper.findEditingCellSaveButton().toSelector(), false);
+    return this.waitForExist(this.tableWrapper.findEditingCellSaveButton().toSelector(), false);
   }
 
   waitForEditFail() {

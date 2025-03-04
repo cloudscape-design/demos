@@ -10,7 +10,7 @@ class PageObject extends BaseExamplePage {
     // wait for table to be loaded
     await this.waitForVisible(tableWrapper.findRows().toSelector());
     // wait for table content to be loaded
-    await this.waitForVisible(tableWrapper.findLoadingText().toSelector(), false);
+    await this.waitForExist(tableWrapper.findLoadingText().toSelector(), false);
   }
   countTableRows() {
     return this.getElementsCount(tableWrapper.findRows().toSelector());
