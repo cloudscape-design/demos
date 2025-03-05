@@ -10,8 +10,8 @@ const fs = require('fs');
 const filename = require.resolve('../package-lock.json');
 const packageLock = require(filename);
 
-if (packageLock.lockfileVersion !== 3) {
-  throw new Error('package-lock.json must have "lockfileVersion": 3');
+if (packageLock.lockfileVersion !== 2) {
+  throw new Error('package-lock.json must have "lockfileVersion": 2');
 }
 
 function unlock(packages) {
@@ -25,6 +25,7 @@ function unlock(packages) {
 }
 
 packageLock.packages = unlock(packageLock.packages);
+packageLock.dependencies = unlock(packageLock.dependencies);
 
 fs.writeFileSync(filename, JSON.stringify(packageLock, null, 2) + '\n');
 console.log('Removed @cloudscape-design/ dependencies from package-lock file');
