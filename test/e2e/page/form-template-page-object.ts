@@ -48,9 +48,6 @@ export default class Page extends FormPage {
   async openRootObjectInfo() {
     await this.scrollIntoViewAndClick('#root-object-info-link');
   }
-  async openCertificateInfo() {
-    await this.scrollIntoViewAndClick('#certificate-method-info-link');
-  }
   async openDeliveryMethodInfo() {
     await this.scrollIntoViewAndClick('#delivery-method-info-link');
   }
@@ -74,9 +71,9 @@ export default class Page extends FormPage {
     if (text) {
       await this.setValue(rootInput, text);
     } else {
-      await this.click(rootInput);
+      await this.scrollIntoViewAndClick(rootInput);
     }
     // click somewhere to blur the input and trigger validation
-    await this.click(createWrapper().findHeader().toSelector());
+    await this.scrollIntoViewAndClick(createWrapper().findHeader().toSelector());
   }
 }

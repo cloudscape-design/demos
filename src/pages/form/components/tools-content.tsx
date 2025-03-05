@@ -93,36 +93,6 @@ export default [
     </p>
   </HelpPanel>,
   <HelpPanel
-    header={<h2>SSL/TLS certificate</h2>}
-    footer={
-      <ExternalLinkGroup
-        items={[
-          {
-            href: 'https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html',
-            text: 'Requirements for using SSL/TLS certificates with CloudFront',
-          },
-        ]}
-      />
-    }
-  >
-    <p>
-      When CloudFront receives a request for content, it finds the domain name in the request header and responds to the
-      request with the applicable SSL/TLS certificate. CloudFront and the viewer perform an SSL/TLS negotiation, and if
-      the negotiation is successful CloudFront returns the requested content to the viewer.
-    </p>
-    <p>
-      You can use the default CloudFront SSL/TLS certificate or a custom SSL/TLS certificate. The default certificate
-      requires that you use the CloudFront domain name for your distribution in the URLs for your files, for example,{' '}
-      <code>https://1234567890abcdef0.cloudfront.net/logo.png</code>. If you use your own domain name, such as{' '}
-      <code>example.com</code>, you must choose one of these options:
-    </p>
-    <ul>
-      <li>Use an SSL/TLS certificate provided by AWS Certificate Manager (ACM)</li>
-      <li>Import a certificate from a third-party certificate authority into ACM or the IAM certificate store</li>
-      <li>Create and import a self-signed certificate</li>
-    </ul>
-  </HelpPanel>,
-  <HelpPanel
     header={<h2>Root object</h2>}
     footer={
       <ExternalLinkGroup

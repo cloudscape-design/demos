@@ -13,28 +13,18 @@ import SpaceBetween from '@cloudscape-design/components/space-between';
 import { InfoLink } from '../../commons/common-components';
 import useContentOrigins from '../../commons/use-content-origins';
 import validateField from '../form-validation-config';
-import { FormDataAttributesErrors, FormDataAttributesValues, FormRefs } from '../types';
+import { FormPanelProps } from '../types';
 import HeadersEditor from './headers-editor';
-
-interface OriginPanelProps {
-  loadHelpPanelContent: (value: number) => void;
-  data: FormDataAttributesValues;
-  setData: (data: Partial<FormDataAttributesValues>) => void;
-  errors?: Partial<FormDataAttributesErrors>;
-  validation?: boolean;
-  setErrors?: (error: Partial<FormDataAttributesErrors>) => void;
-  refs?: FormRefs;
-}
 
 export default function OriginPanel({
   loadHelpPanelContent,
   validation = false,
   data,
-  errors = {},
+  errors,
   setData,
   setErrors,
   refs,
-}: OriginPanelProps) {
+}: FormPanelProps) {
   const [contentOriginsState, contentOriginsHandlers] = useContentOrigins();
   const [selectedOptions, setSelectedOptions] = useState<MultiselectProps['selectedOptions']>([]);
   const [contentPath, setContentPath] = useState('');
@@ -48,11 +38,11 @@ export default function OriginPanel({
   const onChangeOriginId = (value: string) => {
     setData({ originId: value });
 
-    if (!validation) {
+    if (!validation || !errors) {
       return;
     }
 
-    if (errors.originId !== undefined && errors.originId?.length > 0) {
+    if (errors.originId?.length > 0) {
       validateOriginId(value);
     }
   };
@@ -78,7 +68,7 @@ export default function OriginPanel({
               Content origin<i> - optional</i>
             </>
           }
-          info={<InfoLink id="content-origin-info-link" onFollow={() => loadHelpPanelContent(5)} />}
+          info={<InfoLink id="content-origin-info-link" onFollow={() => loadHelpPanelContent(4)} />}
           description="The Amazon S3 bucket or web server that you want CloudFront to get your web content from."
           i18nStrings={{ errorIconAriaLabel: 'Error' }}
         >
@@ -111,7 +101,7 @@ export default function OriginPanel({
               Path to content<i> - optional</i>
             </>
           }
-          info={<InfoLink id="path-info-link" onFollow={() => loadHelpPanelContent(6)} />}
+          info={<InfoLink id="path-info-link" onFollow={() => loadHelpPanelContent(5)} />}
           description="The directory in your Amazon S3 bucket or your custom origin."
           i18nStrings={{ errorIconAriaLabel: 'Error' }}
         >
@@ -119,10 +109,10 @@ export default function OriginPanel({
         </FormField>
         <FormField
           label="Origin ID"
-          info={<InfoLink id="origin-id-info-link" onFollow={() => loadHelpPanelContent(7)} />}
+          info={<InfoLink id="origin-id-info-link" onFollow={() => loadHelpPanelContent(6)} />}
           description="This value lets you distinguish multiple origins in the same distribution from one another."
           constraintText="Valid characters are a-z, A-Z, 0-9, hypens (-), and periods (.)."
-          errorText={errors.originId}
+          errorText={errors?.originId}
           i18nStrings={{ errorIconAriaLabel: 'Error' }}
         >
           <Input
@@ -137,7 +127,7 @@ export default function OriginPanel({
         <SpaceBetween size="xs">
           <Header
             variant="h3"
-            info={<InfoLink id="custom-headers-info-link" onFollow={() => loadHelpPanelContent(8)} />}
+            info={<InfoLink id="custom-headers-info-link" onFollow={() => loadHelpPanelContent(7)} />}
           >
             Custom headers
           </Header>

@@ -3,6 +3,7 @@
 import { Ref, RefObject } from 'react';
 
 import { AttributeEditorProps } from '@cloudscape-design/components/attribute-editor';
+import { ButtonProps } from '@cloudscape-design/components/button';
 import { CodeEditorProps } from '@cloudscape-design/components/code-editor';
 import { DatePickerProps } from '@cloudscape-design/components/date-picker';
 import { FileUploadProps } from '@cloudscape-design/components/file-upload';
@@ -21,7 +22,6 @@ export interface CustomHeader {
 }
 
 export interface FormDataAttributesValues {
-  sslCertificate: string;
   cloudFrontRootObject: string;
   alternativeDomainNames: string;
   s3BucketSelectedOption: SelectProps.Option | null;
@@ -36,11 +36,13 @@ export interface FormDataAttributesValues {
   functionFiles: File[];
   tags: string;
   functionFile: File | undefined;
+  originRequestPolicyName: string;
+  isOriginRequestPolicyNew: boolean;
+  cachePolicy: SelectProps.Option | null; // though this field's value is not kept here (kept in cachePolicyProps.selectedPolicy), it is added for validation and focusing on the input if there is an error
 }
 
 // Errors associated with each field
 export interface FormDataAttributesErrors {
-  sslCertificate: string;
   cloudFrontRootObject: string;
   alternativeDomainNames: string;
   s3BucketSelectedOption: string;
@@ -55,10 +57,19 @@ export interface FormDataAttributesErrors {
   originId: string;
   codeEditor: string;
   functionFile: string;
+  originRequestPolicyName: string;
+  isOriginRequestPolicyNew: string;
+  cachePolicy: string;
+}
+
+// Attributes that utilize form-validation-config/validateField function
+export interface FormDataValidationAttributes extends FormDataAttributesValues {
+  cachePolicyName: string;
 }
 
 // Keys of the data attributes
 export type FormDataAttributesKeys = keyof FormDataAttributesValues;
+export type FormDataValidationAttributesKeys = keyof FormDataValidationAttributes;
 
 export interface FormRefs {
   cloudFrontRootObject: RefObject<InputProps.Ref>;
@@ -71,4 +82,40 @@ export interface FormRefs {
   customHeaders: RefObject<AttributeEditorProps.Ref>;
   codeEditor: RefObject<CodeEditorProps.Ref>;
   tags: RefObject<TagEditorProps.Ref>;
+  originRequestPolicyName: RefObject<HTMLInputElement>;
+  cachePolicy: RefObject<SelectProps.Ref>;
+}
+
+export interface FormPanelProps {
+  loadHelpPanelContent: (value: number) => void;
+  data: FormDataAttributesValues;
+  setData: (value: Partial<FormDataAttributesValues>) => void;
+  setErrors?: (value: Partial<FormDataAttributesErrors>) => void;
+  validation?: boolean;
+  errors?: FormDataAttributesErrors;
+  refs?: FormRefs;
+}
+
+export interface CreateCachePolicyAttributesValues {
+  name: string;
+  description?: string;
+  minimumTtl: number;
+  maximumTtl: number;
+  defaultTtl: number;
+  header: SelectProps.Option;
+  queryStrings: SelectProps.Option;
+  cookies: SelectProps.Option;
+  isSubmitting: boolean;
+}
+
+export interface CreateCachePolicyAttributesErrors {
+  nameError: string;
+}
+
+export interface CachePolicyProps {
+  buttonRef: RefObject<ButtonProps.Ref>;
+  policies: SelectProps.Options;
+  selectedPolicy: SelectProps.Option | null;
+  setSelectedPolicy: (option: SelectProps.Option) => void;
+  toggleSplitPanel: (value: boolean) => void;
 }

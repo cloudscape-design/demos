@@ -83,19 +83,6 @@ describe('Form', () => {
   );
 
   test(
-    'Tools panel opens and displays correct content after clicking on certificat',
-    setupTest(async page => {
-      await page.openCertificateInfo();
-
-      await expect(page.isToolsOpen()).resolves.toBe(true);
-      await expect(page.getToolsTitle()).resolves.toBe('SSL/TLS certificate');
-      await expect(page.getToolsContent()).resolves.toMatch(
-        /When CloudFront receives a request for content, it finds the domain name in the request/
-      );
-    })
-  );
-
-  test(
     'Tools panel displays correct content after clicking on root object info link',
     setupTest(async page => {
       await page.openRootObjectInfo();

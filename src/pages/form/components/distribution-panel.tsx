@@ -1,7 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React from 'react';
+import React, { useState } from 'react';
 
+import Button from '@cloudscape-design/components/button';
 import Checkbox from '@cloudscape-design/components/checkbox';
 import Container from '@cloudscape-design/components/container';
 import DatePicker from '@cloudscape-design/components/date-picker';
@@ -11,16 +12,16 @@ import FormField from '@cloudscape-design/components/form-field';
 import Header from '@cloudscape-design/components/header';
 import Input from '@cloudscape-design/components/input';
 import RadioGroup from '@cloudscape-design/components/radio-group';
-import Select from '@cloudscape-design/components/select';
+import Select, { SelectProps } from '@cloudscape-design/components/select';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import Textarea from '@cloudscape-design/components/textarea';
 import TimeInput from '@cloudscape-design/components/time-input';
 
 import { InfoLink } from '../../commons/common-components';
 import useContentOrigins from '../../commons/use-content-origins';
-import { SSL_CERTIFICATE_OPTIONS, SUPPORTED_HTTP_VERSIONS_OPTIONS } from '../form-config';
+import { CUSTOM_SSL_CERTIFICATES, SUPPORTED_HTTP_VERSIONS_OPTIONS } from '../form-config';
 import validateField from '../form-validation-config';
-import { FormDataAttributesErrors, FormDataAttributesKeys, FormDataAttributesValues, FormRefs } from '../types';
+import { FormDataAttributesKeys, FormDataAttributesValues, FormPanelProps } from '../types';
 
 interface DistributionsFooterProps {
   state: FormDataAttributesValues;
@@ -58,16 +59,6 @@ const isS3PermissionError = (attribute: FormDataAttributesKeys, errorText: strin
   errorText ===
     "CloudFront isn't allowed to write logs to this bucket. You must enable access control lists (ACL) for the bucket.";
 
-export interface DistributionPanelProps {
-  loadHelpPanelContent: (value: number) => void;
-  data: FormDataAttributesValues;
-  setData: (value: Partial<FormDataAttributesValues>) => void;
-  setErrors?: (value: Partial<FormDataAttributesErrors>) => void;
-  validation?: boolean;
-  errors?: FormDataAttributesErrors;
-  refs?: FormRefs;
-}
-
 export default function DistributionPanel({
   loadHelpPanelContent,
   validation = false,
@@ -76,8 +67,9 @@ export default function DistributionPanel({
   setData,
   setErrors,
   refs,
-}: DistributionPanelProps) {
+}: FormPanelProps) {
   const [contentOriginsState, contentOriginsHandlers] = useContentOrigins();
+  const [customSSLCertificate, setCustomSSLCertificate] = useState<SelectProps.Option | null>(null);
 
   const onChange: DistributionsFooterProps['onChange'] = (attribute, value) => {
     setData({ [attribute]: value });
@@ -141,19 +133,8 @@ export default function DistributionPanel({
     >
       <SpaceBetween size="l">
         <FormField
-          label="SSL/TLS certificate"
-          info={<InfoLink id="certificate-method-info-link" onFollow={() => loadHelpPanelContent(2)} />}
-          stretch={true}
-        >
-          <RadioGroup
-            items={SSL_CERTIFICATE_OPTIONS}
-            value={data.sslCertificate}
-            onChange={({ detail: { value } }) => onChange('sslCertificate', value)}
-          />
-        </FormField>
-        <FormField
           label="Root object"
-          info={<InfoLink id="root-object-info-link" onFollow={() => loadHelpPanelContent(3)} />}
+          info={<InfoLink id="root-object-info-link" onFollow={() => loadHelpPanelContent(2)} />}
           description="Enter the URL of the object that you want CloudFront to return when a viewer request points to your root URL."
           constraintText="Enter a  valid root object. Example: https://example.com"
           errorText={errors?.cloudFrontRootObject}
@@ -169,13 +150,38 @@ export default function DistributionPanel({
             data-testid="root-input"
           />
         </FormField>
+
+        <FormField
+          label={
+            <>
+              Custom SSL certificate - <i>optional</i>
+            </>
+          }
+          description="Choose a certificate from AWS Certificate Manager"
+          secondaryControl={
+            <SpaceBetween direction="horizontal" size="m">
+              <Button formAction="none" iconName="refresh" ariaLabel="Refresh custom SSL certificates" />
+
+              <Button formAction="none" variant="link" external={true}>
+                Create SSL certificate
+              </Button>
+            </SpaceBetween>
+          }
+        >
+          <Select
+            options={CUSTOM_SSL_CERTIFICATES}
+            selectedOption={customSSLCertificate}
+            placeholder="Choose a custom SSL certificate"
+            onChange={({ detail: { selectedOption } }) => setCustomSSLCertificate(selectedOption)}
+          />
+        </FormField>
         <FormField
           label={
             <>
               Alternative domain names (CNAMEs)<i> - optional</i>
             </>
           }
-          info={<InfoLink id="cnames-info-link" onFollow={() => loadHelpPanelContent(4)} />}
+          info={<InfoLink id="cnames-info-link" onFollow={() => loadHelpPanelContent(3)} />}
           description="List any custom domain names that you use in addition to the CloudFront domain name for the URLs for your files."
           constraintText="Specify up to 3 CNAMEs separated with commas."
           stretch={true}
@@ -198,6 +204,7 @@ export default function DistributionPanel({
         >
           <Select
             {...contentOriginsHandlers}
+            data-testid="s3-selector"
             options={contentOriginsState.options}
             selectedAriaLabel="Selected"
             statusType={contentOriginsState.status}
@@ -273,7 +280,7 @@ export default function DistributionPanel({
         <FormField
           label="Functions"
           description="Upload Cloudfront function and test objects."
-          info={<InfoLink onFollow={() => loadHelpPanelContent(12)} />}
+          info={<InfoLink onFollow={() => loadHelpPanelContent(11)} />}
         >
           <FileUpload
             multiple={true}

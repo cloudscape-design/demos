@@ -64,4 +64,56 @@ describe('Single page create', () => {
       })
     );
   });
+
+  describe('Sub-resource creation', () => {
+    describe('Embedded', () => {
+      test(
+        'Shows input progressively and inputs work',
+        setupTest(async page => {
+          // By default existing policy option should be selected
+          await expect(page.countCacheBehaviorSelects()).resolves.toBe(2);
+          await page.selectOptionExistingOriginPolicy('1');
+
+          await page.selectOriginRequestPolicyNewOrExisting('new');
+          await expect(page.countCacheBehaviorSelects()).resolves.toBe(4);
+          await page.enterNewPolicyName('test');
+        })
+      );
+    });
+
+    describe('Split panel', () => {
+      test(
+        'Create cache policy button opens split panel',
+        setupTest(async page => {
+          await expect(page.isSplitPanelOpen()).resolves.toBe(false);
+
+          await page.openSplitPanelSubResourceCreation();
+          await expect(page.isSplitPanelOpen()).resolves.toBe(true);
+          await expect(page.isSplitPanelSliderFocused()).resolves.toBe(true);
+        })
+      );
+
+      test(
+        'Nothing happens on submit',
+        setupTest(async page => {
+          await page.openSplitPanelSubResourceCreation();
+          await expect(page.isSplitPanelOpen()).resolves.toBe(true);
+
+          await page.submitCreateCachePolicy();
+          await expect(page.getCreateCachePolicyErrorMessages()).resolves.toEqual([]);
+          await expect(page.isSplitPanelOpen()).resolves.toBe(true);
+        })
+      );
+
+      test(
+        'Cancel button closes split panel',
+        setupTest(async page => {
+          await page.openSplitPanelSubResourceCreation();
+
+          await page.cancelCreateCachePolicySplitPanel();
+          await expect(page.isSplitPanelOpen()).resolves.toBe(false);
+        })
+      );
+    });
+  });
 });

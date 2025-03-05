@@ -18,8 +18,14 @@ import { TextareaProps } from '@cloudscape-design/components/textarea';
 
 import { InfoLink } from '../../commons/common-components';
 import validateField from '../form-validation-config';
-import { FormDataAttributesErrors, FormDataAttributesKeys, FormDataAttributesValues, FormRefs } from '../types';
-import CacheBehaviorPanel from './cache-behavior-panel';
+import {
+  CachePolicyProps,
+  FormDataAttributesErrors,
+  FormDataAttributesKeys,
+  FormDataAttributesValues,
+  FormRefs,
+} from '../types';
+import CacheBehaviorPanel from './cache-behavior-panel/cache-behavior-panel';
 import ContentDeliveryPanel from './content-delivery-panel';
 import DistributionsPanel from './distribution-panel';
 import OriginPanel from './origin-panel';
@@ -85,7 +91,6 @@ function BaseForm({
 }
 
 const defaultErrors: FormDataAttributesErrors = {
-  sslCertificate: '',
   cloudFrontRootObject: '',
   alternativeDomainNames: '',
   s3BucketSelectedOption: '',
@@ -100,10 +105,12 @@ const defaultErrors: FormDataAttributesErrors = {
   httpVersion: '',
   ipv6isOn: '',
   functionFile: '',
+  originRequestPolicyName: '',
+  isOriginRequestPolicyNew: '',
+  cachePolicy: '',
 };
 
 const defaultData: FormDataAttributesValues = {
-  sslCertificate: 'default',
   cloudFrontRootObject: '',
   alternativeDomainNames: '',
   s3BucketSelectedOption: null,
@@ -123,6 +130,9 @@ const defaultData: FormDataAttributesValues = {
   tags: '',
   functionFile: undefined,
   functionFiles: [],
+  originRequestPolicyName: '',
+  isOriginRequestPolicyNew: false,
+  cachePolicy: null,
 };
 
 const fieldsToValidate = [
@@ -139,9 +149,11 @@ const fieldsToValidate = [
 export function FormFull({
   loadHelpPanelContent,
   header,
+  cachePolicyProps,
 }: {
   loadHelpPanelContent: (value: number) => void;
   header: React.ReactNode;
+  cachePolicyProps: CachePolicyProps;
 }) {
   const [data, _setData] = useState(defaultData);
   const setData = (updateObj = {}) => _setData(prevData => ({ ...prevData, ...updateObj }));
@@ -159,7 +171,12 @@ export function FormFull({
           <ContentDeliveryPanel loadHelpPanelContent={loadHelpPanelContent} />
           <DistributionsPanel loadHelpPanelContent={loadHelpPanelContent} data={data} setData={setData} />
           <OriginPanel loadHelpPanelContent={loadHelpPanelContent} data={data} setData={setData} />
-          <CacheBehaviorPanel loadHelpPanelContent={loadHelpPanelContent} />
+          <CacheBehaviorPanel
+            loadHelpPanelContent={loadHelpPanelContent}
+            data={data}
+            setData={setData}
+            cachePolicyProps={cachePolicyProps}
+          />
           <TagsPanel loadHelpPanelContent={loadHelpPanelContent} />
         </SpaceBetween>
       }
@@ -198,9 +215,11 @@ export const LimitedForm = ({
 export const FormWithValidation = ({
   loadHelpPanelContent,
   header,
+  cachePolicyProps,
 }: {
   loadHelpPanelContent: (value: number) => void;
   header: React.ReactNode;
+  cachePolicyProps: CachePolicyProps;
 }) => {
   const [formErrorText, setFormErrorText] = useState<React.ReactNode | null>(null);
   const [data, _setData] = useState<FormDataAttributesValues>(defaultData);
@@ -222,10 +241,12 @@ export const FormWithValidation = ({
     customHeaders: useRef<AttributeEditorProps.Ref>(null),
     codeEditor: useRef<CodeEditorProps.Ref>(null),
     tags: useRef<TagEditorProps.Ref>(null),
+    originRequestPolicyName: useRef<HTMLInputElement>(null),
+    cachePolicy: useRef<SelectProps.Ref>(null),
   };
 
   const shouldFocus = (errorsState: FormDataAttributesErrors, attribute: FormDataAttributesKeys) => {
-    let shouldFocus = errorsState[attribute]?.length > 0;
+    let shouldFocus = errorsState[attribute] && errorsState[attribute].length > 0;
 
     if (attribute === 'functions' && !shouldFocus) {
       shouldFocus = errorsState.functionFiles?.length !== undefined && errorsState.functionFiles.length > 0;
@@ -267,6 +288,20 @@ export const FormWithValidation = ({
     return customHeadersError;
   };
 
+  const validateOriginRequestPolicyName = () => {
+    if (!data.isOriginRequestPolicyNew) {
+      return '';
+    }
+
+    const { errorText } = validateField('originRequestPolicyName', data.originRequestPolicyName);
+    return errorText || '';
+  };
+
+  const validateCachePolicy = () => {
+    const { errorText } = validateField('cachePolicy', cachePolicyProps.selectedPolicy);
+    return errorText || '';
+  };
+
   const handleCancelClick = () => {
     // do nothing
   };
@@ -290,6 +325,8 @@ export const FormWithValidation = ({
       }
     });
     newErrors.customHeaders = validateCustomHeaders();
+    newErrors.originRequestPolicyName = validateOriginRequestPolicyName();
+    newErrors.cachePolicy = validateCachePolicy();
 
     setErrors(newErrors);
     focusTopMostError(newErrors);
@@ -323,9 +360,11 @@ export const FormWithValidation = ({
             loadHelpPanelContent={loadHelpPanelContent}
             refs={refs}
             validation={true}
+            data={data}
             errors={errors}
             setErrors={setErrors}
             setData={setData}
+            cachePolicyProps={cachePolicyProps}
           />
           <TagsPanel loadHelpPanelContent={loadHelpPanelContent} refs={refs} setErrors={setErrors} />
         </SpaceBetween>

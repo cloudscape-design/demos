@@ -4,6 +4,7 @@ import createWrapper from '@cloudscape-design/components/test-utils/selectors';
 import BaseExamplePage from '../common/base-example-page';
 const page = createWrapper();
 const toolsPanelWrapper = page.findAppLayout().findTools();
+const splitPanelWrapper = page.findAppLayout().findSplitPanel();
 
 export default class Page extends BaseExamplePage {
   async hasActiveLink() {
@@ -34,17 +35,26 @@ export default class Page extends BaseExamplePage {
   }
 
   // Flash
+  findFlash(index: number) {
+    return createWrapper().findFlashbar().findItems().get(index);
+  }
+  isFlashVisible(index: number) {
+    return this.isDisplayed(this.findFlash(index).toSelector());
+  }
+  async dismissFlash(index: number) {
+    await this.click(this.findFlash(index).findDismissButton().toSelector());
+  }
+
   findLastFlash() {
-    return createWrapper().findFlashbar().findItems().get(2);
+    return this.findFlash(2);
+  }
+  isLastFlashVisible() {
+    return this.isFlashVisible(2);
+  }
+  async dismissLastFlash() {
+    await this.dismissFlash(2);
   }
 
-  async dismissFlash() {
-    await this.click(this.findLastFlash().findDismissButton().toSelector());
-  }
-
-  isFlashVisible() {
-    return this.isDisplayed(this.findLastFlash().toSelector());
-  }
   async openTools() {
     await this.click(page.findAppLayout().findToolsToggle().toSelector());
   }
@@ -77,5 +87,14 @@ export default class Page extends BaseExamplePage {
   }
   async waitForPageLoaded() {
     await this.waitForVisible('main');
+  }
+  isSplitPanelOpen() {
+    return this.isDisplayed(splitPanelWrapper.findCloseButton().toSelector());
+  }
+  getSplitPanelWrapper() {
+    return splitPanelWrapper;
+  }
+  isSplitPanelSliderFocused() {
+    return this.isFocused(splitPanelWrapper.findSlider().toSelector());
   }
 }

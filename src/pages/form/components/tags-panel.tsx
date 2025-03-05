@@ -34,7 +34,7 @@ export default function TagsPanel({ loadHelpPanelContent, refs, setErrors }: Tag
       header={
         <Header
           variant="h2"
-          info={<InfoLink onFollow={() => loadHelpPanelContent(10)} />}
+          info={<InfoLink onFollow={() => loadHelpPanelContent(9)} />}
           description="A tag is a label that you assign to an AWS resource. Each tag consists of a key and an optional value. You can use tags to search and filter your resources or track your AWS costs."
         >
           Tags
