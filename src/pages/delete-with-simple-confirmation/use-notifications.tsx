@@ -56,7 +56,7 @@ export default function useNotifications({ resourceName }: { resourceName: strin
         });
       }
     },
-    [dismissNotification, resourceName, updateOrAdd]
+    [dismissNotification, resourceName, updateOrAdd],
   );
 
   const notifyFailed = useCallback(
@@ -82,12 +82,12 @@ export default function useNotifications({ resourceName }: { resourceName: strin
         ]);
       }
     },
-    [dismissNotification, resourceName]
+    [dismissNotification, resourceName],
   );
 
   const clearFailed = (resource: Resource) => {
     setNotifications(notifications =>
-      notifications.filter(notification => notification.id !== `failed-${resource.id}`)
+      notifications.filter(notification => notification.id !== `failed-${resource.id}`),
     );
   };
 
@@ -109,11 +109,11 @@ export default function useNotifications({ resourceName }: { resourceName: strin
         });
       } else {
         setNotifications(notifications =>
-          notifications.filter(notification => notification.id !== deletingFlashMessageId)
+          notifications.filter(notification => notification.id !== deletingFlashMessageId),
         );
       }
     },
-    [deletingFlashMessageId, resourceName, updateOrAdd]
+    [deletingFlashMessageId, resourceName, updateOrAdd],
   );
 
   return { clearFailed, notifications, notifyDeleted, notifyFailed, notifyInProgress };

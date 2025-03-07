@@ -100,7 +100,7 @@ const useWizard = (closeTools: () => void, setFormattedToolsContent: (tools: Too
         },
       });
     },
-    [stepsInfo]
+    [stepsInfo],
   );
 
   const setActiveStepIndexAndCloseTools = (index: number) => {

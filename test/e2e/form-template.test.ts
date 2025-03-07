@@ -22,14 +22,14 @@ describe('Form', () => {
       await expect(page.isToolsOpen()).resolves.toBe(false);
       await expect(page.isDistributionsContentVisible()).resolves.toBe(false);
       await expect(page.isExpandChangeBehaviorContentVisible()).resolves.toBe(false);
-    })
+    }),
   );
 
   test(
     'Has header in form header slot',
     setupTest(async page => {
       await expect(page.getHeader()).resolves.toBe('Create distribution');
-    })
+    }),
   );
 
   test(
@@ -45,7 +45,7 @@ describe('Form', () => {
 
       await expect(page.isExpandableSectionVisible(2)).resolves.toBe(true);
       await expect(page.countExpandableSectionLinks(2)).resolves.toBe(2);
-    })
+    }),
   );
 
   test(
@@ -56,7 +56,7 @@ describe('Form', () => {
       await expect(page.isToolsOpen()).resolves.toBe(true);
       await expect(page.getToolsTitle()).resolves.toBe('Create distribution');
       await expect(page.getToolsContent()).resolves.toMatch(/When you create an Amazon CloudFront distribution/);
-    })
+    }),
   );
 
   test(
@@ -66,7 +66,7 @@ describe('Form', () => {
       await expect(page.isToolsOpen()).resolves.toBe(true);
       await expect(page.getToolsTitle()).resolves.toBe('Create distribution');
       await expect(page.getToolsContent()).resolves.toMatch(/When you create an Amazon CloudFront distribution/);
-    })
+    }),
   );
 
   test(
@@ -77,9 +77,9 @@ describe('Form', () => {
       await expect(page.isToolsOpen()).resolves.toBe(true);
       await expect(page.getToolsTitle()).resolves.toBe('Delivery method');
       await expect(page.getToolsContent()).resolves.toMatch(
-        /To create a distribution, you start by choosing the delivery method/
+        /To create a distribution, you start by choosing the delivery method/,
       );
-    })
+    }),
   );
 
   test(
@@ -90,9 +90,9 @@ describe('Form', () => {
       await expect(page.isToolsOpen()).resolves.toBe(true);
       await expect(page.getToolsTitle()).resolves.toBe('Root object');
       await expect(page.getToolsContent()).resolves.toMatch(
-        /You can configure CloudFront to return a specific object \(the default root object\)/
+        /You can configure CloudFront to return a specific object \(the default root object\)/,
       );
-    })
+    }),
   );
 
   test(
@@ -103,9 +103,9 @@ describe('Form', () => {
       await expect(page.isToolsOpen()).resolves.toBe(true);
       await expect(page.getToolsTitle()).resolves.toBe('Alternative domain names (CNAMEs)');
       await expect(page.getToolsContent()).resolves.toMatch(
-        /If you want to use your own domain names in the URLs for your files instead of the CloudFront domain name/
+        /If you want to use your own domain names in the URLs for your files instead of the CloudFront domain name/,
       );
-    })
+    }),
   );
 
   test(
@@ -116,9 +116,9 @@ describe('Form', () => {
       await expect(page.isToolsOpen()).resolves.toBe(true);
       await expect(page.getToolsTitle()).resolves.toBe('Content origin');
       await expect(page.getToolsContent()).resolves.toMatch(
-        /CloudFront gets your objects \(your files\) from an origin that you specify, such as an S3 bucket or a web/
+        /CloudFront gets your objects \(your files\) from an origin that you specify, such as an S3 bucket or a web/,
       );
-    })
+    }),
   );
 
   test(
@@ -129,9 +129,9 @@ describe('Form', () => {
       await expect(page.isToolsOpen()).resolves.toBe(true);
       await expect(page.getToolsTitle()).resolves.toBe('Path to content');
       await expect(page.getToolsContent()).resolves.toMatch(
-        /If you want CloudFront to request your content from a directory in your origin,/
+        /If you want CloudFront to request your content from a directory in your origin,/,
       );
-    })
+    }),
   );
 
   test(
@@ -142,9 +142,9 @@ describe('Form', () => {
       await expect(page.isToolsOpen()).resolves.toBe(true);
       await expect(page.getToolsTitle()).resolves.toBe('Origin ID');
       await expect(page.getToolsContent()).resolves.toMatch(
-        /The origin ID is a string that uniquely distinguishes the origin/
+        /The origin ID is a string that uniquely distinguishes the origin/,
       );
-    })
+    }),
   );
 
   test(
@@ -155,9 +155,9 @@ describe('Form', () => {
       await expect(page.isToolsOpen()).resolves.toBe(true);
       await expect(page.getToolsTitle()).resolves.toBe('Custom headers');
       await expect(page.getToolsContent()).resolves.toMatch(
-        /If you want CloudFront to include a custom header whenever it forwards a request to your origin/
+        /If you want CloudFront to include a custom header whenever it forwards a request to your origin/,
       );
-    })
+    }),
   );
 
   test(
@@ -167,7 +167,7 @@ describe('Form', () => {
       await expect(page.isToolsCloseFocused()).resolves.toBe(true);
       await page.openCustomHeadersInfo();
       await expect(page.isToolsCloseFocused()).resolves.toBe(true);
-    })
+    }),
   );
 
   test(
@@ -177,6 +177,6 @@ describe('Form', () => {
       await page.expandChangeBehaviorPanel();
       await expect(page.isDistributionsContentVisible()).resolves.toBe(true);
       await expect(page.isExpandChangeBehaviorContentVisible()).resolves.toBe(true);
-    })
+    }),
   );
 });

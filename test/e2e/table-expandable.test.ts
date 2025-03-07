@@ -40,6 +40,6 @@ describe('Table - Expandable', () => {
       // Expect 10 root data row, 1 root loader, and 5 nested data rows
       const rows3 = await page.getElementsCount(tableWrapper.findRows().toSelector());
       expect(rows3).toBe(10 + 1 + 5);
-    })
+    }),
   );
 });

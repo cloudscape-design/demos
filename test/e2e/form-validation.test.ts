@@ -27,14 +27,14 @@ describe('Form validation example', () => {
       await expect(formTemplatePage.isToolsOpen()).resolves.toBe(false);
       await expect(formTemplatePage.isDistributionsContentVisible()).resolves.toBe(false);
       await expect(formTemplatePage.isExpandChangeBehaviorContentVisible()).resolves.toBe(false);
-    })
+    }),
   );
 
   test(
     'Has header in form header slot',
     setupTest(async page => {
       await expect(page.getHeader()).resolves.toBe('Create distribution');
-    })
+    }),
   );
 
   test(
@@ -50,7 +50,7 @@ describe('Form validation example', () => {
 
       await expect(formTemplatePage.isExpandableSectionVisible(2)).resolves.toBe(true);
       await expect(formTemplatePage.countExpandableSectionLinks(2)).resolves.toBe(2);
-    })
+    }),
   );
 
   test(
@@ -61,9 +61,9 @@ describe('Form validation example', () => {
       await expect(formTemplatePage.isToolsOpen()).resolves.toBe(true);
       await expect(formTemplatePage.getToolsTitle()).resolves.toBe('Create distribution');
       await expect(formTemplatePage.getToolsContent()).resolves.toMatch(
-        /When you create an Amazon CloudFront distribution/
+        /When you create an Amazon CloudFront distribution/,
       );
-    })
+    }),
   );
 
   test(
@@ -73,9 +73,9 @@ describe('Form validation example', () => {
       await expect(formTemplatePage.isToolsOpen()).resolves.toBe(true);
       await expect(formTemplatePage.getToolsTitle()).resolves.toBe('Create distribution');
       await expect(formTemplatePage.getToolsContent()).resolves.toMatch(
-        /When you create an Amazon CloudFront distribution/
+        /When you create an Amazon CloudFront distribution/,
       );
-    })
+    }),
   );
 
   test(
@@ -86,9 +86,9 @@ describe('Form validation example', () => {
       await expect(formTemplatePage.isToolsOpen()).resolves.toBe(true);
       await expect(formTemplatePage.getToolsTitle()).resolves.toBe('Root object');
       await expect(formTemplatePage.getToolsContent()).resolves.toMatch(
-        /You can configure CloudFront to return a specific object \(the default root object\)/
+        /You can configure CloudFront to return a specific object \(the default root object\)/,
       );
-    })
+    }),
   );
 
   test(
@@ -99,9 +99,9 @@ describe('Form validation example', () => {
       await expect(formTemplatePage.isToolsOpen()).resolves.toBe(true);
       await expect(formTemplatePage.getToolsTitle()).resolves.toBe('Alternative domain names (CNAMEs)');
       await expect(formTemplatePage.getToolsContent()).resolves.toMatch(
-        /If you want to use your own domain names in the URLs for your files instead of the CloudFront domain name/
+        /If you want to use your own domain names in the URLs for your files instead of the CloudFront domain name/,
       );
-    })
+    }),
   );
 
   test(
@@ -112,9 +112,9 @@ describe('Form validation example', () => {
       await expect(formTemplatePage.isToolsOpen()).resolves.toBe(true);
       await expect(formTemplatePage.getToolsTitle()).resolves.toBe('Content origin');
       await expect(formTemplatePage.getToolsContent()).resolves.toMatch(
-        /CloudFront gets your objects \(your files\) from an origin that you specify, such as an S3 bucket or a web/
+        /CloudFront gets your objects \(your files\) from an origin that you specify, such as an S3 bucket or a web/,
       );
-    })
+    }),
   );
 
   test(
@@ -125,9 +125,9 @@ describe('Form validation example', () => {
       await expect(formTemplatePage.isToolsOpen()).resolves.toBe(true);
       await expect(formTemplatePage.getToolsTitle()).resolves.toBe('Path to content');
       await expect(formTemplatePage.getToolsContent()).resolves.toMatch(
-        /If you want CloudFront to request your content from a directory in your origin,/
+        /If you want CloudFront to request your content from a directory in your origin,/,
       );
-    })
+    }),
   );
 
   test(
@@ -138,9 +138,9 @@ describe('Form validation example', () => {
       await expect(formTemplatePage.isToolsOpen()).resolves.toBe(true);
       await expect(formTemplatePage.getToolsTitle()).resolves.toBe('Origin ID');
       await expect(formTemplatePage.getToolsContent()).resolves.toMatch(
-        /The origin ID is a string that uniquely distinguishes the origin/
+        /The origin ID is a string that uniquely distinguishes the origin/,
       );
-    })
+    }),
   );
 
   test(
@@ -151,9 +151,9 @@ describe('Form validation example', () => {
       await expect(formTemplatePage.isToolsOpen()).resolves.toBe(true);
       await expect(formTemplatePage.getToolsTitle()).resolves.toBe('Custom headers');
       await expect(formTemplatePage.getToolsContent()).resolves.toMatch(
-        /If you want CloudFront to include a custom header whenever it forwards a request to your origin/
+        /If you want CloudFront to include a custom header whenever it forwards a request to your origin/,
       );
-    })
+    }),
   );
 
   test(
@@ -163,7 +163,7 @@ describe('Form validation example', () => {
       await expect(page.isToolsCloseFocused()).resolves.toBe(true);
       await page.openCustomHeadersInfo();
       await expect(page.isToolsCloseFocused()).resolves.toBe(true);
-    })
+    }),
   );
 
   test(
@@ -173,7 +173,7 @@ describe('Form validation example', () => {
       await formTemplatePage.expandChangeBehaviorPanel();
       await expect(formTemplatePage.isDistributionsContentVisible()).resolves.toBe(true);
       await expect(formTemplatePage.isExpandChangeBehaviorContentVisible()).resolves.toBe(true);
-    })
+    }),
   );
 
   test(
@@ -183,9 +183,9 @@ describe('Form validation example', () => {
       await expect(page.getFormErrorMessages()).resolves.toEqual(
         expect.arrayContaining([
           'You have reached the maximum amount of distributions you can create. Learn more about distribution limits ',
-        ])
+        ]),
       );
-    })
+    }),
   );
 
   test(
@@ -198,9 +198,9 @@ describe('Form validation example', () => {
           'S3 bucket is required.',
           'Certificate expiry date is required.',
           'Certificate expiry time is required.',
-        ])
+        ]),
       );
-    })
+    }),
   );
 
   test(
@@ -212,9 +212,9 @@ describe('Form validation example', () => {
           'Origin ID is required.',
           'Custom header name is required.',
           'Custom header value is required.',
-        ])
+        ]),
       );
-    })
+    }),
   );
 
   test(
@@ -226,7 +226,7 @@ describe('Form validation example', () => {
         'The name has empty (space) characters.',
         'The value has empty (space) characters.',
       ]);
-    })
+    }),
   );
 
   test(
@@ -234,7 +234,7 @@ describe('Form validation example', () => {
     setupTest(async page => {
       await page.submitForm();
       await expect(page.isRootInputFocused()).resolves.toBe(true);
-    })
+    }),
   );
 
   test(
@@ -243,19 +243,19 @@ describe('Form validation example', () => {
       // Blur when empty
       await page.enterAndBlurRootObject();
       await expect(page.getDistributionPanelErrorMessages()).resolves.toEqual(
-        expect.arrayContaining(['Root object is required.'])
+        expect.arrayContaining(['Root object is required.']),
       );
 
       // Blur with invalid input
       await page.enterAndBlurRootObject('https://example');
       await expect(page.getDistributionPanelErrorMessages()).resolves.toEqual(
-        expect.arrayContaining(['Enter a valid root object URL. Example: https://example.com'])
+        expect.arrayContaining(['Enter a valid root object URL. Example: https://example.com']),
       );
 
       // Blur with valid input
       await page.enterAndBlurRootObject('.com');
       await expect(page.getDistributionPanelErrorMessages()).resolves.toEqual([]);
-    })
+    }),
   );
 
   describe('Sub-resource creation', () => {
@@ -264,9 +264,9 @@ describe('Form validation example', () => {
       setupTest(async page => {
         await page.submitForm();
         await expect(page.getCacheBehaviorPanelErrorMessages()).resolves.toEqual(
-          expect.arrayContaining(['Cache policy is required.'])
+          expect.arrayContaining(['Cache policy is required.']),
         );
-      })
+      }),
     );
 
     describe('Embedded', () => {
@@ -276,9 +276,9 @@ describe('Form validation example', () => {
           await page.selectOriginRequestPolicyNewOrExisting('new');
           await page.submitForm();
           await expect(page.getCacheBehaviorPanelErrorMessages()).resolves.toEqual(
-            expect.arrayContaining(['Name is required.', 'Cache policy is required.'])
+            expect.arrayContaining(['Name is required.', 'Cache policy is required.']),
           );
-        })
+        }),
       );
 
       test(
@@ -288,12 +288,12 @@ describe('Form validation example', () => {
           await page.clickAndBlurNewPolicyNameInput();
 
           await expect(page.getCacheBehaviorPanelErrorMessages()).resolves.toEqual(
-            expect.arrayContaining(['Name is required.'])
+            expect.arrayContaining(['Name is required.']),
           );
 
           await page.enterNewPolicyName('test');
           await expect(page.getCacheBehaviorPanelErrorMessages()).resolves.toEqual([]);
-        })
+        }),
       );
     });
 
@@ -305,7 +305,7 @@ describe('Form validation example', () => {
           await page.submitCreateCachePolicy();
 
           await expect(page.getCreateCachePolicyErrorMessages()).resolves.toEqual(['Name is required.']);
-        })
+        }),
       );
 
       test(
@@ -319,7 +319,7 @@ describe('Form validation example', () => {
           await page.createCachePolicyEnterName('test');
           await page.blurCreateCachePolicyNameInput();
           await expect(page.getCreateCachePolicyErrorMessages()).resolves.toEqual([]);
-        })
+        }),
       );
 
       test(
@@ -333,7 +333,7 @@ describe('Form validation example', () => {
 
           await expect(page.isSplitPanelOpen()).resolves.toBe(false);
           await expect(page.isFlashVisible(1)).resolves.toBe(true);
-        })
+        }),
       );
 
       test(
@@ -349,7 +349,7 @@ describe('Form validation example', () => {
           await page.cancelModal();
           await expect(page.isSplitPanelOpen()).resolves.toBe(true);
           await expect(page.getCreateCachePolicyName()).resolves.toBe('test');
-        })
+        }),
       );
 
       test(
@@ -368,7 +368,7 @@ describe('Form validation example', () => {
           // The changes should be clear after re-opening
           await page.openSplitPanelSubResourceCreation();
           await expect(page.getCreateCachePolicyName()).resolves.toBe('');
-        })
+        }),
       );
 
       test(
@@ -380,7 +380,7 @@ describe('Form validation example', () => {
           await page.waitForCreateCachePolicySubmission();
 
           await expect(page.getSelectedCachePolicy()).resolves.toBe('test');
-        })
+        }),
       );
 
       test(
@@ -394,7 +394,7 @@ describe('Form validation example', () => {
           await page.waitForCreateCachePolicySubmission();
 
           await expect(page.getSelectedCachePolicy()).resolves.toBe('Policy 2');
-        })
+        }),
       );
     });
   });

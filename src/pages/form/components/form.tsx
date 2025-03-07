@@ -313,7 +313,7 @@ export const FormWithValidation = ({
         <Link external variant="primary" href="#">
           Learn more about distribution limits
         </Link>
-      </>
+      </>,
     );
 
     const newErrors = { ...errors };

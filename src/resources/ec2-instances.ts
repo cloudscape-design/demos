@@ -21,7 +21,7 @@ const instances: EC2Instance[] = Array.from({ length: 50 }).map((item, i) => ({
       ['lb-3', 'lb-4', 'lb-5'],
       ['lb-6', 'lb-7', 'lb-8', 'lb-9'],
     ],
-    i
+    i,
   ),
   availabilityZone: getElement(['AZ 1', 'AZ 2'], i),
   numOfvCpu: getElement([3, 5, 9], i),

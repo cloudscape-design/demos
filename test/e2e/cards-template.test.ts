@@ -32,7 +32,7 @@ describe('React Cards - Client side', () => {
       await expect(page.isDeleteDetailsButtonEnabled()).resolves.toBe(false);
       await expect(page.countItems()).resolves.toBe(30);
       await expect(page.getItemsCounterText()).resolves.toBe('(150)');
-    })
+    }),
   );
 
   test(
@@ -40,7 +40,7 @@ describe('React Cards - Client side', () => {
     setupTest(async page => {
       await page.closeSideNavigation();
       await expect(page.isNavigationOpen()).resolves.toBe(false);
-    })
+    }),
   );
 
   test(
@@ -51,7 +51,7 @@ describe('React Cards - Client side', () => {
 
       await expect(page.isNavigationExpandableSectionVisible(1)).resolves.toBe(false);
       await expect(page.isNavigationExpandableSectionVisible(2)).resolves.toBe(false);
-    })
+    }),
   );
 
   test(
@@ -62,7 +62,7 @@ describe('React Cards - Client side', () => {
       await expect(page.isToolsOpen()).resolves.toBe(true);
       await expect(page.getToolsTitle()).resolves.toBe('Distributions');
       await expect(page.getToolsContent()).resolves.toContain('View your current distributions');
-    })
+    }),
   );
 
   test(
@@ -70,7 +70,7 @@ describe('React Cards - Client side', () => {
     setupTest(async page => {
       await page.click(page.contextInfoLinkSelector());
       await expect(page.isToolsOpen()).resolves.toBe(true);
-    })
+    }),
   );
 
   test(
@@ -79,7 +79,7 @@ describe('React Cards - Client side', () => {
       await page.click(page.contextInfoLinkSelector());
       await page.click(page.contextInfoLinkSelector());
       await expect(page.isToolsCloseFocused()).resolves.toBe(true);
-    })
+    }),
   );
 
   test(
@@ -90,7 +90,7 @@ describe('React Cards - Client side', () => {
       await expect(page.isViewDetailsButtonEnabled()).resolves.toBe(true);
       await expect(page.isEditDetailsButtonEnabled()).resolves.toBe(true);
       await expect(page.isDeleteDetailsButtonEnabled()).resolves.toBe(true);
-    })
+    }),
   );
 
   test(
@@ -102,7 +102,7 @@ describe('React Cards - Client side', () => {
       await expect(page.isViewDetailsButtonEnabled()).resolves.toBe(false);
       await expect(page.isEditDetailsButtonEnabled()).resolves.toBe(false);
       await expect(page.isDeleteDetailsButtonEnabled()).resolves.toBe(true);
-    })
+    }),
   );
 
   test(
@@ -111,7 +111,7 @@ describe('React Cards - Client side', () => {
       await page.searchText('00000');
 
       await expect(page.isNoMatchButtonVisible()).resolves.toBe(true);
-    })
+    }),
   );
 
   test(
@@ -121,7 +121,7 @@ describe('React Cards - Client side', () => {
       await page.selectCard(1);
 
       await expect(page.countSelectedCards()).resolves.toBe(1);
-    })
+    }),
   );
 
   test(
@@ -132,7 +132,7 @@ describe('React Cards - Client side', () => {
 
       await expect(page.getSearchText()).resolves.toBe('');
       await expect(page.countItems()).resolves.toBe(30);
-    })
+    }),
   );
 
   test(
@@ -142,7 +142,7 @@ describe('React Cards - Client side', () => {
 
       await expect(page.countItems()).resolves.toBe(1);
       await expect(page.countPaginationPages()).resolves.toBe(1);
-    })
+    }),
   );
 
   test(
@@ -153,7 +153,7 @@ describe('React Cards - Client side', () => {
       await page.confirmCardsPreferencesChanges();
 
       await expect(page.countItems()).resolves.toBe(10);
-    })
+    }),
   );
 
   test(
@@ -164,7 +164,7 @@ describe('React Cards - Client side', () => {
       await page.confirmCardsPreferencesChanges();
 
       await expect(page.countItems()).resolves.toBe(50);
-    })
+    }),
   );
 
   test(
@@ -175,7 +175,7 @@ describe('React Cards - Client side', () => {
       await page.cancelCardsPreferencesChanges();
 
       await expect(page.countItems()).resolves.toBe(30);
-    })
+    }),
   );
 
   test(
@@ -187,7 +187,7 @@ describe('React Cards - Client side', () => {
       await page.selectCard(1);
 
       await expect(page.countItems()).resolves.toBe(10);
-    })
+    }),
   );
 
   test(
@@ -200,7 +200,7 @@ describe('React Cards - Client side', () => {
       await page.confirmCardsPreferencesChanges();
 
       await expect(page.countCardSections()).resolves.toBe(0);
-    })
+    }),
   );
 
   test(
@@ -214,7 +214,7 @@ describe('React Cards - Client side', () => {
       await page.confirmCardsPreferencesChanges();
 
       await expect(page.countCardSections()).resolves.toBe(7);
-    })
+    }),
   );
 
   test(
@@ -223,7 +223,7 @@ describe('React Cards - Client side', () => {
       await page.selectCard(1);
 
       await expect(page.getItemsCounterText()).resolves.toBe('(1/150)');
-    })
+    }),
   );
 
   test(
@@ -234,7 +234,7 @@ describe('React Cards - Client side', () => {
       await page.searchText('N');
 
       await expect(page.isScrolledToTop()).resolves.toBe(true);
-    })
+    }),
   );
 
   test(
@@ -245,7 +245,7 @@ describe('React Cards - Client side', () => {
       await page.clickNextPage();
 
       await expect(page.isScrolledToTop()).resolves.toBe(true);
-    })
+    }),
   );
 
   test(
@@ -254,6 +254,6 @@ describe('React Cards - Client side', () => {
       await page.windowScrollTo({ top: 800 });
 
       await expect(page.isCardsHeaderVisible()).resolves.toBe(true);
-    })
+    }),
   );
 });

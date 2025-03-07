@@ -24,7 +24,7 @@ export function TagsTable({ loadHelpPanelContent }: { loadHelpPanelContent: (val
         ...allTags,
         ...resourceTagMapping.Tags,
       ],
-      []
+      [],
     );
   });
 

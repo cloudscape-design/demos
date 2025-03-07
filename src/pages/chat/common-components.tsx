@@ -88,7 +88,7 @@ export const FittedContainer = ({ children }: { children: React.ReactNode }) => 
 
 export const ScrollableContainer = forwardRef(function ScrollableContainer(
   { children }: { children: React.ReactNode },
-  ref: React.Ref<HTMLDivElement>
+  ref: React.Ref<HTMLDivElement>,
 ) {
   return (
     <div style={{ position: 'relative', blockSize: '100%' }}>

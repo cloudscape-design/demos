@@ -11,7 +11,7 @@ export default (setupTest: { (testFn: { (page: TableFilteringPageObject): Promis
 
         await expect(page.countPaginationPages()).resolves.toBe(1);
         await expect(page.countTableRows()).resolves.toBe(1);
-      })
+      }),
     );
   });
 };

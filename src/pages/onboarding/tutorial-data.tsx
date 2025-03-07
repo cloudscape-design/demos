@@ -177,7 +177,7 @@ export const useAvailableTutorials = (makeHelpPanelHandler: MakeHelpPanelHandler
     tutorialData(makeHelpPanelHandler).map(t => ({
       ...t,
       completed: false,
-    }))
+    })),
   );
 
   const setCompleted = useCallback((tutorial: Tutorial, completed: boolean) => {

@@ -1,17 +1,15 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { mergeWith } = require('lodash');
-const { outputPath, devServerPort } = require('./scripts/config');
-const examplesList = require('./examples-list');
+import path from 'node:path';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import lodash from 'lodash';
+import examplesList from './examples-list.json' assert { type: 'json' };
+import config from './scripts/config.js';
 
+const banJsLoader = path.resolve('./scripts/ban-js-loader.js');
 const mergeArrays = (a, b) => (Array.isArray(a) ? a.concat(b) : undefined);
-
 const addEntryIteration = (entries, example) => {
   const filePath = `./src/pages/${example.path}/index`;
-  entries[example.path] = ['./src/common/apply-mode', filePath, './src/common/adjust-body-padding.ts'];
+  entries[example.path] = ['./src/common/apply-mode.ts', './src/common/adjust-body-padding.ts', filePath];
   return entries;
 };
 
@@ -19,14 +17,19 @@ const entries = examplesList.reduce(addEntryIteration, {});
 
 const configs = [
   {
+    entry: entries,
+    output: {
+      path: config.outputPath,
+    },
+  },
+  {
     entry: {
-      'fake-server': './src/fake-server',
+      'fake-server': './src/fake-server/index.ts',
     },
     optimization: {
       splitChunks: {
         cacheGroups: {
           vendor: {
-            // disable vendor chunk for fake-server
             test: () => false,
           },
         },
@@ -35,37 +38,44 @@ const configs = [
     output: {
       libraryTarget: 'window',
       library: 'FakeServer',
-      path: path.join(outputPath, 'libs'),
+      path: path.join(config.outputPath, 'libs'),
+    },
+    resolve: {
+      extensions: ['.ts'],
+    },
+    module: {
+      rules: [
+        {
+          test: /\.tsx?/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env', '@babel/preset-typescript'],
+            },
+          },
+        },
+      ],
     },
     plugins: [
       new CopyWebpackPlugin({
         patterns: [
           {
             from: '**/*',
-            to: path.join(outputPath, 'libs', 'ace'),
+            to: path.join(config.outputPath, 'libs', 'ace'),
             context: 'node_modules/ace-builds/src-min-noconflict/',
           },
           {
             from: '*',
-            to: path.join(outputPath, 'resources'),
+            to: path.join(config.outputPath, 'resources'),
             context: 'src/resources',
           },
         ],
       }),
     ],
   },
-  //
-  // React
-  //
-  {
-    entry: entries,
-    output: {
-      path: outputPath,
-    },
-  },
-].filter(i => !!i);
+];
 
-const createWebpackConfig = (config, { includeDevServer }) => {
+const createWebpackConfig = (base, { includeDevServer }) => {
   const defaults = {
     mode: process.env.NODE_ENV,
 
@@ -74,14 +84,17 @@ const createWebpackConfig = (config, { includeDevServer }) => {
     ...(includeDevServer
       ? {
           devServer: {
+            devMiddleware: {
+              publicPath: '/' + path.relative(config.outputPath, base.output.path),
+            },
             static: {
-              directory: outputPath,
+              directory: config.outputPath,
               serveIndex: {
                 icons: true,
                 filter: filename => filename.endsWith('.html'),
               },
             },
-            port: devServerPort,
+            port: config.devServerPort,
           },
         }
       : {}),
@@ -112,17 +125,14 @@ const createWebpackConfig = (config, { includeDevServer }) => {
       rules: [
         {
           test: /\.jsx?/,
-          include: path.join(__dirname, 'src'),
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env', '@babel/preset-react'],
-            },
-          },
+          include: path.resolve('src/pages'),
+          // Fails the bundling if the demo is in JS.
+          // Normal JS files outside of src/pages can be still bundled but they won't be transpiled by babel.
+          use: [banJsLoader],
         },
         {
           test: /\.tsx?/,
-          include: path.join(__dirname, 'src'),
+          include: path.resolve('src'),
           use: {
             loader: 'babel-loader',
             options: {
@@ -132,30 +142,31 @@ const createWebpackConfig = (config, { includeDevServer }) => {
         },
         {
           test: /\.module\.scss$/,
-          include: path.join(__dirname, 'src/pages'),
+          include: path.resolve('src/pages'),
           use: [
             MiniCssExtractPlugin.loader,
             {
               loader: 'css-loader',
               options: {
-                modules: true,
+                modules: {
+                  localIdentName: '[path]__[local]--[hash:base64]',
+                },
                 url: false,
               },
             },
-            'sass-loader',
+            {
+              loader: 'sass-loader',
+            },
           ],
         },
         {
           test: /\.scss$/,
-          include: path.join(__dirname, 'src/styles'),
+          include: path.resolve('src/styles'),
           use: [
             MiniCssExtractPlugin.loader,
             { loader: 'css-loader', options: { url: false } },
             {
               loader: 'sass-loader',
-              options: {
-                implementation: require('sass'),
-              },
             },
           ],
         },
@@ -182,7 +193,7 @@ const createWebpackConfig = (config, { includeDevServer }) => {
       }),
     ],
   };
-  return mergeWith(defaults, config, mergeArrays);
+  return lodash.mergeWith(defaults, base, mergeArrays);
 };
 
-module.exports = configs.map((config, index) => createWebpackConfig(config, { includeDevServer: index === 1 }));
+export default configs.map((config, index) => createWebpackConfig(config, { includeDevServer: index === 0 }));

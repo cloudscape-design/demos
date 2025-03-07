@@ -24,7 +24,7 @@ describe('Tags Table', () => {
         expect(tag.key).toEqual(expect.any(String));
         expect(tag.value).toEqual(expect.any(String));
       });
-    })
+    }),
   );
 });
 

@@ -77,10 +77,10 @@ export default class PageObject extends AppLayoutPage {
     await this.browser.waitUntil(
       async () => {
         return (await this.getText(this.originsMultiselect.findDropdown().findFooterRegion().toSelector())).includes(
-          'End of all results'
+          'End of all results',
         );
       },
-      { timeoutMsg: 'Origins footer text not found: End of all results' }
+      { timeoutMsg: 'Origins footer text not found: End of all results' },
     );
   }
 
@@ -215,13 +215,13 @@ export default class PageObject extends AppLayoutPage {
 
   cancelModal() {
     return this.click(
-      this.findModal().findFooter().findButton('[data-testid="unsaved-changes-modal-cancel"]').toSelector()
+      this.findModal().findFooter().findButton('[data-testid="unsaved-changes-modal-cancel"]').toSelector(),
     );
   }
 
   submitModal() {
     return this.click(
-      this.findModal().findFooter().findButton('[data-testid="unsaved-changes-modal-submit"]').toSelector()
+      this.findModal().findFooter().findButton('[data-testid="unsaved-changes-modal-submit"]').toSelector(),
     );
   }
 }

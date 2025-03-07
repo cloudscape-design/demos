@@ -120,7 +120,7 @@ export function App() {
       pagination: { pageSize: preferences?.pageSize },
       sorting: { defaultState: { sortingColumn: columnDefinitions[0] } },
       selection: {},
-    }
+    },
   );
 
   const { buttonDropdownProps, selectProps, actionModal } = useFilterSets({
@@ -153,7 +153,7 @@ export function App() {
           ...notification,
           onDismiss: () => {
             setFlashNotifications(currentNotifications =>
-              currentNotifications.filter(item => item.id !== notification.id)
+              currentNotifications.filter(item => item.id !== notification.id),
             );
           },
         },

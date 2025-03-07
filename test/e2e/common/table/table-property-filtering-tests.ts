@@ -10,7 +10,7 @@ export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject)
         await page.focusFilter();
 
         await expect(page.isDropdownVisible()).resolves.toBe(true);
-      })
+      }),
     );
 
     test(
@@ -20,7 +20,7 @@ export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject)
         await page.selectOption(1);
 
         await expect(page.isDropdownVisible()).resolves.toBe(true);
-      })
+      }),
     );
 
     test(
@@ -31,7 +31,7 @@ export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject)
 
         await page.waitUntilPropertyFilterLoaded();
         await expect(page.countDropdownItems()).resolves.toBe(6);
-      })
+      }),
     );
 
     test(
@@ -40,7 +40,7 @@ export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject)
         await page.focusFilter();
         await page.search('abcdef01234567890.cloudfront.net');
         await expect(page.getOptionText(1)).resolves.toBe('Domain name = abcdef01234567890.cloudfront.net');
-      })
+      }),
     );
 
     test(
@@ -50,7 +50,7 @@ export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject)
         await page.selectOption(1);
 
         await expect(page.getFilterText()).resolves.toBe('Domain name');
-      })
+      }),
     );
 
     test(
@@ -66,7 +66,7 @@ export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject)
 
         await page.waitUntilLoaded();
         await expect(page.isDropdownVisible()).resolves.toBe(false);
-      })
+      }),
     );
 
     test(
@@ -77,7 +77,7 @@ export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject)
         await page.keys(['Enter']);
         await expect(page.getFilterText()).resolves.toBe('');
         await expect(page.countTokens()).resolves.toBe(1);
-      })
+      }),
     );
 
     test(
@@ -92,7 +92,7 @@ export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject)
         await page.selectOption(1); //select value
 
         await expect(page.getFilterText()).resolves.toBe('');
-      })
+      }),
     );
 
     test(
@@ -105,7 +105,7 @@ export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject)
         await expect(page.isTokensVisible()).resolves.toBe(true);
         await expect(page.getTokenText()).resolves.toBe('Domain name = abcdef01234567890.cloudfront.net');
         await expect(page.countTokens()).resolves.toBe(1);
-      })
+      }),
     );
 
     test(
@@ -118,7 +118,7 @@ export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject)
         await page.selectOption(1);
 
         await expect(page.countTokens()).resolves.toBe(2);
-      })
+      }),
     );
 
     test(
@@ -158,7 +158,7 @@ export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject)
 
         await expect(page.countTokens()).resolves.toBe(4);
         await expect(page.countTableRows()).resolves.toBe(3);
-      })
+      }),
     );
 
     test(
@@ -180,7 +180,7 @@ export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject)
 
         await expect(page.countTokens()).resolves.toBe(1);
         await expect(page.countTableRows()).resolves.toBe(30);
-      })
+      }),
     );
 
     test(
@@ -202,7 +202,7 @@ export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject)
 
         await expect(page.countTokens()).resolves.toBe(0);
         await expect(page.countTableRows()).resolves.toBe(30);
-      })
+      }),
     );
 
     test(
@@ -225,7 +225,7 @@ export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject)
 
         await expect(page.countTokens()).resolves.toBe(2);
         await expect(page.countTableRows()).resolves.toBe(11);
-      })
+      }),
     );
   });
 };

@@ -92,7 +92,7 @@ export function App() {
           onClick: () => {
             actions.setExpandedItems([...expandedItems, ...clusterInstances]);
             setAriaLiveMessage(
-              `Displaying all ${clusterInstances.length - 1} related instances for cluster ${instance.name}`
+              `Displaying all ${clusterInstances.length - 1} related instances for cluster ${instance.name}`,
             );
           },
         },

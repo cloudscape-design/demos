@@ -14,7 +14,7 @@ export default class S3PageObject extends BaseExamplePage {
 
   getHeader() {
     return this.getText(
-      createWrapper(wrapper.findForm().findHeader().toSelector()).findHeader().find('h1').toSelector()
+      createWrapper(wrapper.findForm().findHeader().toSelector()).findHeader().find('h1').toSelector(),
     );
   }
 
@@ -57,7 +57,7 @@ export default class S3PageObject extends BaseExamplePage {
 
   async isRowSelectable(rowIndex: number) {
     const element = await this.browser.$(
-      s3ResourceSelector.findTable().findRowSelectionArea(rowIndex).find('input').toSelector()
+      s3ResourceSelector.findTable().findRowSelectionArea(rowIndex).find('input').toSelector(),
     );
     return element.isEnabled();
   }

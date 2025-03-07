@@ -139,7 +139,7 @@ Context: [no identity-based policy allows the AWSS3:ListBuckets action.]
 });
 
 const getSupportPromptResponseMessage = (
-  onSupportPromptClick?: (detail: SupportPromptGroupProps.ItemClickDetail) => void
+  onSupportPromptClick?: (detail: SupportPromptGroupProps.ItemClickDetail) => void,
 ): Message => ({
   type: 'chat-bubble',
   authorId: 'gen-ai',
@@ -243,7 +243,7 @@ const CitationPopover = ({ count, href }: { count: number; href: string }) => (
 );
 
 export const getInitialMessages = (
-  onSupportPromptClick: (detail: SupportPromptGroupProps.ItemClickDetail) => void
+  onSupportPromptClick: (detail: SupportPromptGroupProps.ItemClickDetail) => void,
 ): Array<Message> => {
   return [
     {

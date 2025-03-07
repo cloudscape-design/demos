@@ -27,14 +27,14 @@ describe('Chat behavior', () => {
       // Gen-AI response is sent with a delay
       await page.waitForAssertion(() => expect(page.countChatBubbles()).resolves.toBe(initialMessageCount + 2));
       await page.waitForAssertion(() =>
-        expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain('Generating a response')
+        expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain('Generating a response'),
       );
       // Loading state is shown for 1.5 seconds
       await page.waitForJsTimers(1500);
       await expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain(
-        'The interactions and functionality of this demo are limited.'
+        'The interactions and functionality of this demo are limited.',
       );
-    })
+    }),
   );
 
   test(
@@ -47,14 +47,14 @@ describe('Chat behavior', () => {
 
       await page.waitForAssertion(() => expect(page.countChatBubbles()).resolves.toBe(initialMessageCount + 2));
       await page.waitForAssertion(() =>
-        expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain('Generating a response')
+        expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain('Generating a response'),
       );
       // Loading state is shown for 4 seconds for loading prompt
       await page.waitForJsTimers(4000);
       await expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain(
-        'That was the loading state. To see the loading state again, ask "Show a loading state example".'
+        'That was the loading state. To see the loading state again, ask "Show a loading state example".',
       );
-    })
+    }),
   );
 
   test(
@@ -65,11 +65,11 @@ describe('Chat behavior', () => {
       await page.sendPrompt(prompt);
       await expect(page.getChatBubbleText(initialMessageCount)).resolves.toBe(prompt);
       await page.waitForAssertion(() =>
-        expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain('Generating a response')
+        expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain('Generating a response'),
       );
       // Loading state is shown for 1.5 seconds
       await page.waitForJsTimers(1500);
       await expect(page.getAlertHeaderText(initialMessageCount + 1)).resolves.toBe('Access denied');
-    })
+    }),
   );
 });

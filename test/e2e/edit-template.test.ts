@@ -20,14 +20,14 @@ describe('Edit', () => {
       await expect(page.isNavigationOpen()).resolves.toBe(false);
       await expect(page.isToolsOpen()).resolves.toBe(false);
       await expect(page.isAdditionSettingVisible()).resolves.toBe(false);
-    })
+    }),
   );
 
   test(
     'Has header in form header slot',
     setupTest(async page => {
       await expect(page.getHeader()).resolves.toBe('Edit SLCCSMWOHOFUY0');
-    })
+    }),
   );
 
   test(
@@ -38,9 +38,9 @@ describe('Edit', () => {
       await expect(page.isToolsOpen()).resolves.toBe(true);
       await expect(page.getToolsTitle()).resolves.toMatch('Edit distribution');
       await expect(page.getToolsContent()).resolves.toMatch(
-        /You can update your CloudFront distribution by editing its settings and saving your changes\./
+        /You can update your CloudFront distribution by editing its settings and saving your changes\./,
       );
-    })
+    }),
   );
 
   test(
@@ -50,9 +50,9 @@ describe('Edit', () => {
       await expect(page.isToolsOpen()).resolves.toBe(true);
       await expect(page.getToolsTitle()).resolves.toMatch('Edit distribution');
       await expect(page.getToolsContent()).resolves.toMatch(
-        /You can update your CloudFront distribution by editing its settings and saving your changes\./
+        /You can update your CloudFront distribution by editing its settings and saving your changes\./,
       );
-    })
+    }),
   );
 
   test(
@@ -62,9 +62,9 @@ describe('Edit', () => {
       await expect(page.isToolsOpen()).resolves.toBe(true);
       await expect(page.getToolsTitle()).resolves.toBe('Alternate domain names (CNAMEs)');
       await expect(page.getToolsContent()).resolves.toMatch(
-        /If you want to use your own domain names in the URLs for your files/
+        /If you want to use your own domain names in the URLs for your files/,
       );
-    })
+    }),
   );
 
   test(
@@ -75,9 +75,9 @@ describe('Edit', () => {
       await expect(page.isToolsOpen()).resolves.toBe(true);
       await expect(page.getToolsTitle()).resolves.toMatch('SSL/TLS certificate');
       await expect(page.getToolsContent()).resolves.toMatch(
-        /When CloudFront receives a request for content, it finds the domain name/
+        /When CloudFront receives a request for content, it finds the domain name/,
       );
-    })
+    }),
   );
 
   test(
@@ -89,9 +89,9 @@ describe('Edit', () => {
       await expect(page.isToolsOpen()).resolves.toBe(true);
       await expect(page.getToolsTitle()).resolves.toMatch('Root object');
       await expect(page.getToolsContent()).resolves.toMatch(
-        /You can configure CloudFront to return a specific object \(the default root object\)/
+        /You can configure CloudFront to return a specific object \(the default root object\)/,
       );
-    })
+    }),
   );
 
   test(
@@ -101,6 +101,6 @@ describe('Edit', () => {
       await expect(page.isToolsCloseFocused()).resolves.toBe(true);
       await page.openCnameInfoLink();
       await expect(page.isToolsCloseFocused()).resolves.toBe(true);
-    })
+    }),
   );
 });

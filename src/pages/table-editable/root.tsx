@@ -113,7 +113,7 @@ function TableContent({ loadHelpPanelContent, distributions }: TableContentProps
   const handleSubmit = async (
     currentItem: Distribution,
     column: TableProps.ColumnDefinition<Distribution>,
-    value: unknown
+    value: unknown,
   ) => {
     if (!column.id) {
       return;

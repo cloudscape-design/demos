@@ -24,7 +24,7 @@ export const PageHeader = ({ buttons }: { buttons: ButtonDropdownProps.ItemOrGro
               <ButtonDropdown items={(button as ButtonDropdownProps.ItemGroup).items} key={key}>
                 {button.text}
               </ButtonDropdown>
-            )
+            ),
           )}
         </SpaceBetween>
       }

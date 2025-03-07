@@ -24,7 +24,7 @@ describe('Details Tabs', () => {
       await expect(page.countBreadcrumbs()).resolves.toBe(3);
       await expect(page.getActiveTabLabel()).resolves.toBe('Details');
       await expect(page.getTabsHeaderText()).resolves.toMatch(/Details/);
-    })
+    }),
   );
 
   test(
@@ -42,7 +42,7 @@ describe('Details Tabs', () => {
 
       await page.selectFirstTableItem();
       await expect(page.getTableCounterText()).resolves.toBe('(1/24)');
-    })
+    }),
   );
 
   test(
@@ -60,7 +60,7 @@ describe('Details Tabs', () => {
 
       await page.selectFirstTableItem();
       await expect(page.getTableCounterText()).resolves.toBe('(1/1)');
-    })
+    }),
   );
 
   test(
@@ -78,7 +78,7 @@ describe('Details Tabs', () => {
 
       await page.selectFirstTableItem();
       await expect(page.getTableCounterText()).resolves.toBe('(1/1)');
-    })
+    }),
   );
 
   test(
@@ -94,7 +94,7 @@ describe('Details Tabs', () => {
 
       await expect(page.isEmptyRegionVisible()).resolves.toBe(true);
       await expect(page.isTableNoDataButtonVisible()).resolves.toBe(true);
-    })
+    }),
   );
 
   test(
@@ -108,6 +108,6 @@ describe('Details Tabs', () => {
 
       await expect(page.countTableColumns()).resolves.toBe(2);
       await expect(page.isTableCounterVisible()).resolves.toBe(true);
-    })
+    }),
   );
 });

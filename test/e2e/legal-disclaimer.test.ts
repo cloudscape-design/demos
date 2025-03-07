@@ -15,9 +15,9 @@ describe('Legal disclaimer', () => {
         const contentSelector = createWrapper().findFlashbar().findItems().get(1).findContent().toSelector();
         const flashbarContent = await page.getText(contentSelector);
         expect(flashbarContent).toEqual(
-          'This demo is an example of Cloudscape Design System patterns and components, and may not reflect the current patterns and components of AWS services.'
+          'This demo is an example of Cloudscape Design System patterns and components, and may not reflect the current patterns and components of AWS services.',
         );
-      })
+      }),
     );
   });
 });

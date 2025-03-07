@@ -16,7 +16,7 @@ interface RequestRef {
 }
 
 const asyncFetchFilteringOptions = (
-  params: FetchDistributionFilteringOptionsParams
+  params: FetchDistributionFilteringOptionsParams,
 ): Promise<FetchDistributionFilteringOptionsResponse> => {
   return new Promise((resolve, reject) => {
     try {

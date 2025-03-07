@@ -8,7 +8,7 @@ const wizardWrapper = createWrapper().findWizard();
 export default class Page extends AppLayoutPage {
   async gotoStep1FromEditBtnOnReview() {
     await this.scrollIntoViewAndClick(
-      wizardWrapper.findContent().find('.step-1-review').findButton('.edit-step-btn').toSelector()
+      wizardWrapper.findContent().find('.step-1-review').findButton('.edit-step-btn').toSelector(),
     );
   }
   async gotoPrevStep() {

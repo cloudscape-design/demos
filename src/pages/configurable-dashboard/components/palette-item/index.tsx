@@ -10,7 +10,7 @@ import { EmptyState } from '../../../dashboard/components/empty-state';
 import * as icons from '../../../dashboard/icons';
 import { boardItemI18nStrings } from '../../i18n-strings';
 
-import styles from './styles.module.scss';
+import * as styles from './styles.module.scss';
 
 type IconName = keyof typeof icons;
 

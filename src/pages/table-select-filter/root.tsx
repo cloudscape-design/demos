@@ -90,7 +90,7 @@ function TableSelectFilter({ loadHelpPanelContent }: TableSelectFilter) {
         const filteringTextLowerCase = filteringText.toLowerCase();
 
         return SEARCHABLE_COLUMNS.map(key => item[key]).some(
-          value => typeof value === 'string' && value.toLowerCase().indexOf(filteringTextLowerCase) > -1
+          value => typeof value === 'string' && value.toLowerCase().indexOf(filteringTextLowerCase) > -1,
         );
       },
     },

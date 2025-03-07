@@ -19,7 +19,7 @@ describe('Single page create', () => {
       setupTest(async page => {
         await page.openDistributionSelector();
         await expect(page.countDistributionSelectorOptions()).resolves.toBeGreaterThanOrEqual(10);
-      })
+      }),
     );
 
     test(
@@ -28,7 +28,7 @@ describe('Single page create', () => {
         await page.openDistributionSelector();
         await page.filterDistributionsOptions('16');
         await expect(page.countDistributionSelectorOptions()).resolves.toBe(1);
-      })
+      }),
     );
   });
 
@@ -42,7 +42,7 @@ describe('Single page create', () => {
         await expect(page.getSelectedOrigins()).resolves.toEqual(['EXAMPLE-BUCKET5.s3.amazon.com']);
         await page.deselectOrigin();
         await expect(page.getSelectedOrigins()).resolves.toEqual([]);
-      })
+      }),
     );
   });
 
@@ -61,7 +61,7 @@ describe('Single page create', () => {
 
         await page.removeTag(1);
         await expect(page.countTags()).resolves.toBe(0);
-      })
+      }),
     );
   });
 
@@ -77,7 +77,7 @@ describe('Single page create', () => {
           await page.selectOriginRequestPolicyNewOrExisting('new');
           await expect(page.countCacheBehaviorSelects()).resolves.toBe(4);
           await page.enterNewPolicyName('test');
-        })
+        }),
       );
     });
 
@@ -90,7 +90,7 @@ describe('Single page create', () => {
           await page.openSplitPanelSubResourceCreation();
           await expect(page.isSplitPanelOpen()).resolves.toBe(true);
           await expect(page.isSplitPanelSliderFocused()).resolves.toBe(true);
-        })
+        }),
       );
 
       test(
@@ -102,7 +102,7 @@ describe('Single page create', () => {
           await page.submitCreateCachePolicy();
           await expect(page.getCreateCachePolicyErrorMessages()).resolves.toEqual([]);
           await expect(page.isSplitPanelOpen()).resolves.toBe(true);
-        })
+        }),
       );
 
       test(
@@ -112,7 +112,7 @@ describe('Single page create', () => {
 
           await page.cancelCreateCachePolicySplitPanel();
           await expect(page.isSplitPanelOpen()).resolves.toBe(false);
-        })
+        }),
       );
     });
   });

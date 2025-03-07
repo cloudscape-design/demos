@@ -31,7 +31,7 @@ export default function useCreateCachePolicy(): [
   CreateCachePolicyAttributesErrors,
   (updateObj: CreateCachePolicyAttributesErrors) => void,
   boolean,
-  () => void
+  () => void,
 ] {
   const [data, _setData] = useState<CreateCachePolicyAttributesValues>(defaultData);
   const [errors, _setErrors] = useState<CreateCachePolicyAttributesErrors>(defaultErrors);

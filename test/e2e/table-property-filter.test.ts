@@ -33,7 +33,7 @@ describe('Table - Property Filtering', () => {
 
       await expect(page.countTokens()).resolves.toBe(2);
       await expect(page.isTableEmptyButtonVisible()).resolves.toBe(true);
-    })
+    }),
   );
 
   test(
@@ -42,6 +42,6 @@ describe('Table - Property Filtering', () => {
       await page.focusFilter();
 
       await expect(page.countDropdownItems()).resolves.toBe(8);
-    })
+    }),
   );
 });

@@ -18,7 +18,7 @@ export default class CardsFilteringPageObject extends AppLayoutPage {
   }
   private async isCardsHeaderButtonEnabled(index: number) {
     const el = await this.browser.$(
-      cardsWrapper.findHeaderRegion().findSpaceBetween().findAll('div').get(index).find('button').toSelector()
+      cardsWrapper.findHeaderRegion().findSpaceBetween().findAll('div').get(index).find('button').toSelector(),
     );
     return el.isEnabled();
   }
@@ -69,7 +69,7 @@ export default class CardsFilteringPageObject extends AppLayoutPage {
 
   async confirmCardsPreferencesChanges() {
     const confirmButton = await this.browser.$(
-      cardsWrapper.findCollectionPreferences().findModal().findConfirmButton().toSelector()
+      cardsWrapper.findCollectionPreferences().findModal().findConfirmButton().toSelector(),
     );
 
     await confirmButton.click();
@@ -79,7 +79,7 @@ export default class CardsFilteringPageObject extends AppLayoutPage {
 
   async cancelCardsPreferencesChanges() {
     const cancelButton = await this.browser.$(
-      cardsWrapper.findCollectionPreferences().findModal().findCancelButton().toSelector()
+      cardsWrapper.findCollectionPreferences().findModal().findCancelButton().toSelector(),
     );
 
     await cancelButton.click();
@@ -100,7 +100,7 @@ export default class CardsFilteringPageObject extends AppLayoutPage {
         .findOptions()
         .get(index)
         .findNativeInput()
-        .toSelector()
+        .toSelector(),
     );
   }
 
@@ -112,7 +112,7 @@ export default class CardsFilteringPageObject extends AppLayoutPage {
         .findVisibleContentPreference()
         .findToggleByIndex(1, index)
         .findNativeInput()
-        .toSelector()
+        .toSelector(),
     );
     await el.click();
   }

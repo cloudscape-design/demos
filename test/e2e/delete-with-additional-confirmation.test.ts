@@ -30,6 +30,6 @@ describe('Delete with additional confirmation', () => {
       await page.waitForNotificationText('Deleting instance ');
       await page.waitForNotificationText('Successfully deleted instance ');
       await expect(page.getTableItemsCounter()).resolves.toBe('(47)');
-    })
+    }),
   );
 });

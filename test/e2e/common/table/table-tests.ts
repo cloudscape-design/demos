@@ -26,7 +26,7 @@ export default function commonTests<T extends PageObjectWithFiltering>(setupTest
         await expect(page.isEditDetailsButtonEnabled()).resolves.toBe(false);
         await expect(page.isDeleteDetailsButtonEnabled()).resolves.toBe(false);
         await expect(page.getColumnAriaLabel(2)).resolves.toBe('Distribution ID, sorted ascending.');
-      })
+      }),
     );
 
     describe('Navigation', () => {
@@ -38,7 +38,7 @@ export default function commonTests<T extends PageObjectWithFiltering>(setupTest
 
           await expect(page.isNavigationExpandableSectionVisible(1)).resolves.toBe(false);
           await expect(page.isNavigationExpandableSectionVisible(2)).resolves.toBe(false);
-        })
+        }),
       );
 
       test(
@@ -46,7 +46,7 @@ export default function commonTests<T extends PageObjectWithFiltering>(setupTest
         setupTest(async page => {
           await page.closeSideNavigation();
           await expect(page.isNavigationOpen()).resolves.toBe(false);
-        })
+        }),
       );
     });
 
@@ -58,7 +58,7 @@ export default function commonTests<T extends PageObjectWithFiltering>(setupTest
           await expect(page.isToolsOpen()).resolves.toBe(true);
           await expect(page.getToolsTitle()).resolves.toBe('Distributions');
           await expect(page.getToolsContent()).resolves.toContain('View your current distributions');
-        })
+        }),
       );
     });
 
@@ -72,7 +72,7 @@ export default function commonTests<T extends PageObjectWithFiltering>(setupTest
           await expect(page.getColumnAriaLabel(3)).resolves.toBe('State, not sorted.');
           await expect(page.getTableCellText(1, 2)).resolves.toBe('YBLIKXPJHLB130');
           await expect(page.getTableCellText(2, 2)).resolves.toBe('XTVHNKKMSTO144');
-        })
+        }),
       );
 
       test(
@@ -85,7 +85,7 @@ export default function commonTests<T extends PageObjectWithFiltering>(setupTest
           await expect(page.getColumnAriaLabel(3)).resolves.toBe('State, sorted ascending.');
           await expect(page.getTableCellText(1, 3)).resolves.toBe('Activated');
           await expect(page.getTableCellText(2, 3)).resolves.toBe('Activated');
-        })
+        }),
       );
 
       describe('Header buttons', () => {
@@ -97,7 +97,7 @@ export default function commonTests<T extends PageObjectWithFiltering>(setupTest
             await expect(page.isViewDetailsButtonEnabled()).resolves.toBe(true);
             await expect(page.isEditDetailsButtonEnabled()).resolves.toBe(true);
             await expect(page.isDeleteDetailsButtonEnabled()).resolves.toBe(true);
-          })
+          }),
         );
 
         test(
@@ -110,7 +110,7 @@ export default function commonTests<T extends PageObjectWithFiltering>(setupTest
             await expect(page.isViewDetailsButtonEnabled()).resolves.toBe(false);
             await expect(page.isEditDetailsButtonEnabled()).resolves.toBe(false);
             await expect(page.isDeleteDetailsButtonEnabled()).resolves.toBe(true);
-          })
+          }),
         );
       });
     });

@@ -16,7 +16,7 @@ import { FilterSet } from './use-filter-sets';
 
 function queryToString(
   query: PropertyFilterProps.Query,
-  filteringProperties?: readonly PropertyFilterProps.FilteringProperty[]
+  filteringProperties?: readonly PropertyFilterProps.FilteringProperty[],
 ): string {
   function tokenToString({ operator, value, propertyKey }: PropertyFilterProps.Token): string {
     if (propertyKey) {

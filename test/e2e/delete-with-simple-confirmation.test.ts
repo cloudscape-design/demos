@@ -29,6 +29,6 @@ describe('Delete with simple confirmation', () => {
       await page.waitForNotificationText('Deleting distribution ');
       await page.waitForNotificationText('Successfully deleted distribution ');
       await expect(page.getTableItemsCounter()).resolves.toBe('(145)');
-    })
+    }),
   );
 });

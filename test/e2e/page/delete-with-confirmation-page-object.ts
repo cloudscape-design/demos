@@ -32,7 +32,7 @@ export default class DeleteWithConfirmationPageObject extends AppLayoutPage {
       async () => {
         return (await this.getNotificationText()).includes(text);
       },
-      { timeoutMsg: `Notification text not found: ${text}` }
+      { timeoutMsg: `Notification text not found: ${text}` },
     );
   }
 

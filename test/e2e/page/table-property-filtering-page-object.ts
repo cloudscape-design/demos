@@ -23,7 +23,7 @@ export default class TablePropertyFilteringPageObject extends TablePageObject {
   }
   isDropdownVisible() {
     return this.isDisplayed(
-      this.findPropertyFiltering().findDropdown({ expandToViewport: true }).findOpenDropdown().toSelector()
+      this.findPropertyFiltering().findDropdown({ expandToViewport: true }).findOpenDropdown().toSelector(),
     );
   }
   async selectOption(optionPosition: number) {
@@ -50,7 +50,7 @@ export default class TablePropertyFilteringPageObject extends TablePageObject {
 
   countDropdownItems() {
     return this.getElementsCount(
-      this.findPropertyFiltering().findDropdown({ expandToViewport: true }).findOptions().toSelector()
+      this.findPropertyFiltering().findDropdown({ expandToViewport: true }).findOptions().toSelector(),
     );
   }
 
@@ -91,7 +91,7 @@ export default class TablePropertyFilteringPageObject extends TablePageObject {
   async waitUntilPropertyFilterLoaded() {
     await this.waitForExist(
       this.findPropertyFiltering().findDropdown().findFooterRegion().findSpinner().toSelector(),
-      false
+      false,
     );
   }
   isViewDetailsButtonEnabled() {

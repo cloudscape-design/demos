@@ -12,5 +12,5 @@ createRoot(document.getElementById('app')!).render(
     <App>
       <Router initialPage="create-transcription-job" />
     </App>
-  </StoreProvider>
+  </StoreProvider>,
 );

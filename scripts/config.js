@@ -1,10 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-const path = require('path');
+import path from 'node:path';
 
-const config = {
+export default {
   outputPath: path.resolve('lib'),
   devServerPort: 9615,
 };
-
-module.exports = config;

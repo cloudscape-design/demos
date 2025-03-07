@@ -28,7 +28,7 @@ describe('Form', () => {
       await expect(page.isPrivateContentExpanded()).resolves.toBe(true);
       await expect(page.countReportsAndAnalyticsLinks()).resolves.toBe(7);
       await expect(page.countPrivateContentLinks()).resolves.toBe(2);
-    })
+    }),
   );
 
   test(
@@ -36,7 +36,7 @@ describe('Form', () => {
     setupTest(async page => {
       await page.closeSideNavigation();
       await expect(page.isNavigationOpen()).resolves.toBe(false);
-    })
+    }),
   );
 
   test(
@@ -47,6 +47,6 @@ describe('Form', () => {
 
       await expect(page.isReportsAndAnalyticsSectionExpanded()).resolves.toBe(false);
       await expect(page.isPrivateContentExpanded()).resolves.toBe(false);
-    })
+    }),
   );
 });

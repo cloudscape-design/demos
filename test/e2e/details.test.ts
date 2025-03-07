@@ -31,6 +31,6 @@ describe('Tags Table (react)', () => {
     'loads tags from server',
     setupTest(async page => {
       await expect(page.countTableRows()).resolves.toBe(4);
-    })
+    }),
   );
 });

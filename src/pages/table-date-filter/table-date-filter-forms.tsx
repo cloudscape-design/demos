@@ -71,7 +71,7 @@ export function DateTimeForm({ filter, operator, value, onChange }: PropertyFilt
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [filter]
+    [filter],
   );
 
   // Call onChange only when the value is valid.
@@ -86,7 +86,7 @@ export function DateTimeForm({ filter, operator, value, onChange }: PropertyFilt
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [dateValue, timeValue]
+    [dateValue, timeValue],
   );
 
   const dateInputProps: DateInputProps = {
