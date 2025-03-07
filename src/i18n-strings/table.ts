@@ -24,7 +24,7 @@ export const distributionEditableTableAriaLabels: TableProps.AriaLabels<{ id: st
 };
 
 export function createTableSortLabelFn<T>(
-  column: TableProps.ColumnDefinition<T>
+  column: TableProps.ColumnDefinition<T>,
 ): TableProps.ColumnDefinition<T>['ariaLabel'] {
   if (!column.sortingField && !column.sortingComparator && !column.ariaLabel) {
     return;

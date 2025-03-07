@@ -98,7 +98,7 @@ export default function DistributionsTable({
       pagination: { pageSize: 50 },
       sorting: { defaultState: { sortingColumn: columnDefinitions[0] } },
       selection: {},
-    }
+    },
   );
 
   return (

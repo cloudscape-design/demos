@@ -20,14 +20,14 @@ const behaviorsSelectionLabels = {
     row: {
       pathPattern: string;
       origin: string;
-    }
+    },
   ) => `select path ${row.pathPattern} from origin ${row.origin}`,
   selectionGroupLabel: 'Behaviors selection',
 };
 
 export function BehaviorsTable() {
   const [behaviors, behaviorsLoading] = useAsyncData<BehaviorResource>(() =>
-    new DataProvider().getData<BehaviorResource>('behaviors')
+    new DataProvider().getData<BehaviorResource>('behaviors'),
   );
   const [selectedItems, setSelectedItems] = useState<NonNullable<TableProps['selectedItems']>>([]);
   const isOnlyOneSelected = selectedItems.length === 1;

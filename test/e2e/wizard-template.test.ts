@@ -24,7 +24,7 @@ describe('Wizard', () => {
       await expect(page.isStepActive(1)).resolves.toBe(true);
       await expect(page.isStepDisabled(2)).resolves.toBe(true);
       await expect(page.isStepDisabled(4)).resolves.toBe(true);
-    })
+    }),
   );
 
   test(
@@ -32,7 +32,7 @@ describe('Wizard', () => {
     setupTest(async page => {
       await page.openSideNavigation();
       await expect(page.getActiveNavigationLinkText()).resolves.toBe('Instances');
-    })
+    }),
   );
 
   test(
@@ -40,7 +40,7 @@ describe('Wizard', () => {
     setupTest(async page => {
       await page.openSideNavigation();
       await expect(page.isNavigationOpen()).resolves.toBe(true);
-    })
+    }),
   );
 
   test(
@@ -50,9 +50,9 @@ describe('Wizard', () => {
       await expect(page.isToolsOpen()).resolves.toBe(true);
       await expect(page.getToolsTitle()).resolves.toBe('Select engine type');
       await expect(page.getToolsContent()).resolves.toMatch(
-        /With Amazon RDS, you can create a DB instance, an isolated database environment in the AWS Cloud/
+        /With Amazon RDS, you can create a DB instance, an isolated database environment in the AWS Cloud/,
       );
-    })
+    }),
   );
 
   test(
@@ -60,7 +60,7 @@ describe('Wizard', () => {
     setupTest(async page => {
       await page.click(page.contextInfoLinkSelector());
       await expect(page.isToolsOpen()).resolves.toBe(true);
-    })
+    }),
   );
 
   test(
@@ -69,7 +69,7 @@ describe('Wizard', () => {
       await page.click(page.contextInfoLinkSelector());
       await page.click(page.contextInfoLinkSelector());
       await expect(page.isToolsCloseFocused()).resolves.toBe(true);
-    })
+    }),
   );
 
   test(
@@ -79,7 +79,7 @@ describe('Wizard', () => {
       await expect(page.getStepTitle()).resolves.toMatch(/Specify instance details/);
       await expect(page.isStepDisabled(1)).resolves.toBe(false);
       await expect(page.isStepActive(2)).resolves.toBe(true);
-    })
+    }),
   );
 
   test(
@@ -92,7 +92,7 @@ describe('Wizard', () => {
       await expect(page.isStepActive(1)).resolves.toBe(true);
       await expect(page.isStepDisabled(2)).resolves.toBe(false);
       await expect(page.isStepDisabled(3)).resolves.toBe(true);
-    })
+    }),
   );
 
   test(
@@ -107,6 +107,6 @@ describe('Wizard', () => {
       await expect(page.isStepActive(1)).resolves.toBe(true);
       await expect(page.isStepDisabled(4)).resolves.toBe(false);
       await expect(page.getStepTitle()).resolves.toMatch(/Select engine type/);
-    })
+    }),
   );
 });

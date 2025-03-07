@@ -15,7 +15,7 @@ export default function commonPreferencesTests(setupTest: {
         await page.confirmTablePreferenceChanges();
 
         expect(await page.countTableRows()).toBe(10);
-      })
+      }),
     );
 
     test(
@@ -26,7 +26,7 @@ export default function commonPreferencesTests(setupTest: {
         await page.confirmTablePreferenceChanges();
 
         expect(await page.countTableRows()).toBe(50);
-      })
+      }),
     );
 
     test(
@@ -36,7 +36,7 @@ export default function commonPreferencesTests(setupTest: {
         await page.setTablePreferencesPageSize(1);
         await page.cancelTablePreferenceChanges();
         expect(await page.countTableRows()).toBe(30);
-      })
+      }),
     );
 
     test(
@@ -51,7 +51,7 @@ export default function commonPreferencesTests(setupTest: {
         await page.confirmTablePreferenceChanges();
 
         expect(await page.countTableColumns()).toBe(2);
-      })
+      }),
     );
 
     test(
@@ -64,7 +64,7 @@ export default function commonPreferencesTests(setupTest: {
         await page.confirmTablePreferenceChanges();
 
         expect(await page.countTableColumns()).toBe(10);
-      })
+      }),
     );
 
     test('reorders columns', () => {

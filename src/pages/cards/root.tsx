@@ -48,7 +48,7 @@ function DetailsCards({ loadHelpPanelContent }: DetailsCardsProps) {
       },
       pagination: { pageSize: preferences?.pageSize },
       selection: {},
-    }
+    },
   );
 
   useEffect(() => {

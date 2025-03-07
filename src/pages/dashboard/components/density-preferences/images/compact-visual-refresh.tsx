@@ -4,7 +4,7 @@ import React from 'react';
 
 import { TableRow, TableRows, TopNavigation, WindowPath } from './common';
 
-import styles from './styles.module.scss';
+import * as styles from './styles.module.scss';
 
 const compactImage = (
   <svg viewBox="0 0 230 107" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden={true}>
@@ -12,7 +12,7 @@ const compactImage = (
     <TopNavigation />
     <g>
       <path className={styles.header} d="M24 8.00006H211V24.0001H24V8.00006Z" />
-      <g className={styles.default}>
+      <g className={styles._default}>
         <circle cx="29" cy="15.5001" r="2.5" className={styles.disabled} />
         <path d="M47 14H77.1484V17H47V14Z" />
         <path d="M121 15C121 13.8954 121.895 13 123 13H139.36C140.465 13 141.36 13.8954 141.36 15V15C141.36 16.1046 140.465 17 139.36 17H123C121.895 17 121 16.1046 121 15V15Z" />

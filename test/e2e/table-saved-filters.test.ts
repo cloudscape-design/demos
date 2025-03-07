@@ -25,7 +25,7 @@ describe('Table - Saved Filters', () => {
     'Has three default saved filter sets',
     setupTest(async page => {
       await expect(page.countSavedFilterSets()).resolves.toBe(3);
-    })
+    }),
   );
 
   test(
@@ -40,7 +40,7 @@ describe('Table - Saved Filters', () => {
       const tokensText = await page.getElementsText(page.findPropertyFiltering().findTokens().toSelector());
       expect(tokensText[0]).toMatch(/Delivery method = Web/);
       expect(tokensText[1]).toMatch(/State = Activated/);
-    })
+    }),
   );
 
   test(
@@ -56,7 +56,7 @@ describe('Table - Saved Filters', () => {
 
       await expect(page.countTokens()).resolves.toBe(3);
       await expect(page.getSelectedFilterSet()).resolves.toBe('Active web distributions (unsaved)');
-    })
+    }),
   );
 
   test(
@@ -79,7 +79,7 @@ describe('Table - Saved Filters', () => {
 
       await expect(page.countTokens()).resolves.toBe(1);
       await expect(page.getSelectedFilterSet()).resolves.toBe('Distributions with buckets');
-    })
+    }),
   );
 
   test(
@@ -100,7 +100,7 @@ describe('Table - Saved Filters', () => {
       await page.submitModal();
 
       await expect(page.getSelectedFilterSet()).resolves.toBe('my-filter');
-    })
+    }),
   );
 
   test(
@@ -123,7 +123,7 @@ describe('Table - Saved Filters', () => {
       await page.submitModal();
 
       await expect(page.getSelectedFilterSet()).resolves.toBe('Active web distributions');
-    })
+    }),
   );
 
   test(
@@ -139,7 +139,7 @@ describe('Table - Saved Filters', () => {
       await page.submitModal();
 
       await expect(page.getSelectedFilterSet()).resolves.toBe('Choose a filter set');
-    })
+    }),
   );
 
   test(
@@ -151,8 +151,8 @@ describe('Table - Saved Filters', () => {
 
       await page.openSaveFilterModal();
       await expect(page.getText(createWrapper().findModal().toSelector())).resolves.toContain(
-        '(Origin = EXAMPLE-BUCKET-1.s3.amazon, or Origin = EXAMPLE-BUCKET-2.s3.amazon), and Price class = Use all edge locations (best performance)'
+        '(Origin = EXAMPLE-BUCKET-1.s3.amazon, or Origin = EXAMPLE-BUCKET-2.s3.amazon), and Price class = Use all edge locations (best performance)',
       );
-    })
+    }),
   );
 });

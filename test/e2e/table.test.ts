@@ -26,14 +26,14 @@ describe('Table - Client side', () => {
     'When no row is selected counter displays total number',
     setupTest(async page => {
       await expect(page.getTableItemsCounter()).resolves.toBe('(150)');
-    })
+    }),
   );
   test(
     'When one row is selected counter displays selected of total',
     setupTest(async page => {
       await page.selectTableRow(1);
       await expect(page.getTableItemsCounter()).resolves.toBe('(1/150)');
-    })
+    }),
   );
 
   describe('Table - Filtering', () => {
@@ -43,7 +43,7 @@ describe('Table - Client side', () => {
         await page.searchText('00000');
 
         expect(await page.isTableEmptyButtonVisible()).toBe(true);
-      })
+      }),
     );
 
     test(
@@ -54,7 +54,7 @@ describe('Table - Client side', () => {
 
         await expect(page.getSearchText()).resolves.toBe('');
         await expect(page.countTableRows()).resolves.toBe(30);
-      })
+      }),
     );
   });
 });

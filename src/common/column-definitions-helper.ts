@@ -5,7 +5,7 @@ import { TableProps } from '@cloudscape-design/components/table';
 export function addToColumnDefinitions<T, K extends keyof TableProps.ColumnDefinition<T>>(
   columnDefinitions: TableProps.ColumnDefinition<T>[],
   propertyName: K,
-  columns: Partial<TableProps.ColumnDefinition<T>>[] = []
+  columns: Partial<TableProps.ColumnDefinition<T>>[] = [],
 ) {
   return columnDefinitions.map(colDef => {
     const column = columns.find(col => col.id === colDef.id);
@@ -19,7 +19,7 @@ export function addToColumnDefinitions<T, K extends keyof TableProps.ColumnDefin
 export function mapWithColumnDefinitionIds<T, K extends keyof TableProps.ColumnDefinition<T>>(
   columnDefinitions: TableProps.ColumnDefinition<T>[],
   propertyName: K,
-  items: TableProps.ColumnDefinition<T>[K][]
+  items: TableProps.ColumnDefinition<T>[K][],
 ) {
   return columnDefinitions.map(({ id }, i) => ({
     id,

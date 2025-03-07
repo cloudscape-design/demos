@@ -16,7 +16,7 @@ export const boardItemI18nStrings: BoardItemProps.I18nStrings = {
 function createAnnouncement(
   operationAnnouncement: string,
   conflicts: ReadonlyArray<BoardProps.Item<WidgetDataType>>,
-  disturbed: ReadonlyArray<BoardProps.Item<WidgetDataType>>
+  disturbed: ReadonlyArray<BoardProps.Item<WidgetDataType>>,
 ) {
   const conflictsAnnouncement =
     conflicts.length > 0 ? `Conflicts with ${conflicts.map(c => c.data.title).join(', ')}.` : '';
@@ -32,7 +32,7 @@ export const boardI18nStrings: BoardProps.I18nStrings<WidgetDataType> = {
     return createAnnouncement(
       `Item moved to ${operation.direction === 'horizontal' ? columns : rows}.`,
       operation.conflicts,
-      operation.disturbed
+      operation.disturbed,
     );
   },
   liveAnnouncementDndItemResized: operation => {

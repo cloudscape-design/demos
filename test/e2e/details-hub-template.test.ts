@@ -28,14 +28,14 @@ describe('Details hub', () => {
       await expect(page.countLogsTableColumns()).resolves.toBe(4);
       await expect(page.getLogsTableCounterText()).resolves.toBe('(24)');
       await expect(page.getLogsTableFooterText()).resolves.toBe('View all logs');
-    })
+    }),
   );
   test(
     'When one row is selected counter displays selected of total number of items in first table',
     setupTest(async page => {
       await page.selectLogsTableItem();
       await expect(page.getLogsTableCounterText()).resolves.toBe('(1/24)');
-    })
+    }),
   );
 
   test(
@@ -43,6 +43,6 @@ describe('Details hub', () => {
     setupTest(async page => {
       await page.selectOriginsTableItem();
       await expect(page.getOriginsTableCounter()).resolves.toBe('(1/1)');
-    })
+    }),
   );
 });

@@ -47,7 +47,7 @@ export default class TablePageObject extends AppLayoutPage {
   // Table - Header Buttons
   protected async isTableHeaderButtonEnabled(index: number) {
     const el = await this.browser.$(
-      this.tableWrapper.findHeaderSlot().findSpaceBetween().findAll('div').get(index).find('button').toSelector()
+      this.tableWrapper.findHeaderSlot().findSpaceBetween().findAll('div').get(index).find('button').toSelector(),
     );
     return el.isEnabled();
   }
@@ -69,7 +69,7 @@ export default class TablePageObject extends AppLayoutPage {
   getColumnAriaLabel(index: number) {
     return this.getElementAttribute(
       this.tableWrapper.findColumnHeaders().get(index).find('[aria-label]').toSelector(),
-      'aria-label'
+      'aria-label',
     );
   }
 
@@ -93,7 +93,7 @@ export default class TablePageObject extends AppLayoutPage {
 
   async confirmTablePreferenceChanges() {
     const confirmButton = await this.browser.$(
-      this.tableWrapper.findCollectionPreferences().findModal().findConfirmButton().toSelector()
+      this.tableWrapper.findCollectionPreferences().findModal().findConfirmButton().toSelector(),
     );
 
     await confirmButton.click();
@@ -122,7 +122,7 @@ export default class TablePageObject extends AppLayoutPage {
         .findOptions()
         .get(index)
         .findNativeInput()
-        .toSelector()
+        .toSelector(),
     );
     await el.click();
   }
@@ -136,7 +136,7 @@ export default class TablePageObject extends AppLayoutPage {
         .findOptionByIndex(index)
         .findVisibilityToggle()
         .findNativeInput()
-        .toSelector()
+        .toSelector(),
     );
     await el.click();
   }

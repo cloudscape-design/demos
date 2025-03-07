@@ -39,7 +39,7 @@ export function App() {
     const { ResourceTagMappingList } = await window.FakeServer.GetResources();
     const tags = ResourceTagMappingList.reduce<Tag[]>(
       (tags, resourceTagMapping) => [...tags, ...resourceTagMapping.Tags],
-      []
+      [],
     )
       .filter(isUserTag)
       .map(mapExistingTag);
@@ -102,7 +102,7 @@ export function App() {
                   keysRequest={() => window.FakeServer.GetTagKeys().then(({ TagKeys }) => TagKeys)}
                   valuesRequest={key =>
                     window.FakeServer.GetTagValues(key as keyof TagsResource['valueMap']).then(
-                      ({ TagValues }) => TagValues
+                      ({ TagValues }) => TagValues,
                     )
                   }
                   loading={loading}

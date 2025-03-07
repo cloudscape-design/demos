@@ -22,7 +22,7 @@ describe('Table - Inline Editing', () => {
       const currentCellText = await page.getCellText(2, 3);
       const result = await page.performStateEdit(2, currentCellText);
       expect(result).not.toBe(currentCellText); // there's only 2 options, so it should be different
-    })
+    }),
   );
 
   test(
@@ -30,7 +30,7 @@ describe('Table - Inline Editing', () => {
     setupTest(async page => {
       const errorMessage = await page.performBadDomainEdit(2);
       expect(errorMessage).toBe('Valid domain name ends with .com, .org, or .net.');
-    })
+    }),
   );
 
   test(
@@ -39,7 +39,7 @@ describe('Table - Inline Editing', () => {
       const VALID_DOMAIN = 'aws.amazon.com';
       const afterEditText = await page.performGoodDomainEdit(4, VALID_DOMAIN);
       expect(afterEditText).toBe(VALID_DOMAIN);
-    })
+    }),
   );
 
   test(
@@ -48,7 +48,7 @@ describe('Table - Inline Editing', () => {
       await page.hideActionsColumn();
       const afterEditText = await page.performSSLEdit(5);
       expect(afterEditText).toBe('ACM');
-    })
+    }),
   );
 
   test(
@@ -59,6 +59,6 @@ describe('Table - Inline Editing', () => {
       await page.click(page.refreshButton());
       await page.waitForVisible(page.lastRefresh());
       await expect(page.getText(page.lastRefresh())).resolves.toContain('Last updated');
-    })
+    }),
   );
 });

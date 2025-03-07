@@ -78,11 +78,11 @@ declare global {
       GetTagValues: (params: string) => GetTagValuesReturn;
       fetchDistributions: (
         params: FetchDistributionsParams,
-        callback: (response: FetchDistributionsResponse) => void
+        callback: (response: FetchDistributionsResponse) => void,
       ) => void;
       fetchDistributionFilteringOptions: (
         params: FetchDistributionFilteringOptionsParams,
-        callback: (response: FetchDistributionFilteringOptionsResponse) => void
+        callback: (response: FetchDistributionFilteringOptionsResponse) => void,
       ) => void;
     };
   }

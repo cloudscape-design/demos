@@ -38,7 +38,7 @@ export default class PageObject extends BaseExamplePage {
     await this.browser.pause(DEBOUNCE_FILTERING_DELAY);
     await this.waitForExist(
       this.findKeyAutosuggest(row).findDropdown().findFooterRegion().findSpinner().toSelector(),
-      false
+      false,
     );
   }
 
@@ -49,7 +49,7 @@ export default class PageObject extends BaseExamplePage {
     await this.browser.pause(DEBOUNCE_FILTERING_DELAY);
     await this.waitForExist(
       this.findValueAutosuggest(row).findDropdown().findFooterRegion().findSpinner().toSelector(),
-      false
+      false,
     );
   }
 

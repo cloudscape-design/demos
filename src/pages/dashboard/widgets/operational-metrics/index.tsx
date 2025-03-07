@@ -68,7 +68,7 @@ function OperationalMetricsHeader() {
 function OperationalMetricsContent() {
   const { visibleContent, openPreferences } = useContext(OperationalWidgetContext);
   const someCostVisible = (['status', 'running', 'monitoring', 'issues'] as const).some(content =>
-    visibleContent.includes(content)
+    visibleContent.includes(content),
   );
   if (visibleContent.length <= 0) {
     return (

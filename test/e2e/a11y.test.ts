@@ -87,7 +87,7 @@ describe('Checking examples accessibility', function () {
             })
             .then(
               result => done({ result }),
-              error => done(error)
+              error => done(error),
             );
         // executeAsync has incorrect typings: https://github.com/webdriverio/webdriverio/issues/6206
         const response = (await browser.executeAsync(runAxe as any)) as AxeResult;
@@ -101,7 +101,7 @@ describe('Checking examples accessibility', function () {
         if (discardLogs) {
           await browser.getLogs('browser');
         }
-      })
+      }),
     );
   });
 });

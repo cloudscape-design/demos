@@ -39,12 +39,12 @@ export const App = () => {
       },
       pagination: { pageSize: preferences?.pageSize },
       selection: {},
-    }
+    },
   );
   const { header: panelHeader, body: panelBody } = getPanelContent(collectionProps.selectedItems, 'comparison');
   const [toolsOpen, setToolsOpen] = useState(false);
   const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize } = useSplitPanel(
-    collectionProps.selectedItems
+    collectionProps.selectedItems,
   );
   const appLayout = useRef<AppLayoutProps.Ref>(null);
 

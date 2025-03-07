@@ -15,7 +15,7 @@ export default function commonFlashTests<T extends PageWithFlash>(setupTest: Set
         await expect(page.isLastFlashVisible()).resolves.toBe(true);
         await page.dismissLastFlash();
         await expect(page.isLastFlashVisible()).resolves.toBe(false);
-      })
+      }),
     );
   });
 }

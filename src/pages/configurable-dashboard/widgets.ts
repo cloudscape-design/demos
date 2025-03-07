@@ -50,7 +50,7 @@ const defaultLayout: ReadonlyArray<StoredWidgetPlacement> = [
 
 function merge<T extends { id: string }>(
   src: ReadonlyArray<T>,
-  overrides: ReadonlyArray<Partial<T> & { id: string }>
+  overrides: ReadonlyArray<Partial<T> & { id: string }>,
 ): ReadonlyArray<T> {
   return src.map(item => {
     const match = overrides.find(override => override.id === item.id);
@@ -118,7 +118,7 @@ export function getDefaultLayout(width: number) {
 }
 
 export function exportLayout(
-  items: ReadonlyArray<BoardProps.Item<WidgetDataType>>
+  items: ReadonlyArray<BoardProps.Item<WidgetDataType>>,
 ): ReadonlyArray<StoredWidgetPlacement> {
   return items.map(item => ({
     id: item.id,

@@ -4,7 +4,7 @@ import React from 'react';
 
 import { TableRow, TableRows, TopNavigation, WindowPath } from './common';
 
-import styles from './styles.module.scss';
+import * as styles from './styles.module.scss';
 
 const comfortableImage = (
   <svg viewBox="0 0 230 107" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden={true}>
@@ -12,7 +12,7 @@ const comfortableImage = (
     <TopNavigation />
     <g>
       <path className={styles.header} d="M24 8.00006H211V28.0001H24V8.00006Z" />
-      <g className={styles.default}>
+      <g className={styles._default}>
         <circle cx="29" cy="17.5001" r="2.5" className={styles.disabled} />
         <path d="M47 16.0001H77.1484V19.0001H47V16.0001Z" />
         <path d="M121 17.5C121 15.567 122.567 14 124.5 14H137.86C139.793 14 141.36 15.567 141.36 17.5V17.5C141.36 19.433 139.793 21 137.86 21H124.5C122.567 21 121 19.433 121 17.5V17.5Z" />
