@@ -36,9 +36,10 @@ function useNotifications(showSuccessNotification = false) {
 
 interface NotificationsProps {
   successNotification?: boolean;
+  customNotifications?: Array<FlashbarProps.MessageDefinition>;
 }
 
-export function Notifications({ successNotification }: NotificationsProps) {
+export function Notifications({ successNotification, customNotifications = [] }: NotificationsProps) {
   const notifications = useNotifications(successNotification);
-  return <Flashbar items={notifications} />;
+  return <Flashbar items={[...notifications, ...customNotifications]} />;
 }

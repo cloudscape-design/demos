@@ -1,18 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-export const SSL_CERTIFICATE_OPTIONS = [
-  {
-    label: 'Default CloudFront SSL/TLS certificate',
-    value: 'default',
-    description: 'Provides HTTPS or HTTP access to your content using a CloudFront domain name.',
-  },
-  {
-    label: 'Custom SSL/TLS certificate (example.com)',
-    value: 'custom',
-    description: 'Grants access by using an alternate domain name, such as https://www.example.com/.',
-  },
-];
-
 export const SUPPORTED_HTTP_VERSIONS_OPTIONS = [
   { label: 'HTTP 2', value: 'http2' },
   { label: 'HTTP 1', value: 'http1' },
@@ -22,6 +9,39 @@ export const VIEWER_PROTOCOL_POLICY_OPTIONS = [
   { label: 'HTTP and HTTPS', value: '0' },
   { label: 'Redirect HTTP to HTTPS', value: '1' },
   { label: 'HTTPS only', value: '2' },
+];
+
+export const EXISTING_ORIGIN_REQUEST_POLICIES = [
+  { label: 'Policy 1', value: '0' },
+  { label: 'Policy 2', value: '1' },
+  { label: 'Policy 3', value: '2' },
+];
+
+export const ORIGIN_REQUEST_HEADER_OPTIONS = [
+  { label: 'None', value: 'none' },
+  { label: 'All', value: 'all' },
+];
+
+export const ORIGIN_REQUEST_QUERY_STRING_OPTIONS = [
+  { label: 'None', value: 'none' },
+  { label: 'All', value: 'all' },
+];
+
+export const ORIGIN_REQUEST_COOKIE_OPTIONS = [
+  { label: 'None', value: 'none' },
+  { label: 'All', value: 'all' },
+];
+
+export const EXISTING_CACHE_POLICIES = [
+  { label: 'Policy 1', value: '0' },
+  { label: 'Policy 2', value: '1' },
+  { label: 'Policy 3', value: '2' },
+];
+
+export const CUSTOM_SSL_CERTIFICATES = [
+  { label: 'Certificate 1', value: '0' },
+  { label: 'Certificate 2', value: '1' },
+  { label: 'Certificate 3', value: '2' },
 ];
 
 export const ALLOWED_HTTP_METHOD_OPTIONS = [

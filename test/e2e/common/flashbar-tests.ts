@@ -12,9 +12,9 @@ export default function commonFlashTests<T extends PageWithFlash>(setupTest: Set
     test(
       'Initial layout shows flash message and dismisses properly',
       setupTest(async page => {
-        await expect(page.isFlashVisible()).resolves.toBe(true);
-        await page.dismissFlash();
-        await expect(page.isFlashVisible()).resolves.toBe(false);
+        await expect(page.isLastFlashVisible()).resolves.toBe(true);
+        await page.dismissLastFlash();
+        await expect(page.isLastFlashVisible()).resolves.toBe(false);
       })
     );
   });

@@ -4,7 +4,7 @@ import uniq from 'lodash/uniq';
 
 import { SelectProps } from '@cloudscape-design/components/select';
 
-import { FormDataAttributesKeys, FormDataAttributesValues } from './types';
+import { FormDataValidationAttributesKeys } from './types';
 
 const validateEmpty = (value: string | undefined | null | File[]) => Boolean(value && value.length > 0);
 
@@ -55,7 +55,7 @@ type ValidationFunction = (value: any) => boolean;
 type ValidationText = string | ((value: string) => string);
 
 const validationConfig: Record<
-  FormDataAttributesKeys,
+  FormDataValidationAttributesKeys,
   Array<{ validate: ValidationFunction; errorText?: ValidationText; warningText?: ValidationText }>
 > = {
   cloudFrontRootObject: [
@@ -107,15 +107,23 @@ const validationConfig: Record<
     },
   ],
   codeEditor: [{ validate: validateCodeEditor, errorText: 'Policy is invalid.' }],
-  sslCertificate: [],
   httpVersion: [],
   ipv6isOn: [],
   functionFiles: [],
   tags: [],
+  isOriginRequestPolicyNew: [],
+  originRequestPolicyName: [{ validate: validateEmpty, errorText: 'Name is required.' }],
+  cachePolicyName: [{ validate: validateEmpty, errorText: 'Name is required.' }],
+  cachePolicy: [
+    {
+      validate: (selectedOption: SelectProps.Option) => validateEmpty(selectedOption?.value),
+      errorText: 'Cache policy is required.',
+    },
+  ],
 };
 
 export default function validateField(
-  attribute: keyof FormDataAttributesValues,
+  attribute: FormDataValidationAttributesKeys,
   value: unknown,
   customValue?: unknown
 ) {
