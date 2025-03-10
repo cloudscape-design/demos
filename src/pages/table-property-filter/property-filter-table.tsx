@@ -74,7 +74,7 @@ export function PropertyFilterTable({
       pagination: { pageSize: preferences?.pageSize },
       sorting: { defaultState: { sortingColumn: columnDefinitions[0] } },
       selection: {},
-    }
+    },
   );
 
   useEffect(() => {

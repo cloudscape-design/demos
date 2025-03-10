@@ -26,16 +26,16 @@ describe('S3 Resource Selector - Write mode', () => {
     'Has header in form header slot',
     setupTest(async page => {
       await expect(page.getHeader()).resolves.toBe('Create simulation');
-    })
+    }),
   );
 
   test(
     'does not allow selecting versions',
     setupTest(async page => {
       await expect(
-        page.isExisting(s3ResourceSelector.findInContext().findVersionsSelect().toSelector())
+        page.isExisting(s3ResourceSelector.findInContext().findVersionsSelect().toSelector()),
       ).resolves.toEqual(false);
-    })
+    }),
   );
 
   test(
@@ -50,7 +50,7 @@ describe('S3 Resource Selector - Write mode', () => {
       // this is a file
       await expect(page.isRowSelectable(3)).resolves.toEqual(false);
       await expect(page.isDrilldownAllowed(3)).resolves.toEqual(false);
-    })
+    }),
   );
 
   test(
@@ -60,7 +60,7 @@ describe('S3 Resource Selector - Write mode', () => {
       await page.selectTableRow(1);
       await page.submitSelection();
       await expect(page.getUriInputValue()).resolves.toEqual('s3://bucket-enim');
-    })
+    }),
   );
 
   test(
@@ -71,6 +71,6 @@ describe('S3 Resource Selector - Write mode', () => {
       await page.selectTableRow(1);
       await page.submitSelection();
       await expect(page.getUriInputValue()).resolves.toEqual('s3://bucket-ex/simulation-nano-2019');
-    })
+    }),
   );
 });

@@ -26,7 +26,7 @@ describe('Table Select Filter', () => {
       await expect(page.isLaunchDBInstanceButtonEnabled()).resolves.toBe(true);
       await expect(page.getTableItemsCounter()).resolves.toBe('(150)');
       await expect(page.getColumnAriaLabel(2)).resolves.toBe('DB instance, sorted ascending.');
-    })
+    }),
   );
 
   test(
@@ -35,7 +35,7 @@ describe('Table Select Filter', () => {
       await page.typeFilterQuery('00000');
 
       await expect(page.isTableNoMatchButtonVisible()).resolves.toBe(true);
-    })
+    }),
   );
 
   test(
@@ -46,7 +46,7 @@ describe('Table Select Filter', () => {
 
       await expect(page.getFilterQuery()).resolves.toBe('');
       await expect(page.countTableRows()).resolves.toBe(30);
-    })
+    }),
   );
 
   test(
@@ -56,7 +56,7 @@ describe('Table Select Filter', () => {
 
       await expect(page.countTableRows()).resolves.toBe(1);
       await expect(page.countPaginationPages()).resolves.toBe(1);
-    })
+    }),
   );
 
   test(
@@ -66,7 +66,7 @@ describe('Table Select Filter', () => {
       await page.selectClass(9);
 
       await expect(page.countTableRows()).resolves.toBe(1);
-    })
+    }),
   );
 
   test(
@@ -77,7 +77,7 @@ describe('Table Select Filter', () => {
 
       await expect(page.getTableCellText(1, 2)).resolves.toBe('test-auto-db-22');
       await expect(page.getTableCellText(2, 2)).resolves.toBe('test-auto-db-24');
-    })
+    }),
   );
 
   test(
@@ -88,7 +88,7 @@ describe('Table Select Filter', () => {
       await page.selectClass(4);
 
       await expect(page.getTableCellText(1, 2)).resolves.toBe('test-auto-db-142');
-    })
+    }),
   );
 
   test(
@@ -101,7 +101,7 @@ describe('Table Select Filter', () => {
 
       await expect(page.getSelectedEngine()).resolves.toBe('Any Engine');
       await expect(page.getSelectedClass()).resolves.toBe('Any Class');
-    })
+    }),
   );
 
   test(
@@ -112,7 +112,7 @@ describe('Table Select Filter', () => {
       await expect(page.getColumnAriaLabel(2)).resolves.toBe('DB instance, sorted descending.');
       await expect(page.getTableCellText(1, 2)).resolves.toBe('test-auto-db-150');
       await expect(page.getTableCellText(2, 2)).resolves.toBe('test-auto-db-149');
-    })
+    }),
   );
 
   test(
@@ -124,7 +124,7 @@ describe('Table Select Filter', () => {
       await expect(page.getColumnAriaLabel(2)).resolves.toBe('DB instance, sorted ascending.');
       await expect(page.getTableCellText(1, 2)).resolves.toBe('test-auto-db-1');
       await expect(page.getTableCellText(2, 2)).resolves.toBe('test-auto-db-2');
-    })
+    }),
   );
 
   test(
@@ -133,7 +133,7 @@ describe('Table Select Filter', () => {
       await page.selectTableRow(1);
 
       await expect(page.getTableItemsCounter()).resolves.toBe('(1/150)');
-    })
+    }),
   );
 
   describe('Tools panel', () => {
@@ -145,7 +145,7 @@ describe('Table Select Filter', () => {
         await expect(page.isToolsOpen()).resolves.toBe(true);
         await expect(page.getToolsTitle()).resolves.toBe('Instances');
         await expect(page.getToolsContent()).resolves.toContain('View your current DB instances');
-      })
+      }),
     );
 
     test(
@@ -153,7 +153,7 @@ describe('Table Select Filter', () => {
       setupTest(async page => {
         await page.click(page.contextInfoLinkSelector());
         await expect(page.isToolsOpen()).resolves.toBe(true);
-      })
+      }),
     );
 
     test(
@@ -162,7 +162,7 @@ describe('Table Select Filter', () => {
         await page.click(page.contextInfoLinkSelector());
         await page.click(page.contextInfoLinkSelector());
         await expect(page.isToolsCloseFocused()).resolves.toBe(true);
-      })
+      }),
     );
   });
 
@@ -175,7 +175,7 @@ describe('Table Select Filter', () => {
         await expect(page.isInstanceActionsButtonEnabled()).resolves.toBe(true);
         await expect(page.isRestoreFromS3ButtonEnabled()).resolves.toBe(true);
         await expect(page.isLaunchDBInstanceButtonEnabled()).resolves.toBe(true);
-      })
+      }),
     );
   });
   describe('Preferences', () => {
@@ -187,7 +187,7 @@ describe('Table Select Filter', () => {
         await page.confirmTablePreferenceChanges();
 
         expect(await page.countTableRows()).toBe(10);
-      })
+      }),
     );
 
     test(
@@ -198,7 +198,7 @@ describe('Table Select Filter', () => {
         await page.confirmTablePreferenceChanges();
 
         expect(await page.countTableRows()).toBe(50);
-      })
+      }),
     );
 
     test(
@@ -209,7 +209,7 @@ describe('Table Select Filter', () => {
         await page.cancelTablePreferenceChanges();
 
         expect(await page.countTableRows()).toBe(30);
-      })
+      }),
     );
 
     test(
@@ -223,7 +223,7 @@ describe('Table Select Filter', () => {
         await page.confirmTablePreferenceChanges();
 
         expect(await page.countTableColumns()).toBe(3);
-      })
+      }),
     );
 
     test(
@@ -236,7 +236,7 @@ describe('Table Select Filter', () => {
         await page.confirmTablePreferenceChanges();
 
         expect(await page.countTableColumns()).toBe(10);
-      })
+      }),
     );
   });
 });

@@ -12,7 +12,7 @@ export async function loadTags() {
       ...allTags,
       ...resourceTagMapping.Tags,
     ],
-    []
+    [],
   )
     .filter(isUserTag)
     .map(mapExistingTag);

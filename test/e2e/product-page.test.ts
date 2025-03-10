@@ -17,7 +17,7 @@ test(
     await expect(page.isDisplayed(page.heroHeader().toSelector())).resolves.toBe(true);
     await expect(page.isDisplayed(page.userFeedback().toSelector())).resolves.toBe(true);
     await expect(page.isDisplayed(page.onThisPageNavigation().toSelector())).resolves.toBe(true);
-  })
+  }),
 );
 
 test(
@@ -26,5 +26,5 @@ test(
     await page.submitUserFeedback('yes');
 
     await expect(page.getUserFeedbackResult()).resolves.toContain('Thanks, your feedback has been recorded.');
-  })
+  }),
 );

@@ -65,7 +65,7 @@ const validationConfig: Record<
       validate: value => validateSpecialCharacter(value, URLSpecialCharacterRegex),
       errorText: (value: string) =>
         `The root object has characters that aren’t valid: ${getSpecialCharacters(value, URLSpecialCharacterRegex).join(
-          ', '
+          ', ',
         )}`,
     },
     {
@@ -95,7 +95,7 @@ const validationConfig: Record<
       validate: value => validateSpecialCharacter(value, originIdSpecialCharacterRegex),
       errorText: (value: string) =>
         `The name has characters that aren’t valid: ${getSpecialCharacters(value, originIdSpecialCharacterRegex).join(
-          ', '
+          ', ',
         )}`,
     },
   ],
@@ -125,7 +125,7 @@ const validationConfig: Record<
 export default function validateField(
   attribute: FormDataValidationAttributesKeys,
   value: unknown,
-  customValue?: unknown
+  customValue?: unknown,
 ) {
   const validations = validationConfig[attribute];
 

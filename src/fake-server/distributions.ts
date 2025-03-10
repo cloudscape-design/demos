@@ -77,7 +77,7 @@ function filterItemsByProperty(options: FetchDistributionOptions) {
     propertyKey: string,
     searchText: string,
     item: Distribution,
-    compareFn: (tag: string, searchText: string) => boolean
+    compareFn: (tag: string, searchText: string) => boolean,
   ) => {
     // specific tag
     if (propertyKey.startsWith('tag-indicator__')) {
@@ -97,13 +97,13 @@ function filterItemsByProperty(options: FetchDistributionOptions) {
     function filterWithToken(
       include: boolean,
       opFn: (a: boolean, b: boolean) => void,
-      tokenOrGroup: Token | TokenGroup
+      tokenOrGroup: Token | TokenGroup,
     ): boolean {
       if ('operation' in tokenOrGroup) {
         const nextOpFn = operationFn<boolean>(tokenOrGroup.operation!);
         return tokenOrGroup.tokens.reduce(
           (include: boolean, token: Token | TokenGroup) => filterWithToken(include, nextOpFn, token),
-          operation === 'and'
+          operation === 'and',
         );
       }
       if ('operator' in tokenOrGroup) {
@@ -242,10 +242,10 @@ function prepareResponse(options: FetchDistributionOptions): PrepareResponseRetu
 
 export function fetchDistributionFilteringOptions(
   options: FetchDistributionOptions,
-  callback: (data: PrepareResponseReturnType) => void
+  callback: (data: PrepareResponseReturnType) => void,
 ) {
   fetchJson<NonNullable<PropertyFilterProps.FilteringProperty[]>>(
-    './resources/distributionsFilteringProperties.json'
+    './resources/distributionsFilteringProperties.json',
   ).then(response => {
     filteringProperties = response;
     setTimeout(() => callback(prepareResponse(options)), 500);
@@ -254,7 +254,7 @@ export function fetchDistributionFilteringOptions(
 
 export function fetchDistributions(
   options: FetchDistributionOptions,
-  callback: (data: PrepareResponseReturnType) => void
+  callback: (data: PrepareResponseReturnType) => void,
 ) {
   if (items.length === 0) {
     fetchJson<Distribution[]>('./resources/distributions.json').then(response => {

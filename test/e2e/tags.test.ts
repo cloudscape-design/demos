@@ -22,7 +22,7 @@ describe('Manage Tags', () => {
         { key: 'role', value: '', markedForRemoval: false },
       ];
       await expect(page.getTags()).resolves.toEqual(expectedTags);
-    })
+    }),
   );
 
   test(
@@ -41,7 +41,7 @@ describe('Manage Tags', () => {
       await page.undoTagRemoval(1);
       await expect(page.getTagCount()).resolves.toBe(3);
       await expect(page.isMarkedForRemoval(1)).resolves.toBe(false);
-    })
+    }),
   );
 
   test(
@@ -53,6 +53,6 @@ describe('Manage Tags', () => {
 
       await page.searchValue('user', 4);
       await expect(page.getValueSuggestionsCount(4)).resolves.toBe(5);
-    })
+    }),
   );
 });

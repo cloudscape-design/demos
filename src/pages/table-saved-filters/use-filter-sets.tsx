@@ -67,7 +67,7 @@ export function useFilterSets({
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   // Value of the currently selected filter set option
   const [selectedFilterSetValue, setSelectedFilterSetValue] = useState<string | null>(
-    defaultSelectedFilterSetValue ?? null
+    defaultSelectedFilterSetValue ?? null,
   );
 
   const unsavedFilterSetOption = {
@@ -89,7 +89,7 @@ export function useFilterSets({
   }
   const selectedFilterSetOption = showUnsavedFilterOption
     ? unsavedFilterSetOption
-    : filterSetOptions.find(({ value }) => value === selectedFilterSetValue) ?? null;
+    : (filterSetOptions.find(({ value }) => value === selectedFilterSetValue) ?? null);
 
   useEffect(() => {
     const hasFilters = !isQueryEmpty(query);

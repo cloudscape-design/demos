@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-const fs = require('fs');
+import fs from 'node:fs';
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
 
 /**
  * Remove specific @cloudscape-design/* packages that are installed by the local path and cannot

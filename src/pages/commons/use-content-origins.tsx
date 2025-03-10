@@ -27,7 +27,7 @@ export default function useContentOrigins(): [
     filteringText: string | undefined;
     status: DropdownStatusProps['statusType'];
   },
-  Handlers
+  Handlers,
 ] {
   const requestParams = useRef<RequestParams>({ currentPageIndex: 1 });
   const [options, setOptions] = useState<ContentOriginsResource[]>([]);

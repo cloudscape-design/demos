@@ -22,7 +22,7 @@ describe('Common dashboard behaviors', () => {
       setupTest(async page => {
         await page.click(wrapper.findLink('[data-testid="service-health-info-link"]').toSelector());
         await expect(page.isDisplayed(createWrapper().findAppLayout().findTools().toSelector())).resolves.toBe(true);
-      })
+      }),
     );
 
     test(
@@ -31,10 +31,10 @@ describe('Common dashboard behaviors', () => {
         const limitsButtonSelector = wrapper.findButton('[data-testid="instance-limits-increase-button"]').toSelector();
         await expect(page.isClickable(limitsButtonSelector)).resolves.toBe(false);
         await page.click(
-          wrapper.findTable('[data-testid="instance-limits-table"]').findRowSelectionArea(1).toSelector()
+          wrapper.findTable('[data-testid="instance-limits-table"]').findRowSelectionArea(1).toSelector(),
         );
         await expect(page.isClickable(limitsButtonSelector)).resolves.toBe(true);
-      })
+      }),
     );
   });
 });

@@ -48,7 +48,7 @@ function TableContent({ distributions, loadHelpPanelContent }: TableContentProps
       pagination: { pageSize: preferences?.pageSize },
       sorting: { defaultState: { sortingColumn: columnDefinitions[0] } },
       selection: {},
-    }
+    },
   );
   return (
     <Table

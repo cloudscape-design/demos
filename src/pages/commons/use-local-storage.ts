@@ -17,7 +17,7 @@ export function useLocalStorage<T>(key: string, defaultValue?: T) {
       setValue(newValue);
       save(key, newValue);
     },
-    [key]
+    [key],
   );
 
   const handleValueReset = useCallback(
@@ -25,7 +25,7 @@ export function useLocalStorage<T>(key: string, defaultValue?: T) {
       setValue(newValue);
       remove(key);
     },
-    [key]
+    [key],
   );
 
   return [value, handleValueChange, handleValueReset] as const;

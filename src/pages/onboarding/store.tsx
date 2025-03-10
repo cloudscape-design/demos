@@ -54,7 +54,7 @@ export function StoreProvider({ children }: PropsWithChildren) {
       setToolsOpen(true);
       appLayoutRef.current?.focusToolsClose();
     },
-    []
+    [],
   );
 
   const [tutorials, setTutorialCompleted] = useAvailableTutorials(makeHelpPanelHandler);

@@ -47,7 +47,7 @@ function ServerSidePropertyFilterTable({
   const [selectedItems, setSelectedItems] = useState<Distribution[]>([]);
   const [preferences, setPreferences] = useLocalStorage(
     'React-ServerSideTablePropertyFilter-Preferences',
-    DEFAULT_PREFERENCES
+    DEFAULT_PREFERENCES,
   );
   const { getQueryParam, setQueryParam } = useQueryParams();
   const [sortingDescending, setSortingDescending] = useState(DEFAULT_SORTING_IS_DESCENDING);
@@ -176,7 +176,7 @@ function ServerSidePropertyFilterTable({
 export function App() {
   const [columnDefinitions, saveWidths] = useColumnWidths(
     'React-ServerSideTablePropertyFilter-Widths',
-    COLUMN_DEFINITIONS
+    COLUMN_DEFINITIONS,
   );
   const [toolsOpen, setToolsOpen] = useState(false);
   const appLayout = useRef<AppLayoutProps.Ref>(null);

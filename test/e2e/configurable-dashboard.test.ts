@@ -58,25 +58,25 @@ describe('Configurable dashboard', () => {
   test(
     'Can open add widget panel',
     setupTest(async page => {
-      const splitPanelSelector = wrapper.findAppLayout().findSplitPanel().toSelector();
+      const splitPanelSelector = wrapper.findAppLayout().findSplitPanel().findOpenPanelSide().toSelector();
       await expect(page.isDisplayed(splitPanelSelector)).resolves.toBe(false);
       await page.click('button=Add widget');
       await expect(page.isDisplayed(splitPanelSelector)).resolves.toBe(true);
-    })
+    }),
   );
 
   test(
     'Adjusts default layout when screen resizes',
     setupTest(async page => {
       const { height: heightBefore } = await page.getBoundingBox(
-        boardWrapper.findItemById('serviceOverview').toSelector()
+        boardWrapper.findItemById('serviceOverview').toSelector(),
       );
       await page.setWindowSize({ ...defaultSize, width: 900 });
       const { height: heightAfter } = await page.getBoundingBox(
-        boardWrapper.findItemById('serviceOverview').toSelector()
+        boardWrapper.findItemById('serviceOverview').toSelector(),
       );
       expect(heightAfter).toBeGreaterThan(heightBefore);
-    })
+    }),
   );
 
   test(
@@ -84,14 +84,14 @@ describe('Configurable dashboard', () => {
     setupTest(async page => {
       await page.dragElement(boardWrapper.findItemById('instanceHours').findResizeHandle().toSelector(), 200, 0);
       const { height: heightBefore } = await page.getBoundingBox(
-        boardWrapper.findItemById('serviceOverview').toSelector()
+        boardWrapper.findItemById('serviceOverview').toSelector(),
       );
       await page.setWindowSize({ ...defaultSize, width: 900 });
       const { height: heightAfter } = await page.getBoundingBox(
-        boardWrapper.findItemById('serviceOverview').toSelector()
+        boardWrapper.findItemById('serviceOverview').toSelector(),
       );
       expect(heightAfter).toEqual(heightBefore);
-    })
+    }),
   );
 
   test(
@@ -110,7 +110,7 @@ describe('Configurable dashboard', () => {
         'Instance hours',
         'Network traffic',
       ]);
-    })
+    }),
   );
 
   test(
@@ -119,7 +119,7 @@ describe('Configurable dashboard', () => {
       expect((await page.getHeadersTexts())[0]).toEqual('Service overview - new');
       await page.addNewWidget();
       expect((await page.getHeadersTexts())[0]).toEqual('Operational metrics');
-    })
+    }),
   );
 
   test(
@@ -135,9 +135,9 @@ describe('Configurable dashboard', () => {
           'Service health',
           'Network traffic',
           'Alarms (150)',
-        ])
+        ]),
       );
-    })
+    }),
   );
 
   test(
@@ -149,7 +149,7 @@ describe('Configurable dashboard', () => {
       await page.click('button=Reset to default layout');
       await page.click('button=Reset');
       expect((await page.getHeadersTexts())[0]).toEqual('Service overview - new');
-    })
+    }),
   );
 
   test(
@@ -164,6 +164,6 @@ describe('Configurable dashboard', () => {
       await page.click('label=Issues breakdown');
       await page.click('button=Confirm');
       await expect(page.getElementsText(widgetHeaders)).resolves.toEqual(['Overview']);
-    })
+    }),
   );
 });

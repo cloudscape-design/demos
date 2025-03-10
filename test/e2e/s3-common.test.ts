@@ -35,7 +35,7 @@ import S3PageObject from './page/s3-page-object';
         await page.click(createWrapper().findHeader().toSelector());
         await expect(page.getErrorText()).resolves.toEqual(null);
         await expect(page.getViewHref()).resolves.toEqual('https://amazons3.demo.s3-resource-selector/test/1');
-      })
+      }),
     );
-  })
+  }),
 );
