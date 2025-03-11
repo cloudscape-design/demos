@@ -36,7 +36,8 @@ function getPageContent(pageName, { title }) {
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     ${frameworkUtils.getStyles(pageName)}
 </head>
-<body>
+<!-- this class is not needed in production, only for testing -->
+<body class="awsui-visual-refresh">
 <div id="b">
     <header class="custom-main-header" id="h">
         <ul class="menu-list awsui-context-top-navigation">
