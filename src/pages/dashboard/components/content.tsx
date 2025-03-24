@@ -5,7 +5,6 @@ import React from 'react';
 import Grid from '@cloudscape-design/components/grid';
 
 import {
-  accountAttributes,
   alarms,
   BaseStaticWidget,
   events,
@@ -44,7 +43,6 @@ export function Content() {
         events,
         zoneStatus,
         featuresSpotlight,
-        accountAttributes,
       ].map((widget, index) => (
         <BaseStaticWidget key={index} config={widget.data} />
       ))}

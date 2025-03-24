@@ -3,7 +3,6 @@
 import { BoardProps } from '@cloudscape-design/board-components/board';
 
 import {
-  accountAttributes,
   alarms,
   events,
   featuresSpotlight,
@@ -22,7 +21,6 @@ export type { DashboardWidgetItem };
 export { PaletteItem } from './components/palette-item';
 
 export const allWidgets: Record<string, WidgetConfig> = {
-  accountAttributes,
   alarms,
   serviceOverview,
   featuresSpotlight,
@@ -45,7 +43,6 @@ const defaultLayout: ReadonlyArray<StoredWidgetPlacement> = [
   { id: 'events' },
   { id: 'zoneStatus' },
   { id: 'featuresSpotlight' },
-  { id: 'accountAttributes' },
 ];
 
 function merge<T extends { id: string }>(
@@ -71,7 +68,6 @@ export function getDefaultLayout(width: number) {
       { id: 'zoneStatus', columnOffset: { '6': 2 } },
       { id: 'events', columnOffset: { '6': 0 } },
       { id: 'featuresSpotlight', columnOffset: { '6': 4 }, columnSpan: 2, rowSpan: 4 },
-      { id: 'accountAttributes', columnOffset: { '6': 2 }, columnSpan: 2, rowSpan: 2 },
     ]);
   }
   if (width > 1045) {
@@ -92,7 +88,6 @@ export function getDefaultLayout(width: number) {
       { id: 'serviceHealth', columnSpan: 2 },
       { id: 'instanceHours', columnSpan: 1 },
       { id: 'networkTraffic', columnSpan: 1 },
-      { id: 'accountAttributes', rowSpan: 2 },
     ]);
   }
   if (width > 687) {

@@ -1,7 +1,25 @@
 {
   "name": "@cloudscape-design/demos",
-  "private": true,
   "version": "3.0.0",
+  "scripts": {
+    "typecheck": "tsc",
+    "clean": "rm -rf lib",
+    "lint": "eslint --fix --ignore-path .gitignore --ext ts,tsx,js,jsx .",
+    "prepare": "husky install",
+    "generate-html": "cross-env THEME=$npm_config_theme node ./scripts/generate-html-files",
+    "webpack": "cross-env NODE_ENV=production webpack",
+    "build:theme": "cross-env THEME=$npm_config_theme npm run webpack && npm run generate-html",
+    "build": "npm run build:theme --theme=all",
+    "start": "npm run start:theme",
+    "start:theme": "cross-env NODE_ENV=development THEME=$npm_config_theme webpack-dev-server",
+    "serve": "node ./scripts/dev-server.js",
+    "jest": "node --experimental-vm-modules ./node_modules/.bin/jest ./test/**/*.test.ts",
+    "serve-test": "run-p -r serve jest",
+    "pretest": "npm-run-all -s clean lint typecheck build",
+    "test": "npm run test-no-build",
+    "test-no-build": "run-s test:*",
+    "test:default": "cross-env npm run serve-test"
+  },
   "devDependencies": {
     "@babel/core": "^7.18.13",
     "@babel/preset-env": "^7.18.10",
@@ -31,6 +49,7 @@
     "axe-core": "^4.4.3",
     "babel-loader": "^9.2.1",
     "copy-webpack-plugin": "^12.0.2",
+    "cross-env": "^7.0.3",
     "css-loader": "^7.1.2",
     "date-fns": "^4.1.0",
     "eslint": "^8.22.0",
@@ -59,22 +78,6 @@
     "webpack-dev-server": "^5.2.0",
     "zod": "^3.23.8"
   },
-  "scripts": {
-    "webpack": "NODE_ENV=production webpack",
-    "clean": "rm -rf lib",
-    "generate-html-files": "node ./scripts/generate-html-files",
-    "jest": "node --experimental-vm-modules ./node_modules/.bin/jest ./test/**/*.test.ts",
-    "build": "npm-run-all -s generate-html-files webpack",
-    "pretest": "npm-run-all -s clean lint typecheck build",
-    "typecheck": "tsc",
-    "start": "NODE_ENV=development webpack-dev-server",
-    "start-no-live-reload": "node ./scripts/dev-server.js",
-    "start:https": "webpack-dev-server --https --port=4443 --host=$(hostname)",
-    "test-no-build": "run-p -r start-no-live-reload jest",
-    "test": "npm run test-no-build",
-    "prepare": "husky install",
-    "lint": "eslint --fix --ignore-path .gitignore --ext ts,tsx,js,jsx ."
-  },
   "browserslist": [
     "last 3 Chrome major versions",
     "last 3 Firefox major versions",
@@ -91,5 +94,6 @@
     "package-lock.json": [
       "./scripts/clean-package-lock.js"
     ]
-  }
+  },
+  "private": true
 }

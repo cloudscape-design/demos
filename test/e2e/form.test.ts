@@ -2,12 +2,14 @@
 // SPDX-License-Identifier: MIT-0
 import useBrowser from '@cloudscape-design/browser-test-tools/use-browser';
 import PageObject from './page/form-page-object';
+import { SCREEN_SIZE_FOR_APP_LAYOUT_TOOLBAR } from './utils';
 
 const setupTest = (testFn: { (page: PageObject): Promise<void> }) => {
   return useBrowser(async browser => {
     await browser.url('/form.html');
     const page = new PageObject(browser);
     await page.waitForPageLoaded();
+    await page.setWindowSize(SCREEN_SIZE_FOR_APP_LAYOUT_TOOLBAR);
     await testFn(page);
   });
 };
