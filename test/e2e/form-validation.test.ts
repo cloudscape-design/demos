@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import useBrowser from '@cloudscape-design/browser-test-tools/use-browser';
 import FormTemplatePage from './page/form-template-page-object';
+import { SCREEN_SIZE_FOR_APP_LAYOUT_TOOLBAR } from './utils';
 
 const setupTest = (testFn: { (page: FormTemplatePage): Promise<void> }) => {
   return useBrowser(async browser => {
@@ -9,6 +10,7 @@ const setupTest = (testFn: { (page: FormTemplatePage): Promise<void> }) => {
     const page = new FormTemplatePage(browser);
 
     await page.waitForPageLoaded();
+    await page.setWindowSize(SCREEN_SIZE_FOR_APP_LAYOUT_TOOLBAR);
 
     // Dismiss the external website flashbar - the flashbars are sticky in the demo and it covers the interactive elements when scrollIntoViewAndClick is used
     if (await page.isFlashVisible(1)) {

@@ -1,8 +1,11 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import path from 'node:path';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import lodash from 'lodash';
-import examplesList from './examples-list.json' assert { type: 'json' };
+import examplesList from './examples-list.json' with { type: 'json' };
 import config from './scripts/config.js';
 
 const banJsLoader = path.resolve('./scripts/ban-js-loader.js');

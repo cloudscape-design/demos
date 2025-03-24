@@ -3,12 +3,15 @@
 import React, { forwardRef } from 'react';
 
 import AppLayout, { AppLayoutProps } from '@cloudscape-design/components/app-layout';
+import AppLayoutToolbar from '@cloudscape-design/components/app-layout-toolbar';
 import Badge from '@cloudscape-design/components/badge';
 import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
 import { I18nProvider } from '@cloudscape-design/components/i18n';
 import enMessages from '@cloudscape-design/components/i18n/messages/all.en.json';
 import SpaceBetween from '@cloudscape-design/components/space-between';
+
+import { isVisualRefresh } from '../../common/apply-mode';
 
 // backward compatibility
 export * from './index';
@@ -66,7 +69,7 @@ export const TableEmptyState = ({ resourceName }: { resourceName: string }) => (
 export const CustomAppLayout = forwardRef<AppLayoutProps.Ref, AppLayoutProps>(function CustomAppLayout(props, ref) {
   return (
     <I18nProvider locale="en" messages={[enMessages]}>
-      <AppLayout ref={ref} {...props} />
+      {isVisualRefresh ? <AppLayoutToolbar ref={ref} {...props} /> : <AppLayout ref={ref} {...props} />}
     </I18nProvider>
   );
 });

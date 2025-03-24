@@ -13,7 +13,9 @@ import { DashboardSideNavigation } from '../dashboard/components/side-navigation
 import Palette from './components/palette';
 import { Content } from './content';
 import { StoredWidgetPlacement } from './interfaces';
-import { getPaletteWidgets } from './widgets';
+import { allWidgets, getPaletteWidgets } from './widgets';
+
+const supportedWidgets = new Set(Object.keys(allWidgets));
 
 export function App() {
   const appLayoutRef = useRef<AppLayoutProps.Ref>(null);
@@ -25,6 +27,8 @@ export function App() {
     'ConfigurableDashboards-widgets-layout',
   );
   const [toolsContent, setToolsContent] = useState<React.ReactNode>(() => <DashboardMainInfo />);
+  // some deleted/unavailable widgets might be dangling in localStorage, therefore we need to filter them
+  const filteredLayout = layout?.filter(item => supportedWidgets.has(item.id));
 
   const loadHelpPanelContent = (content: React.ReactNode) => {
     setToolsOpen(true);
@@ -45,7 +49,7 @@ export function App() {
         notifications={<Notifications />}
         content={
           <Content
-            layout={layout ?? null}
+            layout={filteredLayout ?? null}
             setLayout={setLayout}
             resetLayout={resetLayout}
             setSplitPanelOpen={setSplitPanelOpen}
@@ -53,7 +57,7 @@ export function App() {
         }
         splitPanel={
           <SplitPanel header="Add widgets" closeBehavior="hide" hidePreferencesButton={true}>
-            <Palette items={getPaletteWidgets(layout ?? [])} />
+            <Palette items={getPaletteWidgets(filteredLayout ?? [])} />
           </SplitPanel>
         }
         splitPanelPreferences={{ position: 'side' }}

@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 export { BaseStaticWidget } from './base-static-widget';
-export { accountAttributes } from './account-attributes';
 export { alarms } from './alarms';
 export { events } from './events';
 export { featuresSpotlight } from './features-spotlight';

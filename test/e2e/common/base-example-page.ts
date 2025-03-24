@@ -13,7 +13,7 @@ export default class BaseExamplePage extends BasePageObject {
    */
   public async scrollIntoViewAndClick(selector: string) {
     const element = await this.browser.$(selector);
-    await element.scrollIntoView();
+    await element.scrollIntoView({ block: 'center' });
     await element.click();
   }
 }
