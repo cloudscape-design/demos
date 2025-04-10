@@ -14,8 +14,6 @@ import Popover from '@cloudscape-design/components/popover';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import TextContent from '@cloudscape-design/components/text-content';
 
-import { CodeViewActions } from './common-components';
-
 export type Message = ChatBubbleMessage | AlertMessage;
 
 type ChatBubbleMessage = {
@@ -23,11 +21,13 @@ type ChatBubbleMessage = {
   authorId: string;
   content: React.ReactNode;
   timestamp: string;
-  actions?: React.ReactNode;
+  actions?: 'feedback' | 'code-view';
   hideAvatar?: boolean;
   avatarLoading?: boolean;
   files?: File[];
   supportPrompts?: React.ReactNode;
+  showFeedbackDialog?: boolean;
+  contentToCopy?: string;
 };
 
 type AlertMessage = {
@@ -69,6 +69,12 @@ export const getInvalidPromptResponse = (): Message => ({
     </>
   ),
   timestamp: new Date().toLocaleTimeString(),
+  actions: 'feedback',
+  contentToCopy: `The interactions and functionality of this demo are limited.
+ 1. To see how an incoming response from generative AI is displayed, ask "Show a loading state example".
+ 2. To see an error alert that appears when something goes wrong, ask "Show an error state example".
+ 3. To see a how a file upload is displayed, upload one or more files.
+ 4. To see support prompts, ask "Show support prompts".`,
 });
 
 export const getLoadingMessage = (): Message => ({
@@ -86,6 +92,9 @@ const getFileResponseMessage = (): Message => ({
     'I see you have uploaded one or more files. I cannot parse the files right now, but you can see what uploaded files look like.',
   timestamp: new Date().toLocaleTimeString(),
   avatarLoading: false,
+  actions: 'feedback',
+  contentToCopy:
+    'I see you have uploaded one or more files. I cannot parse the files right now, but you can see what uploaded files look like.',
 });
 
 const getLoadingStateResponseMessage = (): Message => ({
@@ -94,6 +103,8 @@ const getLoadingStateResponseMessage = (): Message => ({
   content: 'That was the loading state. To see the loading state again, ask "Show a loading state example".',
   timestamp: new Date().toLocaleTimeString(),
   avatarLoading: false,
+  actions: 'feedback',
+  contentToCopy: 'That was the loading state. To see the loading state again, ask "Show a loading state example".',
 });
 
 const getErrorStateResponseMessage = (): Message => ({
@@ -155,17 +166,14 @@ main();`}
       highlight={typescriptHighlight}
     />
   ),
-  actions: (
-    <CodeViewActions
-      content={`// This is the main function that will be executed when the script runs
+  actions: 'code-view',
+  contentToCopy: `// This is the main function that will be executed when the script runs
 function main(): void {
   // Use console.log to print "Hello, World!" to the console
   console.log("Hello, World!");
 }
 // Call the main function to execute the program
-main();`}
-    />
-  ),
+main();`,
   timestamp: new Date().toLocaleTimeString(),
   supportPrompts: (
     <SupportPromptGroup
@@ -258,6 +266,9 @@ export const getInitialMessages = (
       content:
         'Amazon S3 provides a simple web service interface that you can use to store and retrieve any amount of data, at any time, from anywhere. Using this service, you can easily build applications that make use of cloud native storage. Since Amazon S3 is highly scalable and you only pay for what you use, you can start small and grow your application as you wish, with no compromise on performance or reliability.',
       timestamp: getTimestampMinutesAgo(9),
+      actions: 'feedback',
+      contentToCopy:
+        'Amazon S3 provides a simple web service interface that you can use to store and retrieve any amount of data, at any time, from anywhere. Using this service, you can easily build applications that make use of cloud native storage. Since Amazon S3 is highly scalable and you only pay for what you use, you can start small and grow your application as you wish, with no compromise on performance or reliability.',
     },
     {
       type: 'chat-bubble',
@@ -323,6 +334,13 @@ export const getInitialMessages = (
         </TextContent>
       ),
       timestamp: getTimestampMinutesAgo(7),
+      actions: 'feedback',
+      contentToCopy: `Creating a configuration for Amazon S3 involves setting up a bucket and configuring its properties. Here's a step-by-step guide to help you create an S3 configuration:
+1. Sign in to AWS Management Console
+2. Access Amazon S3 console
+3. Create a new S3 bucket
+4. Configure bucket settings
+5. Review and create`,
     },
     {
       type: 'chat-bubble',
@@ -335,6 +353,8 @@ export const getInitialMessages = (
       authorId: 'gen-ai',
       content: "Here's a simple TypeScript code example that implements the 'Hello, World!' functionality:",
       timestamp: getTimestampMinutesAgo(5),
+      actions: 'feedback',
+      contentToCopy: "Here's a simple TypeScript code example that implements the 'Hello, World!' functionality:",
     },
     {
       type: 'chat-bubble',
@@ -351,17 +371,14 @@ main();`}
           highlight={typescriptHighlight}
         />
       ),
-      actions: (
-        <CodeViewActions
-          content={`// This is the main function that will be executed when the script runs
-    function main(): void {
-      // Use console.log to print "Hello, World!" to the console
-      console.log("Hello, World!");
-    }
-    // Call the main function to execute the program
-    main();`}
-        />
-      ),
+      actions: 'code-view',
+      contentToCopy: `// This is the main function that will be executed when the script runs
+function main(): void {
+  // Use console.log to print "Hello, World!" to the console
+  console.log("Hello, World!");
+}
+// Call the main function to execute the program
+main();`,
       timestamp: getTimestampMinutesAgo(4),
       hideAvatar: true,
       supportPrompts: (
@@ -416,6 +433,21 @@ export const supportPromptMessageOne: Message = {
     </>
   ),
   timestamp: new Date().toLocaleTimeString(),
+  actions: 'feedback',
+  contentToCopy: `TypeScript is a powerful programming language that builds upon JavaScript by adding static typing and other features. Here are key things you can do with TypeScript:
+1. Web developement
+ - Build frontend applications using frameworks like Angular, React, or Vue.js
+ - Create robust server-side applications with Node.js
+ - Develop full-stack applications with enhanced type safety
+2. Type safety features
+ - Define explicit types for variables, functions, and objects
+ - Catch errors during development before runtime
+ - Use interfaces and type declarations for better code organization
+3. Object-oriented programming
+ - Create classes with proper inheritance
+ - Implement interfaces
+ - Use access modifiers (public, private, protected)
+TypeScript is particularly valuable for large projects where type safety and code maintainability are important considerations.`,
 };
 
 export const supportPromptMessageTwo: Message = {
@@ -436,19 +468,16 @@ function enhancedMain(name: string, greeting: string = "Hello"): void {
 enhancedMain('Greetings', 'Earth');`}
     />
   ),
-  actions: (
-    <CodeViewActions
-      content={`// Add input parameters and type checking
+  actions: 'code-view',
+  contentToCopy: `// Add input parameters and type checking
 function enhancedMain(name: string, greeting: string = "Hello"): void {
   if (!name) {
    throw new error('Name parameter is required.');
   }
-console.log("{greeting}, {name}!");
+  console.log("{greeting}, {name}!");
 }
 // Call the enhancedMain function to execute the program
-enhancedMain('Greetings', 'Earth');`}
-    />
-  ),
+enhancedMain('Greetings', 'Earth');`,
   timestamp: new Date().toLocaleTimeString(),
 };
 

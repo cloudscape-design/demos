@@ -8,12 +8,21 @@ import FileTokenGroup from '@cloudscape-design/components/file-token-group';
 import LiveRegion from '@cloudscape-design/components/live-region';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 
-import { ChatBubbleAvatar } from './common-components';
+import FeedbackDialog from './additional-info/feedback-dialog';
+import { ChatBubbleAvatar, CodeViewActions, FeedbackActions } from './common-components';
 import { AUTHORS, fileTokenGroupI18nStrings, Message, supportPromptItems } from './config';
 
 import '../../styles/chat.scss';
 
-export default function Messages({ messages = [] }: { messages: Array<Message> }) {
+export default function Messages({
+  messages = [],
+  setShowFeedbackDialog,
+  addMessage,
+}: {
+  messages: Array<Message>;
+  setShowFeedbackDialog: (index: number, show: boolean) => void;
+  addMessage: (index: number, message: Message) => void;
+}) {
   const latestMessage: Message = messages[messages.length - 1];
 
   const promptText = supportPromptItems.map(item => item.text);
@@ -52,7 +61,16 @@ export default function Messages({ messages = [] }: { messages: Array<Message> }
               ariaLabel={`${author.name} at ${message.timestamp}`}
               type={author.type === 'gen-ai' ? 'incoming' : 'outgoing'}
               hideAvatar={message.hideAvatar}
-              actions={message.actions}
+              actions={
+                message.actions === 'code-view' ? (
+                  <CodeViewActions contentToCopy={message.contentToCopy || ''} />
+                ) : message.actions === 'feedback' ? (
+                  <FeedbackActions
+                    contentToCopy={message.contentToCopy || ''}
+                    onNotHelpfulFeedback={() => setShowFeedbackDialog(index, true)}
+                  />
+                ) : null
+              }
             >
               <SpaceBetween size="xs">
                 <div key={message.authorId + message.timestamp + 'content'}>{message.content}</div>
@@ -71,8 +89,27 @@ export default function Messages({ messages = [] }: { messages: Array<Message> }
                 )}
               </SpaceBetween>
             </ChatBubble>
+
+            {message.showFeedbackDialog && (
+              <div className="other-content-vertically-align">
+                <FeedbackDialog
+                  onDismiss={() => setShowFeedbackDialog(index, false)}
+                  onSubmit={() => {
+                    setShowFeedbackDialog(index, false);
+                    addMessage(index + 1, {
+                      type: 'chat-bubble',
+                      authorId: 'gen-ai',
+                      content: 'Your feedback has been submitted. Thank you for your additional feedback.',
+                      timestamp: new Date().toLocaleTimeString(),
+                      hideAvatar: true,
+                    });
+                  }}
+                />
+              </div>
+            )}
+
             {latestMessage.type === 'chat-bubble' && latestMessage.supportPrompts && index === messages.length - 1 && (
-              <div className="support-prompt-group-wrapper">{message.supportPrompts}</div>
+              <div className="other-content-vertically-align">{message.supportPrompts}</div>
             )}
           </SpaceBetween>
         );
