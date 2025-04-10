@@ -18,7 +18,7 @@
     "pretest": "npm-run-all -s clean lint typecheck build",
     "test": "npm run test-no-build",
     "test-no-build": "run-s test:*",
-    "test:default": "cross-env npm run serve-test"
+    "test:default": "cross-env ALWAYS_VISUAL_REFRESH=true npm run serve-test"
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",

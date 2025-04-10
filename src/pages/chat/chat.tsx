@@ -90,6 +90,15 @@ export default function Chat() {
     }, waitTimeBeforeLoading);
   };
 
+  const setShowFeedbackDialog = (index: number, show: boolean) => {
+    setMessages(prevMessages => {
+      const updatedMessages = [...prevMessages];
+      const updatedMessage = { ...prevMessages[index], showFeedbackDialog: show };
+      updatedMessages.splice(index, 1, updatedMessage);
+      return updatedMessages;
+    });
+  };
+
   const lastMessageContent = messages[messages.length - 1]?.content;
 
   useEffect(() => {
@@ -151,6 +160,14 @@ export default function Chat() {
         fileValue = [];
       }, waitTimeBeforeResponse(isLoadingPrompt));
     }, waitTimeBeforeLoading);
+  };
+
+  const addMessage = (index: number, message: Message) => {
+    setMessages(prevMessages => {
+      const updatedMessages = [...prevMessages];
+      updatedMessages.splice(index, 0, message);
+      return updatedMessages;
+    });
   };
 
   return (
@@ -237,7 +254,7 @@ export default function Chat() {
           }
         >
           <ScrollableContainer ref={messagesContainerRef}>
-            <Messages messages={messages} />
+            <Messages messages={messages} setShowFeedbackDialog={setShowFeedbackDialog} addMessage={addMessage} />
           </ScrollableContainer>
         </Container>
       </FittedContainer>
