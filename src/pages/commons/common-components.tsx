@@ -34,6 +34,7 @@ export const ec2NavItems = [
     type: 'link',
     text: 'Documentation',
     external: true,
+    externalIconAriaLabel: 'Opens in a new tab',
     href: '#/documentation',
   },
 ] as const;

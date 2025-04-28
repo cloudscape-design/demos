@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 
 import path from 'node:path';
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import lodash from 'lodash';
@@ -109,6 +110,7 @@ const createWebpackConfig = (base, { includeDevServer }) => {
     },
 
     optimization: {
+      minimizer: ['...', new CssMinimizerPlugin()],
       splitChunks: {
         cacheGroups: {
           vendor: {
