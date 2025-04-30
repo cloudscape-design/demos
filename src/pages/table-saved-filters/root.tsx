@@ -40,17 +40,20 @@ const defaultFilterSets: FilterSet[] = [
     name: 'Active web distributions',
     query: {
       operation: 'and',
-      tokens: [
-        { propertyKey: 'deliveryMethod', operator: '=', value: 'Web' },
-        { propertyKey: 'state', operator: '=', value: 'Activated' },
+      tokenGroups: [
+        { propertyKey: 'deliveryMethod', operator: '=', value: ['Web'] },
+        { propertyKey: 'state', operator: '=', value: ['Activated'] },
       ],
+      tokens: [],
     },
+    default: true,
   },
   {
     name: 'Distributions with buckets',
     query: {
       operation: 'and',
-      tokens: [{ propertyKey: 'origin', operator: ':', value: 'BUCKET' }],
+      tokenGroups: [{ propertyKey: 'origin', operator: ':', value: ['BUCKET'] }],
+      tokens: [],
     },
   },
   {
@@ -61,11 +64,11 @@ const defaultFilterSets: FilterSet[] = [
         {
           operation: 'or',
           tokens: [
-            { propertyKey: 'origin', operator: '=', value: 'EXAMPLE-BUCKET-1.s3.amazon' },
-            { propertyKey: 'origin', operator: '=', value: 'EXAMPLE-BUCKET-2.s3.amazon' },
+            { propertyKey: 'origin', operator: '=', value: ['EXAMPLE-BUCKET-1.s3.amazon'] },
+            { propertyKey: 'origin', operator: '=', value: ['EXAMPLE-BUCKET-2.s3.amazon'] },
           ],
         },
-        { propertyKey: 'priceClass', operator: '=', value: 'Use all edge locations (best performance)' },
+        { propertyKey: 'priceClass', operator: '=', value: ['Use all edge locations (best performance)'] },
       ],
       tokens: [],
     },
@@ -115,7 +118,9 @@ export function App() {
          * Validate the data coming from the URL to mitigate risks from maliciously crafted URLs.
          * For further guidance, reach out to your organization’s security team.
          */
-        defaultQuery: parsePropertyFilterQuery(getQueryParam(PROPERTY_FILTERS_QUERY_PARAM_KEY)),
+        defaultQuery: getQueryParam(PROPERTY_FILTERS_QUERY_PARAM_KEY)
+          ? parsePropertyFilterQuery(getQueryParam(PROPERTY_FILTERS_QUERY_PARAM_KEY))
+          : savedFilterSets.find(fs => fs.default)?.query,
       },
       pagination: { pageSize: preferences?.pageSize },
       sorting: { defaultState: { sortingColumn: columnDefinitions[0] } },
@@ -160,7 +165,8 @@ export function App() {
         ...flashNotifications,
       ]);
     },
-    defaultSelectedFilterSetValue: getQueryParam(SELECTED_FILTER_SET_QUERY_PARAM_KEY) ?? null,
+    defaultSelectedFilterSetValue:
+      getQueryParam(SELECTED_FILTER_SET_QUERY_PARAM_KEY) ?? savedFilterSets.find(fs => fs.default)?.name,
     updateSelectedFilterValue: value => {
       /**
        * Avoid including sensitive information to the URL to prevent potential data exposure.
@@ -172,11 +178,17 @@ export function App() {
   });
 
   useEffect(() => {
+    // If there are no URL filters, apply the default filter set to the URL filters
+    if (!getQueryParam(PROPERTY_FILTERS_QUERY_PARAM_KEY)) {
+      setQueryParam(PROPERTY_FILTERS_QUERY_PARAM_KEY, JSON.stringify(savedFilterSets.find(fs => fs.default)?.query));
+    }
+
     new DataProvider().getDataWithDates<Distribution>('distributions').then(distributions => {
       setDistributions(distributions);
       setLoading(false);
     });
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Only run this hook on initial load
 
   return (
     <CustomAppLayout

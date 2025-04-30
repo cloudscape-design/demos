@@ -2,7 +2,11 @@
 // SPDX-License-Identifier: MIT-0
 import TablePropertyFilteringPageObject from '../../page/table-property-filtering-page-object';
 
-export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject): Promise<void> }): any }) => {
+export default (
+  setupTest: { (testFn: { (page: TablePropertyFilteringPageObject): Promise<void> }): any },
+  initialAppliedFilterCount = 0,
+  filtersTableRowCounts = [11, 7, 3, 30],
+) => {
   describe('Property Filtering - Common', () => {
     test(
       'Shows the dropdown when focused',
@@ -76,7 +80,7 @@ export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject)
         await page.search('bbb');
         await page.keys(['Enter']);
         await expect(page.getFilterText()).resolves.toBe('');
-        await expect(page.countTokens()).resolves.toBe(1);
+        await expect(page.countTokens()).resolves.toBe(initialAppliedFilterCount + 1);
       }),
     );
 
@@ -103,8 +107,10 @@ export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject)
         await page.selectOption(1);
 
         await expect(page.isTokensVisible()).resolves.toBe(true);
-        await expect(page.getTokenText()).resolves.toBe('Domain name = abcdef01234567890.cloudfront.net');
-        await expect(page.countTokens()).resolves.toBe(1);
+
+        const tokensText = await page.getElementsText(page.findPropertyFiltering().findTokens().toSelector());
+        expect(tokensText[initialAppliedFilterCount]).toMatch(/Domain name = abcdef01234567890.cloudfront.net/);
+        await expect(page.countTokens()).resolves.toBe(initialAppliedFilterCount + 1);
       }),
     );
 
@@ -117,7 +123,7 @@ export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject)
         await page.search('021345abcdef6789.cloudfront.net');
         await page.selectOption(1);
 
-        await expect(page.countTokens()).resolves.toBe(2);
+        await expect(page.countTokens()).resolves.toBe(initialAppliedFilterCount + 2);
       }),
     );
 
@@ -132,8 +138,8 @@ export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject)
 
         await page.waitUntilLoaded();
 
-        await expect(page.countTokens()).resolves.toBe(2);
-        await expect(page.countTableRows()).resolves.toBe(11);
+        await expect(page.countTokens()).resolves.toBe(initialAppliedFilterCount + 2);
+        await expect(page.countTableRows()).resolves.toBe(filtersTableRowCounts[0]);
 
         await page.focusFilter();
         await page.selectOption(1);
@@ -144,8 +150,8 @@ export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject)
 
         await page.waitUntilLoaded();
 
-        await expect(page.countTokens()).resolves.toBe(3);
-        await expect(page.countTableRows()).resolves.toBe(7);
+        await expect(page.countTokens()).resolves.toBe(initialAppliedFilterCount + 3);
+        await expect(page.countTableRows()).resolves.toBe(filtersTableRowCounts[1]);
 
         await page.focusFilter();
         await page.selectOption(1);
@@ -156,8 +162,8 @@ export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject)
 
         await page.waitUntilLoaded();
 
-        await expect(page.countTokens()).resolves.toBe(4);
-        await expect(page.countTableRows()).resolves.toBe(3);
+        await expect(page.countTokens()).resolves.toBe(initialAppliedFilterCount + 4);
+        await expect(page.countTableRows()).resolves.toBe(filtersTableRowCounts[2]);
       }),
     );
 
@@ -172,14 +178,14 @@ export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject)
 
         await page.waitUntilLoaded();
 
-        await expect(page.countTokens()).resolves.toBe(2);
-        await expect(page.countTableRows()).resolves.toBe(11);
+        await expect(page.countTokens()).resolves.toBe(initialAppliedFilterCount + 2);
+        await expect(page.countTableRows()).resolves.toBe(filtersTableRowCounts[0]);
 
         await page.removeToken(1);
         await page.waitUntilLoaded();
 
-        await expect(page.countTokens()).resolves.toBe(1);
-        await expect(page.countTableRows()).resolves.toBe(30);
+        await expect(page.countTokens()).resolves.toBe(initialAppliedFilterCount + 1);
+        await expect(page.countTableRows()).resolves.toBe(filtersTableRowCounts[3]);
       }),
     );
 
@@ -194,8 +200,8 @@ export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject)
 
         await page.waitUntilLoaded();
 
-        await expect(page.countTokens()).resolves.toBe(2);
-        await expect(page.countTableRows()).resolves.toBe(11);
+        await expect(page.countTokens()).resolves.toBe(initialAppliedFilterCount + 2);
+        await expect(page.countTableRows()).resolves.toBe(filtersTableRowCounts[0]);
 
         await page.removeAllTokens();
         await page.waitUntilLoaded();
@@ -216,15 +222,15 @@ export default (setupTest: { (testFn: { (page: TablePropertyFilteringPageObject)
 
         await page.waitUntilLoaded();
 
-        await expect(page.countTokens()).resolves.toBe(2);
-        await expect(page.countTableRows()).resolves.toBe(11);
+        await expect(page.countTokens()).resolves.toBe(initialAppliedFilterCount + 2);
+        await expect(page.countTableRows()).resolves.toBe(filtersTableRowCounts[0]);
 
         // reload the page
         await page.reload();
         await page.waitUntilLoaded();
 
-        await expect(page.countTokens()).resolves.toBe(2);
-        await expect(page.countTableRows()).resolves.toBe(11);
+        await expect(page.countTokens()).resolves.toBe(initialAppliedFilterCount + 2);
+        await expect(page.countTableRows()).resolves.toBe(filtersTableRowCounts[0]);
       }),
     );
   });

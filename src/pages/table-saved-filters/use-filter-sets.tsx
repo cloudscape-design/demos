@@ -15,6 +15,7 @@ export interface FilterSet {
   description?: string;
   query: PropertyFilterProps.Query;
   unsaved?: boolean;
+  default?: boolean;
 }
 
 export interface UseFilterSetsProps {
@@ -37,7 +38,7 @@ export interface UseFilterSetsResult {
   actionModal: React.ReactNode;
 }
 
-type FilterAction = 'update' | 'new' | 'delete';
+type FilterAction = 'update' | 'new' | 'delete' | 'default';
 
 function isQueryEmpty(query: PropertyFilterProps.Query) {
   return (!query.tokenGroups || query.tokenGroups.length === 0) && query.tokens.length === 0;
@@ -59,16 +60,18 @@ export function useFilterSets({
   defaultSelectedFilterSetValue,
   updateSelectedFilterValue,
 }: UseFilterSetsProps): UseFilterSetsResult {
-  // Represents the last selected *saved* filter set
-  const [currentFilterSet, setCurrentFilterSet] = useState<FilterSet | null>(null);
-  // Determines if there is currently a modal displayed for a filter set action
-  const [filterSetAction, setFilterSetAction] = useState<FilterAction | null>(null);
-  // Determines if there are unsaved changes in the filter set
-  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   // Value of the currently selected filter set option
   const [selectedFilterSetValue, setSelectedFilterSetValue] = useState<string | null>(
     defaultSelectedFilterSetValue ?? null,
   );
+  // Represents the last selected *saved* filter set
+  const [currentFilterSet, setCurrentFilterSet] = useState<FilterSet | null>(
+    filterSets.find(fs => fs.name === selectedFilterSetValue) ?? null,
+  );
+  // Determines if there is currently a modal displayed for a filter set action
+  const [filterSetAction, setFilterSetAction] = useState<FilterAction | null>(null);
+  // Determines if there are unsaved changes in the filter set
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
   const unsavedFilterSetOption = {
     value: '___unsaved___',
@@ -78,6 +81,7 @@ export function useFilterSets({
   const filterSetOptions: Array<SelectProps.Option> = filterSets.map(filterSet => ({
     value: filterSet.name,
     description: filterSet.description,
+    labelTag: filterSet.default ? 'Default' : undefined,
   }));
 
   // Only show the "(unsaved)" option if there are unsaved changes from a previous filter set
@@ -149,12 +153,49 @@ export function useFilterSets({
       { id: 'update', text: 'Update current filter set', disabled: !hasUnsavedChanges || !currentFilterSet },
       { id: 'delete', text: 'Delete current filter set', disabled: hasUnsavedChanges || !currentFilterSet },
       ...(saveAsURL ? [{ id: 'url', text: 'Copy filters as URL' }] : []),
+      {
+        id: 'settings',
+        text: 'Settings',
+        itemType: 'group',
+        items: [
+          {
+            id: 'default',
+            text: 'Set as default',
+            itemType: 'checkbox',
+            checked: currentFilterSet?.default ?? false,
+            disabled: hasUnsavedChanges || !currentFilterSet,
+            disabledReason: !currentFilterSet
+              ? 'This action is available after selecting a filter set.'
+              : hasUnsavedChanges
+                ? 'This action is available when changes have been saved.'
+                : undefined,
+          },
+        ],
+      },
     ],
     onItemClick: ({ detail: { id } }) => setFilterSetAction(id as FilterAction),
   };
 
   let actionModal: ReactNode | null = null;
-  if (filterSetAction === 'update' && currentFilterSet && hasUnsavedChanges) {
+  if (filterSetAction === 'default' && currentFilterSet) {
+    // This action only fires when toggling the default checkbox
+    // Toggles the current filter set's default value, as well as others to not be default
+    // The latter applies as: if any other set was default and the current should be default then any others should not be default anymore
+    // If the current was default and should not be anymore then all sets should be marked as not default (there will only be one default at a time)
+    const currentDefaultValue = currentFilterSet?.default ?? false;
+
+    // Update the current filter set in state
+    setCurrentFilterSet({ ...currentFilterSet, default: !currentDefaultValue });
+
+    // Updates filter sets
+    // Toggles the current filter sets default value and sets all others to false
+    updateSavedFilterSets([
+      ...filterSets.map(fs => ({ ...fs, default: fs.name === currentFilterSet.name ? !currentDefaultValue : false })),
+    ]);
+
+    // Set the action back to null as a modal wasn't opened that would set the action to null onSubmit or onCancel
+    setFilterSetAction(null);
+  } else if (filterSetAction === 'update' && currentFilterSet && hasUnsavedChanges) {
     actionModal = (
       <UpdateFilterSetModal
         filterSet={currentFilterSet}
@@ -230,7 +271,7 @@ export function useFilterSets({
         onCancel={() => {
           setFilterSetAction(null);
         }}
-        onSubmit={({ name, description }) => {
+        onSubmit={({ name, description, isDefault }) => {
           setFilterSetAction(null);
 
           // Emit flashbar notification
@@ -248,10 +289,14 @@ export function useFilterSets({
             name,
             description,
             query,
+            default: isDefault || false,
           };
 
-          // Add to the list of filter sets
-          const newFilterSets = [...filterSets, newFilterSet];
+          // Add to the list of filter sets, set all other filter sets' default values to false if the new one is set to be default
+          const newFilterSets = [
+            ...filterSets.map(fs => ({ ...fs, default: isDefault ? false : fs.default })),
+            newFilterSet,
+          ];
           updateSavedFilterSets(newFilterSets);
 
           // Make this the new current filter set
