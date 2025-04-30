@@ -3,9 +3,12 @@
 import TablePropertyFilteringPageObject from '../../page/table-property-filtering-page-object';
 import TablePageObject from '../../page/table-page-object';
 
-export default function commonPreferencesTests(setupTest: {
-  (testFn: { (page: TablePageObject | TablePropertyFilteringPageObject): Promise<void> }): any;
-}) {
+export default function commonPreferencesTests(
+  setupTest: {
+    (testFn: { (page: TablePageObject | TablePropertyFilteringPageObject): Promise<void> }): any;
+  },
+  totalItemCount: number = 150,
+) {
   describe('Preferences', () => {
     test(
       'has 10 rows when setting page size to 10',
@@ -25,7 +28,7 @@ export default function commonPreferencesTests(setupTest: {
         await page.setTablePreferencesPageSize(3);
         await page.confirmTablePreferenceChanges();
 
-        expect(await page.countTableRows()).toBe(50);
+        expect(await page.countTableRows()).toBe(totalItemCount < 50 ? totalItemCount : 50);
       }),
     );
 

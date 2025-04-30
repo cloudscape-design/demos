@@ -7,7 +7,38 @@ type PageObjectWithFiltering = TablePropertyFilteringPageObject | TableFiltering
 
 export type SetupTest<T> = (testFn: (page: T) => Promise<void>) => any;
 
-export default function commonTests<T extends PageObjectWithFiltering>(setupTest: SetupTest<T>) {
+export type TableTestProps = {
+  sorting?: {
+    descendingIds?: string[];
+    changingColumn?: {
+      preSort?: {
+        columnNumber: number;
+        columnName: string;
+      };
+      columnNumber: number;
+      columnName: string;
+      valueBefore: string;
+      valueAfter: string;
+    };
+  };
+};
+
+const defaultProps: TableTestProps = {
+  sorting: {
+    descendingIds: ['YBLIKXPJHLB130', 'XTVHNKKMSTO144'],
+    changingColumn: {
+      columnNumber: 3,
+      columnName: 'State',
+      valueBefore: 'Deactivated',
+      valueAfter: 'Activated',
+    },
+  },
+};
+
+export default function commonTests<T extends PageObjectWithFiltering>(
+  setupTest: SetupTest<T>,
+  props: TableTestProps = defaultProps,
+) {
   describe('Common Table Tests', () => {
     test(
       'Initial layout is correct',
@@ -70,21 +101,35 @@ export default function commonTests<T extends PageObjectWithFiltering>(setupTest
 
           await expect(page.getColumnAriaLabel(2)).resolves.toBe('Distribution ID, sorted descending.');
           await expect(page.getColumnAriaLabel(3)).resolves.toBe('State, not sorted.');
-          await expect(page.getTableCellText(1, 2)).resolves.toBe('YBLIKXPJHLB130');
-          await expect(page.getTableCellText(2, 2)).resolves.toBe('XTVHNKKMSTO144');
+          await expect(page.getTableCellText(1, 2)).resolves.toBe(props!.sorting!.descendingIds![0]);
+          await expect(page.getTableCellText(2, 2)).resolves.toBe(props!.sorting!.descendingIds![1]);
         }),
       );
 
       test(
         'changes sorting column',
         setupTest(async page => {
-          await expect(page.getTableCellText(1, 3)).resolves.toBe('Deactivated');
-          await page.sortTableByColumn(3);
+          const columnProps = props!.sorting!.changingColumn!;
 
-          await expect(page.getColumnAriaLabel(2)).resolves.toBe('Distribution ID, not sorted.');
-          await expect(page.getColumnAriaLabel(3)).resolves.toBe('State, sorted ascending.');
-          await expect(page.getTableCellText(1, 3)).resolves.toBe('Activated');
-          await expect(page.getTableCellText(2, 3)).resolves.toBe('Activated');
+          // When defined sort by a specific column before starting the test to change the sorting column
+          if (columnProps.preSort) {
+            await page.sortTableByColumn(columnProps.preSort.columnNumber);
+            await expect(page.getColumnAriaLabel(columnProps.preSort.columnNumber)).resolves.toBe(
+              `${columnProps.preSort.columnName}, sorted descending.`,
+            );
+          }
+
+          await expect(page.getTableCellText(1, columnProps.columnNumber)).resolves.toBe(columnProps.valueBefore);
+          await page.sortTableByColumn(columnProps.columnNumber);
+
+          await expect(page.getColumnAriaLabel(columnProps.preSort?.columnNumber ?? 2)).resolves.toBe(
+            `${columnProps.preSort?.columnName ?? 'Distribution ID'}, not sorted.`,
+          );
+          await expect(page.getColumnAriaLabel(columnProps.columnNumber)).resolves.toBe(
+            `${columnProps.columnName}, sorted ascending.`,
+          );
+          await expect(page.getTableCellText(1, columnProps.columnNumber)).resolves.toBe(columnProps.valueAfter);
+          await expect(page.getTableCellText(2, columnProps.columnNumber)).resolves.toBe(columnProps.valueAfter);
         }),
       );
 

@@ -5,6 +5,7 @@ import React, { useRef, useState } from 'react';
 import Alert from '@cloudscape-design/components/alert';
 import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
+import Checkbox from '@cloudscape-design/components/checkbox';
 import FormField from '@cloudscape-design/components/form-field';
 import Input, { InputProps } from '@cloudscape-design/components/input';
 import KeyValuePairs from '@cloudscape-design/components/key-value-pairs';
@@ -62,11 +63,12 @@ export function SaveFilterSetModal({
   query: PropertyFilterProps.Query;
   filteringProperties?: readonly PropertyFilterProps.FilteringProperty[];
   onCancel: () => void;
-  onSubmit: (formData: { name: string; description?: string }) => void;
+  onSubmit: (formData: { name: string; description?: string; isDefault?: boolean }) => void;
 }) {
   const [visible, setVisible] = useState(true);
   const [nameValue, setNameValue] = useState('');
   const [descriptionValue, setDescriptionValue] = useState('');
+  const [isDefaultFilterSet, setIsDefaultFilterSet] = useState(false);
   const [nameError, setNameError] = useState<string>();
   const nameInputRef = useRef<InputProps.Ref>(null);
 
@@ -87,6 +89,7 @@ export function SaveFilterSetModal({
     onSubmit({
       name: nameValue,
       description: descriptionValue,
+      isDefault: isDefaultFilterSet,
     });
   };
 
@@ -135,6 +138,11 @@ export function SaveFilterSetModal({
           }
         >
           <Input value={descriptionValue} onChange={({ detail }) => setDescriptionValue(detail.value)} />
+        </FormField>
+        <FormField label={<span>Default filter set</span>}>
+          <Checkbox checked={isDefaultFilterSet} onChange={({ detail }) => setIsDefaultFilterSet(detail.checked)}>
+            Set as default
+          </Checkbox>
         </FormField>
         <div>
           <Box variant="awsui-key-label">Filter values</Box>
@@ -217,6 +225,10 @@ export function UpdateFilterSetModal({
               label: 'New filter values',
               value: queryToString(newQuery, filteringProperties),
             },
+            {
+              label: 'Default filter set',
+              value: filterSet.default ? 'Yes' : 'No',
+            },
           ]}
         />
       </SpaceBetween>
@@ -289,6 +301,10 @@ export function DeleteFilterSetModal({
             {
               label: 'Filter values',
               value: queryToString(filterSet.query, filteringProperties),
+            },
+            {
+              label: 'Default filter set',
+              value: filterSet.default ? 'Yes' : 'No',
             },
           ]}
         />
