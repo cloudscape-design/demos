@@ -13,7 +13,7 @@ import { TableProps } from '@cloudscape-design/components/table';
 
 import { isVisualRefresh } from '../../common/apply-mode';
 import { EC2Instance } from '../../resources/types';
-import { COLUMN_DEFINITIONS_PANEL_CONTENT_SINGLE, SELECTION_LABELS } from './table-config';
+import { COLUMN_DEFINITIONS_PANEL_CONTENT_SINGLE } from './table-config';
 
 const EMPTY_PANEL_CONTENT = {
   header: '0 instances selected',
@@ -143,6 +143,7 @@ export const getPanelContentComparison = (items: Readonly<EC2Instance[]>) => {
   interface TransformedData extends Record<string, string | number | string[]> {
     comparisonType: string;
   }
+
   const transformedData: TransformedData[] = properties.map(key => {
     const data: TransformedData = { comparisonType: keyHeaderMap[key] };
 
@@ -179,7 +180,6 @@ export const getPanelContentComparison = (items: Readonly<EC2Instance[]>) => {
       <Box padding={{ bottom: 'l' }}>
         <Table
           enableKeyboardNavigation={true}
-          ariaLabels={SELECTION_LABELS}
           header={<Header variant="h2">Compare details</Header>}
           items={transformedData}
           columnDefinitions={columnDefinitions}
