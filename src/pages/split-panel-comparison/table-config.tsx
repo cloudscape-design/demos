@@ -93,9 +93,10 @@ export const COLUMN_DEFINITIONS_PANEL_CONTENT_SINGLE: TableProps.ColumnDefinitio
   },
 ];
 
-export const SELECTION_LABELS = {
+export const SELECTION_LABELS: TableProps.AriaLabels<EC2Instance> = {
   ...baseTableAriaLabels,
   selectionGroupLabel: 'Instance selection',
+  itemSelectionLabel: (selectionState, row) => `Select ${row.id}`,
 };
 
 export const DEFAULT_PREFERENCES: CollectionPreferencesProps.Preferences = {
