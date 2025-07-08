@@ -91,7 +91,7 @@ describe('Single page create', () => {
 
           await page.openSplitPanelSubResourceCreation();
           await expect(page.isSplitPanelOpen()).resolves.toBe(true);
-          await expect(page.isSplitPanelSliderFocused()).resolves.toBe(true);
+          await page.waitForAssertion(() => expect(page.isSplitPanelSliderFocused()).resolves.toBe(true));
         }),
       );
 
