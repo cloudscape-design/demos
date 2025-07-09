@@ -8,4 +8,3 @@ export { HelpPanelProvider, useHelpPanel } from './help-panel';
 export { InfoLink } from './info-link';
 export { Navigation, navItems } from './navigation';
 export { Notifications } from './notifications';
-export { SeparatedList } from './separated-list';

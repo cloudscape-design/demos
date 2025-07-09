@@ -6,8 +6,7 @@ import Container from '@cloudscape-design/components/container';
 import Header from '@cloudscape-design/components/header';
 import Icon from '@cloudscape-design/components/icon';
 import Link from '@cloudscape-design/components/link';
-
-import { SeparatedList } from './separated-list';
+import List from '@cloudscape-design/components/list';
 
 interface ExternalLinkItemProps {
   href: string;
@@ -54,12 +53,15 @@ export function ExternalLinkGroup({
           </Header>
         }
       >
-        <SeparatedList
+        <List
           ariaLabel={groupAriaLabel}
-          ariaLabelledBy={groupAriaLabel ? undefined : headerId}
-          items={items.map((item, index) => (
-            <ExternalLinkItem key={index} href={item.href} text={item.text} />
-          ))}
+          ariaLabelledby={groupAriaLabel ? undefined : headerId}
+          items={items}
+          disablePaddings
+          renderItem={item => ({
+            id: item.href,
+            content: <ExternalLinkItem href={item.href} text={item.text} />,
+          })}
         />
       </Container>
     );
