@@ -33,10 +33,10 @@ class ConfigurableDashboardPageObject extends BaseExamplePage {
         actions: [
           { type: 'pointerMove', duration: 0, origin: originEl, x: 1, y: 1 },
           { type: 'pointerDown', button: 0 },
-          { type: 'pause', duration: 100 },
-          { type: 'pointerMove', duration: 100, origin: 'pointer', x: xOffset, y: yOffset },
+          { type: 'pause', duration: 200 },
+          { type: 'pointerMove', duration: 200, origin: 'pointer', x: xOffset, y: yOffset },
           { type: 'pointerUp', button: 0 },
-          { type: 'pause', duration: 100 },
+          { type: 'pause', duration: 200 },
         ],
       },
     ]);
