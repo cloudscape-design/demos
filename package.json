@@ -13,10 +13,11 @@
     "start": "npm run start:theme",
     "start:theme": "cross-env NODE_ENV=development THEME=$npm_config_theme webpack-dev-server",
     "serve": "node ./scripts/dev-server.js",
-    "jest": "node --experimental-vm-modules ./node_modules/.bin/jest ./test/**/*.test.ts",
+    "jest": "node --experimental-vm-modules ./node_modules/.bin/jest -c jest.config.e2e.js",
     "serve-test": "run-p -r serve jest",
     "pretest": "npm-run-all -s clean lint typecheck build",
     "test": "npm run test-no-build",
+    "test:unit": "node --experimental-vm-modules ./node_modules/.bin/jest -c jest.config.unit.js",
     "test-no-build": "run-s test:*",
     "test:default": "cross-env ALWAYS_VISUAL_REFRESH=true npm run serve-test"
   },
@@ -78,7 +79,7 @@
     "webpack": "^5.98.0",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.1",
-    "zod": "^3.23.8"
+    "zod": "^4.0.16"
   },
   "browserslist": [
     "last 3 Chrome major versions",
