@@ -14,7 +14,7 @@ export default class Page extends AppLayoutPage {
   }
   async openAdditionalTools() {
     await this.scrollIntoViewAndClick(
-      page.findContainer().findFooter().findExpandableSection().findHeader().toSelector(),
+      page.findContainer().findFooter().findExpandableSection().findExpandButton().toSelector(),
     );
   }
   async openMainInfoLink() {

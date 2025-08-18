@@ -11,18 +11,18 @@ function expandableSectionItems(index: number) {
   return page.findSideNavigation().findItemByIndex(index).findItems().toSelector();
 }
 
-function formExpandableSectionHeader(id: string) {
-  return page.findContainer(id).findFooter().findExpandableSection().findHeader().toSelector();
+function formExpandableSectionExpandButton(id: string) {
+  return page.findContainer(id).findFooter().findExpandableSection().findExpandButton().toSelector();
 }
 function formExpandableSection(id: string) {
   return page.findContainer(id).findFooter().findExpandableSection().findContent().toSelector();
 }
 export default class Page extends FormPage {
   async expandChangeBehaviorPanel() {
-    await this.scrollIntoViewAndClick(formExpandableSectionHeader('#cache-behavior-panel'));
+    await this.scrollIntoViewAndClick(formExpandableSectionExpandButton('#cache-behavior-panel'));
   }
   async expandDistributionPanel() {
-    await this.scrollIntoViewAndClick(formExpandableSectionHeader('#distribution-panel'));
+    await this.scrollIntoViewAndClick(formExpandableSectionExpandButton('#distribution-panel'));
   }
   isExpandChangeBehaviorContentVisible() {
     return this.isDisplayed(formExpandableSection('#cache-behavior-panel'));

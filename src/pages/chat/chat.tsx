@@ -186,6 +186,7 @@ export default function Chat() {
 
       <FittedContainer>
         <Container
+          data-testid="chat-container"
           header={<Header variant="h3">Generative AI chat</Header>}
           fitHeight
           disableContentPaddings
