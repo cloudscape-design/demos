@@ -2,13 +2,19 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import BarChart from '@cloudscape-design/components/bar-chart';
+import { CartesianChart } from '@cloudscape-design/chart-components';
 import Header from '@cloudscape-design/components/header';
 import Link from '@cloudscape-design/components/link';
 
-import { barChartInstructions, commonChartProps, dateFormatter } from '../chart-commons';
+import {
+  barChartInstructions,
+  commonChartProps,
+  dateFormatter,
+  numberTickFormatter,
+  useHighcharts,
+} from '../chart-commons';
 import { WidgetConfig } from '../interfaces';
-import { cpuDomain, cpuSeries } from './data';
+import { cpuData, cpuSeries } from './data';
 
 function InstanceHoursHeader() {
   return (
@@ -19,39 +25,42 @@ function InstanceHoursHeader() {
 }
 
 function InstanceHoursContent() {
+  const highcharts = useHighcharts();
   return (
-    <BarChart
+    <CartesianChart
       {...commonChartProps}
+      highcharts={highcharts}
+      stacking="normal"
       fitHeight={true}
-      height={25}
-      yDomain={[0, 2000]}
-      xDomain={cpuDomain}
-      xScaleType="categorical"
-      stackedBars={true}
-      hideFilter={true}
-      series={cpuSeries}
-      xTitle="Date"
-      yTitle="Total instance hours"
+      chartHeight={25}
+      xAxis={{
+        type: 'category',
+        title: 'Date',
+        categories: cpuData.map(datum => dateFormatter(datum.date)),
+      }}
+      yAxis={{ title: 'Total instance hours', min: 0, max: 2000, valueFormatter: numberTickFormatter }}
       ariaLabel="Instance hours"
-      ariaDescription={`Bar chart showing total instance hours per instance type over the last 15 days. ${barChartInstructions}`}
+      series={cpuSeries}
       i18nStrings={{
         ...commonChartProps.i18nStrings,
-        filterLabel: 'Filter displayed instance types',
-        filterPlaceholder: 'Filter instance types',
-        xTickFormatter: dateFormatter,
+        chartRoleDescription: `Bar chart showing total instance hours per instance type over the last 15 days. ${barChartInstructions}`,
+        seriesFilterLabel: 'Filter displayed instance types',
+        seriesFilterPlaceholder: 'Filter instance types',
       }}
-      detailPopoverSeriesContent={({ series, y }) => ({
-        key: series.title,
-        value: (
-          <Link
-            external={true}
-            href="#"
-            ariaLabel={`See details for ${y} hours on ${series.title} (opens in a new tab)`}
-          >
-            {y}
-          </Link>
-        ),
-      })}
+      tooltip={{
+        point: ({ item }) => ({
+          key: item.series.name,
+          value: (
+            <Link
+              external={true}
+              href="#"
+              ariaLabel={`See details for ${item.y} hours on ${item.series.name} (opens in a new tab)`}
+            >
+              {item.y}
+            </Link>
+          ),
+        }),
+      }}
     />
   );
 }
