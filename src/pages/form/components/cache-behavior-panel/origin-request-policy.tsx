@@ -61,7 +61,7 @@ export default function OriginRequestPolicy({
         description={
           <>
             Choose an existing origin request policy or create a new one. To configure advanced settings{' '}
-            <Link href="#" external={true} variant="primary">
+            <Link href="#" external={true} variant="primary" fontSize="inherit">
               create origin request policy
             </Link>
             .

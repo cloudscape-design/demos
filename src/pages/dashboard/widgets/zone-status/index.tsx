@@ -2,11 +2,11 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
+import { PieChart } from '@cloudscape-design/chart-components';
 import Header from '@cloudscape-design/components/header';
-import PieChart from '@cloudscape-design/components/pie-chart';
 import { colorChartsStatusHigh, colorChartsStatusPositive } from '@cloudscape-design/design-tokens';
 
-import { percentageFormatter } from '../chart-commons';
+import { percentageFormatter, useHighcharts } from '../chart-commons';
 import { WidgetConfig } from '../interfaces';
 
 function ZoneStatusHeader() {
@@ -18,37 +18,43 @@ function ZoneStatusHeader() {
 }
 
 function ZoneStatusContent() {
+  const highcharts = useHighcharts();
   return (
     <PieChart
-      hideFilter={true}
+      highcharts={highcharts}
       fitHeight={true}
-      size="small"
-      data={[
-        { title: 'Operating normally', value: 18, color: colorChartsStatusPositive },
-        { title: 'Disrupted', value: 2, color: colorChartsStatusHigh },
-      ]}
+      series={{
+        type: 'pie',
+        name: 'Zone status',
+        data: [
+          { name: 'Operating normally', y: 18, color: colorChartsStatusPositive },
+          { name: 'Disrupted', y: 2, color: colorChartsStatusHigh },
+        ],
+      }}
       ariaLabel="Zone status chart"
-      ariaDescription="Pie chart summarizing the status of all zones."
-      segmentDescription={(datum, sum) => `${datum.value} zones, ${percentageFormatter(datum.value / sum)}`}
-      detailPopoverContent={(datum, sum) => [
-        {
-          key: 'Zone count',
-          value: datum.value,
-        },
-        {
-          key: 'Percentage',
-          value: percentageFormatter(datum.value / sum),
-        },
-      ]}
+      segmentDescription={({ segmentValue, totalValue }) =>
+        `${segmentValue} zones, ${percentageFormatter(segmentValue / totalValue)}`
+      }
+      tooltip={{
+        details: ({ segmentValue, totalValue }) => [
+          {
+            key: 'Zone count',
+            value: segmentValue,
+          },
+          {
+            key: 'Percentage',
+            value: percentageFormatter(segmentValue / totalValue),
+          },
+        ],
+      }}
       i18nStrings={{
-        filterLabel: 'Filter displayed data',
-        filterPlaceholder: 'Filter data',
-        filterSelectedAriaLabel: 'selected',
+        chartRoleDescription: 'Pie chart summarizing the status of all zones.',
+        seriesFilterLabel: 'Filter displayed data',
+        seriesFilterPlaceholder: 'Filter data',
+        seriesFilterSelectedAriaLabel: 'selected',
         detailPopoverDismissAriaLabel: 'Dismiss',
-
         legendAriaLabel: 'Legend',
-        chartAriaRoleDescription: 'pie chart',
-        segmentAriaRoleDescription: 'segment',
+        segmentRoleDescription: 'segment',
       }}
     />
   );

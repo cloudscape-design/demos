@@ -2,11 +2,17 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
+import { CartesianChart } from '@cloudscape-design/chart-components';
 import Header from '@cloudscape-design/components/header';
-import LineChart from '@cloudscape-design/components/line-chart';
 import Link from '@cloudscape-design/components/link';
 
-import { commonChartProps, dateTimeFormatter, lineChartInstructions } from '../chart-commons';
+import {
+  commonChartProps,
+  dateTimeFormatter,
+  lineChartInstructions,
+  numberTickFormatter,
+  useHighcharts,
+} from '../chart-commons';
 import { WidgetConfig } from '../interfaces';
 import { networkTrafficDomain, networkTrafficSeries } from './data';
 
@@ -19,34 +25,44 @@ function NetworkTrafficHeader() {
 }
 
 export default function NetworkTrafficContent() {
+  const highcharts = useHighcharts();
   return (
-    <LineChart
+    <CartesianChart
       {...commonChartProps}
-      hideFilter={true}
+      highcharts={highcharts}
       fitHeight={true}
-      height={25}
+      chartHeight={25}
       series={networkTrafficSeries}
-      yDomain={[0, 200000]}
-      xDomain={networkTrafficDomain}
-      xScaleType="time"
-      xTitle="Time (UTC)"
-      yTitle="Data transferred"
+      xAxis={{
+        type: 'datetime',
+        min: networkTrafficDomain.min,
+        max: networkTrafficDomain.max,
+        title: 'Time (UTC)',
+        valueFormatter: dateTimeFormatter,
+      }}
+      yAxis={{
+        title: 'Data transferred',
+        min: 0,
+        max: 200000,
+        valueFormatter: numberTickFormatter,
+      }}
       ariaLabel="Network traffic"
-      ariaDescription={`Line chart showing transferred data of all your instances. ${lineChartInstructions}`}
       i18nStrings={{
         ...commonChartProps.i18nStrings,
-        filterLabel: 'Filter displayed instances',
-        filterPlaceholder: 'Filter instances',
-        xTickFormatter: dateTimeFormatter,
+        chartRoleDescription: `Line chart showing transferred data of all your instances. ${lineChartInstructions}`,
+        seriesFilterLabel: 'Filter displayed instances',
+        seriesFilterPlaceholder: 'Filter instances',
       }}
-      detailPopoverSeriesContent={({ series, y }) => ({
-        key: (
-          <Link external={true} href="#">
-            {series.title}
-          </Link>
-        ),
-        value: y,
-      })}
+      tooltip={{
+        point: ({ item }) => ({
+          key: (
+            <Link external={true} href="#">
+              {item.series.name}
+            </Link>
+          ),
+          value: item.y,
+        }),
+      }}
     />
   );
 }
