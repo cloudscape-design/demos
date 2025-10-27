@@ -13,7 +13,7 @@
       "jsx": true
     }
   },
-  "plugins": ["react-hooks", "react", "header", "@eslint-react/eslint-plugin", "eslint-plugin-simple-import-sort"],
+  "plugins": ["react-hooks", "react", "header", "@eslint-react/eslint-plugin", "eslint-plugin-simple-import-sort", "eslint-plugin-unused-imports"],
   "rules": {
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/no-explicit-any": "off",
@@ -35,7 +35,8 @@
     "react/prop-types": "off",
     "react/no-unescaped-entities": "off",
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "unused-imports/no-unused-imports": "error"
   },
   "settings": {
     "react": {
