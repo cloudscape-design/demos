@@ -32,6 +32,7 @@ export function ConfigurableWidget({ config, onRemove, actions = [], removeConfi
             ]}
             ariaLabel="Widget settings"
             variant="icon"
+            expandToViewport={true}
             onItemClick={event => {
               if (event.detail.id === 'remove') {
                 if (removeConfirmationText) {
