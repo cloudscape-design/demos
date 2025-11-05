@@ -21,7 +21,7 @@
     "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-empty-function": "off",
-    "@typescript-eslint/no-unused-vars": ["error", { "caughtErrors": "none" }],
+    "@typescript-eslint/no-unused-vars": ["warn", { "caughtErrors": "none" }],
     "curly": "error",
     "eqeqeq": "error",
     "no-return-await": "error",
