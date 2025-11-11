@@ -118,4 +118,22 @@ describe('Single page create', () => {
       );
     });
   });
+
+  describe('API defaults', () => {
+    test(
+      'Inputs are pre-populated with default values and can change the selected values',
+      setupTest(async page => {
+        await expect(page.getSelectedEncryptionKey()).resolves.toEqual('aws/rds\nDefault encryption key');
+        await expect(page.getSelectedAvailabilityZone()).resolves.toEqual(
+          'Optimized value\nAvailability zone will be assigned automatically',
+        );
+
+        await page.selectEncryptionKey('aws/rds/aaa');
+        await expect(page.getSelectedEncryptionKey()).resolves.toEqual('aws/rds/aaa');
+
+        await page.selectAvailabilityZone('us-west-2a');
+        await expect(page.getSelectedAvailabilityZone()).resolves.toEqual('us-west-2a');
+      }),
+    );
+  });
 });

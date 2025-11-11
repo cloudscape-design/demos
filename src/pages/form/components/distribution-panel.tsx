@@ -22,6 +22,7 @@ import useContentOrigins from '../../commons/use-content-origins';
 import { CUSTOM_SSL_CERTIFICATES, SUPPORTED_HTTP_VERSIONS_OPTIONS } from '../form-config';
 import validateField from '../form-validation-config';
 import { FormDataAttributesKeys, FormDataAttributesValues, FormPanelProps } from '../types';
+import APIDefaultsInputs from './api-defaults-inputs';
 
 interface DistributionsFooterProps {
   state: FormDataAttributesValues;
@@ -67,6 +68,7 @@ export default function DistributionPanel({
   setData,
   setErrors,
   refs,
+  showAPIDefaultInputs,
 }: FormPanelProps) {
   const [contentOriginsState, contentOriginsHandlers] = useContentOrigins();
   const [customSSLCertificate, setCustomSSLCertificate] = useState<SelectProps.Option | null>(null);
@@ -150,6 +152,8 @@ export default function DistributionPanel({
             data-testid="root-input"
           />
         </FormField>
+
+        {showAPIDefaultInputs && <APIDefaultsInputs loadHelpPanelContent={loadHelpPanelContent} />}
 
         <FormField
           label={

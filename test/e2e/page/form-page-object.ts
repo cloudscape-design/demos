@@ -29,6 +29,9 @@ export default class PageObject extends AppLayoutPage {
   private splitPanelWrapper = this.getSplitPanelWrapper().findOpenPanelSide();
   private createCachePolicyNameInput = this.splitPanelWrapper.findInput().findNativeInput();
   private cachePolicySelect = this.cacheBehaviorPanelWrapper.findSelect('[data-testid="cache-policy-select"]');
+  // API defaults
+  private encryptionKeySelect = this.distributionPanelWrapper.findSelect('[data-testid="encryption-key-select"]');
+  private availabilityZoneSelect = this.distributionPanelWrapper.findSelect('[data-testid="availability-zone-select"]');
 
   async waitForPageLoaded() {
     await this.waitForVisible(this.pageWrapper.findForm().toSelector());
@@ -222,6 +225,25 @@ export default class PageObject extends AppLayoutPage {
   submitModal() {
     return this.click(
       this.findModal().findFooter().findButton('[data-testid="unsaved-changes-modal-submit"]').toSelector(),
+    );
+  }
+
+  // API defaults
+  getSelectedEncryptionKey() {
+    return this.getText(this.encryptionKeySelect.findTrigger().toSelector());
+  }
+  async selectEncryptionKey(value: string) {
+    await this.scrollIntoViewAndClick(this.encryptionKeySelect.findTrigger().toSelector());
+    await this.scrollIntoViewAndClick(this.encryptionKeySelect.findDropdown().findOptionByValue(value)!.toSelector());
+  }
+
+  getSelectedAvailabilityZone() {
+    return this.getText(this.availabilityZoneSelect.findTrigger().toSelector());
+  }
+  async selectAvailabilityZone(value: string) {
+    await this.scrollIntoViewAndClick(this.availabilityZoneSelect.findTrigger().toSelector());
+    await this.scrollIntoViewAndClick(
+      this.availabilityZoneSelect.findDropdown().findOptionByValue(value)!.toSelector(),
     );
   }
 }

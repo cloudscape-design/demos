@@ -94,6 +94,7 @@ export interface FormPanelProps {
   validation?: boolean;
   errors?: FormDataAttributesErrors;
   refs?: FormRefs;
+  showAPIDefaultInputs?: boolean;
 }
 
 export interface CreateCachePolicyAttributesValues {
