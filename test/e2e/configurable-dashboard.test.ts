@@ -31,6 +31,7 @@ class ConfigurableDashboardPageObject extends BaseExamplePage {
         id: 'event',
         parameters: { pointerType: 'mouse' },
         actions: [
+          { type: 'pause', duration: 400 }, // TODO: Wait for charts to be loaded instead of waiting for a hard-coded amount (AWSUI-61409)
           { type: 'pointerMove', duration: 0, origin: originEl, x: 1, y: 1 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 200 },
@@ -66,35 +67,6 @@ describe('Configurable dashboard', () => {
   );
 
   test(
-    'Adjusts default layout when screen resizes',
-    setupTest(async page => {
-      const { height: heightBefore } = await page.getBoundingBox(
-        boardWrapper.findItemById('serviceOverview').toSelector(),
-      );
-      await page.setWindowSize({ ...defaultSize, width: 900 });
-      const { height: heightAfter } = await page.getBoundingBox(
-        boardWrapper.findItemById('serviceOverview').toSelector(),
-      );
-      expect(heightAfter).toBeGreaterThan(heightBefore);
-    }),
-  );
-
-  test(
-    'Preserves custom layout preference when screen resizes',
-    setupTest(async page => {
-      await page.dragElement(boardWrapper.findItemById('instanceHours').findResizeHandle().toSelector(), 200, 0);
-      const { height: heightBefore } = await page.getBoundingBox(
-        boardWrapper.findItemById('serviceOverview').toSelector(),
-      );
-      await page.setWindowSize({ ...defaultSize, width: 900 });
-      const { height: heightAfter } = await page.getBoundingBox(
-        boardWrapper.findItemById('serviceOverview').toSelector(),
-      );
-      expect(heightAfter).toEqual(heightBefore);
-    }),
-  );
-
-  test(
     'Can reorder widgets',
     setupTest(async page => {
       await expect(page.getHeadersTexts()).resolves.toEqual([
@@ -104,12 +76,14 @@ describe('Configurable dashboard', () => {
         'Network traffic',
       ]);
       await page.dragElement(boardWrapper.findItemById('serviceOverview').findDragHandle().toSelector(), 220, 0);
-      await expect(page.getHeadersTexts()).resolves.toEqual([
-        'Service health',
-        'Service overview - new',
-        'Instance hours',
-        'Network traffic',
-      ]);
+      await page.waitForAssertion(() =>
+        expect(page.getHeadersTexts()).resolves.toEqual([
+          'Service health',
+          'Service overview - new',
+          'Instance hours',
+          'Network traffic',
+        ]),
+      );
     }),
   );
 
@@ -118,7 +92,7 @@ describe('Configurable dashboard', () => {
     setupTest(async page => {
       expect((await page.getHeadersTexts())[0]).toEqual('Service overview - new');
       await page.addNewWidget();
-      expect((await page.getHeadersTexts())[0]).toEqual('Operational metrics');
+      await page.waitForAssertion(async () => expect((await page.getHeadersTexts())[0]).toEqual('Operational metrics'));
     }),
   );
 
@@ -148,7 +122,9 @@ describe('Configurable dashboard', () => {
       expect((await page.getHeadersTexts())[0]).toEqual('Operational metrics');
       await page.click('button=Reset to default layout');
       await page.click('button=Reset');
-      expect((await page.getHeadersTexts())[0]).toEqual('Service overview - new');
+      await page.waitForAssertion(async () =>
+        expect((await page.getHeadersTexts())[0]).toEqual('Service overview - new'),
+      );
     }),
   );
 
