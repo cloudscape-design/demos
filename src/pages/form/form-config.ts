@@ -73,6 +73,20 @@ export const CURRENT_COMPRESSION_OPTIONS = [
   { label: 'Automatic', value: 'automatic' },
 ];
 
+export const ENCRYPTION_KEY_OPTIONS = [
+  { label: 'aws/rds', value: 'aws/rds', description: 'Default encryption key' },
+  { label: 'aws/rds/aaa', value: 'aws/rds/aaa' },
+  { label: 'aws/rds/bbb', value: 'aws/rds/bbb' },
+  { label: 'aws/rds/ccc', value: 'aws/rds/ccc' },
+];
+
+export const AVAILABILITY_ZONE_OPTIONS = [
+  { label: 'Optimized value', value: 'default', description: 'Availability zone will be assigned automatically' },
+  { label: 'us-west-2a', value: 'us-west-2a' },
+  { label: 'us-west-2b', value: 'us-west-2b' },
+  { label: 'us-west-2c', value: 'us-west-2c' },
+];
+
 export const CODE_EDITOR_THEMES = {
   light: [
     'chrome',

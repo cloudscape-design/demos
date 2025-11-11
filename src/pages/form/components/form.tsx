@@ -169,7 +169,12 @@ export function FormFull({
       content={
         <SpaceBetween size="l">
           <ContentDeliveryPanel loadHelpPanelContent={loadHelpPanelContent} />
-          <DistributionsPanel loadHelpPanelContent={loadHelpPanelContent} data={data} setData={setData} />
+          <DistributionsPanel
+            loadHelpPanelContent={loadHelpPanelContent}
+            data={data}
+            setData={setData}
+            showAPIDefaultInputs={true}
+          />
           <OriginPanel loadHelpPanelContent={loadHelpPanelContent} data={data} setData={setData} />
           <CacheBehaviorPanel
             loadHelpPanelContent={loadHelpPanelContent}

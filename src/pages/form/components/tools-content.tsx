@@ -416,5 +416,12 @@ export default [
       which means you can build, test, and deploy your code entirely within CloudFront.
     </p>
   </HelpPanel>,
+  <HelpPanel header={<h2>Availability zones</h2>}>
+    <p>
+      A distinct location within a region that's designed to be isolated from failures in other Availability Zones.
+      Availability Zones within a region are connected through low-latency links. An Availability Zone can be
+      automatically assigned based on the origin location specified for the distribution.
+    </p>
+  </HelpPanel>,
 ];
 /* eslint-enable react/jsx-key */
