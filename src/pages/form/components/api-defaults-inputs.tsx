@@ -32,10 +32,7 @@ export default function APIDefaultsInputs({ loadHelpPanelContent }: APIDefaultsI
         />
       </FormField>
 
-      <FormField
-        label="Availability zone"
-        info={<InfoLink id="delivery-method-info-link" onFollow={() => loadHelpPanelContent(12)} />}
-      >
+      <FormField label="Availability zone" info={<InfoLink onFollow={() => loadHelpPanelContent(12)} />}>
         <Select
           options={AVAILABILITY_ZONE_OPTIONS}
           selectedOption={availabilityZone}
