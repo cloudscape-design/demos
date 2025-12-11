@@ -101,5 +101,8 @@
       "./scripts/clean-package-lock.js"
     ]
   },
+  "overrides": {
+    "glob": "^10.5.0"
+  },
   "private": true
 }
