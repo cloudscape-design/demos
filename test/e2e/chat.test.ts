@@ -10,6 +10,7 @@ const setupTest = (testFn: { (page: Page): Promise<void> }) => {
   return useBrowser(async browser => {
     await browser.url('/chat.html');
     const page = new Page(browser);
+    await page.usePendingCallbacks();
     await expect(page.countChatBubbles()).resolves.toBe(initialMessageCount);
     await testFn(page);
   });
@@ -25,13 +26,13 @@ describe('Chat behavior', () => {
       await expect(page.getChatBubbleText(initialMessageCount)).resolves.toBe(prompt);
 
       // After a prompt is sent, Gen-AI should response so initialMessageCount + 2 is the new count of bubbles
-      // Gen-AI response is sent with a delay
-      await page.waitForAssertion(() => expect(page.countChatBubbles()).resolves.toBe(initialMessageCount + 2));
-      await page.waitForAssertion(() =>
-        expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain('Generating a response'),
-      );
-      // Loading state is shown for 1.5 seconds
-      await page.waitForJsTimers(1500);
+      // Gen-AI response is sent with a delay.
+      await page.flushOne();
+      await expect(page.countChatBubbles()).resolves.toBe(initialMessageCount + 2);
+      await expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain('Generating a response');
+
+      // After another delay, the message content is shown.
+      await page.flushOne();
       await expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain(
         'The interactions and functionality of this demo are limited.',
       );
@@ -46,12 +47,11 @@ describe('Chat behavior', () => {
       await page.sendPrompt(prompt);
       await expect(page.getChatBubbleText(initialMessageCount)).resolves.toBe(prompt);
 
-      await page.waitForAssertion(() => expect(page.countChatBubbles()).resolves.toBe(initialMessageCount + 2));
-      await page.waitForAssertion(() =>
-        expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain('Generating a response'),
-      );
-      // Loading state is shown for 4 seconds for loading prompt
-      await page.waitForJsTimers(4000);
+      await page.flushOne();
+      await expect(page.countChatBubbles()).resolves.toBe(initialMessageCount + 2);
+      await expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain('Generating a response');
+
+      await page.flushOne();
       await expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain(
         'That was the loading state. To see the loading state again, ask "Show a loading state example".',
       );
@@ -65,11 +65,12 @@ describe('Chat behavior', () => {
 
       await page.sendPrompt(prompt);
       await expect(page.getChatBubbleText(initialMessageCount)).resolves.toBe(prompt);
-      await page.waitForAssertion(() =>
-        expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain('Generating a response'),
-      );
-      // Loading state is shown for 1.5 seconds
-      await page.waitForJsTimers(1500);
+
+      await page.flushOne();
+      await expect(page.countChatBubbles()).resolves.toBe(initialMessageCount + 2);
+      await expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain('Generating a response');
+
+      await page.flushOne();
       await expect(page.getAlertHeaderText(initialMessageCount + 1)).resolves.toBe('Access denied');
     }),
   );
@@ -79,8 +80,8 @@ describe('Chat behavior', () => {
       'Submit `helpful` feedback',
       setupTest(async page => {
         await page.submitFeedbackHelpful();
-        // Loading is shown for 2 seconds
-        await page.waitForJsTimers(2000);
+        await page.flushOne();
+
         // Dismiss popover feedback
         await page.click(createWrapper().findHeader().toSelector());
 
@@ -95,8 +96,7 @@ describe('Chat behavior', () => {
       'Submit `not-helpful` feedback and feedback dialog should open',
       setupTest(async page => {
         await page.submitFeedbackNotHelpful();
-        // Loading is shown for 2 seconds
-        await page.waitForJsTimers(2000);
+        await page.flushOne();
 
         await expect(page.getNotHelpfulButtonDisabledReason()).resolves.toBe(
           '"Not helpful" feedback has been submitted.',
@@ -114,8 +114,7 @@ describe('Chat behavior', () => {
       'Submit button should be disabled upon feedback dialog load and get enabled after an input is given',
       setupTest(async page => {
         await page.submitFeedbackNotHelpful();
-        // Loading is shown for 2 seconds
-        await page.waitForJsTimers(2000);
+        await page.flushOne();
 
         await expect(page.isSubmitButtonEnabled()).resolves.toBe(false);
         await page.chooseFeedbackInDialog();
@@ -133,8 +132,7 @@ describe('Chat behavior', () => {
       'Submit feedback dialog',
       setupTest(async page => {
         await page.submitFeedbackNotHelpful();
-        // Loading is shown for 2 seconds
-        await page.waitForJsTimers(2000);
+        await page.flushOne();
 
         const feedbackDialogSelector = page.getFeedbackDialog().toSelector();
         await expect(page.isFocused(feedbackDialogSelector)).resolves.toBe(true);
@@ -154,8 +152,7 @@ describe('Chat behavior', () => {
       'Close feedback dialog',
       setupTest(async page => {
         await page.submitFeedbackNotHelpful();
-        // Loading is shown for 2 seconds
-        await page.waitForJsTimers(2000);
+        await page.flushOne();
 
         const feedbackDialogSelector = page.getFeedbackDialog().toSelector();
 
@@ -169,8 +166,7 @@ describe('Chat behavior', () => {
       'Dismiss feedback dialog',
       setupTest(async page => {
         await page.submitFeedbackNotHelpful();
-        // Loading is shown for 2 seconds
-        await page.waitForJsTimers(2000);
+        await page.flushOne();
 
         const feedbackDialogSelector = page.getFeedbackDialog().toSelector();
 
