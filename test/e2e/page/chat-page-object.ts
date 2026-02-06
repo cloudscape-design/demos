@@ -17,6 +17,7 @@ const feedbackDialogSubmitButton = wrapper.findButton('[data-testid="feedback-su
 
 interface ExtendedWindow extends Window {
   __usePendingCallbacks: boolean;
+  __pendingCallbacks: Array<() => void>;
   __flushOne: () => void;
 }
 declare const window: ExtendedWindow;
@@ -26,7 +27,14 @@ export default class ChatPageObject extends BaseExamplePage {
     await this.browser.execute(() => (window.__usePendingCallbacks = true));
   }
   async flushOne() {
-    await this.browser.execute(() => window.__flushOne());
+    const count = await this.browser.execute(() => {
+      const count = window.__pendingCallbacks.length;
+      window.__flushOne();
+      return count;
+    });
+    if (count !== 1) {
+      throw new Error('Unexpected pending callbacks count');
+    }
   }
 
   countChatBubbles() {
@@ -36,6 +44,12 @@ export default class ChatPageObject extends BaseExamplePage {
   async sendPrompt(prompt: string) {
     const textareaSelector = promptInputWrapper.findNativeTextarea().toSelector();
     await this.setValue(textareaSelector, prompt);
+
+    const textarea = this.browser.$(textareaSelector);
+    const value = await textarea.getValue();
+    if (value !== prompt) {
+      throw new Error('Prompt was not set');
+    }
 
     const sendButton = this.browser.$(promptInputWrapper.findActionButton().toSelector());
     await sendButton.click();
