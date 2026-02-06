@@ -13,10 +13,9 @@ window.__usePendingCallbacks = false;
 window.__pendingCallbacks = [];
 window.__flushOne = () => window.__pendingCallbacks.shift()?.();
 window.__flushAll = () => {
-  for (const callback of window.__pendingCallbacks) {
-    callback();
+  while (window.__pendingCallbacks.length) {
+    window.__flushOne();
   }
-  window.__pendingCallbacks = [];
 };
 
 export const asyncCallback = (callback: () => void, delay: number) => {

@@ -26,7 +26,9 @@ export default class ChatPageObject extends BaseExamplePage {
     await this.browser.execute(() => (window.__usePendingCallbacks = true));
   }
   async flushOne() {
-    await this.browser.execute(() => window.__flushOne());
+    await this.browser.execute(() => {
+      window.__flushOne();
+    });
   }
 
   countChatBubbles() {
