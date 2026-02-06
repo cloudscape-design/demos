@@ -13,16 +13,16 @@ window.__usePendingCallbacks = false;
 window.__pendingCallbacks = [];
 window.__flushOne = () => window.__pendingCallbacks.shift()?.();
 window.__flushAll = () => {
-  for (const cb of window.__pendingCallbacks) {
-    cb();
+  for (const callback of window.__pendingCallbacks) {
+    callback();
   }
   window.__pendingCallbacks = [];
 };
 
-export const asyncCallback = (cb: () => void, delay: number) => {
+export const asyncCallback = (callback: () => void, delay: number) => {
   if (window.__usePendingCallbacks) {
-    window.__pendingCallbacks.push(cb);
+    window.__pendingCallbacks.push(callback);
   } else {
-    setTimeout(cb, delay);
+    setTimeout(callback, delay);
   }
 };
