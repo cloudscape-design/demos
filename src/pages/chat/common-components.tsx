@@ -7,6 +7,7 @@ import ButtonGroup, { ButtonGroupProps } from '@cloudscape-design/components/but
 import StatusIndicator from '@cloudscape-design/components/status-indicator';
 
 import { AuthorAvatarProps } from './config';
+import { asyncCallback } from './pending-callbacks';
 
 export function ChatBubbleAvatar({ type, name, initials, loading }: AuthorAvatarProps) {
   if (type === 'gen-ai') {
@@ -162,7 +163,7 @@ export function FeedbackActions({
 
         setFeedbackSubmitting(detail.id);
 
-        setTimeout(() => {
+        asyncCallback(() => {
           setFeedback(detail.id);
           setFeedbackSubmitting('');
           if (detail.id === 'not-helpful') {

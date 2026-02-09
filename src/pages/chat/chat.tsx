@@ -32,6 +32,7 @@ import {
   validLoadingPrompts,
 } from './config';
 import Messages from './messages';
+import { asyncCallback } from './pending-callbacks';
 
 import '../../styles/chat.scss';
 
@@ -75,14 +76,15 @@ export default function Chat() {
 
     promptInputRef.current?.focus();
 
-    setTimeout(() => {
+    asyncCallback(() => {
       setIsGenAiResponseLoading(true);
       setMessages(prevMessages => [...prevMessages, getLoadingMessage()]);
 
-      setTimeout(() => {
+      asyncCallback(() => {
         setMessages(prevMessages => {
-          prevMessages.splice(prevMessages.length - 1, 1, newMessage);
-          return prevMessages;
+          const updatedMessages = [...prevMessages];
+          updatedMessages.splice(prevMessages.length - 1, 1, newMessage);
+          return updatedMessages;
         });
 
         setIsGenAiResponseLoading(false);
@@ -139,11 +141,11 @@ export default function Chat() {
     const isLoadingPrompt = validLoadingPrompts.includes(lowerCasePrompt);
 
     // Show loading state
-    setTimeout(() => {
+    asyncCallback(() => {
       setIsGenAiResponseLoading(true);
       setMessages(prevMessages => [...prevMessages, getLoadingMessage()]);
 
-      setTimeout(() => {
+      asyncCallback(() => {
         const validPrompt =
           fileValue.length > 0
             ? VALID_PROMPTS.find(({ prompt }) => prompt.includes('file'))
@@ -152,9 +154,9 @@ export default function Chat() {
         // Send Gen-AI response, replacing the loading chat bubble
         setMessages(prevMessages => {
           const response = validPrompt ? validPrompt.getResponse(onSupportPromptClick) : getInvalidPromptResponse();
-
-          prevMessages.splice(prevMessages.length - 1, 1, response);
-          return prevMessages;
+          const updatedMessages = [...prevMessages];
+          updatedMessages.splice(prevMessages.length - 1, 1, response);
+          return updatedMessages;
         });
         setIsGenAiResponseLoading(false);
         fileValue = [];
