@@ -9,7 +9,7 @@ export interface WindowWithPendingCallbacks extends Window {
 }
 declare const window: WindowWithPendingCallbacks;
 
-window.__usePendingCallbacks = false;
+window.__usePendingCallbacks = window.__usePendingCallbacks ?? false;
 window.__pendingCallbacks = [];
 window.__flushOne = () => window.__pendingCallbacks.shift()?.();
 window.__flushAll = () => {

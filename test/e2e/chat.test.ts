@@ -16,164 +16,168 @@ const setupTest = (testFn: { (page: Page): Promise<void> }) => {
   });
 };
 
-describe('Chat behavior', () => {
-  test(
-    'Unknown prompt gets the correct response',
-    setupTest(async page => {
-      const prompt = 'unknown prompt';
+for (let i = 0; i < 200; i++) {
+  describe('Chat behavior', () => {
+    test(
+      'Unknown prompt gets the correct response',
+      setupTest(async page => {
+        const prompt = 'unknown prompt';
 
-      await page.sendPrompt(prompt);
-      await expect(page.getChatBubbleText(initialMessageCount)).resolves.toBe(prompt);
+        await page.sendPrompt(prompt);
+        await expect(page.getChatBubbleText(initialMessageCount)).resolves.toBe(prompt);
 
-      // After a prompt is sent, Gen-AI should response so initialMessageCount + 2 is the new count of bubbles
-      // Gen-AI response is sent with a delay.
-      await page.flushOne();
-      await expect(page.countChatBubbles()).resolves.toBe(initialMessageCount + 2);
-      await expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain('Generating a response');
+        // After a prompt is sent, Gen-AI should response so initialMessageCount + 2 is the new count of bubbles
+        // Gen-AI response is sent with a delay.
+        await page.flushOne('Unknown prompt gets the correct response 1');
+        await expect(page.countChatBubbles()).resolves.toBe(initialMessageCount + 2);
+        await expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain('Generating a response');
 
-      // After another delay, the message content is shown.
-      await page.flushOne();
-      await expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain(
-        'The interactions and functionality of this demo are limited.',
+        // After another delay, the message content is shown.
+        await page.flushOne('Unknown prompt gets the correct response 2');
+        await expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain(
+          'The interactions and functionality of this demo are limited.',
+        );
+      }),
+    );
+
+    test(
+      'Loading prompt shows loading state',
+      setupTest(async page => {
+        const prompt = 'Show a loading state example';
+
+        await page.sendPrompt(prompt);
+        await expect(page.getChatBubbleText(initialMessageCount)).resolves.toBe(prompt);
+
+        await page.flushOne('Loading prompt shows loading state 1');
+        await expect(page.countChatBubbles()).resolves.toBe(initialMessageCount + 2);
+        await expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain('Generating a response');
+
+        await page.flushOne('Loading prompt shows loading state 2');
+        await expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain(
+          'That was the loading state. To see the loading state again, ask "Show a loading state example".',
+        );
+      }),
+    );
+
+    test(
+      'Error prompt shows error state',
+      setupTest(async page => {
+        const prompt = 'Show an error state example';
+
+        await page.sendPrompt(prompt);
+        await expect(page.getChatBubbleText(initialMessageCount)).resolves.toBe(prompt);
+
+        await page.flushOne('Error prompt shows error state 1');
+        await expect(page.countChatBubbles()).resolves.toBe(initialMessageCount + 2);
+        await expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain('Generating a response');
+
+        await page.flushOne('Error prompt shows error state 2');
+        await expect(page.getAlertHeaderText(initialMessageCount + 1)).resolves.toBe('Access denied');
+      }),
+    );
+
+    describe('Feedback', () => {
+      test(
+        'Submit `helpful` feedback',
+        setupTest(async page => {
+          await page.submitFeedbackHelpful();
+          await page.flushOne('Submit `helpful` feedback');
+
+          // Dismiss popover feedback
+          await page.click(createWrapper().findHeader().toSelector());
+
+          await expect(page.getHelpfulButtonDisabledReason()).resolves.toBe('"Helpful" feedback has been submitted.');
+          await expect(page.getNotHelpfulButtonDisabledReason()).resolves.toBe(
+            '"Not helpful" option is unavailable after "Helpful" feedback submitted.',
+          );
+        }),
       );
-    }),
-  );
 
-  test(
-    'Loading prompt shows loading state',
-    setupTest(async page => {
-      const prompt = 'Show a loading state example';
+      test(
+        'Submit `not-helpful` feedback and feedback dialog should open',
+        setupTest(async page => {
+          await page.submitFeedbackNotHelpful();
+          await page.flushOne('Submit `not-helpful` feedback and feedback dialog should open');
 
-      await page.sendPrompt(prompt);
-      await expect(page.getChatBubbleText(initialMessageCount)).resolves.toBe(prompt);
+          await expect(page.getNotHelpfulButtonDisabledReason()).resolves.toBe(
+            '"Not helpful" feedback has been submitted.',
+          );
+          await expect(page.getHelpfulButtonDisabledReason()).resolves.toBe(
+            '"Helpful" option is unavailable after "Not helpful" feedback submitted.',
+          );
 
-      await page.flushOne();
-      await expect(page.countChatBubbles()).resolves.toBe(initialMessageCount + 2);
-      await expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain('Generating a response');
-
-      await page.flushOne();
-      await expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain(
-        'That was the loading state. To see the loading state again, ask "Show a loading state example".',
+          const feedbackDialogSelector = page.getFeedbackDialog().toSelector();
+          await expect(page.isExisting(feedbackDialogSelector)).resolves.toBe(true);
+        }),
       );
-    }),
-  );
 
-  test(
-    'Error prompt shows error state',
-    setupTest(async page => {
-      const prompt = 'Show an error state example';
+      test(
+        'Submit button should be disabled upon feedback dialog load and get enabled after an input is given',
+        setupTest(async page => {
+          await page.submitFeedbackNotHelpful();
+          await page.flushOne(
+            'Submit button should be disabled upon feedback dialog load and get enabled after an input is given',
+          );
 
-      await page.sendPrompt(prompt);
-      await expect(page.getChatBubbleText(initialMessageCount)).resolves.toBe(prompt);
+          await expect(page.isSubmitButtonEnabled()).resolves.toBe(false);
+          await page.chooseFeedbackInDialog();
+          await expect(page.isSubmitButtonEnabled()).resolves.toBe(true);
 
-      await page.flushOne();
-      await expect(page.countChatBubbles()).resolves.toBe(initialMessageCount + 2);
-      await expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain('Generating a response');
+          // Deselect the checkbox to disable the button
+          await page.chooseFeedbackInDialog();
+          await expect(page.isSubmitButtonEnabled()).resolves.toBe(false);
+          await page.enterAdditionalFeedback('Some additional feedback');
+          await expect(page.isSubmitButtonEnabled()).resolves.toBe(true);
+        }),
+      );
 
-      await page.flushOne();
-      await expect(page.getAlertHeaderText(initialMessageCount + 1)).resolves.toBe('Access denied');
-    }),
-  );
+      test(
+        'Submit feedback dialog',
+        setupTest(async page => {
+          await page.submitFeedbackNotHelpful();
+          await page.flushOne('Submit feedback dialog');
 
-  describe('Feedback', () => {
-    test(
-      'Submit `helpful` feedback',
-      setupTest(async page => {
-        await page.submitFeedbackHelpful();
-        await page.flushOne();
+          const feedbackDialogSelector = page.getFeedbackDialog().toSelector();
+          await expect(page.isFocused(feedbackDialogSelector)).resolves.toBe(true);
 
-        // Dismiss popover feedback
-        await page.click(createWrapper().findHeader().toSelector());
+          await page.chooseFeedbackInDialog();
+          await page.submitFeedbackDialog();
 
-        await expect(page.getHelpfulButtonDisabledReason()).resolves.toBe('"Helpful" feedback has been submitted.');
-        await expect(page.getNotHelpfulButtonDisabledReason()).resolves.toBe(
-          '"Not helpful" option is unavailable after "Helpful" feedback submitted.',
-        );
-      }),
-    );
+          await expect(page.isExisting(feedbackDialogSelector)).resolves.toBe(false);
+          await expect(page.isFocused(page.getNotHelpfulButton().toSelector())).resolves.toBe(true);
+          await expect(page.getChatBubbleText(2)).resolves.toBe(
+            'Your feedback has been submitted. Thank you for your additional feedback.',
+          );
+        }),
+      );
 
-    test(
-      'Submit `not-helpful` feedback and feedback dialog should open',
-      setupTest(async page => {
-        await page.submitFeedbackNotHelpful();
-        await page.flushOne();
+      test(
+        'Close feedback dialog',
+        setupTest(async page => {
+          await page.submitFeedbackNotHelpful();
+          await page.flushOne('Close feedback dialog');
 
-        await expect(page.getNotHelpfulButtonDisabledReason()).resolves.toBe(
-          '"Not helpful" feedback has been submitted.',
-        );
-        await expect(page.getHelpfulButtonDisabledReason()).resolves.toBe(
-          '"Helpful" option is unavailable after "Not helpful" feedback submitted.',
-        );
+          const feedbackDialogSelector = page.getFeedbackDialog().toSelector();
 
-        const feedbackDialogSelector = page.getFeedbackDialog().toSelector();
-        await expect(page.isExisting(feedbackDialogSelector)).resolves.toBe(true);
-      }),
-    );
+          await page.closeFeedbackDialog();
+          await expect(page.isExisting(feedbackDialogSelector)).resolves.toBe(false);
+          await expect(page.isFocused(page.getNotHelpfulButton().toSelector())).resolves.toBe(true);
+        }),
+      );
 
-    test(
-      'Submit button should be disabled upon feedback dialog load and get enabled after an input is given',
-      setupTest(async page => {
-        await page.submitFeedbackNotHelpful();
-        await page.flushOne();
+      test(
+        'Dismiss feedback dialog',
+        setupTest(async page => {
+          await page.submitFeedbackNotHelpful();
+          await page.flushOne('Dismiss feedback dialog');
 
-        await expect(page.isSubmitButtonEnabled()).resolves.toBe(false);
-        await page.chooseFeedbackInDialog();
-        await expect(page.isSubmitButtonEnabled()).resolves.toBe(true);
+          const feedbackDialogSelector = page.getFeedbackDialog().toSelector();
 
-        // Deselect the checkbox to disable the button
-        await page.chooseFeedbackInDialog();
-        await expect(page.isSubmitButtonEnabled()).resolves.toBe(false);
-        await page.enterAdditionalFeedback('Some additional feedback');
-        await expect(page.isSubmitButtonEnabled()).resolves.toBe(true);
-      }),
-    );
-
-    test(
-      'Submit feedback dialog',
-      setupTest(async page => {
-        await page.submitFeedbackNotHelpful();
-        await page.flushOne();
-
-        const feedbackDialogSelector = page.getFeedbackDialog().toSelector();
-        await expect(page.isFocused(feedbackDialogSelector)).resolves.toBe(true);
-
-        await page.chooseFeedbackInDialog();
-        await page.submitFeedbackDialog();
-
-        await expect(page.isExisting(feedbackDialogSelector)).resolves.toBe(false);
-        await expect(page.isFocused(page.getNotHelpfulButton().toSelector())).resolves.toBe(true);
-        await expect(page.getChatBubbleText(2)).resolves.toBe(
-          'Your feedback has been submitted. Thank you for your additional feedback.',
-        );
-      }),
-    );
-
-    test(
-      'Close feedback dialog',
-      setupTest(async page => {
-        await page.submitFeedbackNotHelpful();
-        await page.flushOne();
-
-        const feedbackDialogSelector = page.getFeedbackDialog().toSelector();
-
-        await page.closeFeedbackDialog();
-        await expect(page.isExisting(feedbackDialogSelector)).resolves.toBe(false);
-        await expect(page.isFocused(page.getNotHelpfulButton().toSelector())).resolves.toBe(true);
-      }),
-    );
-
-    test(
-      'Dismiss feedback dialog',
-      setupTest(async page => {
-        await page.submitFeedbackNotHelpful();
-        await page.flushOne();
-
-        const feedbackDialogSelector = page.getFeedbackDialog().toSelector();
-
-        await page.dismissFeedbackDialog();
-        await expect(page.isExisting(feedbackDialogSelector)).resolves.toBe(false);
-        await expect(page.isFocused(page.getNotHelpfulButton().toSelector())).resolves.toBe(true);
-      }),
-    );
+          await page.dismissFeedbackDialog();
+          await expect(page.isExisting(feedbackDialogSelector)).resolves.toBe(false);
+          await expect(page.isFocused(page.getNotHelpfulButton().toSelector())).resolves.toBe(true);
+        }),
+      );
+    });
   });
-});
+}

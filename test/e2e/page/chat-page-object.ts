@@ -26,14 +26,18 @@ export default class ChatPageObject extends BaseExamplePage {
   async usePendingCallbacks() {
     await this.browser.execute(() => (window.__usePendingCallbacks = true));
   }
-  async flushOne() {
-    const count = await this.browser.execute(() => {
+  async flushOne(msg: string) {
+    const { count, usePending } = await this.browser.execute(() => {
+      const usePending = window.__usePendingCallbacks;
       const count = window.__pendingCallbacks.length;
       window.__flushOne();
-      return count;
+      return { count, usePending };
     });
+    if (!usePending) {
+      throw new Error(`Unexpected use-pending state: ${usePending}, ${msg}`);
+    }
     if (count !== 1) {
-      throw new Error('Unexpected pending callbacks count');
+      throw new Error(`Unexpected pending callbacks count: ${count}, ${msg}`);
     }
   }
 
