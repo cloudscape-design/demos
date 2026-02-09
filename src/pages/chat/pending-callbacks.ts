@@ -11,7 +11,14 @@ declare const window: WindowWithPendingCallbacks;
 
 window.__usePendingCallbacks = window.__usePendingCallbacks ?? false;
 window.__pendingCallbacks = [];
-window.__flushOne = () => window.__pendingCallbacks.shift()?.();
+window.__flushOne = () => {
+  const nextCallback = window.__pendingCallbacks.shift();
+  if (nextCallback) {
+    nextCallback();
+  } else {
+    throw new Error('The callbacks queue is empty.');
+  }
+};
 window.__flushAll = () => {
   while (window.__pendingCallbacks.length) {
     window.__flushOne();
