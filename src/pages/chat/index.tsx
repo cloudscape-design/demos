@@ -5,24 +5,30 @@ import { createRoot } from 'react-dom/client';
 
 import { I18nProvider } from '@cloudscape-design/components/i18n';
 import enMessages from '@cloudscape-design/components/i18n/messages/all.en.json';
+import { applyTheme } from '@cloudscape-design/components/theming';
 
-import { CustomAppLayout, Notifications } from '../commons/common-components';
+import { themeCoreConfig } from '../../common/theme-core';
+import { CustomAppLayout, DemoTopNavigation, Notifications } from '../commons/common-components';
 import Chat from './chat';
 
 import '../../styles/base.scss';
-
+import '../../styles/top-navigation.scss';
 function App() {
   return (
     <I18nProvider locale="en" messages={[enMessages]}>
-      <CustomAppLayout
-        maxContentWidth={1280}
-        toolsHide
-        navigationHide
-        content={<Chat />}
-        notifications={<Notifications />}
-      />
+      <>
+        <DemoTopNavigation />
+        <CustomAppLayout
+          maxContentWidth={1280}
+          toolsHide
+          navigationHide
+          content={<Chat />}
+          notifications={<Notifications />}
+        />
+      </>
     </I18nProvider>
   );
 }
 
+applyTheme({ theme: themeCoreConfig });
 createRoot(document.getElementById('app')!).render(<App />);

@@ -7,7 +7,7 @@ import HelpPanel from '@cloudscape-design/components/help-panel';
 import Wizard, { WizardProps } from '@cloudscape-design/components/wizard';
 
 import { ExternalLinkGroup, InfoLink, Notifications } from '../commons';
-import { CustomAppLayout } from '../commons/common-components';
+import { CustomAppLayout, DemoTopNavigation } from '../commons/common-components';
 import { ToolsContent, WizardState } from './interfaces';
 import Engine from './stepComponents/step1';
 import Details from './stepComponents/step2';
@@ -17,6 +17,7 @@ import { DEFAULT_STEP_INFO, TOOLS_CONTENT } from './steps-config';
 import { Breadcrumbs, Navigation } from './wizard-components';
 
 import '../../styles/wizard.scss';
+import '../../styles/top-navigation.scss';
 
 const steps = [
   {
@@ -167,26 +168,29 @@ const App = () => {
     ),
   }));
   return (
-    <CustomAppLayout
-      ref={appLayoutRef}
-      navigation={<Navigation />}
-      tools={toolsContent}
-      toolsOpen={isToolsOpen}
-      onToolsChange={onToolsChange}
-      breadcrumbs={<Breadcrumbs />}
-      contentType="wizard"
-      content={
-        <Wizard
-          steps={wizardSteps}
-          activeStepIndex={activeStepIndex}
-          i18nStrings={i18nStrings}
-          onNavigate={onNavigate}
-          onCancel={onCancel}
-          onSubmit={onSubmit}
-        />
-      }
-      notifications={<Notifications />}
-    />
+    <>
+      <DemoTopNavigation />
+      <CustomAppLayout
+        ref={appLayoutRef}
+        navigation={<Navigation />}
+        tools={toolsContent}
+        toolsOpen={isToolsOpen}
+        onToolsChange={onToolsChange}
+        breadcrumbs={<Breadcrumbs />}
+        contentType="wizard"
+        content={
+          <Wizard
+            steps={wizardSteps}
+            activeStepIndex={activeStepIndex}
+            i18nStrings={i18nStrings}
+            onNavigate={onNavigate}
+            onCancel={onCancel}
+            onSubmit={onSubmit}
+          />
+        }
+        notifications={<Notifications />}
+      />
+    </>
   );
 };
 

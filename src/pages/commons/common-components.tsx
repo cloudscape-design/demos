@@ -15,6 +15,7 @@ import { isVisualRefresh } from '../../common/apply-mode';
 
 // backward compatibility
 export * from './index';
+export { DemoTopNavigation } from './top-navigation';
 
 export const ec2NavItems = [
   { type: 'link', text: 'Instances', href: '#/instances' },

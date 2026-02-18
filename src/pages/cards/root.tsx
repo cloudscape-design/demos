@@ -19,6 +19,7 @@ import {
 import { FullPageHeader } from '../commons';
 import {
   CustomAppLayout,
+  DemoTopNavigation,
   Navigation,
   Notifications,
   TableEmptyState,
@@ -30,6 +31,7 @@ import { CARD_DEFINITIONS, DEFAULT_PREFERENCES, PAGE_SIZE_OPTIONS, VISIBLE_CONTE
 import { Breadcrumbs, ToolsContent } from './common-components';
 
 import '../../styles/base.scss';
+import '../../styles/top-navigation.scss';
 
 interface DetailsCardsProps {
   loadHelpPanelContent: () => void;
@@ -115,24 +117,27 @@ export function App() {
   const [toolsOpen, setToolsOpen] = useState(false);
   const appLayout = useRef<AppLayoutProps.Ref>(null);
   return (
-    <CustomAppLayout
-      ref={appLayout}
-      navigation={<Navigation activeHref="#/distributions" />}
-      notifications={<Notifications successNotification={true} />}
-      breadcrumbs={<Breadcrumbs />}
-      content={
-        <DetailsCards
-          loadHelpPanelContent={() => {
-            setToolsOpen(true);
-            appLayout.current?.focusToolsClose();
-          }}
-        />
-      }
-      contentType="cards"
-      tools={<ToolsContent />}
-      toolsOpen={toolsOpen}
-      onToolsChange={({ detail }) => setToolsOpen(detail.open)}
-      stickyNotifications={true}
-    />
+    <>
+      <DemoTopNavigation />
+      <CustomAppLayout
+        ref={appLayout}
+        navigation={<Navigation activeHref="#/distributions" />}
+        notifications={<Notifications successNotification={true} />}
+        breadcrumbs={<Breadcrumbs />}
+        content={
+          <DetailsCards
+            loadHelpPanelContent={() => {
+              setToolsOpen(true);
+              appLayout.current?.focusToolsClose();
+            }}
+          />
+        }
+        contentType="cards"
+        tools={<ToolsContent />}
+        toolsOpen={toolsOpen}
+        onToolsChange={({ detail }) => setToolsOpen(detail.open)}
+        stickyNotifications={true}
+      />
+    </>
   );
 }

@@ -1,5 +1,9 @@
 [
   {
+    "path": "components-overview",
+    "title": "Components overview"
+  },
+  {
     "path": "cards",
     "title": "Card view"
   },
