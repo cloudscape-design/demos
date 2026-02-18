@@ -14,10 +14,11 @@ import TagEditor, { TagEditorProps } from '@cloudscape-design/components/tag-edi
 import { resourceManageTagsBreadcrumbs } from '../../common/breadcrumbs';
 import { tagEditorI18nStrings } from '../../i18n-strings/tag-editor';
 import { TagsResource } from '../../resources/types';
-import { CustomAppLayout, InfoLink, Navigation, Notifications } from '../commons/common-components';
+import { CustomAppLayout, DemoTopNavigation, InfoLink, Navigation, Notifications } from '../commons/common-components';
 import ToolsContent from './components/tools-content';
 
 import '../../styles/base.scss';
+import '../../styles/top-navigation.scss';
 
 type Tag = TagsResource['resourceTags'][number];
 
@@ -64,55 +65,58 @@ export function App() {
   };
 
   return (
-    <CustomAppLayout
-      ref={appLayoutRef}
-      contentType="form"
-      breadcrumbs={<Breadcrumbs />}
-      navigation={<Navigation activeHref="#/distributions" />}
-      toolsOpen={toolsOpen}
-      onToolsChange={({ detail }) => setToolsOpen(detail.open)}
-      tools={ToolsContent[toolsIndex]}
-      notifications={<Notifications />}
-      content={
-        <SpaceBetween size="m">
-          <Header variant="h1">Manage tags</Header>
-          <form onSubmit={event => event.preventDefault()}>
-            <Form
-              actions={
-                <SpaceBetween direction="horizontal" size="xs">
-                  <Button variant="link">Cancel</Button>
-                  <Button variant="primary">Save changes</Button>
-                </SpaceBetween>
-              }
-            >
-              <Container
-                header={
-                  <Header
-                    variant="h2"
-                    info={<InfoLink onFollow={handleInfoClick} />}
-                    description="A tag is a label that you assign to an AWS resource. Each tag consists of a key and an optional value. You can use tags to search and filter your resources or track your AWS costs."
-                  >
-                    Tags
-                  </Header>
+    <>
+      <DemoTopNavigation />
+      <CustomAppLayout
+        ref={appLayoutRef}
+        contentType="form"
+        breadcrumbs={<Breadcrumbs />}
+        navigation={<Navigation activeHref="#/distributions" />}
+        toolsOpen={toolsOpen}
+        onToolsChange={({ detail }) => setToolsOpen(detail.open)}
+        tools={ToolsContent[toolsIndex]}
+        notifications={<Notifications />}
+        content={
+          <SpaceBetween size="m">
+            <Header variant="h1">Manage tags</Header>
+            <form onSubmit={event => event.preventDefault()}>
+              <Form
+                actions={
+                  <SpaceBetween direction="horizontal" size="xs">
+                    <Button variant="link">Cancel</Button>
+                    <Button variant="primary">Save changes</Button>
+                  </SpaceBetween>
                 }
               >
-                <TagEditor
-                  tags={tags}
-                  onChange={onChange}
-                  keysRequest={() => window.FakeServer.GetTagKeys().then(({ TagKeys }) => TagKeys)}
-                  valuesRequest={key =>
-                    window.FakeServer.GetTagValues(key as keyof TagsResource['valueMap']).then(
-                      ({ TagValues }) => TagValues,
-                    )
+                <Container
+                  header={
+                    <Header
+                      variant="h2"
+                      info={<InfoLink onFollow={handleInfoClick} />}
+                      description="A tag is a label that you assign to an AWS resource. Each tag consists of a key and an optional value. You can use tags to search and filter your resources or track your AWS costs."
+                    >
+                      Tags
+                    </Header>
                   }
-                  loading={loading}
-                  i18nStrings={tagEditorI18nStrings}
-                />
-              </Container>
-            </Form>
-          </form>
-        </SpaceBetween>
-      }
-    />
+                >
+                  <TagEditor
+                    tags={tags}
+                    onChange={onChange}
+                    keysRequest={() => window.FakeServer.GetTagKeys().then(({ TagKeys }) => TagKeys)}
+                    valuesRequest={key =>
+                      window.FakeServer.GetTagValues(key as keyof TagsResource['valueMap']).then(
+                        ({ TagValues }) => TagValues,
+                      )
+                    }
+                    loading={loading}
+                    i18nStrings={tagEditorI18nStrings}
+                  />
+                </Container>
+              </Form>
+            </form>
+          </SpaceBetween>
+        }
+      />
+    </>
   );
 }

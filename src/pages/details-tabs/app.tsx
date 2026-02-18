@@ -6,7 +6,7 @@ import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import Tabs from '@cloudscape-design/components/tabs';
 
-import { CustomAppLayout, Navigation, Notifications } from '../commons/common-components';
+import { CustomAppLayout, DemoTopNavigation, Navigation, Notifications } from '../commons/common-components';
 import { BehaviorsTable } from '../details/components/behaviors-table';
 import { Breadcrumbs } from '../details/components/breadcrumbs';
 import { EmptyTable } from '../details/components/empty-table';
@@ -18,6 +18,8 @@ import { INSTANCE_DROPDOWN_ITEMS, INVALIDATIONS_COLUMN_DEFINITIONS } from '../de
 import ToolsContent from '../details/tools-content';
 import { Details } from './components/details';
 import { LogsTable } from './components/logs-table';
+
+import '../../styles/top-navigation.scss';
 
 export function App() {
   const [toolsIndex, setToolsIndex] = useState<number>(0);
@@ -31,75 +33,78 @@ export function App() {
   };
 
   return (
-    <CustomAppLayout
-      ref={appLayout}
-      content={
-        <SpaceBetween size="m">
-          <PageHeader
-            buttons={[
-              {
-                text: 'Actions',
-                items: INSTANCE_DROPDOWN_ITEMS,
-                itemType: 'group',
-              },
-              {
-                text: 'Edit',
-                itemType: 'action',
-                id: 'edit',
-              },
-              {
-                text: 'Delete',
-                itemType: 'action',
-                id: 'delete',
-              },
-            ]}
-          />
-          <SpaceBetween size="l">
-            <GeneralConfig />
-            <Tabs
-              tabs={[
+    <>
+      <DemoTopNavigation />
+      <CustomAppLayout
+        ref={appLayout}
+        content={
+          <SpaceBetween size="m">
+            <PageHeader
+              buttons={[
                 {
-                  label: 'Details',
-                  id: 'details',
-                  content: <Details loadHelpPanelContent={loadHelpPanelContent} />,
+                  text: 'Actions',
+                  items: INSTANCE_DROPDOWN_ITEMS,
+                  itemType: 'group',
                 },
                 {
-                  label: 'Logs',
-                  id: 'logs',
-                  content: <LogsTable />,
+                  text: 'Edit',
+                  itemType: 'action',
+                  id: 'edit',
                 },
                 {
-                  label: 'Origins',
-                  id: 'origins',
-                  content: <OriginsTable />,
-                },
-                {
-                  label: 'Behaviors',
-                  id: 'behaviors',
-                  content: <BehaviorsTable />,
-                },
-                {
-                  label: 'Invalidations',
-                  id: 'invalidations',
-                  content: <EmptyTable title="Invalidation" columnDefinitions={INVALIDATIONS_COLUMN_DEFINITIONS} />,
-                },
-                {
-                  label: 'Tags',
-                  id: 'tags',
-                  content: <TagsTable loadHelpPanelContent={loadHelpPanelContent} />,
+                  text: 'Delete',
+                  itemType: 'action',
+                  id: 'delete',
                 },
               ]}
-              ariaLabel="Resource details"
             />
+            <SpaceBetween size="l">
+              <GeneralConfig />
+              <Tabs
+                tabs={[
+                  {
+                    label: 'Details',
+                    id: 'details',
+                    content: <Details loadHelpPanelContent={loadHelpPanelContent} />,
+                  },
+                  {
+                    label: 'Logs',
+                    id: 'logs',
+                    content: <LogsTable />,
+                  },
+                  {
+                    label: 'Origins',
+                    id: 'origins',
+                    content: <OriginsTable />,
+                  },
+                  {
+                    label: 'Behaviors',
+                    id: 'behaviors',
+                    content: <BehaviorsTable />,
+                  },
+                  {
+                    label: 'Invalidations',
+                    id: 'invalidations',
+                    content: <EmptyTable title="Invalidation" columnDefinitions={INVALIDATIONS_COLUMN_DEFINITIONS} />,
+                  },
+                  {
+                    label: 'Tags',
+                    id: 'tags',
+                    content: <TagsTable loadHelpPanelContent={loadHelpPanelContent} />,
+                  },
+                ]}
+                ariaLabel="Resource details"
+              />
+            </SpaceBetween>
           </SpaceBetween>
-        </SpaceBetween>
-      }
-      breadcrumbs={<Breadcrumbs />}
-      navigation={<Navigation activeHref="#/distributions" />}
-      tools={ToolsContent[toolsIndex]}
-      toolsOpen={toolsOpen}
-      onToolsChange={({ detail }: { detail: { open: boolean } }) => setToolsOpen(detail.open)}
-      notifications={<Notifications />}
-    />
+        }
+        breadcrumbs={<Breadcrumbs />}
+        navigation={<Navigation activeHref="#/distributions" />}
+        tools={ToolsContent[toolsIndex]}
+        toolsOpen={toolsOpen}
+        onToolsChange={({ detail }: { detail: { open: boolean } }) => setToolsOpen(detail.open)}
+        notifications={<Notifications />}
+      />
+    </>
   );
 }

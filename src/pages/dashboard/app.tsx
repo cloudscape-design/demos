@@ -7,12 +7,13 @@ import Button from '@cloudscape-design/components/button';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { Breadcrumbs, HelpPanelProvider, Notifications } from '../commons';
-import { CustomAppLayout } from '../commons/common-components';
+import { CustomAppLayout, DemoTopNavigation } from '../commons/common-components';
 import { Content } from './components/content';
 import { DashboardHeader, DashboardMainInfo } from './components/header';
 import { DashboardSideNavigation } from './components/side-navigation';
 
 import '@cloudscape-design/global-styles/dark-mode-utils.css';
+import '../../styles/top-navigation.scss';
 
 export function App() {
   const [toolsOpen, setToolsOpen] = useState(false);
@@ -27,21 +28,24 @@ export function App() {
 
   return (
     <HelpPanelProvider value={handleToolsContentChange}>
-      <CustomAppLayout
-        ref={appLayout}
-        content={
-          <SpaceBetween size="m">
-            <DashboardHeader actions={<Button variant="primary">Launch instance</Button>} />
-            <Content />
-          </SpaceBetween>
-        }
-        breadcrumbs={<Breadcrumbs items={[{ text: 'Dashboard', href: '#/' }]} />}
-        navigation={<DashboardSideNavigation />}
-        tools={toolsContent}
-        toolsOpen={toolsOpen}
-        onToolsChange={({ detail }) => setToolsOpen(detail.open)}
-        notifications={<Notifications />}
-      />
+      <>
+        <DemoTopNavigation />
+        <CustomAppLayout
+          ref={appLayout}
+          content={
+            <SpaceBetween size="m">
+              <DashboardHeader actions={<Button variant="primary">Launch instance</Button>} />
+              <Content />
+            </SpaceBetween>
+          }
+          breadcrumbs={<Breadcrumbs items={[{ text: 'Dashboard', href: '#/' }]} />}
+          navigation={<DashboardSideNavigation />}
+          tools={toolsContent}
+          toolsOpen={toolsOpen}
+          onToolsChange={({ detail }) => setToolsOpen(detail.open)}
+          notifications={<Notifications />}
+        />
+      </>
     </HelpPanelProvider>
   );
 }

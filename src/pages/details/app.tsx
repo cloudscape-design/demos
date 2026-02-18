@@ -5,7 +5,7 @@ import React, { useRef, useState } from 'react';
 import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 
-import { CustomAppLayout, Navigation, Notifications } from '../commons/common-components';
+import { CustomAppLayout, DemoTopNavigation, Navigation, Notifications } from '../commons/common-components';
 import { BehaviorsTable } from './components/behaviors-table';
 import { Breadcrumbs } from './components/breadcrumbs';
 import { DistSettings } from './components/dist-settings';
@@ -14,6 +14,8 @@ import { OriginsTable } from './components/origins-table';
 import { PageHeader } from './components/page-header';
 import { TagsTable } from './components/tags-table';
 import ToolsContent from './tools-content';
+
+import '../../styles/top-navigation.scss';
 
 export function App() {
   const [toolsIndex, setToolsIndex] = useState<number>(0);
@@ -27,32 +29,35 @@ export function App() {
   };
 
   return (
-    <CustomAppLayout
-      ref={appLayout}
-      content={
-        <SpaceBetween size="m">
-          <PageHeader
-            buttons={[
-              { text: 'Edit', itemType: 'action', id: 'edit' },
-              { text: 'Delete', itemType: 'action', id: 'delete' },
-            ]}
-          />
-          <SpaceBetween size="l">
-            <DistSettings isInProgress={true} loadHelpPanelContent={loadHelpPanelContent} />
-            <OriginsTable />
-            <BehaviorsTable />
-            <TagsTable loadHelpPanelContent={loadHelpPanelContent} />
-            <DistributionDetails />
+    <>
+      <DemoTopNavigation />
+      <CustomAppLayout
+        ref={appLayout}
+        content={
+          <SpaceBetween size="m">
+            <PageHeader
+              buttons={[
+                { text: 'Edit', itemType: 'action', id: 'edit' },
+                { text: 'Delete', itemType: 'action', id: 'delete' },
+              ]}
+            />
+            <SpaceBetween size="l">
+              <DistSettings isInProgress={true} loadHelpPanelContent={loadHelpPanelContent} />
+              <OriginsTable />
+              <BehaviorsTable />
+              <TagsTable loadHelpPanelContent={loadHelpPanelContent} />
+              <DistributionDetails />
+            </SpaceBetween>
           </SpaceBetween>
-        </SpaceBetween>
-      }
-      breadcrumbs={<Breadcrumbs />}
-      navigation={<Navigation activeHref="#/distributions" />}
-      tools={ToolsContent[toolsIndex]}
-      toolsOpen={toolsOpen}
-      onToolsChange={({ detail }: { detail: { open: boolean } }) => setToolsOpen(detail.open)}
-      contentType="default"
-      notifications={<Notifications />}
-    />
+        }
+        breadcrumbs={<Breadcrumbs />}
+        navigation={<Navigation activeHref="#/distributions" />}
+        tools={ToolsContent[toolsIndex]}
+        toolsOpen={toolsOpen}
+        onToolsChange={({ detail }: { detail: { open: boolean } }) => setToolsOpen(detail.open)}
+        contentType="default"
+        notifications={<Notifications />}
+      />
+    </>
   );
 }

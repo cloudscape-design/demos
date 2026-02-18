@@ -18,6 +18,7 @@ import {
 import { FullPageHeader } from '../commons';
 import {
   CustomAppLayout,
+  DemoTopNavigation,
   Navigation,
   Notifications,
   TableEmptyState,
@@ -29,6 +30,7 @@ import { useLocalStorage } from '../commons/use-local-storage';
 import { Breadcrumbs, ToolsContent } from './common-components';
 
 import '../../styles/base.scss';
+import '../../styles/top-navigation.scss';
 
 interface TableContentProps {
   distributions: Distribution[];
@@ -99,25 +101,28 @@ export function App({ distributions }: AppProps) {
   const appLayout = useRef<AppLayoutProps.Ref>(null);
 
   return (
-    <CustomAppLayout
-      ref={appLayout}
-      navigation={<Navigation activeHref="#/distributions" />}
-      notifications={<Notifications successNotification={true} />}
-      breadcrumbs={<Breadcrumbs />}
-      content={
-        <TableContent
-          distributions={distributions}
-          loadHelpPanelContent={() => {
-            setToolsOpen(true);
-            appLayout.current?.focusToolsClose();
-          }}
-        />
-      }
-      contentType="table"
-      tools={<ToolsContent />}
-      toolsOpen={toolsOpen}
-      onToolsChange={({ detail }) => setToolsOpen(detail.open)}
-      stickyNotifications
-    />
+    <>
+      <DemoTopNavigation />
+      <CustomAppLayout
+        ref={appLayout}
+        navigation={<Navigation activeHref="#/distributions" />}
+        notifications={<Notifications successNotification={true} />}
+        breadcrumbs={<Breadcrumbs />}
+        content={
+          <TableContent
+            distributions={distributions}
+            loadHelpPanelContent={() => {
+              setToolsOpen(true);
+              appLayout.current?.focusToolsClose();
+            }}
+          />
+        }
+        contentType="table"
+        tools={<ToolsContent />}
+        toolsOpen={toolsOpen}
+        onToolsChange={({ detail }) => setToolsOpen(detail.open)}
+        stickyNotifications
+      />
+    </>
   );
 }

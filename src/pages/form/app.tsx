@@ -9,13 +9,15 @@ import { SelectProps } from '@cloudscape-design/components/select';
 import SplitPanel from '@cloudscape-design/components/split-panel';
 
 import { resourceCreateBreadcrumbs } from '../../common/breadcrumbs';
-import { CustomAppLayout, Navigation, Notifications } from '../commons/common-components';
+import { CustomAppLayout, DemoTopNavigation, Navigation, Notifications } from '../commons/common-components';
 import useCreateCachePolicy from '../form/components/cache-behavior-panel/use-create-cache-policy';
 import UnsavedChangesModal from '../form/components/unsaved-changes-modal';
 import { EXISTING_CACHE_POLICIES } from '../form/form-config';
 import CreateCachePolicy from './components/cache-behavior-panel/create-cache-policy';
 import { FormFull, FormHeader } from './components/form';
 import ToolsContent from './components/tools-content';
+
+import '../../styles/top-navigation.scss';
 
 const Breadcrumbs = () => (
   <BreadcrumbGroup items={resourceCreateBreadcrumbs} expandAriaLabel="Show path" ariaLabel="Breadcrumbs" />
@@ -65,56 +67,59 @@ export function App() {
   };
 
   return (
-    <CustomAppLayout
-      ref={appLayout}
-      contentType="form"
-      content={
-        <>
-          <FormFull
-            loadHelpPanelContent={loadHelpPanelContent}
-            header={<FormHeader loadHelpPanelContent={loadHelpPanelContent} />}
-            cachePolicyProps={{
-              buttonRef: createCachePolicyButtonRef,
-              policies: EXISTING_CACHE_POLICIES,
-              selectedPolicy: selectedCachePolicy,
-              setSelectedPolicy: setSelectedCachePolicy,
-              toggleSplitPanel,
-            }}
-          />
+    <>
+      <DemoTopNavigation />
+      <CustomAppLayout
+        ref={appLayout}
+        contentType="form"
+        content={
+          <>
+            <FormFull
+              loadHelpPanelContent={loadHelpPanelContent}
+              header={<FormHeader loadHelpPanelContent={loadHelpPanelContent} />}
+              cachePolicyProps={{
+                buttonRef: createCachePolicyButtonRef,
+                policies: EXISTING_CACHE_POLICIES,
+                selectedPolicy: selectedCachePolicy,
+                setSelectedPolicy: setSelectedCachePolicy,
+                toggleSplitPanel,
+              }}
+            />
 
-          <UnsavedChangesModal
-            isVisible={showUnsavedChangesModal}
-            onDismiss={() => setShowUnsavedChangesModal(false)}
-            onLeave={() => {
-              resetCreateCachePolicyData();
-              setShowUnsavedChangesModal(false);
-              toggleSplitPanel(false);
-            }}
-          />
-        </>
-      }
-      breadcrumbs={<Breadcrumbs />}
-      navigation={<Navigation activeHref="#/distributions" />}
-      tools={ToolsContent[toolsIndex]}
-      toolsOpen={toolsOpen}
-      onToolsChange={({ detail }) => setToolsOpen(detail.open)}
-      notifications={<Notifications />}
-      splitPanelOpen={splitPanelOpen}
-      splitPanel={
-        <SplitPanel header="Create cache policy" closeBehavior="hide" hidePreferencesButton={true}>
-          <CreateCachePolicy
-            data={createCachePolicyData}
-            setData={setCreateCachePolicyData}
-            errors={createCachePolicyDataErrors}
-            setErrors={setCreateCachePolicyErrors}
-            validation={false}
-            onSubmit={() => ({})}
-            onCancel={() => toggleSplitPanel(false)}
-          />
-        </SplitPanel>
-      }
-      onSplitPanelToggle={({ detail }) => toggleSplitPanel(detail.open)}
-      splitPanelPreferences={{ position: 'side' }}
-    />
+            <UnsavedChangesModal
+              isVisible={showUnsavedChangesModal}
+              onDismiss={() => setShowUnsavedChangesModal(false)}
+              onLeave={() => {
+                resetCreateCachePolicyData();
+                setShowUnsavedChangesModal(false);
+                toggleSplitPanel(false);
+              }}
+            />
+          </>
+        }
+        breadcrumbs={<Breadcrumbs />}
+        navigation={<Navigation activeHref="#/distributions" />}
+        tools={ToolsContent[toolsIndex]}
+        toolsOpen={toolsOpen}
+        onToolsChange={({ detail }) => setToolsOpen(detail.open)}
+        notifications={<Notifications />}
+        splitPanelOpen={splitPanelOpen}
+        splitPanel={
+          <SplitPanel header="Create cache policy" closeBehavior="hide" hidePreferencesButton={true}>
+            <CreateCachePolicy
+              data={createCachePolicyData}
+              setData={setCreateCachePolicyData}
+              errors={createCachePolicyDataErrors}
+              setErrors={setCreateCachePolicyErrors}
+              validation={false}
+              onSubmit={() => ({})}
+              onCancel={() => toggleSplitPanel(false)}
+            />
+          </SplitPanel>
+        }
+        onSplitPanelToggle={({ detail }) => toggleSplitPanel(detail.open)}
+        splitPanelPreferences={{ position: 'side' }}
+      />
+    </>
   );
 }
