@@ -44,7 +44,7 @@ export default class TableEditablePageObject extends TableFilteringPageObject {
     const input = bodyCell.findFormField().find('input');
     await this.click(bodyCell.toSelector());
 
-    const current = await this.browser.$(input.toSelector()).getValue();
+    const current = await this.browser.$(input.toSelector()).getValue() as string;
     const backspaces = Array(current.length).fill('Backspace');
     await this.keys(backspaces);
     await this.browser.$(input.toSelector()).setValue(value);
