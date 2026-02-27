@@ -3,8 +3,16 @@
 import React from 'react';
 
 import SpaceBetween from '@cloudscape-design/components/space-between';
+import SplitPanel from '@cloudscape-design/components/split-panel';
 
-import { CustomAppLayout, DemoTopNavigation, Navigation, Notifications } from '../commons/common-components';
+import {
+  CustomAppLayout,
+  DemoTopNavigation,
+  GlobalSplitPanelContent,
+  Navigation,
+  Notifications,
+  useGlobalSplitPanel,
+} from '../commons/common-components';
 import { Breadcrumbs } from '../details/components/breadcrumbs';
 import { GeneralConfig } from '../details/components/general-config';
 import { OriginsTable } from '../details/components/origins-table';
@@ -15,10 +23,20 @@ import { LogsTable } from './components/logs-table';
 import '../../styles/top-navigation.scss';
 
 export function App() {
+  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize } = useGlobalSplitPanel();
   return (
     <>
       <DemoTopNavigation />
       <CustomAppLayout
+        splitPanelOpen={splitPanelOpen}
+        onSplitPanelToggle={onSplitPanelToggle}
+        splitPanelSize={splitPanelSize}
+        onSplitPanelResize={onSplitPanelResize}
+        splitPanel={
+          <SplitPanel header="Design exploration">
+            <GlobalSplitPanelContent />
+          </SplitPanel>
+        }
         content={
           <SpaceBetween size="m">
             <PageHeader

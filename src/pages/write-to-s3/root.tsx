@@ -10,10 +10,17 @@ import FormField from '@cloudscape-design/components/form-field';
 import Header from '@cloudscape-design/components/header';
 import S3ResourceSelector, { S3ResourceSelectorProps } from '@cloudscape-design/components/s3-resource-selector';
 import SpaceBetween from '@cloudscape-design/components/space-between';
+import SplitPanel from '@cloudscape-design/components/split-panel';
 
 import { writeToS3Breadcrumbs } from '../../common/breadcrumbs';
 import { getItems, requestAsyncRegions, S3FetchError } from '../../common/s3-resource-selector/mock-request';
-import { CustomAppLayout, Navigation, Notifications } from '../commons/common-components';
+import {
+  CustomAppLayout,
+  GlobalSplitPanelContent,
+  Navigation,
+  Notifications,
+  useGlobalSplitPanel,
+} from '../commons/common-components';
 import { ErrorAlert, ErrorAlertError } from '../read-from-s3/common';
 
 import '../../styles/base.scss';
@@ -96,9 +103,20 @@ const S3ResourceSelectorContainer = () => {
 };
 
 export const App = () => {
+  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize } = useGlobalSplitPanel();
+
   return (
     <CustomAppLayout
       contentType="form"
+      splitPanelOpen={splitPanelOpen}
+      onSplitPanelToggle={onSplitPanelToggle}
+      splitPanelSize={splitPanelSize}
+      onSplitPanelResize={onSplitPanelResize}
+      splitPanel={
+        <SplitPanel header="Design exploration">
+          <GlobalSplitPanelContent />
+        </SplitPanel>
+      }
       content={
         <form onSubmit={event => event.preventDefault()}>
           <Form

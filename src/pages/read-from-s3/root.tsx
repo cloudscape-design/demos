@@ -10,10 +10,18 @@ import FormField from '@cloudscape-design/components/form-field';
 import Header from '@cloudscape-design/components/header';
 import S3ResourceSelector, { S3ResourceSelectorProps } from '@cloudscape-design/components/s3-resource-selector';
 import SpaceBetween from '@cloudscape-design/components/space-between';
+import SplitPanel from '@cloudscape-design/components/split-panel';
 
 import { readFromS3Breadcrumbs } from '../../common/breadcrumbs';
 import { getItems, requestAsyncRegions, S3FetchError } from '../../common/s3-resource-selector/mock-request';
-import { CustomAppLayout, Navigation, Notifications } from '../commons/common-components';
+import {
+  CustomAppLayout,
+  DemoTopNavigation,
+  GlobalSplitPanelContent,
+  Navigation,
+  Notifications,
+  useGlobalSplitPanel,
+} from '../commons/common-components';
 import { ErrorAlert, ErrorAlertError } from './common';
 
 import '../../styles/base.scss';
@@ -90,30 +98,44 @@ function S3ResourceSelectorContainer() {
 }
 
 export function App() {
+  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize } = useGlobalSplitPanel();
+
   return (
-    <CustomAppLayout
-      contentType="form"
-      content={
-        <form onSubmit={event => event.preventDefault()}>
-          <Form
-            header={<Header variant="h1">Run simulation</Header>}
-            actions={
-              <SpaceBetween direction="horizontal" size="xs">
-                <Button variant="link">Cancel</Button>
-                <Button variant="primary">Run</Button>
-              </SpaceBetween>
-            }
-          >
-            <Container header={<Header variant="h2">Simulations</Header>}>
-              <S3ResourceSelectorContainer />
-            </Container>
-          </Form>
-        </form>
-      }
-      breadcrumbs={<Breadcrumbs />}
-      navigation={<Navigation activeHref="#/distributions" />}
-      toolsHide={true}
-      notifications={<Notifications />}
-    />
+    <>
+      <DemoTopNavigation />
+      <CustomAppLayout
+        contentType="form"
+        splitPanelOpen={splitPanelOpen}
+        onSplitPanelToggle={onSplitPanelToggle}
+        splitPanelSize={splitPanelSize}
+        onSplitPanelResize={onSplitPanelResize}
+        splitPanel={
+          <SplitPanel header="Design exploration">
+            <GlobalSplitPanelContent />
+          </SplitPanel>
+        }
+        content={
+          <form onSubmit={event => event.preventDefault()}>
+            <Form
+              header={<Header variant="h1">Run simulation</Header>}
+              actions={
+                <SpaceBetween direction="horizontal" size="xs">
+                  <Button variant="link">Cancel</Button>
+                  <Button variant="primary">Run</Button>
+                </SpaceBetween>
+              }
+            >
+              <Container header={<Header variant="h2">Simulations</Header>}>
+                <S3ResourceSelectorContainer />
+              </Container>
+            </Form>
+          </form>
+        }
+        breadcrumbs={<Breadcrumbs />}
+        navigation={<Navigation activeHref="#/distributions" />}
+        toolsHide={true}
+        notifications={<Notifications />}
+      />
+    </>
   );
 }

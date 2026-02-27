@@ -5,6 +5,7 @@ import React, { useRef, useState } from 'react';
 import { useCollection } from '@cloudscape-design/collection-hooks';
 import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import Pagination from '@cloudscape-design/components/pagination';
+import SplitPanel from '@cloudscape-design/components/split-panel';
 import Table from '@cloudscape-design/components/table';
 import TextFilter from '@cloudscape-design/components/text-filter';
 
@@ -19,10 +20,12 @@ import { FullPageHeader } from '../commons';
 import {
   CustomAppLayout,
   DemoTopNavigation,
+  GlobalSplitPanelContent,
   Navigation,
   Notifications,
   TableEmptyState,
   TableNoMatchState,
+  useGlobalSplitPanel,
 } from '../commons/common-components';
 import { COLUMN_DEFINITIONS, DEFAULT_PREFERENCES, Preferences } from '../commons/table-config';
 import { useColumnWidths } from '../commons/use-column-widths';
@@ -98,6 +101,8 @@ export interface AppProps {
 
 export function App({ distributions }: AppProps) {
   const [toolsOpen, setToolsOpen] = useState(false);
+  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize, splitPanelPreferences } =
+    useGlobalSplitPanel();
   const appLayout = useRef<AppLayoutProps.Ref>(null);
 
   return (
@@ -108,6 +113,16 @@ export function App({ distributions }: AppProps) {
         navigation={<Navigation activeHref="#/distributions" />}
         notifications={<Notifications successNotification={true} />}
         breadcrumbs={<Breadcrumbs />}
+        splitPanelOpen={splitPanelOpen}
+        onSplitPanelToggle={onSplitPanelToggle}
+        splitPanelSize={splitPanelSize}
+        onSplitPanelResize={onSplitPanelResize}
+        splitPanelPreferences={splitPanelPreferences}
+        splitPanel={
+          <SplitPanel header="Design exploration">
+            <GlobalSplitPanelContent />
+          </SplitPanel>
+        }
         content={
           <TableContent
             distributions={distributions}

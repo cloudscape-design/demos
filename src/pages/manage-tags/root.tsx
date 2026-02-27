@@ -9,12 +9,21 @@ import Container from '@cloudscape-design/components/container';
 import Form from '@cloudscape-design/components/form';
 import Header from '@cloudscape-design/components/header';
 import SpaceBetween from '@cloudscape-design/components/space-between';
+import SplitPanel from '@cloudscape-design/components/split-panel';
 import TagEditor, { TagEditorProps } from '@cloudscape-design/components/tag-editor';
 
 import { resourceManageTagsBreadcrumbs } from '../../common/breadcrumbs';
 import { tagEditorI18nStrings } from '../../i18n-strings/tag-editor';
 import { TagsResource } from '../../resources/types';
-import { CustomAppLayout, DemoTopNavigation, InfoLink, Navigation, Notifications } from '../commons/common-components';
+import {
+  CustomAppLayout,
+  DemoTopNavigation,
+  GlobalSplitPanelContent,
+  InfoLink,
+  Navigation,
+  Notifications,
+  useGlobalSplitPanel,
+} from '../commons/common-components';
 import ToolsContent from './components/tools-content';
 
 import '../../styles/base.scss';
@@ -29,6 +38,8 @@ const Breadcrumbs = () => (
 export function App() {
   const [toolsIndex, setToolsIndex] = useState(0);
   const [toolsOpen, setToolsOpen] = useState(false);
+  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize, splitPanelPreferences } =
+    useGlobalSplitPanel();
   const [tags, setTags] = useState<TagEditorProps.Tag[]>([]);
   const [loading, setLoading] = useState(true);
   const appLayoutRef = useRef<AppLayoutProps.Ref>(null);
@@ -76,6 +87,16 @@ export function App() {
         onToolsChange={({ detail }) => setToolsOpen(detail.open)}
         tools={ToolsContent[toolsIndex]}
         notifications={<Notifications />}
+        splitPanelOpen={splitPanelOpen}
+        onSplitPanelToggle={onSplitPanelToggle}
+        splitPanelSize={splitPanelSize}
+        onSplitPanelResize={onSplitPanelResize}
+        splitPanelPreferences={splitPanelPreferences}
+        splitPanel={
+          <SplitPanel header="Design exploration">
+            <GlobalSplitPanelContent />
+          </SplitPanel>
+        }
         content={
           <SpaceBetween size="m">
             <Header variant="h1">Manage tags</Header>

@@ -16,6 +16,8 @@ import { isVisualRefresh } from '../../common/apply-mode';
 // backward compatibility
 export * from './index';
 export { DemoTopNavigation } from './top-navigation';
+export { GlobalSplitPanelContent } from './split-panel-content';
+export { useGlobalSplitPanel } from './use-global-split-panel';
 
 export const ec2NavItems = [
   { type: 'link', text: 'Instances', href: '#/instances' },

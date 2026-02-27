@@ -4,10 +4,11 @@ import React, { useCallback, useRef, useState } from 'react';
 
 import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import HelpPanel from '@cloudscape-design/components/help-panel';
+import SplitPanel from '@cloudscape-design/components/split-panel';
 import Wizard, { WizardProps } from '@cloudscape-design/components/wizard';
 
 import { ExternalLinkGroup, InfoLink, Notifications } from '../commons';
-import { CustomAppLayout, DemoTopNavigation } from '../commons/common-components';
+import { CustomAppLayout, DemoTopNavigation, GlobalSplitPanelContent } from '../commons/common-components';
 import { ToolsContent, WizardState } from './interfaces';
 import Engine from './stepComponents/step1';
 import Details from './stepComponents/step2';
@@ -178,6 +179,15 @@ const App = () => {
         onToolsChange={onToolsChange}
         breadcrumbs={<Breadcrumbs />}
         contentType="wizard"
+        splitPanelOpen={splitPanelOpen}
+        onSplitPanelToggle={onSplitPanelToggle}
+        splitPanelSize={splitPanelSize}
+        onSplitPanelResize={onSplitPanelResize}
+        splitPanel={
+          <SplitPanel header="Design exploration">
+            <GlobalSplitPanelContent />
+          </SplitPanel>
+        }
         content={
           <Wizard
             steps={wizardSteps}

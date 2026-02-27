@@ -10,20 +10,30 @@ applyTheme({ theme: themeCoreConfig });
 
 import Header from '@cloudscape-design/components/header';
 import SpaceBetween from '@cloudscape-design/components/space-between';
+import SplitPanel from '@cloudscape-design/components/split-panel';
 
 import { Notifications } from '../commons';
-import { CustomAppLayout, DemoTopNavigation } from '../commons/common-components';
+import {
+  CustomAppLayout,
+  DemoTopNavigation,
+  GlobalSplitPanelContent,
+  useGlobalSplitPanel,
+} from '../commons/common-components';
 import ButtonsInputsDropdowns from './buttons-inputs-dropdowns';
 import Chat from './chat';
 import FormControls from './form-controls';
 import NavigationComponents from './navigation-components';
 import StatusComponents from './status-components';
 import TableAndCards from './table-and-cards';
+import Typography from './typography';
 
 import '../../styles/base.scss';
 import '../../styles/top-navigation.scss';
 
 function App() {
+  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize, splitPanelPreferences } =
+    useGlobalSplitPanel();
+
   return (
     <>
       <DemoTopNavigation />
@@ -32,6 +42,16 @@ function App() {
         navigationHide={true}
         contentType="wizard"
         notifications={<Notifications />}
+        splitPanelOpen={splitPanelOpen}
+        onSplitPanelToggle={onSplitPanelToggle}
+        splitPanelSize={splitPanelSize}
+        onSplitPanelResize={onSplitPanelResize}
+        splitPanelPreferences={splitPanelPreferences}
+        splitPanel={
+          <SplitPanel header="Design exploration">
+            <GlobalSplitPanelContent />
+          </SplitPanel>
+        }
         content={
           <SpaceBetween direction="vertical" size="xl">
             <Header
@@ -40,6 +60,7 @@ function App() {
             >
               Components overview page
             </Header>
+            <Typography />
             <ButtonsInputsDropdowns />
             <FormControls />
             <NavigationComponents />

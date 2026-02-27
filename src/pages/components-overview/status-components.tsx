@@ -9,6 +9,7 @@ import ButtonGroup from '@cloudscape-design/components/button-group';
 import ColumnLayout from '@cloudscape-design/components/column-layout';
 import FileTokenGroup from '@cloudscape-design/components/file-token-group';
 import Flashbar, { FlashbarProps } from '@cloudscape-design/components/flashbar';
+import FormField from '@cloudscape-design/components/form-field';
 import Grid from '@cloudscape-design/components/grid';
 import Input from '@cloudscape-design/components/input';
 import Link from '@cloudscape-design/components/link';
@@ -41,20 +42,14 @@ export default function StatusComponents() {
             <Slider value={50} invalid={true} max={100} min={0} ariaLabel="Invalid slider" />
             <Input value="Invalid input" invalid={true} ariaLabel="Invalid input" />
 
-            <FileTokenGroup
-              items={[
-                {
-                  file: new File([new Blob(['Test content'])], 'file-1.pdf', {
-                    type: 'application/pdf',
-                    lastModified: 1590962400000,
-                  }),
-                  errorText: 'This is an error message related to this file',
-                },
-              ]}
-              onDismiss={() => {
-                /* no-op for demo*/
-              }}
-            />
+            <FormField
+              constraintText="Requirements and constraints for the field."
+              description="This is a description."
+              errorText="This is an error message."
+              label="Form field label"
+            >
+              <Input value="Hello" />
+            </FormField>
 
             <Grid
               gridDefinition={[
@@ -105,20 +100,14 @@ export default function StatusComponents() {
             </Alert>
             <Slider value={50} warning={true} max={100} min={0} ariaLabel="Warning slider" />
             <Input value="Warning input" warning={true} ariaLabel="Warning input" />
-            <FileTokenGroup
-              items={[
-                {
-                  file: new File([new Blob(['Test content'])], 'file-1.pdf', {
-                    type: 'application/pdf',
-                    lastModified: 1590962400000,
-                  }),
-                  warningText: 'This is a warning message related to this file',
-                },
-              ]}
-              onDismiss={() => {
-                /* no-op for demo*/
-              }}
-            />
+            <FormField
+              constraintText="Requirements and constraints for the field."
+              description="This is a description."
+              warningText="This is a warning message."
+              label="Form field label"
+            >
+              <Input value="Hello" />
+            </FormField>
 
             <Grid
               gridDefinition={[

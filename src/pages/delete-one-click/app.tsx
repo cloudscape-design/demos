@@ -8,11 +8,18 @@ import Container from '@cloudscape-design/components/container';
 import Form from '@cloudscape-design/components/form';
 import Header from '@cloudscape-design/components/header';
 import SpaceBetween from '@cloudscape-design/components/space-between';
+import SplitPanel from '@cloudscape-design/components/split-panel';
 import TagEditor, { TagEditorProps } from '@cloudscape-design/components/tag-editor';
 
 import { resourceManageTagsBreadcrumbs } from '../../common/breadcrumbs';
 import { tagEditorI18nStrings } from '../../i18n-strings/tag-editor';
-import { DemoTopNavigation, Navigation, Notifications } from '../commons/common-components';
+import {
+  DemoTopNavigation,
+  GlobalSplitPanelContent,
+  Navigation,
+  Notifications,
+  useGlobalSplitPanel,
+} from '../commons/common-components';
 import { CustomAppLayout } from '../commons/common-components';
 import { Info } from './components/info';
 import { loadTagKeys, loadTags, loadTagValues } from './utils';
@@ -23,6 +30,7 @@ export function App() {
   const [tags, setTags] = useState<TagEditorProps.Tag[]>([]);
   const [loading, setLoading] = useState(true);
   const [isValid, setIsValid] = useState(true);
+  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize } = useGlobalSplitPanel();
 
   useEffect(() => {
     if (loading) {
@@ -54,6 +62,15 @@ export function App() {
       <DemoTopNavigation />
       <CustomAppLayout
         contentType="form"
+        splitPanelOpen={splitPanelOpen}
+        onSplitPanelToggle={onSplitPanelToggle}
+        splitPanelSize={splitPanelSize}
+        onSplitPanelResize={onSplitPanelResize}
+        splitPanel={
+          <SplitPanel header="Design exploration">
+            <GlobalSplitPanelContent />
+          </SplitPanel>
+        }
         content={
           <SpaceBetween size="m">
             <Header variant="h1">Manage tags</Header>
