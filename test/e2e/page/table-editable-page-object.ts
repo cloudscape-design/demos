@@ -41,13 +41,13 @@ export default class TableEditablePageObject extends TableFilteringPageObject {
 
   async performGoodDomainEdit(row: number, value: string) {
     const bodyCell = this.tableWrapper.findBodyCell(row, 4);
-    const input = bodyCell.findFormField().find('input');
+    const inputSelector = bodyCell.findFormField().find('input').toSelector();
     await this.click(bodyCell.toSelector());
 
-    const current = await this.browser.$(input.toSelector()).getValue() as string;
+    const current = await this.getValue(inputSelector);
     const backspaces = Array(current.length).fill('Backspace');
     await this.keys(backspaces);
-    await this.browser.$(input.toSelector()).setValue(value);
+    await this.setValue(inputSelector, value);
 
     await this.click(this.tableWrapper.findEditingCellSaveButton().toSelector());
     await this.waitForEditSave();
