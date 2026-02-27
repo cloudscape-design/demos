@@ -7,6 +7,10 @@ import { themeCoreConfig } from './theme-core';
 /**
  * Applies the custom theme to the application
  */
-export function applyCustomTheme() {
-  applyTheme({ theme: themeCoreConfig });
+export function applyCustomTheme(customConfig?: typeof themeCoreConfig) {
+  const themeToApply = customConfig || themeCoreConfig;
+  applyTheme({ theme: themeToApply });
 }
+
+// Apply default theme on module load
+applyCustomTheme();

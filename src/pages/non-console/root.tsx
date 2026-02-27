@@ -8,10 +8,16 @@ import Button from '@cloudscape-design/components/button';
 import Header from '@cloudscape-design/components/header';
 import SideNavigation, { SideNavigationProps } from '@cloudscape-design/components/side-navigation';
 import SpaceBetween from '@cloudscape-design/components/space-between';
+import SplitPanel from '@cloudscape-design/components/split-panel';
 import Table, { TableProps } from '@cloudscape-design/components/table';
 
 import { isVisualRefresh } from '../../common/apply-mode';
-import { CustomAppLayout, DemoTopNavigation } from '../commons/common-components';
+import {
+  CustomAppLayout,
+  DemoTopNavigation,
+  GlobalSplitPanelContent,
+  useGlobalSplitPanel,
+} from '../commons/common-components';
 import { Notifications } from './notifications';
 
 import '../../styles/base.scss';
@@ -129,6 +135,8 @@ const Content = () => {
 };
 
 export function App() {
+  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize } = useGlobalSplitPanel();
+
   return (
     <>
       <DemoTopNavigation />
@@ -137,6 +145,15 @@ export function App() {
         toolsHide
         navigation={<SideNavigation activeHref="#/pages" items={navItems} />}
         breadcrumbs={<BreadcrumbGroup items={breadcrumbs} expandAriaLabel="Show path" ariaLabel="Breadcrumbs" />}
+        splitPanelOpen={splitPanelOpen}
+        onSplitPanelToggle={onSplitPanelToggle}
+        splitPanelSize={splitPanelSize}
+        onSplitPanelResize={onSplitPanelResize}
+        splitPanel={
+          <SplitPanel header="Design exploration">
+            <GlobalSplitPanelContent />
+          </SplitPanel>
+        }
         content={<Content />}
         notifications={<Notifications />}
       />

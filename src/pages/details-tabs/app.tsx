@@ -4,9 +4,17 @@ import React, { useRef, useState } from 'react';
 
 import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import SpaceBetween from '@cloudscape-design/components/space-between';
+import SplitPanel from '@cloudscape-design/components/split-panel';
 import Tabs from '@cloudscape-design/components/tabs';
 
-import { CustomAppLayout, DemoTopNavigation, Navigation, Notifications } from '../commons/common-components';
+import {
+  CustomAppLayout,
+  DemoTopNavigation,
+  GlobalSplitPanelContent,
+  Navigation,
+  Notifications,
+  useGlobalSplitPanel,
+} from '../commons/common-components';
 import { BehaviorsTable } from '../details/components/behaviors-table';
 import { Breadcrumbs } from '../details/components/breadcrumbs';
 import { EmptyTable } from '../details/components/empty-table';
@@ -24,6 +32,8 @@ import '../../styles/top-navigation.scss';
 export function App() {
   const [toolsIndex, setToolsIndex] = useState<number>(0);
   const [toolsOpen, setToolsOpen] = useState<boolean>(false);
+  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize, splitPanelPreferences } =
+    useGlobalSplitPanel();
   const appLayout = useRef<AppLayoutProps.Ref>(null);
 
   const loadHelpPanelContent = (index: number): void => {
@@ -37,6 +47,16 @@ export function App() {
       <DemoTopNavigation />
       <CustomAppLayout
         ref={appLayout}
+        splitPanelOpen={splitPanelOpen}
+        onSplitPanelToggle={onSplitPanelToggle}
+        splitPanelSize={splitPanelSize}
+        onSplitPanelResize={onSplitPanelResize}
+        splitPanelPreferences={splitPanelPreferences}
+        splitPanel={
+          <SplitPanel header="Design exploration">
+            <GlobalSplitPanelContent />
+          </SplitPanel>
+        }
         content={
           <SpaceBetween size="m">
             <PageHeader
