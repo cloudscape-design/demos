@@ -127,16 +127,16 @@ export default function FormControls() {
             <Tiles
               value="item1"
               items={[
-                { label: 'Selected', value: 'item1' },
-                { label: 'Unselected', value: 'item2' },
+                { label: 'Selected', value: 'item1', description: 'This is a description for item 1' },
+                { label: 'Unselected', value: 'item2', description: 'This is a description for item 2' },
               ]}
               ariaLabel="Default tiles"
             />
             <Tiles
               value="item1"
               items={[
-                { label: 'Disabled', value: 'item1', disabled: true },
-                { label: 'Disabled', value: 'item2', disabled: true },
+                { label: 'Disabled', value: 'item1', disabled: true, description: 'This is a description for item 1' },
+                { label: 'Disabled', value: 'item2', disabled: true, description: 'This is a description for item 2' },
               ]}
               ariaLabel="Disabled tiles"
             />
@@ -146,8 +146,8 @@ export default function FormControls() {
               value="item1"
               readOnly={true}
               items={[
-                { label: 'Read-only', value: 'item1' },
-                { label: 'Read-only', value: 'item2' },
+                { label: 'Read-only', value: 'item1', description: 'This is a description for item 1' },
+                { label: 'Read-only', value: 'item2', description: 'This is a description for item 2' },
               ]}
               ariaLabel="Read-only tiles"
             />
@@ -155,8 +155,18 @@ export default function FormControls() {
               value="item1"
               readOnly={true}
               items={[
-                { label: 'Read-only, disabled', value: 'item1', disabled: true },
-                { label: 'Read-only, disabled', value: 'item2', disabled: true },
+                {
+                  label: 'Read-only, disabled',
+                  value: 'item1',
+                  disabled: true,
+                  description: 'This is a description for item 1',
+                },
+                {
+                  label: 'Read-only, disabled',
+                  value: 'item2',
+                  disabled: true,
+                  description: 'This is a description for item 2',
+                },
               ]}
               ariaLabel="Read-only disabled tiles"
             />

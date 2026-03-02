@@ -5,6 +5,8 @@
 body {
   background: cs.$color-background-layout-main;
   position: relative;
+  --border-item-width-miijiw: 1px !important;
+  --font-box-value-large-weight-wr00sw: 500 !important;
 }
 
 //// Custom styles for flashbar //// 
@@ -43,6 +45,43 @@ body.filled-flashbar {
   border-inline-start-width: 2px !important;
 }
 
+// Tabs typography
+.awsui_tabs-tab-link_14rmt_1rxg6_296:not(#\9) {
+  font-size: 16px !important;
+  font-weight: 500;
+}
+
+// Tile selected border width
+.awsui_tile-container_vj6p7_1p9yl_394.awsui_refresh_vj6p7_1p9yl_419.awsui_selected_vj6p7_1p9yl_423:not(#\9):not(.awsui_disabled_vj6p7_1p9yl_423):not(.awsui_readonly_vj6p7_1p9yl_423) {
+  box-shadow: none;
+}
+//06080A
+// Custom side nav treatment
+li:has(> a.awsui_link-active_l0dv0_yc2la_326:not(#\9)) {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -8px;
+    //outline: solid 1px black;
+    width: calc(100% + 8px);
+    height: 28px;
+    border-radius: 8px;
+    background: #F6F6F9;
+    z-index: -1;
+  }
+}
+
+// Toolbar 
+.awsui_trigger_lpshu_10v1l_145.awsui_circle_lpshu_10v1l_167:not(#\9) {
+  border-radius: 8px !important;
+}
+
+// Main content area margin
+.awsui_main_7nfqu_qav4f_356:not(#\9) {
+  margin-block-start: 16px !important;
+}
 
 .custom-main-header {
   display: block;

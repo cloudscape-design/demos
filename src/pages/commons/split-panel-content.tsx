@@ -11,9 +11,10 @@ import SpaceBetween from '@cloudscape-design/components/space-between';
 import Toggle from '@cloudscape-design/components/toggle';
 
 import { applyCustomTheme } from '../../common/apply-theme';
-import { themeCoreConfig } from '../../common/theme-core';
+import { generateThemeConfig, themeCoreConfig } from '../../common/theme-core';
 
 interface ThemeConfig {
+  colorSelectedAccent?: string;
   borderWidthButton?: string;
   borderWidthField?: string;
   borderWidthIconSmall?: string;
@@ -60,8 +61,18 @@ export function GlobalSplitPanelContent() {
     const match = value.match(/^(\d+(?:\.\d+)?)/);
     return match ? match[1] : value;
   };
+
+  // Helper function to format color object to string
+  const formatColorValue = (value: { light: string; dark: string } | undefined): string => {
+    if (!value) {
+      return '';
+    }
+    return `light: '${value.light}', dark: '${value.dark}'`;
+  };
+
   const [checked, setChecked] = useState(false);
   const [config, setConfig] = useState<ThemeConfig>({
+    colorSelectedAccent: formatColorValue({ light: '#1b232d', dark: '#f3f3f7' }),
     borderWidthButton: extractNumericValue((themeCoreConfig.tokens?.borderWidthButton as string) || '2px'),
     borderWidthIconSmall: extractNumericValue((themeCoreConfig.tokens?.borderWidthIconSmall as string) || '1px'),
     borderWidthIconNormal: extractNumericValue((themeCoreConfig.tokens?.borderWidthIconNormal as string) || '1.5px'),
@@ -89,10 +100,23 @@ export function GlobalSplitPanelContent() {
   useEffect(() => {
     const applyThemeChanges = () => {
       try {
+        // Parse colorSelectedAccent if present
+        let customAccentColor;
+        if (config.colorSelectedAccent) {
+          const lightMatch = config.colorSelectedAccent.match(/light:\s*'([^']+)'/);
+          const darkMatch = config.colorSelectedAccent.match(/dark:\s*'([^']+)'/);
+          if (lightMatch && darkMatch) {
+            customAccentColor = { light: lightMatch[1], dark: darkMatch[1] };
+          }
+        }
+
+        // Generate new theme config with custom accent color
+        const baseTheme = customAccentColor ? generateThemeConfig(customAccentColor) : themeCoreConfig;
+
         // Ensure all values have 'px' unit appended if they're just numbers
         const customTokens = Object.fromEntries(
           Object.entries(config)
-            .filter(([, value]) => value !== undefined && value !== '')
+            .filter(([key, value]) => key !== 'colorSelectedAccent' && value !== undefined && value !== '')
             .map(([key, value]) => {
               // Font family should not have 'px' appended
               if (key === 'fontFamilyBase') {
@@ -109,12 +133,13 @@ export function GlobalSplitPanelContent() {
 
         const updatedTheme = {
           tokens: {
-            ...themeCoreConfig.tokens,
+            ...baseTheme.tokens,
             ...customTokens,
             // Apply borderRadiusFlashbar only when toggle is on
             ...(checked && { borderRadiusFlashbar: '0px' }),
           },
-          contexts: themeCoreConfig.contexts,
+          referenceTokens: baseTheme.referenceTokens,
+          contexts: baseTheme.contexts,
         };
 
         applyCustomTheme(updatedTheme);
@@ -145,10 +170,23 @@ export function GlobalSplitPanelContent() {
 
   const applyThemeChanges = () => {
     try {
+      // Parse colorSelectedAccent if present
+      let customAccentColor;
+      if (config.colorSelectedAccent) {
+        const lightMatch = config.colorSelectedAccent.match(/light:\s*'([^']+)'/);
+        const darkMatch = config.colorSelectedAccent.match(/dark:\s*'([^']+)'/);
+        if (lightMatch && darkMatch) {
+          customAccentColor = { light: lightMatch[1], dark: darkMatch[1] };
+        }
+      }
+
+      // Generate new theme config with custom accent color
+      const baseTheme = customAccentColor ? generateThemeConfig(customAccentColor) : themeCoreConfig;
+
       // Ensure all values have 'px' unit appended if they're just numbers
       const customTokens = Object.fromEntries(
         Object.entries(config)
-          .filter(([, value]) => value !== undefined && value !== '')
+          .filter(([key, value]) => key !== 'colorSelectedAccent' && value !== undefined && value !== '')
           .map(([key, value]) => {
             // Font family should not have 'px' appended
             if (key === 'fontFamilyBase') {
@@ -165,12 +203,13 @@ export function GlobalSplitPanelContent() {
 
       const updatedTheme = {
         tokens: {
-          ...themeCoreConfig.tokens,
+          ...baseTheme.tokens,
           ...customTokens,
           // Apply borderRadiusFlashbar only when toggle is on
           ...(checked && { borderRadiusFlashbar: '0px' }),
         },
-        contexts: themeCoreConfig.contexts,
+        referenceTokens: baseTheme.referenceTokens,
+        contexts: baseTheme.contexts,
       };
 
       applyCustomTheme(updatedTheme);
@@ -182,6 +221,7 @@ export function GlobalSplitPanelContent() {
   const resetTheme = () => {
     setChecked(false);
     setConfig({
+      colorSelectedAccent: formatColorValue({ light: '#1b232d', dark: '#f3f3f7' }),
       borderWidthButton: extractNumericValue((themeCoreConfig.tokens?.borderWidthButton as string) || '1px'),
       borderWidthIconSmall: extractNumericValue((themeCoreConfig.tokens?.borderWidthIconSmall as string) || '1px'),
       borderWidthIconNormal: extractNumericValue((themeCoreConfig.tokens?.borderWidthIconNormal as string) || '1.5px'),
@@ -210,6 +250,21 @@ export function GlobalSplitPanelContent() {
   return (
     <Box padding={{ vertical: 'm' }}>
       <ColumnLayout borders="horizontal">
+        <Box padding={{ bottom: 'l' }}>
+          <Box variant="h3" padding={{ vertical: 'm' }}>
+            Accent color
+          </Box>
+          <SpaceBetween size="xs">
+            <FormField label="colorSelectedAccent">
+              <Input
+                type="text"
+                placeholder="light: '#1b232d', dark: '#f3f3f7'"
+                value={config.colorSelectedAccent || ''}
+                onChange={({ detail }) => handleInputChange('colorSelectedAccent', detail.value)}
+              />
+            </FormField>
+          </SpaceBetween>
+        </Box>
         <Box padding={{ bottom: 'l' }}>
           <SpaceBetween size="xs">
             <FormField label="borderWidthButton" errorText={errors.borderWidthButton}>
