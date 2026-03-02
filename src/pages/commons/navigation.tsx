@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React from 'react';
+import React, { useState } from 'react';
 
 import SideNavigation, { SideNavigationProps } from '@cloudscape-design/components/side-navigation';
 
@@ -29,11 +29,6 @@ export const navItems: SideNavigationProps['items'] = [
   },
 ];
 
-const defaultOnFollowHandler: SideNavigationProps['onFollow'] = event => {
-  // keep the locked href for our demo pages
-  event.preventDefault();
-};
-
 interface NavigationProps {
   activeHref?: string;
   header?: SideNavigationProps['header'];
@@ -42,10 +37,18 @@ interface NavigationProps {
 }
 
 export function Navigation({
-  activeHref,
+  activeHref: activeHrefProp,
   header = navHeader,
   items = navItems,
-  onFollowHandler = defaultOnFollowHandler,
+  onFollowHandler,
 }: NavigationProps) {
-  return <SideNavigation items={items} header={header} activeHref={activeHref} onFollow={onFollowHandler} />;
+  const [activeHref, setActiveHref] = useState(activeHrefProp || '#/distributions');
+
+  const handleFollow: SideNavigationProps['onFollow'] = event => {
+    event.preventDefault();
+    setActiveHref(event.detail.href);
+    onFollowHandler?.(event);
+  };
+
+  return <SideNavigation items={items} header={header} activeHref={activeHref} onFollow={handleFollow} />;
 }
