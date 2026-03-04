@@ -139,21 +139,24 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
       fontSizeHeadingL: '22px',
       lineHeightHeadingL: '26px',
       fontWeightHeadingL: '500',
+      letterSpacingHeadingL: '20px',
 
       // H3
-      fontSizeHeadingM: '20px',
+      fontSizeHeadingM: '18px',
       lineHeightHeadingM: '24px',
       fontWeightHeadingM: '500',
 
       // H4
-      fontSizeHeadingS: '18px',
-      lineHeightHeadingS: '22px',
+      fontSizeHeadingS: '16px',
+      lineHeightHeadingS: '20px',
       fontWeightHeadingS: '500',
 
       // H5
-      fontSizeHeadingXs: '16px',
+      fontSizeHeadingXs: '14px',
       lineHeightHeadingXs: '20px',
       fontWeightHeadingXs: '500',
+
+      //fontFamilyHeading: 'Ember Modern Display',
 
       // ========================================================================
       // TYPOGRAPHY - Other
