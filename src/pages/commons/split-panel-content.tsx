@@ -74,7 +74,7 @@ export function GlobalSplitPanelContent() {
   const [config, setConfig] = useState<ThemeConfig>({
     colorSelectedAccent: formatColorValue({ light: '#1b232d', dark: '#f3f3f7' }),
     borderWidthButton: extractNumericValue((themeCoreConfig.tokens?.borderWidthButton as string) || '2px'),
-    borderWidthIconSmall: extractNumericValue((themeCoreConfig.tokens?.borderWidthIconSmall as string) || '1px'),
+    borderWidthIconSmall: extractNumericValue((themeCoreConfig.tokens?.borderWidthIconSmall as string) || '1.5px'),
     borderWidthIconNormal: extractNumericValue((themeCoreConfig.tokens?.borderWidthIconNormal as string) || '1.5px'),
     borderWidthIconMedium: extractNumericValue((themeCoreConfig.tokens?.borderWidthIconMedium as string) || '2px'),
     borderWidthIconBig: extractNumericValue((themeCoreConfig.tokens?.borderWidthIconBig as string) || '2px'),
@@ -223,7 +223,7 @@ export function GlobalSplitPanelContent() {
     setConfig({
       colorSelectedAccent: formatColorValue({ light: '#1b232d', dark: '#f3f3f7' }),
       borderWidthButton: extractNumericValue((themeCoreConfig.tokens?.borderWidthButton as string) || '1px'),
-      borderWidthIconSmall: extractNumericValue((themeCoreConfig.tokens?.borderWidthIconSmall as string) || '1px'),
+      borderWidthIconSmall: extractNumericValue((themeCoreConfig.tokens?.borderWidthIconSmall as string) || '1.5px'),
       borderWidthIconNormal: extractNumericValue((themeCoreConfig.tokens?.borderWidthIconNormal as string) || '1.5px'),
       borderWidthIconMedium: extractNumericValue((themeCoreConfig.tokens?.borderWidthIconMedium as string) || '2px'),
       borderWidthIconBig: extractNumericValue((themeCoreConfig.tokens?.borderWidthIconBig as string) || '2px'),
@@ -314,7 +314,7 @@ export function GlobalSplitPanelContent() {
             <FormField label="borderWidthIconSmall" errorText={errors.borderWidthIconSmall}>
               <Input
                 type="number"
-                placeholder="1px"
+                placeholder="1.5px"
                 value={config.borderWidthIconSmall || ''}
                 onChange={({ detail }) => handleInputChange('borderWidthIconSmall', detail.value)}
               />
