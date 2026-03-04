@@ -18,6 +18,12 @@ import { Section } from './utils';
 
 function Buttons() {
   const [selectedSegment, setSelectedSegment] = useState('seg-1');
+  const [toggle1, setToggle1] = useState(true);
+  const [toggle2, setToggle2] = useState(false);
+  const [toggle3, setToggle3] = useState(false);
+  const [toggle4, setToggle4] = useState(true);
+  const [toggle5, setToggle5] = useState(false);
+  const [toggle6, setToggle6] = useState(true);
 
   return (
     <SpaceBetween size="l">
@@ -62,24 +68,48 @@ function Buttons() {
         />
       </SpaceBetween>
       <SpaceBetween direction="horizontal" size="m" alignItems="center">
-        <ToggleButton pressed={true} iconName="star" pressedIconName="star-filled">
+        <ToggleButton
+          onChange={({ detail }) => setToggle1(detail.pressed)}
+          pressed={toggle1}
+          iconName="star"
+          pressedIconName="star-filled"
+        >
           Toggle button
         </ToggleButton>
-        <ToggleButton pressed={false} iconName="star" pressedIconName="star-filled">
+        <ToggleButton
+          onChange={({ detail }) => setToggle2(detail.pressed)}
+          pressed={toggle2}
+          iconName="star"
+          pressedIconName="star-filled"
+        >
           Toggle button
         </ToggleButton>
-        <ToggleButton pressed={false} iconName="star" pressedIconName="star-filled" ariaLabel="Toggle button" />
-        <ToggleButton pressed={true} iconName="star" pressedIconName="star-filled" ariaLabel="Toggle button pressed" />
+        <ToggleButton
+          onChange={({ detail }) => setToggle3(detail.pressed)}
+          pressed={toggle3}
+          iconName="star"
+          pressedIconName="star-filled"
+          ariaLabel="Toggle button"
+        />
+        <ToggleButton
+          onChange={({ detail }) => setToggle4(detail.pressed)}
+          pressed={toggle4}
+          iconName="star"
+          pressedIconName="star-filled"
+          ariaLabel="Toggle button pressed"
+        />
         <ToggleButton
           variant="icon"
-          pressed={false}
+          onChange={({ detail }) => setToggle5(detail.pressed)}
+          pressed={toggle5}
           iconName="star"
           pressedIconName="star-filled"
           ariaLabel="Toggle button icon"
         />
         <ToggleButton
           variant="icon"
-          pressed={true}
+          onChange={({ detail }) => setToggle6(detail.pressed)}
+          pressed={toggle6}
           iconName="star"
           pressedIconName="star-filled"
           ariaLabel="Toggle button icon pressed"

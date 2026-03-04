@@ -8,25 +8,20 @@
 
 export function generateThemeConfig(customAccentColor?: { light: string; dark: string }) {
   // Primary accent colors
-  //const colorSelectedAccent = { light: '#295eff', dark: '#7598ff' };
-  const colorSelectedAccent = customAccentColor || { light: '#1b232d', dark: '#f3f3f7' };
 
-  const colorSelectedAccentHover = { light: '#0033CC', dark: '#94AFFF' };
+  const colorSelectedAccent = customAccentColor || { light: '#1b232d', dark: '#F9F9FB' };
 
-  //const colorSelectedAccentSubtle = { light: '#F5F7FF', dark: '#000833' };
   const colorSelectedAccentSubtle = { light: '#F6F6F9', dark: '#06080A' };
 
-  const colorSelectedAccentSubtleHover = { light: '#dbe4ff', dark: '#000833' };
-  //const colorSelectedAccentDisabled = { light: '#C2D1FF', dark: '#001A99' };
+  const colorSelectedAccentSubtleHover = { light: '#EBEBF0', dark: '#131920' };
 
   // Secondary accent colors (darker/more saturated variant)
-  const colorSelectedAccentSecondary = { light: '#1b232d', dark: '#7598ff' };
-  const colorSelectedAccentSecondaryHover = { light: '#295eff', dark: '#c2d1ff' };
+  const colorSelectedAccentSecondary = { light: '#1b232d', dark: '#F9F9FB' };
 
   // Neutral colors
   const colorNeutralDefault = { light: '#1b232d', dark: '#f3f3f7' };
   const colorNeutralInverse = { light: '#ffffff', dark: '#131920' };
-  const colorNeutralBackground = { light: '#F6F6F9', dark: '#000833' };
+  const colorNeutralBackground = { light: '#F6F6F9', dark: '#06080A' };
 
   // Status colors
   const colorSuccess = { light: '#008559', dark: '#008559' };
@@ -53,7 +48,7 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
       // BUTTONS - Primary
       // ========================================================================
       colorBackgroundButtonPrimaryDefault: colorSelectedAccentSecondary,
-      colorBackgroundButtonPrimaryHover: colorSelectedAccentSecondaryHover,
+      colorBackgroundButtonPrimaryHover: { light: '#06080A', dark: '#FFFFFF' },
       colorBackgroundButtonPrimaryActive: colorSelectedAccentSecondary,
 
       colorTextButtonPrimaryDefault: colorNeutralInverse,
@@ -71,9 +66,9 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
       // ========================================================================
       // BUTTONS - Toggle
       // ========================================================================
-      // colorBackgroundToggleButtonNormalPressed: colorSelectedAccentSubtle,
-      // colorBorderToggleButtonNormalPressed: colorSelectedAccent,
-      // colorTextToggleButtonNormalPressed: colorSelectedAccentHover,
+      colorBackgroundToggleButtonNormalPressed: colorSelectedAccentSubtleHover,
+      colorBorderToggleButtonNormalPressed: colorSelectedAccent,
+      colorTextToggleButtonNormalPressed: colorSelectedAccent,
 
       // ========================================================================
       // CONTROLS - Checkboxes, Radio, Toggle
@@ -85,7 +80,7 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
       // LINKS & TEXT
       // ========================================================================
       colorTextLinkDefault: colorSelectedAccent,
-      colorTextLinkHover: colorSelectedAccentHover,
+      //colorTextLinkHover: colorSelectedAccentHover,
       colorTextAccent: colorSelectedAccent,
 
       // ========================================================================
@@ -106,8 +101,8 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
       // ========================================================================
       colorBackgroundSliderRangeDefault: colorSelectedAccent,
       colorBackgroundSliderHandleDefault: colorSelectedAccent,
-      colorBackgroundSliderRangeActive: colorSelectedAccentHover,
-      colorBackgroundSliderHandleActive: colorSelectedAccentHover,
+      //colorBackgroundSliderRangeActive: colorSelectedAccentHover,
+      //colorBackgroundSliderHandleActive: colorSelectedAccentHover,
 
       // ========================================================================
       // PROGRESS BAR
@@ -182,7 +177,7 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
       borderRadiusContainer: '12px',
       borderRadiusDropdown: '8px',
       borderRadiusDropzone: '8px',
-      borderRadiusFlashbar: '8px',
+      borderRadiusFlashbar: '4px',
       borderRadiusItem: '8px',
       borderRadiusInput: '8px',
       borderRadiusPopover: '8px',
@@ -193,7 +188,7 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
       // ========================================================================
       // ICONS - Stroke Width
       // ========================================================================
-      borderWidthIconSmall: '1px',
+      borderWidthIconSmall: '1.5px',
       borderWidthIconNormal: '1.5px',
       borderWidthIconMedium: '2px',
       borderWidthIconBig: '2px',
@@ -226,20 +221,20 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
         tokens: {
           // Normal button
           colorBorderButtonNormalDefault: '#f3f3f7',
-          colorBorderButtonNormalHover: '#7598ff',
-          colorBorderButtonNormalActive: '#7598ff',
+          // colorBorderButtonNormalHover: '#7598ff',
+          // colorBorderButtonNormalActive: '#7598ff',
 
           colorBackgroundButtonNormalHover: '#1b232d',
           colorBackgroundButtonNormalActive: '#000833',
 
           colorTextButtonNormalDefault: '#f3f3f7',
-          colorTextButtonNormalHover: '#7598ff',
-          colorTextButtonNormalActive: '#7598ff',
+          // colorTextButtonNormalHover: '#7598ff',
+          // colorTextButtonNormalActive: '#7598ff',
 
           // Primary button
           colorBackgroundButtonPrimaryDefault: '#f9f9fb',
-          colorBackgroundButtonPrimaryHover: '#c2d1ff',
-          colorBackgroundButtonPrimaryActive: '#f9f9fb',
+          // colorBackgroundButtonPrimaryHover: '#c2d1ff',
+          // colorBackgroundButtonPrimaryActive: '#f9f9fb',
 
           colorTextButtonPrimaryDefault: '#131920',
           colorTextButtonPrimaryHover: '#131920',
