@@ -77,6 +77,10 @@ describe('Checking examples accessibility', function () {
 
         await browser.execute(fs.readFileSync(require.resolve('axe-core/axe.min.js'), 'utf8'));
         type AxeResult = { result: Axe.AxeResults } | { error: Error };
+        function isAxeError(response: AxeResult): response is { error: Error } {
+          const key: keyof { error: Error } = 'error';
+          return key in response;
+        }
         const runAxe = (done: (result: AxeResult) => void) =>
           axe
             .run({
@@ -92,7 +96,7 @@ describe('Checking examples accessibility', function () {
         // executeAsync has incorrect typings: https://github.com/webdriverio/webdriverio/issues/6206
         const response = (await browser.executeAsync(runAxe as any)) as AxeResult;
 
-        if ('error' in response) {
+        if (isAxeError(response)) {
           throw response.error;
         }
 
