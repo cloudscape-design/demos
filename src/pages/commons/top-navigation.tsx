@@ -77,7 +77,7 @@ export function DemoTopNavigation() {
     <DemoHeaderPortal>
       <TopNavigation
         identity={{
-          href: '#',
+          href: '/',
           title: 'Service name',
           logo: {
             src: logo,

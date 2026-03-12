@@ -9,6 +9,7 @@ import Wizard, { WizardProps } from '@cloudscape-design/components/wizard';
 
 import { ExternalLinkGroup, InfoLink, Notifications } from '../commons';
 import { CustomAppLayout, DemoTopNavigation, GlobalSplitPanelContent } from '../commons/common-components';
+import { useGlobalSplitPanel } from '../commons/use-global-split-panel';
 import { ToolsContent, WizardState } from './interfaces';
 import Engine from './stepComponents/step1';
 import Details from './stepComponents/step2';
@@ -155,6 +156,7 @@ const App = () => {
     onCancel,
     onSubmit,
   } = useWizard(closeTools, setFormattedToolsContent);
+  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize } = useGlobalSplitPanel();
 
   const wizardSteps = steps.map(({ title, stateKey, StepContent }) => ({
     title,

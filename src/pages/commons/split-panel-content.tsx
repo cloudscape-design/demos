@@ -4,14 +4,19 @@ import React, { useEffect, useState } from 'react';
 
 import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
+import Checkbox from '@cloudscape-design/components/checkbox';
 import ColumnLayout from '@cloudscape-design/components/column-layout';
 import FormField from '@cloudscape-design/components/form-field';
 import Input from '@cloudscape-design/components/input';
 import SpaceBetween from '@cloudscape-design/components/space-between';
-import Toggle from '@cloudscape-design/components/toggle';
 
 import { applyCustomTheme } from '../../common/apply-theme';
-import { generateThemeConfig, themeCoreConfig } from '../../common/theme-core';
+import {
+  colorTextLinkSecondOption,
+  generateThemeConfig,
+  generateThemeConfigB,
+  themeCoreConfig,
+} from '../../common/theme-core';
 
 interface ThemeConfig {
   colorSelectedAccent?: string;
@@ -50,6 +55,8 @@ interface ThemeConfig {
   lineHeightHeadingXs?: string;
   shadowContainer?: string;
   fontFamilyBase?: string;
+  colorTextLinkDefault?: string;
+  colorTextLinkHover?: string;
 }
 
 export function GlobalSplitPanelContent() {
@@ -70,7 +77,9 @@ export function GlobalSplitPanelContent() {
     return `light: '${value.light}', dark: '${value.dark}'`;
   };
 
+  const [consoleTheme, setConsoleTheme] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [customLinkColor, setCustomLinkColor] = useState(false);
   const [config, setConfig] = useState<ThemeConfig>({
     colorSelectedAccent: formatColorValue({ light: '#1b232d', dark: '#f3f3f7' }),
     borderWidthButton: extractNumericValue((themeCoreConfig.tokens?.borderWidthButton as string) || '2px'),
@@ -110,39 +119,69 @@ export function GlobalSplitPanelContent() {
           }
         }
 
-        // Generate new theme config with custom accent color
-        const baseTheme = customAccentColor ? generateThemeConfig(customAccentColor) : themeCoreConfig;
+        // Select base theme based on checkbox selection
+        let baseTheme;
+        let shouldApplyCustomTokens = true;
 
-        // Ensure all values have 'px' unit appended if they're just numbers
-        const customTokens = Object.fromEntries(
-          Object.entries(config)
-            .filter(([key, value]) => key !== 'colorSelectedAccent' && value !== undefined && value !== '')
-            .map(([key, value]) => {
-              // Font family should not have 'px' appended
-              if (key === 'fontFamilyBase') {
+        if (consoleTheme) {
+          // Console theme: Minimal theme with only specific tokens
+          // Don't apply form customizations for Console theme
+          baseTheme = generateThemeConfigB();
+          shouldApplyCustomTokens = false;
+        } else {
+          // New Core theme: Complete theme with form customizations
+          baseTheme = customAccentColor ? generateThemeConfig(customAccentColor) : themeCoreConfig;
+          shouldApplyCustomTokens = true;
+        }
+
+        // Build the theme object
+        let themeTokens: any = { ...baseTheme.tokens };
+
+        // Only apply custom tokens from form for Option A
+        if (shouldApplyCustomTokens) {
+          const colorTokenKeys = ['colorTextLinkDefault', 'colorTextLinkHover'];
+          const customTokens = Object.fromEntries(
+            Object.entries(config)
+              .filter(([key, value]) => key !== 'colorSelectedAccent' && value !== undefined && value !== '')
+              .map(([key, value]) => {
+                // Parse color tokens that use "light: '...', dark: '...'" format
+                if (colorTokenKeys.includes(key)) {
+                  const lightMatch = String(value).match(/light:\s*'([^']+)'/);
+                  const darkMatch = String(value).match(/dark:\s*'([^']+)'/);
+                  if (lightMatch && darkMatch) {
+                    return [key, { light: lightMatch[1], dark: darkMatch[1] }];
+                  }
+                  return [key, undefined]; // skip invalid color values
+                }
+                // Font family should not have 'px' appended
+                if (key === 'fontFamilyBase') {
+                  return [key, value];
+                }
+                // If value is a number without unit, append 'px'
+                const stringValue = String(value).trim();
+                if (stringValue && /^\d+(\.\d+)?$/.test(stringValue)) {
+                  return [key, `${stringValue}px`];
+                }
                 return [key, value];
-              }
-              // If value is a number without unit, append 'px'
-              const stringValue = String(value).trim();
-              if (stringValue && /^\d+(\.\d+)?$/.test(stringValue)) {
-                return [key, `${stringValue}px`];
-              }
-              return [key, value];
-            }),
-        );
+              })
+              .filter(([, value]) => value !== undefined),
+          );
+          themeTokens = { ...themeTokens, ...customTokens };
+        }
+
+        // Apply borderRadiusFlashbar only when toggle is on
+        if (checked) {
+          themeTokens.borderRadiusFlashbar = '0px';
+        }
 
         const updatedTheme = {
-          tokens: {
-            ...baseTheme.tokens,
-            ...customTokens,
-            // Apply borderRadiusFlashbar only when toggle is on
-            ...(checked && { borderRadiusFlashbar: '0px' }),
-          },
-          referenceTokens: baseTheme.referenceTokens,
-          contexts: baseTheme.contexts,
+          tokens: themeTokens,
+          referenceTokens: (baseTheme as any).referenceTokens || {},
+          contexts: (baseTheme as any).contexts || {},
         };
 
-        applyCustomTheme(updatedTheme);
+        // Apply theme - reset happens automatically in applyCustomTheme
+        applyCustomTheme(updatedTheme as any);
       } catch (error) {
         console.error('Failed to apply theme:', error);
       }
@@ -153,9 +192,17 @@ export function GlobalSplitPanelContent() {
     } else {
       document.body.classList.remove('filled-flashbar');
     }
-    // Apply theme changes when toggle state changes
+
+    // Apply custom CSS class when Console checkbox is disabled (unchecked)
+    if (!consoleTheme) {
+      document.body.classList.add('custom-css-enabled');
+    } else {
+      document.body.classList.remove('custom-css-enabled');
+    }
+
+    // Apply theme changes when toggle state or console theme changes
     applyThemeChanges();
-  }, [checked, config]);
+  }, [checked, config, consoleTheme, customLinkColor]);
 
   const handleInputChange = (key: keyof ThemeConfig, value: string) => {
     setConfig(prev => ({ ...prev, [key]: value }));
@@ -180,45 +227,65 @@ export function GlobalSplitPanelContent() {
         }
       }
 
-      // Generate new theme config with custom accent color
-      const baseTheme = customAccentColor ? generateThemeConfig(customAccentColor) : themeCoreConfig;
+      // Select base theme based on checkbox selection
+      let baseTheme;
+      let shouldApplyCustomTokens = true;
 
-      // Ensure all values have 'px' unit appended if they're just numbers
-      const customTokens = Object.fromEntries(
-        Object.entries(config)
-          .filter(([key, value]) => key !== 'colorSelectedAccent' && value !== undefined && value !== '')
-          .map(([key, value]) => {
-            // Font family should not have 'px' appended
-            if (key === 'fontFamilyBase') {
+      if (consoleTheme) {
+        // Console theme: Minimal theme with only specific tokens
+        // Don't apply form customizations for Console theme
+        baseTheme = generateThemeConfigB();
+        shouldApplyCustomTokens = false;
+      } else {
+        // New Core theme: Complete theme with form customizations
+        baseTheme = customAccentColor ? generateThemeConfig(customAccentColor) : themeCoreConfig;
+        shouldApplyCustomTokens = true;
+      }
+
+      // Build the theme object
+      let themeTokens: any = { ...baseTheme.tokens };
+
+      // Only apply custom tokens from form for Option A
+      if (shouldApplyCustomTokens) {
+        const customTokens = Object.fromEntries(
+          Object.entries(config)
+            .filter(([key, value]) => key !== 'colorSelectedAccent' && value !== undefined && value !== '')
+            .map(([key, value]) => {
+              // Font family should not have 'px' appended
+              if (key === 'fontFamilyBase') {
+                return [key, value];
+              }
+              // If value is a number without unit, append 'px'
+              const stringValue = String(value).trim();
+              if (stringValue && /^\d+(\.\d+)?$/.test(stringValue)) {
+                return [key, `${stringValue}px`];
+              }
               return [key, value];
-            }
-            // If value is a number without unit, append 'px'
-            const stringValue = String(value).trim();
-            if (stringValue && /^\d+(\.\d+)?$/.test(stringValue)) {
-              return [key, `${stringValue}px`];
-            }
-            return [key, value];
-          }),
-      );
+            }),
+        );
+        themeTokens = { ...themeTokens, ...customTokens };
+      }
+
+      // Apply borderRadiusFlashbar only when toggle is on
+      if (checked) {
+        themeTokens.borderRadiusFlashbar = '0px';
+      }
 
       const updatedTheme = {
-        tokens: {
-          ...baseTheme.tokens,
-          ...customTokens,
-          // Apply borderRadiusFlashbar only when toggle is on
-          ...(checked && { borderRadiusFlashbar: '0px' }),
-        },
-        referenceTokens: baseTheme.referenceTokens,
-        contexts: baseTheme.contexts,
+        tokens: themeTokens,
+        referenceTokens: (baseTheme as any).referenceTokens || {},
+        contexts: (baseTheme as any).contexts || {},
       };
 
-      applyCustomTheme(updatedTheme);
+      // Apply theme - reset happens automatically in applyCustomTheme
+      applyCustomTheme(updatedTheme as any);
     } catch (error) {
       console.error('Failed to apply theme:', error);
     }
   };
 
   const resetTheme = () => {
+    setConsoleTheme(false);
     setChecked(false);
     setConfig({
       colorSelectedAccent: formatColorValue({ light: '#1b232d', dark: '#f3f3f7' }),
@@ -244,7 +311,8 @@ export function GlobalSplitPanelContent() {
       fontFamilyBase: (themeCoreConfig.tokens?.fontFamilyBase as string) || '',
     });
     setErrors({});
-    applyCustomTheme();
+    // Reset to Cloudscape defaults by passing undefined
+    applyCustomTheme(undefined);
   };
 
   return (
@@ -252,10 +320,18 @@ export function GlobalSplitPanelContent() {
       <ColumnLayout borders="horizontal">
         <Box padding={{ bottom: 'l' }}>
           <Box variant="h3" padding={{ vertical: 'm' }}>
+            Theme Selection
+          </Box>
+          <Checkbox onChange={({ detail }) => setConsoleTheme(detail.checked)} checked={consoleTheme}>
+            Console
+          </Checkbox>
+        </Box>
+        <Box padding={{ bottom: 'l' }}>
+          <Box variant="h3" padding={{ vertical: 'm' }}>
             Accent color
           </Box>
           <SpaceBetween size="xs">
-            <FormField label="colorSelectedAccent">
+            <FormField label="Accent color">
               <Input
                 type="text"
                 placeholder="light: '#1b232d', dark: '#f3f3f7'"
@@ -263,6 +339,48 @@ export function GlobalSplitPanelContent() {
                 onChange={({ detail }) => handleInputChange('colorSelectedAccent', detail.value)}
               />
             </FormField>
+            <FormField label="Configure custom link color">
+              <Checkbox
+                onChange={({ detail }) => {
+                  setCustomLinkColor(detail.checked);
+                  if (detail.checked) {
+                    // Set default to the second option when toggled on
+                    handleInputChange(
+                      'colorTextLinkDefault',
+                      `light: '${colorTextLinkSecondOption.light}', dark: '${colorTextLinkSecondOption.dark}'`,
+                    );
+                    handleInputChange('colorTextLinkHover', "light: '#0033CC', dark: '#C2D1FF'");
+                  } else {
+                    // Clear custom values when toggled off (will fall back to theme default)
+                    handleInputChange('colorTextLinkDefault', '');
+                    handleInputChange('colorTextLinkHover', '');
+                  }
+                }}
+                checked={customLinkColor}
+              >
+                Use alternate link color
+              </Checkbox>
+            </FormField>
+            {customLinkColor && (
+              <>
+                <FormField label="colorTextLinkDefault">
+                  <Input
+                    type="text"
+                    placeholder={`light: '${colorTextLinkSecondOption.light}', dark: '${colorTextLinkSecondOption.dark}'`}
+                    value={config.colorTextLinkDefault || ''}
+                    onChange={({ detail }) => handleInputChange('colorTextLinkDefault', detail.value)}
+                  />
+                </FormField>
+                <FormField label="colorTextLinkHover">
+                  <Input
+                    type="text"
+                    placeholder="light: '#1D4ED8', dark: '#93B4FF'"
+                    value={config.colorTextLinkHover || ''}
+                    onChange={({ detail }) => handleInputChange('colorTextLinkHover', detail.value)}
+                  />
+                </FormField>
+              </>
+            )}
           </SpaceBetween>
         </Box>
         <Box padding={{ bottom: 'l' }}>
@@ -483,7 +601,7 @@ export function GlobalSplitPanelContent() {
           </SpaceBetween>
         </Box>
         <Box padding={{ bottom: 'm' }}>
-          <Box variant="h5">
+          {/* <Box variant="h5">
             <FormField label="Filled flashbar">
               <Toggle
                 onChange={({ detail }) => {
@@ -494,7 +612,7 @@ export function GlobalSplitPanelContent() {
                 Filled flashbar
               </Toggle>
             </FormField>
-          </Box>
+          </Box> */}
         </Box>
       </ColumnLayout>
 

@@ -8,6 +8,7 @@ import { applyTheme } from '@cloudscape-design/components/theming';
 import { themeCoreConfig } from '../../common/theme-core';
 import { App } from './app';
 
+import '../../styles/base.scss';
 import '../../styles/form.scss';
 
 applyTheme({ theme: themeCoreConfig });

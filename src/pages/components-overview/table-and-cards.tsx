@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 
 import Cards from '@cloudscape-design/components/cards';
+import Header from '@cloudscape-design/components/header';
 import Link from '@cloudscape-design/components/link';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import Table from '@cloudscape-design/components/table';
@@ -58,6 +59,7 @@ export default function TableAndCards() {
       <Section header="Table" container={false}>
         <Table
           items={tableItems}
+          header={<Header description="Description">Table with common features</Header>}
           columnDefinitions={[
             { header: 'Name', cell: (item: RandomData) => <Link href="#">{item.name}</Link> },
             { header: 'Description', cell: (item: RandomData) => item.description },
