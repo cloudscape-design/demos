@@ -22,6 +22,8 @@ import {
 import ButtonsInputsDropdowns from './buttons-inputs-dropdowns';
 import Chat from './chat';
 import FormControls from './form-controls';
+import Images from './images';
+import KvpForm from './kvp-form';
 import NavigationComponents from './navigation-components';
 import StatusComponents from './status-components';
 import TableAndCards from './table-and-cards';
@@ -62,6 +64,8 @@ function App() {
             </Header>
             <Typography />
             <ButtonsInputsDropdowns />
+            <Images />
+            <KvpForm />
             <FormControls />
             <NavigationComponents />
             <TableAndCards />

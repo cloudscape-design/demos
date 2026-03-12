@@ -9,6 +9,9 @@ import { themeCoreConfig } from '../../common/theme-core';
 import { Distribution } from '../../fake-server/types';
 import DataProvider from '../commons/data-provider';
 import { App } from './root';
+
+import '../../styles/base.scss';
+
 new DataProvider().getDataWithDates<Distribution>('distributions').then(distributions => {
   applyTheme({ theme: themeCoreConfig });
   createRoot(document.getElementById('app')!).render(<App distributions={distributions} />);

@@ -10,6 +10,8 @@ import { App } from './root';
 import { Router } from './router';
 import { StoreProvider } from './store';
 
+import '../../styles/base.scss';
+
 applyTheme({ theme: themeCoreConfig });
 createRoot(document.getElementById('app')!).render(
   <StoreProvider>
