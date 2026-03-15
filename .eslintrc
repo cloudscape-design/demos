@@ -13,7 +13,7 @@
       "jsx": true
     }
   },
-  "plugins": ["react-hooks", "react", "header", "@eslint-react/eslint-plugin", "eslint-plugin-simple-import-sort", "eslint-plugin-unused-imports"],
+  "plugins": ["react-hooks", "react", "@tony.ganchev/header", "@eslint-react/eslint-plugin", "eslint-plugin-simple-import-sort", "eslint-plugin-unused-imports"],
   "rules": {
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/no-explicit-any": "off",
@@ -26,7 +26,7 @@
     "eqeqeq": "error",
     "no-return-await": "error",
     "require-await": "error",
-    "header/header": [
+    "@tony.ganchev/header/header": [
       "error",
       "line",
       [" Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.", " SPDX-License-Identifier: MIT-0"]
@@ -54,7 +54,7 @@
     {
       "files": ["*.json"],
       "rules": {
-        "header/header": "off"
+        "@tony.ganchev/header/header": "off"
       }
     },
     {
