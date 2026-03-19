@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import { applyTheme } from '@cloudscape-design/components/theming';
 
-import { generateThemeConfig, generateThemeConfigB, themeCoreConfig } from './theme-core';
+import { generateThemeConfig, generateThemeConfigConsole, themeCoreConfig } from './theme-core';
 
 // Store the reset function from the current theme
 let currentThemeReset: (() => void) | null = null;
@@ -73,7 +73,7 @@ export function useThemeComparison() {
   };
 
   const applyDirectionB = () => {
-    const themeB = generateThemeConfigB();
+    const themeB = generateThemeConfigConsole();
     applyCustomTheme(themeB);
   };
 

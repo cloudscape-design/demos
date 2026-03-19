@@ -158,6 +158,24 @@ const collectionData: RandomData[] = [
     amount: '$53.61',
     increase: true,
   },
+  {
+    description: 'Cras sed leo. Cras vehicula aliquet libero. Integer in magna.',
+    name: 'Proin Ltd',
+    amount: '$42.19',
+    increase: false,
+  },
+  {
+    description: 'Phasellus at augue id ante dictum cursus. Nunc mauris elit,',
+    name: 'Nulla Facilisi Foundation',
+    amount: '$97.03',
+    increase: true,
+  },
+  {
+    description: 'Sed nec metus facilisis lorem tristique aliquet. Phasellus fermentum convallis',
+    name: 'Donec Vitae Corp',
+    amount: '$15.88',
+    increase: false,
+  },
 ];
 
 export const cardItems = collectionData.slice(0, 2);

@@ -2,6 +2,11 @@
 // SPDX-License-Identifier: MIT-0
 @use '~@cloudscape-design/design-tokens' as cs;
 
+:root {
+  --font-noto-sans: 'Noto Sans Web', 'Noto Sans', sans-serif;
+  --font-amazon-ember: 'Amazon Ember Web', 'Amazon Ember', sans-serif;
+}
+
 body {
   background: cs.$color-background-layout-main;
   position: relative;
@@ -21,13 +26,14 @@ body.filled-flashbar {
 }
 
 //////////////////////////////////////////////////
-/// Custom CSS only for Option A
+/// Custom CSS only for Option Core new theme
 //////////////////////////////////////////////////
 body.custom-css-enabled {
   --border-item-width-miijiw: 1px !important;
-  --font-box-value-large-weight-wr00sw: 500 !important;
-  --size-vertical-input-p1d7xx: 30px !important;
+  --font-box-value-large-weight-wr00sw: 600 !important;
+  //--size-vertical-input-p1d7xx: 30px !important;
   --color-text-button-inline-icon-default-sm4ql6: #1b232d;
+  --space-button-icon-only-horizontal-i85hxi: 7px !important;
   // Segmented control
   .awsui_segment_8cbea_14tk5_161.awsui_selected_8cbea_14tk5_251:not(#\9) {
     border-radius: 6px !important;
@@ -42,7 +48,7 @@ body.custom-css-enabled {
   }
 
   .awsui_universal-toolbar_1kzri_iuh1s_153 > .awsui_toolbar-container_1kzri_iuh1s_267:not(#\9) {
-    border-color: transparent !important;
+    //border-color: transparent !important;
   }
 
   // Button space adjustment
@@ -51,12 +57,18 @@ body.custom-css-enabled {
     ) {
     padding-inline: 12px;
   }
+
+  .awsui_button_vjswe_19xwk_157.awsui_button-no-text_vjswe_19xwk_601:not(#\9):not(.awsui_button_vjswe_19xwk_157.awsui_variant-inline-icon_vjswe_19xwk_322:not(#\9)) {
+    padding-block: 5px !important;
+  }
+  
   .awsui_button_vjswe_19xwk_157
-    > .awsui_icon-left_vjswe_19xwk_630:not(
+    > .awsui_icon-left_vjswe_19xwk_630:not(#\9):not(
       .awsui_button_vjswe_19xwk_157.awsui_button-no-text_vjswe_19xwk_601 > .awsui_icon_vjswe_19xwk_630
     ) {
     inset-inline-start: -2px;
   }
+
   .awsui_button_vjswe_19xwk_157 > .awsui_icon-right_vjswe_19xwk_635:not(#\9) {
     inset-inline-end: 0px;
   }
@@ -68,13 +80,13 @@ body.custom-css-enabled {
     padding-inline: 12px !important;
   }
   .awsui_header_mx3cw_1l75r_316:not(#\9), .awsui_flash-header_1q84n_283yi_171:not(#\9) {
-    font-weight: 500;
+    font-weight: 600;
   }
 
   // Tabs typography
   .awsui_tabs-tab-label_14rmt_nlsa1_226:not(#\9) {
     font-size: 14px !important;
-    font-weight: 500;
+    font-weight: 600;
   }
 
   // Tile selected border width
@@ -94,7 +106,7 @@ body.custom-css-enabled {
     margin-block-start: 24px !important;
   }
 
-  // Space betwee page title and filter
+  // Space betwee page title and filter [Just update component globally]
   .awsui_tools_wih1l_zysm5_164:not(#\9) {
     padding-block-start: 12px !important;
   }
@@ -105,6 +117,16 @@ body.custom-css-enabled {
   // Side nav "New" dashed underline  
   .awsui_trigger-type-text_xjuzf_15ier_592:not(#\9) {
     color: #1b232d;
+  }
+
+  // Breadcrumb font weight for current page
+  .awsui_breadcrumb_1kosq_cued1_149.awsui_last_1kosq_cued1_225 > .awsui_anchor_1kosq_cued1_159:not(#\9), .awsui_ghost-breadcrumb_1kosq_cued1_150.awsui_last_1kosq_cued1_225 > .awsui_anchor_1kosq_cued1_159:not(#\9) {
+    font-weight: 600 !important;
+  }
+
+  // Table column resizer
+  .awsui_divider-interactive_x7peu_an1qk_158:not(#\9), th:not(#\9):not(:last-child)>.awsui_divider_x7peu_an1qk_158 {
+    border-width: 2px !important;
   }
 
 }
@@ -126,6 +148,14 @@ body.custom-css-enabled {
 }
 
 //////////////////////////////////////////////////
+/// Custom CSS for font-smooth on/off
+//////////////////////////////////////////////////
+body.font-smooth-auto {
+  --font-smoothing-moz-osx-hbm0aq: auto !important;
+  --font-smoothing-webkit-oemolo: auto !important;
+}
+
+//////////////////////////////////////////////////
 /// General styles that should not be changed or removed
 //////////////////////////////////////////////////
 .custom-main-header {
@@ -140,71 +170,4 @@ body.custom-css-enabled {
   font-family: cs.$font-family-base;
 }
 
-ul.menu-list {
-  display: flex;
-  align-items: center;
-  height: 39px;
-  margin: 0;
-  padding: 0 40px;
-  list-style: none;
-  font-size: 14px;
 
-  & > li {
-    padding: 0;
-    margin: 0;
-    margin-right: 8px;
-
-    > a {
-      padding: 0 6px;
-    }
-
-    a,
-    div,
-    button,
-    input,
-    label {
-      float: left;
-      color: cs.$color-text-interactive-default;
-      line-height: 16px;
-    }
-
-    #visual-refresh-toggle {
-      margin-right: 5px;
-      margin-top: 1px;
-    }
-
-    a,
-    a:hover {
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    &.title {
-      font-weight: bold;
-    }
-  }
-
-  @media only screen and (max-width: 493px) {
-    padding: 4px 20px;
-    flex-wrap: wrap;
-    height: fit-content;
-
-    .title {
-      flex: 1 1 100%;
-      margin-bottom: 8px;
-    }
-
-    li {
-      width: min-content;
-
-      button,
-      a {
-        text-align: left;
-      }
-
-      a {
-        padding: 0;
-      }
-    }
-  }
-}

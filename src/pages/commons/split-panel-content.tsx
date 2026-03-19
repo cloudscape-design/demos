@@ -8,13 +8,15 @@ import Checkbox from '@cloudscape-design/components/checkbox';
 import ColumnLayout from '@cloudscape-design/components/column-layout';
 import FormField from '@cloudscape-design/components/form-field';
 import Input from '@cloudscape-design/components/input';
+import Select, { SelectProps } from '@cloudscape-design/components/select';
+import Slider from '@cloudscape-design/components/slider';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { applyCustomTheme } from '../../common/apply-theme';
 import {
   colorTextLinkSecondOption,
   generateThemeConfig,
-  generateThemeConfigB,
+  generateThemeConfigConsole,
   themeCoreConfig,
 } from '../../common/theme-core';
 
@@ -77,8 +79,10 @@ export function GlobalSplitPanelContent() {
     return `light: '${value.light}', dark: '${value.dark}'`;
   };
 
+  const [fontStretch, setFontStretch] = useState(96);
   const [consoleTheme, setConsoleTheme] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [checkedFontSmooth, setCheckedFontSmooth] = useState(true);
   const [customLinkColor, setCustomLinkColor] = useState(false);
   const [config, setConfig] = useState<ThemeConfig>({
     colorSelectedAccent: formatColorValue({ light: '#1b232d', dark: '#f3f3f7' }),
@@ -105,6 +109,12 @@ export function GlobalSplitPanelContent() {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
 
+  const fontFamilyOptions: SelectProps.Options = [
+    { label: 'NotoSans', value: "'NotoSans', 'Noto Sans', sans-serif" },
+    { label: 'AmazonEmberDisplay', value: "'AmazonEmberDisplay', 'Amazon Ember Display', sans-serif" },
+    { label: 'EmberModernText', value: "'Ember Modern Text', sans-serif" },
+  ];
+
   // Apply CSS class to body when toggle changes
   useEffect(() => {
     const applyThemeChanges = () => {
@@ -126,11 +136,13 @@ export function GlobalSplitPanelContent() {
         if (consoleTheme) {
           // Console theme: Minimal theme with only specific tokens
           // Don't apply form customizations for Console theme
-          baseTheme = generateThemeConfigB();
+          baseTheme = generateThemeConfigConsole();
           shouldApplyCustomTokens = false;
         } else {
           // New Core theme: Complete theme with form customizations
-          baseTheme = customAccentColor ? generateThemeConfig(customAccentColor) : themeCoreConfig;
+          baseTheme = customAccentColor
+            ? generateThemeConfig(customAccentColor, config.fontFamilyBase)
+            : generateThemeConfig(undefined, config.fontFamilyBase);
           shouldApplyCustomTokens = true;
         }
 
@@ -204,6 +216,32 @@ export function GlobalSplitPanelContent() {
     applyThemeChanges();
   }, [checked, config, consoleTheme, customLinkColor]);
 
+  // Toggle font-smooth-auto class on body
+  // When checkbox is OFF (default), font smoothing is subpixel-antialiased (normal browser behavior)
+  // When checkbox is ON, we add the class to set font-smoothing to auto
+  useEffect(() => {
+    if (checkedFontSmooth) {
+      document.body.classList.remove('font-smooth-auto');
+    } else {
+      document.body.classList.add('font-smooth-auto');
+    }
+  }, [checkedFontSmooth]);
+
+  // Apply font-stretch globally via injected style tag
+  useEffect(() => {
+    const styleId = 'font-stretch-override';
+    let styleEl = document.getElementById(styleId) as HTMLStyleElement | null;
+    if (!styleEl) {
+      styleEl = document.createElement('style');
+      styleEl.id = styleId;
+      document.head.appendChild(styleEl);
+    }
+    styleEl.textContent = `* { font-stretch: ${fontStretch}% !important; }`;
+    return () => {
+      styleEl?.remove();
+    };
+  }, [fontStretch]);
+
   const handleInputChange = (key: keyof ThemeConfig, value: string) => {
     setConfig(prev => ({ ...prev, [key]: value }));
     if (errors[key]) {
@@ -234,11 +272,13 @@ export function GlobalSplitPanelContent() {
       if (consoleTheme) {
         // Console theme: Minimal theme with only specific tokens
         // Don't apply form customizations for Console theme
-        baseTheme = generateThemeConfigB();
+        baseTheme = generateThemeConfigConsole();
         shouldApplyCustomTokens = false;
       } else {
         // New Core theme: Complete theme with form customizations
-        baseTheme = customAccentColor ? generateThemeConfig(customAccentColor) : themeCoreConfig;
+        baseTheme = customAccentColor
+          ? generateThemeConfig(customAccentColor, config.fontFamilyBase)
+          : generateThemeConfig(undefined, config.fontFamilyBase);
         shouldApplyCustomTokens = true;
       }
 
@@ -287,6 +327,8 @@ export function GlobalSplitPanelContent() {
   const resetTheme = () => {
     setConsoleTheme(false);
     setChecked(false);
+    setCheckedFontSmooth(true);
+    setFontStretch(100);
     setConfig({
       colorSelectedAccent: formatColorValue({ light: '#1b232d', dark: '#f3f3f7' }),
       borderWidthButton: extractNumericValue((themeCoreConfig.tokens?.borderWidthButton as string) || '1px'),
@@ -327,7 +369,27 @@ export function GlobalSplitPanelContent() {
           </Checkbox>
         </Box>
         <Box padding={{ bottom: 'l' }}>
-          <Box variant="h3" padding={{ vertical: 'm' }}>
+          <Box variant="h3" padding={{ top: 'xl', bottom: 's' }}>
+            Font
+          </Box>
+          <SpaceBetween size="m">
+            <FormField label="fontFamilyBase" errorText={errors.fontFamilyBase}>
+              <Select
+                selectedOption={fontFamilyOptions.find(o => o.value === config.fontFamilyBase) || fontFamilyOptions[0]}
+                onChange={({ detail }) => handleInputChange('fontFamilyBase', detail.selectedOption.value ?? '')}
+                options={fontFamilyOptions}
+              />
+            </FormField>
+            <FormField label="fontSmooth">
+              <Checkbox onChange={({ detail }) => setCheckedFontSmooth(detail.checked)} checked={checkedFontSmooth}>
+                font-smooth
+              </Checkbox>
+            </FormField>
+            <FormField label={`fontStretch: ${fontStretch}%`} constraintText="Available only for variable font">
+              <Slider onChange={({ detail }) => setFontStretch(detail.value)} value={fontStretch} max={100} min={90} />
+            </FormField>
+          </SpaceBetween>
+          <Box variant="h3" padding={{ top: 'xl', bottom: 's' }}>
             Accent color
           </Box>
           <SpaceBetween size="xs">
@@ -482,18 +544,6 @@ export function GlobalSplitPanelContent() {
           </Box>
 
           <SpaceBetween size="xs">
-            <Box variant="h5" padding={{ top: 's' }}>
-              Font family
-            </Box>
-            <FormField label="fontFamilyBase" errorText={errors.fontFamilyBase}>
-              <Input
-                type="text"
-                placeholder="Arial, sans-serif"
-                value={config.fontFamilyBase || ''}
-                onChange={({ detail }) => handleInputChange('fontFamilyBase', detail.value)}
-              />
-            </FormField>
-
             <Box variant="h5" padding={{ top: 's' }}>
               H1
             </Box>

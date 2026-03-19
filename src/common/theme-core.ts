@@ -2,10 +2,13 @@
 // SPDX-License-Identifier: MIT-0
 
 // ============================================================================
-// Theme for design option A
+// Theme for new Core default
 // ============================================================================
 
-export function generateThemeConfig(customAccentColor?: { light: string; dark: string }) {
+export function generateThemeConfig(customAccentColor?: { light: string; dark: string }, fontFamily?: string) {
+  const isEmberModern = fontFamily?.includes('Ember Modern Text') ?? false;
+  const isNotoSans = fontFamily?.includes('Noto Sans') ?? false;
+  const headingFontWeight = isEmberModern ? '700' : isNotoSans ? '600' : '500';
   // Primary accent colors
 
   const colorSelectedAccent = customAccentColor || { light: '#1b232d', dark: '#F9F9FB' };
@@ -30,7 +33,8 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
 
   return {
     tokens: {
-      fontFamilyBase: 'Amazon Ember Display',
+      fontFamilyBase: "'Noto Sans', 'Helvetica Neue', Roboto, Arial, sans-serif",
+      colorTextBodyDefault: { light: '#161D26', dark: '#c6c6cd' },
       colorTextBodySecondary: colorTextBodySecondary,
 
       // ========================================================================
@@ -82,8 +86,8 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
       // ========================================================================
       // LINKS & TEXT
       // ========================================================================
-      colorTextLinkDefault: colorTextBodySecondary,
-      colorTextLinkHover: { light: '#06080A', dark: '#FFFFFF' },
+      colorTextLinkDefault: { light: '#06080A', dark: '#EBEBF0' },
+      colorTextLinkHover: { light: '#424650', dark: '#FFFFFF' },
       colorTextAccent: colorSelectedAccent,
 
       // ========================================================================
@@ -115,6 +119,7 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
       // ========================================================================
       colorBackgroundNotificationGreen: colorSuccess,
       colorBackgroundNotificationBlue: { light: '#0033CC', dark: '#0033CC' },
+      colorTextNotificationDefault: { light: '#ffffff', dark: '#ffffff' },
 
       // ========================================================================
       // STATUS
@@ -129,37 +134,37 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
       colorTextBreadcrumbCurrent: colorSelectedAccent,
 
       // H1
-      fontSizeHeadingXl: '28px',
+      fontSizeHeadingXl: '26px',
       lineHeightHeadingXl: '32px',
-      fontWeightHeadingXl: '500',
+      fontWeightHeadingXl: headingFontWeight,
 
       // H2
       fontSizeHeadingL: '22px',
       lineHeightHeadingL: '26px',
-      fontWeightHeadingL: '500',
+      fontWeightHeadingL: headingFontWeight,
       //letterSpacingHeadingL: '20px',
 
       // H3
       fontSizeHeadingM: '18px',
       lineHeightHeadingM: '24px',
-      fontWeightHeadingM: '500',
+      fontWeightHeadingM: headingFontWeight,
 
       // H4
       fontSizeHeadingS: '16px',
       lineHeightHeadingS: '20px',
-      fontWeightHeadingS: '500',
+      fontWeightHeadingS: headingFontWeight,
 
       // H5
       fontSizeHeadingXs: '14px',
       lineHeightHeadingXs: '20px',
-      fontWeightHeadingXs: '500',
+      fontWeightHeadingXs: headingFontWeight,
 
       //fontFamilyHeading: 'Ember Modern Display',
 
       // ========================================================================
       // TYPOGRAPHY - Other
       // ========================================================================
-      fontWeightButton: '500',
+      fontWeightButton: headingFontWeight,
 
       // ========================================================================
       // BORDERS - Width
@@ -242,16 +247,12 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
           colorTextButtonPrimaryActive: '#131920',
         },
       },
-      'app-layout-toolbar': {
-        tokens: {
-          //colorBackgroundLayoutMain: { light: '#ffffff', dark: '#161d26' },
-        },
-      },
       flashbar: {
         tokens: {
           // Custom flashbar colors
           colorBackgroundNotificationGreen: colorSuccess,
           colorBackgroundNotificationBlue: { light: '#0033cc', dark: '#0033cc' },
+          colorTextNotificationDefault: { light: '#ffffff', dark: '#ffffff' },
         },
       },
       alert: {
@@ -269,13 +270,13 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
 }
 
 // ============================================================================
-// Theme for design option B
+// Theme for Console
 // ============================================================================
 
-export function generateThemeConfigB() {
+export function generateThemeConfigConsole() {
   return {
     tokens: {
-      fontFamilyBase: 'Amazon Ember',
+      fontFamilyBase: "var(--font-amazon-ember, 'Amazon Ember', sans-serif)",
 
       // ========================================================================
       // BUTTONS - Normal
@@ -524,7 +525,7 @@ export function createThemeComparison() {
      * Apply Design Direction B
      */
     applyDirectionB: () => {
-      const themeB = generateThemeConfigB();
+      const themeB = generateThemeConfigConsole();
       // applyCustomTheme handles reset automatically
       return themeB;
     },
@@ -533,7 +534,7 @@ export function createThemeComparison() {
      * Get theme config without applying (for inspection/comparison)
      */
     getThemeConfig: (direction: 'A' | 'B', customAccentColor?: { light: string; dark: string }) => {
-      return direction === 'A' ? generateThemeConfig(customAccentColor) : generateThemeConfigB();
+      return direction === 'A' ? generateThemeConfig(customAccentColor) : generateThemeConfigConsole();
     },
   };
 }

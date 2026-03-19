@@ -5,6 +5,7 @@ import { applyDensity, applyMode, Density, disableMotion, Mode } from '@cloudsca
 import * as localStorage from './local-storage';
 
 import '@cloudscape-design/global-styles/index.css';
+import './custom-font.css';
 
 (window as any).disableMotionForTests = disableMotion;
 
