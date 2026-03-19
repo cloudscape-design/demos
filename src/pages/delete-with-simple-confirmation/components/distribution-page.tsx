@@ -1,7 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React from 'react';
+import React, { ReactNode } from 'react';
 
+import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
 import Flashbar, { FlashbarProps } from '@cloudscape-design/components/flashbar';
 
@@ -16,6 +17,12 @@ interface DistributionsPageProps {
   setSelectedItems: (items: DistributionResource[]) => void;
   onDeleteInit: () => void;
   notifications: FlashbarProps.MessageDefinition[];
+  splitPanelOpen: boolean;
+  onSplitPanelToggle: AppLayoutProps['onSplitPanelToggle'];
+  splitPanelSize: number;
+  onSplitPanelResize: AppLayoutProps['onSplitPanelResize'];
+  splitPanelPreferences: AppLayoutProps['splitPanelPreferences'];
+  splitPanel: ReactNode;
 }
 export function DistributionsPage({
   distributions,
@@ -23,6 +30,12 @@ export function DistributionsPage({
   setSelectedItems,
   onDeleteInit,
   notifications,
+  splitPanelOpen,
+  onSplitPanelToggle,
+  splitPanelSize,
+  onSplitPanelResize,
+  splitPanelPreferences,
+  splitPanel,
 }: DistributionsPageProps) {
   return (
     <CustomAppLayout
@@ -49,6 +62,12 @@ export function DistributionsPage({
       navigationOpen={false}
       toolsHide={true}
       contentType="table"
+      splitPanelOpen={splitPanelOpen}
+      onSplitPanelToggle={onSplitPanelToggle}
+      splitPanelSize={splitPanelSize}
+      onSplitPanelResize={onSplitPanelResize}
+      splitPanelPreferences={splitPanelPreferences}
+      splitPanel={splitPanel}
     />
   );
 }

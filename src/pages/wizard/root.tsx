@@ -4,10 +4,12 @@ import React, { useCallback, useRef, useState } from 'react';
 
 import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import HelpPanel from '@cloudscape-design/components/help-panel';
+import SplitPanel from '@cloudscape-design/components/split-panel';
 import Wizard, { WizardProps } from '@cloudscape-design/components/wizard';
 
 import { ExternalLinkGroup, InfoLink, Notifications } from '../commons';
-import { CustomAppLayout } from '../commons/common-components';
+import { CustomAppLayout, DemoTopNavigation, GlobalSplitPanelContent } from '../commons/common-components';
+import { useGlobalSplitPanel } from '../commons/use-global-split-panel';
 import { ToolsContent, WizardState } from './interfaces';
 import Engine from './stepComponents/step1';
 import Details from './stepComponents/step2';
@@ -17,6 +19,7 @@ import { DEFAULT_STEP_INFO, TOOLS_CONTENT } from './steps-config';
 import { Breadcrumbs, Navigation } from './wizard-components';
 
 import '../../styles/wizard.scss';
+import '../../styles/top-navigation.scss';
 
 const steps = [
   {
@@ -153,6 +156,7 @@ const App = () => {
     onCancel,
     onSubmit,
   } = useWizard(closeTools, setFormattedToolsContent);
+  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize } = useGlobalSplitPanel();
 
   const wizardSteps = steps.map(({ title, stateKey, StepContent }) => ({
     title,
@@ -167,26 +171,38 @@ const App = () => {
     ),
   }));
   return (
-    <CustomAppLayout
-      ref={appLayoutRef}
-      navigation={<Navigation />}
-      tools={toolsContent}
-      toolsOpen={isToolsOpen}
-      onToolsChange={onToolsChange}
-      breadcrumbs={<Breadcrumbs />}
-      contentType="wizard"
-      content={
-        <Wizard
-          steps={wizardSteps}
-          activeStepIndex={activeStepIndex}
-          i18nStrings={i18nStrings}
-          onNavigate={onNavigate}
-          onCancel={onCancel}
-          onSubmit={onSubmit}
-        />
-      }
-      notifications={<Notifications />}
-    />
+    <>
+      <DemoTopNavigation />
+      <CustomAppLayout
+        ref={appLayoutRef}
+        navigation={<Navigation />}
+        tools={toolsContent}
+        toolsOpen={isToolsOpen}
+        onToolsChange={onToolsChange}
+        breadcrumbs={<Breadcrumbs />}
+        contentType="wizard"
+        splitPanelOpen={splitPanelOpen}
+        onSplitPanelToggle={onSplitPanelToggle}
+        splitPanelSize={splitPanelSize}
+        onSplitPanelResize={onSplitPanelResize}
+        splitPanel={
+          <SplitPanel header="Design exploration">
+            <GlobalSplitPanelContent />
+          </SplitPanel>
+        }
+        content={
+          <Wizard
+            steps={wizardSteps}
+            activeStepIndex={activeStepIndex}
+            i18nStrings={i18nStrings}
+            onNavigate={onNavigate}
+            onCancel={onCancel}
+            onSubmit={onSubmit}
+          />
+        }
+        notifications={<Notifications />}
+      />
+    </>
   );
 };
 

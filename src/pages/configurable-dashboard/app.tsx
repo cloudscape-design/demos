@@ -6,7 +6,7 @@ import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import SplitPanel from '@cloudscape-design/components/split-panel';
 
 import { Breadcrumbs, HelpPanelProvider, Notifications } from '../commons';
-import { CustomAppLayout } from '../commons/common-components';
+import { CustomAppLayout, DemoTopNavigation } from '../commons/common-components';
 import { useLocalStorage } from '../commons/use-local-storage';
 import { DashboardMainInfo } from '../dashboard/components/header';
 import { DashboardSideNavigation } from '../dashboard/components/side-navigation';
@@ -14,6 +14,8 @@ import Palette from './components/palette';
 import { Content } from './content';
 import { StoredWidgetPlacement } from './interfaces';
 import { allWidgets, getPaletteWidgets } from './widgets';
+
+import '../../styles/top-navigation.scss';
 
 const supportedWidgets = new Set(Object.keys(allWidgets));
 
@@ -38,34 +40,37 @@ export function App() {
 
   return (
     <HelpPanelProvider value={loadHelpPanelContent}>
-      <CustomAppLayout
-        ref={appLayoutRef}
-        contentType="dashboard"
-        breadcrumbs={<Breadcrumbs items={[{ text: 'Dashboard', href: '#/' }]} />}
-        navigation={<DashboardSideNavigation />}
-        toolsOpen={toolsOpen}
-        tools={toolsContent}
-        onToolsChange={({ detail }) => setToolsOpen(detail.open)}
-        notifications={<Notifications />}
-        content={
-          <Content
-            layout={filteredLayout ?? null}
-            setLayout={setLayout}
-            resetLayout={resetLayout}
-            setSplitPanelOpen={setSplitPanelOpen}
-          />
-        }
-        splitPanel={
-          <SplitPanel header="Add widgets" closeBehavior="hide" hidePreferencesButton={true}>
-            <Palette items={getPaletteWidgets(filteredLayout ?? [])} />
-          </SplitPanel>
-        }
-        splitPanelPreferences={{ position: 'side' }}
-        splitPanelOpen={splitPanelOpen}
-        onSplitPanelToggle={({ detail }) => setSplitPanelOpen(detail.open)}
-        splitPanelSize={splitPanelSize}
-        onSplitPanelResize={event => setSplitPanelSize(event.detail.size)}
-      />
+      <>
+        <DemoTopNavigation />
+        <CustomAppLayout
+          ref={appLayoutRef}
+          contentType="dashboard"
+          breadcrumbs={<Breadcrumbs items={[{ text: 'Dashboard', href: '#/' }]} />}
+          navigation={<DashboardSideNavigation />}
+          toolsOpen={toolsOpen}
+          tools={toolsContent}
+          onToolsChange={({ detail }) => setToolsOpen(detail.open)}
+          notifications={<Notifications />}
+          content={
+            <Content
+              layout={filteredLayout ?? null}
+              setLayout={setLayout}
+              resetLayout={resetLayout}
+              setSplitPanelOpen={setSplitPanelOpen}
+            />
+          }
+          splitPanel={
+            <SplitPanel header="Add widgets" closeBehavior="hide" hidePreferencesButton={true}>
+              <Palette items={getPaletteWidgets(filteredLayout ?? [])} />
+            </SplitPanel>
+          }
+          splitPanelPreferences={{ position: 'side' }}
+          splitPanelOpen={splitPanelOpen}
+          onSplitPanelToggle={({ detail }) => setSplitPanelOpen(detail.open)}
+          splitPanelSize={splitPanelSize}
+          onSplitPanelResize={event => setSplitPanelSize(event.detail.size)}
+        />
+      </>
     </HelpPanelProvider>
   );
 }

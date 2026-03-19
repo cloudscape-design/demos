@@ -9,6 +9,7 @@ import Flashbar from '@cloudscape-design/components/flashbar';
 import Pagination from '@cloudscape-design/components/pagination';
 import PropertyFilter from '@cloudscape-design/components/property-filter';
 import Select from '@cloudscape-design/components/select';
+import SplitPanel from '@cloudscape-design/components/split-panel';
 import Table from '@cloudscape-design/components/table';
 
 import { parsePropertyFilterQuery } from '../../common/parse-property-filter';
@@ -22,7 +23,15 @@ import {
   renderAriaLive,
 } from '../../i18n-strings';
 import { FullPageHeader } from '../commons';
-import { CustomAppLayout, Navigation, TableEmptyState, TableNoMatchState } from '../commons/common-components';
+import {
+  CustomAppLayout,
+  DemoTopNavigation,
+  GlobalSplitPanelContent,
+  Navigation,
+  TableEmptyState,
+  TableNoMatchState,
+  useGlobalSplitPanel,
+} from '../commons/common-components';
 import DataProvider from '../commons/data-provider';
 import { useDisclaimerFlashbarItem } from '../commons/disclaimer-flashbar-item';
 import { COLUMN_DEFINITIONS, DEFAULT_PREFERENCES } from '../commons/table-config';
@@ -80,6 +89,8 @@ const PROPERTY_FILTERS_QUERY_PARAM_KEY = 'propertyFilter';
 
 export function App() {
   const [toolsOpen, setToolsOpen] = useState(false);
+  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize, splitPanelPreferences } =
+    useGlobalSplitPanel();
   const appLayout = useRef<AppLayoutProps.Ref>(null);
 
   const [columnDefinitions, saveWidths] = useColumnWidths('React-TableSavedFilters-Widths', COLUMN_DEFINITIONS);
@@ -191,88 +202,101 @@ export function App() {
   }, []); // Only run this hook on initial load
 
   return (
-    <CustomAppLayout
-      ref={appLayout}
-      navigation={<Navigation activeHref="#/distributions" />}
-      notifications={<Flashbar stackItems={true} items={flashNotifications} />}
-      breadcrumbs={<Breadcrumbs />}
-      content={
-        <>
-          <Table
-            {...collectionProps}
-            enableKeyboardNavigation={true}
-            columnDefinitions={columnDefinitions}
-            columnDisplay={preferences?.contentDisplay}
-            items={items}
-            variant="full-page"
-            stickyHeader={true}
-            resizableColumns={true}
-            onColumnWidthsChange={saveWidths}
-            wrapLines={preferences?.wrapLines}
-            stripedRows={preferences?.stripedRows}
-            contentDensity={preferences?.contentDensity}
-            stickyColumns={preferences?.stickyColumns}
-            selectionType="multi"
-            ariaLabels={distributionTableAriaLabels}
-            renderAriaLive={renderAriaLive}
-            header={
-              <FullPageHeader
-                selectedItemsCount={collectionProps.selectedItems?.length ?? 0}
-                counter={!loading ? getHeaderCounterText(distributions, collectionProps.selectedItems) : undefined}
-                onInfoLinkClick={() => {
-                  setToolsOpen(true);
-                  appLayout.current?.focusToolsClose();
-                }}
-              />
-            }
-            loading={loading}
-            loadingText="Loading distributions"
-            filter={
-              <PropertyFilter
-                {...propertyFilterProps}
-                filteringAriaLabel="Find resources"
-                filteringPlaceholder="Find resources"
-                i18nStrings={propertyFilterI18nStrings}
-                countText={getTextFilterCounterText(filteredItemsCount)}
-                expandToViewport={true}
-                enableTokenGroups={true}
-                customControl={
-                  <Select
-                    {...selectProps}
-                    inlineLabelText="Saved filter sets"
-                    data-testid="saved-filters"
-                    ref={selectRef}
-                  />
-                }
-                customFilterActions={<ButtonDropdown {...buttonDropdownProps} data-testid="filter-actions" />}
-                onChange={event => {
-                  /**
-                   * Avoid including sensitive information to the URL to prevent potential data exposure.
-                   * https://owasp.org/www-community/vulnerabilities/Information_exposure_through_query_strings_in_url
-                   * For further guidance, reach out to your organization’s security team.
-                   */
-                  const query = event.detail;
-                  if (!query.tokens?.length && !query?.tokenGroups?.length) {
-                    setQueryParam(PROPERTY_FILTERS_QUERY_PARAM_KEY, null);
-                    setQueryParam(SELECTED_FILTER_SET_QUERY_PARAM_KEY, null);
-                  } else {
-                    setQueryParam(PROPERTY_FILTERS_QUERY_PARAM_KEY, JSON.stringify(query));
+    <>
+      <DemoTopNavigation />
+      <CustomAppLayout
+        ref={appLayout}
+        navigation={<Navigation activeHref="#/distributions" />}
+        notifications={<Flashbar stackItems={true} items={flashNotifications} />}
+        breadcrumbs={<Breadcrumbs />}
+        splitPanelOpen={splitPanelOpen}
+        onSplitPanelToggle={onSplitPanelToggle}
+        splitPanelSize={splitPanelSize}
+        onSplitPanelResize={onSplitPanelResize}
+        splitPanelPreferences={splitPanelPreferences}
+        splitPanel={
+          <SplitPanel header="Design exploration">
+            <GlobalSplitPanelContent />
+          </SplitPanel>
+        }
+        content={
+          <>
+            <Table
+              {...collectionProps}
+              enableKeyboardNavigation={true}
+              columnDefinitions={columnDefinitions}
+              columnDisplay={preferences?.contentDisplay}
+              items={items}
+              variant="full-page"
+              stickyHeader={true}
+              resizableColumns={true}
+              onColumnWidthsChange={saveWidths}
+              wrapLines={preferences?.wrapLines}
+              stripedRows={preferences?.stripedRows}
+              contentDensity={preferences?.contentDensity}
+              stickyColumns={preferences?.stickyColumns}
+              selectionType="multi"
+              ariaLabels={distributionTableAriaLabels}
+              renderAriaLive={renderAriaLive}
+              header={
+                <FullPageHeader
+                  selectedItemsCount={collectionProps.selectedItems?.length ?? 0}
+                  counter={!loading ? getHeaderCounterText(distributions, collectionProps.selectedItems) : undefined}
+                  onInfoLinkClick={() => {
+                    setToolsOpen(true);
+                    appLayout.current?.focusToolsClose();
+                  }}
+                />
+              }
+              loading={loading}
+              loadingText="Loading distributions"
+              filter={
+                <PropertyFilter
+                  {...propertyFilterProps}
+                  filteringAriaLabel="Find resources"
+                  filteringPlaceholder="Find resources"
+                  i18nStrings={propertyFilterI18nStrings}
+                  countText={getTextFilterCounterText(filteredItemsCount)}
+                  expandToViewport={true}
+                  enableTokenGroups={true}
+                  customControl={
+                    <Select
+                      {...selectProps}
+                      inlineLabelText="Saved filter sets"
+                      data-testid="saved-filters"
+                      ref={selectRef}
+                    />
                   }
+                  customFilterActions={<ButtonDropdown {...buttonDropdownProps} data-testid="filter-actions" />}
+                  onChange={event => {
+                    /**
+                     * Avoid including sensitive information to the URL to prevent potential data exposure.
+                     * https://owasp.org/www-community/vulnerabilities/Information_exposure_through_query_strings_in_url
+                     * For further guidance, reach out to your organization’s security team.
+                     */
+                    const query = event.detail;
+                    if (!query.tokens?.length && !query?.tokenGroups?.length) {
+                      setQueryParam(PROPERTY_FILTERS_QUERY_PARAM_KEY, null);
+                      setQueryParam(SELECTED_FILTER_SET_QUERY_PARAM_KEY, null);
+                    } else {
+                      setQueryParam(PROPERTY_FILTERS_QUERY_PARAM_KEY, JSON.stringify(query));
+                    }
 
-                  propertyFilterProps.onChange(event);
-                }}
-              />
-            }
-            pagination={<Pagination {...paginationProps} />}
-            preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}
-          />
-          {actionModal}
-        </>
-      }
-      contentType="table"
-      tools={<ToolsContent />}
-      toolsOpen={toolsOpen}
-      onToolsChange={({ detail }) => setToolsOpen(detail.open)}
-    />
+                    propertyFilterProps.onChange(event);
+                  }}
+                />
+              }
+              pagination={<Pagination {...paginationProps} />}
+              preferences={<Preferences preferences={preferences} setPreferences={setPreferences} />}
+            />
+            {actionModal}
+          </>
+        }
+        contentType="table"
+        tools={<ToolsContent />}
+        toolsOpen={toolsOpen}
+        onToolsChange={({ detail }) => setToolsOpen(detail.open)}
+      />
+    </>
   );
 }
