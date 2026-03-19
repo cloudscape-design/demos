@@ -62,15 +62,33 @@ function App() {
             >
               Components overview page
             </Header>
-            <Typography />
-            <ButtonsInputsDropdowns />
-            <Images />
-            <KvpForm />
-            <FormControls />
-            <NavigationComponents />
-            <TableAndCards />
-            <Chat />
-            <StatusComponents />
+            <div id="typography">
+              <Typography />
+            </div>
+            <div id="buttons-inputs-dropdowns">
+              <ButtonsInputsDropdowns />
+            </div>
+            <div id="form-controls">
+              <FormControls />
+            </div>
+            <div id="navigation-components">
+              <NavigationComponents />
+            </div>
+            <div id="table-and-cards">
+              <TableAndCards />
+            </div>
+            <div id="chat">
+              <Chat />
+            </div>
+            <div id="status-components">
+              <StatusComponents />
+            </div>
+            <div id="images">
+              <Images />
+            </div>
+            <div id="kvp-form">
+              <KvpForm />
+            </div>
           </SpaceBetween>
         }
       />

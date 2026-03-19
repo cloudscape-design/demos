@@ -74,7 +74,7 @@ export default function Typography() {
               instance. Each instance type offers different compute, memory, and storage capabilities, and is grouped in
               an instance family based on these capabilities. Select an instance type based on the requirements of the
               application or software that you plan to run on your instance.{' '}
-              <Link variant="secondary" href="#">
+              <Link variant="primary" href="#">
                 Amazon EC2
               </Link>{' '}
               provides each instance with a consistent and predictable amount of CPU capacity, regardless of its{' '}
@@ -87,7 +87,7 @@ export default function Typography() {
           ) : (
             <>
               Paragraph -{' '}
-              <Link variant="secondary" href="#">
+              <Link variant="primary" href="#">
                 Amazon EC2
               </Link>{' '}
               provides each instance with a consistent and predictable amount of CPU capacity, regardless of its{' '}

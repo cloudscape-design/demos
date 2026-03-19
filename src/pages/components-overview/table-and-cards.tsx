@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useState } from 'react';
 
+import Badge from '@cloudscape-design/components/badge';
 import Cards from '@cloudscape-design/components/cards';
 import Header from '@cloudscape-design/components/header';
 import Link from '@cloudscape-design/components/link';
@@ -62,6 +63,15 @@ export default function TableAndCards() {
           header={<Header description="Description">Table with common features</Header>}
           columnDefinitions={[
             { header: 'Name', cell: (item: RandomData) => <Link href="#">{item.name}</Link> },
+            {
+              header: 'Category',
+              cell: (item: RandomData) => {
+                const categories = ['green', 'grey', 'blue'] as const;
+                const labels = ['Serverless', 'Security', 'Agentic AI'];
+                const index = item.name.length % 3;
+                return <Badge color={categories[index]}>{labels[index]}</Badge>;
+              },
+            },
             { header: 'Description', cell: (item: RandomData) => item.description },
           ]}
           selectionType="multi"
