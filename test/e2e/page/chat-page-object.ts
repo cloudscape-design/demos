@@ -15,7 +15,22 @@ const notHelpfulButton = wrapper.findButtonGroup().findButtonById('not-helpful')
 const feedbackDialog = wrapper.find('[role=dialog]');
 const feedbackDialogSubmitButton = wrapper.findButton('[data-testid="feedback-submit-button"]');
 
+interface ExtendedWindow extends Window {
+  __usePendingCallbacks: boolean;
+  __flushOne: () => void;
+}
+declare const window: ExtendedWindow;
+
 export default class ChatPageObject extends BaseExamplePage {
+  async usePendingCallbacks() {
+    await this.browser.execute(() => (window.__usePendingCallbacks = true));
+  }
+  async flushOne() {
+    await this.browser.execute(() => {
+      window.__flushOne();
+    });
+  }
+
   countChatBubbles() {
     return this.getElementsCount(chatBubblesWrapper.toSelector());
   }

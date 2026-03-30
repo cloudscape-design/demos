@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import { PropertyFilterProps } from '@cloudscape-design/components/property-filter';
 
+import { isToken, isTokenGroup } from '../common/property-filter-type-guards';
 import { Distribution } from './types';
 import fetchJson from './utils/fetch-json';
 
@@ -99,14 +100,14 @@ function filterItemsByProperty(options: FetchDistributionOptions) {
       opFn: (a: boolean, b: boolean) => void,
       tokenOrGroup: Token | TokenGroup,
     ): boolean {
-      if ('operation' in tokenOrGroup) {
+      if (isTokenGroup(tokenOrGroup)) {
         const nextOpFn = operationFn<boolean>(tokenOrGroup.operation!);
         return tokenOrGroup.tokens.reduce(
           (include: boolean, token: Token | TokenGroup) => filterWithToken(include, nextOpFn, token),
           operation === 'and',
         );
       }
-      if ('operator' in tokenOrGroup) {
+      if (isToken(tokenOrGroup)) {
         const comparator = getComparatorForOperator(tokenOrGroup.operator);
         const searchableProps = tokenOrGroup.propertyKey ? [tokenOrGroup.propertyKey] : Object.keys(item);
         return searchableProps.some(propertyKey => {

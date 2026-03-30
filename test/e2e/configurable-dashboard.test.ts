@@ -101,7 +101,7 @@ describe('Configurable dashboard', () => {
     setupTest(async page => {
       const settingsDropdown = boardWrapper.findItemById('serviceOverview').findSettings().findButtonDropdown();
       await page.click(settingsDropdown.findNativeButton().toSelector());
-      await page.click(settingsDropdown.findItemById('remove').toSelector());
+      await page.click(settingsDropdown.findItemById('remove')!.toSelector());
       // wait for remove animation to complete
       await page.waitForAssertion(() =>
         expect(page.getHeadersTexts()).resolves.toEqual([
@@ -136,7 +136,7 @@ describe('Configurable dashboard', () => {
       const widgetHeaders = boardWrapper.findItemById('operationalMetrics').findAll('h3').toSelector();
       await expect(page.getElementsText(widgetHeaders)).resolves.toEqual(['Overview', 'Breakdown']);
       await page.click(settingsDropdown.findNativeButton().toSelector());
-      await page.click(settingsDropdown.findItemById('Preferences').toSelector());
+      await page.click(settingsDropdown.findItemById('Preferences')!.toSelector());
       await page.click('label=Issues breakdown');
       await page.click('button=Confirm');
       await expect(page.getElementsText(widgetHeaders)).resolves.toEqual(['Overview']);

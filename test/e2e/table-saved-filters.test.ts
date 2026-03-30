@@ -192,7 +192,7 @@ describe('Table - Saved Filters', () => {
         ).resolves.toBe('Default');
 
         await page.click(page.findFilterActions().findNativeButton().toSelector());
-        await page.click(page.findFilterActions().findItemById('default').toSelector());
+        await page.click(page.findFilterActions().findItemById('default')!.toSelector());
 
         await page.click(page.findSavedFilterSets().findTrigger().toSelector());
 
@@ -223,7 +223,7 @@ describe('Table - Saved Filters', () => {
         ).resolves.toBeFalsy();
 
         await page.click(page.findFilterActions().findNativeButton().toSelector());
-        await page.click(page.findFilterActions().findItemById('default').toSelector());
+        await page.click(page.findFilterActions().findItemById('default')!.toSelector());
 
         await page.click(page.findSavedFilterSets().findTrigger().toSelector());
         await expect(
@@ -271,7 +271,7 @@ describe('Table - Saved Filters', () => {
         await page.click(page.findFilterActions().findNativeButton().toSelector());
         await expect(
           page.getElementAttribute(
-            page.findFilterActions().findItemById('default').find('[role="menuitemcheckbox"]').toSelector(),
+            page.findFilterActions().findItemById('default')!.find('[role="menuitemcheckbox"]').toSelector(),
             'aria-disabled',
           ),
         ).resolves.toBe('true');
@@ -290,7 +290,7 @@ describe('Table - Saved Filters', () => {
         await page.click(page.findFilterActions().findNativeButton().toSelector());
         await expect(
           page.getElementAttribute(
-            page.findFilterActions().findItemById('default').find('[role="menuitemcheckbox"]').toSelector(),
+            page.findFilterActions().findItemById('default')!.find('[role="menuitemcheckbox"]').toSelector(),
             'aria-disabled',
           ),
         ).resolves.toBe('true');

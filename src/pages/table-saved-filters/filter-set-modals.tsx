@@ -13,6 +13,7 @@ import Modal from '@cloudscape-design/components/modal';
 import { PropertyFilterProps } from '@cloudscape-design/components/property-filter';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 
+import { isTokenGroup } from '../../common/property-filter-type-guards';
 import { FilterSet } from './use-filter-sets';
 
 function queryToString(
@@ -44,7 +45,7 @@ function queryToString(
   }
 
   function tokenOrGroupToString(tokenOrGroup: PropertyFilterProps.TokenGroup | PropertyFilterProps.Token): string {
-    if ('operation' in tokenOrGroup) {
+    if (isTokenGroup(tokenOrGroup)) {
       return '(' + tokenOrGroup.tokens.map(tokenOrGroupToString).join(`, ${tokenOrGroup.operation} `) + ')';
     } else {
       return tokenToString(tokenOrGroup);
