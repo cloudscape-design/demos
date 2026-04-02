@@ -40,7 +40,7 @@ function getPageContent(pageName, { title }) {
 <body class="awsui-visual-refresh">
 <div id="b">
     <header class="custom-main-header" id="h">
-        <ul class="menu-list awsui-context-top-navigation">
+        <ul class="menu-list awsui-context-top-navigation" style="display: none;">
             <li class="title"><a href="index.html">Cloudscape Demos</a></li>
         </ul>
     </header>

@@ -9,15 +9,24 @@ import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
 import Button from '@cloudscape-design/components/button';
 import Modal from '@cloudscape-design/components/modal';
 import SpaceBetween from '@cloudscape-design/components/space-between';
+import SplitPanel from '@cloudscape-design/components/split-panel';
 
 import { resourceCreateBreadcrumbs } from '../../common/breadcrumbs';
-import { CustomAppLayout, Navigation, Notifications } from '../commons/common-components';
+import {
+  CustomAppLayout,
+  GlobalSplitPanelContent,
+  Navigation,
+  Notifications,
+  useGlobalSplitPanel,
+} from '../commons/common-components';
 import { FormHeader, LimitedForm } from '../form/components/form';
 import ToolsContent from '../form/components/tools-content';
 
 export function App() {
   const [toolsIndex, setToolsIndex] = useState(0);
   const [toolsOpen, setToolsOpen] = useState(false);
+  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize, splitPanelPreferences } =
+    useGlobalSplitPanel();
   const [navigationOpen, setNavigationOpen] = useState(true);
   const [dirty, setDirty] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -59,6 +68,16 @@ export function App() {
     <CustomAppLayout
       ref={appLayout}
       contentType="form"
+      splitPanelOpen={splitPanelOpen}
+      onSplitPanelToggle={onSplitPanelToggle}
+      splitPanelSize={splitPanelSize}
+      onSplitPanelResize={onSplitPanelResize}
+      splitPanelPreferences={splitPanelPreferences}
+      splitPanel={
+        <SplitPanel header="Design exploration">
+          <GlobalSplitPanelContent />
+        </SplitPanel>
+      }
       content={
         <>
           <LimitedForm
