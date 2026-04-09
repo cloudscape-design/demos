@@ -61,7 +61,7 @@ export function App() {
               <GlobalSplitPanelContent />
             </SplitPanel>
           }
-          notifications={<Notifications />}
+          notifications={<Notifications showDisclaimer={true} />}
         />
       </>
     </HelpPanelProvider>

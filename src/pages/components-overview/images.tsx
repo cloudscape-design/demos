@@ -104,13 +104,11 @@ export default function Images() {
         <Container
           media={{
             content: (
-              <Link>
-                <img
-                  src={imageExampleA}
-                  alt="Video thumbnail"
-                  style={{ height: 200, objectFit: 'cover', width: '100%' }}
-                />
-              </Link>
+              <img
+                src={imageExampleA}
+                alt="Video thumbnail"
+                style={{ height: 200, objectFit: 'cover', width: '100%' }}
+              />
             ),
             height: 200,
           }}
@@ -118,28 +116,27 @@ export default function Images() {
           <SpaceBetween direction="vertical" size="s">
             <SpaceBetween direction="vertical" size="xxs">
               <Box variant="small">43 min</Box>
-              <Box variant="h2">
-                <Link fontSize="heading-m" href="#" variant="primary">
-                  Video Title
-                </Link>
-              </Box>
+              <Box variant="h3">Video Title</Box>
             </SpaceBetween>
             This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut luctus tempor dolor ac
             accumsan. This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut luctus tempor
             dolor ac accumsan.
+            <Box padding={{ top: 'xs' }}>
+              <Link fontSize="inherit" variant="secondary" className="secondary-link" href="#">
+                See video
+              </Link>
+            </Box>
           </SpaceBetween>
         </Container>
 
         <Container
           media={{
             content: (
-              <Link>
-                <img
-                  src={imageExampleB}
-                  alt="Video thumbnail"
-                  style={{ height: 200, objectFit: 'cover', width: '100%' }}
-                />
-              </Link>
+              <img
+                src={imageExampleB}
+                alt="Video thumbnail"
+                style={{ height: 200, objectFit: 'cover', width: '100%' }}
+              />
             ),
             height: 200,
           }}
@@ -147,28 +144,27 @@ export default function Images() {
           <SpaceBetween direction="vertical" size="s">
             <SpaceBetween direction="vertical" size="xxs">
               <Box variant="small">43 min</Box>
-              <Box variant="h2">
-                <Link fontSize="heading-m" href="#" variant="primary">
-                  Video Title
-                </Link>
-              </Box>
+              <Box variant="h3">Video Title</Box>
             </SpaceBetween>
             This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut luctus tempor dolor ac
             accumsan. This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut luctus tempor
             dolor ac accumsan.
+            <Box padding={{ top: 'xs' }}>
+              <Link fontSize="inherit" variant="secondary" className="secondary-link" href="#">
+                See video
+              </Link>
+            </Box>
           </SpaceBetween>
         </Container>
 
         <Container
           media={{
             content: (
-              <Link>
-                <img
-                  src={imageExampleC}
-                  alt="Video thumbnail"
-                  style={{ height: 200, objectFit: 'cover', width: '100%' }}
-                />
-              </Link>
+              <img
+                src={imageExampleC}
+                alt="Video thumbnail"
+                style={{ height: 200, objectFit: 'cover', width: '100%' }}
+              />
             ),
             height: 200,
           }}
@@ -176,15 +172,16 @@ export default function Images() {
           <SpaceBetween direction="vertical" size="s">
             <SpaceBetween direction="vertical" size="xxs">
               <Box variant="small">43 min</Box>
-              <Box variant="h2">
-                <Link fontSize="heading-m" href="#" variant="primary">
-                  Video Title
-                </Link>
-              </Box>
+              <Box variant="h3">Video Title</Box>
             </SpaceBetween>
             This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut luctus tempor dolor ac
             accumsan. This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut luctus tempor
             dolor ac accumsan.
+            <Box padding={{ top: 'xs' }}>
+              <Link fontSize="inherit" variant="secondary" className="secondary-link" href="#">
+                See video
+              </Link>
+            </Box>
           </SpaceBetween>
         </Container>
       </ColumnLayout>

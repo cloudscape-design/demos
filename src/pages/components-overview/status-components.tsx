@@ -12,7 +12,6 @@ import Flashbar, { FlashbarProps } from '@cloudscape-design/components/flashbar'
 import FormField from '@cloudscape-design/components/form-field';
 import Grid from '@cloudscape-design/components/grid';
 import Input from '@cloudscape-design/components/input';
-import Link from '@cloudscape-design/components/link';
 import ProgressBar from '@cloudscape-design/components/progress-bar';
 import Select from '@cloudscape-design/components/select';
 import Slider from '@cloudscape-design/components/slider';
@@ -230,7 +229,6 @@ export default function StatusComponents() {
                 <StatusIndicator type="info">Info Status</StatusIndicator>
                 <SpaceBetween size="xxs">
                   <Badge color="blue">Badge</Badge>
-                  <Link variant="info">Info</Link>
                 </SpaceBetween>
               </SpaceBetween>
             </Grid>

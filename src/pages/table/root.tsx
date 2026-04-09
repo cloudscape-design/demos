@@ -111,7 +111,7 @@ export function App({ distributions }: AppProps) {
       <CustomAppLayout
         ref={appLayout}
         navigation={<Navigation activeHref="#/distributions" />}
-        notifications={<Notifications successNotification={true} />}
+        notifications={<Notifications successNotification={true} showDisclaimer={true} />}
         breadcrumbs={<Breadcrumbs />}
         splitPanelOpen={splitPanelOpen}
         onSplitPanelToggle={onSplitPanelToggle}

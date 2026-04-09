@@ -103,7 +103,10 @@ export default function NavigationComponents() {
           <Link href="#" variant="primary">
             Primary anchor link
           </Link>
-          <Link href="#">Secondary anchor link</Link>
+          <Link href="#" variant="secondary" className="secondary-link">
+            Secondary anchor link
+          </Link>
+          <Link onFollow={() => alert('You clicked the button link!')}>Button link</Link>
         </SpaceBetween>
       </Grid>
     </Section>
