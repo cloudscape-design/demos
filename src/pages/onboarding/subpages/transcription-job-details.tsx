@@ -77,7 +77,7 @@ export const TranscriptionJobDetailsPage = () => {
                       {
                         label: 'Expiration',
                         info: (
-                          <Link variant="info" onFollow={makeHelpPanelHandler('expiration')}>
+                          <Link variant="info" onFollow={makeHelpPanelHandler('expiration')} className="secondary-link">
                             Info
                           </Link>
                         ),

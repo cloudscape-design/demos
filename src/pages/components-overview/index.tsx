@@ -8,9 +8,7 @@ import { applyTheme } from '@cloudscape-design/components/theming';
 import { themeCoreConfig } from '../../common/theme-core';
 applyTheme({ theme: themeCoreConfig });
 
-import Header from '@cloudscape-design/components/header';
-import SpaceBetween from '@cloudscape-design/components/space-between';
-import SplitPanel from '@cloudscape-design/components/split-panel';
+import { BreadcrumbGroup, Header, SpaceBetween, SplitPanel } from '@cloudscape-design/components';
 
 import { Notifications } from '../commons';
 import {
@@ -43,6 +41,15 @@ function App() {
         toolsHide={true}
         navigationHide={true}
         contentType="wizard"
+        breadcrumbs={
+          <BreadcrumbGroup
+            items={[
+              { text: 'Home', href: '#/' },
+              { text: 'Design details', href: '#/' },
+              { text: 'Components overview', href: '#/components-overview' },
+            ]}
+          />
+        }
         notifications={<Notifications />}
         splitPanelOpen={splitPanelOpen}
         onSplitPanelToggle={onSplitPanelToggle}

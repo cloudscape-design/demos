@@ -8,6 +8,10 @@
     "title": "Card view"
   },
   {
+    "path": "landing-page",
+    "title": "Service homepage"
+  },
+  {
     "path": "chat",
     "title": "Chat"
   },

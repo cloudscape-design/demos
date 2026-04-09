@@ -33,7 +33,6 @@ import {
   useGlobalSplitPanel,
 } from '../commons/common-components';
 import DataProvider from '../commons/data-provider';
-import { useDisclaimerFlashbarItem } from '../commons/disclaimer-flashbar-item';
 import { COLUMN_DEFINITIONS, DEFAULT_PREFERENCES } from '../commons/table-config';
 import { Preferences } from '../commons/table-config';
 import { useColumnWidths } from '../commons/use-column-widths';
@@ -96,12 +95,7 @@ export function App() {
   const [columnDefinitions, saveWidths] = useColumnWidths('React-TableSavedFilters-Widths', COLUMN_DEFINITIONS);
   const [preferences, setPreferences] = useLocalStorage('React-TableSavedFilters-Preferences', DEFAULT_PREFERENCES);
 
-  const disclaimerItem = useDisclaimerFlashbarItem(() => {
-    // Flash item and disclaimer items depend on eachother
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    setFlashNotifications(currentNotifications => currentNotifications.filter(item => item.id !== disclaimerItem?.id));
-  });
-  const [flashNotifications, setFlashNotifications] = useState(disclaimerItem ? [disclaimerItem] : []);
+  const [flashNotifications, setFlashNotifications] = useState<FlashbarProps.MessageDefinition[]>([]);
 
   const [savedFilterSets, setSavedFilterSets] = useState<FilterSet[]>(defaultFilterSets);
   const selectRef = useRef(null);

@@ -60,9 +60,27 @@ export default function TableAndCards() {
       <Section header="Table" container={false}>
         <Table
           items={tableItems}
-          header={<Header description="Description">Table with common features</Header>}
+          header={
+            <Header
+              description="Description"
+              info={
+                <Link variant="info" className="secondary-link" href="#">
+                  Info
+                </Link>
+              }
+            >
+              Table with common features
+            </Header>
+          }
           columnDefinitions={[
-            { header: 'Name', cell: (item: RandomData) => <Link href="#">{item.name}</Link> },
+            {
+              header: 'Name',
+              cell: (item: RandomData) => (
+                <Link variant="primary" href="#">
+                  {item.name}
+                </Link>
+              ),
+            },
             {
               header: 'Category',
               cell: (item: RandomData) => {
@@ -74,7 +92,7 @@ export default function TableAndCards() {
             },
             { header: 'Description', cell: (item: RandomData) => item.description },
           ]}
-          selectionType="multi"
+          selectionType="single"
           selectedItems={selectedItems.table}
           onSelectionChange={({ detail }) =>
             setSelectedItems(prevState => ({ ...prevState, table: detail.selectedItems }))

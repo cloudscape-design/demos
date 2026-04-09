@@ -8,17 +8,13 @@ import Checkbox from '@cloudscape-design/components/checkbox';
 import ColumnLayout from '@cloudscape-design/components/column-layout';
 import FormField from '@cloudscape-design/components/form-field';
 import Input from '@cloudscape-design/components/input';
+import RadioGroup from '@cloudscape-design/components/radio-group';
 import Select, { SelectProps } from '@cloudscape-design/components/select';
 import Slider from '@cloudscape-design/components/slider';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { applyCustomTheme } from '../../common/apply-theme';
-import {
-  colorTextLinkSecondOption,
-  generateThemeConfig,
-  generateThemeConfigConsole,
-  themeCoreConfig,
-} from '../../common/theme-core';
+import { generateThemeConfig, generateThemeConfigConsole, themeCoreConfig } from '../../common/theme-core';
 
 interface ThemeConfig {
   colorSelectedAccent?: string;
@@ -57,6 +53,7 @@ interface ThemeConfig {
   lineHeightHeadingXs?: string;
   shadowContainer?: string;
   fontFamilyBase?: string;
+  colorTextBodyDefault?: string;
   colorTextLinkDefault?: string;
   colorTextLinkHover?: string;
 }
@@ -79,11 +76,23 @@ export function GlobalSplitPanelContent() {
     return `light: '${value.light}', dark: '${value.dark}'`;
   };
 
-  const [fontStretch, setFontStretch] = useState(96);
-  const [consoleTheme, setConsoleTheme] = useState(false);
+  const [fontStretch, setFontStretch] = useState(95);
+  const [themeValue, setThemeValue] = useState('core');
   const [checked, setChecked] = useState(false);
   const [checkedFontSmooth, setCheckedFontSmooth] = useState(true);
-  const [customLinkColor, setCustomLinkColor] = useState(false);
+  const linkColorOptions: SelectProps.Options = [
+    {
+      label: 'Blue for info links only',
+      value: 'blue-secondary',
+      description:
+        'Recommended default: primary links use the body text color, while info links use blue for clearer distinction.',
+    },
+    { label: 'Same color as normal text', value: 'same-as-text' },
+    { label: 'Lighter than normal text', value: 'lighter' },
+    { label: 'Darker than normal text', value: 'darker' },
+    { label: 'Blue for all link texts', value: 'blue' },
+  ];
+  const [selectedLinkColor, setSelectedLinkColor] = useState<SelectProps.Option>(linkColorOptions[0]);
   const [config, setConfig] = useState<ThemeConfig>({
     colorSelectedAccent: formatColorValue({ light: '#1b232d', dark: '#f3f3f7' }),
     borderWidthButton: extractNumericValue((themeCoreConfig.tokens?.borderWidthButton as string) || '2px'),
@@ -133,7 +142,7 @@ export function GlobalSplitPanelContent() {
         let baseTheme;
         let shouldApplyCustomTokens = true;
 
-        if (consoleTheme) {
+        if (themeValue === 'console') {
           // Console theme: Minimal theme with only specific tokens
           // Don't apply form customizations for Console theme
           baseTheme = generateThemeConfigConsole();
@@ -151,7 +160,7 @@ export function GlobalSplitPanelContent() {
 
         // Only apply custom tokens from form for Option A
         if (shouldApplyCustomTokens) {
-          const colorTokenKeys = ['colorTextLinkDefault', 'colorTextLinkHover'];
+          const colorTokenKeys = ['colorTextBodyDefault', 'colorTextLinkDefault', 'colorTextLinkHover'];
           const customTokens = Object.fromEntries(
             Object.entries(config)
               .filter(([key, value]) => key !== 'colorSelectedAccent' && value !== undefined && value !== '')
@@ -205,16 +214,23 @@ export function GlobalSplitPanelContent() {
       document.body.classList.remove('filled-flashbar');
     }
 
-    // Apply custom CSS class when Console checkbox is disabled (unchecked)
-    if (!consoleTheme) {
+    // Apply custom CSS class when Console theme is not selected
+    if (themeValue !== 'console') {
       document.body.classList.add('custom-css-enabled');
     } else {
       document.body.classList.remove('custom-css-enabled');
     }
 
+    // Toggle blue-secondary link color class
+    if (selectedLinkColor?.value === 'blue-secondary') {
+      document.body.classList.add('blue-secondary-link');
+    } else {
+      document.body.classList.remove('blue-secondary-link');
+    }
+
     // Apply theme changes when toggle state or console theme changes
     applyThemeChanges();
-  }, [checked, config, consoleTheme, customLinkColor]);
+  }, [checked, config, themeValue, selectedLinkColor]);
 
   // Toggle font-smooth-auto class on body
   // When checkbox is OFF (default), font smoothing is subpixel-antialiased (normal browser behavior)
@@ -269,7 +285,7 @@ export function GlobalSplitPanelContent() {
       let baseTheme;
       let shouldApplyCustomTokens = true;
 
-      if (consoleTheme) {
+      if (themeValue === 'console') {
         // Console theme: Minimal theme with only specific tokens
         // Don't apply form customizations for Console theme
         baseTheme = generateThemeConfigConsole();
@@ -325,10 +341,11 @@ export function GlobalSplitPanelContent() {
   };
 
   const resetTheme = () => {
-    setConsoleTheme(false);
+    setThemeValue('core');
     setChecked(false);
     setCheckedFontSmooth(true);
     setFontStretch(100);
+    setSelectedLinkColor(linkColorOptions[0]);
     setConfig({
       colorSelectedAccent: formatColorValue({ light: '#1b232d', dark: '#f3f3f7' }),
       borderWidthButton: extractNumericValue((themeCoreConfig.tokens?.borderWidthButton as string) || '1px'),
@@ -364,9 +381,14 @@ export function GlobalSplitPanelContent() {
           <Box variant="h3" padding={{ vertical: 'm' }}>
             Theme Selection
           </Box>
-          <Checkbox onChange={({ detail }) => setConsoleTheme(detail.checked)} checked={consoleTheme}>
-            Console
-          </Checkbox>
+          <RadioGroup
+            onChange={({ detail }) => setThemeValue(detail.value)}
+            value={themeValue}
+            items={[
+              { value: 'core', label: 'New Core theme' },
+              { value: 'console', label: 'Console' },
+            ]}
+          />
         </Box>
         <Box padding={{ bottom: 'l' }}>
           <Box variant="h3" padding={{ top: 'xl', bottom: 's' }}>
@@ -393,56 +415,50 @@ export function GlobalSplitPanelContent() {
             Accent color
           </Box>
           <SpaceBetween size="xs">
-            <FormField label="Accent color">
+            <FormField label="Link color">
+              <Select
+                selectedOption={selectedLinkColor}
+                onChange={({ detail }) => {
+                  setSelectedLinkColor(detail.selectedOption);
+                  switch (detail.selectedOption.value) {
+                    case 'same-as-text':
+                      handleInputChange('colorTextBodyDefault', '');
+                      handleInputChange('colorTextLinkDefault', "light: '#0f141a', dark: '#c6c6cd'");
+                      handleInputChange('colorTextLinkHover', "light: '#424650', dark: '#FFFFFF'");
+                      break;
+                    case 'lighter':
+                      handleInputChange('colorTextBodyDefault', '');
+                      handleInputChange('colorTextLinkDefault', "light: '#656871', dark: '#B4B4BB'");
+                      handleInputChange('colorTextLinkHover', "light: '#424650', dark: '#FFFFFF'");
+                      break;
+                    case 'darker':
+                      handleInputChange('colorTextBodyDefault', "light: '#424650', dark: '#c6c6cd'");
+                      handleInputChange('colorTextLinkDefault', "light: '#06080A', dark: '#FFFFFF'");
+                      handleInputChange('colorTextLinkHover', "light: '#424650', dark: '#FFFFFF'");
+                      break;
+                    case 'blue':
+                      handleInputChange('colorTextBodyDefault', '');
+                      handleInputChange('colorTextLinkDefault', "light: '#295EFF', dark: '#7598FF'");
+                      handleInputChange('colorTextLinkHover', "light: '#0033CC', dark: '#C2D1FF'");
+                      break;
+                    case 'blue-secondary':
+                      handleInputChange('colorTextBodyDefault', '');
+                      handleInputChange('colorTextLinkDefault', "light: '#0f141a', dark: '#c6c6cd'");
+                      handleInputChange('colorTextLinkHover', "light: '#424650', dark: '#FFFFFF'");
+                      break;
+                  }
+                }}
+                options={linkColorOptions}
+              />
+            </FormField>
+            {/* <FormField label="Accent color">
               <Input
                 type="text"
                 placeholder="light: '#1b232d', dark: '#f3f3f7'"
                 value={config.colorSelectedAccent || ''}
                 onChange={({ detail }) => handleInputChange('colorSelectedAccent', detail.value)}
               />
-            </FormField>
-            <FormField label="Configure custom link color">
-              <Checkbox
-                onChange={({ detail }) => {
-                  setCustomLinkColor(detail.checked);
-                  if (detail.checked) {
-                    // Set default to the second option when toggled on
-                    handleInputChange(
-                      'colorTextLinkDefault',
-                      `light: '${colorTextLinkSecondOption.light}', dark: '${colorTextLinkSecondOption.dark}'`,
-                    );
-                    handleInputChange('colorTextLinkHover', "light: '#0033CC', dark: '#C2D1FF'");
-                  } else {
-                    // Clear custom values when toggled off (will fall back to theme default)
-                    handleInputChange('colorTextLinkDefault', '');
-                    handleInputChange('colorTextLinkHover', '');
-                  }
-                }}
-                checked={customLinkColor}
-              >
-                Use alternate link color
-              </Checkbox>
-            </FormField>
-            {customLinkColor && (
-              <>
-                <FormField label="colorTextLinkDefault">
-                  <Input
-                    type="text"
-                    placeholder={`light: '${colorTextLinkSecondOption.light}', dark: '${colorTextLinkSecondOption.dark}'`}
-                    value={config.colorTextLinkDefault || ''}
-                    onChange={({ detail }) => handleInputChange('colorTextLinkDefault', detail.value)}
-                  />
-                </FormField>
-                <FormField label="colorTextLinkHover">
-                  <Input
-                    type="text"
-                    placeholder="light: '#1D4ED8', dark: '#93B4FF'"
-                    value={config.colorTextLinkHover || ''}
-                    onChange={({ detail }) => handleInputChange('colorTextLinkHover', detail.value)}
-                  />
-                </FormField>
-              </>
-            )}
+            </FormField> */}
           </SpaceBetween>
         </Box>
         <Box padding={{ bottom: 'l' }}>

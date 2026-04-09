@@ -58,7 +58,12 @@ export const App = () => {
                 <Header
                   variant="h1"
                   info={
-                    <Link id="main-info-link" variant="info" onFollow={() => loadHelpPanelContent(0)}>
+                    <Link
+                      id="main-info-link"
+                      variant="info"
+                      onFollow={() => loadHelpPanelContent(0)}
+                      className="secondary-link"
+                    >
                       Info
                     </Link>
                   }

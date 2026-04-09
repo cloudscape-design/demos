@@ -98,7 +98,7 @@ export default function FormControls() {
             <Toggle checked={true} ariaLabel="Checked">
               Checked
             </Toggle>
-            <Toggle checked={false} ariaLabel="Unchecked">
+            <Toggle checked={false} ariaLabel="Unchecked" className="unckecked-toggle">
               Unchecked
             </Toggle>
             <Toggle checked={true} disabled={true} ariaLabel="Disabled checked">
