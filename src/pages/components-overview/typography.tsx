@@ -111,7 +111,7 @@ export default function Typography() {
             <>Small - Requirements and constraints for the field.</>
           )}
         </Box>
-        <Box padding={{ bottom: 'xxs', top: 'm' }}>
+        {/* <Box padding={{ bottom: 'xxs', top: 'm' }}>
           <Box padding={{ vertical: 'xs' }}>Icon - Small size</Box>
           <ColumnLayout columns={8}>
             <Icon name="add-plus" size="small" />
@@ -134,8 +134,8 @@ export default function Typography() {
             <Icon name="user-profile" size="small" />
             <Icon name="status-info" size="small" />
           </ColumnLayout>
-        </Box>
-        <Box padding={{ bottom: 'xxs' }}>
+        </Box> */}
+        <Box padding={{ bottom: 'xxs', top: 'm' }}>
           <Box padding={{ vertical: 'xs' }}>Icon - Normal size</Box>
           <ColumnLayout columns={8}>
             <Icon name="add-plus" />
@@ -159,7 +159,7 @@ export default function Typography() {
             <Icon name="status-info" />
           </ColumnLayout>
         </Box>
-        <Box padding={{ bottom: 'xxs' }}>
+        {/* <Box padding={{ bottom: 'xxs' }}>
           <Box padding={{ vertical: 'xs' }}>Icon - Medium size</Box>
           <ColumnLayout columns={8}>
             <Icon name="add-plus" size="medium" />
@@ -230,7 +230,7 @@ export default function Typography() {
             <Icon name="user-profile" size="large" />
             <Icon name="status-info" size="large" />
           </ColumnLayout>
-        </Box>
+        </Box> */}
       </Container>
     </>
   );

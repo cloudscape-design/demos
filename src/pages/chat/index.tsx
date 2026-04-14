@@ -7,7 +7,7 @@ import { I18nProvider } from '@cloudscape-design/components/i18n';
 import enMessages from '@cloudscape-design/components/i18n/messages/all.en.json';
 import { applyTheme } from '@cloudscape-design/components/theming';
 
-import { themeCoreConfig } from '../../common/theme-core';
+import { themeCoreConfig } from '../../common/theme-cw';
 import { CustomAppLayout, DemoTopNavigation, Notifications } from '../commons/common-components';
 import Chat from './chat';
 

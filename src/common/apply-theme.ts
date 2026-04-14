@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import { applyTheme } from '@cloudscape-design/components/theming';
 
-import { generateThemeConfig, generateThemeConfigConsole, themeCoreConfig } from './theme-core';
+import { generateThemeConfig, generateThemeConfigConsole, themeCoreConfig } from './theme-cw';
 
 // Store the reset function from the current theme
 let currentThemeReset: (() => void) | null = null;

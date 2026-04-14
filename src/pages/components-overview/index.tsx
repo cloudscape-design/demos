@@ -5,7 +5,7 @@ import { createRoot } from 'react-dom/client';
 
 import { applyTheme } from '@cloudscape-design/components/theming';
 
-import { themeCoreConfig } from '../../common/theme-core';
+import { themeCoreConfig } from '../../common/theme-cw';
 applyTheme({ theme: themeCoreConfig });
 
 import { BreadcrumbGroup, Header, SpaceBetween, SplitPanel } from '@cloudscape-design/components';
