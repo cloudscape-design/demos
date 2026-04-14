@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 
 import Box from '@cloudscape-design/components/box';
-import Button from '@cloudscape-design/components/button';
 import Checkbox from '@cloudscape-design/components/checkbox';
 import ColumnLayout from '@cloudscape-design/components/column-layout';
 import FormField from '@cloudscape-design/components/form-field';
@@ -14,7 +13,7 @@ import Slider from '@cloudscape-design/components/slider';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { applyCustomTheme } from '../../common/apply-theme';
-import { generateThemeConfig, generateThemeConfigConsole, themeCoreConfig } from '../../common/theme-core';
+import { generateThemeConfig, generateThemeConfigConsole, themeCoreConfig } from '../../common/theme-cw';
 
 interface ThemeConfig {
   colorSelectedAccent?: string;
@@ -156,6 +155,7 @@ export function GlobalSplitPanelContent() {
         }
 
         // Build the theme object
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let themeTokens: any = { ...baseTheme.tokens };
 
         // Only apply custom tokens from form for Option A
@@ -197,11 +197,14 @@ export function GlobalSplitPanelContent() {
 
         const updatedTheme = {
           tokens: themeTokens,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           referenceTokens: (baseTheme as any).referenceTokens || {},
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           contexts: (baseTheme as any).contexts || {},
         };
 
         // Apply theme - reset happens automatically in applyCustomTheme
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         applyCustomTheme(updatedTheme as any);
       } catch (error) {
         console.error('Failed to apply theme:', error);
@@ -269,6 +272,7 @@ export function GlobalSplitPanelContent() {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const applyThemeChanges = () => {
     try {
       // Parse colorSelectedAccent if present
@@ -299,6 +303,7 @@ export function GlobalSplitPanelContent() {
       }
 
       // Build the theme object
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let themeTokens: any = { ...baseTheme.tokens };
 
       // Only apply custom tokens from form for Option A
@@ -329,17 +334,21 @@ export function GlobalSplitPanelContent() {
 
       const updatedTheme = {
         tokens: themeTokens,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         referenceTokens: (baseTheme as any).referenceTokens || {},
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         contexts: (baseTheme as any).contexts || {},
       };
 
       // Apply theme - reset happens automatically in applyCustomTheme
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       applyCustomTheme(updatedTheme as any);
     } catch (error) {
       console.error('Failed to apply theme:', error);
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const resetTheme = () => {
     setThemeValue('core');
     setChecked(false);
@@ -385,308 +394,319 @@ export function GlobalSplitPanelContent() {
             onChange={({ detail }) => setThemeValue(detail.value)}
             value={themeValue}
             items={[
-              { value: 'core', label: 'New Core theme' },
-              { value: 'console', label: 'Console' },
+              { value: 'core', label: 'New CloudWatch theme' },
+              { value: 'console', label: 'Current Console' },
             ]}
           />
         </Box>
-        <Box padding={{ bottom: 'l' }}>
-          <Box variant="h3" padding={{ top: 'xl', bottom: 's' }}>
-            Font
-          </Box>
-          <SpaceBetween size="m">
-            <FormField label="fontFamilyBase" errorText={errors.fontFamilyBase}>
-              <Select
-                selectedOption={fontFamilyOptions.find(o => o.value === config.fontFamilyBase) || fontFamilyOptions[0]}
-                onChange={({ detail }) => handleInputChange('fontFamilyBase', detail.selectedOption.value ?? '')}
-                options={fontFamilyOptions}
-              />
-            </FormField>
-            <FormField label="fontSmooth">
-              <Checkbox onChange={({ detail }) => setCheckedFontSmooth(detail.checked)} checked={checkedFontSmooth}>
-                font-smooth
-              </Checkbox>
-            </FormField>
-            <FormField label={`fontStretch: ${fontStretch}%`} constraintText="Available only for variable font">
-              <Slider onChange={({ detail }) => setFontStretch(detail.value)} value={fontStretch} max={100} min={90} />
-            </FormField>
-          </SpaceBetween>
-          <Box variant="h3" padding={{ top: 'xl', bottom: 's' }}>
-            Accent color
-          </Box>
-          <SpaceBetween size="xs">
-            <FormField label="Link color">
-              <Select
-                selectedOption={selectedLinkColor}
-                onChange={({ detail }) => {
-                  setSelectedLinkColor(detail.selectedOption);
-                  switch (detail.selectedOption.value) {
-                    case 'same-as-text':
-                      handleInputChange('colorTextBodyDefault', '');
-                      handleInputChange('colorTextLinkDefault', "light: '#0f141a', dark: '#c6c6cd'");
-                      handleInputChange('colorTextLinkHover', "light: '#424650', dark: '#FFFFFF'");
-                      break;
-                    case 'lighter':
-                      handleInputChange('colorTextBodyDefault', '');
-                      handleInputChange('colorTextLinkDefault', "light: '#656871', dark: '#B4B4BB'");
-                      handleInputChange('colorTextLinkHover', "light: '#424650', dark: '#FFFFFF'");
-                      break;
-                    case 'darker':
-                      handleInputChange('colorTextBodyDefault', "light: '#424650', dark: '#c6c6cd'");
-                      handleInputChange('colorTextLinkDefault', "light: '#06080A', dark: '#FFFFFF'");
-                      handleInputChange('colorTextLinkHover', "light: '#424650', dark: '#FFFFFF'");
-                      break;
-                    case 'blue':
-                      handleInputChange('colorTextBodyDefault', '');
-                      handleInputChange('colorTextLinkDefault', "light: '#295EFF', dark: '#7598FF'");
-                      handleInputChange('colorTextLinkHover', "light: '#0033CC', dark: '#C2D1FF'");
-                      break;
-                    case 'blue-secondary':
-                      handleInputChange('colorTextBodyDefault', '');
-                      handleInputChange('colorTextLinkDefault', "light: '#0f141a', dark: '#c6c6cd'");
-                      handleInputChange('colorTextLinkHover', "light: '#424650', dark: '#FFFFFF'");
-                      break;
-                  }
-                }}
-                options={linkColorOptions}
-              />
-            </FormField>
-            {/* <FormField label="Accent color">
-              <Input
-                type="text"
-                placeholder="light: '#1b232d', dark: '#f3f3f7'"
-                value={config.colorSelectedAccent || ''}
-                onChange={({ detail }) => handleInputChange('colorSelectedAccent', detail.value)}
-              />
-            </FormField> */}
-          </SpaceBetween>
-        </Box>
-        <Box padding={{ bottom: 'l' }}>
-          <SpaceBetween size="xs">
-            <FormField label="borderWidthButton" errorText={errors.borderWidthButton}>
-              <Input
-                type="number"
-                placeholder="1px"
-                value={config.borderWidthButton || ''}
-                onChange={({ detail }) => handleInputChange('borderWidthButton', detail.value)}
-              />
-            </FormField>
-
-            <FormField label="borderRadiusButton" errorText={errors.borderRadiusButton}>
-              <Input
-                type="number"
-                placeholder="8px"
-                value={config.borderRadiusButton || ''}
-                onChange={({ detail }) => handleInputChange('borderRadiusButton', detail.value)}
-              />
-            </FormField>
-
-            <FormField label="borderRadiusContainer" errorText={errors.borderRadiusContainer}>
-              <Input
-                type="number"
-                placeholder="12px"
-                value={config.borderRadiusContainer || ''}
-                onChange={({ detail }) => handleInputChange('borderRadiusContainer', detail.value)}
-              />
-            </FormField>
-
-            <FormField label="borderRadiusInput" errorText={errors.borderRadiusInput}>
-              <Input
-                type="number"
-                placeholder="8px"
-                value={config.borderRadiusInput || ''}
-                onChange={({ detail }) => handleInputChange('borderRadiusInput', detail.value)}
-              />
-            </FormField>
-          </SpaceBetween>
-        </Box>
-
-        <Box padding={{ bottom: 'l' }}>
-          <Box variant="h3" padding={{ vertical: 'm' }}>
-            Icon stroke
-          </Box>
-
-          <SpaceBetween size="xs">
-            <FormField label="borderWidthIconSmall" errorText={errors.borderWidthIconSmall}>
-              <Input
-                type="number"
-                placeholder="1.5px"
-                value={config.borderWidthIconSmall || ''}
-                onChange={({ detail }) => handleInputChange('borderWidthIconSmall', detail.value)}
-              />
-            </FormField>
-
-            <FormField label="borderWidthIconNormal" errorText={errors.borderWidthIconNormal}>
-              <Input
-                type="number"
-                placeholder="1.5px"
-                value={config.borderWidthIconNormal || ''}
-                onChange={({ detail }) => handleInputChange('borderWidthIconNormal', detail.value)}
-              />
-            </FormField>
-
-            <FormField label="borderWidthIconMedium" errorText={errors.borderWidthIconMedium}>
-              <Input
-                type="number"
-                placeholder="2px"
-                value={config.borderWidthIconMedium || ''}
-                onChange={({ detail }) => handleInputChange('borderWidthIconMedium', detail.value)}
-              />
-            </FormField>
-
-            <FormField label="borderWidthIconBig" errorText={errors.borderWidthIconBig}>
-              <Input
-                type="number"
-                placeholder="2px"
-                value={config.borderWidthIconBig || ''}
-                onChange={({ detail }) => handleInputChange('borderWidthIconBig', detail.value)}
-              />
-            </FormField>
-
-            <FormField label="borderWidthIconLarge" errorText={errors.borderWidthIconLarge}>
-              <Input
-                type="number"
-                placeholder="2.5px"
-                value={config.borderWidthIconLarge || ''}
-                onChange={({ detail }) => handleInputChange('borderWidthIconLarge', detail.value)}
-              />
-            </FormField>
-          </SpaceBetween>
-        </Box>
-
-        <Box padding={{ bottom: 'l' }}>
-          <Box variant="h3" padding={{ top: 'm' }}>
-            Font related themes
-          </Box>
-
-          <SpaceBetween size="xs">
-            <Box variant="h5" padding={{ top: 's' }}>
-              H1
+        {false && (
+          <>
+            <Box padding={{ bottom: 'l' }}>
+              <Box variant="h3" padding={{ top: 'xl', bottom: 's' }}>
+                Font
+              </Box>
+              <SpaceBetween size="m">
+                <FormField label="fontFamilyBase" errorText={errors.fontFamilyBase}>
+                  <Select
+                    selectedOption={
+                      fontFamilyOptions.find(o => o.value === config.fontFamilyBase) || fontFamilyOptions[0]
+                    }
+                    onChange={({ detail }) => handleInputChange('fontFamilyBase', detail.selectedOption.value ?? '')}
+                    options={fontFamilyOptions}
+                  />
+                </FormField>
+                <FormField label="fontSmooth">
+                  <Checkbox onChange={({ detail }) => setCheckedFontSmooth(detail.checked)} checked={checkedFontSmooth}>
+                    font-smooth
+                  </Checkbox>
+                </FormField>
+                <FormField label={`fontStretch: ${fontStretch}%`} constraintText="Available only for variable font">
+                  <Slider
+                    onChange={({ detail }) => setFontStretch(detail.value)}
+                    value={fontStretch}
+                    max={100}
+                    min={90}
+                  />
+                </FormField>
+              </SpaceBetween>
+              <Box variant="h3" padding={{ top: 'xl', bottom: 's' }}>
+                Accent color
+              </Box>
+              <SpaceBetween size="xs">
+                <FormField label="Link color">
+                  <Select
+                    selectedOption={selectedLinkColor}
+                    onChange={({ detail }) => {
+                      setSelectedLinkColor(detail.selectedOption);
+                      switch (detail.selectedOption.value) {
+                        case 'same-as-text':
+                          handleInputChange('colorTextBodyDefault', '');
+                          handleInputChange('colorTextLinkDefault', "light: '#0f141a', dark: '#c6c6cd'");
+                          handleInputChange('colorTextLinkHover', "light: '#424650', dark: '#FFFFFF'");
+                          break;
+                        case 'lighter':
+                          handleInputChange('colorTextBodyDefault', '');
+                          handleInputChange('colorTextLinkDefault', "light: '#656871', dark: '#B4B4BB'");
+                          handleInputChange('colorTextLinkHover', "light: '#424650', dark: '#FFFFFF'");
+                          break;
+                        case 'darker':
+                          handleInputChange('colorTextBodyDefault', "light: '#424650', dark: '#c6c6cd'");
+                          handleInputChange('colorTextLinkDefault', "light: '#06080A', dark: '#FFFFFF'");
+                          handleInputChange('colorTextLinkHover', "light: '#424650', dark: '#FFFFFF'");
+                          break;
+                        case 'blue':
+                          handleInputChange('colorTextBodyDefault', '');
+                          handleInputChange('colorTextLinkDefault', "light: '#295EFF', dark: '#7598FF'");
+                          handleInputChange('colorTextLinkHover', "light: '#0033CC', dark: '#C2D1FF'");
+                          break;
+                        case 'blue-secondary':
+                          handleInputChange('colorTextBodyDefault', '');
+                          handleInputChange('colorTextLinkDefault', "light: '#0f141a', dark: '#c6c6cd'");
+                          handleInputChange('colorTextLinkHover', "light: '#424650', dark: '#FFFFFF'");
+                          break;
+                      }
+                    }}
+                    options={linkColorOptions}
+                  />
+                </FormField>
+                {/* <FormField label="Accent color">
+                <Input
+                  type="text"
+                  placeholder="light: '#1b232d', dark: '#f3f3f7'"
+                  value={config.colorSelectedAccent || ''}
+                  onChange={({ detail }) => handleInputChange('colorSelectedAccent', detail.value)}
+                />
+              </FormField> */}
+              </SpaceBetween>
             </Box>
-            <FormField label="fontSizeHeadingXl" errorText={errors.fontSizeHeadingXl}>
-              <Input
-                type="number"
-                placeholder="26px"
-                value={config.fontSizeHeadingXl || ''}
-                onChange={({ detail }) => handleInputChange('fontSizeHeadingXl', detail.value)}
-              />
-            </FormField>
+            <Box padding={{ bottom: 'l' }}>
+              <SpaceBetween size="xs">
+                <FormField label="borderWidthButton" errorText={errors.borderWidthButton}>
+                  <Input
+                    type="number"
+                    placeholder="1px"
+                    value={config.borderWidthButton || ''}
+                    onChange={({ detail }) => handleInputChange('borderWidthButton', detail.value)}
+                  />
+                </FormField>
 
-            <FormField label="lineHeightHeadingXl" errorText={errors.lineHeightHeadingXl}>
-              <Input
-                type="number"
-                placeholder="32px"
-                value={config.lineHeightHeadingXl || ''}
-                onChange={({ detail }) => handleInputChange('lineHeightHeadingXl', detail.value)}
-              />
-            </FormField>
+                <FormField label="borderRadiusButton" errorText={errors.borderRadiusButton}>
+                  <Input
+                    type="number"
+                    placeholder="8px"
+                    value={config.borderRadiusButton || ''}
+                    onChange={({ detail }) => handleInputChange('borderRadiusButton', detail.value)}
+                  />
+                </FormField>
 
-            <Box variant="h5" padding={{ top: 's' }}>
-              H2
+                <FormField label="borderRadiusContainer" errorText={errors.borderRadiusContainer}>
+                  <Input
+                    type="number"
+                    placeholder="12px"
+                    value={config.borderRadiusContainer || ''}
+                    onChange={({ detail }) => handleInputChange('borderRadiusContainer', detail.value)}
+                  />
+                </FormField>
+
+                <FormField label="borderRadiusInput" errorText={errors.borderRadiusInput}>
+                  <Input
+                    type="number"
+                    placeholder="8px"
+                    value={config.borderRadiusInput || ''}
+                    onChange={({ detail }) => handleInputChange('borderRadiusInput', detail.value)}
+                  />
+                </FormField>
+              </SpaceBetween>
             </Box>
-            <FormField label="fontSizeHeadingL" errorText={errors.fontSizeHeadingL}>
-              <Input
-                type="number"
-                placeholder="22px"
-                value={config.fontSizeHeadingL || ''}
-                onChange={({ detail }) => handleInputChange('fontSizeHeadingL', detail.value)}
-              />
-            </FormField>
 
-            <FormField label="lineHeightHeadingL" errorText={errors.lineHeightHeadingL}>
-              <Input
-                type="number"
-                placeholder="26px"
-                value={config.lineHeightHeadingL || ''}
-                onChange={({ detail }) => handleInputChange('lineHeightHeadingL', detail.value)}
-              />
-            </FormField>
+            <Box padding={{ bottom: 'l' }}>
+              <Box variant="h3" padding={{ vertical: 'm' }}>
+                Icon stroke
+              </Box>
 
-            <Box variant="h5" padding={{ top: 's' }}>
-              H3
+              <SpaceBetween size="xs">
+                <FormField label="borderWidthIconSmall" errorText={errors.borderWidthIconSmall}>
+                  <Input
+                    type="number"
+                    placeholder="1.5px"
+                    value={config.borderWidthIconSmall || ''}
+                    onChange={({ detail }) => handleInputChange('borderWidthIconSmall', detail.value)}
+                  />
+                </FormField>
+
+                <FormField label="borderWidthIconNormal" errorText={errors.borderWidthIconNormal}>
+                  <Input
+                    type="number"
+                    placeholder="1.5px"
+                    value={config.borderWidthIconNormal || ''}
+                    onChange={({ detail }) => handleInputChange('borderWidthIconNormal', detail.value)}
+                  />
+                </FormField>
+
+                <FormField label="borderWidthIconMedium" errorText={errors.borderWidthIconMedium}>
+                  <Input
+                    type="number"
+                    placeholder="2px"
+                    value={config.borderWidthIconMedium || ''}
+                    onChange={({ detail }) => handleInputChange('borderWidthIconMedium', detail.value)}
+                  />
+                </FormField>
+
+                <FormField label="borderWidthIconBig" errorText={errors.borderWidthIconBig}>
+                  <Input
+                    type="number"
+                    placeholder="2px"
+                    value={config.borderWidthIconBig || ''}
+                    onChange={({ detail }) => handleInputChange('borderWidthIconBig', detail.value)}
+                  />
+                </FormField>
+
+                <FormField label="borderWidthIconLarge" errorText={errors.borderWidthIconLarge}>
+                  <Input
+                    type="number"
+                    placeholder="2.5px"
+                    value={config.borderWidthIconLarge || ''}
+                    onChange={({ detail }) => handleInputChange('borderWidthIconLarge', detail.value)}
+                  />
+                </FormField>
+              </SpaceBetween>
             </Box>
-            <FormField label="fontSizeHeadingM" errorText={errors.fontSizeHeadingM}>
-              <Input
-                type="number"
-                placeholder="20px"
-                value={config.fontSizeHeadingM || ''}
-                onChange={({ detail }) => handleInputChange('fontSizeHeadingM', detail.value)}
-              />
-            </FormField>
 
-            <FormField label="lineHeightHeadingM" errorText={errors.lineHeightHeadingM}>
-              <Input
-                type="number"
-                placeholder="24px"
-                value={config.lineHeightHeadingM || ''}
-                onChange={({ detail }) => handleInputChange('lineHeightHeadingM', detail.value)}
-              />
-            </FormField>
+            <Box padding={{ bottom: 'l' }}>
+              <Box variant="h3" padding={{ top: 'm' }}>
+                Font related themes
+              </Box>
 
-            <Box variant="h5" padding={{ top: 's' }}>
-              H4
+              <SpaceBetween size="xs">
+                <Box variant="h5" padding={{ top: 's' }}>
+                  H1
+                </Box>
+                <FormField label="fontSizeHeadingXl" errorText={errors.fontSizeHeadingXl}>
+                  <Input
+                    type="number"
+                    placeholder="26px"
+                    value={config.fontSizeHeadingXl || ''}
+                    onChange={({ detail }) => handleInputChange('fontSizeHeadingXl', detail.value)}
+                  />
+                </FormField>
+
+                <FormField label="lineHeightHeadingXl" errorText={errors.lineHeightHeadingXl}>
+                  <Input
+                    type="number"
+                    placeholder="32px"
+                    value={config.lineHeightHeadingXl || ''}
+                    onChange={({ detail }) => handleInputChange('lineHeightHeadingXl', detail.value)}
+                  />
+                </FormField>
+
+                <Box variant="h5" padding={{ top: 's' }}>
+                  H2
+                </Box>
+                <FormField label="fontSizeHeadingL" errorText={errors.fontSizeHeadingL}>
+                  <Input
+                    type="number"
+                    placeholder="22px"
+                    value={config.fontSizeHeadingL || ''}
+                    onChange={({ detail }) => handleInputChange('fontSizeHeadingL', detail.value)}
+                  />
+                </FormField>
+
+                <FormField label="lineHeightHeadingL" errorText={errors.lineHeightHeadingL}>
+                  <Input
+                    type="number"
+                    placeholder="26px"
+                    value={config.lineHeightHeadingL || ''}
+                    onChange={({ detail }) => handleInputChange('lineHeightHeadingL', detail.value)}
+                  />
+                </FormField>
+
+                <Box variant="h5" padding={{ top: 's' }}>
+                  H3
+                </Box>
+                <FormField label="fontSizeHeadingM" errorText={errors.fontSizeHeadingM}>
+                  <Input
+                    type="number"
+                    placeholder="20px"
+                    value={config.fontSizeHeadingM || ''}
+                    onChange={({ detail }) => handleInputChange('fontSizeHeadingM', detail.value)}
+                  />
+                </FormField>
+
+                <FormField label="lineHeightHeadingM" errorText={errors.lineHeightHeadingM}>
+                  <Input
+                    type="number"
+                    placeholder="24px"
+                    value={config.lineHeightHeadingM || ''}
+                    onChange={({ detail }) => handleInputChange('lineHeightHeadingM', detail.value)}
+                  />
+                </FormField>
+
+                <Box variant="h5" padding={{ top: 's' }}>
+                  H4
+                </Box>
+                <FormField label="fontSizeHeadingS" errorText={errors.fontSizeHeadingS}>
+                  <Input
+                    type="number"
+                    placeholder="18px"
+                    value={config.fontSizeHeadingS || ''}
+                    onChange={({ detail }) => handleInputChange('fontSizeHeadingS', detail.value)}
+                  />
+                </FormField>
+
+                <FormField label="lineHeightHeadingS" errorText={errors.lineHeightHeadingS}>
+                  <Input
+                    type="number"
+                    placeholder="22px"
+                    value={config.lineHeightHeadingS || ''}
+                    onChange={({ detail }) => handleInputChange('lineHeightHeadingS', detail.value)}
+                  />
+                </FormField>
+
+                <Box variant="h5" padding={{ top: 's' }}>
+                  H5
+                </Box>
+                <FormField label="fontSizeHeadingXs" errorText={errors.fontSizeHeadingXs}>
+                  <Input
+                    type="number"
+                    placeholder="16px"
+                    value={config.fontSizeHeadingXs || ''}
+                    onChange={({ detail }) => handleInputChange('fontSizeHeadingXs', detail.value)}
+                  />
+                </FormField>
+
+                <FormField label="lineHeightHeadingXs" errorText={errors.lineHeightHeadingXs}>
+                  <Input
+                    type="number"
+                    placeholder="20px"
+                    value={config.lineHeightHeadingXs || ''}
+                    onChange={({ detail }) => handleInputChange('lineHeightHeadingXs', detail.value)}
+                  />
+                </FormField>
+              </SpaceBetween>
             </Box>
-            <FormField label="fontSizeHeadingS" errorText={errors.fontSizeHeadingS}>
-              <Input
-                type="number"
-                placeholder="18px"
-                value={config.fontSizeHeadingS || ''}
-                onChange={({ detail }) => handleInputChange('fontSizeHeadingS', detail.value)}
-              />
-            </FormField>
-
-            <FormField label="lineHeightHeadingS" errorText={errors.lineHeightHeadingS}>
-              <Input
-                type="number"
-                placeholder="22px"
-                value={config.lineHeightHeadingS || ''}
-                onChange={({ detail }) => handleInputChange('lineHeightHeadingS', detail.value)}
-              />
-            </FormField>
-
-            <Box variant="h5" padding={{ top: 's' }}>
-              H5
+            <Box padding={{ bottom: 'm' }}>
+              {/* <Box variant="h5">
+              <FormField label="Filled flashbar">
+                <Toggle
+                  onChange={({ detail }) => {
+                    setChecked(detail.checked);
+                  }}
+                  checked={checked}
+                >
+                  Filled flashbar
+                </Toggle>
+              </FormField>
+            </Box> */}
             </Box>
-            <FormField label="fontSizeHeadingXs" errorText={errors.fontSizeHeadingXs}>
-              <Input
-                type="number"
-                placeholder="16px"
-                value={config.fontSizeHeadingXs || ''}
-                onChange={({ detail }) => handleInputChange('fontSizeHeadingXs', detail.value)}
-              />
-            </FormField>
-
-            <FormField label="lineHeightHeadingXs" errorText={errors.lineHeightHeadingXs}>
-              <Input
-                type="number"
-                placeholder="20px"
-                value={config.lineHeightHeadingXs || ''}
-                onChange={({ detail }) => handleInputChange('lineHeightHeadingXs', detail.value)}
-              />
-            </FormField>
-          </SpaceBetween>
-        </Box>
-        <Box padding={{ bottom: 'm' }}>
-          {/* <Box variant="h5">
-            <FormField label="Filled flashbar">
-              <Toggle
-                onChange={({ detail }) => {
-                  setChecked(detail.checked);
-                }}
-                checked={checked}
-              >
-                Filled flashbar
-              </Toggle>
-            </FormField>
-          </Box> */}
-        </Box>
+          </>
+        )}
       </ColumnLayout>
 
       <SpaceBetween direction="horizontal" size="xs">
-        <Button onClick={applyThemeChanges} variant="primary">
+        {/* <Button onClick={applyThemeChanges} variant="primary">
           Apply Theme
         </Button>
-        <Button onClick={resetTheme}>Reset to Default</Button>
+        <Button onClick={resetTheme}>Reset to Default</Button> */}
       </SpaceBetween>
     </Box>
   );

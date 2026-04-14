@@ -5,7 +5,7 @@ import { createRoot } from 'react-dom/client';
 
 import { applyTheme } from '@cloudscape-design/components/theming';
 
-import { themeCoreConfig } from '../../common/theme-core';
+import { themeCoreConfig } from '../../common/theme-cw';
 import { Distribution } from '../../fake-server/types';
 import DataProvider from '../commons/data-provider';
 import { App } from './root';
