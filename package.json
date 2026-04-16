@@ -20,7 +20,7 @@
     "test:unit": "node --experimental-vm-modules ./node_modules/.bin/jest -c jest.config.unit.js",
     "test-no-build": "run-s test:*",
     "test:default": "cross-env ALWAYS_VISUAL_REFRESH=true npm run serve-test",
-    "postinstall": "prepare-package-lock && node ./scripts/install-peer-dependency.js components:feat-table-selection"
+    "postinstall": "node ./scripts/install-peer-dependency.js components:feat-table-selection collection-hooks:feat-table-selection-demo"
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",
