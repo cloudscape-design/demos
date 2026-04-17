@@ -36,11 +36,6 @@
     background-color: #fdf2f8;
   }
 
-  /* ── Header slot ── */
-  .custom-table .custom-header * {
-    color: inherit;
-  }
-
   /* -- Header slot buttons */
   .custom-header .awsui-style-button-root {
     background-color: #fff;
@@ -126,7 +121,7 @@
     .awsui-style-table-table-tbody
     .awsui-style-table-table-row:nth-child(even)
     .awsui-style-table-table-cell {
-    background-color: #fff1f2;
+    background-color: #fce7f3;
   }
 
   /* ── Selected row hover ── */
@@ -157,7 +152,7 @@
 
   /* ── Checkbox theming inside table selection header ── */
   .custom-table .awsui-style-table-table-thead .awsui-style-table-table-selection-cell .awsui-style-checkbox-root {
-    --var-awsui-style-checkbox-fill: #fce7f3;
+    --var-awsui-style-checkbox-fill: #fef9c3;
     --var-awsui-style-checkbox-stroke: #db2777;
     --var-awsui-style-checkbox-checkmark: #444444;
   }
@@ -170,6 +165,26 @@
     .awsui-style-table-table-selection-cell
     .awsui-style-checkbox-root[data-indeterminate] {
     --var-awsui-style-checkbox-fill: #fde047;
+  }
+
+  /* ── Links ── */
+  .awsui-style-link-root {
+    color: #6366f1;
+    text-decoration: underline dotted #a5b4fc;
+  }
+
+  .awsui-style-link-root:hover {
+    color: #4338ca;
+    text-decoration: underline dotted #6366f1;
+  }
+
+  /* ── Collection preferences button ── */
+  .awsui-style-collection-preferences-root .awsui-style-button-root {
+    --awsui-style-icon-color: #be185d;
+  }
+
+  .awsui-style-collection-preferences-root .awsui-style-button-root:hover {
+    color: #9f1239;
   }
 
   /* ── Pagination ── */
