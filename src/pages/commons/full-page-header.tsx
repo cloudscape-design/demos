@@ -28,6 +28,7 @@ export function FullPageHeader({
 
   return (
     <Header
+      className="custom-header"
       variant="awsui-h1-sticky"
       info={onInfoLinkClick && <InfoLink onFollow={onInfoLinkClick} />}
       actions={
