@@ -1,6 +1,34 @@
 @layer application, awsui-components;
 
 @layer application {
+  /* Info – lavender-pink */
+
+  .awsui-style-flashbar-root {
+    border-radius: 24px;
+    border: 2px solid transparent;
+  }
+
+  .my-flashbar .awsui-style-flashbar-root[data-type='info'] {
+    background-color: #fdf2f8;
+    border-color: #f9a8d4;
+    color: #831843;
+  }
+
+  .my-flashbar .awsui-style-flashbar-root[data-type='success'] {
+    background-color: #fef3c7;
+    border-color: #fbbf24;
+    color: #78350f;
+  }
+
+  /* Dismiss button icon color per flash type */
+  .my-flashbar .awsui-style-flashbar-root[data-type='success'] .awsui-style-button-root {
+    --awsui-style-icon-color: #b45309;
+  }
+
+  .my-flashbar .awsui-style-flashbar-root[data-type='info'] .awsui-style-button-root {
+    --awsui-style-icon-color: #be185d;
+  }
+
   /* ── Root ── */
   .custom-table.awsui-style-table-root {
     --awsui-style-table-row-selection-border-color: #db2777;
@@ -24,18 +52,18 @@
     background-color: #f9a8d4;
   }
 
-  .custom-header .awsui-style-input-input {
+  .custom-table .awsui-style-input-input {
     border-radius: 0;
     border-color: #831843;
     box-shadow: 0 0 0 3px #fca5a5;
   }
 
-  .custom-header .awsui-style-input-input:focus {
+  .custom-table .awsui-style-input-input:focus {
     box-shadow: 0 0 0 4px #db2777;
     background-color: #fdf2f8;
   }
 
-  .custom-header .awsui-style-input-input:focus:hover {
+  .custom-table .awsui-style-input-input:focus:hover {
     box-shadow: 0 0 0 4px #be185d;
     background-color: #fce7f3;
   }
@@ -46,7 +74,6 @@
 
   .custom-button-dropdown.awsui-style-button-dropdown-dropdown .awsui-style-button-dropdown-dropdown-option {
     background-color: #fdf2f8;
-    border-color: #be185d;
   }
 
   /* ── Footer slot ── */

@@ -41,5 +41,5 @@ interface NotificationsProps {
 
 export function Notifications({ successNotification, customNotifications = [] }: NotificationsProps) {
   const notifications = useNotifications(successNotification);
-  return <Flashbar items={[...notifications, ...customNotifications]} />;
+  return <Flashbar className="my-flashbar" items={[...notifications, ...customNotifications]} />;
 }
