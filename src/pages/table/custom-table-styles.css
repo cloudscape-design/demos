@@ -36,6 +36,15 @@
     background-color: #fdf2f8;
   }
 
+  /* -- Header text and counter */
+  .custom-header .awsui-style-header-text {
+    color: #831843;
+  }
+
+  .custom-header .awsui-style-header-counter {
+    color: #be185d;
+  }
+
   /* -- Header slot buttons */
   .custom-header .awsui-style-button-root {
     background-color: #fff;
@@ -214,5 +223,73 @@
   .awsui-style-pagination-button[aria-current='true'] {
     background-color: #be185d;
     color: #fff;
+  }
+
+  /* ── Toolbar triggers ── */
+  .awsui-style-app-layout-toolbar-side-nav-trigger {
+    --awsui-style-focus-outline-color: #db2777;
+    --awsui-style-icon-color: #fde047;
+    background-color: #be185d;
+  }
+
+  .awsui-style-app-layout-toolbar-drawer-trigger {
+    --awsui-style-focus-outline-color: #db2777;
+    --awsui-style-icon-color: #be185d;
+  }
+
+  /* ── Breadcrumbs ── */
+  .awsui-style-breadcrumb-page-link {
+    --awsui-style-focus-outline-color: #db2777;
+    --awsui-style-icon-color: #db2777;
+    color: #be185d;
+  }
+
+  .awsui-style-breadcrumb-page-link:hover {
+    color: #9f1239;
+  }
+
+  .awsui-style-breadcrumb-side-active-page-text {
+    color: #831843;
+    font-weight: 600;
+  }
+
+  .awsui-style-breadcrumb-divider-icon {
+    --awsui-style-icon-color: #f9a8d4;
+  }
+
+  /* ── Side navigation ── */
+  .awsui-style-side-navigation-header {
+    --awsui-style-focus-outline-color: #db2777;
+    color: #831843;
+    font-weight: 700;
+  }
+
+  .awsui-style-side-navigation-link {
+    --awsui-style-focus-outline-color: #db2777;
+    --awsui-style-icon-color: #db2777;
+    color: #be185d;
+  }
+
+  .awsui-style-side-navigation-link:hover {
+    color: #9f1239;
+  }
+
+  .awsui-style-side-navigation-link[aria-current='page'] {
+    color: #831843;
+    font-weight: 600;
+  }
+
+  .awsui-style-side-navigation-group-header {
+    color: #be185d;
+  }
+
+  .awsui-style-side-navigation-group,
+  .awsui-style-side-navigation-expandable-group {
+    --awsui-style-icon-color: #be185d;
+  }
+
+  .awsui-style-side-navigation-group:hover .awsui-style-side-navigation-group-header,
+  .awsui-style-side-navigation-expandable-group:hover .awsui-style-side-navigation-group-header {
+    color: #9f1239;
   }
 }
