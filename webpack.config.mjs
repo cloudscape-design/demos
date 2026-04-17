@@ -177,6 +177,12 @@ const createWebpackConfig = (base, { includeDevServer }) => {
         },
         {
           test: /\.css$/,
+          include: /node_modules\/@cloudscape-design/,
+          use: [MiniCssExtractPlugin.loader, 'css-loader', path.resolve('./scripts/wrap-in-layer-loader.js')],
+        },
+        {
+          test: /\.css$/,
+          exclude: /node_modules\/@cloudscape-design/,
           use: [MiniCssExtractPlugin.loader, 'css-loader'],
         },
         {
