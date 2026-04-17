@@ -171,4 +171,22 @@
     .awsui-style-checkbox-root[data-indeterminate] {
     --var-awsui-style-checkbox-fill: #fde047;
   }
+
+  /* ── Pagination ── */
+  .awsui-style-pagination-button {
+    border-radius: 50%;
+    background-color: #fce7f3;
+    color: #be185d;
+    width: 32px;
+    height: 32px;
+  }
+
+  .awsui-style-pagination-button:hover {
+    background-color: #f9a8d4;
+  }
+
+  .awsui-style-pagination-button[aria-current='true'] {
+    background-color: #be185d;
+    color: #fff;
+  }
 }
