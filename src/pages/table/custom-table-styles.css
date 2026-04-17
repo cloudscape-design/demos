@@ -16,6 +16,41 @@
     color: inherit;
   }
 
+  /* -- Header slot buttons */
+  .awsui-style-table-header .awsui-style-button-root {
+    background-color: #fff;
+    border-color: #831843;
+  }
+
+  .awsui-style-table-header .awsui-style-button-root.custom-primary {
+    background-color: #f9a8d4;
+  }
+
+  .awsui-style-table-header .awsui-style-input-input {
+    border-radius: 0;
+    border-color: #831843;
+    box-shadow: 0 0 0 3px #fca5a5;
+  }
+
+  .awsui-style-table-header .awsui-style-input-input:focus {
+    box-shadow: 0 0 0 4px #db2777;
+    background-color: #fdf2f8;
+  }
+
+  .awsui-style-table-header .awsui-style-input-input:focus:hover {
+    box-shadow: 0 0 0 4px #be185d;
+    background-color: #fce7f3;
+  }
+
+  .awsui-style-button-dropdown-trigger {
+    color: #be185d;
+  }
+
+  .custom-button-dropdown.awsui-style-button-dropdown-dropdown .awsui-style-button-dropdown-dropdown-option {
+    background-color: #fdf2f8;
+    border-color: #be185d;
+  }
+
   /* ── Footer slot ── */
   .custom-table .awsui-style-table-footer {
     font-style: italic;

@@ -42,7 +42,7 @@ export function FullPageHeader({
           <Button data-testid="header-btn-delete" disabled={selectedItemsCount === 0}>
             Delete
           </Button>
-          <Button data-testid="header-btn-create" variant="primary">
+          <Button className="custom-primary" data-testid="header-btn-create" variant="primary">
             {createButtonText}
           </Button>
         </SpaceBetween>

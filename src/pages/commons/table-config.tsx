@@ -86,6 +86,7 @@ const rawColumns: TableProps.ColumnDefinition<Distribution>[] = [
     minWidth: 100,
     cell: item => (
       <ButtonDropdown
+        referrerClassName="custom-button-dropdown"
         variant="inline-icon"
         ariaLabel={`${item.id} actions`}
         expandToViewport={true}
