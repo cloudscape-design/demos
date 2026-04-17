@@ -44,7 +44,18 @@
   }
 
   .custom-header .awsui-style-button-root.custom-primary {
+    background-color: #db2777;
+    color: white;
+  }
+
+  .custom-header .awsui-style-button-root.custom-primary:hover {
+    background-color: #be185d;
+  }
+
+  .custom-header .awsui-style-button-root:disabled {
     background-color: #f9a8d4;
+    color: #fce7f3;
+    cursor: not-allowed;
   }
 
   .custom-table .awsui-style-input-input {
@@ -68,8 +79,8 @@
   }
 
   .custom-button-dropdown.awsui-style-button-dropdown-dropdown .awsui-style-button-dropdown-dropdown-option {
-    background-color: #fdf2f8;
-    color: #be185d;
+    color: #fdf2f8;
+    background-color: #be185d;
   }
 
   /* ── Footer slot ── */
