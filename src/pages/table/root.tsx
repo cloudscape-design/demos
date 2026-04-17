@@ -29,6 +29,7 @@ import { useLocalStorage } from '../commons/use-local-storage';
 import { Breadcrumbs, ToolsContent } from './common-components';
 
 import '../../styles/base.scss';
+import './custom-table-styles.css';
 
 interface TableContentProps {
   distributions: Distribution[];
@@ -53,6 +54,7 @@ function TableContent({ distributions, loadHelpPanelContent }: TableContentProps
   return (
     <Table
       {...collectionProps}
+      className="custom-table"
       enableKeyboardNavigation={true}
       columnDefinitions={columnDefinitions}
       columnDisplay={preferences?.contentDisplay}

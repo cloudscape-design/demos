@@ -2,6 +2,10 @@
 // SPDX-License-Identifier: MIT-0
 @use '~@cloudscape-design/design-tokens' as cs;
 
+main {
+  display: contents;
+}
+
 body {
   background: cs.$color-background-layout-main;
   position: relative;
