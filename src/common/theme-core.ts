@@ -67,7 +67,8 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
       // ========================================================================
       // BUTTONS - Link
       // ========================================================================
-      colorBackgroundButtonLinkHover: { light: '#F6F6F9', dark: '#333843' },
+      colorBackgroundButtonLinkDefault: { light: '#f6f6f9', dark: '#232b37' }, // Added
+      colorBackgroundButtonLinkHover: { light: '#ebebf0', dark: '#424650' }, // Added
       colorBackgroundButtonLinkActive: colorSelectedAccentSubtleHover,
 
       colorTextLinkButtonNormalDefault: colorSelectedAccent,
@@ -90,6 +91,10 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
       // ========================================================================
       colorTextLinkDefault: colorTextBodyDefault,
       colorTextLinkHover: { light: '#424650', dark: '#FFFFFF' },
+      colorTextLinkSecondaryDefault: { light: '#295eff', dark: '#7598ff' }, // Added
+      colorTextLinkSecondaryHover: { light: '#0033CC', dark: '#94AFFF' }, // Added
+      colorTextLinkInfoDefault: { light: '#295eff', dark: '#7598ff' }, // Added
+      colorTextLinkInfoHover: { light: '#0033CC', dark: '#94AFFF' }, // Added
       colorTextAccent: colorSelectedAccent,
 
       // ========================================================================
@@ -127,8 +132,7 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
       // STATUS
       // ========================================================================
       colorTextStatusInfo: { light: '#0033CC', dark: '#7598FF' },
-      // colorTextStatusWarning: { light: '#855900', dark: '#ffe347' },
-      // colorTextStatusError: { light: '#DB0000', dark: '#ff7a7a' },
+      colorTextStatusSuccess: { light: '#008559', dark: '#00BD6B' }, // Added
 
       colorTextDropdownItemFilterMatch: colorSelectedAccent,
       colorBackgroundDropdownItemFilterMatch: { light: '#F3F3F7', dark: '#06080A' },
@@ -174,6 +178,15 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
       // TYPOGRAPHY - Other
       // ========================================================================
       fontWeightButton: headingFontWeight,
+      fontWeightTabs: headingFontWeight,
+      fontSizeTabs: '16px',
+
+      // ========================================================================
+      // SPACE
+      // ========================================================================
+      spaceAlertVertical: '4px',
+      spaceButtonHorizontal: '12px',
+      spaceTabsVertical: '2px',
 
       // ========================================================================
       // BORDERS - Width
@@ -182,6 +195,7 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
       borderWidthToken: '1px',
       borderWidthAlert: '0px',
       borderItemWidth: '1px',
+      borderWidthAlertInlineStart: '2px',
 
       // ========================================================================
       // BORDERS - Radius
@@ -213,7 +227,7 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
     referenceTokens: {
       color: {
         primary: {
-          //seed: '#1b232d',
+          seed: '#1b232d',
         },
       },
     },
@@ -228,8 +242,15 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
           // Interactive elements
           colorTextInteractiveDefault: colorNeutralDefault,
           colorTextInteractiveHover: colorSelectedAccent,
-          colorTextInteractiveActive: { light: '#1b232d', dark: '#7598ff' },
-          colorTextAccent: colorNeutralDefault,
+          colorTextInteractiveActive: { light: '#06080A', dark: '#F6F6F9' },
+          colorTextAccent: { light: '#06080A', dark: '#F6F6F9' },
+          colorTextDropdownItemDefault: { light: '#06080A', dark: '#F6F6F9' },
+          colorTextDropdownItemHighlighted: { light: '#06080A', dark: '#F6F6F9' },
+          colorTextDropdown: { light: '#06080A', dark: '#F6F6F9' },
+          colorTextGroupLabel: { light: '#424650', dark: '#c6c6cd' },
+          colorBackgroundDropdownItemDefault: { light: '#FFFFFF', dark: '#1b232d' },
+          colorBackgroundDropdownItemHover: { light: '#f3f3f7', dark: '#131920' },
+          colorBorderDropdownContainer: { light: '#b4b4bb', dark: '#656871' },
         },
       },
       header: {
@@ -259,7 +280,6 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
           colorTextButtonPrimaryHover: '#131920',
           colorTextButtonPrimaryActive: '#131920',
 
-          //colorTextLinkDefault: { light: '#0f141a', dark: '#CCCCD1' },
           colorTextLinkDefault: '#CCCCD1',
         },
       },
@@ -279,6 +299,8 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
           colorBackgroundStatusSuccess: { light: '#f6f6f9', dark: '#232b37' },
           colorTextStatusInfo: { light: '#0033CC', dark: '#7598FF' },
           colorBorderStatusInfo: { light: '#0033CC', dark: '#7598FF' },
+          colorTextStatusSuccess: { light: '#008559', dark: '#00BD6B' }, // Added
+          colorBorderStatusSuccess: { light: '#008559', dark: '#00BD6B' }, // Added
         },
       },
     },
@@ -322,7 +344,8 @@ export function generateThemeConfigConsole() {
       // ========================================================================
       // BUTTONS - Link
       // ========================================================================
-      colorBackgroundButtonLinkHover: { light: '#F0FBFF', dark: '#1B232D' },
+      colorBackgroundButtonLinkDefault: { light: 'transparent', dark: 'transparent' }, // Added
+      colorBackgroundButtonLinkHover: { light: '#f0fbff', dark: '#1b232d' }, // Added
       colorBackgroundButtonLinkActive: { light: '#D1F1FF', dark: '#333843' },
 
       colorTextLinkButtonNormalDefault: { light: '#006CE0', dark: '#42B4FF' },
@@ -345,6 +368,10 @@ export function generateThemeConfigConsole() {
       // ========================================================================
       colorTextLinkDefault: { light: '#006CE0', dark: '#42B4FF' },
       colorTextLinkHover: { light: '#002A66', dark: '#75CFFF' },
+      colorTextLinkSecondaryDefault: { light: '#006CE0', dark: '#42B4FF' }, // Added
+      colorTextLinkSecondaryHover: { light: '#002A66', dark: '#75CFFF' }, // Added
+      colorTextLinkInfoDefault: { light: '#006CE0', dark: '#42B4FF' }, // Added
+      colorTextLinkInfoHover: { light: '#002A66', dark: '#75CFFF' }, // Added
       colorTextAccent: { light: '#006CE0', dark: '#42B4FF' },
 
       // ========================================================================
@@ -383,8 +410,7 @@ export function generateThemeConfigConsole() {
       // STATUS
       // ========================================================================
       colorTextStatusInfo: { light: '#006CE0', dark: '#42B4FF' },
-      // colorTextStatusWarning: { light: '#855900', dark: '#FFE347' },
-      // colorTextStatusError: { light: '#DB0000', dark: '#FF7A7A' },
+      colorTextStatusSuccess: { light: '#00802F', dark: '#2BB534' }, // Added
 
       colorTextBreadcrumbCurrent: { light: '#656871', dark: '#8c8c94' },
 
@@ -454,6 +480,8 @@ export function generateThemeConfigConsole() {
       borderRadiusToken: '8px',
       borderRadiusTutorialPanelItem: '8px',
 
+      spaceButtonHorizontal: '20px',
+
       // ========================================================================
       // ICONS - Stroke Width
       // ========================================================================
@@ -509,6 +537,8 @@ export function generateThemeConfigConsole() {
           colorBackgroundStatusSuccess: { light: '#EFFFF1', dark: '#001401' },
           colorTextStatusInfo: { light: '#006CE0', dark: '#42B4FF' },
           colorBorderStatusInfo: { light: '#006CE0', dark: '#42B4FF' },
+          colorTextStatusSuccess: { light: '#00802F', dark: '#2BB534' }, // Added
+          colorBorderStatusSuccess: { light: '#00802F', dark: '#2BB534' }, // Added
         },
       },
     },
