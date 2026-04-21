@@ -1,15 +1,19 @@
 [
   {
+    "path": "components-overview",
+    "title": "Components overview"
+  },
+  {
     "path": "cards",
     "title": "Card view"
   },
   {
-    "path": "chat",
-    "title": "Chat"
+    "path": "landing-page",
+    "title": "Service homepage"
   },
   {
-    "path": "delete-one-click",
-    "title": "One-click delete"
+    "path": "chat",
+    "title": "Chat"
   },
   {
     "path": "delete-with-simple-confirmation",
@@ -52,14 +56,6 @@
     "title": "Product detail page"
   },
   {
-    "path": "server-side-table",
-    "title": "Table view (server-side)"
-  },
-  {
-    "path": "server-side-table-property-filter",
-    "title": "Table property filter (server-side)"
-  },
-  {
     "path": "table-property-filter",
     "title": "Table property filter"
   },
@@ -90,14 +86,6 @@
   {
     "path": "manage-tags",
     "title": "Manage tags"
-  },
-  {
-    "path": "read-from-s3",
-    "title": "Read from Amazon S3"
-  },
-  {
-    "path": "write-to-s3",
-    "title": "Write to Amazon S3"
   },
   {
     "path": "wizard",
