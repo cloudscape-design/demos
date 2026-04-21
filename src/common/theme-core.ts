@@ -196,6 +196,8 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
       borderWidthAlert: '0px',
       borderItemWidth: '1px',
       borderWidthAlertInlineStart: '2px',
+      borderWidthItemSelected: '1px',
+      borderWidthCardSelected: '1px',
 
       // ========================================================================
       // BORDERS - Radius
