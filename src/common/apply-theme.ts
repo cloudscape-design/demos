@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import { applyTheme } from '@cloudscape-design/components/theming';
 
-import { generateThemeConfig, generateThemeConfigConsole, themeCoreConfig } from './theme-cw';
+import { generateThemeConfigConsole, generateThemeConfigCW, themeCoreConfig } from './theme-cw';
 
 // Store the reset function from the current theme
 let currentThemeReset: (() => void) | null = null;
@@ -26,6 +26,7 @@ export function applyCustomTheme(customConfig?: Partial<typeof themeCoreConfig>)
   }
 
   // Apply the new theme and store its reset function
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { reset: resetFn } = applyTheme({ theme: customConfig as any });
   currentThemeReset = resetFn;
 }
@@ -68,7 +69,7 @@ export function resetToDefaults() {
  */
 export function useThemeComparison() {
   const applyDirectionA = (customAccentColor?: { light: string; dark: string }) => {
-    const themeA = generateThemeConfig(customAccentColor);
+    const themeA = generateThemeConfigCW(customAccentColor);
     applyCustomTheme(themeA);
   };
 

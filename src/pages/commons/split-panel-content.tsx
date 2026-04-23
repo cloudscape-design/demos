@@ -13,7 +13,12 @@ import Slider from '@cloudscape-design/components/slider';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { applyCustomTheme } from '../../common/apply-theme';
-import { generateThemeConfig, generateThemeConfigConsole, themeCoreConfig } from '../../common/theme-cw';
+import {
+  generateThemeConfigConsole,
+  generateThemeConfigCoreDefault,
+  generateThemeConfigCW,
+  themeCoreConfig,
+} from '../../common/theme-cw';
 
 interface ThemeConfig {
   colorSelectedAccent?: string;
@@ -24,6 +29,9 @@ interface ThemeConfig {
   borderWidthIconMedium?: string;
   borderWidthIconBig?: string;
   borderWidthIconLarge?: string;
+  borderWidthItemSelected?: string;
+  borderWidthCardSelected?: string;
+  borderWidthToken?: string;
   borderRadiusButton?: string;
   borderRadiusInput?: string;
   borderRadiusContainer?: string;
@@ -79,6 +87,7 @@ export function GlobalSplitPanelContent() {
   const [themeValue, setThemeValue] = useState('core');
   const [checked, setChecked] = useState(false);
   const [checkedFontSmooth, setCheckedFontSmooth] = useState(true);
+  const [blueAccent, setBlueAccent] = useState(true);
   const linkColorOptions: SelectProps.Options = [
     {
       label: 'Blue for info links only',
@@ -100,6 +109,9 @@ export function GlobalSplitPanelContent() {
     borderWidthIconMedium: extractNumericValue((themeCoreConfig.tokens?.borderWidthIconMedium as string) || '2px'),
     borderWidthIconBig: extractNumericValue((themeCoreConfig.tokens?.borderWidthIconBig as string) || '2px'),
     borderWidthIconLarge: extractNumericValue((themeCoreConfig.tokens?.borderWidthIconLarge as string) || '2.5px'),
+    borderWidthItemSelected: extractNumericValue((themeCoreConfig.tokens?.borderWidthItemSelected as string) || '1px'),
+    borderWidthCardSelected: extractNumericValue((themeCoreConfig.tokens?.borderWidthCardSelected as string) || '1px'),
+    borderWidthToken: extractNumericValue((themeCoreConfig.tokens?.borderWidthToken as string) || '1px'),
     borderRadiusButton: extractNumericValue((themeCoreConfig.tokens?.borderRadiusButton as string) || '8px'),
     borderRadiusContainer: extractNumericValue((themeCoreConfig.tokens?.borderRadiusContainer as string) || '12px'),
     fontSizeHeadingXl: extractNumericValue((themeCoreConfig.tokens?.fontSizeHeadingXl as string) || '26px'),
@@ -120,7 +132,6 @@ export function GlobalSplitPanelContent() {
   const fontFamilyOptions: SelectProps.Options = [
     { label: 'NotoSans', value: "'NotoSans', 'Noto Sans', sans-serif" },
     { label: 'AmazonEmberDisplay', value: "'AmazonEmberDisplay', 'Amazon Ember Display', sans-serif" },
-    { label: 'EmberModernText', value: "'Ember Modern Text', sans-serif" },
   ];
 
   // Apply CSS class to body when toggle changes
@@ -146,11 +157,18 @@ export function GlobalSplitPanelContent() {
           // Don't apply form customizations for Console theme
           baseTheme = generateThemeConfigConsole();
           shouldApplyCustomTokens = false;
-        } else {
-          // New Core theme: Complete theme with form customizations
+        } else if (themeValue === 'core-default') {
+          // New Core default theme: Complete theme from theme-core.ts
           baseTheme = customAccentColor
-            ? generateThemeConfig(customAccentColor, config.fontFamilyBase)
-            : generateThemeConfig(undefined, config.fontFamilyBase);
+            ? generateThemeConfigCoreDefault(customAccentColor, config.fontFamilyBase)
+            : generateThemeConfigCoreDefault(undefined, config.fontFamilyBase);
+          shouldApplyCustomTokens = false;
+        } else {
+          // New CloudWatch theme: Complete theme with form customizations
+          const accentColor = blueAccent ? { light: '#006CE0', dark: '#42B4FF' } : customAccentColor;
+          const accentSubtle = blueAccent ? { light: '#F0FBFF', dark: '#001129' } : undefined;
+          const accentSubtleHover = blueAccent ? { light: '#F0FBFF', dark: '#001129' } : undefined;
+          baseTheme = generateThemeConfigCW(accentColor, config.fontFamilyBase, accentSubtle, accentSubtleHover);
           shouldApplyCustomTokens = true;
         }
 
@@ -233,7 +251,7 @@ export function GlobalSplitPanelContent() {
 
     // Apply theme changes when toggle state or console theme changes
     applyThemeChanges();
-  }, [checked, config, themeValue, selectedLinkColor]);
+  }, [checked, config, themeValue, selectedLinkColor, blueAccent]);
 
   // Toggle font-smooth-auto class on body
   // When checkbox is OFF (default), font smoothing is subpixel-antialiased (normal browser behavior)
@@ -294,11 +312,18 @@ export function GlobalSplitPanelContent() {
         // Don't apply form customizations for Console theme
         baseTheme = generateThemeConfigConsole();
         shouldApplyCustomTokens = false;
-      } else {
-        // New Core theme: Complete theme with form customizations
+      } else if (themeValue === 'core-default') {
+        // New Core default theme: Complete theme from theme-core.ts
         baseTheme = customAccentColor
-          ? generateThemeConfig(customAccentColor, config.fontFamilyBase)
-          : generateThemeConfig(undefined, config.fontFamilyBase);
+          ? generateThemeConfigCoreDefault(customAccentColor, config.fontFamilyBase)
+          : generateThemeConfigCoreDefault(undefined, config.fontFamilyBase);
+        shouldApplyCustomTokens = false;
+      } else {
+        // New CloudWatch theme: Complete theme with form customizations
+        const accentColor = blueAccent ? { light: '#006CE0', dark: '#42B4FF' } : customAccentColor;
+        const accentSubtle = blueAccent ? { light: '#F0FBFF', dark: '#001129' } : undefined;
+        const accentSubtleHover = blueAccent ? { light: '#F0FBFF', dark: '#001129' } : undefined;
+        baseTheme = generateThemeConfigCW(accentColor, config.fontFamilyBase, accentSubtle, accentSubtleHover);
         shouldApplyCustomTokens = true;
       }
 
@@ -353,6 +378,7 @@ export function GlobalSplitPanelContent() {
     setThemeValue('core');
     setChecked(false);
     setCheckedFontSmooth(true);
+    setBlueAccent(true);
     setFontStretch(100);
     setSelectedLinkColor(linkColorOptions[0]);
     setConfig({
@@ -363,6 +389,13 @@ export function GlobalSplitPanelContent() {
       borderWidthIconMedium: extractNumericValue((themeCoreConfig.tokens?.borderWidthIconMedium as string) || '2px'),
       borderWidthIconBig: extractNumericValue((themeCoreConfig.tokens?.borderWidthIconBig as string) || '2px'),
       borderWidthIconLarge: extractNumericValue((themeCoreConfig.tokens?.borderWidthIconLarge as string) || '2.5px'),
+      borderWidthItemSelected: extractNumericValue(
+        (themeCoreConfig.tokens?.borderWidthItemSelected as string) || '1px',
+      ),
+      borderWidthCardSelected: extractNumericValue(
+        (themeCoreConfig.tokens?.borderWidthCardSelected as string) || '1px',
+      ),
+      borderWidthToken: extractNumericValue((themeCoreConfig.tokens?.borderWidthToken as string) || '1px'),
       borderRadiusButton: extractNumericValue((themeCoreConfig.tokens?.borderRadiusButton as string) || '8px'),
       borderRadiusInput: extractNumericValue((themeCoreConfig.tokens?.borderRadiusInput as string) || '8px'),
       borderRadiusContainer: extractNumericValue((themeCoreConfig.tokens?.borderRadiusContainer as string) || '12px'),
@@ -394,11 +427,13 @@ export function GlobalSplitPanelContent() {
             onChange={({ detail }) => setThemeValue(detail.value)}
             value={themeValue}
             items={[
+              { value: 'core-default', label: 'New Core default' },
               { value: 'core', label: 'New CloudWatch theme' },
               { value: 'console', label: 'Current Console' },
             ]}
           />
         </Box>
+
         {false && (
           <>
             <Box padding={{ bottom: 'l' }}>
