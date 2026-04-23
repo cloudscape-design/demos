@@ -2,19 +2,25 @@
 // SPDX-License-Identifier: MIT-0
 
 // ============================================================================
-// Theme for new Core default
+// Theme for new CW
 // ============================================================================
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function generateThemeConfig(customAccentColor?: { light: string; dark: string }, fontFamily?: string) {
+export function generateThemeConfigCW(
+  customAccentColor?: { light: string; dark: string },
+  customAccentSubtle?: { light: string; dark: string },
+  customAccentSubtleHover?: { light: string; dark: string },
+) {
   const headingFontWeight = '700';
   // Primary accent colors
 
   const colorSelectedAccent = customAccentColor || { light: '#1b232d', dark: '#F9F9FB' };
+  //const colorSelectedAccent = { light: '#006CE0', dark: '#42B4FF' };
 
-  const colorSelectedAccentSubtle = { light: '#F6F6F9', dark: '#06080A' };
+  const colorSelectedAccentSubtle = customAccentSubtle || { light: '#F6F6F9', dark: '#06080A' };
+  //const colorSelectedAccentSubtle = { light: '#F0FBFF', dark: '#001129' };
 
-  const colorSelectedAccentSubtleHover = { light: '#EBEBF0', dark: '#131920' };
+  const colorSelectedAccentSubtleHover = customAccentSubtleHover || { light: '#EBEBF0', dark: '#131920' };
+  //const colorSelectedAccentSubtleHover = { light: '#F0FBFF', dark: '#001129' };
 
   // Toned down text color
   const colorTextBodyDefault = { light: '#0f141a', dark: '#CCCCD1' };
@@ -79,6 +85,10 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
       // ========================================================================
       colorTextLinkDefault: colorTextBodyDefault,
       colorTextLinkHover: { light: '#424650', dark: '#FFFFFF' },
+      colorTextLinkSecondaryDefault: { light: '#006CE0', dark: '#42B4FF' }, // Added
+      colorTextLinkSecondaryHover: { light: '#002A66', dark: '#75CFFF' }, // Added
+      colorTextLinkInfoDefault: { light: '#006CE0', dark: '#42B4FF' }, // Added
+      colorTextLinkInfoHover: { light: '#002A66', dark: '#75CFFF' }, // Added
       colorTextAccent: colorSelectedAccent,
 
       // ========================================================================
@@ -92,7 +102,7 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
       // ========================================================================
       // SEGMENTS & TABS
       // ========================================================================
-      colorBackgroundSegmentActive: colorSelectedAccent,
+      colorBackgroundSegmentActive: { light: '#1b232d', dark: '#F9F9FB' },
 
       // ========================================================================
       // SLIDER
@@ -125,7 +135,7 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
       // ========================================================================
       // TYPOGRAPHY - Headings
       // ========================================================================
-      colorTextBreadcrumbCurrent: colorSelectedAccent,
+      colorTextBreadcrumbCurrent: { light: '#656871', dark: '#8c8c94' },
 
       // Body text
       //fontSizeBodyM: '13px',
@@ -171,6 +181,9 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
       borderWidthToken: '1px',
       borderWidthAlert: '0px',
       borderItemWidth: '1px',
+      borderWidthAlertInlineStart: '2px',
+      borderWidthItemSelected: '1px',
+      borderWidthCardSelected: '1px',
 
       // ========================================================================
       // BORDERS - Radius
@@ -188,13 +201,13 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
       borderRadiusTabsFocusRing: '10px',
       borderRadiusToken: '8px',
       borderRadiusTutorialPanelItem: '4px',
-      borderWidthAlertInlineStart: '2px',
 
       // ========================================================================
       // SPACE
       // ========================================================================
       spaceAlertVertical: '4px',
       spaceButtonHorizontal: '12px',
+      spaceTabsVertical: '0px',
 
       // ========================================================================
       // ICONS - Stroke Width
@@ -270,7 +283,304 @@ export function generateThemeConfig(customAccentColor?: { light: string; dark: s
 }
 
 // ============================================================================
-// Theme for Console
+// Theme for new Core default
+// ============================================================================
+
+export function generateThemeConfigCoreDefault(
+  customAccentColor?: { light: string; dark: string },
+  fontFamily?: string,
+) {
+  const headingFontWeight = '600';
+
+  // Primary accent colors
+  const colorSelectedAccent = customAccentColor || { light: '#1b232d', dark: '#F9F9FB' };
+  const colorSelectedAccentSubtle = { light: '#F6F6F9', dark: '#06080A' };
+  const colorSelectedAccentSubtleHover = { light: '#EBEBF0', dark: '#131920' };
+
+  // Secondary accent colors (darker/more saturated variant)
+  const colorSelectedAccentSecondary = { light: '#1b232d', dark: '#F9F9FB' };
+
+  // Neutral colors
+  const colorNeutralDefault = { light: '#1b232d', dark: '#f3f3f7' };
+  const colorNeutralInverse = { light: '#ffffff', dark: '#131920' };
+  //const colorNeutralBackground = { light: '#F6F6F9', dark: '#333843' };
+
+  // Toned down text color
+  const colorTextBodyDefault = { light: '#0f141a', dark: '#CCCCD1' };
+  //const colorTextBodyDefault = { light: '#1B232D', dark: '#c6c6cd' };
+  //const colorTextBodySecondary = { light: '#656871', dark: '#B4B4BB' };
+
+  // Status colors
+  const colorSuccess = { light: '#008559', dark: '#008559' };
+
+  return {
+    tokens: {
+      fontFamilyBase: fontFamily || "'Noto Sans', 'Helvetica Neue', Roboto, Arial, sans-serif",
+      colorTextBodyDefault: colorTextBodyDefault,
+      //colorTextBodySecondary: colorTextBodySecondary,
+
+      // ========================================================================
+      // BUTTONS - Normal
+      // ========================================================================
+      colorBorderButtonNormalDefault: colorNeutralDefault,
+      colorBorderButtonNormalHover: colorSelectedAccent,
+      colorBorderButtonNormalActive: colorSelectedAccentSecondary,
+      colorBackgroundButtonNormalDefault: { light: '#FFFFFF', dark: '#161d26' },
+      colorBackgroundButtonNormalHover: { light: '#F6F6F9', dark: '#424650' },
+      colorBackgroundButtonNormalActive: colorSelectedAccentSubtleHover,
+      colorTextButtonNormalDefault: colorNeutralDefault,
+      colorTextButtonNormalHover: colorSelectedAccent,
+      colorTextButtonNormalActive: colorSelectedAccentSecondary,
+
+      // ========================================================================
+      // BUTTONS - Primary
+      // ========================================================================
+      colorBackgroundButtonPrimaryDefault: colorSelectedAccentSecondary,
+      colorBackgroundButtonPrimaryHover: { light: '#06080A', dark: '#FFFFFF' },
+      colorBackgroundButtonPrimaryActive: colorSelectedAccentSecondary,
+      colorTextButtonPrimaryDefault: colorNeutralInverse,
+      colorTextButtonPrimaryHover: colorNeutralInverse,
+      colorTextButtonPrimaryActive: colorNeutralInverse,
+
+      // ========================================================================
+      // BUTTONS - Link
+      // ========================================================================
+      colorBackgroundButtonLinkDefault: { light: '#f6f6f9', dark: '#232b37' }, // Added
+      colorBackgroundButtonLinkHover: { light: '#ebebf0', dark: '#424650' }, // Added
+      colorBackgroundButtonLinkActive: colorSelectedAccentSubtleHover,
+      colorTextLinkButtonNormalDefault: colorSelectedAccent,
+
+      // ========================================================================
+      // BUTTONS - Toggle
+      // ========================================================================
+      colorBackgroundToggleButtonNormalPressed: colorSelectedAccentSubtleHover,
+      colorBorderToggleButtonNormalPressed: colorSelectedAccent,
+      colorTextToggleButtonNormalPressed: colorSelectedAccent,
+
+      // ========================================================================
+      // CONTROLS - Checkboxes, Radio, Toggle
+      // ========================================================================
+      colorBackgroundControlChecked: colorSelectedAccent,
+      //colorBackgroundToggleCheckedDisabled: colorSelectedAccentDisabled,
+
+      // ========================================================================
+      // LINKS & TEXT
+      // ========================================================================
+      colorTextLinkDefault: colorTextBodyDefault,
+      colorTextLinkHover: { light: '#424650', dark: '#FFFFFF' },
+      colorTextLinkSecondaryDefault: { light: '#295eff', dark: '#7598ff' }, // Added
+      colorTextLinkSecondaryHover: { light: '#0033CC', dark: '#94AFFF' }, // Added
+      colorTextLinkInfoDefault: { light: '#295eff', dark: '#7598ff' }, // Added
+      colorTextLinkInfoHover: { light: '#0033CC', dark: '#94AFFF' }, // Added
+      colorTextAccent: colorSelectedAccent,
+
+      // ========================================================================
+      // SELECTION & FOCUS
+      // ========================================================================
+      colorBorderItemFocused: colorSelectedAccent,
+      colorBorderItemSelected: colorSelectedAccent,
+      colorBackgroundItemSelected: colorSelectedAccentSubtle,
+      colorBackgroundLayoutToggleSelectedDefault: colorSelectedAccent,
+
+      // ========================================================================
+      // SEGMENTS & TABS
+      // ========================================================================
+      colorBackgroundSegmentActive: colorSelectedAccent,
+
+      // ========================================================================
+      // SLIDER
+      // ========================================================================
+      colorBackgroundSliderRangeDefault: colorSelectedAccent,
+      colorBackgroundSliderHandleDefault: colorSelectedAccent,
+
+      // ========================================================================
+      // PROGRESS BAR
+      // ========================================================================
+      colorBackgroundProgressBarValueDefault: colorSelectedAccent,
+
+      // ========================================================================
+      // NOTIFICATIONS
+      // ========================================================================
+      colorBackgroundNotificationGreen: colorSuccess,
+      colorBackgroundNotificationBlue: { light: '#0033CC', dark: '#0033CC' },
+      colorTextNotificationDefault: { light: '#ffffff', dark: '#ffffff' },
+
+      // ========================================================================
+      // STATUS
+      // ========================================================================
+      colorTextStatusInfo: { light: '#0033CC', dark: '#7598FF' },
+      colorTextStatusSuccess: { light: '#008559', dark: '#00BD6B' }, // Added
+      colorTextDropdownItemFilterMatch: colorSelectedAccent,
+      colorBackgroundDropdownItemFilterMatch: { light: '#F3F3F7', dark: '#06080A' },
+
+      // ========================================================================
+      // TYPOGRAPHY - Headings
+      // ========================================================================
+      colorTextBreadcrumbCurrent: { light: '#656871', dark: '#8c8c94' },
+
+      // Body text
+      // fontSizeBodyM: '13px',
+      // lineHeightBodyM: '18px',
+
+      // H1
+      fontSizeHeadingXl: '24px',
+      lineHeightHeadingXl: '30px',
+      fontWeightHeadingXl: headingFontWeight,
+
+      // H2
+      fontSizeHeadingL: '20px',
+      lineHeightHeadingL: '24px',
+      fontWeightHeadingL: headingFontWeight,
+      //letterSpacingHeadingL: '20px',
+
+      // H3
+      fontSizeHeadingM: '18px',
+      lineHeightHeadingM: '22px',
+      fontWeightHeadingM: headingFontWeight,
+
+      // H4
+      fontSizeHeadingS: '16px',
+      lineHeightHeadingS: '20px',
+      fontWeightHeadingS: headingFontWeight,
+
+      // H5
+      fontSizeHeadingXs: '14px',
+      lineHeightHeadingXs: '20px',
+      fontWeightHeadingXs: headingFontWeight,
+
+      //fontFamilyHeading: 'Ember Modern Display',
+
+      // ========================================================================
+      // TYPOGRAPHY - Other
+      // ========================================================================
+      fontWeightButton: headingFontWeight,
+      fontWeightTabs: headingFontWeight,
+      fontSizeTabs: '16px',
+
+      // ========================================================================
+      // SPACE
+      // ========================================================================
+      spaceAlertVertical: '4px',
+      spaceButtonHorizontal: '12px',
+      spaceTabsVertical: '2px',
+
+      // ========================================================================
+      // BORDERS - Width
+      // ========================================================================
+      borderWidthButton: '1px',
+      borderWidthToken: '1px',
+      borderWidthAlert: '0px',
+      borderItemWidth: '1px',
+      borderWidthAlertInlineStart: '2px',
+      borderWidthItemSelected: '1px',
+      borderWidthCardSelected: '1px',
+
+      // ========================================================================
+      // BORDERS - Radius
+      // ========================================================================
+      borderRadiusAlert: '2px',
+      borderRadiusBadge: '16px',
+      borderRadiusButton: '8px',
+      borderRadiusContainer: '12px',
+      borderRadiusDropdown: '8px',
+      borderRadiusDropzone: '8px',
+      borderRadiusFlashbar: '4px',
+      borderRadiusItem: '8px',
+      borderRadiusInput: '8px',
+      borderRadiusPopover: '8px',
+      borderRadiusTabsFocusRing: '10px',
+      borderRadiusToken: '8px',
+      borderRadiusTutorialPanelItem: '4px',
+
+      // ========================================================================
+      // ICONS - Stroke Width
+      // ========================================================================
+      borderWidthIconSmall: '1.5px',
+      borderWidthIconNormal: '1.5px',
+      borderWidthIconMedium: '1.75px',
+      borderWidthIconBig: '2px',
+      borderWidthIconLarge: '2.5px',
+    },
+
+    referenceTokens: {
+      color: {
+        primary: {
+          seed: '#1b232d',
+        },
+      },
+    },
+
+    contexts: {
+      'top-navigation': {
+        tokens: {
+          colorBackgroundContainerContent: { light: '#ffffff', dark: '#161d26' },
+          colorBorderDividerDefault: { light: '#c6c6cd', dark: '#424650' },
+          colorTextTopNavigationTitle: colorNeutralDefault,
+          // Interactive elements
+          colorTextInteractiveDefault: colorNeutralDefault,
+          colorTextInteractiveHover: colorSelectedAccent,
+          colorTextInteractiveActive: { light: '#06080A', dark: '#F6F6F9' },
+          colorTextAccent: { light: '#06080A', dark: '#F6F6F9' },
+          colorTextDropdownItemDefault: { light: '#06080A', dark: '#F6F6F9' },
+          colorTextDropdownItemHighlighted: { light: '#06080A', dark: '#F6F6F9' },
+          colorTextDropdown: { light: '#06080A', dark: '#F6F6F9' },
+          colorTextGroupLabel: { light: '#424650', dark: '#c6c6cd' },
+          colorBackgroundDropdownItemDefault: { light: '#FFFFFF', dark: '#1b232d' },
+          colorBackgroundDropdownItemHover: { light: '#f3f3f7', dark: '#131920' },
+          colorBorderDropdownContainer: { light: '#b4b4bb', dark: '#656871' },
+        },
+      },
+      header: {
+        tokens: {
+          // ========================================================================
+          // BUTTONS - Normal
+          // ========================================================================
+          colorBorderButtonNormalDefault: '#f3f3f7',
+          colorBorderButtonNormalHover: '#F9F9FB',
+          colorBorderButtonNormalActive: '#F9F9FB',
+          colorBackgroundButtonNormalHover: '#1B232D',
+          colorBackgroundButtonNormalActive: '#131920',
+          colorTextButtonNormalDefault: '#f3f3f7',
+          colorTextButtonNormalHover: '#F9F9FB',
+          colorTextButtonNormalActive: '#F9F9FB',
+          // ========================================================================
+          // BUTTONS - Primary
+          // ========================================================================
+          colorBackgroundButtonPrimaryDefault: '#F9F9FB',
+          colorBackgroundButtonPrimaryHover: '#FFFFFF',
+          colorBackgroundButtonPrimaryActive: '#F9F9FB',
+          colorTextButtonPrimaryDefault: '#131920',
+          colorTextButtonPrimaryHover: '#131920',
+          colorTextButtonPrimaryActive: '#131920',
+          colorTextLinkDefault: '#CCCCD1',
+        },
+      },
+      flashbar: {
+        tokens: {
+          // Custom flashbar colors
+          colorBackgroundNotificationGreen: colorSuccess,
+          colorBackgroundNotificationBlue: { light: '#0033cc', dark: '#0033cc' },
+          colorTextNotificationDefault: { light: '#ffffff', dark: '#ffffff' },
+        },
+      },
+      alert: {
+        tokens: {
+          colorBackgroundStatusInfo: { light: '#f6f6f9', dark: '#232b37' },
+          colorBackgroundStatusWarning: { light: '#f6f6f9', dark: '#232b37' },
+          colorBackgroundStatusError: { light: '#f6f6f9', dark: '#232b37' },
+          colorBackgroundStatusSuccess: { light: '#f6f6f9', dark: '#232b37' },
+          colorTextStatusInfo: { light: '#0033CC', dark: '#7598FF' },
+          colorBorderStatusInfo: { light: '#0033CC', dark: '#7598FF' },
+          colorTextStatusSuccess: { light: '#008559', dark: '#00BD6B' }, // Added
+          colorBorderStatusSuccess: { light: '#008559', dark: '#00BD6B' }, // Added
+        },
+      },
+    },
+  };
+}
+
+// ============================================================================
+// Theme for current Console
 // ============================================================================
 
 export function generateThemeConfigConsole() {
@@ -285,7 +595,7 @@ export function generateThemeConfigConsole() {
       colorBorderButtonNormalHover: { light: '#002A66', dark: '#75CFFF' },
       colorBorderButtonNormalActive: { light: '#002A66', dark: '#75CFFF' },
 
-      colorBackgroundButtonNormalDefault: { light: '#FFFFFF', dark: 'transparent' },
+      colorBackgroundButtonNormalDefault: { light: '#FFFFFF', dark: '#161d26' },
       colorBackgroundButtonNormalHover: { light: '#F0FBFF', dark: '#1B232D' },
       colorBackgroundButtonNormalActive: { light: '#D1F1FF', dark: '#333843' },
 
@@ -423,6 +733,15 @@ export function generateThemeConfigConsole() {
       borderWidthToken: '2px',
       borderWidthAlert: '2px',
       borderItemWidth: '2px',
+      borderWidthItemSelected: '2px',
+      borderWidthCardSelected: '2px',
+
+      // ========================================================================
+      // SPACE
+      // ========================================================================
+      spaceAlertVertical: '12px',
+      spaceButtonHorizontal: '20px',
+      spaceTabsVertical: '4px',
 
       // ========================================================================
       // BORDERS - Radius
@@ -502,7 +821,7 @@ export function generateThemeConfigConsole() {
   };
 }
 
-export const themeCoreConfig = generateThemeConfig();
+export const themeCoreConfig = generateThemeConfigCW();
 
 export const colorTextLinkSecondOption = { light: '#295EFF', dark: '#7598FF' };
 
@@ -520,7 +839,7 @@ export function createThemeComparison() {
      * Apply Design Direction A with optional custom accent color
      */
     applyDirectionA: (customAccentColor?: { light: string; dark: string }) => {
-      const themeA = generateThemeConfig(customAccentColor);
+      const themeA = generateThemeConfigCW(customAccentColor);
       // applyCustomTheme handles reset automatically
       return themeA;
     },
@@ -538,7 +857,7 @@ export function createThemeComparison() {
      * Get theme config without applying (for inspection/comparison)
      */
     getThemeConfig: (direction: 'A' | 'B', customAccentColor?: { light: string; dark: string }) => {
-      return direction === 'A' ? generateThemeConfig(customAccentColor) : generateThemeConfigConsole();
+      return direction === 'A' ? generateThemeConfigCW(customAccentColor) : generateThemeConfigConsole();
     },
   };
 }

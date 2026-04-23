@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 
 import Button from '@cloudscape-design/components/button';
 import ButtonGroup from '@cloudscape-design/components/button-group';
-import Calendar from '@cloudscape-design/components/calendar';
 import DatePicker from '@cloudscape-design/components/date-picker';
+import DateRangePicker, { DateRangePickerProps } from '@cloudscape-design/components/date-range-picker';
 import ExpandableSection from '@cloudscape-design/components/expandable-section';
 import Grid from '@cloudscape-design/components/grid';
 import Multiselect, { MultiselectProps } from '@cloudscape-design/components/multiselect';
@@ -175,6 +175,7 @@ function Inputs() {
     multiSelectOptions[3],
   ] as MultiselectProps.Options);
   const [dateValue, setDateValue] = useState('2018-01-02');
+  const [dateRangeValue, setDateRangeValue] = useState<DateRangePickerProps['value']>(null);
 
   return (
     <Grid>
@@ -197,31 +198,34 @@ function Inputs() {
             setDateValue(detail.value);
           }}
         />
-        <DatePicker
-          value={dateValue}
-          disabled={true}
-          placeholder="Disabled date picker"
-          openCalendarAriaLabel={() => 'Open calendar'}
-          onChange={({ detail }) => {
-            setDateValue(detail.value);
+        <DateRangePicker
+          value={dateRangeValue}
+          onChange={({ detail }) => setDateRangeValue(detail.value)}
+          relativeOptions={[
+            { key: 'previous-5-minutes', amount: 5, unit: 'minute', type: 'relative' },
+            { key: 'previous-30-minutes', amount: 30, unit: 'minute', type: 'relative' },
+            { key: 'previous-1-hour', amount: 1, unit: 'hour', type: 'relative' },
+            { key: 'previous-6-hours', amount: 6, unit: 'hour', type: 'relative' },
+          ]}
+          isValidRange={range => {
+            if (range?.type === 'absolute') {
+              const [startDateWithoutTime] = range.startDate.split('T');
+              const [endDateWithoutTime] = range.endDate.split('T');
+              if (!startDateWithoutTime || !endDateWithoutTime) {
+                return {
+                  valid: false,
+                  errorMessage:
+                    'The selected date range is incomplete. Select a start and end date for the date range.',
+                };
+              }
+            }
+            return { valid: true };
           }}
-        />
-        <DatePicker
-          value={dateValue}
-          readOnly={true}
-          placeholder="Readonly date picker"
-          openCalendarAriaLabel={() => 'Open calendar'}
-          onChange={({ detail }) => {
-            setDateValue(detail.value);
-          }}
+          i18nStrings={{}}
+          placeholder="Filter by a date and time range"
         />
       </SpaceBetween>
       <SpaceBetween size="xl" direction="horizontal">
-        <Calendar
-          onChange={({ detail }) => setDateValue(detail.value)}
-          value={dateValue}
-          isDateEnabled={date => date.getDay() !== 6 && date.getDay() !== 0}
-        />
         <SpaceBetween size="s">
           <ExpandableSection variant="footer" headerText="Expandable section">
             Expanded
