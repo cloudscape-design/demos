@@ -68,6 +68,10 @@
     "title": "Table with select filter"
   },
   {
+    "path": "table-select-dropdown",
+    "title": "Table with select dropdown"
+  },
+  {
     "path": "table-date-filter",
     "title": "Table view with date range picker filter"
   },

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT-0
 
 // Can be used in postinstall script like so:
 // "postinstall": "node ./scripts/install-peer-dependency.js collection-hooks:property-filter-token-groups"
@@ -47,44 +47,51 @@ const getArtifactPath = moduleName => {
 
 const args = process.argv.slice(2);
 if (args.length < 1) {
-  console.error('Usage: install-peer-dependency.js <package-name>:<target-branch>');
+  console.error('Usage: install-peer-dependency.js <package-name>:<target-branch> [...]');
   process.exit(1);
 }
-const [packageName, targetBranch] = args[0].split(':');
-const targetRepository = `https://github.com/cloudscape-design/${packageName}.git`;
-const nodeModulesPath = path.join(process.cwd(), 'node_modules', '@cloudscape-design');
-const tempDir = path.join(os.tmpdir(), `temp-${packageName}`);
 
-// Clone the repository and checkout the branch
-console.log(`Cloning ${packageName}:${targetBranch}...`);
-execCommand(`git clone ${targetRepository} ${tempDir}`);
-process.chdir(tempDir);
-execCommand(`git checkout ${targetBranch}`);
+const rootDir = process.cwd();
+const nodeModulesPath = path.join(rootDir, 'node_modules', '@cloudscape-design');
 
-// Install dependencies and build
-console.log(`Installing dependencies and building ${packageName}...`);
-execCommand('npm install');
-execCommand('npm run build');
+for (const arg of args) {
+  const [packageName, targetBranch] = arg.split(':');
+  const targetRepository = `https://github.com/cloudscape-design/${packageName}.git`;
+  const tempDir = path.join(os.tmpdir(), `temp-${packageName}`);
 
-// Remove existing peer dependency in node_modules
-for (const moduleName of getModules(packageName)) {
-  const modulePath = path.join(nodeModulesPath, moduleName);
-  const artifactPath = getArtifactPath(moduleName);
+  // Clone the repository and checkout the branch
+  console.log(`Cloning ${packageName}:${targetBranch}...`);
+  execCommand(`rm -rf ${tempDir}`);
+  execCommand(`git clone ${targetRepository} ${tempDir}`);
+  process.chdir(tempDir);
+  execCommand(`git checkout ${targetBranch}`);
 
-  console.log(`Removing existing ${moduleName} from node_modules...`, modulePath);
-  execCommand(`rm -rf ${modulePath}`);
+  // Install dependencies and build
+  console.log(`Installing dependencies and building ${packageName}...`);
+  execCommand('npm install');
+  execCommand('npm run build');
 
-  // Copy built peer dependency to node_modules
-  console.log(`Copying built ${moduleName} to node_modules...`, modulePath, `${tempDir}${artifactPath}`);
-  execCommand(`mkdir -p ${modulePath}`);
-  execCommand(`cp -R ${tempDir}${artifactPath} ${modulePath}`);
+  // Remove existing peer dependency in node_modules
+  for (const moduleName of getModules(packageName)) {
+    const modulePath = path.join(nodeModulesPath, moduleName);
+    const artifactPath = getArtifactPath(moduleName);
+
+    console.log(`Removing existing ${moduleName} from node_modules...`, modulePath);
+    execCommand(`rm -rf ${modulePath}`);
+
+    // Copy built peer dependency to node_modules
+    console.log(`Copying built ${moduleName} to node_modules...`, modulePath, `${tempDir}${artifactPath}`);
+    execCommand(`mkdir -p ${modulePath}`);
+    execCommand(`cp -R ${tempDir}${artifactPath} ${modulePath}`);
+  }
+
+  // Clean up
+  console.log('Cleaning up...');
+  process.chdir(rootDir);
+  execCommand(`rm -rf ${tempDir}`);
+
+  console.log(`${packageName} has been successfully installed from branch ${targetBranch}!`);
 }
-
-// Clean up
-console.log('Cleaning up...');
-execCommand(`rm -rf ${tempDir}`);
-
-console.log(`${packageName} has been successfully installed from branch ${targetBranch}!`);
 
 function execCommand(command, options = {}) {
   try {
