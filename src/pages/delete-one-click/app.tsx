@@ -30,7 +30,8 @@ export function App() {
   const [tags, setTags] = useState<TagEditorProps.Tag[]>([]);
   const [loading, setLoading] = useState(true);
   const [isValid, setIsValid] = useState(true);
-  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize } = useGlobalSplitPanel();
+  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize, splitPanelPreferences } =
+    useGlobalSplitPanel();
 
   useEffect(() => {
     if (loading) {
@@ -66,6 +67,7 @@ export function App() {
         onSplitPanelToggle={onSplitPanelToggle}
         splitPanelSize={splitPanelSize}
         onSplitPanelResize={onSplitPanelResize}
+        splitPanelPreferences={splitPanelPreferences}
         splitPanel={
           <SplitPanel header="Design exploration">
             <GlobalSplitPanelContent />

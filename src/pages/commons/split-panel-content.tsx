@@ -160,15 +160,14 @@ export function GlobalSplitPanelContent() {
         } else if (themeValue === 'core-default') {
           // New Core default theme: Complete theme from theme-core.ts
           baseTheme = customAccentColor
-            ? generateThemeConfigCoreDefault(customAccentColor, config.fontFamilyBase)
-            : generateThemeConfigCoreDefault(undefined, config.fontFamilyBase);
+            ? generateThemeConfigCoreDefault(customAccentColor)
+            : generateThemeConfigCoreDefault();
           shouldApplyCustomTokens = false;
         } else {
           // New CloudWatch theme: Complete theme with form customizations
           const accentColor = blueAccent ? { light: '#006CE0', dark: '#42B4FF' } : customAccentColor;
-          const accentSubtle = blueAccent ? { light: '#F0FBFF', dark: '#001129' } : undefined;
           const accentSubtleHover = blueAccent ? { light: '#F0FBFF', dark: '#001129' } : undefined;
-          baseTheme = generateThemeConfigCW(accentColor, config.fontFamilyBase, accentSubtle, accentSubtleHover);
+          baseTheme = generateThemeConfigCW(accentColor, accentSubtleHover);
           shouldApplyCustomTokens = true;
         }
 
@@ -315,15 +314,14 @@ export function GlobalSplitPanelContent() {
       } else if (themeValue === 'core-default') {
         // New Core default theme: Complete theme from theme-core.ts
         baseTheme = customAccentColor
-          ? generateThemeConfigCoreDefault(customAccentColor, config.fontFamilyBase)
-          : generateThemeConfigCoreDefault(undefined, config.fontFamilyBase);
+          ? generateThemeConfigCoreDefault(customAccentColor)
+          : generateThemeConfigCoreDefault();
         shouldApplyCustomTokens = false;
       } else {
         // New CloudWatch theme: Complete theme with form customizations
         const accentColor = blueAccent ? { light: '#006CE0', dark: '#42B4FF' } : customAccentColor;
-        const accentSubtle = blueAccent ? { light: '#F0FBFF', dark: '#001129' } : undefined;
         const accentSubtleHover = blueAccent ? { light: '#F0FBFF', dark: '#001129' } : undefined;
-        baseTheme = generateThemeConfigCW(accentColor, config.fontFamilyBase, accentSubtle, accentSubtleHover);
+        baseTheme = generateThemeConfigCW(accentColor, accentSubtleHover);
         shouldApplyCustomTokens = true;
       }
 

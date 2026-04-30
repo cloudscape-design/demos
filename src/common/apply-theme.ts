@@ -11,7 +11,8 @@ let currentThemeReset: (() => void) | null = null;
  * Applies the custom theme to the application
  * @param customConfig - Optional custom theme configuration. Pass undefined to reset to defaults.
  */
-export function applyCustomTheme(customConfig?: Partial<typeof themeCoreConfig>) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function applyCustomTheme(customConfig?: Record<string, any>) {
   // Always reset previous theme first
   if (currentThemeReset) {
     currentThemeReset();
@@ -89,6 +90,7 @@ export function useThemeComparison() {
   };
 }
 
-// Apply default theme and custom CSS class on module load
-applyCustomTheme();
+// Apply default CW theme and custom CSS class on module load
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+applyCustomTheme(themeCoreConfig as any);
 document.body.classList.add('custom-css-enabled');

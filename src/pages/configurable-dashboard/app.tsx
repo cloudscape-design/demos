@@ -6,14 +6,18 @@ import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import SplitPanel from '@cloudscape-design/components/split-panel';
 
 import { Breadcrumbs, HelpPanelProvider, Notifications } from '../commons';
-import { CustomAppLayout, DemoTopNavigation } from '../commons/common-components';
+import {
+  CustomAppLayout,
+  DemoTopNavigation,
+  GlobalSplitPanelContent,
+  useGlobalSplitPanel,
+} from '../commons/common-components';
 import { useLocalStorage } from '../commons/use-local-storage';
 import { DashboardMainInfo } from '../dashboard/components/header';
 import { DashboardSideNavigation } from '../dashboard/components/side-navigation';
-import Palette from './components/palette';
 import { Content } from './content';
 import { StoredWidgetPlacement } from './interfaces';
-import { allWidgets, getPaletteWidgets } from './widgets';
+import { allWidgets } from './widgets';
 
 import '../../styles/top-navigation.scss';
 
@@ -23,14 +27,20 @@ export function App() {
   const appLayoutRef = useRef<AppLayoutProps.Ref>(null);
 
   const [toolsOpen, setToolsOpen] = useState(false);
-  const [splitPanelOpen, setSplitPanelOpen] = useState(false);
-  const [splitPanelSize, setSplitPanelSize] = useLocalStorage('React-ConfigurableDashboard-SplitPanelSize', 360);
   const [layout, setLayout, resetLayout] = useLocalStorage<ReadonlyArray<StoredWidgetPlacement>>(
     'ConfigurableDashboards-widgets-layout',
   );
   const [toolsContent, setToolsContent] = useState<React.ReactNode>(() => <DashboardMainInfo />);
   // some deleted/unavailable widgets might be dangling in localStorage, therefore we need to filter them
   const filteredLayout = layout?.filter(item => supportedWidgets.has(item.id));
+
+  const {
+    splitPanelOpen,
+    onSplitPanelToggle,
+    splitPanelSize: globalSplitPanelSize,
+    onSplitPanelResize,
+    splitPanelPreferences,
+  } = useGlobalSplitPanel();
 
   const loadHelpPanelContent = (content: React.ReactNode) => {
     setToolsOpen(true);
@@ -56,19 +66,21 @@ export function App() {
               layout={filteredLayout ?? null}
               setLayout={setLayout}
               resetLayout={resetLayout}
-              setSplitPanelOpen={setSplitPanelOpen}
+              setSplitPanelOpen={() => {
+                /* noop */
+              }}
             />
           }
           splitPanel={
-            <SplitPanel header="Add widgets" closeBehavior="hide" hidePreferencesButton={true}>
-              <Palette items={getPaletteWidgets(filteredLayout ?? [])} />
+            <SplitPanel header="Design exploration">
+              <GlobalSplitPanelContent />
             </SplitPanel>
           }
-          splitPanelPreferences={{ position: 'side' }}
+          splitPanelPreferences={splitPanelPreferences}
           splitPanelOpen={splitPanelOpen}
-          onSplitPanelToggle={({ detail }) => setSplitPanelOpen(detail.open)}
-          splitPanelSize={splitPanelSize}
-          onSplitPanelResize={event => setSplitPanelSize(event.detail.size)}
+          onSplitPanelToggle={onSplitPanelToggle}
+          splitPanelSize={globalSplitPanelSize}
+          onSplitPanelResize={onSplitPanelResize}
         />
       </>
     </HelpPanelProvider>

@@ -5,22 +5,15 @@
 // Theme for new CW
 // ============================================================================
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
 export function generateThemeConfigCW(
   customAccentColor?: { light: string; dark: string },
-  customAccentSubtle?: { light: string; dark: string },
   customAccentSubtleHover?: { light: string; dark: string },
 ) {
+  /* eslint-enable @typescript-eslint/no-unused-vars */
   const headingFontWeight = '700';
-  // Primary accent colors
 
-  const colorSelectedAccent = customAccentColor || { light: '#1b232d', dark: '#F9F9FB' };
-  //const colorSelectedAccent = { light: '#006CE0', dark: '#42B4FF' };
-
-  const colorSelectedAccentSubtle = customAccentSubtle || { light: '#F6F6F9', dark: '#06080A' };
-  //const colorSelectedAccentSubtle = { light: '#F0FBFF', dark: '#001129' };
-
-  const colorSelectedAccentSubtleHover = customAccentSubtleHover || { light: '#EBEBF0', dark: '#131920' };
-  //const colorSelectedAccentSubtleHover = { light: '#F0FBFF', dark: '#001129' };
+  const colorSelectedAccentSubtleHover = { light: '#EBEBF0', dark: '#131920' };
 
   // Toned down text color
   const colorTextBodyDefault = { light: '#0f141a', dark: '#CCCCD1' };
@@ -29,14 +22,13 @@ export function generateThemeConfigCW(
     tokens: {
       fontFamilyBase: "'Amazon Ember', 'Helvetica Neue', Roboto, Arial, sans-serif",
       colorTextBodyDefault: colorTextBodyDefault,
-      //colorTextBodySecondary: colorTextBodySecondary,
 
       // ========================================================================
       // BUTTONS - Normal
       // ========================================================================
-      colorBorderButtonNormalDefault: { light: '#656871', dark: '#656871' },
-      colorBorderButtonNormalHover: { light: '#656871', dark: '#656871' },
-      colorBorderButtonNormalActive: { light: '#656871', dark: '#656871' },
+      colorBorderButtonNormalDefault: { light: '#424650', dark: '#656871' },
+      colorBorderButtonNormalHover: { light: '#424650', dark: '#656871' },
+      colorBorderButtonNormalActive: { light: '#424650', dark: '#656871' },
 
       colorBackgroundButtonNormalDefault: { light: '#FFFFFF', dark: '#333843' },
       colorBackgroundButtonNormalHover: { light: '#F6F6F9', dark: '#424650' },
@@ -65,19 +57,19 @@ export function generateThemeConfigCW(
       colorBackgroundButtonLinkHover: { light: '#F6F6F9', dark: '#333843' },
       colorBackgroundButtonLinkActive: colorSelectedAccentSubtleHover,
 
-      colorTextLinkButtonNormalDefault: colorSelectedAccent,
+      colorTextLinkButtonNormalDefault: { light: '#006CE0', dark: '#42B4FF' },
 
       // ========================================================================
       // BUTTONS - Toggle
       // ========================================================================
-      colorBackgroundToggleButtonNormalPressed: colorSelectedAccentSubtleHover,
-      colorBorderToggleButtonNormalPressed: colorSelectedAccent,
-      colorTextToggleButtonNormalPressed: colorSelectedAccent,
+      colorBackgroundToggleButtonNormalPressed: { light: '#D1F1FF', dark: '#333843' },
+      colorBorderToggleButtonNormalPressed: { light: '#006CE0', dark: '#42B4FF' },
+      colorTextToggleButtonNormalPressed: { light: '#002A66', dark: '#75CFFF' },
 
       // ========================================================================
       // CONTROLS - Checkboxes, Radio, Toggle
       // ========================================================================
-      colorBackgroundControlChecked: colorSelectedAccent,
+      colorBackgroundControlChecked: { light: '#006CE0', dark: '#42B4FF' },
       //colorBackgroundToggleCheckedDisabled: colorSelectedAccentDisabled,
 
       // ========================================================================
@@ -89,15 +81,15 @@ export function generateThemeConfigCW(
       colorTextLinkSecondaryHover: { light: '#002A66', dark: '#75CFFF' }, // Added
       colorTextLinkInfoDefault: { light: '#006CE0', dark: '#42B4FF' }, // Added
       colorTextLinkInfoHover: { light: '#002A66', dark: '#75CFFF' }, // Added
-      colorTextAccent: colorSelectedAccent,
+      colorTextAccent: { light: '#006CE0', dark: '#42B4FF' },
 
       // ========================================================================
       // SELECTION & FOCUS
       // ========================================================================
-      colorBorderItemFocused: colorSelectedAccent,
-      colorBorderItemSelected: colorSelectedAccent,
-      colorBackgroundItemSelected: colorSelectedAccentSubtle,
-      colorBackgroundLayoutToggleSelectedDefault: colorSelectedAccent,
+      colorBorderItemFocused: { light: '#006CE0', dark: '#42B4FF' },
+      colorBorderItemSelected: { light: '#006CE0', dark: '#42B4FF' },
+      colorBackgroundItemSelected: { light: '#F0FBFF', dark: '#001129' },
+      colorBackgroundLayoutToggleSelectedDefault: { light: '#006CE0', dark: '#42B4FF' },
 
       // ========================================================================
       // SEGMENTS & TABS
@@ -107,39 +99,31 @@ export function generateThemeConfigCW(
       // ========================================================================
       // SLIDER
       // ========================================================================
-      colorBackgroundSliderRangeDefault: colorSelectedAccent,
-      colorBackgroundSliderHandleDefault: colorSelectedAccent,
+      colorBackgroundSliderRangeDefault: { light: '#006CE0', dark: '#42B4FF' },
+      colorBackgroundSliderHandleDefault: { light: '#006CE0', dark: '#42B4FF' },
 
       // ========================================================================
       // PROGRESS BAR
       // ========================================================================
-      colorBackgroundProgressBarValueDefault: colorSelectedAccent,
+      colorBackgroundProgressBarValueDefault: { light: '#006CE0', dark: '#42B4FF' },
 
       // ========================================================================
       // NOTIFICATIONS
       // ========================================================================
-      //colorBackgroundNotificationGreen: colorSuccess,
-      //colorBackgroundNotificationBlue: { light: '#0033CC', dark: '#0033CC' },
       colorTextNotificationDefault: { light: '#ffffff', dark: '#ffffff' },
 
       // ========================================================================
       // STATUS
       // ========================================================================
-      //colorTextStatusInfo: { light: '#0033CC', dark: '#7598FF' },
-      // colorTextStatusWarning: { light: '#855900', dark: '#ffe347' },
-      // colorTextStatusError: { light: '#DB0000', dark: '#ff7a7a' },
+      colorTextStatusInfo: { light: '#006CE0', dark: '#42B4FF' },
 
-      colorTextDropdownItemFilterMatch: colorSelectedAccent,
+      colorTextDropdownItemFilterMatch: { light: '#006CE0', dark: '#42B4FF' },
       colorBackgroundDropdownItemFilterMatch: { light: '#F3F3F7', dark: '#06080A' },
 
       // ========================================================================
       // TYPOGRAPHY - Headings
       // ========================================================================
       colorTextBreadcrumbCurrent: { light: '#656871', dark: '#8c8c94' },
-
-      // Body text
-      //fontSizeBodyM: '13px',
-      //lineHeightBodyM: '18px',
 
       // H1
       fontSizeHeadingXl: '20px',
@@ -166,8 +150,6 @@ export function generateThemeConfigCW(
       fontSizeHeadingXs: '12px',
       lineHeightHeadingXs: '16px',
       fontWeightHeadingXs: headingFontWeight,
-
-      //fontFamilyHeading: 'Ember Modern Display',
 
       // ========================================================================
       // TYPOGRAPHY - Other
@@ -208,6 +190,9 @@ export function generateThemeConfigCW(
       spaceAlertVertical: '4px',
       spaceButtonHorizontal: '12px',
       spaceTabsVertical: '0px',
+      spaceTokenVertical: '2px',
+      spaceFieldVertical: { comfortable: '4px', compact: '2px' },
+      sizeVerticalInput: { comfortable: '30px', compact: '26px' },
 
       // ========================================================================
       // ICONS - Stroke Width
@@ -222,7 +207,7 @@ export function generateThemeConfigCW(
     referenceTokens: {
       color: {
         primary: {
-          seed: '#1b232d',
+          //seed: '#1b232d',
         },
       },
     },
@@ -286,15 +271,9 @@ export function generateThemeConfigCW(
 // Theme for new Core default
 // ============================================================================
 
-export function generateThemeConfigCoreDefault(
-  customAccentColor?: { light: string; dark: string },
-  fontFamily?: string,
-) {
-  const headingFontWeight = '600';
-
+export function generateThemeConfigCoreDefault() {
   // Primary accent colors
-  const colorSelectedAccent = customAccentColor || { light: '#1b232d', dark: '#F9F9FB' };
-  const colorSelectedAccentSubtle = { light: '#F6F6F9', dark: '#06080A' };
+  const colorSelectedAccent = { light: '#1b232d', dark: '#F9F9FB' };
   const colorSelectedAccentSubtleHover = { light: '#EBEBF0', dark: '#131920' };
 
   // Secondary accent colors (darker/more saturated variant)
@@ -315,9 +294,8 @@ export function generateThemeConfigCoreDefault(
 
   return {
     tokens: {
-      fontFamilyBase: fontFamily || "'Noto Sans', 'Helvetica Neue', Roboto, Arial, sans-serif",
+      fontFamilyBase: "'Noto Sans', 'Helvetica Neue', Roboto, Arial, sans-serif",
       colorTextBodyDefault: colorTextBodyDefault,
-      //colorTextBodySecondary: colorTextBodySecondary,
 
       // ========================================================================
       // BUTTONS - Normal
@@ -379,7 +357,7 @@ export function generateThemeConfigCoreDefault(
       // ========================================================================
       colorBorderItemFocused: colorSelectedAccent,
       colorBorderItemSelected: colorSelectedAccent,
-      colorBackgroundItemSelected: colorSelectedAccentSubtle,
+      colorBackgroundItemSelected: { light: '#F6F6F9', dark: '#0F141A' },
       colorBackgroundLayoutToggleSelectedDefault: colorSelectedAccent,
 
       // ========================================================================
@@ -418,43 +396,36 @@ export function generateThemeConfigCoreDefault(
       // ========================================================================
       colorTextBreadcrumbCurrent: { light: '#656871', dark: '#8c8c94' },
 
-      // Body text
-      // fontSizeBodyM: '13px',
-      // lineHeightBodyM: '18px',
-
       // H1
       fontSizeHeadingXl: '24px',
       lineHeightHeadingXl: '30px',
-      fontWeightHeadingXl: headingFontWeight,
+      fontWeightHeadingXl: '600',
 
       // H2
       fontSizeHeadingL: '20px',
       lineHeightHeadingL: '24px',
-      fontWeightHeadingL: headingFontWeight,
-      //letterSpacingHeadingL: '20px',
+      fontWeightHeadingL: '600',
 
       // H3
       fontSizeHeadingM: '18px',
       lineHeightHeadingM: '22px',
-      fontWeightHeadingM: headingFontWeight,
+      fontWeightHeadingM: '600',
 
       // H4
       fontSizeHeadingS: '16px',
       lineHeightHeadingS: '20px',
-      fontWeightHeadingS: headingFontWeight,
+      fontWeightHeadingS: '600',
 
       // H5
       fontSizeHeadingXs: '14px',
       lineHeightHeadingXs: '20px',
-      fontWeightHeadingXs: headingFontWeight,
-
-      //fontFamilyHeading: 'Ember Modern Display',
+      fontWeightHeadingXs: '600',
 
       // ========================================================================
       // TYPOGRAPHY - Other
       // ========================================================================
-      fontWeightButton: headingFontWeight,
-      fontWeightTabs: headingFontWeight,
+      fontWeightButton: '600',
+      fontWeightTabs: '600',
       fontSizeTabs: '16px',
 
       // ========================================================================
@@ -463,6 +434,9 @@ export function generateThemeConfigCoreDefault(
       spaceAlertVertical: '4px',
       spaceButtonHorizontal: '12px',
       spaceTabsVertical: '2px',
+      spaceTokenVertical: '2px',
+      spaceFieldVertical: { comfortable: '4px', compact: '2px' },
+      sizeVerticalInput: { comfortable: '30px', compact: '26px' },
 
       // ========================================================================
       // BORDERS - Width
@@ -528,6 +502,19 @@ export function generateThemeConfigCoreDefault(
           colorBackgroundDropdownItemDefault: { light: '#FFFFFF', dark: '#1b232d' },
           colorBackgroundDropdownItemHover: { light: '#f3f3f7', dark: '#131920' },
           colorBorderDropdownContainer: { light: '#b4b4bb', dark: '#656871' },
+          // Select component tokens
+          colorTextBodyDefault: { light: '#06080A', dark: '#F6F6F9' },
+          colorBackgroundInputDefault: { light: '#ffffff', dark: '#1b232d' },
+          colorBorderInputDefault: { light: '#b4b4bb', dark: '#656871' },
+          colorTextInputDefault: { light: '#06080A', dark: '#F6F6F9' },
+          colorTextInputPlaceholder: { light: '#656871', dark: '#8c8c94' },
+          colorBorderDropdownItemDefault: { light: '#e8e8e8', dark: '#424650' },
+          colorTextDropdownItemSecondary: { light: '#424650', dark: '#c6c6cd' },
+          colorItemSelected: { light: '#06080A', dark: '#F6F6F9' },
+          colorBackgroundDropdownItemSelected: { light: '#F6F6F9', dark: '#06080A' },
+          colorBorderItemSelected: { light: '#06080A', dark: '#F6F6F9' },
+          colorTextButtonInlineIconDefault: { light: '#1b232d', dark: '#F9F9FB' },
+          colorTextButtonInlineIconHover: { light: '#1b232d', dark: '#F9F9FB' },
         },
       },
       header: {
@@ -719,8 +706,6 @@ export function generateThemeConfigConsole() {
       lineHeightHeadingXs: '18px',
       fontWeightHeadingXs: '700',
 
-      //fontFamilyHeading: 'Ember Modern Display',
-
       // ========================================================================
       // TYPOGRAPHY - Other
       // ========================================================================
@@ -742,6 +727,8 @@ export function generateThemeConfigConsole() {
       spaceAlertVertical: '12px',
       spaceButtonHorizontal: '20px',
       spaceTabsVertical: '4px',
+      spaceTokenVertical: { comfortable: '4px', compact: '2px' },
+      spaceFieldVertical: { comfortable: '5px', compact: '3px' },
 
       // ========================================================================
       // BORDERS - Radius

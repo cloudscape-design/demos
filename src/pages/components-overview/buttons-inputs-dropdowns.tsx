@@ -2,12 +2,16 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useState } from 'react';
 
+import { Header } from '@cloudscape-design/components';
+import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
 import ButtonGroup from '@cloudscape-design/components/button-group';
+import Container from '@cloudscape-design/components/container';
 import DatePicker from '@cloudscape-design/components/date-picker';
 import DateRangePicker, { DateRangePickerProps } from '@cloudscape-design/components/date-range-picker';
 import ExpandableSection from '@cloudscape-design/components/expandable-section';
 import Grid from '@cloudscape-design/components/grid';
+import Link from '@cloudscape-design/components/link';
 import Multiselect, { MultiselectProps } from '@cloudscape-design/components/multiselect';
 import PropertyFilter, { PropertyFilterProps } from '@cloudscape-design/components/property-filter';
 import SegmentedControl from '@cloudscape-design/components/segmented-control';
@@ -15,7 +19,6 @@ import SpaceBetween from '@cloudscape-design/components/space-between';
 import ToggleButton from '@cloudscape-design/components/toggle-button';
 
 import { generateDropdownOptions } from './component-data';
-import { Section } from './utils';
 
 function Buttons() {
   const [selectedSegment, setSelectedSegment] = useState('seg-1');
@@ -242,133 +245,320 @@ export default function ButtonsInputsDropdowns() {
     operation: 'and',
   });
   return (
-    <Section header="Buttons, inputs, and dropdowns">
-      <SpaceBetween size="l">
-        <Grid gridDefinition={[{ colspan: { default: 12, xxs: 6 } }, { colspan: { default: 12, xxs: 6 } }]}>
-          <Buttons />
-          <Inputs />
-        </Grid>
-        <PropertyFilter
-          query={query}
-          onChange={({ detail }) => setQuery(detail)}
-          countText="5 matches"
-          enableTokenGroups
-          expandToViewport
-          filteringAriaLabel="Find distributions"
-          filteringOptions={[
-            {
-              propertyKey: 'instanceid',
-              value: 'i-2dc5ce28a0328391',
-            },
-            {
-              propertyKey: 'instanceid',
-              value: 'i-d0312e022392efa0',
-            },
-            {
-              propertyKey: 'instanceid',
-              value: 'i-070eef935c1301e6',
-            },
-            {
-              propertyKey: 'instanceid',
-              value: 'i-3b44795b1fea36ac',
-            },
-            { propertyKey: 'state', value: 'Stopped' },
-            { propertyKey: 'state', value: 'Stopping' },
-            { propertyKey: 'state', value: 'Pending' },
-            { propertyKey: 'state', value: 'Running' },
-            {
-              propertyKey: 'instancetype',
-              value: 't3.small',
-            },
-            {
-              propertyKey: 'instancetype',
-              value: 't2.small',
-            },
-            { propertyKey: 'instancetype', value: 't3.nano' },
-            {
-              propertyKey: 'instancetype',
-              value: 't2.medium',
-            },
-            {
-              propertyKey: 'instancetype',
-              value: 't3.medium',
-            },
-            {
-              propertyKey: 'instancetype',
-              value: 't2.large',
-            },
-            { propertyKey: 'instancetype', value: 't2.nano' },
-            {
-              propertyKey: 'instancetype',
-              value: 't2.micro',
-            },
-            {
-              propertyKey: 'instancetype',
-              value: 't3.large',
-            },
-            {
-              propertyKey: 'instancetype',
-              value: 't3.micro',
-            },
-            { propertyKey: 'averagelatency', value: '17' },
-            { propertyKey: 'averagelatency', value: '53' },
-            { propertyKey: 'averagelatency', value: '73' },
-            { propertyKey: 'averagelatency', value: '74' },
-            { propertyKey: 'averagelatency', value: '107' },
-            { propertyKey: 'averagelatency', value: '236' },
-            { propertyKey: 'averagelatency', value: '242' },
-            { propertyKey: 'averagelatency', value: '375' },
-            { propertyKey: 'averagelatency', value: '402' },
-            { propertyKey: 'averagelatency', value: '636' },
-            { propertyKey: 'averagelatency', value: '639' },
-            { propertyKey: 'averagelatency', value: '743' },
-            { propertyKey: 'averagelatency', value: '835' },
-            { propertyKey: 'averagelatency', value: '981' },
-            { propertyKey: 'averagelatency', value: '995' },
-          ]}
-          filteringPlaceholder="Find distributions"
-          filteringProperties={[
-            {
-              key: 'instanceid',
-              operators: ['=', '!=', ':', '!:', '^', '!^'],
-              propertyLabel: 'Instance ID',
-              groupValuesLabel: 'Instance ID values',
-            },
-            {
-              key: 'state',
-              operators: [
-                { operator: '=', tokenType: 'enum' },
-                { operator: '!=', tokenType: 'enum' },
-                ':',
-                '!:',
-                '^',
-                '!^',
-              ],
-              propertyLabel: 'State',
-              groupValuesLabel: 'State values',
-            },
-            {
-              key: 'instancetype',
-              operators: [
-                { operator: '=', tokenType: 'enum' },
-                { operator: '!=', tokenType: 'enum' },
-                ':',
-                '!:',
-                '^',
-                '!^',
-              ],
-              propertyLabel: 'Instance type',
-              groupValuesLabel: 'Instance type values',
-            },
-            {
-              key: 'averagelatency',
-              operators: ['=', '!=', '>', '<', '<=', '>='],
-              propertyLabel: 'Average latency',
-              groupValuesLabel: 'Average latency values',
-            },
-          ]}
-        />
-      </SpaceBetween>
-    </Section>
+    <SpaceBetween size="s">
+      <Header variant="h2">Buttons, inputs, and dropdowns</Header>
+      <Box>
+        <Container variant="stacked">
+          <SpaceBetween size="l">
+            <Grid gridDefinition={[{ colspan: { default: 12, xxs: 6 } }, { colspan: { default: 12, xxs: 6 } }]}>
+              <Buttons />
+              <Inputs />
+            </Grid>
+            <PropertyFilter
+              query={query}
+              onChange={({ detail }) => setQuery(detail)}
+              countText="5 matches"
+              enableTokenGroups
+              expandToViewport
+              filteringAriaLabel="Find distributions"
+              filteringOptions={[
+                {
+                  propertyKey: 'instanceid',
+                  value: 'i-2dc5ce28a0328391',
+                },
+                {
+                  propertyKey: 'instanceid',
+                  value: 'i-d0312e022392efa0',
+                },
+                {
+                  propertyKey: 'instanceid',
+                  value: 'i-070eef935c1301e6',
+                },
+                {
+                  propertyKey: 'instanceid',
+                  value: 'i-3b44795b1fea36ac',
+                },
+                { propertyKey: 'state', value: 'Stopped' },
+                { propertyKey: 'state', value: 'Stopping' },
+                { propertyKey: 'state', value: 'Pending' },
+                { propertyKey: 'state', value: 'Running' },
+                {
+                  propertyKey: 'instancetype',
+                  value: 't3.small',
+                },
+                {
+                  propertyKey: 'instancetype',
+                  value: 't2.small',
+                },
+                { propertyKey: 'instancetype', value: 't3.nano' },
+                {
+                  propertyKey: 'instancetype',
+                  value: 't2.medium',
+                },
+                {
+                  propertyKey: 'instancetype',
+                  value: 't3.medium',
+                },
+                {
+                  propertyKey: 'instancetype',
+                  value: 't2.large',
+                },
+                { propertyKey: 'instancetype', value: 't2.nano' },
+                {
+                  propertyKey: 'instancetype',
+                  value: 't2.micro',
+                },
+                {
+                  propertyKey: 'instancetype',
+                  value: 't3.large',
+                },
+                {
+                  propertyKey: 'instancetype',
+                  value: 't3.micro',
+                },
+                { propertyKey: 'averagelatency', value: '17' },
+                { propertyKey: 'averagelatency', value: '53' },
+                { propertyKey: 'averagelatency', value: '73' },
+                { propertyKey: 'averagelatency', value: '74' },
+                { propertyKey: 'averagelatency', value: '107' },
+                { propertyKey: 'averagelatency', value: '236' },
+                { propertyKey: 'averagelatency', value: '242' },
+                { propertyKey: 'averagelatency', value: '375' },
+                { propertyKey: 'averagelatency', value: '402' },
+                { propertyKey: 'averagelatency', value: '636' },
+                { propertyKey: 'averagelatency', value: '639' },
+                { propertyKey: 'averagelatency', value: '743' },
+                { propertyKey: 'averagelatency', value: '835' },
+                { propertyKey: 'averagelatency', value: '981' },
+                { propertyKey: 'averagelatency', value: '995' },
+              ]}
+              filteringPlaceholder="Find distributions"
+              filteringProperties={[
+                {
+                  key: 'instanceid',
+                  operators: ['=', '!=', ':', '!:', '^', '!^'],
+                  propertyLabel: 'Instance ID',
+                  groupValuesLabel: 'Instance ID values',
+                },
+                {
+                  key: 'state',
+                  operators: [
+                    { operator: '=', tokenType: 'enum' },
+                    { operator: '!=', tokenType: 'enum' },
+                    ':',
+                    '!:',
+                    '^',
+                    '!^',
+                  ],
+                  propertyLabel: 'State',
+                  groupValuesLabel: 'State values',
+                },
+                {
+                  key: 'instancetype',
+                  operators: [
+                    { operator: '=', tokenType: 'enum' },
+                    { operator: '!=', tokenType: 'enum' },
+                    ':',
+                    '!:',
+                    '^',
+                    '!^',
+                  ],
+                  propertyLabel: 'Instance type',
+                  groupValuesLabel: 'Instance type values',
+                },
+                {
+                  key: 'averagelatency',
+                  operators: ['=', '!=', '>', '<', '<=', '>='],
+                  propertyLabel: 'Average latency',
+                  groupValuesLabel: 'Average latency values',
+                },
+              ]}
+            />
+          </SpaceBetween>
+        </Container>
+        <Container
+          header={
+            <Header
+              variant="h2"
+              description={
+                <>
+                  To further customize spaces/sizes for specific components, the Core’s StyleAPI can be used. Refer to
+                  the{' '}
+                  <Link
+                    external
+                    href="https://core.cloudscape.aws.dev/foundation/visual-foundation/customizing-the-foundation/styling/#implementation"
+                  >
+                    implementation guidelines
+                  </Link>
+                </>
+              }
+            >
+              Extra small size for key atomic components using StyleAPI
+            </Header>
+          }
+          variant="stacked"
+        >
+          <Box padding={{ vertical: 'm' }}>
+            <SpaceBetween size="l">
+              <SpaceBetween direction="horizontal" size="s">
+                <Button variant="normal" style={{ root: { paddingBlock: '1px', paddingInline: '8px' } }}>
+                  Secondary button
+                </Button>
+                <Button variant="link" style={{ root: { paddingBlock: '1px', paddingInline: '8px' } }}>
+                  Tertiary button
+                </Button>
+                <Button
+                  iconName="settings"
+                  variant="icon"
+                  style={{ root: { paddingBlock: '1px', paddingInline: '3px' } }}
+                />
+                <Button
+                  iconName="add-plus"
+                  variant="icon"
+                  style={{ root: { paddingBlock: '1px', paddingInline: '3px' } }}
+                />
+                {/* <ButtonGroup
+                  onItemClick={({ detail }) =>
+                    ["like", "dislike"].includes(detail.id) &&
+                    setFeedback(detail.pressed ? detail.id : "")
+                  }
+                  style={{
+                    root: {
+                      paddingBlock: "0px",
+                      paddingInline: "2px",
+                    },
+                    item: {
+                      
+                    }
+                  }}
+                  ariaLabel="Main navigation"
+                  items={[
+                    {
+                      type: "icon-button",
+                      id: "view-full",
+                      text: "View",
+                      iconName: "view-full"
+                    },
+                    {
+                      type: "icon-button",
+                      id: "folder",
+                      text: "Folder",
+                      iconName: "folder"
+                    },
+                    {
+                      type: "icon-button",
+                      id: "status-positive",
+                      text: "Analytics",
+                      iconName: "status-positive"
+                    }
+                  ]}
+                  variant="icon"
+                /> */}
+              </SpaceBetween>
+              {/* <SpaceBetween direction="horizontal" size="s">
+                <Input
+                  onChange={({ detail }) => setValue(detail.value)}
+                  value={value}
+                  placeholder="Enter resource policy"
+                />
+                <Select
+                  selectedOption={selectedOption}
+                  onChange={({ detail }) => setSelectedOption(detail.selectedOption)}
+                  options={[
+                    { label: 'US East (N. Virginia)', value: 'us-east-1', description: 'us-east-1', tags: ['Recommended'] },
+                    { label: 'US West (Oregon)', value: 'us-west-2', description: 'us-west-2' },
+                    { label: 'Europe (Ireland)', value: 'eu-west-1', description: 'eu-west-1', labelTag: 'New' },
+                  ]}
+                  placeholder="Select a region"
+                  renderOption={
+                    ({ item, filterText }) => {
+                      if (
+                        item.type === "group" ||
+                        item.type === "item"
+                      ) {
+                        return (
+                          <div
+                            style={{
+                              paddingBlock: "20px",
+                              paddingInlineStart:
+                                item.type === "item" && item.parent
+                                  ? "32px"
+                                  : "12px",
+                              paddingInlineEnd: "12px",
+                              color: item.disabled
+                                ? "lightgrey"
+                                : "black",
+                              opacity: item.disabled ? 0.6 : 1,
+                              display: "flex",
+                              justifyContent: "space-between",
+                              alignItems: "center",
+                              outline: "solid 2px red"
+                            }}
+                          >
+                            <SpaceBetween size="xxxs">
+                              <Box fontSize="body-m" margin="xxxs">
+                                {item.option.label}
+                              </Box>
+                              <Box
+                                fontSize="body-s"
+                                fontWeight="light"
+                                margin="xxxs"
+                              >
+                                {item.option.description}
+                              </Box>
+                            </SpaceBetween>
+                            <SpaceBetween
+                              size="xxxs"
+                              direction="horizontal"
+                              alignItems="end"
+                            >
+                              {item.option.tags?.map(tag => (
+                                <div>{tag}</div>
+                              ))}
+                            </SpaceBetween>
+                          </div>
+                        );
+                      } else if (item.type === "trigger") {
+                        return (
+                          <div
+                            style={{
+                              paddingInline: "12px",
+                              paddingBlock: "20px",
+                              display: "flex",
+                              alignItems: "center",
+                              outline: "solid 2px red"
+                            }}
+                          >
+                            <SpaceBetween size="xxxs">
+                              <Box fontSize="body-m" margin="xxxs">
+                                {item.option.label}
+                              </Box>
+                              <Box
+                                fontSize="body-s"
+                                fontWeight="light"
+                                margin="xxxs"
+                              >
+                                {item.option.description}
+                              </Box>
+                            </SpaceBetween>
+                            <SpaceBetween
+                              size="xxxs"
+                              direction="horizontal"
+                            >
+
+                            </SpaceBetween>
+                          </div>
+                        );
+                      }
+                      return null;
+                    }
+                  }
+                />
+              </SpaceBetween> */}
+            </SpaceBetween>
+          </Box>
+        </Container>
+      </Box>
+    </SpaceBetween>
   );
 }
