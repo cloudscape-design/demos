@@ -103,7 +103,8 @@ const S3ResourceSelectorContainer = () => {
 };
 
 export const App = () => {
-  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize } = useGlobalSplitPanel();
+  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize, splitPanelPreferences } =
+    useGlobalSplitPanel();
 
   return (
     <CustomAppLayout
@@ -112,6 +113,7 @@ export const App = () => {
       onSplitPanelToggle={onSplitPanelToggle}
       splitPanelSize={splitPanelSize}
       onSplitPanelResize={onSplitPanelResize}
+      splitPanelPreferences={splitPanelPreferences}
       splitPanel={
         <SplitPanel header="Design exploration">
           <GlobalSplitPanelContent />

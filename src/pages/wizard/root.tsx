@@ -156,7 +156,8 @@ const App = () => {
     onCancel,
     onSubmit,
   } = useWizard(closeTools, setFormattedToolsContent);
-  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize } = useGlobalSplitPanel();
+  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize, splitPanelPreferences } =
+    useGlobalSplitPanel();
 
   const wizardSteps = steps.map(({ title, stateKey, StepContent }) => ({
     title,
@@ -185,6 +186,7 @@ const App = () => {
         onSplitPanelToggle={onSplitPanelToggle}
         splitPanelSize={splitPanelSize}
         onSplitPanelResize={onSplitPanelResize}
+        splitPanelPreferences={splitPanelPreferences}
         splitPanel={
           <SplitPanel header="Design exploration">
             <GlobalSplitPanelContent />

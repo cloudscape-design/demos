@@ -23,7 +23,8 @@ import { LogsTable } from './components/logs-table';
 import '../../styles/top-navigation.scss';
 
 export function App() {
-  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize } = useGlobalSplitPanel();
+  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize, splitPanelPreferences } =
+    useGlobalSplitPanel();
   return (
     <>
       <DemoTopNavigation />
@@ -32,6 +33,7 @@ export function App() {
         onSplitPanelToggle={onSplitPanelToggle}
         splitPanelSize={splitPanelSize}
         onSplitPanelResize={onSplitPanelResize}
+        splitPanelPreferences={splitPanelPreferences}
         splitPanel={
           <SplitPanel header="Design exploration">
             <GlobalSplitPanelContent />
