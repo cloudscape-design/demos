@@ -10,7 +10,7 @@ interface InfoLinkProps {
   onFollow: LinkProps['onFollow'];
 }
 export const InfoLink = (props: InfoLinkProps) => (
-  <Link variant="info" className="secondary-link" {...props}>
+  <Link href="#" variant="info" className="secondary-link" {...props}>
     Info
   </Link>
 );
