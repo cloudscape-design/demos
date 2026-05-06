@@ -1,10 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 
 import { ButtonDropdownProps } from '@cloudscape-design/components/button-dropdown';
-import Select, { SelectProps } from '@cloudscape-design/components/select';
 import TopNavigation from '@cloudscape-design/components/top-navigation';
 import { TopNavigationProps } from '@cloudscape-design/components/top-navigation';
 import { Mode } from '@cloudscape-design/global-styles';
@@ -25,16 +24,7 @@ const DemoHeaderPortal = ({ children }: DemoHeaderPortalProps) => {
   return createPortal(children, domNode);
 };
 
-const selectOptions: SelectProps.Options = [
-  { label: 'us-east-1', value: 'us-east-1', description: 'US East (N. Virginia)' },
-  { label: 'us-west-2', value: 'us-west-2', description: 'US West (Oregon)' },
-  { label: 'eu-west-1', value: 'eu-west-1', description: 'EU (Ireland)' },
-  { label: 'ap-southeast-1', value: 'ap-southeast-1', description: 'Asia Pacific (Singapore)' },
-];
-
 export function DemoTopNavigation() {
-  const [selectedOption, setSelectedOption] = useState<SelectProps['selectedOption']>(selectOptions[0]);
-
   const handlePreferenceChange = (event: CustomEvent<ButtonDropdownProps.ItemClickDetails>) => {
     const itemId = event.detail.id;
 
@@ -94,14 +84,6 @@ export function DemoTopNavigation() {
             alt: 'Service name logo',
           },
         }}
-        search={
-          <Select
-            selectedOption={selectedOption}
-            onChange={({ detail }) => setSelectedOption(detail.selectedOption)}
-            options={selectOptions}
-            placeholder="Select a region"
-          />
-        }
         utilities={utilities}
       />
     </DemoHeaderPortal>

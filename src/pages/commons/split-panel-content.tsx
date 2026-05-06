@@ -84,7 +84,7 @@ export function GlobalSplitPanelContent() {
   };
 
   const [fontStretch, setFontStretch] = useState(95);
-  const [themeValue, setThemeValue] = useState('core');
+  const [themeValue, setThemeValue] = useState('core-default');
   const [checked, setChecked] = useState(false);
   const [checkedFontSmooth, setCheckedFontSmooth] = useState(true);
   const [blueAccent, setBlueAccent] = useState(true);

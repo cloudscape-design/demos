@@ -17,30 +17,38 @@ const navItems: SideNavigationProps['items'] = [
     text: 'Events',
     href: '#/events',
     info: (
-      <Popover
-        header="Introducing events"
-        size="medium"
-        triggerType="text"
-        content={
-          <>
-            AWS can schedule events for your instances, such as reboot, stop/start, or retirement.{' '}
-            <Link
-              external={true}
-              ariaLabel="Learn more about events management, opens in new tab"
-              href="#"
-              variant="primary"
-            >
-              Learn more
-            </Link>
-          </>
-        }
-        renderWithPortal={true}
-        dismissAriaLabel="Close"
-      >
-        <Box variant="span" fontSize="body-s" fontWeight="bold" data-testid="new-feature-announcement-trigger">
-          New
-        </Box>
-      </Popover>
+      <Box color="text-status-info" variant="span">
+        <Popover
+          header="Introducing events"
+          size="medium"
+          triggerType="text"
+          content={
+            <>
+              AWS can schedule events for your instances, such as reboot, stop/start, or retirement.{' '}
+              <Link
+                external={true}
+                ariaLabel="Learn more about events management, opens in new tab"
+                href="#"
+                variant="primary"
+              >
+                Learn more
+              </Link>
+            </>
+          }
+          renderWithPortal={true}
+          dismissAriaLabel="Close"
+        >
+          <Box
+            variant="span"
+            fontSize="body-s"
+            fontWeight="bold"
+            data-testid="new-feature-announcement-trigger"
+            color="text-status-info"
+          >
+            New
+          </Box>
+        </Popover>
+      </Box>
     ),
   },
   { type: 'link', text: 'Tags', href: '#/tags' },
@@ -57,32 +65,34 @@ const navItems: SideNavigationProps['items'] = [
         text: 'Launch templates',
         href: '#/launch_templates',
         info: (
-          <Popover
-            header="Introducing launch templates"
-            size="medium"
-            triggerType="text"
-            content={
-              <>
-                Launch templates is a new capability that enables a new way to templatize your launch requests. Launch
-                templates streamline and simplify the launch process for auto scaling, spot fleet, spot, and on-demand
-                instances.{' '}
-                <Link
-                  external
-                  href="#"
-                  ariaLabel="Learn more about launch templates, opens in new tab"
-                  variant="primary"
-                >
-                  Learn more
-                </Link>
-              </>
-            }
-            renderWithPortal={true}
-            dismissAriaLabel="Close"
-          >
-            <Box fontSize="body-s" fontWeight="bold" variant="span">
-              New
-            </Box>
-          </Popover>
+          <Box color="text-status-info" variant="span">
+            <Popover
+              header="Introducing launch templates"
+              size="medium"
+              triggerType="text"
+              content={
+                <>
+                  Launch templates is a new capability that enables a new way to templatize your launch requests. Launch
+                  templates streamline and simplify the launch process for auto scaling, spot fleet, spot, and on-demand
+                  instances.{' '}
+                  <Link
+                    external
+                    href="#"
+                    ariaLabel="Learn more about launch templates, opens in new tab"
+                    variant="primary"
+                  >
+                    Learn more
+                  </Link>
+                </>
+              }
+              renderWithPortal={true}
+              dismissAriaLabel="Close"
+            >
+              <Box fontSize="body-s" fontWeight="bold" variant="span" color="text-status-info">
+                New
+              </Box>
+            </Popover>
+          </Box>
         ),
       },
       { type: 'link', text: 'Spot requests', href: '#/spot_requests' },
@@ -93,31 +103,33 @@ const navItems: SideNavigationProps['items'] = [
         text: 'Scheduled instances',
         href: '#/scheduled_instances',
         info: (
-          <Popover
-            data-testid="beta"
-            header="Beta feature"
-            size="medium"
-            triggerType="text"
-            content={
-              <>
-                We are improving the way to create scheduled instances.{' '}
-                <Link
-                  external
-                  href="#"
-                  ariaLabel="Learn more about instance scheduling, opens in new tab"
-                  variant="primary"
-                >
-                  Learn more
-                </Link>
-              </>
-            }
-            renderWithPortal={true}
-            dismissAriaLabel="Close"
-          >
-            <Box fontSize="body-s" fontWeight="bold" variant="span">
-              Beta
-            </Box>
-          </Popover>
+          <Box color="text-status-info" variant="span">
+            <Popover
+              data-testid="beta"
+              header="Beta feature"
+              size="medium"
+              triggerType="text"
+              content={
+                <>
+                  We are improving the way to create scheduled instances.{' '}
+                  <Link
+                    external
+                    href="#"
+                    ariaLabel="Learn more about instance scheduling, opens in new tab"
+                    variant="primary"
+                  >
+                    Learn more
+                  </Link>
+                </>
+              }
+              renderWithPortal={true}
+              dismissAriaLabel="Close"
+            >
+              <Box fontSize="body-s" fontWeight="bold" variant="span" color="text-status-info">
+                Beta
+              </Box>
+            </Popover>
+          </Box>
         ),
       },
       { type: 'link', text: 'Capacity reservations', href: '#/capacity_reservations' },
