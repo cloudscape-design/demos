@@ -42,6 +42,12 @@ function getPageContent(pageName, { title }) {
     <header class="custom-main-header" id="h">
         <ul class="menu-list awsui-context-top-navigation">
             <li class="title"><a href="index.html">Cloudscape Demos</a></li>
+            <li>
+                <label>
+                    <input id="one-theme-toggle" type="checkbox" />
+                    One Theme
+                </label>
+            </li>
         </ul>
     </header>
     ${frameworkUtils.initialMarkup}
