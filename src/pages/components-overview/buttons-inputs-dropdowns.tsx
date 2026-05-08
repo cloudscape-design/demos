@@ -3,8 +3,10 @@
 import React, { useState } from 'react';
 
 import { Header } from '@cloudscape-design/components';
+import Autosuggest from '@cloudscape-design/components/autosuggest';
 import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
+import ButtonDropdown from '@cloudscape-design/components/button-dropdown';
 import ButtonGroup from '@cloudscape-design/components/button-group';
 import Container from '@cloudscape-design/components/container';
 import DatePicker from '@cloudscape-design/components/date-picker';
@@ -12,10 +14,13 @@ import DateRangePicker, { DateRangePickerProps } from '@cloudscape-design/compon
 import ExpandableSection from '@cloudscape-design/components/expandable-section';
 import Grid from '@cloudscape-design/components/grid';
 import Link from '@cloudscape-design/components/link';
+import Modal from '@cloudscape-design/components/modal';
 import Multiselect, { MultiselectProps } from '@cloudscape-design/components/multiselect';
+import Popover from '@cloudscape-design/components/popover';
 import PropertyFilter, { PropertyFilterProps } from '@cloudscape-design/components/property-filter';
 import SegmentedControl from '@cloudscape-design/components/segmented-control';
 import SpaceBetween from '@cloudscape-design/components/space-between';
+import StatusIndicator from '@cloudscape-design/components/status-indicator';
 import ToggleButton from '@cloudscape-design/components/toggle-button';
 
 import { generateDropdownOptions } from './component-data';
@@ -179,6 +184,7 @@ function Inputs() {
   ] as MultiselectProps.Options);
   const [dateValue, setDateValue] = useState('2018-01-02');
   const [dateRangeValue, setDateRangeValue] = useState<DateRangePickerProps['value']>(null);
+  const [autosuggestValue, setAutosuggestValue] = useState('');
 
   return (
     <Grid>
@@ -191,6 +197,37 @@ function Inputs() {
         />
         <Multiselect disabled={true} placeholder="Disabled multi-select" selectedOptions={selectedItems} />
         <Multiselect readOnly={true} placeholder="Read-only multi-select" selectedOptions={selectedItems} />
+      </SpaceBetween>
+      <SpaceBetween size="s" direction="horizontal">
+        <Autosuggest
+          value={autosuggestValue}
+          onChange={({ detail }) => setAutosuggestValue(detail.value)}
+          options={[
+            { value: 'us-east-1', label: 'US East (N. Virginia)' },
+            { value: 'us-west-2', label: 'US West (Oregon)' },
+            { value: 'eu-west-1', label: 'Europe (Ireland)' },
+            { value: 'ap-southeast-1', label: 'Asia Pacific (Singapore)' },
+            { value: 'ap-northeast-1', label: 'Asia Pacific (Tokyo)' },
+          ]}
+          placeholder="Autosuggest"
+          ariaLabel="Autosuggest example"
+        />
+        <Autosuggest
+          value="Disabled"
+          onChange={() => {}}
+          options={[]}
+          disabled={true}
+          placeholder="Disabled autosuggest"
+          ariaLabel="Disabled autosuggest"
+        />
+        <Autosuggest
+          value="Read-only value"
+          onChange={() => {}}
+          options={[]}
+          readOnly={true}
+          placeholder="Read-only autosuggest"
+          ariaLabel="Read-only autosuggest"
+        />
       </SpaceBetween>
       <SpaceBetween direction="horizontal" size="l">
         <DatePicker
@@ -244,6 +281,7 @@ export default function ButtonsInputsDropdowns() {
     tokens: [],
     operation: 'and',
   });
+  const [modalVisible, setModalVisible] = React.useState(false);
   return (
     <SpaceBetween size="s">
       <Header variant="h2">Buttons, inputs, and dropdowns</Header>
@@ -557,6 +595,96 @@ export default function ButtonsInputsDropdowns() {
               </SpaceBetween> */}
             </SpaceBetween>
           </Box>
+        </Container>
+        <Container variant="stacked">
+          <Grid
+            gridDefinition={[
+              { colspan: { default: 12, xxs: 4 } },
+              { colspan: { default: 12, xxs: 4 } },
+              { colspan: { default: 12, xxs: 4 } },
+            ]}
+          >
+            <SpaceBetween size="s">
+              <ButtonDropdown
+                items={[
+                  { text: 'Edit', id: 'edit', iconName: 'edit' },
+                  { text: 'Delete', id: 'delete', iconName: 'remove' },
+                  { text: 'Duplicate', id: 'duplicate', iconName: 'copy' },
+                  {
+                    text: 'More actions',
+                    id: 'more',
+                    items: [
+                      { text: 'Export', id: 'export' },
+                      { text: 'Share', id: 'share' },
+                    ],
+                  },
+                ]}
+              >
+                Actions
+              </ButtonDropdown>
+              <ButtonDropdown
+                items={[
+                  { text: 'Edit', id: 'edit' },
+                  { text: 'Delete', id: 'delete', disabled: true },
+                ]}
+                variant="primary"
+              >
+                Primary dropdown
+              </ButtonDropdown>
+              <ButtonDropdown
+                items={[
+                  { text: 'Edit', id: 'edit' },
+                  { text: 'Delete', id: 'delete' },
+                ]}
+                disabled={true}
+              >
+                Disabled dropdown
+              </ButtonDropdown>
+            </SpaceBetween>
+
+            <SpaceBetween size="s">
+              <Popover
+                header="Memory usage"
+                content="This instance is using 72% of its allocated memory."
+                triggerType="custom"
+              >
+                <StatusIndicator type="warning">High memory</StatusIndicator>
+              </Popover>
+              <Popover
+                header="Latency info"
+                content="Average latency over the last 5 minutes is 42ms, which is within normal range."
+                triggerType="custom"
+              >
+                <StatusIndicator type="success">Normal latency</StatusIndicator>
+              </Popover>
+              <Popover dismissButton={false} position="top" size="small" content="Copied!" triggerType="custom">
+                <Button iconName="copy" variant="inline-icon" ariaLabel="Copy" />
+              </Popover>
+            </SpaceBetween>
+
+            <SpaceBetween size="s">
+              <Button onClick={() => setModalVisible(true)}>Open modal</Button>
+              <Modal
+                visible={modalVisible}
+                onDismiss={() => setModalVisible(false)}
+                header="Delete resource"
+                footer={
+                  <Box float="right">
+                    <SpaceBetween direction="horizontal" size="xs">
+                      <Button variant="link" onClick={() => setModalVisible(false)}>
+                        Cancel
+                      </Button>
+                      <Button variant="primary" onClick={() => setModalVisible(false)}>
+                        Delete
+                      </Button>
+                    </SpaceBetween>
+                  </Box>
+                }
+              >
+                Are you sure you want to delete this resource? This action cannot be undone.
+              </Modal>
+            </SpaceBetween>
+          </Grid>
         </Container>
       </Box>
     </SpaceBetween>

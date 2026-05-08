@@ -18,11 +18,13 @@ import {
   useGlobalSplitPanel,
 } from '../commons/common-components';
 import ButtonsInputsDropdowns from './buttons-inputs-dropdowns';
+import Charts from './charts';
 import Chat from './chat';
 import FormControls from './form-controls';
 import Images from './images';
 import KvpForm from './kvp-form';
 import NavigationComponents from './navigation-components';
+import OverlaysAndPatterns from './overlays-and-patterns';
 import StatusComponents from './status-components';
 import TableAndCards from './table-and-cards';
 import Typography from './typography';
@@ -83,6 +85,12 @@ function App() {
             </div>
             <div id="table-and-cards">
               <TableAndCards />
+            </div>
+            <div id="charts">
+              <Charts />
+            </div>
+            <div id="overlays-and-patterns">
+              <OverlaysAndPatterns />
             </div>
             <div id="chat">
               <Chat />
