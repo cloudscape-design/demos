@@ -22,6 +22,7 @@
     "test:default": "cross-env ALWAYS_VISUAL_REFRESH=true npm run serve-test"
   },
   "devDependencies": {
+    "@cloudscape-design/build-tools": "github:cloudscape-design/build-tools#main",
     "@babel/core": "^7.18.13",
     "@babel/preset-env": "^7.18.10",
     "@babel/preset-react": "^7.18.6",
