@@ -276,17 +276,12 @@ export default function AuthPage() {
 
   return (
     <AuthShell>
-      <div style={{ position: 'relative', minWidth: 440 }}>
+      <div style={{ width: '100%', maxWidth: 480 }}>
         {step === 'email' && (
-          <div
-            style={{
-              position: 'absolute',
-              right: 'calc(100% + 40px)',
-              top: 20,
-              width: 240,
-            }}
-          >
-            <Header variant="h2">Try AWS at no cost for up to 6 months</Header>
+          <div style={{ textAlign: 'center', marginBottom: 24 }}>
+            <Box fontSize="heading-l" fontWeight="bold" textAlign="center">
+              Try AWS at no cost for up to 6 months
+            </Box>
             <Box color="text-body-secondary" padding={{ top: 's' }}>
               Start with USD $100 in AWS credits, plus earn up to USD $100 by completing various activities.
             </Box>
@@ -296,7 +291,9 @@ export default function AuthPage() {
           <SpaceBetween size="l">
             {step === 'email' && (
               <>
-                <Header variant="h1">Sign up for AWS</Header>
+                <Box fontSize="heading-xl" fontWeight="bold" textAlign="center">
+                  Sign up for AWS
+                </Box>
                 <SpaceBetween size="s">
                   <FormField label="Email" errorText={emailError}>
                     <Input

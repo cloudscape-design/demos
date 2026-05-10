@@ -184,6 +184,10 @@ const createWebpackConfig = (base, { includeDevServer }) => {
           use: ['url-loader'],
         },
         {
+          test: /\.woff2$/,
+          type: 'asset/resource',
+        },
+        {
           test: /\.svg$/,
           use: [
             {
