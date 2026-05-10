@@ -126,5 +126,9 @@
   {
     "path": "non-console",
     "title": "Top navigation"
+  },
+  {
+    "path": "one-theme",
+    "title": "One Theme"
   }
 ]

@@ -185,7 +185,17 @@ const createWebpackConfig = (base, { includeDevServer }) => {
         },
         {
           test: /\.svg$/,
-          use: ['@svgr/webpack', 'url-loader'],
+          use: [
+            {
+              loader: '@svgr/webpack',
+              options: {
+                svgoConfig: {
+                  plugins: [{ name: 'preset-default', params: { overrides: { removeViewBox: false } } }],
+                },
+              },
+            },
+            'url-loader',
+          ],
         },
       ],
     },

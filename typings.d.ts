@@ -6,8 +6,10 @@ declare module '*.module.scss' {
 }
 
 declare module '*.svg' {
+  import type { ComponentType, SVGProps } from 'react';
   const icon: string;
   export default icon;
+  export const ReactComponent: ComponentType<SVGProps<SVGSVGElement>>;
 }
 
 declare module '*.png' {
