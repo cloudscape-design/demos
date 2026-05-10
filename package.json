@@ -23,6 +23,7 @@
     "postinstall": "node ./scripts/install-peer-dependency.js components:dev-v3-onetheme && node ./scripts/install-chat-components-themed.js"
   },
   "devDependencies": {
+    "@cloudscape-design/build-tools": "github:cloudscape-design/build-tools#main",
     "@babel/core": "^7.18.13",
     "@babel/preset-env": "^7.18.10",
     "@babel/preset-react": "^7.18.6",
