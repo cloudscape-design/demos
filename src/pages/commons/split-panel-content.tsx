@@ -16,9 +16,9 @@ import { applyCustomTheme } from '../../common/apply-theme';
 import {
   generateThemeConfigConsole,
   generateThemeConfigCoreDefault,
-  generateThemeConfigCW,
+  generateThemeConfigOneTheme,
   themeCoreConfig,
-} from '../../common/theme-cw';
+} from '../../common/theme-one-theme';
 
 interface ThemeConfig {
   colorSelectedAccent?: string;
@@ -84,7 +84,7 @@ export function GlobalSplitPanelContent() {
   };
 
   const [fontStretch, setFontStretch] = useState(95);
-  const [themeValue, setThemeValue] = useState('core-default');
+  const [themeValue, setThemeValue] = useState('one-theme');
   const [checked, setChecked] = useState(false);
   const [checkedFontSmooth, setCheckedFontSmooth] = useState(true);
   const [blueAccent, setBlueAccent] = useState(true);
@@ -164,11 +164,9 @@ export function GlobalSplitPanelContent() {
             : generateThemeConfigCoreDefault();
           shouldApplyCustomTokens = false;
         } else {
-          // New CloudWatch theme: Complete theme with form customizations
-          const accentColor = blueAccent ? { light: '#006CE0', dark: '#42B4FF' } : customAccentColor;
-          const accentSubtleHover = blueAccent ? { light: '#F0FBFF', dark: '#001129' } : undefined;
-          baseTheme = generateThemeConfigCW(accentColor, accentSubtleHover);
-          shouldApplyCustomTokens = true;
+          // One Theme
+          baseTheme = generateThemeConfigOneTheme();
+          shouldApplyCustomTokens = false;
         }
 
         // Build the theme object
@@ -318,11 +316,9 @@ export function GlobalSplitPanelContent() {
           : generateThemeConfigCoreDefault();
         shouldApplyCustomTokens = false;
       } else {
-        // New CloudWatch theme: Complete theme with form customizations
-        const accentColor = blueAccent ? { light: '#006CE0', dark: '#42B4FF' } : customAccentColor;
-        const accentSubtleHover = blueAccent ? { light: '#F0FBFF', dark: '#001129' } : undefined;
-        baseTheme = generateThemeConfigCW(accentColor, accentSubtleHover);
-        shouldApplyCustomTokens = true;
+        // One Theme
+        baseTheme = generateThemeConfigOneTheme();
+        shouldApplyCustomTokens = false;
       }
 
       // Build the theme object
@@ -425,8 +421,8 @@ export function GlobalSplitPanelContent() {
             onChange={({ detail }) => setThemeValue(detail.value)}
             value={themeValue}
             items={[
+              { value: 'one-theme', label: 'One Theme' },
               { value: 'core-default', label: 'New Core default' },
-              { value: 'core', label: 'New CloudWatch theme' },
               { value: 'console', label: 'Current Console' },
             ]}
           />

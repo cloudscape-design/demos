@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: MIT-0
 import { applyTheme } from '@cloudscape-design/components/theming';
 
-import { generateThemeConfigConsole, generateThemeConfigCW, themeCoreConfig } from './theme-cw';
+import { generateThemeConfigConsole, generateThemeConfigOneTheme, themeCoreConfig } from './theme-one-theme';
+
+import './ember-modern-font.css';
 
 // Store the reset function from the current theme
 let currentThemeReset: (() => void) | null = null;
@@ -69,8 +71,8 @@ export function resetToDefaults() {
  * ```
  */
 export function useThemeComparison() {
-  const applyDirectionA = (customAccentColor?: { light: string; dark: string }) => {
-    const themeA = generateThemeConfigCW(customAccentColor);
+  const applyDirectionA = () => {
+    const themeA = generateThemeConfigOneTheme();
     applyCustomTheme(themeA);
   };
 

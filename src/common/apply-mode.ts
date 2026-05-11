@@ -23,7 +23,7 @@ export function updateDensity(density: string) {
 }
 
 // Initialize mode
-export let currentMode: Mode = localStorage.load('Awsui-Mode-Preference') ?? Mode.Light;
+export let currentMode: Mode = localStorage.load('Awsui-Mode-Preference') ?? Mode.Dark;
 applyMode(currentMode);
 
 export function updateMode(mode: string) {
