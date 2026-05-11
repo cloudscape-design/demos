@@ -9,6 +9,7 @@ import Pagination from '@cloudscape-design/components/pagination';
 import type { SelectProps } from '@cloudscape-design/components/select';
 import Select from '@cloudscape-design/components/select';
 import SpaceBetween from '@cloudscape-design/components/space-between';
+import StatusIndicator from '@cloudscape-design/components/status-indicator';
 import Table from '@cloudscape-design/components/table';
 import * as awsui from '@cloudscape-design/design-tokens';
 
@@ -37,7 +38,7 @@ const FILTER_OPTIONS: SelectProps.Option[] = [
 ];
 
 function StatusCell({ status }: { status: Activity['status'] }) {
-  return <Box color={status === 'Complete' ? 'text-status-success' : 'text-status-error'}>{status}</Box>;
+  return <StatusIndicator type={status === 'Complete' ? 'success' : 'error'}>{status}</StatusIndicator>;
 }
 
 export function ExploreWidget() {
@@ -72,17 +73,15 @@ export function ExploreWidget() {
         <ColumnLayout columns={2}>
           <SpaceBetween size="xxs">
             <Box variant="awsui-key-label">Activities completed</Box>
-            <Box fontSize="heading-l" fontWeight="bold">
-              4 of 5
-            </Box>
+            <Box fontSize="heading-l">4 of 5</Box>
           </SpaceBetween>
           <SpaceBetween size="xxs">
             <Box variant="awsui-key-label">Total credits earned</Box>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 4, color: awsui.colorTextAccent }}>
-              <Box fontSize="heading-l" fontWeight="bold" color="inherit" display="inline">
+              <Box fontSize="heading-l" display="inline">
                 $80 of 100
               </Box>
-              <Box color="inherit" display="inline" fontSize="body-s">
+              <Box display="inline" fontSize="body-s">
                 USD
               </Box>
             </div>

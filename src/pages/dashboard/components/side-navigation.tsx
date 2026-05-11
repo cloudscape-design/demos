@@ -38,13 +38,7 @@ const navItems: SideNavigationProps['items'] = [
           renderWithPortal={true}
           dismissAriaLabel="Close"
         >
-          <Box
-            variant="span"
-            fontSize="body-s"
-            fontWeight="bold"
-            data-testid="new-feature-announcement-trigger"
-            color="text-status-info"
-          >
+          <Box variant="span" fontSize="body-s" data-testid="new-feature-announcement-trigger" color="text-status-info">
             New
           </Box>
         </Popover>
@@ -88,7 +82,7 @@ const navItems: SideNavigationProps['items'] = [
               renderWithPortal={true}
               dismissAriaLabel="Close"
             >
-              <Box fontSize="body-s" fontWeight="bold" variant="span" color="text-status-info">
+              <Box fontSize="body-s" variant="span" color="text-status-info">
                 New
               </Box>
             </Popover>
@@ -125,7 +119,7 @@ const navItems: SideNavigationProps['items'] = [
               renderWithPortal={true}
               dismissAriaLabel="Close"
             >
-              <Box fontSize="body-s" fontWeight="bold" variant="span" color="text-status-info">
+              <Box fontSize="body-s" variant="span" color="text-status-info">
                 Beta
               </Box>
             </Popover>

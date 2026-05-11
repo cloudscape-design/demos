@@ -103,9 +103,7 @@ function AuthShell({ children }: { children: React.ReactNode }) {
           justifyContent: 'space-between',
         }}
       >
-        <Box fontSize="heading-m" fontWeight="bold">
-          AWS
-        </Box>
+        <Box fontSize="heading-m">AWS</Box>
         <Box fontSize="body-s" color="text-body-secondary">
           🌐 English
         </Box>
@@ -237,7 +235,7 @@ export default function AuthPage() {
         <div style={{ width: '100%', maxWidth: 520, textAlign: 'center', paddingTop: 40 }}>
           <Container>
             <SpaceBetween size="l">
-              <Box fontSize="heading-xl" fontWeight="bold" textAlign="center">
+              <Box fontSize="heading-xl" textAlign="center">
                 Welcome to AWS, {name}
               </Box>
               <Box color="text-body-secondary" textAlign="center">
@@ -279,7 +277,7 @@ export default function AuthPage() {
       <div style={{ width: '100%', maxWidth: 480 }}>
         {step === 'email' && (
           <div style={{ textAlign: 'center', marginBottom: 24 }}>
-            <Box fontSize="heading-l" fontWeight="bold" textAlign="center">
+            <Box fontSize="heading-l" textAlign="center">
               Try AWS at no cost for up to 6 months
             </Box>
             <Box color="text-body-secondary" padding={{ top: 's' }}>
@@ -291,7 +289,7 @@ export default function AuthPage() {
           <SpaceBetween size="l">
             {step === 'email' && (
               <>
-                <Box fontSize="heading-xl" fontWeight="bold" textAlign="center">
+                <Box fontSize="heading-xl" textAlign="center">
                   Sign up for AWS
                 </Box>
                 <SpaceBetween size="s">
@@ -410,9 +408,7 @@ export default function AuthPage() {
 
             {step === 'contact' && (
               <>
-                <Box fontSize="heading-xl" fontWeight="bold">
-                  Enter your contact details
-                </Box>
+                <Box fontSize="heading-xl">Enter your contact details</Box>
                 <SpaceBetween size="s">
                   <FormField label="Country">
                     <Select

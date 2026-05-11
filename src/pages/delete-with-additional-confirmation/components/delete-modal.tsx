@@ -62,19 +62,11 @@ export function DeleteModal({ instances, visible, onDiscard, onDelete }: DeleteM
         <SpaceBetween size="m">
           {isMultiple ? (
             <Box variant="span">
-              Permanently delete{' '}
-              <Box variant="span" fontWeight="bold">
-                {instances.length} instances
-              </Box>
-              ? You can’t undo this action.
+              Permanently delete <Box variant="span">{instances.length} instances</Box>? You can’t undo this action.
             </Box>
           ) : (
             <Box variant="span">
-              Permanently delete instance{' '}
-              <Box variant="span" fontWeight="bold">
-                {instances[0].id}
-              </Box>
-              ? You can’t undo this action.
+              Permanently delete instance <Box variant="span">{instances[0].id}</Box>? You can’t undo this action.
             </Box>
           )}
 

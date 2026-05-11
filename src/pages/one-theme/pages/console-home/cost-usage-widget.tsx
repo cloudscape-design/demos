@@ -44,11 +44,11 @@ function CostMetric({
           color: highlighted ? awsui.colorTextAccent : undefined,
         }}
       >
-        <Box fontSize="heading-xl" fontWeight="bold" color="inherit" display="inline">
+        <Box fontSize="heading-xl" display="inline">
           {value}
         </Box>
         {suffix && (
-          <Box fontSize="body-m" color="inherit" display="inline">
+          <Box fontSize="body-m" display="inline">
             {suffix}
           </Box>
         )}

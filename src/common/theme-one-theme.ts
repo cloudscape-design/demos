@@ -41,13 +41,28 @@ export function generateThemeConfigOneTheme() {
   const indigo900 = '#001A99';
   const indigo950 = '#001475';
 
+  // Lime primitive color palette
+  const lime50 = '#F7FFEB';
+  const lime100 = '#EBFFCC';
+  const lime200 = '#D1FF8A';
+  const lime300 = '#ACFF2E';
+  const lime400 = '#7AE500';
+  const lime500 = '#31B800';
+  const lime600 = '#008A00';
+  const lime700 = '#007000';
+  const lime800 = '#005700';
+  const lime900 = '#003D00';
+  const lime950 = '#002E00';
+  const lime1000 = '#001400';
+
   // Primary accent colors
   const colorAccentPrimary = { light: indigo400, dark: indigo500 };
-  const colorSelectedAccent = { light: indigo600, dark: indigo500 };
+  //const colorSelectedAccent = { light: indigo600, dark: indigo500 };
+  const colorSelectedAccent = { light: grey800, dark: grey50 };
   const colorSelectedAccentSubtleHover = { light: grey250, dark: grey900 };
 
   // Secondary accent colors (darker/more saturated variant)
-  const colorSelectedAccentSecondary = { light: grey800, dark: '#F9F9FB' };
+  const colorSelectedAccentSecondary = { light: grey800, dark: grey100 };
 
   // Neutral colors
   const colorNeutralDefault = { light: grey800, dark: grey200 };
@@ -67,7 +82,7 @@ export function generateThemeConfigOneTheme() {
       fontFamilyBase: "'Ember Modern', 'Amazon Ember', Roboto, Arial, sans-serif",
       colorTextBodyDefault: colorTextBodyDefault,
 
-      colorBackgroundLayoutMain: { light: grey50, dark: grey1000 },
+      //colorBackgroundLayoutMain: { light: 'pink', dark: 'red' },
       colorBackgroundLayoutToolbar: { light: '#ffffff', dark: grey1000 },
 
       // Container
@@ -132,10 +147,10 @@ export function generateThemeConfigOneTheme() {
       // ========================================================================
       colorTextLinkDefault: colorTextBodyDefault,
       colorTextLinkHover: { light: grey650, dark: '#FFFFFF' },
-      colorTextLinkSecondaryDefault: { light: indigo600, dark: indigo400 }, // Added
-      colorTextLinkSecondaryHover: { light: indigo800, dark: indigo300 }, // Added
-      colorTextLinkInfoDefault: { light: indigo600, dark: indigo400 }, // Added
-      colorTextLinkInfoHover: { light: indigo800, dark: indigo300 }, // Added
+      // colorTextLinkSecondaryDefault: { light: indigo600, dark: indigo400 },
+      // colorTextLinkSecondaryHover: { light: indigo800, dark: indigo300 },
+      colorTextLinkInfoDefault: { light: indigo600, dark: indigo400 },
+      colorTextLinkInfoHover: { light: indigo800, dark: indigo300 },
       colorTextAccent: colorSelectedAccent,
 
       // ========================================================================
@@ -143,13 +158,15 @@ export function generateThemeConfigOneTheme() {
       // ========================================================================
       colorBorderItemFocused: colorSelectedAccent,
       colorBorderItemSelected: colorSelectedAccent,
-      colorBackgroundItemSelected: { light: grey150, dark: grey950 },
-      colorBackgroundLayoutToggleSelectedDefault: colorSelectedAccent,
+      colorBackgroundItemSelected: { light: grey150, dark: grey1000 },
+      colorBackgroundLayoutToggleSelectedDefault: colorSelectedAccentSecondary,
+      colorBackgroundLayoutToggleSelectedHover: colorSelectedAccentSecondary,
+      colorBackgroundLayoutToggleSelectedActive: colorSelectedAccentSecondary,
 
       // ========================================================================
       // SEGMENTS & TABS
       // ========================================================================
-      colorBackgroundSegmentActive: colorSelectedAccent,
+      colorBackgroundSegmentActive: { light: grey800, dark: grey50 },
       colorBackgroundSegmentDefault: { light: 'transparent', dark: 'transparent' },
 
       // ========================================================================
@@ -174,7 +191,7 @@ export function generateThemeConfigOneTheme() {
       // STATUS
       // ========================================================================
       colorTextStatusInfo: { light: indigo800, dark: indigo400 },
-      colorTextStatusSuccess: { light: '#008559', dark: '#00BD6B' },
+      colorTextStatusSuccess: { light: lime600, dark: lime200 },
       colorTextDropdownItemFilterMatch: colorSelectedAccent,
       colorBackgroundDropdownItemFilterMatch: { light: grey200, dark: grey1000 },
 
@@ -184,7 +201,7 @@ export function generateThemeConfigOneTheme() {
       spaceStatusIndicatorPaddingInline: '4px',
       colorBackgroundStatusIndicatorInfo: { light: '#5c7fff10', dark: '#5c7fff30' },
       colorBackgroundStatusIndicatorWarning: { light: '#FBD33220', dark: '#FBD33220' },
-      colorBackgroundStatusIndicatorSuccess: { light: '#00BD6B10', dark: '#00BD6B20' },
+      colorBackgroundStatusIndicatorSuccess: { light: '#7ae50020', dark: '#7ae50020' },
       colorBackgroundStatusIndicatorError: { light: '#ff7a7a10', dark: '#ff7a7a20' },
 
       // ========================================================================
@@ -222,12 +239,14 @@ export function generateThemeConfigOneTheme() {
       // ========================================================================
       fontWeightButton: '500',
       fontWeightTabs: '500',
+      fontWeightAlertHeader: '500',
+      fontWeightFlashbarHeader: '500',
       fontSizeTabs: '16px',
 
       // ========================================================================
       // SPACE
       // ========================================================================
-      spaceAlertVertical: '4px',
+      spaceAlertVertical: '8px',
       spaceButtonHorizontal: '12px',
       spaceTabsVertical: '2px',
       spaceTokenVertical: '2px',
@@ -252,13 +271,13 @@ export function generateThemeConfigOneTheme() {
       borderRadiusBadge: '2px',
       borderRadiusButton: '2px',
       borderRadiusContainer: '4px',
-      borderRadiusDropdown: '8px',
-      borderRadiusDropzone: '8px',
-      borderRadiusFlashbar: '4px',
-      borderRadiusItem: '8px',
+      borderRadiusDropdown: '2px',
+      borderRadiusDropzone: '4px',
+      borderRadiusFlashbar: '2px',
+      borderRadiusItem: '2px',
       borderRadiusInput: '2px',
       borderRadiusPopover: '4px',
-      borderRadiusTabsFocusRing: '8px',
+      borderRadiusTabsFocusRing: '4px',
       borderRadiusToken: '2px',
       borderRadiusTutorialPanelItem: '4px',
 
@@ -275,7 +294,7 @@ export function generateThemeConfigOneTheme() {
     referenceTokens: {
       color: {
         primary: {
-          seed: indigo500,
+          seed: grey900,
         },
         neutral: {
           seed: '#242424',
@@ -286,7 +305,8 @@ export function generateThemeConfigOneTheme() {
     contexts: {
       'app-layout-toolbar': {
         tokens: {
-          colorBackgroundLayoutMain: { light: '#5a698f', dark: '#50424a' },
+          colorBackgroundLayoutMain: { light: grey50, dark: grey1000 },
+          //colorBackgroundLayoutMain: { light: 'red', dark: 'pink' },
         },
       },
       'top-navigation': {
@@ -355,13 +375,14 @@ export function generateThemeConfigOneTheme() {
       alert: {
         tokens: {
           colorBackgroundStatusInfo: { light: '#5c7fff10', dark: '#5c7fff20' },
-          colorBackgroundStatusWarning: { light: '#fbd33220', dark: '#fbd33210' },
+          colorBackgroundStatusWarning: { light: '#fbd33210', dark: '#fbd33210' },
           colorBackgroundStatusError: { light: '#ff7a7a10', dark: '#ff7a7a15' },
-          colorBackgroundStatusSuccess: { light: '#00BD6B10', dark: '#00BD6B10' },
+          colorBackgroundStatusSuccess: { light: '#7ae50020', dark: '#7ae50020' },
           colorTextStatusInfo: { light: indigo800, dark: indigo400 },
           colorBorderStatusInfo: { light: indigo800, dark: indigo400 },
-          colorTextStatusSuccess: { light: '#008559', dark: '#00BD6B' }, // Added
-          colorBorderStatusSuccess: { light: '#008559', dark: '#00BD6B' }, // Added
+          colorTextStatusSuccess: { light: '#008559', dark: '#00BD6B' },
+          colorBorderStatusSuccess: { light: '#008559', dark: '#00BD6B' },
+          colorBackgroundButtonNormalDefault: { light: 'transparent', dark: 'transparent' },
         },
       },
     },

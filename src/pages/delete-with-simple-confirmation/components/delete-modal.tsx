@@ -42,19 +42,13 @@ export function DeleteModal({ distributions, visible, onDiscard, onDelete }: Del
         <SpaceBetween size="m">
           {isMultiple ? (
             <Box variant="span">
-              Permanently delete{' '}
-              <Box variant="span" fontWeight="bold">
-                {distributions.length} distributions
-              </Box>
-              ? You can’t undo this action.
+              Permanently delete <Box variant="span">{distributions.length} distributions</Box>? You can’t undo this
+              action.
             </Box>
           ) : (
             <Box variant="span">
-              Permanently delete distribution{' '}
-              <Box variant="span" fontWeight="bold">
-                {distributions[0].id}
-              </Box>
-              ? You can’t undo this action.
+              Permanently delete distribution <Box variant="span">{distributions[0].id}</Box>? You can’t undo this
+              action.
             </Box>
           )}
 

@@ -11,13 +11,7 @@ import { ExternalLink, ExternalLinkGroup } from '../commons';
 export const helpPanelContent: Record<string, ReactNode> = {
   default: (
     <SpaceBetween size="l">
-      <Box
-        fontWeight="bold"
-        color="text-body-secondary"
-        textAlign="center"
-        margin={{ top: 'xxl', horizontal: 'xxl' }}
-        fontSize="body-s"
-      >
+      <Box color="text-body-secondary" textAlign="center" margin={{ top: 'xxl', horizontal: 'xxl' }} fontSize="body-s">
         No help content to show
       </Box>
       <Box color="text-body-secondary" textAlign="center" margin={{ horizontal: 'xxl' }} fontSize="body-s">

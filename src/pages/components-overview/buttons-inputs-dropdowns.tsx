@@ -124,44 +124,6 @@ function Buttons() {
           ariaLabel="Toggle button icon pressed"
         />
       </SpaceBetween>
-      <SpaceBetween direction="horizontal" size="m" alignItems="center">
-        <ToggleButton pressed={true} iconName="star" pressedIconName="star-filled" disabled={true}>
-          Toggle button
-        </ToggleButton>
-        <ToggleButton pressed={false} iconName="star" pressedIconName="star-filled" disabled={true}>
-          Toggle button
-        </ToggleButton>
-        <ToggleButton
-          pressed={false}
-          iconName="star"
-          pressedIconName="star-filled"
-          disabled={true}
-          ariaLabel="Toggle button disabled"
-        />
-        <ToggleButton
-          pressed={true}
-          iconName="star"
-          pressedIconName="star-filled"
-          disabled={true}
-          ariaLabel="Toggle button disabled pressed"
-        />
-        <ToggleButton
-          variant="icon"
-          pressed={false}
-          iconName="star"
-          pressedIconName="star-filled"
-          disabled={true}
-          ariaLabel="Toggle button icon disabled"
-        />
-        <ToggleButton
-          variant="icon"
-          pressed={true}
-          iconName="star"
-          pressedIconName="star-filled"
-          disabled={true}
-          ariaLabel="Toggle button icon disabled pressed"
-        />
-      </SpaceBetween>
       <SegmentedControl
         selectedId={selectedSegment}
         onChange={({ detail }) => setSelectedSegment(detail.selectedId)}

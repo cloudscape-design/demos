@@ -74,9 +74,7 @@ function EntryCard({ entry, onOpen }: { entry: EntryPoint; onOpen: () => void })
         />
         <Header variant="h2">{entry.title}</Header>
         <Box color="text-body-secondary">{entry.description}</Box>
-        <Button variant="primary" onClick={onOpen}>
-          {entry.cta}
-        </Button>
+        <Button onClick={onOpen}>{entry.cta}</Button>
       </SpaceBetween>
     </Container>
   );
@@ -188,7 +186,7 @@ export default function HomePage() {
           header={
             <Box padding={{ vertical: 'xxl' }}>
               <SpaceBetween size="s">
-                <Box fontSize="display-l" fontWeight="bold" variant="h1" padding="n">
+                <Box fontSize="display-l" variant="h1" padding="n">
                   One Theme
                 </Box>
                 <Box fontSize="heading-m" fontWeight="light" color="text-body-secondary">

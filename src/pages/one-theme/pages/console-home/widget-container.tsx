@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import React, { type ReactNode } from 'react';
 
+import { Icon } from '@cloudscape-design/components';
 import Button from '@cloudscape-design/components/button';
 import Container from '@cloudscape-design/components/container';
 import Header from '@cloudscape-design/components/header';
@@ -26,8 +27,8 @@ export function WidgetContainer({ title, actions, footerText, footerHref, childr
       footer={
         footerText ? (
           <div style={{ textAlign: 'center' }}>
-            <Link href={footerHref} variant="primary">
-              {footerText}
+            <Link href={footerHref} variant="secondary">
+              {footerText} <Icon name="arrow-right" />
             </Link>
           </div>
         ) : undefined

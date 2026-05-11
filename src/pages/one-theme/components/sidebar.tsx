@@ -95,7 +95,7 @@ function NavItem({ icon, label, active, badge, expanded, onNavigate }: NavItemPr
             ? awsui.colorBackgroundDropdownItemHover
             : 'transparent',
         color: active ? awsui.colorTextAccent : awsui.colorTextBodyDefault,
-        fontWeight: active ? 600 : 400,
+        fontWeight: active ? 500 : 400,
         whiteSpace: 'nowrap',
       }}
     >
@@ -111,7 +111,7 @@ export function Sidebar({ brand, sections, activePath, user, expanded, onToggle,
   return (
     <div
       style={{
-        width: expanded ? 240 : 80,
+        width: expanded ? 240 : 44,
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
@@ -151,9 +151,7 @@ export function Sidebar({ brand, sections, activePath, user, expanded, onToggle,
         </div>
         {expanded && (
           <>
-            <Box fontSize="heading-s" fontWeight="bold">
-              {brand.text}
-            </Box>
+            <Box fontSize="heading-s">{brand.text}</Box>
             <div style={{ marginInlineStart: 'auto' }}>
               <Button iconName="angle-left" variant="icon" ariaLabel="Collapse sidebar" onClick={onToggle} />
             </div>
@@ -165,12 +163,7 @@ export function Sidebar({ brand, sections, activePath, user, expanded, onToggle,
           {sections.map((section, si) => (
             <div key={si}>
               {expanded && section.title && (
-                <Box
-                  variant="small"
-                  color="text-body-secondary"
-                  padding={{ horizontal: 'xs', bottom: 'xxs' }}
-                  fontWeight="bold"
-                >
+                <Box variant="small" color="text-body-secondary" padding={{ horizontal: 'xs', bottom: 'xxs' }}>
                   {section.title}
                 </Box>
               )}
@@ -206,9 +199,7 @@ export function Sidebar({ brand, sections, activePath, user, expanded, onToggle,
           <Icon name="user-profile" />
           {expanded && (
             <div>
-              <Box fontWeight="bold" fontSize="body-s">
-                {user.name}
-              </Box>
+              <Box fontSize="body-s">{user.name}</Box>
               <Box variant="small" color="text-body-secondary">
                 {user.email}
               </Box>

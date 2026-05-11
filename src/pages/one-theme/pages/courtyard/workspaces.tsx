@@ -76,9 +76,7 @@ function WorkspaceOverview({ ownedCount, onSelectMine }: { ownedCount: number; o
       <ColumnLayout columns={3} variant="text-grid">
         <SpaceBetween size="xxs">
           <Box variant="awsui-key-label">Total project accounts</Box>
-          <Box fontSize="heading-xl" fontWeight="bold">
-            {WORKSPACES.length}
-          </Box>
+          <Box fontSize="heading-xl">{WORKSPACES.length}</Box>
         </SpaceBetween>
         <SpaceBetween size="xxs">
           <Box variant="awsui-key-label">Owned by me</Box>
@@ -90,16 +88,12 @@ function WorkspaceOverview({ ownedCount, onSelectMine }: { ownedCount: number; o
               onSelectMine();
             }}
           >
-            <Box fontSize="heading-xl" fontWeight="bold">
-              {ownedCount}
-            </Box>
+            <Box fontSize="heading-xl">{ownedCount}</Box>
           </Link>
         </SpaceBetween>
         <SpaceBetween size="xxs">
           <Box variant="awsui-key-label">Month-to-date spend</Box>
-          <Box fontSize="heading-xl" fontWeight="bold">
-            $36.22
-          </Box>
+          <Box fontSize="heading-xl">$36.22</Box>
         </SpaceBetween>
       </ColumnLayout>
     </Container>

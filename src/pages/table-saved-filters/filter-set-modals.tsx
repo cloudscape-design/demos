@@ -199,11 +199,7 @@ export function UpdateFilterSetModal({
     >
       <SpaceBetween size="m">
         <Box variant="span">
-          Update{' '}
-          <Box variant="span" fontWeight="bold">
-            {filterSet.name}
-          </Box>
-          ? You can’t undo this action.
+          Update <Box variant="span">{filterSet.name}</Box>? You can’t undo this action.
         </Box>
         <Alert type="info" statusIconAriaLabel="Info">
           Proceeding with this action will change the saved filter set with the updated configuration.
@@ -280,11 +276,7 @@ export function DeleteFilterSetModal({
     >
       <SpaceBetween size="m">
         <Box variant="span">
-          Permantently delete{' '}
-          <Box variant="span" fontWeight="bold">
-            {filterSet.name}
-          </Box>
-          ? You can’t undo this action.
+          Permantently delete <Box variant="span">{filterSet.name}</Box>? You can’t undo this action.
         </Box>
         <Alert type="info" statusIconAriaLabel="Info">
           Proceeding with this action will delete the saved filter set with the updated configuration.

@@ -7,6 +7,7 @@ import Button from '@cloudscape-design/components/button';
 import ColumnLayout from '@cloudscape-design/components/column-layout';
 import Container from '@cloudscape-design/components/container';
 import Header from '@cloudscape-design/components/header';
+import Icon from '@cloudscape-design/components/icon';
 import Link from '@cloudscape-design/components/link';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 
@@ -40,7 +41,7 @@ export default function Images() {
               accumsan.
             </Box>
             <SpaceBetween direction="vertical" size="xxs">
-              <Box fontWeight="bold">$0.1/hour</Box>
+              <Box>$0.1/hour</Box>
             </SpaceBetween>
             <Button>Shop now</Button>
           </SpaceBetween>
@@ -67,7 +68,7 @@ export default function Images() {
               accumsan.
             </Box>
             <SpaceBetween direction="vertical" size="xxs">
-              <Box fontWeight="bold">$0.1/hour</Box>
+              <Box>$0.1/hour</Box>
             </SpaceBetween>
             <Button>Shop now</Button>
           </SpaceBetween>
@@ -94,7 +95,7 @@ export default function Images() {
               accumsan.
             </Box>
             <SpaceBetween direction="vertical" size="xxs">
-              <Box fontWeight="bold">$0.1/hour</Box>
+              <Box>$0.1/hour</Box>
             </SpaceBetween>
             <Button>Shop now</Button>
           </SpaceBetween>
@@ -123,7 +124,7 @@ export default function Images() {
             dolor ac accumsan.
             <Box padding={{ top: 'xs' }}>
               <Link fontSize="inherit" variant="secondary" className="secondary-link" href="#">
-                See video
+                See video <Icon name="arrow-right" />
               </Link>
             </Box>
           </SpaceBetween>
@@ -151,7 +152,7 @@ export default function Images() {
             dolor ac accumsan.
             <Box padding={{ top: 'xs' }}>
               <Link fontSize="inherit" variant="secondary" className="secondary-link" href="#">
-                See video
+                See video <Icon name="arrow-right" />
               </Link>
             </Box>
           </SpaceBetween>
@@ -179,7 +180,7 @@ export default function Images() {
             dolor ac accumsan.
             <Box padding={{ top: 'xs' }}>
               <Link fontSize="inherit" variant="secondary" className="secondary-link" href="#">
-                See video
+                See video <Icon name="arrow-right" />
               </Link>
             </Box>
           </SpaceBetween>

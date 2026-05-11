@@ -100,13 +100,9 @@ function TelemetrySection() {
                 i18nStrings={{}}
               />
             </Box>
-            <Box color="text-body-secondary" fontWeight="bold">
-              {metric.label}
-            </Box>
+            <Box color="text-body-secondary">{metric.label}</Box>
             <SpaceBetween size="xs" direction="horizontal" alignItems="end">
-              <Box fontSize="heading-l" fontWeight="bold">
-                {metric.value}
-              </Box>
+              <Box fontSize="heading-l">{metric.value}</Box>
               <Box color="text-body-secondary" fontSize="body-s">
                 {metric.change}
               </Box>
@@ -256,9 +252,7 @@ function NextStepsSection() {
                 }}
               />
               <SpaceBetween size="xxs">
-                <Box fontWeight="bold" fontSize="body-m">
-                  {step.title}
-                </Box>
+                <Box fontSize="body-m">{step.title}</Box>
                 <Box color="text-body-secondary" fontSize="body-s">
                   {step.description}
                 </Box>

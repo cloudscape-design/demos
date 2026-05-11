@@ -79,21 +79,15 @@ function ChargesSummary() {
         <ColumnLayout columns={3} variant="text-grid">
           <SpaceBetween size="xxs">
             <Box variant="awsui-key-label">Month-to-date</Box>
-            <Box fontSize="heading-xl" fontWeight="bold">
-              $36.22
-            </Box>
+            <Box fontSize="heading-xl">$36.22</Box>
           </SpaceBetween>
           <SpaceBetween size="xxs">
             <Box variant="awsui-key-label">Forecast</Box>
-            <Box fontSize="heading-xl" fontWeight="bold">
-              $48.50
-            </Box>
+            <Box fontSize="heading-xl">$48.50</Box>
           </SpaceBetween>
           <SpaceBetween size="xxs">
             <Box variant="awsui-key-label">Previous month</Box>
-            <Box fontSize="heading-xl" fontWeight="bold">
-              $52.40
-            </Box>
+            <Box fontSize="heading-xl">$52.40</Box>
           </SpaceBetween>
         </ColumnLayout>
         <BarChart
