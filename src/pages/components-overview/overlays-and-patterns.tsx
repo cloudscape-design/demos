@@ -46,7 +46,7 @@ export default function OverlaysAndPatterns() {
         </SubSection>
 
         <SubSection header="Code view">
-          <CodeView content={codeSnippet} />
+          <CodeView content={codeSnippet} lineNumbers />
         </SubSection>
 
         <SubSection header="Wizard">

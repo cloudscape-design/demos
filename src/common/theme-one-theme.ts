@@ -43,7 +43,7 @@ export function generateThemeConfigOneTheme() {
 
   // Primary accent colors
   const colorAccentPrimary = { light: indigo400, dark: indigo500 };
-  const colorSelectedAccent = { light: grey800, dark: grey100 };
+  const colorSelectedAccent = { light: indigo600, dark: indigo500 };
   const colorSelectedAccentSubtleHover = { light: grey250, dark: grey900 };
 
   // Secondary accent colors (darker/more saturated variant)
@@ -68,28 +68,27 @@ export function generateThemeConfigOneTheme() {
       colorTextBodyDefault: colorTextBodyDefault,
 
       colorBackgroundLayoutMain: { light: grey50, dark: grey1000 },
-      colorBackgroundLayoutToolbar: { light: '#ffffff', dark: '#080808' },
+      colorBackgroundLayoutToolbar: { light: '#ffffff', dark: grey1000 },
 
       // Container
       colorBackgroundContainerHeader: { light: '#ffffff', dark: grey950 },
       colorBackgroundContainerContent: { light: '#ffffff', dark: grey950 },
 
       // ========================================================================
-      // BUTTONS - Normal
+      // BUTTONS - Normal - Need to update
       // ========================================================================
-      colorBorderButtonNormalDefault: { light: '#424650', dark: '#656871' },
-      colorBorderButtonNormalHover: { light: '#424650', dark: '#656871' },
-      colorBorderButtonNormalActive: { light: '#424650', dark: '#656871' },
+      colorBorderButtonNormalDefault: { light: grey650, dark: grey700 },
+      colorBorderButtonNormalHover: { light: grey650, dark: grey600 },
+      colorBorderButtonNormalActive: { light: grey650, dark: grey600 },
 
-      colorBackgroundButtonNormalDefault: { light: '#FFFFFF', dark: '#333843' },
-      colorBackgroundButtonNormalHover: { light: '#F6F6F9', dark: '#424650' },
-      colorBackgroundButtonNormalActive: { light: '#EBEBF0', dark: '#333843' },
+      // Need to update
+      colorBackgroundButtonNormalDefault: { light: '#FFFFFF', dark: grey850 },
+      colorBackgroundButtonNormalHover: { light: grey150, dark: grey650 },
+      colorBackgroundButtonNormalActive: { light: grey250, dark: grey700 },
 
-      colorTextButtonNormalDefault: { light: '#333843', dark: '#DEDEE3' },
-      colorTextButtonNormalHover: { light: '#333843', dark: '#DEDEE3' },
-      colorTextButtonNormalActive: { light: '#333843', dark: '#DEDEE3' },
-
-      colorBackgroundSegmentDefault: { light: 'transparent', dark: 'transparent' },
+      colorTextButtonNormalDefault: { light: grey700, dark: grey300 },
+      colorTextButtonNormalHover: { light: grey700, dark: grey300 },
+      colorTextButtonNormalActive: { light: grey700, dark: grey300 },
 
       // ========================================================================
       // BUTTONS - Primary
@@ -104,10 +103,16 @@ export function generateThemeConfigOneTheme() {
       // ========================================================================
       // BUTTONS - Link
       // ========================================================================
-      colorBackgroundButtonLinkDefault: { light: '#f6f6f9', dark: '#232b37' }, // Added
-      colorBackgroundButtonLinkHover: { light: '#ebebf0', dark: '#424650' }, // Added
+      colorBackgroundButtonLinkDefault: { light: grey150, dark: grey750 }, // Added
+      colorBackgroundButtonLinkHover: { light: grey250, dark: grey650 }, // Added
       colorBackgroundButtonLinkActive: colorSelectedAccentSubtleHover,
       colorTextLinkButtonNormalDefault: colorSelectedAccent,
+
+      // ========================================================================
+      // INPUT
+      // ========================================================================
+      colorBackgroundInputDefault: { light: '#ffffff', dark: grey950 },
+      colorBackgroundInputDisabled: { light: grey250, dark: grey800 },
 
       // ========================================================================
       // BUTTONS - Toggle
@@ -126,11 +131,11 @@ export function generateThemeConfigOneTheme() {
       // LINKS & TEXT
       // ========================================================================
       colorTextLinkDefault: colorTextBodyDefault,
-      colorTextLinkHover: { light: '#424650', dark: '#FFFFFF' },
-      colorTextLinkSecondaryDefault: { light: '#295eff', dark: '#7598ff' }, // Added
-      colorTextLinkSecondaryHover: { light: '#0033CC', dark: '#94AFFF' }, // Added
-      colorTextLinkInfoDefault: { light: '#295eff', dark: '#7598ff' }, // Added
-      colorTextLinkInfoHover: { light: '#0033CC', dark: '#94AFFF' }, // Added
+      colorTextLinkHover: { light: grey650, dark: '#FFFFFF' },
+      colorTextLinkSecondaryDefault: { light: indigo600, dark: indigo400 }, // Added
+      colorTextLinkSecondaryHover: { light: indigo800, dark: indigo300 }, // Added
+      colorTextLinkInfoDefault: { light: indigo600, dark: indigo400 }, // Added
+      colorTextLinkInfoHover: { light: indigo800, dark: indigo300 }, // Added
       colorTextAccent: colorSelectedAccent,
 
       // ========================================================================
@@ -138,13 +143,14 @@ export function generateThemeConfigOneTheme() {
       // ========================================================================
       colorBorderItemFocused: colorSelectedAccent,
       colorBorderItemSelected: colorSelectedAccent,
-      colorBackgroundItemSelected: { light: '#F6F6F9', dark: '#0F141A' },
+      colorBackgroundItemSelected: { light: grey150, dark: grey950 },
       colorBackgroundLayoutToggleSelectedDefault: colorSelectedAccent,
 
       // ========================================================================
       // SEGMENTS & TABS
       // ========================================================================
       colorBackgroundSegmentActive: colorSelectedAccent,
+      colorBackgroundSegmentDefault: { light: 'transparent', dark: 'transparent' },
 
       // ========================================================================
       // SLIDER
@@ -161,21 +167,30 @@ export function generateThemeConfigOneTheme() {
       // NOTIFICATIONS
       // ========================================================================
       colorBackgroundNotificationGreen: colorSuccess,
-      colorBackgroundNotificationBlue: { light: '#0033CC', dark: '#0033CC' },
+      colorBackgroundNotificationBlue: { light: indigo800, dark: indigo800 },
       colorTextNotificationDefault: { light: '#ffffff', dark: '#ffffff' },
 
       // ========================================================================
       // STATUS
       // ========================================================================
-      colorTextStatusInfo: { light: '#0033CC', dark: '#7598FF' },
-      colorTextStatusSuccess: { light: '#008559', dark: '#00BD6B' }, // Added
+      colorTextStatusInfo: { light: indigo800, dark: indigo400 },
+      colorTextStatusSuccess: { light: '#008559', dark: '#00BD6B' },
       colorTextDropdownItemFilterMatch: colorSelectedAccent,
-      colorBackgroundDropdownItemFilterMatch: { light: '#F3F3F7', dark: '#06080A' },
+      colorBackgroundDropdownItemFilterMatch: { light: grey200, dark: grey1000 },
+
+      // ========================================================================
+      // STATUS INDICATOR
+      // ========================================================================
+      spaceStatusIndicatorPaddingInline: '4px',
+      colorBackgroundStatusIndicatorInfo: { light: '#5c7fff10', dark: '#5c7fff30' },
+      colorBackgroundStatusIndicatorWarning: { light: '#FBD33220', dark: '#FBD33220' },
+      colorBackgroundStatusIndicatorSuccess: { light: '#00BD6B10', dark: '#00BD6B20' },
+      colorBackgroundStatusIndicatorError: { light: '#ff7a7a10', dark: '#ff7a7a20' },
 
       // ========================================================================
       // TYPOGRAPHY - Headings
       // ========================================================================
-      colorTextBreadcrumbCurrent: { light: '#656871', dark: '#8c8c94' },
+      colorTextBreadcrumbCurrent: { light: grey600, dark: grey500 },
 
       // H1
       fontSizeHeadingXl: '24px',
@@ -234,7 +249,7 @@ export function generateThemeConfigOneTheme() {
       // BORDERS - Radius
       // ========================================================================
       borderRadiusAlert: '2px',
-      borderRadiusBadge: '16px',
+      borderRadiusBadge: '2px',
       borderRadiusButton: '2px',
       borderRadiusContainer: '4px',
       borderRadiusDropdown: '8px',
@@ -260,7 +275,10 @@ export function generateThemeConfigOneTheme() {
     referenceTokens: {
       color: {
         primary: {
-          //seed: '#1b232d',
+          seed: indigo500,
+        },
+        neutral: {
+          seed: '#242424',
         },
       },
     },
@@ -274,31 +292,31 @@ export function generateThemeConfigOneTheme() {
       'top-navigation': {
         tokens: {
           colorBackgroundContainerContent: { light: '#ffffff', dark: grey950 },
-          colorBorderDividerDefault: { light: '#c6c6cd', dark: '#424650' },
+          colorBorderDividerDefault: { light: grey350, dark: grey650 },
           colorTextTopNavigationTitle: colorNeutralDefault,
           colorTextInteractiveDefault: colorNeutralDefault,
           colorTextInteractiveHover: colorSelectedAccent,
-          colorTextInteractiveActive: { light: '#06080A', dark: '#F6F6F9' },
-          colorTextAccent: { light: '#06080A', dark: '#F6F6F9' },
-          colorTextDropdownItemDefault: { light: '#06080A', dark: '#F6F6F9' },
-          colorTextDropdownItemHighlighted: { light: '#06080A', dark: '#F6F6F9' },
-          colorTextDropdown: { light: '#06080A', dark: '#F6F6F9' },
-          colorTextGroupLabel: { light: '#424650', dark: '#c6c6cd' },
-          colorBackgroundDropdownItemDefault: { light: '#FFFFFF', dark: '#1b232d' },
-          colorBackgroundDropdownItemHover: { light: '#f3f3f7', dark: '#131920' },
-          colorBorderDropdownContainer: { light: '#b4b4bb', dark: '#656871' },
-          colorTextBodyDefault: { light: '#06080A', dark: '#F6F6F9' },
-          colorBackgroundInputDefault: { light: '#ffffff', dark: '#1b232d' },
-          colorBorderInputDefault: { light: '#b4b4bb', dark: '#656871' },
-          colorTextInputDefault: { light: '#06080A', dark: '#F6F6F9' },
-          colorTextInputPlaceholder: { light: '#656871', dark: '#8c8c94' },
-          colorBorderDropdownItemDefault: { light: '#e8e8e8', dark: '#424650' },
-          colorTextDropdownItemSecondary: { light: '#424650', dark: '#c6c6cd' },
-          colorItemSelected: { light: '#06080A', dark: '#F6F6F9' },
-          colorBackgroundDropdownItemSelected: { light: '#F6F6F9', dark: '#06080A' },
-          colorBorderItemSelected: { light: '#06080A', dark: '#F6F6F9' },
-          colorTextButtonInlineIconDefault: { light: '#1b232d', dark: '#F9F9FB' },
-          colorTextButtonInlineIconHover: { light: '#1b232d', dark: '#F9F9FB' },
+          colorTextInteractiveActive: { light: grey1000, dark: grey100 },
+          colorTextAccent: { light: grey1000, dark: grey100 },
+          colorTextDropdownItemDefault: { light: grey1000, dark: grey100 },
+          colorTextDropdownItemHighlighted: { light: grey1000, dark: grey100 },
+          colorTextDropdown: { light: grey1000, dark: grey100 },
+          colorTextGroupLabel: { light: grey650, dark: grey350 },
+          colorBackgroundDropdownItemDefault: { light: '#FFFFFF', dark: grey800 },
+          colorBackgroundDropdownItemHover: { light: grey200, dark: grey900 },
+          colorBorderDropdownContainer: { light: grey400, dark: grey600 },
+          colorTextBodyDefault: { light: grey1000, dark: grey100 },
+          colorBackgroundInputDefault: { light: '#ffffff', dark: grey800 },
+          colorBorderInputDefault: { light: grey400, dark: grey600 },
+          colorTextInputDefault: { light: grey1000, dark: grey100 },
+          colorTextInputPlaceholder: { light: grey600, dark: grey500 },
+          colorBorderDropdownItemDefault: { light: grey300, dark: grey650 },
+          colorTextDropdownItemSecondary: { light: grey650, dark: grey350 },
+          colorItemSelected: { light: grey1000, dark: grey100 },
+          colorBackgroundDropdownItemSelected: { light: grey150, dark: grey1000 },
+          colorBorderItemSelected: { light: grey1000, dark: grey100 },
+          colorTextButtonInlineIconDefault: { light: grey800, dark: grey100 },
+          colorTextButtonInlineIconHover: { light: grey800, dark: grey100 },
         },
       },
       header: {
@@ -306,42 +324,42 @@ export function generateThemeConfigOneTheme() {
           // ========================================================================
           // BUTTONS - Normal
           // ========================================================================
-          colorBorderButtonNormalDefault: '#f3f3f7',
-          colorBorderButtonNormalHover: '#F9F9FB',
-          colorBorderButtonNormalActive: '#F9F9FB',
-          colorBackgroundButtonNormalHover: '#1B232D',
-          colorBackgroundButtonNormalActive: '#131920',
-          colorTextButtonNormalDefault: '#f3f3f7',
-          colorTextButtonNormalHover: '#F9F9FB',
-          colorTextButtonNormalActive: '#F9F9FB',
+          colorBorderButtonNormalDefault: grey200,
+          colorBorderButtonNormalHover: grey100,
+          colorBorderButtonNormalActive: grey100,
+          colorBackgroundButtonNormalHover: grey800,
+          colorBackgroundButtonNormalActive: grey900,
+          colorTextButtonNormalDefault: grey200,
+          colorTextButtonNormalHover: grey100,
+          colorTextButtonNormalActive: grey100,
           // ========================================================================
           // BUTTONS - Primary
           // ========================================================================
-          colorBackgroundButtonPrimaryDefault: '#F9F9FB',
+          colorBackgroundButtonPrimaryDefault: grey100,
           colorBackgroundButtonPrimaryHover: '#FFFFFF',
-          colorBackgroundButtonPrimaryActive: '#F9F9FB',
-          colorTextButtonPrimaryDefault: '#131920',
-          colorTextButtonPrimaryHover: '#131920',
-          colorTextButtonPrimaryActive: '#131920',
-          colorTextLinkDefault: '#CCCCD1',
+          colorBackgroundButtonPrimaryActive: grey100,
+          colorTextButtonPrimaryDefault: grey900,
+          colorTextButtonPrimaryHover: grey900,
+          colorTextButtonPrimaryActive: grey900,
+          colorTextLinkDefault: grey350,
         },
       },
       flashbar: {
         tokens: {
           // Custom flashbar colors
           colorBackgroundNotificationGreen: colorSuccess,
-          colorBackgroundNotificationBlue: { light: '#0033cc', dark: '#0033cc' },
+          colorBackgroundNotificationBlue: { light: indigo800, dark: indigo800 },
           colorTextNotificationDefault: { light: '#ffffff', dark: '#ffffff' },
         },
       },
       alert: {
         tokens: {
-          colorBackgroundStatusInfo: { light: '#f6f6f9', dark: '#232b37' },
-          colorBackgroundStatusWarning: { light: '#f6f6f9', dark: '#232b37' },
-          colorBackgroundStatusError: { light: '#f6f6f9', dark: '#232b37' },
-          colorBackgroundStatusSuccess: { light: '#f6f6f9', dark: '#232b37' },
-          colorTextStatusInfo: { light: '#0033CC', dark: '#7598FF' },
-          colorBorderStatusInfo: { light: '#0033CC', dark: '#7598FF' },
+          colorBackgroundStatusInfo: { light: '#5c7fff10', dark: '#5c7fff20' },
+          colorBackgroundStatusWarning: { light: '#fbd33220', dark: '#fbd33210' },
+          colorBackgroundStatusError: { light: '#ff7a7a10', dark: '#ff7a7a15' },
+          colorBackgroundStatusSuccess: { light: '#00BD6B10', dark: '#00BD6B10' },
+          colorTextStatusInfo: { light: indigo800, dark: indigo400 },
+          colorBorderStatusInfo: { light: indigo800, dark: indigo400 },
           colorTextStatusSuccess: { light: '#008559', dark: '#00BD6B' }, // Added
           colorBorderStatusSuccess: { light: '#008559', dark: '#00BD6B' }, // Added
         },

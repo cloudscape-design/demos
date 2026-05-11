@@ -3,20 +3,16 @@
 import React, { useEffect, useState } from 'react';
 
 import Box from '@cloudscape-design/components/box';
-import Checkbox from '@cloudscape-design/components/checkbox';
 import ColumnLayout from '@cloudscape-design/components/column-layout';
-import FormField from '@cloudscape-design/components/form-field';
-import Select, { SelectProps } from '@cloudscape-design/components/select';
-import Slider from '@cloudscape-design/components/slider';
-import SpaceBetween from '@cloudscape-design/components/space-between';
+import { SelectProps } from '@cloudscape-design/components/select';
 
 import { applyCustomTheme } from '../../common/apply-theme';
 import { generateThemeConfigOneTheme } from '../../common/theme-one-theme';
 
 export function GlobalSplitPanelContent() {
-  const [fontStretch, setFontStretch] = useState(95);
-  const [checked, setChecked] = useState(false);
-  const [checkedFontSmooth, setCheckedFontSmooth] = useState(true);
+  const [fontStretch] = useState(95);
+  const [checked] = useState(false);
+  const [checkedFontSmooth] = useState(true);
   const linkColorOptions: SelectProps.Options = [
     {
       label: 'Blue for info links only',
@@ -29,7 +25,7 @@ export function GlobalSplitPanelContent() {
     { label: 'Darker than normal text', value: 'darker' },
     { label: 'Blue for all link texts', value: 'blue' },
   ];
-  const [selectedLinkColor, setSelectedLinkColor] = useState<SelectProps.Option>(linkColorOptions[0]);
+  const [selectedLinkColor] = useState<SelectProps.Option>(linkColorOptions[0]);
 
   // Apply theme on mount and when settings change
   useEffect(() => {
@@ -105,7 +101,7 @@ export function GlobalSplitPanelContent() {
   return (
     <Box padding={{ vertical: 'm' }}>
       <ColumnLayout borders="horizontal">
-        <Box padding={{ bottom: 'l' }}>
+        {/* <Box padding={{ bottom: 'l' }}>
           <Box variant="h3" padding={{ vertical: 'm' }}>
             Display Settings
           </Box>
@@ -131,7 +127,7 @@ export function GlobalSplitPanelContent() {
               </Checkbox>
             </FormField>
           </SpaceBetween>
-        </Box>
+        </Box> */}
       </ColumnLayout>
     </Box>
   );

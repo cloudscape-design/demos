@@ -657,6 +657,8 @@ export default function ButtonsInputsDropdowns() {
               >
                 <StatusIndicator type="success">Normal latency</StatusIndicator>
               </Popover>
+              <StatusIndicator type="info">Normal latency</StatusIndicator>
+              <StatusIndicator type="error">Error latency</StatusIndicator>
               <Popover dismissButton={false} position="top" size="small" content="Copied!" triggerType="custom">
                 <Button iconName="copy" variant="inline-icon" ariaLabel="Copy" />
               </Popover>
