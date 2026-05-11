@@ -6,8 +6,31 @@ import { generateThemeConfigOneTheme, themeCoreConfig } from './theme-one-theme'
 
 import './ember-modern-font.css';
 
+// The dev-v3-onetheme build of @cloudscape-design/components scopes every
+// visual-context token set (e.g. `app-layout-toolbar`, `top-navigation`) under
+// the `.awsui-one-theme` secondary theme. Without this class on <body>, the
+// theming-runtime emits rules like `.awsui-one-theme .awsui-context-app-layout-toolbar`
+// which never match, and context overrides silently have no effect.
+// Must run before React renders and before applyTheme below.
+if (typeof document !== 'undefined') {
+  document.body.classList.add('awsui-one-theme');
+}
+
 // Store the reset function from the current theme
 let currentThemeReset: (() => void) | null = null;
+
+// The dev-v3-onetheme preset is structured as:
+//   primary   = { id: 'classic',        selector: 'body' }
+//   secondary = [
+//     { id: 'visual-refresh', selector: '.awsui-visual-refresh' },
+//     { id: 'one-theme',      selector: '.awsui-one-theme' },
+//   ]
+// Contexts like `app-layout-toolbar`, `top-navigation`, `alert`, etc. only
+// exist in the secondary themes. The theming runtime's `applyTheme` uses
+// `preset.theme` (the primary) as the base unless `baseThemeId` is passed —
+// so without it, our context overrides are silently dropped in mergeInPlace
+// (because `theme.contexts[contextId]` is undefined on the classic theme).
+const BASE_THEME_ID = 'one-theme';
 
 /**
  * Applies the custom theme to the application
@@ -23,14 +46,14 @@ export function applyCustomTheme(customConfig?: Record<string, any>) {
 
   // If no config provided, apply empty theme to reset to Cloudscape defaults
   if (!customConfig) {
-    const { reset: resetFn } = applyTheme({ theme: { tokens: {} } });
+    const { reset: resetFn } = applyTheme({ theme: { tokens: {} }, baseThemeId: BASE_THEME_ID });
     currentThemeReset = resetFn;
     return;
   }
 
   // Apply the new theme and store its reset function
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { reset: resetFn } = applyTheme({ theme: customConfig as any });
+  const { reset: resetFn } = applyTheme({ theme: customConfig as any, baseThemeId: BASE_THEME_ID });
   currentThemeReset = resetFn;
 }
 
@@ -43,7 +66,7 @@ export function resetToDefaults() {
     currentThemeReset = null;
   }
   // Apply empty theme to ensure complete reset
-  const { reset: resetFn } = applyTheme({ theme: { tokens: {} } });
+  const { reset: resetFn } = applyTheme({ theme: { tokens: {} }, baseThemeId: BASE_THEME_ID });
   currentThemeReset = resetFn;
 }
 
