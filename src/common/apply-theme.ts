@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import { applyTheme } from '@cloudscape-design/components/theming';
 
-import { generateThemeConfigConsole, generateThemeConfigOneTheme, themeCoreConfig } from './theme-one-theme';
+import { generateThemeConfigOneTheme, themeCoreConfig } from './theme-one-theme';
 
 import './ember-modern-font.css';
 
@@ -52,33 +52,12 @@ export function resetToDefaults() {
 // ============================================================================
 
 /**
- * Hook-style API for comparing different theme design directions.
- * Ensures complete isolation between themes by resetting before each application.
- *
- * @example
- * ```tsx
- * function ThemeComparison() {
- *   const { applyDirectionA, applyDirectionB, resetToDefault } = useThemeComparison();
- *
- *   return (
- *     <SpaceBetween direction="horizontal" size="xs">
- *       <Button onClick={() => applyDirectionA()}>Direction A</Button>
- *       <Button onClick={() => applyDirectionB()}>Direction B</Button>
- *       <Button onClick={resetToDefault}>Reset</Button>
- *     </SpaceBetween>
- *   );
- * }
- * ```
+ * Hook-style API for applying the One Theme.
  */
 export function useThemeComparison() {
   const applyDirectionA = () => {
     const themeA = generateThemeConfigOneTheme();
     applyCustomTheme(themeA);
-  };
-
-  const applyDirectionB = () => {
-    const themeB = generateThemeConfigConsole();
-    applyCustomTheme(themeB);
   };
 
   const resetToDefault = () => {
@@ -87,7 +66,6 @@ export function useThemeComparison() {
 
   return {
     applyDirectionA,
-    applyDirectionB,
     resetToDefault,
   };
 }

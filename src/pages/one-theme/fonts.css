@@ -1,36 +1,36 @@
 @font-face {
   font-family: 'Ember Modern';
-  src: url('./font/Ember Modern Text/WOFF2/EmberModernTextStd-Regular.woff2') format('woff2');
+  src: url('../../common/fonts/EmberModernTextUIV1.1-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
 }
 @font-face {
   font-family: 'Ember Modern';
-  src: url('./font/Ember Modern Text/WOFF2/EmberModernTextStd-Medium.woff2') format('woff2');
+  src: url('../../common/fonts/EmberModernTextUIV1.1-Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
 }
 @font-face {
   font-family: 'Ember Modern';
-  src: url('./font/Ember Modern Text/WOFF2/EmberModernTextStd-Bold.woff2') format('woff2');
+  src: url('../../common/fonts/EmberModernTextUIV1.1-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
 }
 @font-face {
   font-family: 'Ember Modern';
-  src: url('./font/Ember Modern Text/WOFF2/EmberModernTextStd-Italic.woff2') format('woff2');
+  src: url('../../common/fonts/EmberModernTextUIV1.1-Italic.woff2') format('woff2');
   font-weight: 400;
   font-style: italic;
 }
 @font-face {
   font-family: 'Ember Modern';
-  src: url('./font/Ember Modern Text/WOFF2/EmberModernTextStd-MediumItalic.woff2') format('woff2');
+  src: url('../../common/fonts/EmberModernTextUIV1.1-MediumItalic.woff2') format('woff2');
   font-weight: 500;
   font-style: italic;
 }
 @font-face {
   font-family: 'Ember Modern';
-  src: url('./font/Ember Modern Text/WOFF2/EmberModernTextStd-BoldItalic.woff2') format('woff2');
+  src: url('../../common/fonts/EmberModernTextUIV1.1-BoldItalic.woff2') format('woff2');
   font-weight: 700;
   font-style: italic;
 }
