@@ -24,7 +24,7 @@ const SECTIONS: SidebarSection[] = [
   {
     items: [
       { icon: 'grid-view', label: 'Overview', path: '/omega' },
-      { icon: 'folder', label: 'Projects', path: '/omega/projects', badge: '3' },
+      { icon: 'folder', label: 'Projects', path: '/omega/projects' },
       { icon: 'upload-download', label: 'Deployments', path: '/omega/deployments' },
       { icon: 'status-positive', label: 'Health', path: '/omega/health' },
       { icon: 'group-active', label: 'Team', path: '/omega/team' },

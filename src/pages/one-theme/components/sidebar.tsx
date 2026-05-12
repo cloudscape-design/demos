@@ -90,7 +90,7 @@ function NavItem({ icon, label, active, badge, expanded, onNavigate }: NavItemPr
         borderRadius: 8,
         cursor: 'pointer',
         backgroundColor: active
-          ? awsui.colorBackgroundItemSelected
+          ? awsui.colorBackgroundStatusIndicatorInfo
           : hovered
             ? awsui.colorBackgroundDropdownItemHover
             : 'transparent',
@@ -99,7 +99,9 @@ function NavItem({ icon, label, active, badge, expanded, onNavigate }: NavItemPr
         whiteSpace: 'nowrap',
       }}
     >
-      <Icon name={icon} variant={active ? 'link' : 'normal'} />
+      <span style={active ? { color: '#5C7FFF' } : undefined}>
+        <Icon name={icon} variant="normal" />
+      </span>
       {expanded && <span style={{ flex: 1 }}>{label}</span>}
       {expanded && badge && <Badge color="blue">{badge}</Badge>}
     </div>
