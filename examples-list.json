@@ -1,122 +1,97 @@
 [
   {
     "path": "components-overview",
-    "title": "Components overview"
+    "title": "Components overview",
+    "type": "cloudscape"
+  },
+  {
+    "path": "one-theme#/auth",
+    "title": "Sign in",
+    "type": "one-theme"
+  },
+  {
+    "path": "one-theme#/console",
+    "title": "Console Home",
+    "type": "one-theme"
+  },
+  {
+    "path": "one-theme#/courtyard",
+    "title": "Courtyard",
+    "type": "one-theme"
+  },
+  {
+    "path": "one-theme#/omega",
+    "title": "Omega",
+    "type": "one-theme"
   },
   {
     "path": "cards",
-    "title": "Card view"
-  },
-  {
-    "path": "landing-page",
-    "title": "Service homepage"
+    "title": "Card view",
+    "type": "cloudscape"
   },
   {
     "path": "chat",
-    "title": "Chat"
-  },
-  {
-    "path": "delete-with-simple-confirmation",
-    "title": "Delete with simple confirmation"
+    "title": "Chat",
+    "type": "cloudscape"
   },
   {
     "path": "delete-with-additional-confirmation",
-    "title": "Delete with additional confirmation"
+    "title": "Delete with additional confirmation",
+    "type": "cloudscape"
   },
   {
     "path": "details",
-    "title": "Details page"
-  },
-  {
-    "path": "details-hub",
-    "title": "Details page as hub"
-  },
-  {
-    "path": "details-tabs",
-    "title": "Details page with tabs"
-  },
-  {
-    "path": "edit",
-    "title": "Edit resource"
+    "title": "Details page",
+    "type": "cloudscape"
   },
   {
     "path": "form",
-    "title": "Single page create"
-  },
-  {
-    "path": "form-unsaved-changes",
-    "title": "Communicate unsaved changes"
-  },
-  {
-    "path": "form-validation",
-    "title": "Form validation"
+    "title": "Single page create",
+    "type": "cloudscape"
   },
   {
     "path": "product-detail-page",
-    "title": "Product detail page"
+    "title": "Product detail page",
+    "type": "cloudscape"
   },
   {
     "path": "table-property-filter",
-    "title": "Table property filter"
-  },
-  {
-    "path": "table-select-filter",
-    "title": "Table with select filter"
-  },
-  {
-    "path": "table-date-filter",
-    "title": "Table view with date range picker filter"
-  },
-  {
-    "path": "table-saved-filters",
-    "title": "Table view with saved filter sets"
-  },
-  {
-    "path": "table",
-    "title": "Table view"
-  },
-  {
-    "path": "table-editable",
-    "title": "Table view with inline editing"
+    "title": "Table property filter",
+    "type": "cloudscape"
   },
   {
     "path": "table-expandable",
-    "title": "Table view with expandable rows"
-  },
-  {
-    "path": "manage-tags",
-    "title": "Manage tags"
+    "title": "Table view with expandable rows",
+    "type": "cloudscape"
   },
   {
     "path": "wizard",
-    "title": "Multipage create"
-  },
-  {
-    "path": "dashboard",
-    "title": "Service dashboard"
+    "title": "Multipage create",
+    "type": "cloudscape"
   },
   {
     "path": "configurable-dashboard",
-    "title": "Configurable dashboard"
+    "title": "Configurable dashboard",
+    "type": "cloudscape"
   },
   {
-    "path": "onboarding",
-    "title": "Hands-on tutorials"
+    "path": "dashboard",
+    "title": "Service dashboard",
+    "type": "cloudscape"
   },
   {
     "path": "split-panel-multiple",
-    "title": "Split view"
-  },
-  {
-    "path": "split-panel-comparison",
-    "title": "Split view with details comparison"
+    "title": "Split view",
+    "type": "cloudscape"
   },
   {
     "path": "non-console",
-    "title": "Top navigation"
+    "title": "Top navigation",
+    "type": "cloudscape"
   },
   {
     "path": "one-theme",
-    "title": "One Theme"
+    "title": "One Theme",
+    "type": "cloudscape"
   }
 ]

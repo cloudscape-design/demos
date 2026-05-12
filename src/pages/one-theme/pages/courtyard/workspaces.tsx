@@ -306,6 +306,7 @@ export default function WorkspacesPage() {
             content:
               viewMode === 'grid' ? (
                 <Cards
+                  variant="full-page"
                   header={sharedHeader}
                   filter={sharedFilter}
                   pagination={sharedPagination}

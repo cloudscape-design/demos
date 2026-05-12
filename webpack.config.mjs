@@ -12,6 +12,10 @@ import config from './scripts/config.js';
 const banJsLoader = path.resolve('./scripts/ban-js-loader.js');
 const mergeArrays = (a, b) => (Array.isArray(a) ? a.concat(b) : undefined);
 const addEntryIteration = (entries, example) => {
+  // Skip hash-routed entries — they share the same bundle as their base path
+  if (example.path.includes('#')) {
+    return entries;
+  }
   const filePath = `./src/pages/${example.path}/index`;
   entries[example.path] = ['./src/common/apply-mode.ts', './src/common/adjust-body-padding.ts', filePath];
   return entries;

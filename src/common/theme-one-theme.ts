@@ -57,8 +57,8 @@ export function generateThemeConfigOneTheme() {
 
   // Primary accent colors
   const colorAccentPrimary = { light: indigo400, dark: indigo500 };
-  //const colorSelectedAccent = { light: indigo600, dark: indigo500 };
-  const colorSelectedAccent = { light: grey800, dark: grey50 };
+  const colorSelectedAccent = { light: indigo600, dark: indigo500 };
+  //const colorSelectedAccent = { light: grey800, dark: grey50 };
   const colorSelectedAccentSubtleHover = { light: grey250, dark: grey900 };
 
   // Secondary accent colors (darker/more saturated variant)
@@ -161,8 +161,9 @@ export function generateThemeConfigOneTheme() {
       // ========================================================================
       // LINKS & TEXT
       // ========================================================================
-      colorTextLinkDefault: { light: grey600, dark: grey450 },
+      colorTextLinkDefault: colorTextBodyDefault,
       colorTextLinkHover: { light: grey650, dark: grey350 },
+      colorTextLinkSecondaryDefault: colorTextBodySecondary,
       colorTextLinkInfoDefault: { light: indigo600, dark: indigo400 },
       colorTextLinkInfoHover: { light: indigo800, dark: indigo300 },
       colorTextAccent: colorSelectedAccent,
@@ -213,6 +214,7 @@ export function generateThemeConfigOneTheme() {
       // STATUS INDICATOR
       // ========================================================================
       spaceStatusIndicatorPaddingInline: '4px',
+      borderRadiusStatusIndicator: '2px',
       colorBackgroundStatusIndicatorInfo: { light: '#5c7fff10', dark: '#5c7fff30' },
       colorBackgroundStatusIndicatorWarning: { light: '#FBD33220', dark: '#FBD33220' },
       colorBackgroundStatusIndicatorSuccess: { light: '#7ae50020', dark: '#7ae50020' },
@@ -282,7 +284,7 @@ export function generateThemeConfigOneTheme() {
       // BORDERS - Radius
       // ========================================================================
       borderRadiusAlert: '2px',
-      borderRadiusBadge: '2px',
+      borderRadiusBadge: '16px',
       borderRadiusButton: '2px',
       borderRadiusContainer: '4px',
       borderRadiusDropdown: '2px',

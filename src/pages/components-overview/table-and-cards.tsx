@@ -6,6 +6,7 @@ import Badge from '@cloudscape-design/components/badge';
 import Cards from '@cloudscape-design/components/cards';
 import CollectionPreferences from '@cloudscape-design/components/collection-preferences';
 import Header from '@cloudscape-design/components/header';
+import KeyValuePairs from '@cloudscape-design/components/key-value-pairs';
 import Link from '@cloudscape-design/components/link';
 import Pagination from '@cloudscape-design/components/pagination';
 import SpaceBetween from '@cloudscape-design/components/space-between';
@@ -42,16 +43,16 @@ export default function TableAndCards() {
             ),
             sections: [
               {
-                id: 'description',
-                header: 'Description',
-                content: item => item.description,
-                width: 85,
-              },
-              {
-                id: 'cost',
-                header: 'Cost',
-                content: item => item.amount,
-                width: 15,
+                id: 'key-value-pairs',
+                content: item => (
+                  <KeyValuePairs
+                    columns={2}
+                    items={[
+                      { label: 'Description', value: item.description },
+                      { label: 'Cost', value: item.amount },
+                    ]}
+                  />
+                ),
               },
             ],
           }}
