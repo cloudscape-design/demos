@@ -71,8 +71,7 @@ export function generateThemeConfigOneTheme() {
 
   // Toned down text color
   const colorTextBodyDefault = { light: grey950, dark: grey350 };
-  //const colorTextBodyDefault = { light: '#1B232D', dark: '#c6c6cd' };
-  //const colorTextBodySecondary = { light: '#656871', dark: '#B4B4BB' };
+  const colorTextBodySecondary = { light: grey300, dark: grey450 };
 
   // Status colors
   const colorSuccess = { light: '#008559', dark: '#008559' };
@@ -81,16 +80,20 @@ export function generateThemeConfigOneTheme() {
     tokens: {
       fontFamilyBase: "'Ember Modern', 'Amazon Ember', Roboto, Arial, sans-serif",
       colorTextBodyDefault: colorTextBodyDefault,
+      colorTextBodySecondary: colorTextBodySecondary,
 
-      //colorBackgroundLayoutMain: { light: 'pink', dark: 'red' },
       colorBackgroundLayoutToolbar: { light: '#ffffff', dark: grey1000 },
 
-      // Container
+      // ========================================================================
+      // CONTAINER
+      // ========================================================================
       colorBackgroundContainerHeader: { light: '#ffffff', dark: grey950 },
       colorBackgroundContainerContent: { light: '#ffffff', dark: grey950 },
+      colorBorderDividerDefault: { light: grey350, dark: grey700 },
+      colorBorderLayout: { light: grey350, dark: grey700 },
 
       // ========================================================================
-      // BUTTONS - Normal - Need to update
+      // BUTTONS - Normal
       // ========================================================================
       colorBorderButtonNormalDefault: { light: grey650, dark: grey700 },
       colorBorderButtonNormalHover: { light: grey650, dark: grey600 },
@@ -143,12 +146,23 @@ export function generateThemeConfigOneTheme() {
       //colorBackgroundToggleCheckedDisabled: colorSelectedAccentDisabled,
 
       // ========================================================================
+      // KVP & FORM FIELD
+      // ========================================================================
+      colorTextLabel: { light: grey600, dark: grey500 },
+      fontSizeKeyValuePairsLabel: '12px',
+      lineHeightKeyValuePairsLabel: '20px',
+      fontWeightKeyValuePairsLabel: '500',
+
+      colorTextFormLabel: { light: grey600, dark: grey500 },
+      fontSizeFormLabel: '12px',
+      lineHeightFormLabel: '20px',
+      fontWeightFormLabel: '500',
+
+      // ========================================================================
       // LINKS & TEXT
       // ========================================================================
-      colorTextLinkDefault: colorTextBodyDefault,
-      colorTextLinkHover: { light: grey650, dark: '#FFFFFF' },
-      // colorTextLinkSecondaryDefault: { light: indigo600, dark: indigo400 },
-      // colorTextLinkSecondaryHover: { light: indigo800, dark: indigo300 },
+      colorTextLinkDefault: { light: grey600, dark: grey450 },
+      colorTextLinkHover: { light: grey650, dark: grey350 },
       colorTextLinkInfoDefault: { light: indigo600, dark: indigo400 },
       colorTextLinkInfoHover: { light: indigo800, dark: indigo300 },
       colorTextAccent: colorSelectedAccent,

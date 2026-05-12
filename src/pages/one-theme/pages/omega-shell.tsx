@@ -3,6 +3,7 @@
 import React, { lazy, Suspense, useMemo, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
+import AppLayoutToolbar from '@cloudscape-design/components/app-layout-toolbar';
 import BreadcrumbGroup, { BreadcrumbGroupProps } from '@cloudscape-design/components/breadcrumb-group';
 import Button from '@cloudscape-design/components/button';
 import NavigationBar from '@cloudscape-design/components/navigation-bar';
@@ -135,51 +136,58 @@ export default function OmegaShell() {
   const breadcrumbs = useMemo(() => computeBreadcrumbs(location.pathname), [location.pathname]);
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        height: 'calc(100dvh - var(--app-header-height, 40px))',
-        backgroundColor: awsui.colorBackgroundLayoutMain,
-      }}
-    >
-      <NavigationBar
-        placement="top"
-        role="banner"
-        variant="primary"
-        ariaLabel="Main navigation"
-        content={<OmegaTopBar onNavigate={navigate} breadcrumbs={breadcrumbs} />}
-      />
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
-        <NavigationBar
-          placement="start"
-          variant="secondary"
-          ariaLabel="Side navigation"
-          content={
-            <Sidebar
-              brand={{ text: 'Omega', short: <AwsLogoMark width={52} height={30} aria-label="AWS" /> }}
-              sections={SECTIONS}
-              activePath={location.pathname}
-              user={{ name: 'Alex', email: 'alex@example.com' }}
-              expanded={expanded}
-              onToggle={() => setExpanded(e => !e)}
-              onNavigate={navigate}
+    <AppLayoutToolbar
+      navigationHide={true}
+      toolsHide={true}
+      disableContentPaddings={true}
+      content={
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            height: 'calc(100dvh - var(--app-header-height, 40px))',
+            backgroundColor: awsui.colorBackgroundLayoutMain,
+          }}
+        >
+          <NavigationBar
+            placement="top"
+            role="banner"
+            variant="primary"
+            ariaLabel="Main navigation"
+            content={<OmegaTopBar onNavigate={navigate} breadcrumbs={breadcrumbs} />}
+          />
+          <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+            <NavigationBar
+              placement="start"
+              variant="secondary"
+              ariaLabel="Side navigation"
+              content={
+                <Sidebar
+                  brand={{ text: 'Omega', short: <AwsLogoMark width={52} height={30} aria-label="AWS" /> }}
+                  sections={SECTIONS}
+                  activePath={location.pathname}
+                  user={{ name: 'Alex', email: 'alex@example.com' }}
+                  expanded={expanded}
+                  onToggle={() => setExpanded(e => !e)}
+                  onNavigate={navigate}
+                />
+              }
             />
-          }
-        />
-        <main style={{ flex: 1, overflow: 'auto', padding: '24px 32px' }} tabIndex={-1}>
-          <Suspense fallback={<Spinner size="large" />}>
-            <Routes>
-              <Route index={true} element={<OverviewPage />} />
-              <Route path="projects" element={<ProjectsPage />} />
-              <Route path="deployments" element={<DeploymentsPage />} />
-              <Route path="deployments/:deploymentId" element={<DeploymentDetailPage />} />
-              <Route path="create" element={<CreateProjectPage />} />
-              <Route path="project/:id" element={<ProjectDetailPage />} />
-            </Routes>
-          </Suspense>
-        </main>
-      </div>
-    </div>
+            <main style={{ flex: 1, overflow: 'auto', padding: '24px 32px' }} tabIndex={-1}>
+              <Suspense fallback={<Spinner size="large" />}>
+                <Routes>
+                  <Route index={true} element={<OverviewPage />} />
+                  <Route path="projects" element={<ProjectsPage />} />
+                  <Route path="deployments" element={<DeploymentsPage />} />
+                  <Route path="deployments/:deploymentId" element={<DeploymentDetailPage />} />
+                  <Route path="create" element={<CreateProjectPage />} />
+                  <Route path="project/:id" element={<ProjectDetailPage />} />
+                </Routes>
+              </Suspense>
+            </main>
+          </div>
+        </div>
+      }
+    />
   );
 }

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Alert from '@cloudscape-design/components/alert';
-import AppLayout from '@cloudscape-design/components/app-layout';
+import AppLayoutToolbar from '@cloudscape-design/components/app-layout-toolbar';
 import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
 import ButtonGroup from '@cloudscape-design/components/button-group';
@@ -167,7 +167,7 @@ export default function ConsoleHomePage() {
       <div id="h">
         <ConsoleTopNav />
       </div>
-      <AppLayout headerSelector="#h" navigationHide={true} toolsHide={true} content={<ConsoleHomeContent />} />
+      <AppLayoutToolbar navigationHide={true} toolsHide={true} content={<ConsoleHomeContent />} />
     </>
   );
 }

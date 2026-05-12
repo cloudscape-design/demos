@@ -5,7 +5,7 @@ import React from 'react';
 import BarChart from '@cloudscape-design/components/bar-chart';
 import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
-import ColumnLayout from '@cloudscape-design/components/column-layout';
+import KeyValuePairs from '@cloudscape-design/components/key-value-pairs';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import * as awsui from '@cloudscape-design/design-tokens';
 
@@ -19,48 +19,6 @@ const COST_DATA = [
   { x: 'Nov', y: 0 },
   { x: 'Dec', y: 0 },
 ];
-
-function CostMetric({
-  label,
-  value,
-  suffix,
-  highlighted,
-  subtext,
-}: {
-  label: string;
-  value: string;
-  suffix?: string;
-  highlighted?: boolean;
-  subtext?: string;
-}) {
-  return (
-    <SpaceBetween size="xxs">
-      <Box variant="awsui-key-label">{label}</Box>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'baseline',
-          gap: 4,
-          color: highlighted ? awsui.colorTextAccent : undefined,
-        }}
-      >
-        <Box fontSize="heading-xl" display="inline">
-          {value}
-        </Box>
-        {suffix && (
-          <Box fontSize="body-m" display="inline">
-            {suffix}
-          </Box>
-        )}
-        {subtext && (
-          <Box fontSize="body-s" color="text-body-secondary" display="inline">
-            {subtext}
-          </Box>
-        )}
-      </div>
-    </SpaceBetween>
-  );
-}
 
 export function CostUsageWidget() {
   const headerActions = (
@@ -83,10 +41,33 @@ export function CostUsageWidget() {
           period ends.
         </Box>
 
-        <ColumnLayout columns={2} variant="text-grid">
-          <CostMetric label="Credits remaining" value="$100.00" suffix="USD" highlighted={true} />
-          <CostMetric label="Days remaining" value="180 days" subtext="(Jan 12, 2025)" />
-        </ColumnLayout>
+        <KeyValuePairs
+          columns={2}
+          items={[
+            {
+              label: 'Credits remaining',
+              value: (
+                <Box fontSize="heading-xl">
+                  $100.00{' '}
+                  <Box fontSize="body-m" display="inline">
+                    USD
+                  </Box>
+                </Box>
+              ),
+            },
+            {
+              label: 'Days remaining',
+              value: (
+                <Box fontSize="heading-xl">
+                  180 days{' '}
+                  <Box fontSize="body-s" color="text-body-secondary" display="inline">
+                    (Jan 12, 2025)
+                  </Box>
+                </Box>
+              ),
+            },
+          ]}
+        />
 
         <div style={{ height: 1, backgroundColor: awsui.colorBorderDividerDefault }} />
 

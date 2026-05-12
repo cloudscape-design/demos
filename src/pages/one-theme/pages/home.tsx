@@ -3,6 +3,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import AppLayoutToolbar from '@cloudscape-design/components/app-layout-toolbar';
 import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
 import ColumnLayout from '@cloudscape-design/components/column-layout';
@@ -84,172 +85,179 @@ export default function HomePage() {
   const navigate = useNavigate();
 
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        fontFamily: 'Amazon Ember, Helvetica Neue, sans-serif',
-      }}
-    >
-      {/* Top utility bar */}
-      <div
-        style={{
-          backgroundColor: awsui.colorBackgroundHomeHeader,
-          color: awsui.colorTextHomeHeaderDefault,
-          padding: '6px 24px',
-          display: 'flex',
-          justifyContent: 'flex-end',
-          alignItems: 'center',
-          gap: 24,
-          fontSize: 13,
-        }}
-      >
-        <a href="#" style={{ color: awsui.colorTextHomeHeaderDefault, textDecoration: 'none' }}>
-          🌐 English
-        </a>
-        <a href="#" style={{ color: awsui.colorTextHomeHeaderDefault, textDecoration: 'none' }}>
-          Contact us
-        </a>
-        <a href="#" style={{ color: awsui.colorTextHomeHeaderDefault, textDecoration: 'none' }}>
-          AWS Marketplace
-        </a>
-        <a href="#" style={{ color: awsui.colorTextHomeHeaderDefault, textDecoration: 'none' }}>
-          Support ▾
-        </a>
-        <a
-          href="#"
-          onClick={e => {
-            e.preventDefault();
-            navigate('/auth');
-          }}
-          style={{ color: awsui.colorTextHomeHeaderDefault, textDecoration: 'none' }}
-        >
-          My Account
-        </a>
-      </div>
-
-      {/* Main navigation */}
-      <div
-        style={{
-          backgroundColor: awsui.colorBackgroundContainerContent,
-          borderBottom: `1px solid ${awsui.colorBorderDividerDefault}`,
-          padding: '0 24px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 32,
-          height: 56,
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', marginRight: 16 }}>
-          <AwsLogo style={{ height: 32, width: 'auto' }} />
-        </div>
-
-        {NAV_LINKS.map(link => (
-          <a
-            key={link}
-            href="#"
-            style={{ textDecoration: 'none', color: awsui.colorTextBodyDefault, fontSize: 14, fontWeight: 500 }}
-          >
-            {link}
-          </a>
-        ))}
-
-        <div style={{ flex: 1 }} />
-
-        <a
-          href="#"
-          onClick={e => {
-            e.preventDefault();
-            navigate('/console');
-          }}
+    <AppLayoutToolbar
+      navigationHide={true}
+      toolsHide={true}
+      disableContentPaddings={true}
+      content={
+        <div
           style={{
-            textDecoration: 'none',
-            color: awsui.colorTextBodyDefault,
-            fontSize: 14,
-            fontWeight: 500,
-            whiteSpace: 'nowrap',
+            minHeight: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
+            fontFamily: 'Amazon Ember, Helvetica Neue, sans-serif',
           }}
         >
-          Sign in to console
-        </a>
+          {/* Top utility bar */}
+          <div
+            style={{
+              backgroundColor: awsui.colorBackgroundHomeHeader,
+              color: awsui.colorTextHomeHeaderDefault,
+              padding: '6px 24px',
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              gap: 24,
+              fontSize: 13,
+            }}
+          >
+            <a href="#" style={{ color: awsui.colorTextHomeHeaderDefault, textDecoration: 'none' }}>
+              🌐 English
+            </a>
+            <a href="#" style={{ color: awsui.colorTextHomeHeaderDefault, textDecoration: 'none' }}>
+              Contact us
+            </a>
+            <a href="#" style={{ color: awsui.colorTextHomeHeaderDefault, textDecoration: 'none' }}>
+              AWS Marketplace
+            </a>
+            <a href="#" style={{ color: awsui.colorTextHomeHeaderDefault, textDecoration: 'none' }}>
+              Support ▾
+            </a>
+            <a
+              href="#"
+              onClick={e => {
+                e.preventDefault();
+                navigate('/auth');
+              }}
+              style={{ color: awsui.colorTextHomeHeaderDefault, textDecoration: 'none' }}
+            >
+              My Account
+            </a>
+          </div>
 
-        <Button variant="primary" onClick={() => navigate('/auth')}>
-          Create an account
-        </Button>
-      </div>
+          {/* Main navigation */}
+          <div
+            style={{
+              backgroundColor: awsui.colorBackgroundContainerContent,
+              borderBottom: `1px solid ${awsui.colorBorderDividerDefault}`,
+              padding: '0 24px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 32,
+              height: 56,
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', marginRight: 16 }}>
+              <AwsLogo style={{ height: 32, width: 'auto' }} />
+            </div>
 
-      {/* Main content: "One Theme" entry points */}
-      <div style={{ flex: 1, backgroundColor: awsui.colorBackgroundCellShaded }}>
-        <ContentLayout
-          defaultPadding={true}
-          header={
-            <Box padding={{ vertical: 'xxl' }}>
-              <SpaceBetween size="s">
-                <Box fontSize="display-l" variant="h1" padding="n">
-                  One Theme
+            {NAV_LINKS.map(link => (
+              <a
+                key={link}
+                href="#"
+                style={{ textDecoration: 'none', color: awsui.colorTextBodyDefault, fontSize: 14, fontWeight: 500 }}
+              >
+                {link}
+              </a>
+            ))}
+
+            <div style={{ flex: 1 }} />
+
+            <a
+              href="#"
+              onClick={e => {
+                e.preventDefault();
+                navigate('/console');
+              }}
+              style={{
+                textDecoration: 'none',
+                color: awsui.colorTextBodyDefault,
+                fontSize: 14,
+                fontWeight: 500,
+                whiteSpace: 'nowrap',
+              }}
+            >
+              Sign in to console
+            </a>
+
+            <Button variant="primary" onClick={() => navigate('/auth')}>
+              Create an account
+            </Button>
+          </div>
+
+          {/* Main content: "One Theme" entry points */}
+          <div style={{ flex: 1, backgroundColor: awsui.colorBackgroundCellShaded }}>
+            <ContentLayout
+              defaultPadding={true}
+              header={
+                <Box padding={{ vertical: 'xxl' }}>
+                  <SpaceBetween size="s">
+                    <Box fontSize="display-l" variant="h1" padding="n">
+                      One Theme
+                    </Box>
+                    <Box fontSize="heading-m" fontWeight="light" color="text-body-secondary">
+                      A showcase of AWS experiences — sign up, use the console, manage accounts, and deploy apps — all
+                      built with Cloudscape components and shared design tokens.
+                    </Box>
+                  </SpaceBetween>
                 </Box>
-                <Box fontSize="heading-m" fontWeight="light" color="text-body-secondary">
-                  A showcase of AWS experiences — sign up, use the console, manage accounts, and deploy apps — all built
-                  with Cloudscape components and shared design tokens.
-                </Box>
-              </SpaceBetween>
-            </Box>
-          }
-        >
-          <SpaceBetween size="xl">
-            <ColumnLayout columns={2} minColumnWidth={320}>
-              {ENTRY_POINTS.map(entry => (
-                <EntryCard key={entry.path} entry={entry} onOpen={() => navigate(entry.path)} />
-              ))}
-            </ColumnLayout>
-
-            <Container>
-              <SpaceBetween size="s">
-                <Header variant="h3">Quick links</Header>
-                <SpaceBetween direction="horizontal" size="m">
+              }
+            >
+              <SpaceBetween size="xl">
+                <ColumnLayout columns={2} minColumnWidth={320}>
                   {ENTRY_POINTS.map(entry => (
-                    <Link
-                      key={entry.path}
-                      href={`#${entry.path}`}
-                      onFollow={e => {
-                        e.preventDefault();
-                        navigate(entry.path);
-                      }}
-                    >
-                      {entry.title}
-                    </Link>
+                    <EntryCard key={entry.path} entry={entry} onOpen={() => navigate(entry.path)} />
                   ))}
-                </SpaceBetween>
-              </SpaceBetween>
-            </Container>
-          </SpaceBetween>
-        </ContentLayout>
-      </div>
+                </ColumnLayout>
 
-      {/* Footer */}
-      <div
-        style={{
-          backgroundColor: awsui.colorBackgroundHomeHeader,
-          color: awsui.colorTextBodySecondary,
-          textAlign: 'center',
-          padding: '16px 24px',
-          fontSize: 12,
-        }}
-      >
-        © 2026, Amazon Web Services, Inc. or its affiliates. &nbsp;
-        <a href="#" style={{ color: awsui.colorTextBodySecondary }}>
-          Privacy
-        </a>
-        &nbsp;|&nbsp;
-        <a href="#" style={{ color: awsui.colorTextBodySecondary }}>
-          Site terms
-        </a>
-        &nbsp;|&nbsp;
-        <a href="#" style={{ color: awsui.colorTextBodySecondary }}>
-          Cookie Notice
-        </a>
-      </div>
-    </div>
+                <Container>
+                  <SpaceBetween size="s">
+                    <Header variant="h3">Quick links</Header>
+                    <SpaceBetween direction="horizontal" size="m">
+                      {ENTRY_POINTS.map(entry => (
+                        <Link
+                          key={entry.path}
+                          href={`#${entry.path}`}
+                          onFollow={e => {
+                            e.preventDefault();
+                            navigate(entry.path);
+                          }}
+                        >
+                          {entry.title}
+                        </Link>
+                      ))}
+                    </SpaceBetween>
+                  </SpaceBetween>
+                </Container>
+              </SpaceBetween>
+            </ContentLayout>
+          </div>
+
+          {/* Footer */}
+          <div
+            style={{
+              backgroundColor: awsui.colorBackgroundHomeHeader,
+              color: awsui.colorTextBodySecondary,
+              textAlign: 'center',
+              padding: '16px 24px',
+              fontSize: 12,
+            }}
+          >
+            © 2026, Amazon Web Services, Inc. or its affiliates. &nbsp;
+            <a href="#" style={{ color: awsui.colorTextBodySecondary }}>
+              Privacy
+            </a>
+            &nbsp;|&nbsp;
+            <a href="#" style={{ color: awsui.colorTextBodySecondary }}>
+              Site terms
+            </a>
+            &nbsp;|&nbsp;
+            <a href="#" style={{ color: awsui.colorTextBodySecondary }}>
+              Cookie Notice
+            </a>
+          </div>
+        </div>
+      }
+    />
   );
 }

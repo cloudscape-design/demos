@@ -5,7 +5,6 @@ import React from 'react';
 import BarChart from '@cloudscape-design/components/bar-chart';
 import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
-import ColumnLayout from '@cloudscape-design/components/column-layout';
 import Container from '@cloudscape-design/components/container';
 import Grid from '@cloudscape-design/components/grid';
 import Header from '@cloudscape-design/components/header';
@@ -76,20 +75,14 @@ function ChargesSummary() {
   return (
     <Container header={<Header>Charges for the current billing period</Header>}>
       <SpaceBetween size="m">
-        <ColumnLayout columns={3} variant="text-grid">
-          <SpaceBetween size="xxs">
-            <Box variant="awsui-key-label">Month-to-date</Box>
-            <Box fontSize="heading-xl">$36.22</Box>
-          </SpaceBetween>
-          <SpaceBetween size="xxs">
-            <Box variant="awsui-key-label">Forecast</Box>
-            <Box fontSize="heading-xl">$48.50</Box>
-          </SpaceBetween>
-          <SpaceBetween size="xxs">
-            <Box variant="awsui-key-label">Previous month</Box>
-            <Box fontSize="heading-xl">$52.40</Box>
-          </SpaceBetween>
-        </ColumnLayout>
+        <KeyValuePairs
+          columns={3}
+          items={[
+            { label: 'Month-to-date', value: <Box fontSize="heading-xl">$36.22</Box> },
+            { label: 'Forecast', value: <Box fontSize="heading-xl">$48.50</Box> },
+            { label: 'Previous month', value: <Box fontSize="heading-xl">$52.40</Box> },
+          ]}
+        />
         <BarChart
           series={[{ title: 'Total cost', type: 'bar', data: SPEND_TREND }]}
           xDomain={SPEND_TREND.map(p => p.x)}

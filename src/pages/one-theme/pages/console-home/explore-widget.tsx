@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 
 import Box from '@cloudscape-design/components/box';
-import ColumnLayout from '@cloudscape-design/components/column-layout';
+import KeyValuePairs from '@cloudscape-design/components/key-value-pairs';
 import Link from '@cloudscape-design/components/link';
 import Pagination from '@cloudscape-design/components/pagination';
 import type { SelectProps } from '@cloudscape-design/components/select';
@@ -11,7 +11,6 @@ import Select from '@cloudscape-design/components/select';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import StatusIndicator from '@cloudscape-design/components/status-indicator';
 import Table from '@cloudscape-design/components/table';
-import * as awsui from '@cloudscape-design/design-tokens';
 
 import { WidgetContainer } from './widget-container';
 
@@ -70,23 +69,26 @@ export function ExploreWidget() {
           />
         </div>
 
-        <ColumnLayout columns={2}>
-          <SpaceBetween size="xxs">
-            <Box variant="awsui-key-label">Activities completed</Box>
-            <Box fontSize="heading-l">4 of 5</Box>
-          </SpaceBetween>
-          <SpaceBetween size="xxs">
-            <Box variant="awsui-key-label">Total credits earned</Box>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: 4, color: awsui.colorTextAccent }}>
-              <Box fontSize="heading-l" display="inline">
-                $80 of 100
-              </Box>
-              <Box display="inline" fontSize="body-s">
-                USD
-              </Box>
-            </div>
-          </SpaceBetween>
-        </ColumnLayout>
+        <KeyValuePairs
+          columns={2}
+          items={[
+            {
+              label: 'Activities completed',
+              value: <Box fontSize="heading-l">4 of 5</Box>,
+            },
+            {
+              label: 'Total credits earned',
+              value: (
+                <Box fontSize="heading-l">
+                  $80 of 100{' '}
+                  <Box display="inline" fontSize="body-s">
+                    USD
+                  </Box>
+                </Box>
+              ),
+            },
+          ]}
+        />
 
         <Table
           variant="borderless"

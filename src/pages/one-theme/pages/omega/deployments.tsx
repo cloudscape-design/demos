@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Badge from '@cloudscape-design/components/badge';
 import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
 import ButtonDropdown from '@cloudscape-design/components/button-dropdown';
@@ -120,7 +119,7 @@ export default function DeploymentsPage() {
             counter={`(${filtered.length})`}
             actions={
               <SpaceBetween direction="horizontal" size="xs">
-                <Button iconName="refresh" ariaLabel="Refresh" variant="icon" />
+                <Button iconName="refresh" ariaLabel="Refresh" />
                 <Button variant="primary">Create deployment</Button>
               </SpaceBetween>
             }
@@ -172,7 +171,6 @@ export default function DeploymentsPage() {
                 >
                   {d.id}
                 </Link>
-                {d.active && <Badge color="green">Active</Badge>}
               </SpaceBetween>
             ),
           },

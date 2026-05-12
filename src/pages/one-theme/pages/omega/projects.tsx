@@ -28,7 +28,7 @@ export default function ProjectsPage() {
       cardDefinition={{
         header: p => (
           <Link
-            variant="secondary"
+            variant="primary"
             fontSize="heading-m"
             href={`#/omega/project/${p.id}`}
             onFollow={e => {

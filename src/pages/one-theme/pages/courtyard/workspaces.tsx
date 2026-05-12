@@ -7,7 +7,6 @@ import Alert from '@cloudscape-design/components/alert';
 import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
 import Cards from '@cloudscape-design/components/cards';
-import ColumnLayout from '@cloudscape-design/components/column-layout';
 import Container from '@cloudscape-design/components/container';
 import Header from '@cloudscape-design/components/header';
 import KeyValuePairs from '@cloudscape-design/components/key-value-pairs';
@@ -73,29 +72,34 @@ const MAX_WORKSPACES = 5;
 function WorkspaceOverview({ ownedCount, onSelectMine }: { ownedCount: number; onSelectMine: () => void }) {
   return (
     <Container header={<Header variant="h2">Overview</Header>}>
-      <ColumnLayout columns={3} variant="text-grid">
-        <SpaceBetween size="xxs">
-          <Box variant="awsui-key-label">Total project accounts</Box>
-          <Box fontSize="heading-xl">{WORKSPACES.length}</Box>
-        </SpaceBetween>
-        <SpaceBetween size="xxs">
-          <Box variant="awsui-key-label">Owned by me</Box>
-          <Link
-            variant="primary"
-            href="#"
-            onFollow={e => {
-              e.preventDefault();
-              onSelectMine();
-            }}
-          >
-            <Box fontSize="heading-xl">{ownedCount}</Box>
-          </Link>
-        </SpaceBetween>
-        <SpaceBetween size="xxs">
-          <Box variant="awsui-key-label">Month-to-date spend</Box>
-          <Box fontSize="heading-xl">$36.22</Box>
-        </SpaceBetween>
-      </ColumnLayout>
+      <KeyValuePairs
+        columns={3}
+        items={[
+          {
+            label: 'Total project accounts',
+            value: <Box fontSize="heading-xl">{WORKSPACES.length}</Box>,
+          },
+          {
+            label: 'Owned by me',
+            value: (
+              <Link
+                variant="primary"
+                href="#"
+                onFollow={e => {
+                  e.preventDefault();
+                  onSelectMine();
+                }}
+              >
+                <Box fontSize="heading-xl">{ownedCount}</Box>
+              </Link>
+            ),
+          },
+          {
+            label: 'Month-to-date spend',
+            value: <Box fontSize="heading-xl">$36.22</Box>,
+          },
+        ]}
+      />
     </Container>
   );
 }
@@ -296,116 +300,236 @@ export default function WorkspacesPage() {
         activeTabId={activeTab}
         onChange={({ detail }) => setActiveTab(detail.activeTabId)}
         tabs={[
-          { id: 'all', label: 'All' },
-          { id: 'mine', label: 'Mine' },
-        ]}
-      />
-
-      {viewMode === 'grid' ? (
-        <Cards
-          header={sharedHeader}
-          filter={sharedFilter}
-          pagination={sharedPagination}
-          cardDefinition={{
-            header: w => (
-              <Link
-                variant="secondary"
-                fontSize="heading-m"
-                href={`#/workspaces/${w.id}`}
-                onFollow={e => {
-                  e.preventDefault();
-                  navigate(`/workspaces`);
-                }}
-              >
-                {w.name}
-              </Link>
-            ),
-            sections: [
-              {
-                id: 'info',
-                content: w => (
-                  <KeyValuePairs
-                    columns={2}
-                    items={[
-                      { label: 'Account ID', value: w.accountId },
-                      { label: 'Role', value: w.role === 'owner' ? 'Owner' : 'Collaborator' },
+          {
+            id: 'all',
+            label: 'All',
+            content:
+              viewMode === 'grid' ? (
+                <Cards
+                  header={sharedHeader}
+                  filter={sharedFilter}
+                  pagination={sharedPagination}
+                  cardDefinition={{
+                    header: w => (
+                      <Link
+                        variant="primary"
+                        fontSize="heading-m"
+                        href={`#/workspaces/${w.id}`}
+                        onFollow={e => {
+                          e.preventDefault();
+                          navigate(`/workspaces`);
+                        }}
+                      >
+                        {w.name}
+                      </Link>
+                    ),
+                    sections: [
                       {
-                        label: 'Status',
-                        value: (
-                          <StatusIndicator type={w.status === 'Active' ? 'success' : 'pending'}>
-                            {w.status}
-                          </StatusIndicator>
+                        id: 'info',
+                        content: w => (
+                          <KeyValuePairs
+                            columns={2}
+                            items={[
+                              { label: 'Account ID', value: w.accountId },
+                              { label: 'Role', value: w.role === 'owner' ? 'Owner' : 'Collaborator' },
+                              {
+                                label: 'Status',
+                                value: (
+                                  <StatusIndicator type={w.status === 'Active' ? 'success' : 'pending'}>
+                                    {w.status}
+                                  </StatusIndicator>
+                                ),
+                              },
+                              { label: 'MTD spend', value: w.monthToDateSpend },
+                            ]}
+                          />
                         ),
                       },
-                      { label: 'MTD spend', value: w.monthToDateSpend },
-                    ]}
-                  />
-                ),
-              },
-            ],
-          }}
-          cardsPerRow={[{ cards: 1 }, { minWidth: 700, cards: 2 }, { minWidth: 1200, cards: 3 }]}
-          items={filtered}
-          trackBy="id"
-          entireCardClickable={true}
-          renderAriaLive={({ totalItemsCount }) => `${totalItemsCount} project accounts`}
-          empty={
-            <Box textAlign="center" color="inherit" padding="l">
-              <b>No project accounts</b>
-              <Box variant="p" color="text-body-secondary">
-                {filterText ? 'No project accounts match your filter.' : 'Create a project account to get started.'}
-              </Box>
-            </Box>
-          }
-        />
-      ) : (
-        <Table
-          header={sharedHeader}
-          filter={sharedFilter}
-          pagination={sharedPagination}
-          items={filtered}
-          trackBy="id"
-          columnDefinitions={[
-            {
-              id: 'name',
-              header: 'Name',
-              sortingField: 'name',
-              cell: w => (
-                <Link
-                  href={`#/workspaces/${w.id}`}
-                  onFollow={e => {
-                    e.preventDefault();
-                    navigate('/workspaces');
+                    ],
                   }}
-                >
-                  {w.name}
-                </Link>
+                  cardsPerRow={[{ cards: 1 }, { minWidth: 700, cards: 2 }, { minWidth: 1200, cards: 3 }]}
+                  items={filtered}
+                  trackBy="id"
+                  entireCardClickable={true}
+                  renderAriaLive={({ totalItemsCount }) => `${totalItemsCount} project accounts`}
+                  empty={
+                    <Box textAlign="center" color="inherit" padding="l">
+                      <b>No project accounts</b>
+                      <Box variant="p" color="text-body-secondary">
+                        {filterText
+                          ? 'No project accounts match your filter.'
+                          : 'Create a project account to get started.'}
+                      </Box>
+                    </Box>
+                  }
+                />
+              ) : (
+                <Table
+                  header={sharedHeader}
+                  filter={sharedFilter}
+                  pagination={sharedPagination}
+                  items={filtered}
+                  trackBy="id"
+                  columnDefinitions={[
+                    {
+                      id: 'name',
+                      header: 'Name',
+                      sortingField: 'name',
+                      cell: w => (
+                        <Link
+                          href={`#/workspaces/${w.id}`}
+                          onFollow={e => {
+                            e.preventDefault();
+                            navigate('/workspaces');
+                          }}
+                        >
+                          {w.name}
+                        </Link>
+                      ),
+                    },
+                    { id: 'accountId', header: 'Account ID', sortingField: 'accountId', cell: w => w.accountId },
+                    {
+                      id: 'role',
+                      header: 'Role',
+                      sortingField: 'role',
+                      cell: w => (w.role === 'owner' ? 'Owner' : 'Collaborator'),
+                    },
+                    {
+                      id: 'status',
+                      header: 'Status',
+                      sortingField: 'status',
+                      cell: w => (
+                        <StatusIndicator type={w.status === 'Active' ? 'success' : 'pending'}>
+                          {w.status}
+                        </StatusIndicator>
+                      ),
+                    },
+                    {
+                      id: 'mtd',
+                      header: 'MTD spend',
+                      sortingField: 'monthToDateSpend',
+                      cell: w => w.monthToDateSpend,
+                    },
+                  ]}
+                />
               ),
-            },
-            { id: 'accountId', header: 'Account ID', sortingField: 'accountId', cell: w => w.accountId },
-            {
-              id: 'role',
-              header: 'Role',
-              sortingField: 'role',
-              cell: w => (w.role === 'owner' ? 'Owner' : 'Collaborator'),
-            },
-            {
-              id: 'status',
-              header: 'Status',
-              sortingField: 'status',
-              cell: w => (
-                <StatusIndicator type={w.status === 'Active' ? 'success' : 'pending'}>{w.status}</StatusIndicator>
+          },
+          {
+            id: 'mine',
+            label: 'Mine',
+            content:
+              viewMode === 'grid' ? (
+                <Cards
+                  header={sharedHeader}
+                  filter={sharedFilter}
+                  pagination={sharedPagination}
+                  cardDefinition={{
+                    header: w => (
+                      <Link
+                        variant="primary"
+                        fontSize="heading-m"
+                        href={`#/workspaces/${w.id}`}
+                        onFollow={e => {
+                          e.preventDefault();
+                          navigate(`/workspaces`);
+                        }}
+                      >
+                        {w.name}
+                      </Link>
+                    ),
+                    sections: [
+                      {
+                        id: 'info',
+                        content: w => (
+                          <KeyValuePairs
+                            columns={2}
+                            items={[
+                              { label: 'Account ID', value: w.accountId },
+                              { label: 'Role', value: w.role === 'owner' ? 'Owner' : 'Collaborator' },
+                              {
+                                label: 'Status',
+                                value: (
+                                  <StatusIndicator type={w.status === 'Active' ? 'success' : 'pending'}>
+                                    {w.status}
+                                  </StatusIndicator>
+                                ),
+                              },
+                              { label: 'MTD spend', value: w.monthToDateSpend },
+                            ]}
+                          />
+                        ),
+                      },
+                    ],
+                  }}
+                  cardsPerRow={[{ cards: 1 }, { minWidth: 700, cards: 2 }, { minWidth: 1200, cards: 3 }]}
+                  items={filtered}
+                  trackBy="id"
+                  entireCardClickable={true}
+                  renderAriaLive={({ totalItemsCount }) => `${totalItemsCount} project accounts`}
+                  empty={
+                    <Box textAlign="center" color="inherit" padding="l">
+                      <b>No project accounts</b>
+                      <Box variant="p" color="text-body-secondary">
+                        {filterText
+                          ? 'No project accounts match your filter.'
+                          : 'Create a project account to get started.'}
+                      </Box>
+                    </Box>
+                  }
+                />
+              ) : (
+                <Table
+                  header={sharedHeader}
+                  filter={sharedFilter}
+                  pagination={sharedPagination}
+                  items={filtered}
+                  trackBy="id"
+                  columnDefinitions={[
+                    {
+                      id: 'name',
+                      header: 'Name',
+                      sortingField: 'name',
+                      cell: w => (
+                        <Link
+                          href={`#/workspaces/${w.id}`}
+                          onFollow={e => {
+                            e.preventDefault();
+                            navigate('/workspaces');
+                          }}
+                        >
+                          {w.name}
+                        </Link>
+                      ),
+                    },
+                    { id: 'accountId', header: 'Account ID', sortingField: 'accountId', cell: w => w.accountId },
+                    {
+                      id: 'role',
+                      header: 'Role',
+                      sortingField: 'role',
+                      cell: w => (w.role === 'owner' ? 'Owner' : 'Collaborator'),
+                    },
+                    {
+                      id: 'status',
+                      header: 'Status',
+                      sortingField: 'status',
+                      cell: w => (
+                        <StatusIndicator type={w.status === 'Active' ? 'success' : 'pending'}>
+                          {w.status}
+                        </StatusIndicator>
+                      ),
+                    },
+                    {
+                      id: 'mtd',
+                      header: 'MTD spend',
+                      sortingField: 'monthToDateSpend',
+                      cell: w => w.monthToDateSpend,
+                    },
+                  ]}
+                />
               ),
-            },
-            {
-              id: 'mtd',
-              header: 'MTD spend',
-              sortingField: 'monthToDateSpend',
-              cell: w => w.monthToDateSpend,
-            },
-          ]}
-        />
-      )}
+          },
+        ]}
+      />
     </SpaceBetween>
   );
 }

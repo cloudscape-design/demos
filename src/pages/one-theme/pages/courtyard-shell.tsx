@@ -3,6 +3,7 @@
 import React, { lazy, Suspense, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import AppLayoutToolbar from '@cloudscape-design/components/app-layout-toolbar';
 import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
 import NavigationBar from '@cloudscape-design/components/navigation-bar';
@@ -114,42 +115,49 @@ export default function CourtyardShell() {
   })();
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        height: 'calc(100dvh - var(--app-header-height, 40px))',
-        backgroundColor: awsui.colorBackgroundLayoutMain,
-      }}
-    >
-      <NavigationBar
-        placement="start"
-        variant="secondary"
-        ariaLabel="Side navigation"
-        content={
-          <Sidebar
-            brand={{ text: 'Courtyard', short: <AwsLogoMark width={52} height={30} aria-label="AWS" /> }}
-            sections={SECTIONS}
-            activePath={location.pathname}
-            user={{ name: 'Alex', email: 'alex@example.com' }}
-            expanded={expanded}
-            onToggle={() => setExpanded(e => !e)}
-            onNavigate={navigate}
-            footer={
-              <CourtyardFooter
-                userName="Alex"
-                userEmail="alex@example.com"
-                profileActive={activeTab === 'profile'}
+    <AppLayoutToolbar
+      navigationHide={true}
+      toolsHide={true}
+      disableContentPaddings={true}
+      content={
+        <div
+          style={{
+            display: 'flex',
+            height: 'calc(100dvh - var(--app-header-height, 40px))',
+            backgroundColor: awsui.colorBackgroundLayoutMain,
+          }}
+        >
+          <NavigationBar
+            placement="start"
+            variant="secondary"
+            ariaLabel="Side navigation"
+            content={
+              <Sidebar
+                brand={{ text: 'Courtyard', short: <AwsLogoMark width={52} height={30} aria-label="AWS" /> }}
+                sections={SECTIONS}
+                activePath={location.pathname}
+                user={{ name: 'Alex', email: 'alex@example.com' }}
+                expanded={expanded}
+                onToggle={() => setExpanded(e => !e)}
                 onNavigate={navigate}
+                footer={
+                  <CourtyardFooter
+                    userName="Alex"
+                    userEmail="alex@example.com"
+                    profileActive={activeTab === 'profile'}
+                    onNavigate={navigate}
+                  />
+                }
               />
             }
           />
-        }
-      />
-      <main style={{ flex: 1, overflow: 'auto', padding: '24px 32px' }} tabIndex={-1}>
-        <Suspense fallback={<Spinner size="large" />}>
-          <PageComponent />
-        </Suspense>
-      </main>
-    </div>
+          <main style={{ flex: 1, overflow: 'auto', padding: '24px 32px' }} tabIndex={-1}>
+            <Suspense fallback={<Spinner size="large" />}>
+              <PageComponent />
+            </Suspense>
+          </main>
+        </div>
+      }
+    />
   );
 }
