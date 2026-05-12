@@ -111,7 +111,7 @@ export function Sidebar({ brand, sections, activePath, user, expanded, onToggle,
   return (
     <div
       style={{
-        width: expanded ? 240 : 44,
+        width: expanded ? 240 : 48,
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
@@ -121,12 +121,13 @@ export function Sidebar({ brand, sections, activePath, user, expanded, onToggle,
     >
       <div
         style={{
-          padding: expanded ? '12px 16px 24px' : '12px 0 24px',
+          padding: expanded ? '12px 16px 24px' : '12px 16px 24px',
           display: 'flex',
           alignItems: 'center',
           gap: 8,
           justifyContent: expanded ? 'flex-start' : 'center',
           whiteSpace: 'nowrap',
+          minHeight: '30px',
         }}
       >
         <div
