@@ -145,7 +145,7 @@ export default function OmegaShell() {
           style={{
             display: 'flex',
             flexDirection: 'column',
-            height: 'calc(100dvh - var(--app-header-height, 40px))',
+            height: '100dvh',
             backgroundColor: awsui.colorBackgroundLayoutMain,
           }}
         >

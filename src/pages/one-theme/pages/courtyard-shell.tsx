@@ -123,7 +123,7 @@ export default function CourtyardShell() {
         <div
           style={{
             display: 'flex',
-            height: 'calc(100dvh - var(--app-header-height, 40px))',
+            height: '100dvh',
             backgroundColor: awsui.colorBackgroundLayoutMain,
           }}
         >
