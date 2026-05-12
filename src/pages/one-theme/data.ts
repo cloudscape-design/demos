@@ -326,6 +326,7 @@ export interface TelemetryMetric {
   change: string;
   projectName: string;
   sparkline: number[];
+  color?: string;
 }
 
 export const TELEMETRY_METRICS: TelemetryMetric[] = [
@@ -334,7 +335,8 @@ export const TELEMETRY_METRICS: TelemetryMetric[] = [
     value: '142.3K',
     change: '+12.4%',
     projectName: 'banana-truck',
-    sparkline: [80, 95, 88, 110, 105, 120, 130, 125, 140, 142],
+    sparkline: [80, 130, 70, 145, 90, 160, 75, 155, 100, 142],
+    color: '#295EFF',
   },
   {
     label: 'Highest error rate',
@@ -342,20 +344,23 @@ export const TELEMETRY_METRICS: TelemetryMetric[] = [
     change: '-0.3%',
     projectName: 'test-project',
     sparkline: [1.2, 1.1, 1.0, 0.9, 1.1, 0.9, 0.85, 0.82, 0.8, 0.8],
+    color: '#DB0000',
   },
   {
-    label: 'Highest latency',
-    value: '124ms',
-    change: '+8ms',
+    label: 'Most requests',
+    value: '142.3K',
+    change: '+12.4%',
     projectName: 'double-r',
-    sparkline: [100, 105, 98, 112, 108, 115, 118, 120, 122, 124],
+    sparkline: [95, 155, 60, 145, 75, 160, 55, 150, 85, 142],
+    color: '#295EFF',
   },
   {
     label: 'Highest cache hit ratio',
     value: '94.2%',
     change: '+1.1%',
     projectName: 'banana-truck',
-    sparkline: [90, 91, 90.5, 92, 91.8, 93, 93.5, 93.8, 94, 94.2],
+    sparkline: [85, 95, 78, 97, 82, 96, 80, 98, 88, 94],
+    color: '#295EFF',
   },
 ];
 
@@ -363,14 +368,16 @@ export const TELEMETRY_METRICS: TelemetryMetric[] = [
 
 export interface Integration {
   name: string;
-  icon: 'storage' | 'gen-ai' | 'database';
+  icon: 'integration' | 'gen-ai' | 'messaging';
   lastUsed: string;
 }
 
 export const INTEGRATIONS: Integration[] = [
-  { name: 'banana-truck-assets', icon: 'storage', lastUsed: '2 hours ago' },
-  { name: 'recipe-search-agent', icon: 'gen-ai', lastUsed: '1 day ago' },
-  { name: 'double-r-postgres', icon: 'database', lastUsed: '3 hours ago' },
+  { name: 'blobblob-blob', icon: 'integration', lastUsed: '1 day ago' },
+  { name: 'banana-agent', icon: 'gen-ai', lastUsed: '1 day ago' },
+  { name: 'prod-db', icon: 'integration', lastUsed: '2 weeks ago' },
+  { name: 'bananastand-storage', icon: 'integration', lastUsed: '2 weeks ago' },
+  { name: 'message-stuff', icon: 'messaging', lastUsed: '1 month ago' },
 ];
 
 // --- Usage ---

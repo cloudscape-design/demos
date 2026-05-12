@@ -1,21 +1,19 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import Avatar from '@cloudscape-design/chat-components/avatar';
 import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
 import ColumnLayout from '@cloudscape-design/components/column-layout';
 import Container from '@cloudscape-design/components/container';
-import FormField from '@cloudscape-design/components/form-field';
 import Grid from '@cloudscape-design/components/grid';
 import Header from '@cloudscape-design/components/header';
 import type { IconProps } from '@cloudscape-design/components/icon';
 import Icon from '@cloudscape-design/components/icon';
-import Input from '@cloudscape-design/components/input';
 import LineChart from '@cloudscape-design/components/line-chart';
 import Link from '@cloudscape-design/components/link';
-import Popover from '@cloudscape-design/components/popover';
 import ProgressBar from '@cloudscape-design/components/progress-bar';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import StatusIndicator from '@cloudscape-design/components/status-indicator';
@@ -31,44 +29,46 @@ import {
   TELEMETRY_METRICS,
   USAGE_METRICS,
 } from '../../data';
-import { GitBranchIcon, GitHubIcon } from '../../icons';
+import { GitHubIcon } from '../../icons';
 
 function ProjectCard({ project }: { project: Project }) {
   return (
     <Container variant="stacked">
       <SpaceBetween size="xs">
-        <Header actions={<Button variant="icon" iconName="ellipsis" ariaLabel="More options" />}>{project.name}</Header>
-        {project.domainName && (
-          <Link href={`https://${project.domainName}`} variant="secondary" external={true} fontSize="body-m">
-            {project.domainName}
-          </Link>
-        )}
-        <SpaceBetween size="xxs" direction="horizontal" alignItems="center">
-          <GitHubIcon />
-          <Link href="#" variant="primary">
-            <Box color="text-body-secondary">
-              {project.repoOwner}/{project.repoName}
-            </Box>
-          </Link>
-        </SpaceBetween>
-        <Box variant="h5">{project.lastCommitMessage}</Box>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <SpaceBetween direction="horizontal" size="xs">
+        <Link href="#" variant="primary" fontSize="body-m">
+          {project.name}
+        </Link>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px' }}>
+          <SpaceBetween size="xxs">
+            <Box variant="awsui-key-label">Status</Box>
             <StatusIndicator type={project.latestDeployment.statusType}>
-              <Popover content={project.latestDeployment.createdAt} dismissButton={false} size="small">
-                {relativeTime(project.latestDeployment.createdAt)}
-              </Popover>
+              {project.latestDeployment.status}
             </StatusIndicator>
-            {project.latestDeployment.sourceBranch && (
-              <SpaceBetween size="xxs" direction="horizontal" alignItems="center">
-                <GitBranchIcon />
-                <Box color="text-body-secondary" fontSize="body-s">
-                  {project.latestDeployment.sourceBranch}
-                </Box>
-              </SpaceBetween>
+          </SpaceBetween>
+          <SpaceBetween size="xxs">
+            <Box variant="awsui-key-label">Domain</Box>
+            {project.domainName ? (
+              <Link href={`https://${project.domainName}`} external={true} fontSize="body-s">
+                {project.domainName}
+              </Link>
+            ) : (
+              <Box color="text-body-secondary" fontSize="body-s">
+                —
+              </Box>
             )}
           </SpaceBetween>
-          <Button variant="inline-icon" iconName="arrow-right" />
+          <SpaceBetween size="xxs">
+            <Box variant="awsui-key-label">Last updated</Box>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexWrap: 'nowrap' }}>
+              <GitHubIcon />
+              <Link href="#" fontSize="body-s">
+                {relativeTime(project.latestDeployment.createdAt)}
+              </Link>
+              <Box color="text-body-secondary" fontSize="body-s">
+                by {project.latestDeployment.createdBy}
+              </Box>
+            </div>
+          </SpaceBetween>
         </div>
       </SpaceBetween>
     </Container>
@@ -81,17 +81,49 @@ function TelemetrySection() {
     <Container fitHeight={true} header={<Header>Telemetry highlights</Header>}>
       <ColumnLayout columns={4}>
         {TELEMETRY_METRICS.map(metric => (
-          <SpaceBetween key={metric.label} size="xxs">
-            <Box padding={{ top: 'm' }}>
+          <Container
+            key={metric.label}
+            variant="stacked"
+            fitHeight={true}
+            style={{
+              content: { paddingBlock: '8px', paddingInline: '8px' },
+              footer: { root: { paddingBlock: '4px', paddingInline: '8px' }, divider: {} },
+            }}
+            footer={
+              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Link
+                  href="#"
+                  onFollow={e => {
+                    e.preventDefault();
+                    navigate(`/omega/project/${metric.projectName}`);
+                  }}
+                  variant="secondary"
+                >
+                  <SpaceBetween size="xxs" direction="horizontal" alignItems="center">
+                    {metric.projectName}
+                    <Icon name="arrow-right" />
+                  </SpaceBetween>
+                </Link>
+              </div>
+            }
+          >
+            <SpaceBetween size="xxs">
+              <span style={{ fontSize: 12, fontWeight: 400, color: 'inherit', opacity: 0.7 }}>{metric.label}</span>
+              <Box fontSize="heading-xl" fontWeight="normal">
+                <span style={{ fontWeight: 500 }}>{metric.value}</span>
+              </Box>
+              <span style={{ fontSize: 12, fontWeight: 400, color: '#A4A4AD' }}>{metric.change}</span>
+              <div style={{ height: 4 }} />
               <LineChart
                 series={[
                   {
                     title: metric.label,
                     type: 'line',
                     data: metric.sparkline.map((y, i) => ({ x: i, y })),
+                    ...(metric.color ? { color: metric.color } : {}),
                   },
                 ]}
-                height={36}
+                height={50}
                 hideFilter={true}
                 hideLegend={true}
                 xScaleType="linear"
@@ -99,28 +131,8 @@ function TelemetrySection() {
                 empty=""
                 i18nStrings={{}}
               />
-            </Box>
-            <Box color="text-body-secondary">{metric.label}</Box>
-            <SpaceBetween size="xs" direction="horizontal" alignItems="end">
-              <Box fontSize="heading-l">{metric.value}</Box>
-              <Box color="text-body-secondary" fontSize="body-s">
-                {metric.change}
-              </Box>
             </SpaceBetween>
-            <Link
-              href="#"
-              onFollow={e => {
-                e.preventDefault();
-                navigate(`/omega/project/${metric.projectName}`);
-              }}
-              variant="primary"
-            >
-              <SpaceBetween size="xxs" direction="horizontal" alignItems="center">
-                {metric.projectName}
-                <Icon name="arrow-right" />
-              </SpaceBetween>
-            </Link>
-          </SpaceBetween>
+          </Container>
         ))}
       </ColumnLayout>
     </Container>
@@ -129,18 +141,56 @@ function TelemetrySection() {
 
 function IntegrationIcon({ type }: { type: Integration['icon'] }) {
   const iconMap: Record<Integration['icon'], IconProps.Name> = {
-    storage: 'folder',
+    integration: 'arrow-right',
     'gen-ai': 'gen-ai',
-    database: 'share',
+    messaging: 'contact',
   };
   return <Icon name={iconMap[type]} variant="subtle" />;
+}
+
+function DomainsSection() {
+  return (
+    <Container
+      fitHeight={true}
+      header={
+        <Header counter="(1)" actions={<Button iconName="add-plus" variant="icon" ariaLabel="Add domain" />}>
+          Domains
+        </Header>
+      }
+      style={{ footer: { root: {}, divider: { borderWidth: '0' } } }}
+      footer={
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Link href="#">
+            <SpaceBetween size="xxs" direction="horizontal" alignItems="center">
+              View all domain details <Icon name="arrow-right" />
+            </SpaceBetween>
+          </Link>
+        </div>
+      }
+    >
+      <SpaceBetween size="xs">
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <Icon name="globe" variant="subtle" />
+          <Link href="#" variant="primary">
+            bananatruck.com
+          </Link>
+          <span style={{ flex: 1 }} />
+          <Box color="text-body-secondary" fontSize="body-s">
+            2 urls
+          </Box>
+        </div>
+      </SpaceBetween>
+    </Container>
+  );
 }
 
 function IntegrationsSection() {
   return (
     <Container
+      fitHeight={true}
+      style={{ footer: { root: {}, divider: { borderWidth: '0' } } }}
       header={
-        <Header counter="(5)" actions={<Button iconName="add-plus">Add</Button>}>
+        <Header counter="(5)" actions={<Button iconName="add-plus" variant="icon" ariaLabel="Add integration" />}>
           Integrations
         </Header>
       }
@@ -148,55 +198,107 @@ function IntegrationsSection() {
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Link href="#">
             <SpaceBetween size="xxs" direction="horizontal" alignItems="center">
-              View all <Icon name="arrow-right" />
+              View all integration details <Icon name="arrow-right" />
             </SpaceBetween>
           </Link>
         </div>
       }
     >
-      <SpaceBetween size="xs">
-        {INTEGRATIONS.map(integration => (
-          <Button key={integration.name} fullWidth={true} variant="normal">
-            <span style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%' }}>
-              <IntegrationIcon type={integration.icon} />
-              <Box fontSize="body-s">{integration.name}</Box>
-              <span style={{ flex: 1 }} />
-              <Box color="text-body-secondary" fontSize="body-s">
-                {integration.lastUsed}
-              </Box>
-            </span>
-          </Button>
+      <div>
+        {INTEGRATIONS.map((integration, index) => (
+          <div
+            key={integration.name}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              padding: '8px 0',
+              borderTop: index > 0 ? `1px solid ${awsui.colorBorderDividerDefault}` : undefined,
+            }}
+          >
+            <IntegrationIcon type={integration.icon} />
+            <Link href="#" variant="primary" fontSize="body-s">
+              {integration.name}
+            </Link>
+            <span style={{ flex: 1 }} />
+            <Box color="text-body-secondary" fontSize="body-s">
+              {integration.lastUsed}
+            </Box>
+          </div>
         ))}
-      </SpaceBetween>
+      </div>
     </Container>
   );
 }
 
-function CollaborationSection() {
-  const [email, setEmail] = useState('');
+const COLLABORATORS = [
+  { name: 'Laura Palmer', initials: 'LP', background: 'rgba(251, 211, 50, 0.2)', textColor: '#FFE347' },
+  { name: 'Audrey Horn', initials: 'AH', background: 'rgba(178, 168, 255, 0.2)', textColor: '#B2A8FF' },
+  { name: 'Bobby Briggs', initials: 'BB', background: 'rgba(255, 153, 204, 0.2)', textColor: '#F9C' },
+];
 
+function CollaborationSection() {
   return (
-    <Container
-      fitHeight={true}
-      header={<Header>Collaboration</Header>}
-      footer={
-        <Link href="#" external={true} variant="primary">
-          Manage team in AWS Portal
-        </Link>
-      }
-    >
-      <SpaceBetween size="m">
-        <FormField label="Email">
-          <Input
-            value={email}
-            onChange={({ detail }) => setEmail(detail.value)}
-            placeholder="friend@example.com"
-            type="email"
-          />
-        </FormField>
-        <Button>Invite collaborator</Button>
-      </SpaceBetween>
-    </Container>
+    <>
+      <style>{`.avatar-normal-weight * { font-weight: 400 !important; }`}</style>
+      <Container
+        fitHeight={true}
+        style={{ footer: { root: {}, divider: { borderWidth: '0' } } }}
+        header={
+          <Header counter="(6)" actions={<Button iconName="add-plus" variant="icon" ariaLabel="Add collaborator" />}>
+            Collaboration
+          </Header>
+        }
+        footer={
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Link href="#">
+              <SpaceBetween size="xxs" direction="horizontal" alignItems="center">
+                View all collaborators <Icon name="arrow-right" />
+              </SpaceBetween>
+            </Link>
+          </div>
+        }
+      >
+        <div>
+          {COLLABORATORS.map((person, index) => (
+            <div
+              key={person.name}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '8px 0',
+                borderTop: index > 0 ? `1px solid ${awsui.colorBorderDividerDefault}` : undefined,
+              }}
+            >
+              <div className="avatar-normal-weight">
+                <Avatar
+                  ariaLabel={`Avatar of ${person.name}`}
+                  initials={person.initials}
+                  tooltipText={person.name}
+                  style={{
+                    root: { background: person.background, ...(person.textColor ? { color: person.textColor } : {}) },
+                  }}
+                />
+              </div>
+              <Box fontWeight="normal">{person.name}</Box>
+            </div>
+          ))}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              padding: '8px 0',
+              borderTop: `1px solid ${awsui.colorBorderDividerDefault}`,
+            }}
+          >
+            <Icon name="envelope" variant="subtle" />
+            <Box color="text-body-secondary">2 pending</Box>
+          </div>
+        </div>
+      </Container>
+    </>
   );
 }
 
@@ -204,6 +306,7 @@ function UsageSection() {
   return (
     <Container
       fitHeight={true}
+      style={{ footer: { root: {}, divider: { borderWidth: '0' } } }}
       header={<Header>Usage</Header>}
       footer={
         <Link href="#" external={true} variant="primary">
@@ -227,6 +330,7 @@ function NextStepsSection() {
   return (
     <Container
       fitHeight={true}
+      style={{ footer: { root: {}, divider: { borderWidth: '0' } } }}
       header={<Header>Next steps</Header>}
       footer={
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -270,62 +374,44 @@ export default function OverviewPage() {
 
   return (
     <SpaceBetween size="l">
-      {/* Projects section */}
-      <Container
-        fitHeight={true}
-        header={
-          <Header
-            counter="(3)"
-            actions={
-              <SpaceBetween direction="horizontal" size="xs">
-                <Button iconName="refresh" ariaLabel="Refresh" variant="icon" />
-                <Button iconName="add-plus" onClick={() => navigate('/omega/create')}>
-                  Create
-                </Button>
-              </SpaceBetween>
-            }
-          >
-            Projects
-          </Header>
-        }
-        footer={
-          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <Link
-              href="#/omega/projects"
-              onFollow={e => {
-                e.preventDefault();
-                navigate('/omega/projects');
-              }}
+      {/* Projects + Integrations + Domains row */}
+      <Grid gridDefinition={[{ colspan: 6 }, { colspan: 3 }, { colspan: 3 }]}>
+        <Container
+          fitHeight={true}
+          header={
+            <Header
+              counter="(3)"
+              actions={
+                <SpaceBetween direction="horizontal" size="xs">
+                  <Button iconName="refresh" ariaLabel="Refresh" variant="icon" />
+                  <Button iconName="add-plus" onClick={() => navigate('/omega/create')}>
+                    Create
+                  </Button>
+                </SpaceBetween>
+              }
             >
-              <SpaceBetween size="xxs" direction="horizontal" alignItems="center">
-                View all projects <Icon name="arrow-right" />
-              </SpaceBetween>
-            </Link>
-          </div>
-        }
-      >
-        <Grid gridDefinition={[{ colspan: 4 }, { colspan: 4 }, { colspan: 4 }]}>
-          {SAMPLE_PROJECTS.slice(0, 3).map(project => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
-        </Grid>
-      </Container>
-
-      {/* Telemetry + Integrations row */}
-      <Grid gridDefinition={[{ colspan: 8 }, { colspan: 4 }]}>
-        <TelemetrySection />
+              Projects
+            </Header>
+          }
+        >
+          <SpaceBetween size="xs">
+            {SAMPLE_PROJECTS.slice(0, 3).map(project => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </SpaceBetween>
+        </Container>
         <IntegrationsSection />
+        <DomainsSection />
       </Grid>
 
-      {/* Collaboration + Usage + Next steps row */}
-      <Grid
-        gridDefinition={[
-          { colspan: { default: 5, l: 3 } },
-          { colspan: { default: 7, l: 3 } },
-          { colspan: { default: 6, l: 6 } },
-        ]}
-      >
+      {/* Telemetry + Collaboration row */}
+      <Grid gridDefinition={[{ colspan: 9 }, { colspan: 3 }]}>
+        <TelemetrySection />
         <CollaborationSection />
+      </Grid>
+
+      {/* Usage + Next steps row */}
+      <Grid gridDefinition={[{ colspan: { default: 7, l: 6 } }, { colspan: { default: 5, l: 6 } }]}>
         <UsageSection />
         <NextStepsSection />
       </Grid>
