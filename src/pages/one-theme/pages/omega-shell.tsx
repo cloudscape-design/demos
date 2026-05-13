@@ -102,7 +102,7 @@ function OmegaTopBar({ onNavigate, breadcrumbs }: TopBarProps) {
       style={{
         display: 'flex',
         alignItems: 'center',
-        padding: '0 16px',
+        padding: '0 32px',
         height: 48,
         gap: 8,
         flex: 1,

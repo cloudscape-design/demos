@@ -230,6 +230,7 @@ export function generateThemeConfigOneTheme() {
       // TYPOGRAPHY - Headings
       // ========================================================================
       colorTextBreadcrumbCurrent: { light: grey600, dark: grey500 },
+      fontWeightBreadcrumbCurrent: 400,
 
       // H1
       fontSizeHeadingXl: '24px',
