@@ -72,7 +72,21 @@ function WelcomeSection() {
         <Box padding={{ top: 'm' }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center' }}>
             {SUGGESTED_PROMPTS.map(prompt => (
-              <Button key={prompt.text} variant="normal" onClick={() => setValue(prompt.text)}>
+              <Button
+                key={prompt.text}
+                variant="normal"
+                onClick={() => setValue(prompt.text)}
+                style={{
+                  root: {
+                    borderColor: {
+                      default: '#5C7FFF',
+                      hover: '#809bff',
+                    },
+                    paddingBlock: '12px',
+                    paddingInline: '16px',
+                  },
+                }}
+              >
                 <span aria-hidden="true" style={{ marginInlineEnd: 6 }}>
                   {prompt.icon}
                 </span>
@@ -167,6 +181,7 @@ export default function ConsoleHomePage() {
       <div id="h">
         <ConsoleTopNav />
       </div>
+
       <AppLayoutToolbar navigationHide={true} toolsHide={true} content={<ConsoleHomeContent />} />
     </>
   );

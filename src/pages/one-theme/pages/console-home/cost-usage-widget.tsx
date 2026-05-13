@@ -12,19 +12,19 @@ import * as awsui from '@cloudscape-design/design-tokens';
 import { WidgetContainer } from './widget-container';
 
 const COST_DATA = [
-  { x: 'Jul', y: 0 },
-  { x: 'Aug', y: 0 },
-  { x: 'Sep', y: 0 },
-  { x: 'Oct', y: 0 },
-  { x: 'Nov', y: 0 },
-  { x: 'Dec', y: 0 },
+  { x: 'Jul', y: 2.3 },
+  { x: 'Aug', y: 3.1 },
+  { x: 'Sep', y: 4.5 },
+  { x: 'Oct', y: 3.8 },
+  { x: 'Nov', y: 5.2 },
+  { x: 'Dec', y: 6.1 },
 ];
 
 export function CostUsageWidget() {
   const headerActions = (
     <SpaceBetween direction="horizontal" size="xs">
       <Button>Upgrade plan</Button>
-      <Button variant="icon" iconName="ellipsis" ariaLabel="More options" />
+      <Button iconName="ellipsis" ariaLabel="More options" />
     </SpaceBetween>
   );
 

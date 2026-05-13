@@ -19,11 +19,7 @@ interface WidgetContainerProps {
 export function WidgetContainer({ title, actions, footerText, footerHref, children }: WidgetContainerProps) {
   return (
     <Container
-      header={
-        <Header actions={actions ?? <Button variant="icon" iconName="ellipsis" ariaLabel="More options" />}>
-          {title}
-        </Header>
-      }
+      header={<Header actions={actions ?? <Button iconName="ellipsis" ariaLabel="More options" />}>{title}</Header>}
       footer={
         footerText ? (
           <div style={{ textAlign: 'center' }}>

@@ -74,7 +74,7 @@ export function generateThemeConfigOneTheme() {
   const colorTextBodySecondary = { light: grey300, dark: grey450 };
 
   // Status colors
-  const colorSuccess = { light: '#008559', dark: '#008559' };
+  const colorSuccess = { light: '#006B48', dark: '#006B48' };
 
   return {
     tokens: {
@@ -116,9 +116,10 @@ export function generateThemeConfigOneTheme() {
       // ========================================================================
       // BUTTONS - Primary
       // ========================================================================
-      colorBackgroundButtonPrimaryDefault: colorAccentPrimary,
-      colorBackgroundButtonPrimaryHover: { light: indigo500, dark: indigo400 },
-      colorBackgroundButtonPrimaryActive: colorAccentPrimary,
+      //colorBackgroundButtonPrimaryDefault: colorAccentPrimary,
+      colorBackgroundButtonPrimaryDefault: { light: grey300, dark: grey300 },
+      colorBackgroundButtonPrimaryHover: { light: grey200, dark: grey200 },
+      colorBackgroundButtonPrimaryActive: { light: grey300, dark: grey300 },
       colorTextButtonPrimaryDefault: grey950,
       colorTextButtonPrimaryHover: grey950,
       colorTextButtonPrimaryActive: grey950,
@@ -142,7 +143,7 @@ export function generateThemeConfigOneTheme() {
       // BUTTONS - Toggle
       // ========================================================================
       colorBackgroundToggleButtonNormalPressed: { light: '#FFFFFF', dark: grey850 },
-      colorBorderToggleButtonNormalPressed: colorNeutralInverse,
+      colorBorderToggleButtonNormalPressed: colorSelectedAccent,
       colorTextToggleButtonNormalPressed: colorNeutralInverse,
 
       // ========================================================================
@@ -160,6 +161,7 @@ export function generateThemeConfigOneTheme() {
       fontWeightKeyValuePairsLabel: '400',
 
       colorTextFormLabel: { light: grey600, dark: grey350 },
+      colorTextFormSecondary: { light: grey600, dark: grey500 },
       fontSizeFormLabel: '14px',
       lineHeightFormLabel: '20px',
       fontWeightFormLabel: '400',
@@ -173,6 +175,8 @@ export function generateThemeConfigOneTheme() {
       colorTextLinkInfoDefault: { light: indigo600, dark: indigo400 },
       colorTextLinkInfoHover: { light: indigo800, dark: indigo300 },
       colorTextAccent: colorSelectedAccent,
+      colorTextLinkDecorationDefault: { light: grey650, dark: grey600 },
+      //fontLinkDecorationThickness: '0.5px',
 
       // ========================================================================
       // SELECTION & FOCUS
@@ -187,7 +191,7 @@ export function generateThemeConfigOneTheme() {
       // ========================================================================
       // SEGMENTS & TABS
       // ========================================================================
-      colorBackgroundSegmentActive: { light: grey800, dark: grey50 },
+      colorBackgroundSegmentActive: { light: grey800, dark: grey300 },
       colorBackgroundSegmentDefault: { light: 'transparent', dark: 'transparent' },
 
       // ========================================================================
@@ -225,6 +229,7 @@ export function generateThemeConfigOneTheme() {
       colorBackgroundStatusIndicatorWarning: { light: '#FBD33220', dark: '#FBD33220' },
       colorBackgroundStatusIndicatorSuccess: { light: '#7ae50020', dark: '#7ae50020' },
       colorBackgroundStatusIndicatorError: { light: '#ff7a7a10', dark: '#ff7a7a20' },
+      colorBackgroundStatusIndicatorNeutral: { light: '#ff7a7a10', dark: grey800 },
 
       // ========================================================================
       // TYPOGRAPHY - Headings
@@ -303,8 +308,6 @@ export function generateThemeConfigOneTheme() {
       borderRadiusTabsFocusRing: '4px',
       borderRadiusToken: '2px',
       borderRadiusTutorialPanelItem: '4px',
-
-      fontLinkDecorationThickness: '0.5px',
 
       // ========================================================================
       // ICONS - Stroke Width
@@ -399,14 +402,16 @@ export function generateThemeConfigOneTheme() {
       },
       alert: {
         tokens: {
-          colorBackgroundStatusInfo: { light: '#5c7fff10', dark: '#5c7fff20' },
-          colorBackgroundStatusWarning: { light: '#fbd33210', dark: '#fbd33210' },
-          colorBackgroundStatusError: { light: '#ff7a7a10', dark: '#ff7a7a15' },
-          colorBackgroundStatusSuccess: { light: '#7ae50020', dark: '#7ae50020' },
+          colorBackgroundStatusInfo: { light: '#5c7fff20', dark: '#5c7fff10' },
+          colorBackgroundStatusWarning: { light: '#FBD33220', dark: '#FBD33210' },
+          colorBackgroundStatusError: { light: '#ff7a7a10', dark: '#ff7a7a10' },
+          colorBackgroundStatusSuccess: { light: '#7ae50020', dark: '#7ae50010' },
+
           colorTextStatusInfo: { light: indigo800, dark: indigo400 },
           colorBorderStatusInfo: { light: indigo800, dark: indigo400 },
-          colorTextStatusSuccess: { light: '#008559', dark: '#00BD6B' },
-          colorBorderStatusSuccess: { light: '#008559', dark: '#00BD6B' },
+          //colorTextStatusSuccess: { light: '#008559', dark: '#00BD6B' }
+          colorTextStatusSuccess: { light: lime600, dark: lime200 },
+          colorBorderStatusSuccess: { light: lime600, dark: lime200 },
           colorBackgroundButtonNormalDefault: { light: 'transparent', dark: 'transparent' },
         },
       },

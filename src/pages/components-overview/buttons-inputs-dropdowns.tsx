@@ -204,42 +204,45 @@ function Inputs() {
           ariaLabel="Read-only autosuggest"
         />
       </SpaceBetween>
-      <SpaceBetween direction="horizontal" size="l">
-        <DatePicker
-          value={dateValue}
-          placeholder="Datepicker"
-          openCalendarAriaLabel={() => 'Open calendar'}
-          onChange={({ detail }) => {
-            setDateValue(detail.value);
-          }}
-        />
-        <DateRangePicker
-          value={dateRangeValue}
-          onChange={({ detail }) => setDateRangeValue(detail.value)}
-          relativeOptions={[
-            { key: 'previous-5-minutes', amount: 5, unit: 'minute', type: 'relative' },
-            { key: 'previous-30-minutes', amount: 30, unit: 'minute', type: 'relative' },
-            { key: 'previous-1-hour', amount: 1, unit: 'hour', type: 'relative' },
-            { key: 'previous-6-hours', amount: 6, unit: 'hour', type: 'relative' },
-          ]}
-          isValidRange={range => {
-            if (range?.type === 'absolute') {
-              const [startDateWithoutTime] = range.startDate.split('T');
-              const [endDateWithoutTime] = range.endDate.split('T');
-              if (!startDateWithoutTime || !endDateWithoutTime) {
-                return {
-                  valid: false,
-                  errorMessage:
-                    'The selected date range is incomplete. Select a start and end date for the date range.',
-                };
+      <IconProvider icons={null}>
+        <SpaceBetween direction="horizontal" size="l">
+          <DatePicker
+            value={dateValue}
+            placeholder="Datepicker"
+            openCalendarAriaLabel={() => 'Open calendar'}
+            onChange={({ detail }) => {
+              setDateValue(detail.value);
+            }}
+          />
+
+          <DateRangePicker
+            value={dateRangeValue}
+            onChange={({ detail }) => setDateRangeValue(detail.value)}
+            relativeOptions={[
+              { key: 'previous-5-minutes', amount: 5, unit: 'minute', type: 'relative' },
+              { key: 'previous-30-minutes', amount: 30, unit: 'minute', type: 'relative' },
+              { key: 'previous-1-hour', amount: 1, unit: 'hour', type: 'relative' },
+              { key: 'previous-6-hours', amount: 6, unit: 'hour', type: 'relative' },
+            ]}
+            isValidRange={range => {
+              if (range?.type === 'absolute') {
+                const [startDateWithoutTime] = range.startDate.split('T');
+                const [endDateWithoutTime] = range.endDate.split('T');
+                if (!startDateWithoutTime || !endDateWithoutTime) {
+                  return {
+                    valid: false,
+                    errorMessage:
+                      'The selected date range is incomplete. Select a start and end date for the date range.',
+                  };
+                }
               }
-            }
-            return { valid: true };
-          }}
-          i18nStrings={{}}
-          placeholder="Filter by a date and time range"
-        />
-      </SpaceBetween>
+              return { valid: true };
+            }}
+            i18nStrings={{}}
+            placeholder="Filter by a date and time range"
+          />
+        </SpaceBetween>
+      </IconProvider>
     </Grid>
   );
 }
@@ -640,7 +643,7 @@ export default function ButtonsInputsDropdowns() {
               </Popover>
               <StatusIndicator type="info">Normal latency</StatusIndicator>
               <StatusIndicator type="error">Error latency</StatusIndicator>
-              {/* <StatusIndicator type="pending">Pending instance</StatusIndicator> */}
+              <StatusIndicator type="pending">Pending instance</StatusIndicator>
               <Popover dismissButton={false} position="top" size="small" content="Copied!" triggerType="custom">
                 <Button iconName="copy" variant="inline-icon" ariaLabel="Copy" />
               </Popover>
