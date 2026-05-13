@@ -144,34 +144,35 @@ export default function OmegaShell() {
         <div
           style={{
             display: 'flex',
-            flexDirection: 'column',
             height: '100dvh',
             backgroundColor: awsui.colorBackgroundLayoutMain,
           }}
         >
+          {/* Sidebar spans full height */}
           <NavigationBar
-            placement="top"
-            role="banner"
-            variant="primary"
-            ariaLabel="Main navigation"
-            content={<OmegaTopBar onNavigate={navigate} breadcrumbs={breadcrumbs} />}
+            placement="start"
+            variant="secondary"
+            ariaLabel="Side navigation"
+            content={
+              <Sidebar
+                brand={{ text: 'Omega', short: <AwsLogoMark width={52} height={30} aria-label="AWS" /> }}
+                sections={SECTIONS}
+                activePath={location.pathname}
+                user={{ name: 'Alex', email: 'alex@example.com' }}
+                expanded={expanded}
+                onToggle={() => setExpanded(e => !e)}
+                onNavigate={navigate}
+              />
+            }
           />
-          <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+          {/* Top nav + content only occupy the remaining width */}
+          <div style={{ display: 'flex', flexDirection: 'column', flex: 1, overflow: 'hidden' }}>
             <NavigationBar
-              placement="start"
-              variant="secondary"
-              ariaLabel="Side navigation"
-              content={
-                <Sidebar
-                  brand={{ text: 'Omega', short: <AwsLogoMark width={52} height={30} aria-label="AWS" /> }}
-                  sections={SECTIONS}
-                  activePath={location.pathname}
-                  user={{ name: 'Alex', email: 'alex@example.com' }}
-                  expanded={expanded}
-                  onToggle={() => setExpanded(e => !e)}
-                  onNavigate={navigate}
-                />
-              }
+              placement="top"
+              role="banner"
+              variant="primary"
+              ariaLabel="Main navigation"
+              content={<OmegaTopBar onNavigate={navigate} breadcrumbs={breadcrumbs} />}
             />
             <main style={{ flex: 1, overflow: 'auto', padding: '24px 32px' }} tabIndex={-1}>
               <Suspense fallback={<Spinner size="large" />}>
