@@ -93,8 +93,8 @@ function TelemetrySection() {
             variant="stacked"
             fitHeight={true}
             style={{
-              content: { paddingBlock: '8px', paddingInline: '8px' },
-              footer: { root: { paddingBlock: '4px', paddingInline: '8px' }, divider: {} },
+              content: { paddingBlock: '8px', paddingInline: '12px' },
+              footer: { root: { paddingBlock: '4px', paddingInline: '12px' }, divider: {} },
             }}
             footer={
               <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -115,11 +115,22 @@ function TelemetrySection() {
             }
           >
             <SpaceBetween size="xxs">
-              <span style={{ fontSize: 12, fontWeight: 400, color: 'inherit', opacity: 0.7 }}>{metric.label}</span>
-              <Box fontSize="heading-xl" fontWeight="normal">
-                <span style={{ fontWeight: 500 }}>{metric.value}</span>
-              </Box>
-              <span style={{ fontSize: 12, fontWeight: 400, color: '#A4A4AD' }}>{metric.change}</span>
+              <KeyValuePairs
+                columns={1}
+                items={[
+                  {
+                    label: metric.label,
+                    value: (
+                      <SpaceBetween size="xxs">
+                        <Box fontSize="heading-xl" fontWeight="normal">
+                          <span style={{ fontWeight: 500 }}>{metric.value}</span>
+                        </Box>
+                        <span style={{ fontSize: 12, fontWeight: 400, color: '#A4A4AD' }}>{metric.change}</span>
+                      </SpaceBetween>
+                    ),
+                  },
+                ]}
+              />
               <div style={{ height: 4 }} />
               <LineChart
                 series={[

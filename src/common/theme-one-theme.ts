@@ -83,6 +83,7 @@ export function generateThemeConfigOneTheme() {
       colorTextBodySecondary: colorTextBodySecondary,
 
       colorBackgroundLayoutToolbar: { light: '#ffffff', dark: grey1000 },
+      colorBackgroundNavigationBarSecondary: { light: '#ffffff', dark: grey1000 },
 
       // ========================================================================
       // CONTAINER
