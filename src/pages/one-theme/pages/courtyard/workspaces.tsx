@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import Alert from '@cloudscape-design/components/alert';
 import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
-import Cards from '@cloudscape-design/components/cards';
 import Container from '@cloudscape-design/components/container';
 import Header from '@cloudscape-design/components/header';
 import KeyValuePairs from '@cloudscape-design/components/key-value-pairs';
@@ -18,6 +17,7 @@ import StatusIndicator from '@cloudscape-design/components/status-indicator';
 import Table from '@cloudscape-design/components/table';
 import Tabs from '@cloudscape-design/components/tabs';
 import TextFilter from '@cloudscape-design/components/text-filter';
+import * as awsui from '@cloudscape-design/design-tokens';
 
 type ViewMode = 'grid' | 'list';
 type Role = 'owner' | 'collaborator';
@@ -34,7 +34,7 @@ interface Workspace {
 const WORKSPACES: Workspace[] = [
   {
     id: '111122223333',
-    name: 'starter-home-alice',
+    name: 'Analytics dashboard',
     accountId: '1111-2222-3333',
     role: 'owner',
     status: 'Active',
@@ -42,7 +42,7 @@ const WORKSPACES: Workspace[] = [
   },
   {
     id: '444455556666',
-    name: 'prototyping',
+    name: 'Backend API service',
     accountId: '4444-5555-6666',
     role: 'owner',
     status: 'Active',
@@ -50,7 +50,7 @@ const WORKSPACES: Workspace[] = [
   },
   {
     id: '777788889999',
-    name: 'team-sandbox',
+    name: 'Data pipeline',
     accountId: '7777-8888-9999',
     role: 'collaborator',
     status: 'Active',
@@ -58,15 +58,185 @@ const WORKSPACES: Workspace[] = [
   },
   {
     id: '000011112222',
-    name: 'analytics-ws',
+    name: 'Design system library',
     accountId: '0000-1111-2222',
     role: 'collaborator',
-    status: 'Pending',
+    status: 'Active',
     monthToDateSpend: '$0.00',
+  },
+  {
+    id: '333344445555',
+    name: 'Front-end web app',
+    accountId: '3333-4444-5555',
+    role: 'owner',
+    status: 'Active',
+    monthToDateSpend: '$8.42',
+  },
+  {
+    id: '666677778888',
+    name: 'ML training sandbox',
+    accountId: '6666-7777-8888',
+    role: 'collaborator',
+    status: 'Active',
+    monthToDateSpend: '$0.00',
+  },
+  {
+    id: '999900001111',
+    name: 'Mobile app prototype',
+    accountId: '9999-0000-1111',
+    role: 'owner',
+    status: 'Active',
+    monthToDateSpend: '$3.17',
   },
 ];
 
 const MAX_WORKSPACES = 5;
+
+// AWS Management Console icon (gradient cube)
+function ConsoleIcon() {
+  return (
+    <div
+      style={{
+        width: 32,
+        height: 32,
+        borderRadius: 2,
+        flexShrink: 0,
+        background:
+          'radial-gradient(at 109% -9%, #b8e7ff 0%, #8ad4ff 7.5%, #5cc0ff 15%, #0099ff 30%, #0c96ff 32%, #2e8cff 37.5%, #5c7fff 45%, #8575ff 60%, #8e52ff 70%, #962eff 80%)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M4 6l6-3 6 3-6 3-6-3z" fill="white" opacity="0.5" />
+        <path d="M4 10l6 3 6-3" stroke="white" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M4 14l6 3 6-3" stroke="white" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M4 6l6 3 6-3" stroke="white" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </div>
+  );
+}
+
+// Spend status badge
+function SpendBadge() {
+  return (
+    <div
+      style={{
+        backgroundColor: '#080808',
+        borderRadius: 4,
+        padding: '2px 4px',
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 4,
+        flexShrink: 0,
+      }}
+    >
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0 }}>
+        <circle cx="8" cy="8" r="6.5" stroke="#787878" strokeWidth="1" fill="none" />
+        <path
+          d="M5 8l2 2 4-4"
+          stroke="#787878"
+          strokeWidth="1"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+      </svg>
+      <span style={{ fontSize: 12, color: '#787878', lineHeight: '16px', whiteSpace: 'nowrap' }}>
+        Within spend limit
+      </span>
+    </div>
+  );
+}
+
+function WorkspaceCard({ workspace, onClick }: { workspace: Workspace; onClick: () => void }) {
+  return (
+    <div
+      style={{
+        backgroundColor: '#151515',
+        border: `1px solid ${awsui.colorBorderDividerDefault}`,
+        borderRadius: awsui.borderRadiusContainer,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        boxSizing: 'border-box',
+        height: 134,
+        padding: '15px 11px 12px',
+        cursor: 'pointer',
+      }}
+      onClick={onClick}
+    >
+      {/* Top row: name + spend badge */}
+      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+        <div style={{ flex: '1 1 0', minWidth: 80 }}>
+          <span
+            style={{
+              fontSize: 16,
+              fontWeight: 400,
+              color: awsui.colorTextLinkDefault,
+              lineHeight: '22px',
+              letterSpacing: '-0.2px',
+              textDecoration: 'underline',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: 'block',
+            }}
+          >
+            {workspace.name}
+          </span>
+        </div>
+        <div style={{ flexShrink: 0, height: 22, display: 'flex', alignItems: 'center', fontSize: 12 }}>
+          <SpendBadge />
+        </div>
+      </div>
+
+      {/* Bottom row: console link */}
+      <div
+        style={{
+          backgroundColor: '#1E1E1E',
+          border: `1px solid ${awsui.colorBorderDividerDefault}`,
+          borderRadius: awsui.borderRadiusContainer,
+          height: 48,
+          padding: 8,
+          boxSizing: 'border-box',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+        }}
+      >
+        <ConsoleIcon />
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <span style={{ fontSize: 14, color: awsui.colorTextBodyDefault, lineHeight: '20px' }}>
+            Create and manage cloud infrastructure
+          </span>
+          <span style={{ fontSize: 12, color: awsui.colorTextFormSecondary, lineHeight: '16px' }}>
+            AWS Management Console
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function WorkspaceGrid({ items, onNavigate }: { items: Workspace[]; onNavigate: (path: string) => void }) {
+  return (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+        gridAutoRows: '134px',
+        gap: 12,
+        paddingBottom: 20,
+      }}
+    >
+      {items.map(w => (
+        <WorkspaceCard key={w.id} workspace={w} onClick={() => onNavigate('/workspaces')} />
+      ))}
+    </div>
+  );
+}
 
 function WorkspaceOverview({ ownedCount, onSelectMine }: { ownedCount: number; onSelectMine: () => void }) {
   return (
@@ -187,65 +357,12 @@ export default function WorkspacesPage() {
             label: 'All',
             content:
               viewMode === 'grid' ? (
-                <Cards
-                  variant="full-page"
-                  header={sharedHeader}
-                  filter={sharedFilter}
-                  pagination={sharedPagination}
-                  cardDefinition={{
-                    header: w => (
-                      <Link
-                        variant="primary"
-                        fontSize="heading-m"
-                        href={`#/workspaces/${w.id}`}
-                        onFollow={e => {
-                          e.preventDefault();
-                          navigate(`/workspaces`);
-                        }}
-                      >
-                        {w.name}
-                      </Link>
-                    ),
-                    sections: [
-                      {
-                        id: 'info',
-                        content: w => (
-                          <KeyValuePairs
-                            columns={2}
-                            items={[
-                              { label: 'Account ID', value: w.accountId },
-                              { label: 'Role', value: w.role === 'owner' ? 'Owner' : 'Collaborator' },
-                              {
-                                label: 'Status',
-                                value: (
-                                  <StatusIndicator type={w.status === 'Active' ? 'success' : 'pending'}>
-                                    {w.status}
-                                  </StatusIndicator>
-                                ),
-                              },
-                              { label: 'MTD spend', value: w.monthToDateSpend },
-                            ]}
-                          />
-                        ),
-                      },
-                    ],
-                  }}
-                  cardsPerRow={[{ cards: 1 }, { minWidth: 700, cards: 2 }, { minWidth: 1200, cards: 3 }]}
-                  items={filtered}
-                  trackBy="id"
-                  entireCardClickable={true}
-                  renderAriaLive={({ totalItemsCount }) => `${totalItemsCount} project accounts`}
-                  empty={
-                    <Box textAlign="center" color="inherit" padding="l">
-                      <b>No project accounts</b>
-                      <Box variant="p" color="text-body-secondary">
-                        {filterText
-                          ? 'No project accounts match your filter.'
-                          : 'Create a project account to get started.'}
-                      </Box>
-                    </Box>
-                  }
-                />
+                <SpaceBetween size="l">
+                  {sharedHeader}
+                  {sharedFilter}
+                  <WorkspaceGrid items={filtered} onNavigate={navigate} />
+                  {sharedPagination}
+                </SpaceBetween>
               ) : (
                 <Table
                   header={sharedHeader}
@@ -302,64 +419,12 @@ export default function WorkspacesPage() {
             label: 'Mine',
             content:
               viewMode === 'grid' ? (
-                <Cards
-                  header={sharedHeader}
-                  filter={sharedFilter}
-                  pagination={sharedPagination}
-                  cardDefinition={{
-                    header: w => (
-                      <Link
-                        variant="primary"
-                        fontSize="heading-m"
-                        href={`#/workspaces/${w.id}`}
-                        onFollow={e => {
-                          e.preventDefault();
-                          navigate(`/workspaces`);
-                        }}
-                      >
-                        {w.name}
-                      </Link>
-                    ),
-                    sections: [
-                      {
-                        id: 'info',
-                        content: w => (
-                          <KeyValuePairs
-                            columns={2}
-                            items={[
-                              { label: 'Account ID', value: w.accountId },
-                              { label: 'Role', value: w.role === 'owner' ? 'Owner' : 'Collaborator' },
-                              {
-                                label: 'Status',
-                                value: (
-                                  <StatusIndicator type={w.status === 'Active' ? 'success' : 'pending'}>
-                                    {w.status}
-                                  </StatusIndicator>
-                                ),
-                              },
-                              { label: 'MTD spend', value: w.monthToDateSpend },
-                            ]}
-                          />
-                        ),
-                      },
-                    ],
-                  }}
-                  cardsPerRow={[{ cards: 1 }, { minWidth: 700, cards: 2 }, { minWidth: 1200, cards: 3 }]}
-                  items={filtered}
-                  trackBy="id"
-                  entireCardClickable={true}
-                  renderAriaLive={({ totalItemsCount }) => `${totalItemsCount} project accounts`}
-                  empty={
-                    <Box textAlign="center" color="inherit" padding="l">
-                      <b>No project accounts</b>
-                      <Box variant="p" color="text-body-secondary">
-                        {filterText
-                          ? 'No project accounts match your filter.'
-                          : 'Create a project account to get started.'}
-                      </Box>
-                    </Box>
-                  }
-                />
+                <SpaceBetween size="l">
+                  {sharedHeader}
+                  {sharedFilter}
+                  <WorkspaceGrid items={filtered} onNavigate={navigate} />
+                  {sharedPagination}
+                </SpaceBetween>
               ) : (
                 <Table
                   header={sharedHeader}
