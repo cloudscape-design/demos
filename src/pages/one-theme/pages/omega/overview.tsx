@@ -311,36 +311,48 @@ function CollaborationSection() {
 
 function ProfileSection() {
   return (
-    <Container
-      fitHeight={true}
-      style={{ footer: { root: {}, divider: { borderWidth: '0' } } }}
-      header={<Header>Profile</Header>}
-      footer={
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Link href="#" variant="secondary">
-            <SpaceBetween size="xxs" direction="horizontal" alignItems="center">
-              view profile details <Icon name="arrow-right" />
-            </SpaceBetween>
-          </Link>
+    <div style={{ position: 'relative' }}>
+      <img
+        src={profileImg}
+        alt="Profile"
+        style={{
+          position: 'absolute',
+          top: 16,
+          right: 20,
+          width: 68,
+          height: 68,
+          objectFit: 'cover',
+          borderRadius: 4,
+          display: 'block',
+          zIndex: 1,
+        }}
+      />
+      <Container
+        fitHeight={true}
+        style={{ footer: { root: {}, divider: { borderWidth: '0' } } }}
+        header={<Header>Profile</Header>}
+        footer={
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Link href="#" variant="secondary">
+              <SpaceBetween size="xxs" direction="horizontal" alignItems="center">
+                view profile details <Icon name="arrow-right" />
+              </SpaceBetween>
+            </Link>
+          </div>
+        }
+      >
+        <div>
+          <KeyValuePairs
+            columns={1}
+            items={[
+              { label: 'Name', value: 'Alice Deverill' },
+              { label: 'Email', value: 'Alice-dev@banana-truck.com' },
+              { label: 'Multi-factor authentication', value: 'Configured' },
+            ]}
+          />
         </div>
-      }
-    >
-      <div style={{ position: 'relative' }}>
-        <img
-          src={profileImg}
-          alt="Profile"
-          style={{ position: 'absolute', top: 0, right: 0, width: 56, height: 56, objectFit: 'cover', borderRadius: 4 }}
-        />
-        <KeyValuePairs
-          columns={1}
-          items={[
-            { label: 'Name', value: 'Alice Deverill' },
-            { label: 'Email', value: 'Alice-dev@banana-truck.com' },
-            { label: 'Multi-factor authentication', value: 'Configured' },
-          ]}
-        />
-      </div>
-    </Container>
+      </Container>
+    </div>
   );
 }
 
