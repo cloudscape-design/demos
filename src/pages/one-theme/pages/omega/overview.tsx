@@ -35,54 +35,58 @@ import { GitHubIcon } from '../../icons';
 
 function ProjectCard({ project }: { project: Project }) {
   return (
-    <Container variant="stacked">
+    <Container variant="stacked" style={{ content: { paddingBlock: '4px 12px', paddingInline: '12px' } }}>
       <SpaceBetween size="xs">
-        <Link href="#" variant="primary" fontSize="body-m">
-          {project.name}
-        </Link>
-        <KeyValuePairs
-          columns={3}
-          items={[
-            {
-              label: 'Status',
-              value: (
-                <StatusIndicator type={project.latestDeployment.statusType}>
-                  {project.latestDeployment.status}
-                </StatusIndicator>
-              ),
-            },
-            {
-              label: 'Domain',
-              value: project.domainName ? (
-                <span style={{ whiteSpace: 'nowrap' }}>
-                  <Link href={`https://${project.domainName}`} external={true} fontSize="body-m">
-                    {project.domainName}
-                  </Link>
-                </span>
-              ) : (
-                '—'
-              ),
-            },
-            {
-              label: 'Last updated',
-              value: (
-                <div
-                  style={{ display: 'flex', alignItems: 'center', gap: 4, flexWrap: 'nowrap', whiteSpace: 'nowrap' }}
-                >
-                  <span style={{ flexShrink: 0, display: 'flex' }}>
-                    <GitHubIcon />
+        <Box variant="h3" padding="n">
+          <Link href="#" variant="primary">
+            {project.name}
+          </Link>
+        </Box>
+        <div className="no-kvp-dividers">
+          <KeyValuePairs
+            columns={3}
+            items={[
+              {
+                label: 'Status',
+                value: (
+                  <StatusIndicator type={project.latestDeployment.statusType}>
+                    {project.latestDeployment.status}
+                  </StatusIndicator>
+                ),
+              },
+              {
+                label: 'Domain',
+                value: project.domainName ? (
+                  <span style={{ whiteSpace: 'nowrap' }}>
+                    <Link href={`https://${project.domainName}`} external={true} fontSize="body-m">
+                      {project.domainName}
+                    </Link>
                   </span>
-                  <Link href="#" fontSize="body-m">
-                    {relativeTime(project.latestDeployment.createdAt)}
-                  </Link>
-                  <span style={{ fontSize: 14, fontWeight: 400, color: '#909090' }}>
-                    by {project.latestDeployment.createdBy}
-                  </span>
-                </div>
-              ),
-            },
-          ]}
-        />
+                ) : (
+                  '—'
+                ),
+              },
+              {
+                label: 'Last updated',
+                value: (
+                  <div
+                    style={{ display: 'flex', alignItems: 'center', gap: 4, flexWrap: 'nowrap', whiteSpace: 'nowrap' }}
+                  >
+                    <span style={{ flexShrink: 0, display: 'flex' }}>
+                      <GitHubIcon />
+                    </span>
+                    <Link href="#" fontSize="body-m">
+                      {relativeTime(project.latestDeployment.createdAt)}
+                    </Link>
+                    <span style={{ fontSize: 14, fontWeight: 400, color: '#909090' }}>
+                      by {project.latestDeployment.createdBy}
+                    </span>
+                  </div>
+                ),
+              },
+            ]}
+          />
+        </div>
       </SpaceBetween>
     </Container>
   );
@@ -92,13 +96,13 @@ function TelemetrySection() {
   const navigate = useNavigate();
   return (
     <Container fitHeight={true} header={<Header>Telemetry highlights</Header>}>
-      <ColumnLayout columns={4}>
+      <ColumnLayout columns={4} borders="none">
         {TELEMETRY_METRICS.map(metric => (
           <Container
             key={metric.label}
-            variant="stacked"
             fitHeight={true}
             style={{
+              root: { borderWidth: '0', boxShadow: 'none' },
               content: { paddingBlock: '8px', paddingInline: '12px' },
               footer: { root: { paddingBlock: '4px', paddingInline: '12px' }, divider: {} },
             }}
@@ -195,9 +199,13 @@ function DomainsSection() {
       <SpaceBetween size="xs">
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <Icon name="globe" variant="subtle" />
-          <Link href="#" variant="primary">
-            bananatruck.com
-          </Link>
+          <div style={{ padding: '4px 12px' }}>
+            <Box variant="h3" padding="n">
+              <Link href="#" variant="primary">
+                bananatruck.com
+              </Link>
+            </Box>
+          </div>
           <span style={{ flex: 1 }} />
           <span style={{ fontSize: 12, fontWeight: 400, color: '#909090' }}>2 urls</span>
         </div>
@@ -260,7 +268,7 @@ const COLLABORATORS = [
 function CollaborationSection() {
   return (
     <>
-      <style>{`.avatar-normal-weight * { font-weight: 400 !important; } [class*='awsui_counter'] { font-size: 12px !important; }`}</style>
+      <style>{`.avatar-normal-weight * { font-weight: 400 !important; } [class*='awsui_counter'] { font-size: 12px !important; } .no-kvp-dividers { --border-divider-section-width-t1j922: 0px !important; }`}</style>
       <Container
         fitHeight={true}
         style={{ footer: { root: {}, divider: { borderWidth: '0' } } }}
