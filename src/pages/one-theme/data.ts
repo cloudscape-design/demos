@@ -60,7 +60,7 @@ export const SAMPLE_PROJECTS: Project[] = [
     id: 'double-r',
     name: 'double-r',
     deploymentStatus: 'Ready',
-    domainName: 'double-r.omega.dev',
+    domainName: 'double.omega.dev',
     lastUpdated: '4/25/2026, 16:42:00 GMT-7',
     repoOwner: 'alicedev',
     repoName: 'double-r-api',
@@ -84,7 +84,7 @@ export const SAMPLE_PROJECTS: Project[] = [
     id: 'test-project',
     name: 'test-project',
     deploymentStatus: 'In progress',
-    domainName: 'test-project.omega.dev',
+    domainName: 'test.omega.dev',
     lastUpdated: '4/27/2026, 08:05:12 GMT-7',
     repoOwner: 'alicedev',
     repoName: 'test-project',
@@ -376,7 +376,7 @@ export const INTEGRATIONS: Integration[] = [
   { name: 'blobblob-blob', icon: 'integration', lastUsed: '1 day ago' },
   { name: 'banana-agent', icon: 'gen-ai', lastUsed: '1 day ago' },
   { name: 'prod-db', icon: 'integration', lastUsed: '2 weeks ago' },
-  { name: 'bananastand-storage', icon: 'integration', lastUsed: '2 weeks ago' },
+  { name: 'banan-storage', icon: 'integration', lastUsed: '2 weeks ago' },
   { name: 'message-stuff', icon: 'messaging', lastUsed: '1 month ago' },
 ];
 

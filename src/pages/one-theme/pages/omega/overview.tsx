@@ -54,9 +54,11 @@ function ProjectCard({ project }: { project: Project }) {
             {
               label: 'Domain',
               value: project.domainName ? (
-                <Link href={`https://${project.domainName}`} external={true} fontSize="body-s">
-                  {project.domainName}
-                </Link>
+                <span style={{ whiteSpace: 'nowrap' }}>
+                  <Link href={`https://${project.domainName}`} external={true} fontSize="body-m">
+                    {project.domainName}
+                  </Link>
+                </span>
               ) : (
                 '—'
               ),
@@ -64,14 +66,18 @@ function ProjectCard({ project }: { project: Project }) {
             {
               label: 'Last updated',
               value: (
-                <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexWrap: 'nowrap' }}>
-                  <GitHubIcon />
-                  <Link href="#" fontSize="body-s">
+                <div
+                  style={{ display: 'flex', alignItems: 'center', gap: 4, flexWrap: 'nowrap', whiteSpace: 'nowrap' }}
+                >
+                  <span style={{ flexShrink: 0, display: 'flex' }}>
+                    <GitHubIcon />
+                  </span>
+                  <Link href="#" fontSize="body-m">
                     {relativeTime(project.latestDeployment.createdAt)}
                   </Link>
-                  <Box color="text-body-secondary" fontSize="body-s">
+                  <span style={{ fontSize: 14, fontWeight: 400, color: '#909090' }}>
                     by {project.latestDeployment.createdBy}
-                  </Box>
+                  </span>
                 </div>
               ),
             },
@@ -193,9 +199,7 @@ function DomainsSection() {
             bananatruck.com
           </Link>
           <span style={{ flex: 1 }} />
-          <Box color="text-body-secondary" fontSize="body-s">
-            2 urls
-          </Box>
+          <span style={{ fontSize: 12, fontWeight: 400, color: '#909090' }}>2 urls</span>
         </div>
       </SpaceBetween>
     </Container>
@@ -235,13 +239,11 @@ function IntegrationsSection() {
             }}
           >
             <IntegrationIcon type={integration.icon} />
-            <Link href="#" variant="primary" fontSize="body-s">
+            <Link href="#" variant="primary" fontSize="body-m">
               {integration.name}
             </Link>
             <span style={{ flex: 1 }} />
-            <Box color="text-body-secondary" fontSize="body-s">
-              {integration.lastUsed}
-            </Box>
+            <span style={{ fontSize: 12, fontWeight: 400, color: '#909090' }}>{integration.lastUsed}</span>
           </div>
         ))}
       </div>
@@ -258,7 +260,7 @@ const COLLABORATORS = [
 function CollaborationSection() {
   return (
     <>
-      <style>{`.avatar-normal-weight * { font-weight: 400 !important; }`}</style>
+      <style>{`.avatar-normal-weight * { font-weight: 400 !important; } [class*='awsui_counter'] { font-size: 12px !important; }`}</style>
       <Container
         fitHeight={true}
         style={{ footer: { root: {}, divider: { borderWidth: '0' } } }}
