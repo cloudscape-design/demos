@@ -417,7 +417,7 @@ export function generateThemeConfigOneTheme() {
       },
       alert: {
         tokens: {
-          colorBackgroundStatusInfo: { light: '#5c7fff20', dark: '#5c7fff10' },
+          colorBackgroundStatusInfo: { light: '#5c7fff20', dark: '#161A2D' },
           colorBackgroundStatusWarning: { light: '#FBD33220', dark: '#FBD33210' },
           colorBackgroundStatusError: { light: '#ff7a7a10', dark: '#ff7a7a10' },
           colorBackgroundStatusSuccess: { light: '#7ae50020', dark: '#7ae50010' },
