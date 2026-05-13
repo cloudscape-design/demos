@@ -19,6 +19,7 @@ import SpaceBetween from '@cloudscape-design/components/space-between';
 import StatusIndicator from '@cloudscape-design/components/status-indicator';
 import * as awsui from '@cloudscape-design/design-tokens';
 
+import profileImg from '../../../../common/profile.png';
 import {
   type Integration,
   INTEGRATIONS,
@@ -302,6 +303,47 @@ function CollaborationSection() {
   );
 }
 
+function ProfileSection() {
+  return (
+    <Container
+      fitHeight={true}
+      style={{ footer: { root: {}, divider: { borderWidth: '0' } } }}
+      header={<Header>Profile</Header>}
+      footer={
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Link href="#" variant="secondary">
+            <SpaceBetween size="xxs" direction="horizontal" alignItems="center">
+              view profile details <Icon name="arrow-right" />
+            </SpaceBetween>
+          </Link>
+        </div>
+      }
+    >
+      <div style={{ position: 'relative' }}>
+        <img
+          src={profileImg}
+          alt="Profile"
+          style={{ position: 'absolute', top: 0, right: 0, width: 56, height: 56, objectFit: 'cover', borderRadius: 4 }}
+        />
+        <SpaceBetween size="m">
+          <SpaceBetween size="xxs">
+            <Box variant="awsui-key-label">Name</Box>
+            <Box fontWeight="normal">Alice Deverill</Box>
+          </SpaceBetween>
+          <SpaceBetween size="xxs">
+            <Box variant="awsui-key-label">Email</Box>
+            <Box fontWeight="normal">Alice-dev@banana-truck.com</Box>
+          </SpaceBetween>
+          <SpaceBetween size="xxs">
+            <Box variant="awsui-key-label">Multi-factor authentication</Box>
+            <Box fontWeight="normal">Configured</Box>
+          </SpaceBetween>
+        </SpaceBetween>
+      </div>
+    </Container>
+  );
+}
+
 function UsageSection() {
   return (
     <Container
@@ -309,19 +351,31 @@ function UsageSection() {
       style={{ footer: { root: {}, divider: { borderWidth: '0' } } }}
       header={<Header>Usage</Header>}
       footer={
-        <Link href="#" external={true} variant="primary">
-          View usage in AWS Portal
-        </Link>
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Link href="#" variant="secondary">
+            <SpaceBetween size="xxs" direction="horizontal" alignItems="center">
+              view usage details <Icon name="arrow-right" />
+            </SpaceBetween>
+          </Link>
+        </div>
       }
     >
-      <ColumnLayout columns={2}>
-        {USAGE_METRICS.map(metric => (
-          <SpaceBetween key={metric.label} size="xxs">
-            <Box variant="awsui-key-label">{metric.label}</Box>
-            <ProgressBar value={metric.percentage} additionalInfo={`${metric.current} / ${metric.limit}`} />
-          </SpaceBetween>
-        ))}
-      </ColumnLayout>
+      <SpaceBetween size="m">
+        <ProgressBar value={30} style={{ progressValue: { backgroundColor: '#79FF3B' } }} />
+        <ColumnLayout columns={2} variant="text-grid">
+          {USAGE_METRICS.map(metric => (
+            <SpaceBetween key={metric.label} size="xxs">
+              <Box variant="awsui-key-label">{metric.label}</Box>
+              <Box fontSize="heading-l" fontWeight="normal">
+                <span style={{ fontWeight: 500, color: '#C9C9C9' }}>{metric.current}%</span>
+              </Box>
+              <span style={{ fontSize: 12, color: '#909090' }}>
+                {metric.current}/{metric.limit}
+              </span>
+            </SpaceBetween>
+          ))}
+        </ColumnLayout>
+      </SpaceBetween>
     </Container>
   );
 }
@@ -334,37 +388,42 @@ function NextStepsSection() {
       header={<Header>Next steps</Header>}
       footer={
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Link href="#">
+          <Link href="#" variant="secondary">
             <SpaceBetween size="xxs" direction="horizontal" alignItems="center">
-              View all recommendations <Icon name="arrow-right" />
+              View more recommendations <Icon name="arrow-right" />
             </SpaceBetween>
           </Link>
         </div>
       }
     >
-      <ColumnLayout columns={2}>
+      <SpaceBetween size="s">
         {NEXT_STEPS.map(step => (
-          <Container variant="stacked" key={step.title}>
+          <div
+            key={step.title}
+            style={{
+              borderRadius: awsui.borderRadiusContainer,
+              padding: 16,
+              background: `linear-gradient(135deg, ${awsui.colorBackgroundContainerContent} 0%, #1a2a4a 100%)`,
+              border: `1px solid ${awsui.colorBorderDividerDefault}`,
+            }}
+          >
             <SpaceBetween size="s">
-              {/* Decorative illustration placeholder */}
-              <div
-                style={{
-                  height: 40,
-                  borderRadius: 4,
-                  opacity: 0.3,
-                  background: `linear-gradient(135deg, ${awsui.colorChartsPaletteCategorical1} 0%, ${awsui.colorChartsPaletteCategorical2} 100%)`,
-                }}
-              />
-              <SpaceBetween size="xxs">
-                <Box fontSize="body-m">{step.title}</Box>
-                <Box color="text-body-secondary" fontSize="body-s">
-                  {step.description}
-                </Box>
-              </SpaceBetween>
+              <Box fontSize="heading-m" fontWeight="normal">
+                {step.title}
+              </Box>
+              <Box color="text-body-secondary" fontSize="body-s">
+                {step.description}
+              </Box>
+              <div style={{ marginTop: 8 }} />
+              <Link href="#" variant="secondary">
+                <SpaceBetween size="xxs" direction="horizontal" alignItems="center">
+                  {step.actionLabel} <Icon name="arrow-right" />
+                </SpaceBetween>
+              </Link>
             </SpaceBetween>
-          </Container>
+          </div>
         ))}
-      </ColumnLayout>
+      </SpaceBetween>
     </Container>
   );
 }
@@ -410,8 +469,9 @@ export default function OverviewPage() {
         <CollaborationSection />
       </Grid>
 
-      {/* Usage + Next steps row */}
-      <Grid gridDefinition={[{ colspan: { default: 7, l: 6 } }, { colspan: { default: 5, l: 6 } }]}>
+      {/* Profile + Usage + Next steps row */}
+      <Grid gridDefinition={[{ colspan: 3 }, { colspan: 5 }, { colspan: 4 }]}>
+        <ProfileSection />
         <UsageSection />
         <NextStepsSection />
       </Grid>

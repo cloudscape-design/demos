@@ -390,10 +390,10 @@ export interface UsageMetric {
 }
 
 export const USAGE_METRICS: UsageMetric[] = [
-  { label: 'Edge requests', current: '91', limit: '100k', percentage: 0.09 },
-  { label: 'Build minutes', current: '500', limit: '1,000', percentage: 50 },
-  { label: 'Function invocations', current: '25k', limit: '100k', percentage: 25 },
-  { label: 'Data transfer', current: '1', limit: '100GB', percentage: 1 },
+  { label: 'Bandwidth', current: '1', limit: '100G B', percentage: 1 },
+  { label: 'Build minutes', current: '50', limit: '1000 minutes', percentage: 50 },
+  { label: 'Compute', current: '25K', limit: '100K invocations', percentage: 25 },
+  { label: 'Environments', current: '1/2', limit: 'environments', percentage: 50 },
 ];
 
 // --- Next steps ---
@@ -401,16 +401,14 @@ export const USAGE_METRICS: UsageMetric[] = [
 export interface NextStep {
   title: string;
   description: string;
+  actionLabel: string;
 }
 
 export const NEXT_STEPS: NextStep[] = [
   {
-    title: 'Invite teammates',
-    description: 'Add collaborators to your projects so your team can deploy and manage apps together.',
-  },
-  {
-    title: 'Add a custom domain',
-    description: 'Connect your own domain to any project for a branded URL instead of the default .omega.dev address.',
+    title: 'Custom domain',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec rhoncus magna.',
+    actionLabel: 'Set up',
   },
 ];
 
