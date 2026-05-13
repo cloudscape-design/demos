@@ -18,7 +18,6 @@ import StatusIndicator from '@cloudscape-design/components/status-indicator';
 import Table from '@cloudscape-design/components/table';
 import Tabs from '@cloudscape-design/components/tabs';
 import TextFilter from '@cloudscape-design/components/text-filter';
-import * as awsui from '@cloudscape-design/design-tokens';
 
 type ViewMode = 'grid' | 'list';
 type Role = 'owner' | 'collaborator';
@@ -104,122 +103,6 @@ function WorkspaceOverview({ ownedCount, onSelectMine }: { ownedCount: number; o
   );
 }
 
-function LegendItem({ color, label, swatch }: { color: string; label: string; swatch: 'solid' | 'dotted' | 'line' }) {
-  const baseSwatch = {
-    inlineSize: 16,
-    blockSize: 8,
-    borderRadius: 2,
-    flexShrink: 0,
-  };
-  let swatchStyle: React.CSSProperties;
-  if (swatch === 'solid') {
-    swatchStyle = { ...baseSwatch, background: color };
-  } else if (swatch === 'dotted') {
-    swatchStyle = {
-      ...baseSwatch,
-      backgroundImage: `repeating-linear-gradient(-45deg, ${color} 0 3px, transparent 3px 6px)`,
-    };
-  } else {
-    swatchStyle = { ...baseSwatch, borderInlineStart: `2px solid ${color}`, background: 'transparent' };
-  }
-  return (
-    <div style={{ display: 'inline-flex', alignItems: 'center', gap: awsui.spaceStaticXs }}>
-      <span style={swatchStyle} aria-hidden="true" />
-      <Box variant="small">{label}</Box>
-    </div>
-  );
-}
-
-function SpendingLimit() {
-  const currentAmount = 36.22;
-  const forecastAmount = 48.5;
-  const limit = 100;
-  const currentPct = Math.min(100, (currentAmount / limit) * 100);
-  const forecastPct = Math.min(100, (forecastAmount / limit) * 100);
-  const remainingPct = Math.max(0, 100 - currentPct);
-
-  return (
-    <Container
-      header={
-        <Header
-          variant="h2"
-          description="Set by your management account. When this limit is reached, new launches are blocked."
-        >
-          Spending limit
-        </Header>
-      }
-    >
-      <SpaceBetween size="s">
-        <div
-          aria-label={`Current spend ${currentAmount} dollars out of ${limit} dollars, forecast ${forecastAmount}`}
-          role="img"
-          style={{
-            position: 'relative',
-            display: 'flex',
-            inlineSize: '100%',
-            blockSize: 12,
-            borderRadius: awsui.borderRadiusContainer,
-            overflow: 'hidden',
-            background: awsui.colorBackgroundInputDisabled,
-          }}
-        >
-          {/* Filled "Current" segment */}
-          <div
-            style={{
-              inlineSize: `${currentPct}%`,
-              background: awsui.colorChartsPaletteCategorical1,
-            }}
-          />
-          {/* Dotted "Forecasted" segment — spans from current to forecast */}
-          <div
-            style={{
-              inlineSize: `${remainingPct}%`,
-              // A diagonal striped pattern in the same palette color, faded, to
-              // visually distinguish it from the solid "current" portion.
-              backgroundImage: `repeating-linear-gradient(
-                -45deg,
-                ${awsui.colorChartsPaletteCategorical1} 0 4px,
-                transparent 4px 8px
-              )`,
-            }}
-          />
-          {/* Forecast marker line */}
-          <div
-            style={{
-              position: 'absolute',
-              insetBlockStart: 0,
-              insetBlockEnd: 0,
-              insetInlineStart: `calc(${forecastPct}% - 1px)`,
-              inlineSize: 2,
-              background: awsui.colorTextBodyDefault,
-            }}
-            aria-hidden="true"
-          />
-        </div>
-
-        {/* Legend */}
-        <div style={{ display: 'flex', gap: awsui.spaceStaticL, flexWrap: 'wrap' }}>
-          <LegendItem
-            color={awsui.colorChartsPaletteCategorical1}
-            label={`Current $${currentAmount.toFixed(2)}`}
-            swatch="solid"
-          />
-          <LegendItem
-            color={awsui.colorChartsPaletteCategorical1}
-            label={`Forecasted $${forecastAmount.toFixed(2)}`}
-            swatch="dotted"
-          />
-          <LegendItem color={awsui.colorTextBodyDefault} label={`Limit $${limit.toFixed(2)}`} swatch="line" />
-        </div>
-
-        <Box variant="small" color="text-body-secondary">
-          Resets at Jun 1, 2026. Updated 15 mins ago.
-        </Box>
-      </SpaceBetween>
-    </Container>
-  );
-}
-
 export default function WorkspacesPage() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('all');
@@ -295,7 +178,6 @@ export default function WorkspacesPage() {
         </Alert>
       )}
       <WorkspaceOverview ownedCount={ownedCount} onSelectMine={() => setActiveTab('mine')} />
-      <SpendingLimit />
       <Tabs
         activeTabId={activeTab}
         onChange={({ detail }) => setActiveTab(detail.activeTabId)}
