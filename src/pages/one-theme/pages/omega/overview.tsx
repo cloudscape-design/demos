@@ -332,7 +332,7 @@ function CollaborationSection() {
 
 function ProfileSection() {
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: 'relative', height: '100%' }}>
       <img
         src={profileImg}
         alt="Profile"
@@ -506,11 +506,11 @@ export default function OverviewPage() {
       </Grid>
 
       {/* Profile + Usage + Next steps row */}
-      <Grid gridDefinition={[{ colspan: 3 }, { colspan: 5 }, { colspan: 4 }]}>
+      <div style={{ display: 'grid', gridTemplateColumns: '3fr 5fr 4fr', gap: '20px', alignItems: 'stretch' }}>
         <ProfileSection />
         <UsageSection />
         <NextStepsSection />
-      </Grid>
+      </div>
     </SpaceBetween>
   );
 }
