@@ -82,8 +82,13 @@ export function generateThemeConfigOneTheme() {
       colorTextBodyDefault: colorTextBodyDefault,
       colorTextBodySecondary: colorTextBodySecondary,
 
-      colorBackgroundLayoutToolbar: { light: '#ffffff', dark: grey1000 },
+      // ========================================================================
+      // NAVIGATION BAR (Sid and top)
+      // ========================================================================
+      colorBackgroundNavigationBarPrimary: { light: '#ffffff', dark: grey1000 },
       colorBackgroundNavigationBarSecondary: { light: '#ffffff', dark: grey1000 },
+      colorBorderNavigationBarPrimary: { light: grey350, dark: grey750 },
+      colorBorderNavigationBarSecondary: { light: grey350, dark: grey750 },
 
       // ========================================================================
       // CONTAINER
