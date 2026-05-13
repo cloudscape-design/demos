@@ -13,7 +13,6 @@ import FormField from '@cloudscape-design/components/form-field';
 import Grid from '@cloudscape-design/components/grid';
 import Input from '@cloudscape-design/components/input';
 import ProgressBar from '@cloudscape-design/components/progress-bar';
-import Select from '@cloudscape-design/components/select';
 import Slider from '@cloudscape-design/components/slider';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import Spinner from '@cloudscape-design/components/spinner';
@@ -277,12 +276,6 @@ export default function StatusComponents() {
                 onDismiss={() => {
                   /* no-op for demo*/
                 }}
-              />
-              <Select
-                selectedOption={{ value: '1', label: `Loading state in dropdown` }}
-                loadingText="Loading"
-                statusType="loading"
-                ariaLabel="Select"
               />
               <ProgressBar value={60} label="Progress" ariaLabel="Progress bar" />
               <SpaceBetween direction="horizontal" size="s">

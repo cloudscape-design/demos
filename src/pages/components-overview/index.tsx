@@ -8,7 +8,7 @@ import { applyTheme } from '@cloudscape-design/components/theming';
 import { themeCoreConfig } from '../../common/theme-one-theme';
 applyTheme({ theme: themeCoreConfig });
 
-import { BreadcrumbGroup, Header, SpaceBetween, SplitPanel } from '@cloudscape-design/components';
+import { BreadcrumbGroup, Header, IconProvider, SpaceBetween, SplitPanel } from '@cloudscape-design/components';
 
 import { Notifications } from '../commons';
 import {
@@ -37,7 +37,15 @@ function App() {
     useGlobalSplitPanel();
 
   return (
-    <>
+    <IconProvider
+      icons={{
+        'caret-down-filled': (
+          <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+            <path d="m2 5 6 6 6-6" className="stroke-linejoin-round"></path>
+          </svg>
+        ),
+      }}
+    >
       <DemoTopNavigation />
       <CustomAppLayout
         toolsHide={true}
@@ -107,7 +115,7 @@ function App() {
           </SpaceBetween>
         }
       />
-    </>
+    </IconProvider>
   );
 }
 

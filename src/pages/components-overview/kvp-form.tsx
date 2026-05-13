@@ -14,7 +14,6 @@ import Icon from '@cloudscape-design/components/icon';
 import Input from '@cloudscape-design/components/input';
 import KeyValuePairs from '@cloudscape-design/components/key-value-pairs';
 import Link from '@cloudscape-design/components/link';
-import Select from '@cloudscape-design/components/select';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import StatusIndicator from '@cloudscape-design/components/status-indicator';
 import Textarea from '@cloudscape-design/components/textarea';
@@ -112,16 +111,6 @@ export default function KvpForm() {
                           },
                         ]}
                         ariaLabel="Cache policy"
-                      />
-                    </FormField>
-                    <FormField label="Delivery method">
-                      <Select
-                        selectedOption={{ label: 'Web', value: 'web' }}
-                        options={[
-                          { label: 'Web', value: 'web' },
-                          { label: 'RTMP', value: 'rtmp' },
-                        ]}
-                        ariaLabel="Delivery method"
                       />
                     </FormField>
                     <FormField label="Origin domain name" description="The domain name of the resource.">

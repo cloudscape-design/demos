@@ -66,7 +66,7 @@ export function generateThemeConfigOneTheme() {
 
   // Neutral colors
   const colorNeutralDefault = { light: grey800, dark: grey200 };
-  const colorNeutralInverse = { light: '#ffffff', dark: grey900 };
+  const colorNeutralInverse = { light: grey900, dark: '#ffffff' };
   //const colorNeutralBackground = { light: '#F6F6F9', dark: '#333843' };
 
   // Toned down text color
@@ -89,8 +89,8 @@ export function generateThemeConfigOneTheme() {
       // ========================================================================
       colorBackgroundContainerHeader: { light: '#ffffff', dark: grey950 },
       colorBackgroundContainerContent: { light: '#ffffff', dark: grey950 },
-      colorBorderDividerDefault: { light: grey350, dark: grey700 },
-      colorBorderLayout: { light: grey350, dark: grey700 },
+      colorBorderDividerDefault: { light: grey350, dark: grey750 },
+      colorBorderLayout: { light: grey350, dark: grey750 },
 
       // ========================================================================
       // BUTTONS - Normal
@@ -99,9 +99,8 @@ export function generateThemeConfigOneTheme() {
       colorBorderButtonNormalHover: { light: grey650, dark: grey600 },
       colorBorderButtonNormalActive: { light: grey650, dark: grey600 },
 
-      // Need to update
       colorBackgroundButtonNormalDefault: { light: '#FFFFFF', dark: grey850 },
-      colorBackgroundButtonNormalHover: { light: grey150, dark: grey650 },
+      colorBackgroundButtonNormalHover: { light: grey150, dark: grey750 },
       colorBackgroundButtonNormalActive: { light: grey250, dark: grey700 },
 
       colorTextButtonNormalDefault: { light: grey700, dark: grey300 },
@@ -131,13 +130,14 @@ export function generateThemeConfigOneTheme() {
       // ========================================================================
       colorBackgroundInputDefault: { light: '#ffffff', dark: grey950 },
       colorBackgroundInputDisabled: { light: grey250, dark: grey800 },
+      colorBorderInputDefault: { light: grey400, dark: grey600 },
 
       // ========================================================================
       // BUTTONS - Toggle
       // ========================================================================
-      colorBackgroundToggleButtonNormalPressed: colorSelectedAccentSubtleHover,
-      colorBorderToggleButtonNormalPressed: colorSelectedAccent,
-      colorTextToggleButtonNormalPressed: colorSelectedAccent,
+      colorBackgroundToggleButtonNormalPressed: { light: '#FFFFFF', dark: grey850 },
+      colorBorderToggleButtonNormalPressed: colorNeutralInverse,
+      colorTextToggleButtonNormalPressed: colorNeutralInverse,
 
       // ========================================================================
       // CONTROLS - Checkboxes, Radio, Toggle
@@ -149,20 +149,20 @@ export function generateThemeConfigOneTheme() {
       // KVP & FORM FIELD
       // ========================================================================
       colorTextLabel: { light: grey600, dark: grey500 },
-      fontSizeKeyValuePairsLabel: '12px',
+      fontSizeKeyValuePairsLabel: '14px',
       lineHeightKeyValuePairsLabel: '20px',
-      fontWeightKeyValuePairsLabel: '500',
+      fontWeightKeyValuePairsLabel: '400',
 
-      colorTextFormLabel: { light: grey600, dark: grey500 },
-      fontSizeFormLabel: '12px',
+      colorTextFormLabel: { light: grey600, dark: grey350 },
+      fontSizeFormLabel: '14px',
       lineHeightFormLabel: '20px',
-      fontWeightFormLabel: '500',
+      fontWeightFormLabel: '400',
 
       // ========================================================================
       // LINKS & TEXT
       // ========================================================================
       colorTextLinkDefault: colorTextBodyDefault,
-      colorTextLinkHover: { light: grey650, dark: grey350 },
+      colorTextLinkHover: { light: grey650, dark: grey250 },
       colorTextLinkSecondaryDefault: colorTextBodySecondary,
       colorTextLinkInfoDefault: { light: indigo600, dark: indigo400 },
       colorTextLinkInfoHover: { light: indigo800, dark: indigo300 },
@@ -215,7 +215,7 @@ export function generateThemeConfigOneTheme() {
       // ========================================================================
       spaceStatusIndicatorPaddingInline: '4px',
       borderRadiusStatusIndicator: '2px',
-      colorBackgroundStatusIndicatorInfo: { light: '#5c7fff10', dark: '#5c7fff30' },
+      colorBackgroundStatusIndicatorInfo: { light: '#5c7fff20', dark: '#5c7fff20' },
       colorBackgroundStatusIndicatorWarning: { light: '#FBD33220', dark: '#FBD33220' },
       colorBackgroundStatusIndicatorSuccess: { light: '#7ae50020', dark: '#7ae50020' },
       colorBackgroundStatusIndicatorError: { light: '#ff7a7a10', dark: '#ff7a7a20' },
@@ -257,7 +257,7 @@ export function generateThemeConfigOneTheme() {
       fontWeightTabs: '500',
       fontWeightAlertHeader: '500',
       fontWeightFlashbarHeader: '500',
-      fontSizeTabs: '16px',
+      fontSizeTabs: '14px',
 
       // ========================================================================
       // SPACE
@@ -296,6 +296,8 @@ export function generateThemeConfigOneTheme() {
       borderRadiusTabsFocusRing: '4px',
       borderRadiusToken: '2px',
       borderRadiusTutorialPanelItem: '4px',
+
+      fontLinkDecorationThickness: '0.5px',
 
       // ========================================================================
       // ICONS - Stroke Width

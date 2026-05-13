@@ -12,6 +12,7 @@ import Grid from '@cloudscape-design/components/grid';
 import Header from '@cloudscape-design/components/header';
 import type { IconProps } from '@cloudscape-design/components/icon';
 import Icon from '@cloudscape-design/components/icon';
+import KeyValuePairs from '@cloudscape-design/components/key-value-pairs';
 import LineChart from '@cloudscape-design/components/line-chart';
 import Link from '@cloudscape-design/components/link';
 import ProgressBar from '@cloudscape-design/components/progress-bar';
@@ -39,38 +40,43 @@ function ProjectCard({ project }: { project: Project }) {
         <Link href="#" variant="primary" fontSize="body-m">
           {project.name}
         </Link>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px' }}>
-          <SpaceBetween size="xxs">
-            <Box variant="awsui-key-label">Status</Box>
-            <StatusIndicator type={project.latestDeployment.statusType}>
-              {project.latestDeployment.status}
-            </StatusIndicator>
-          </SpaceBetween>
-          <SpaceBetween size="xxs">
-            <Box variant="awsui-key-label">Domain</Box>
-            {project.domainName ? (
-              <Link href={`https://${project.domainName}`} external={true} fontSize="body-s">
-                {project.domainName}
-              </Link>
-            ) : (
-              <Box color="text-body-secondary" fontSize="body-s">
-                —
-              </Box>
-            )}
-          </SpaceBetween>
-          <SpaceBetween size="xxs">
-            <Box variant="awsui-key-label">Last updated</Box>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexWrap: 'nowrap' }}>
-              <GitHubIcon />
-              <Link href="#" fontSize="body-s">
-                {relativeTime(project.latestDeployment.createdAt)}
-              </Link>
-              <Box color="text-body-secondary" fontSize="body-s">
-                by {project.latestDeployment.createdBy}
-              </Box>
-            </div>
-          </SpaceBetween>
-        </div>
+        <KeyValuePairs
+          columns={3}
+          items={[
+            {
+              label: 'Status',
+              value: (
+                <StatusIndicator type={project.latestDeployment.statusType}>
+                  {project.latestDeployment.status}
+                </StatusIndicator>
+              ),
+            },
+            {
+              label: 'Domain',
+              value: project.domainName ? (
+                <Link href={`https://${project.domainName}`} external={true} fontSize="body-s">
+                  {project.domainName}
+                </Link>
+              ) : (
+                '—'
+              ),
+            },
+            {
+              label: 'Last updated',
+              value: (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexWrap: 'nowrap' }}>
+                  <GitHubIcon />
+                  <Link href="#" fontSize="body-s">
+                    {relativeTime(project.latestDeployment.createdAt)}
+                  </Link>
+                  <Box color="text-body-secondary" fontSize="body-s">
+                    by {project.latestDeployment.createdBy}
+                  </Box>
+                </div>
+              ),
+            },
+          ]}
+        />
       </SpaceBetween>
     </Container>
   );
@@ -325,20 +331,14 @@ function ProfileSection() {
           alt="Profile"
           style={{ position: 'absolute', top: 0, right: 0, width: 56, height: 56, objectFit: 'cover', borderRadius: 4 }}
         />
-        <SpaceBetween size="m">
-          <SpaceBetween size="xxs">
-            <Box variant="awsui-key-label">Name</Box>
-            <Box fontWeight="normal">Alice Deverill</Box>
-          </SpaceBetween>
-          <SpaceBetween size="xxs">
-            <Box variant="awsui-key-label">Email</Box>
-            <Box fontWeight="normal">Alice-dev@banana-truck.com</Box>
-          </SpaceBetween>
-          <SpaceBetween size="xxs">
-            <Box variant="awsui-key-label">Multi-factor authentication</Box>
-            <Box fontWeight="normal">Configured</Box>
-          </SpaceBetween>
-        </SpaceBetween>
+        <KeyValuePairs
+          columns={1}
+          items={[
+            { label: 'Name', value: 'Alice Deverill' },
+            { label: 'Email', value: 'Alice-dev@banana-truck.com' },
+            { label: 'Multi-factor authentication', value: 'Configured' },
+          ]}
+        />
       </div>
     </Container>
   );
@@ -362,19 +362,22 @@ function UsageSection() {
     >
       <SpaceBetween size="m">
         <ProgressBar value={30} style={{ progressValue: { backgroundColor: '#79FF3B' } }} />
-        <ColumnLayout columns={2} variant="text-grid">
-          {USAGE_METRICS.map(metric => (
-            <SpaceBetween key={metric.label} size="xxs">
-              <Box variant="awsui-key-label">{metric.label}</Box>
-              <Box fontSize="heading-l" fontWeight="normal">
-                <span style={{ fontWeight: 500, color: '#C9C9C9' }}>{metric.current}%</span>
-              </Box>
-              <span style={{ fontSize: 12, color: '#909090' }}>
-                {metric.current}/{metric.limit}
-              </span>
-            </SpaceBetween>
-          ))}
-        </ColumnLayout>
+        <KeyValuePairs
+          columns={2}
+          items={USAGE_METRICS.map(metric => ({
+            label: metric.label,
+            value: (
+              <SpaceBetween size="xxs">
+                <Box fontSize="heading-l" fontWeight="normal">
+                  <span style={{ fontWeight: 500, color: '#C9C9C9' }}>{metric.current}%</span>
+                </Box>
+                <span style={{ fontSize: 12, color: '#909090' }}>
+                  {metric.current}/{metric.limit}
+                </span>
+              </SpaceBetween>
+            ),
+          }))}
+        />
       </SpaceBetween>
     </Container>
   );

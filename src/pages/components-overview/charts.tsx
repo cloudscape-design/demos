@@ -6,6 +6,7 @@ import BarChart from '@cloudscape-design/components/bar-chart';
 import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
 import ColumnLayout from '@cloudscape-design/components/column-layout';
+import IconProvider from '@cloudscape-design/components/icon-provider';
 import LineChart from '@cloudscape-design/components/line-chart';
 import PieChart from '@cloudscape-design/components/pie-chart';
 
@@ -134,7 +135,18 @@ const lineChartSite2 = [
 export default function Charts() {
   return (
     <Section header="Charts" level="h2">
-      <>
+      <IconProvider
+        icons={{
+          'caret-down-filled': (
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+              <path d="m2 5 6 6 6-6" className="stroke-linejoin-round"></path>
+            </svg>
+          ),
+        }}
+        sizes={{
+          normal: 12,
+        }}
+      >
         <ColumnLayout columns={3}>
           <SubSection header="Stacked bar chart">
             <BarChart
@@ -214,7 +226,7 @@ export default function Charts() {
             />
           </SubSection>
         </ColumnLayout>
-      </>
+      </IconProvider>
     </Section>
   );
 }

@@ -9,6 +9,7 @@ import Box from '@cloudscape-design/components/box';
 import ButtonGroup from '@cloudscape-design/components/button-group';
 import FileTokenGroup from '@cloudscape-design/components/file-token-group';
 import Grid from '@cloudscape-design/components/grid';
+import IconProvider from '@cloudscape-design/components/icon-provider';
 import PromptInput from '@cloudscape-design/components/prompt-input';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 
@@ -82,54 +83,67 @@ export default function Chat() {
           />
         </SpaceBetween>
 
-        <PromptInput
-          onChange={({ detail }) => setValue(detail.value)}
-          value={value}
-          actionButtonAriaLabel="Send message"
-          actionButtonIconName="send"
-          disableSecondaryActionsPaddings
-          placeholder="Ask a question"
-          ariaLabel="Prompt input with files"
-          secondaryActions={
-            <Box padding={{ left: 'xxs', top: 'xs' }}>
-              <ButtonGroup
-                ariaLabel="Chat actions"
-                items={[
-                  {
-                    type: 'icon-button',
-                    id: 'copy',
-                    iconName: 'upload',
-                    text: 'Upload files',
-                  },
-                  {
-                    type: 'icon-button',
-                    id: 'expand',
-                    iconName: 'expand',
-                    text: 'Go full page',
-                  },
-                ]}
-                variant="icon"
+        <IconProvider
+          icons={{
+            'caret-down-filled': (
+              <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                <path d="m2 5 6 6 6-6" className="stroke-linejoin-round"></path>
+              </svg>
+            ),
+          }}
+          sizes={{
+            normal: 12,
+          }}
+        >
+          <PromptInput
+            onChange={({ detail }) => setValue(detail.value)}
+            value={value}
+            actionButtonAriaLabel="Send message"
+            actionButtonIconName="send"
+            disableSecondaryActionsPaddings
+            placeholder="Ask a question"
+            ariaLabel="Prompt input with files"
+            secondaryActions={
+              <Box padding={{ left: 'xxs', top: 'xs' }}>
+                <ButtonGroup
+                  ariaLabel="Chat actions"
+                  items={[
+                    {
+                      type: 'icon-button',
+                      id: 'copy',
+                      iconName: 'upload',
+                      text: 'Upload files',
+                    },
+                    {
+                      type: 'icon-button',
+                      id: 'expand',
+                      iconName: 'expand',
+                      text: 'Go full page',
+                    },
+                  ]}
+                  variant="icon"
+                />
+              </Box>
+            }
+            secondaryContent={
+              <FileTokenGroup
+                items={files.map(file => ({ file }))}
+                onDismiss={({ detail }) => setFiles(files => files.filter((_, index) => index !== detail.fileIndex))}
+                alignment="horizontal"
+                showFileSize={true}
+                showFileLastModified={true}
+                showFileThumbnail={true}
+                i18nStrings={{
+                  removeFileAriaLabel: () => 'Remove file',
+                  limitShowFewer: 'Show fewer files',
+                  limitShowMore: 'Show more files',
+                  errorIconAriaLabel: 'Error',
+                  warningIconAriaLabel: 'Warning',
+                }}
               />
-            </Box>
-          }
-          secondaryContent={
-            <FileTokenGroup
-              items={files.map(file => ({ file }))}
-              onDismiss={({ detail }) => setFiles(files => files.filter((_, index) => index !== detail.fileIndex))}
-              alignment="horizontal"
-              showFileSize={true}
-              showFileLastModified={true}
-              showFileThumbnail={true}
-              i18nStrings={{
-                removeFileAriaLabel: () => 'Remove file',
-                limitShowFewer: 'Show fewer files',
-                limitShowMore: 'Show more files',
-                errorIconAriaLabel: 'Error',
-                warningIconAriaLabel: 'Warning',
-              }}
-            />
-          }
-        />
+            }
+          />
+        </IconProvider>
       </Grid>
     </Section>
   );

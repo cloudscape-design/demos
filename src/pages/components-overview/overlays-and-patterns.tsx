@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import CodeView from '@cloudscape-design/code-view/code-view';
 import Box from '@cloudscape-design/components/box';
 import ColumnLayout from '@cloudscape-design/components/column-layout';
+import IconProvider from '@cloudscape-design/components/icon-provider';
 import TokenGroup from '@cloudscape-design/components/token-group';
 import Wizard from '@cloudscape-design/components/wizard';
 
@@ -33,16 +34,29 @@ export default function OverlaysAndPatterns() {
     <Section header="Tokens, code & patterns" level="h2">
       <>
         <SubSection header="Token group">
-          <ColumnLayout columns={2}>
-            <TokenGroup
-              items={tokens}
-              onDismiss={({ detail }) => setTokens(tokens.filter((_, i) => i !== detail.itemIndex))}
-            />
-            <TokenGroup
-              items={[{ label: 'Read-only token 1' }, { label: 'Read-only token 2' }, { label: 'Read-only token 3' }]}
-              readOnly={true}
-            />
-          </ColumnLayout>
+          <IconProvider
+            icons={{
+              'caret-down-filled': (
+                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                  <path d="m2 5 6 6 6-6" className="stroke-linejoin-round"></path>
+                </svg>
+              ),
+            }}
+            sizes={{
+              normal: 12,
+            }}
+          >
+            <ColumnLayout columns={2}>
+              <TokenGroup
+                items={tokens}
+                onDismiss={({ detail }) => setTokens(tokens.filter((_, i) => i !== detail.itemIndex))}
+              />
+              <TokenGroup
+                items={[{ label: 'Read-only token 1' }, { label: 'Read-only token 2' }, { label: 'Read-only token 3' }]}
+                readOnly={true}
+              />
+            </ColumnLayout>
+          </IconProvider>
         </SubSection>
 
         <SubSection header="Code view">

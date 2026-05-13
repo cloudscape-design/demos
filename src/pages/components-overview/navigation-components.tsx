@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useState } from 'react';
 
+import { IconProvider } from '@cloudscape-design/components';
 import AnchorNavigation from '@cloudscape-design/components/anchor-navigation';
 import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
 import Grid from '@cloudscape-design/components/grid';
@@ -48,38 +49,49 @@ export default function NavigationComponents() {
           ]}
         />
 
-        <SideNavigation
-          activeHref={activeHref}
-          header={{ href: '#/', text: 'Side navigation' }}
-          onFollow={event => {
-            if (!event.detail.external) {
-              event.preventDefault();
-              setActiveHref(event.detail.href);
-            }
+        <IconProvider
+          icons={{
+            'caret-down-filled': (
+              <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                <path d="m2 5 6 6 6-6" className="stroke-linejoin-round"></path>
+              </svg>
+            ),
           }}
-          items={[
-            { type: 'link', text: 'Page 1', href: '#/page1' },
-            {
-              type: 'expandable-link-group',
-              text: 'Parent page',
-              href: '#/parent-page',
-              items: [
-                {
-                  type: 'link',
-                  text: 'Child page 1',
-                  href: '#/parent-page/child-page1',
-                },
-                {
-                  type: 'link',
-                  text: 'Child page 2',
-                  href: '#/parent-page/child-page2',
-                },
-              ],
-            },
-            { type: 'link', text: 'Page 2', href: '#/page2' },
-            { type: 'link', text: 'Page 3', href: '#/page3' },
-          ]}
-        />
+          sizes={{ normal: 12 }}
+        >
+          <SideNavigation
+            activeHref={activeHref}
+            header={{ href: '#/', text: 'Side navigation' }}
+            onFollow={event => {
+              if (!event.detail.external) {
+                event.preventDefault();
+                setActiveHref(event.detail.href);
+              }
+            }}
+            items={[
+              { type: 'link', text: 'Page 1', href: '#/page1' },
+              {
+                type: 'expandable-link-group',
+                text: 'Parent page',
+                href: '#/parent-page',
+                items: [
+                  {
+                    type: 'link',
+                    text: 'Child page 1',
+                    href: '#/parent-page/child-page1',
+                  },
+                  {
+                    type: 'link',
+                    text: 'Child page 2',
+                    href: '#/parent-page/child-page2',
+                  },
+                ],
+              },
+              { type: 'link', text: 'Page 2', href: '#/page2' },
+              { type: 'link', text: 'Page 3', href: '#/page3' },
+            ]}
+          />
+        </IconProvider>
 
         <Tabs
           activeTabId={activeTabId}

@@ -11,8 +11,8 @@ import ButtonGroup from '@cloudscape-design/components/button-group';
 import Container from '@cloudscape-design/components/container';
 import DatePicker from '@cloudscape-design/components/date-picker';
 import DateRangePicker, { DateRangePickerProps } from '@cloudscape-design/components/date-range-picker';
-import ExpandableSection from '@cloudscape-design/components/expandable-section';
 import Grid from '@cloudscape-design/components/grid';
+import IconProvider from '@cloudscape-design/components/icon-provider';
 import Link from '@cloudscape-design/components/link';
 import Modal from '@cloudscape-design/components/modal';
 import Multiselect, { MultiselectProps } from '@cloudscape-design/components/multiselect';
@@ -150,16 +150,29 @@ function Inputs() {
 
   return (
     <Grid>
-      <SpaceBetween size="s" direction="horizontal">
-        <Multiselect
-          options={multiSelectOptions}
-          placeholder="Multiselect"
-          selectedOptions={selectedItems}
-          onChange={({ detail }) => setSelectedItems(detail.selectedOptions)}
-        />
-        <Multiselect disabled={true} placeholder="Disabled multi-select" selectedOptions={selectedItems} />
-        <Multiselect readOnly={true} placeholder="Read-only multi-select" selectedOptions={selectedItems} />
-      </SpaceBetween>
+      <IconProvider
+        icons={{
+          'caret-down-filled': (
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+              <path d="m2 5 6 6 6-6" className="stroke-linejoin-round"></path>
+            </svg>
+          ),
+        }}
+        sizes={{
+          normal: 12,
+        }}
+      >
+        <SpaceBetween size="s" direction="horizontal">
+          <Multiselect
+            options={multiSelectOptions}
+            placeholder="Multiselect"
+            selectedOptions={selectedItems}
+            onChange={({ detail }) => setSelectedItems(detail.selectedOptions)}
+          />
+          <Multiselect disabled={true} placeholder="Disabled multi-select" selectedOptions={selectedItems} />
+          <Multiselect readOnly={true} placeholder="Read-only multi-select" selectedOptions={selectedItems} />
+        </SpaceBetween>
+      </IconProvider>
       <SpaceBetween size="s" direction="horizontal">
         <Autosuggest
           value={autosuggestValue}
@@ -226,13 +239,6 @@ function Inputs() {
           i18nStrings={{}}
           placeholder="Filter by a date and time range"
         />
-      </SpaceBetween>
-      <SpaceBetween size="xl" direction="horizontal">
-        <SpaceBetween size="s">
-          <ExpandableSection variant="footer" headerText="Expandable section">
-            Expanded
-          </ExpandableSection>
-        </SpaceBetween>
       </SpaceBetween>
     </Grid>
   );
@@ -566,43 +572,56 @@ export default function ButtonsInputsDropdowns() {
               { colspan: { default: 12, xxs: 4 } },
             ]}
           >
-            <SpaceBetween size="s">
-              <ButtonDropdown
-                items={[
-                  { text: 'Edit', id: 'edit', iconName: 'edit' },
-                  { text: 'Delete', id: 'delete', iconName: 'remove' },
-                  { text: 'Duplicate', id: 'duplicate', iconName: 'copy' },
-                  {
-                    text: 'More actions',
-                    id: 'more',
-                    items: [
-                      { text: 'Export', id: 'export' },
-                      { text: 'Share', id: 'share' },
-                    ],
-                  },
-                ]}
-              >
-                Actions
-              </ButtonDropdown>
-              <ButtonDropdown
-                items={[
-                  { text: 'Edit', id: 'edit' },
-                  { text: 'Delete', id: 'delete', disabled: true },
-                ]}
-                variant="primary"
-              >
-                Primary dropdown
-              </ButtonDropdown>
-              <ButtonDropdown
-                items={[
-                  { text: 'Edit', id: 'edit' },
-                  { text: 'Delete', id: 'delete' },
-                ]}
-                disabled={true}
-              >
-                Disabled dropdown
-              </ButtonDropdown>
-            </SpaceBetween>
+            <IconProvider
+              icons={{
+                'caret-down-filled': (
+                  <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                    <path d="m2 5 6 6 6-6" className="stroke-linejoin-round"></path>
+                  </svg>
+                ),
+              }}
+              sizes={{
+                normal: 12,
+              }}
+            >
+              <SpaceBetween size="s">
+                <ButtonDropdown
+                  items={[
+                    { text: 'Edit', id: 'edit', iconName: 'edit' },
+                    { text: 'Delete', id: 'delete', iconName: 'remove' },
+                    { text: 'Duplicate', id: 'duplicate', iconName: 'copy' },
+                    {
+                      text: 'More actions',
+                      id: 'more',
+                      items: [
+                        { text: 'Export', id: 'export' },
+                        { text: 'Share', id: 'share' },
+                      ],
+                    },
+                  ]}
+                >
+                  Actions
+                </ButtonDropdown>
+                <ButtonDropdown
+                  items={[
+                    { text: 'Edit', id: 'edit' },
+                    { text: 'Delete', id: 'delete', disabled: true },
+                  ]}
+                  variant="primary"
+                >
+                  Primary dropdown
+                </ButtonDropdown>
+                <ButtonDropdown
+                  items={[
+                    { text: 'Edit', id: 'edit' },
+                    { text: 'Delete', id: 'delete' },
+                  ]}
+                  disabled={true}
+                >
+                  Disabled dropdown
+                </ButtonDropdown>
+              </SpaceBetween>
+            </IconProvider>
 
             <SpaceBetween size="s">
               <Popover
@@ -621,6 +640,7 @@ export default function ButtonsInputsDropdowns() {
               </Popover>
               <StatusIndicator type="info">Normal latency</StatusIndicator>
               <StatusIndicator type="error">Error latency</StatusIndicator>
+              {/* <StatusIndicator type="pending">Pending instance</StatusIndicator> */}
               <Popover dismissButton={false} position="top" size="small" content="Copied!" triggerType="custom">
                 <Button iconName="copy" variant="inline-icon" ariaLabel="Copy" />
               </Popover>
