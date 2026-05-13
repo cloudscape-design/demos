@@ -58,6 +58,29 @@ function findActivePath(sections: SidebarSection[], activePath: string): string 
   return matches[0] ?? null;
 }
 
+/**
+ * A container whose content fades and clips horizontally as `expanded` changes.
+ * The content is kept in the DOM at all times so the transition is smooth.
+ */
+function CollapsingContent({ expanded, flex, children }: { expanded: boolean; flex?: boolean; children: ReactNode }) {
+  return (
+    <div
+      style={{
+        // maxWidth drives the clipping animation; opacity softens the appearance.
+        maxWidth: expanded ? 1000 : 0,
+        opacity: expanded ? 1 : 0,
+        overflow: 'hidden',
+        transition: 'max-width 200ms, opacity 150ms',
+        // flex: 1 lets this container fill remaining space (e.g. brand header row).
+        // flexShrink: 0 is the default for non-flex children.
+        ...(flex ? { flex: 1 } : { flexShrink: 0 }),
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
 interface NavItemProps extends SidebarItem {
   active: boolean;
   expanded: boolean;
@@ -84,9 +107,10 @@ function NavItem({ icon, label, active, badge, expanded, onNavigate }: NavItemPr
       style={{
         display: 'flex',
         alignItems: 'center',
-        gap: 10,
-        padding: expanded ? '8px 12px' : '8px',
-        justifyContent: expanded ? 'flex-start' : 'center',
+        // No horizontal padding — the icon column handles its own centering.
+        // minHeight restores the original 36px item height.
+        padding: 0,
+        minHeight: 36,
         borderRadius: 8,
         cursor: 'pointer',
         backgroundColor: active
@@ -99,11 +123,31 @@ function NavItem({ icon, label, active, badge, expanded, onNavigate }: NavItemPr
         whiteSpace: 'nowrap',
       }}
     >
-      <span style={active ? { color: '#5C7FFF' } : undefined}>
+      {/*
+       * Icon column: fixed width = collapsed item width (40px).
+       * justify-content: center keeps the icon perfectly centred when collapsed,
+       * and acts as a stable left anchor when the label is visible.
+       */}
+      <span
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: 40,
+          flexShrink: 0,
+          ...(active ? { color: '#5C7FFF' } : undefined),
+        }}
+      >
         <Icon name={icon} variant="normal" />
       </span>
-      {expanded && <span style={{ flex: 1 }}>{label}</span>}
-      {expanded && badge && <Badge color="blue">{badge}</Badge>}
+
+      {/* Label and badge animate in/out without touching the icon position. */}
+      <CollapsingContent expanded={expanded}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, paddingInlineEnd: 8 }}>
+          <span style={{ flex: 1 }}>{label}</span>
+          {badge && <Badge color="blue">{badge}</Badge>}
+        </div>
+      </CollapsingContent>
     </div>
   );
 }
@@ -121,17 +165,20 @@ export function Sidebar({ brand, sections, activePath, user, expanded, onToggle,
         overflow: 'hidden',
       }}
     >
+      {/* ── Brand / header row ──────────────────────────────────────────────
+          The logo always occupies the same fixed-width column (padding 8px on
+          each side + icon). Only the brand text and collapse button animate. */}
       <div
         style={{
-          padding: expanded ? '12px 16px 24px' : '12px 16px 24px',
+          padding: '12px 8px 24px',
           display: 'flex',
           alignItems: 'center',
           gap: 8,
-          justifyContent: expanded ? 'flex-start' : 'center',
           whiteSpace: 'nowrap',
           minHeight: '30px',
         }}
       >
+        {/* Logo / toggle button — fixed position, never moves. */}
         <div
           role="button"
           tabIndex={0}
@@ -147,28 +194,37 @@ export function Sidebar({ brand, sections, activePath, user, expanded, onToggle,
             cursor: 'pointer',
             display: 'inline-flex',
             alignItems: 'center',
+            flexShrink: 0,
             color: awsui.colorTextHeadingDefault,
           }}
         >
           {brand.short}
         </div>
-        {expanded && (
-          <>
+
+        {/* Brand text + collapse button animate in/out.
+            flex: 1 lets this container grow to fill remaining header width so
+            the collapse button can be pushed to the far right with marginInlineStart: auto. */}
+        <CollapsingContent expanded={expanded} flex={true}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <Box fontSize="heading-s">{brand.text}</Box>
             <div style={{ marginInlineStart: 'auto' }}>
               <Button iconName="angle-left" variant="icon" ariaLabel="Collapse sidebar" onClick={onToggle} />
             </div>
-          </>
-        )}
+          </div>
+        </CollapsingContent>
       </div>
-      <div style={{ flex: 1, overflow: 'auto', padding: expanded ? '0 8px' : '0 4px' }} tabIndex={0}>
+
+      {/* ── Nav sections ──────────────────────────────────────────────────── */}
+      <div style={{ flex: 1, overflowX: 'hidden', overflowY: 'auto', padding: '0 4px' }} tabIndex={0}>
         <SpaceBetween size="m" direction="vertical">
           {sections.map((section, si) => (
             <div key={si}>
-              {expanded && section.title && (
-                <Box variant="small" color="text-body-secondary" padding={{ horizontal: 'xs', bottom: 'xxs' }}>
-                  {section.title}
-                </Box>
+              {section.title && (
+                <CollapsingContent expanded={expanded}>
+                  <Box variant="small" color="text-body-secondary" padding={{ horizontal: 'xs', bottom: 'xxs' }}>
+                    {section.title}
+                  </Box>
+                </CollapsingContent>
               )}
               <SpaceBetween size="xxs" direction="vertical">
                 {section.items.map(item => (
@@ -185,29 +241,32 @@ export function Sidebar({ brand, sections, activePath, user, expanded, onToggle,
           ))}
         </SpaceBetween>
       </div>
-      {footer && expanded ? (
-        footer
+
+      {/* ── Footer ────────────────────────────────────────────────────────── */}
+      {footer ? (
+        <CollapsingContent expanded={expanded}>{footer}</CollapsingContent>
       ) : (
         <div
           style={{
-            padding: expanded ? '12px 16px' : '12px 0',
+            padding: '12px 8px',
             borderTop: `1px solid ${awsui.colorBorderDividerDefault}`,
             display: 'flex',
             alignItems: 'center',
             gap: 10,
-            justifyContent: expanded ? 'flex-start' : 'center',
             whiteSpace: 'nowrap',
           }}
         >
-          <Icon name="user-profile" />
-          {expanded && (
+          <span style={{ display: 'inline-flex', alignItems: 'center', flexShrink: 0 }}>
+            <Icon name="user-profile" />
+          </span>
+          <CollapsingContent expanded={expanded}>
             <div>
               <Box fontSize="body-s">{user.name}</Box>
               <Box variant="small" color="text-body-secondary">
                 {user.email}
               </Box>
             </div>
-          )}
+          </CollapsingContent>
         </div>
       )}
     </div>
