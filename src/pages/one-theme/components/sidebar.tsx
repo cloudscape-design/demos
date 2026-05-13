@@ -170,7 +170,9 @@ export function Sidebar({ brand, sections, activePath, user, expanded, onToggle,
           each side + icon). Only the brand text and collapse button animate. */}
       <div
         style={{
-          padding: '12px 8px 24px',
+          // 4px horizontal padding matches the nav scroll area so the logo column
+          // (width 40px) is centred within the 48px collapsed sidebar.
+          padding: '12px 4px 24px',
           display: 'flex',
           alignItems: 'center',
           gap: 8,
@@ -178,7 +180,7 @@ export function Sidebar({ brand, sections, activePath, user, expanded, onToggle,
           minHeight: '30px',
         }}
       >
-        {/* Logo / toggle button — fixed position, never moves. */}
+        {/* Logo / toggle button — fixed-width column, always centered. */}
         <div
           role="button"
           tabIndex={0}
@@ -194,6 +196,8 @@ export function Sidebar({ brand, sections, activePath, user, expanded, onToggle,
             cursor: 'pointer',
             display: 'inline-flex',
             alignItems: 'center',
+            justifyContent: 'center',
+            width: 40,
             flexShrink: 0,
             color: awsui.colorTextHeadingDefault,
           }}
