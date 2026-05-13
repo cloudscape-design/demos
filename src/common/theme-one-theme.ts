@@ -87,7 +87,7 @@ export function generateThemeConfigOneTheme() {
       // ========================================================================
       colorBackgroundNavigationBarPrimary: { light: '#ffffff', dark: grey1000 },
       colorBackgroundNavigationBarSecondary: { light: '#ffffff', dark: grey1000 },
-      colorBorderNavigationBarPrimary: { light: grey350, dark: grey750 },
+      colorBorderNavigationBarPrimary: { light: grey350, dark: 'transparent' },
       colorBorderNavigationBarSecondary: { light: grey350, dark: grey750 },
 
       // ========================================================================
