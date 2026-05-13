@@ -55,6 +55,20 @@ export function generateThemeConfigOneTheme() {
   const lime950 = '#002E00';
   const lime1000 = '#001400';
 
+  // Yellow primitive color palette
+  const yellow50 = '#FFFEF0';
+  const yellow100 = '#FFFBBD';
+  const yellow200 = '#FEF571';
+  const yellow300 = '#FFED4D';
+  const yellow400 = '#FFE347';
+  const yellow500 = '#FBD332';
+  const yellow600 = '#F2B100';
+  const yellow700 = '#DB9200';
+  const yellow800 = '#9E6900';
+  const yellow900 = '#855900';
+  const yellow950 = '#573A00';
+  const yellow1000 = '#191100';
+
   // Primary accent colors
   const colorAccentPrimary = { light: indigo400, dark: indigo500 };
   const colorSelectedAccent = { light: indigo600, dark: indigo500 };
@@ -215,8 +229,9 @@ export function generateThemeConfigOneTheme() {
       // ========================================================================
       // STATUS
       // ========================================================================
-      colorTextStatusInfo: { light: indigo800, dark: indigo400 },
+      colorTextStatusInfo: { light: indigo800, dark: indigo300 },
       colorTextStatusSuccess: { light: lime600, dark: lime200 },
+      colorTextStatusWarning: { light: yellow800, dark: yellow300 },
       colorTextDropdownItemFilterMatch: colorSelectedAccent,
       colorBackgroundDropdownItemFilterMatch: { light: grey200, dark: grey1000 },
 
