@@ -195,6 +195,13 @@ const createWebpackConfig = (base, { includeDevServer }) => {
           use: ['url-loader'],
         },
         {
+          test: /\.mp4$/,
+          type: 'asset/resource',
+          generator: {
+            filename: 'media/[name][ext]',
+          },
+        },
+        {
           test: /\.woff2$/,
           type: 'asset/resource',
         },

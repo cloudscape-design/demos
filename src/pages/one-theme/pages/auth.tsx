@@ -3,13 +3,16 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { Icon } from '@cloudscape-design/components';
 import AppLayoutToolbar from '@cloudscape-design/components/app-layout-toolbar';
 import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
 import Checkbox from '@cloudscape-design/components/checkbox';
 import Container from '@cloudscape-design/components/container';
+import Divider from '@cloudscape-design/components/divider';
 import FormField from '@cloudscape-design/components/form-field';
 import Header from '@cloudscape-design/components/header';
+import IconProvider from '@cloudscape-design/components/icon-provider';
 import Input from '@cloudscape-design/components/input';
 import Link from '@cloudscape-design/components/link';
 import type { SelectProps } from '@cloudscape-design/components/select';
@@ -19,6 +22,13 @@ import Spinner from '@cloudscape-design/components/spinner';
 import * as awsui from '@cloudscape-design/design-tokens';
 
 import backgroundSignup from '../../../common/background-signup.png';
+import backgroundSignup2 from '../../../common/background-signup-2.mp4';
+import backgroundSignup3 from '../../../common/background-signup-3.mp4';
+import backgroundSignup4 from '../../../common/background-signup-4.png';
+import backgroundSignup5 from '../../../common/background-signup-5.mp4';
+
+type BackgroundType = 'image1' | 'video2' | 'video3' | 'image4' | 'video5';
+const BACKGROUNDS: BackgroundType[] = ['image1', 'video2', 'video3', 'image4', 'video5'];
 
 type Step = 'email' | 'name' | 'verify' | 'password' | 'contact' | 'loading';
 
@@ -42,8 +52,8 @@ function SocialIcon({ id }: { id: string }) {
   switch (id) {
     case 'amazon':
       return (
-        <svg viewBox="0 0 16 16" fill="currentColor" style={style}>
-          <path d="M9.45115 5.68044C6.86587 5.7622 4.40568 6.4572 4.40568 8.9919C4.40568 10.7498 5.48983 11.6084 6.94926 11.6084C8.2419 11.6084 9.07586 11.1178 9.78473 10.3819C10.1183 10.8316 10.2017 11.036 10.7855 11.4857C10.9106 11.5675 11.1191 11.5675 11.2025 11.4448L12.4951 10.341C12.6619 10.2184 12.5785 10.014 12.4951 9.9322C12.2032 9.48249 11.8696 9.15543 11.8696 8.33779V5.72132C11.8696 4.6175 11.953 3.59544 11.1191 2.85956C10.4102 2.20544 9.53454 2.04191 8.53379 2.00103C6.32379 1.96014 4.86436 3.14573 4.65587 4.53573C4.61417 4.78102 4.82266 4.90367 4.94776 4.90367L6.49059 5.10808C6.74077 5.14897 6.86587 4.94455 6.90757 4.78102C7.15775 3.88161 8.11681 3.63632 8.70058 3.84073C9.53454 4.08603 9.45115 5.02632 9.45115 5.68044ZM7.95002 9.97308C7.32455 9.97308 6.90757 9.44161 6.90757 8.74661C6.94926 7.27485 8.11681 7.02955 9.45115 7.02955V7.76543C9.45115 9.07367 8.74228 9.97308 7.95002 9.97308Z" />
+        <svg viewBox="0 0 16 16" fill="currentColor" style={style} xmlns="http://www.w3.org/2000/svg">
+          <path d="M9.45115 5.68044C6.86587 5.7622 4.40568 6.4572 4.40568 8.9919C4.40568 10.7498 5.48983 11.6084 6.94926 11.6084C8.2419 11.6084 9.07586 11.1178 9.78473 10.3819C10.1183 10.8316 10.2017 11.036 10.7855 11.4857C10.9106 11.5675 11.1191 11.5675 11.2025 11.4448L12.4951 10.341C12.6619 10.2184 12.5785 10.014 12.4951 9.9322C12.2032 9.48249 11.8696 9.15543 11.8696 8.33779V5.72132C11.8696 4.6175 11.953 3.59544 11.1191 2.85956C10.4102 2.20544 9.53454 2.04191 8.53379 2.00103C6.32379 1.96014 4.86436 3.14573 4.65587 4.53573C4.61417 4.78102 4.82266 4.90367 4.94776 4.90367L6.49059 5.10808C6.74077 5.14897 6.86587 4.94455 6.90757 4.78102C7.15775 3.88161 8.11681 3.63632 8.70058 3.84073C9.53454 4.08603 9.45115 5.02632 9.45115 5.68044ZM7.95002 9.97308C7.32455 9.97308 6.90757 9.44161 6.90757 8.74661C6.94926 7.27485 8.11681 7.02955 9.45115 7.02955V7.76543C9.45115 9.07367 8.74228 9.97308 7.95002 9.97308ZM14.9553 14.3066C15.4974 13.8569 16.0394 12.7531 15.9977 11.9763C15.9977 11.6901 15.956 11.6493 15.6642 11.5675C15.1221 11.404 13.746 11.3631 13.0789 11.9763C12.9538 12.099 12.9955 12.1807 13.1206 12.1807C13.5793 12.099 14.997 11.9354 15.2055 12.2625C15.3723 12.5487 14.8719 13.6934 14.7051 14.184C14.6217 14.3884 14.7885 14.4293 14.9553 14.3066ZM0.0690876 12.0172C4.0721 15.7375 10.3685 15.8601 14.4549 13.0393C14.7468 12.8757 14.4549 12.5487 14.2047 12.6713C11.9676 13.5988 9.54132 14.0041 7.11717 13.8551C4.69301 13.7061 2.33732 13.007 0.23588 11.8128C0.0690876 11.6901 -0.0977046 11.8945 0.0690876 12.0172Z" />
         </svg>
       );
     case 'apple':
@@ -88,16 +98,91 @@ function SocialIcon({ id }: { id: string }) {
   }
 }
 
-function AuthShell({ children }: { children: React.ReactNode }) {
+function AuthShell({
+  children,
+  bg,
+  onCycleBg,
+}: {
+  children: React.ReactNode;
+  bg: BackgroundType;
+  onCycleBg: () => void;
+}) {
+  const [isDarkMode, setIsDarkMode] = useState(() => document.body.classList.contains('awsui-dark-mode'));
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDarkMode(document.body.classList.contains('awsui-dark-mode'));
+    });
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
+
+  const isVideo = bg === 'video2' || bg === 'video3' || bg === 'video5';
+  const videoSrc = bg === 'video2' ? backgroundSignup2 : bg === 'video3' ? backgroundSignup3 : backgroundSignup5;
+  const imageSrc = bg === 'image1' ? backgroundSignup : backgroundSignup4;
+  const forceLight = bg === 'video3' || bg === 'video5';
+
+  useEffect(() => {
+    const body = document.body;
+    const hadDark = body.classList.contains('awsui-dark-mode');
+    if (forceLight) {
+      body.classList.remove('awsui-dark-mode');
+    }
+    return () => {
+      // Restore dark mode on body when leaving this bg or unmounting
+      if (forceLight && hadDark) {
+        body.classList.add('awsui-dark-mode');
+      }
+    };
+  }, [forceLight]);
+
   return (
     <div
       style={{
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
-        background: `url(${backgroundSignup}) center center / cover no-repeat`,
+        position: 'relative',
+        overflow: 'hidden',
+        background: isVideo ? '#000' : `url(${imageSrc}) center center / cover no-repeat`,
       }}
     >
+      {isVideo && (
+        <video
+          key={videoSrc}
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: 0,
+          }}
+        >
+          <source src={videoSrc} type="video/mp4" />
+        </video>
+      )}
+      {/* Hidden background cycle trigger — bottom-right corner */}
+      <button
+        onClick={onCycleBg}
+        aria-label="Cycle background"
+        style={{
+          position: 'fixed',
+          bottom: 0,
+          right: 0,
+          width: 40,
+          height: 40,
+          opacity: 0,
+          cursor: 'default',
+          background: 'transparent',
+          border: 'none',
+          zIndex: 9999,
+        }}
+      />
       <div
         style={{
           padding: '24px 24px',
@@ -108,6 +193,7 @@ function AuthShell({ children }: { children: React.ReactNode }) {
           top: 0,
           width: '100%',
           boxSizing: 'border-box',
+          zIndex: 1,
         }}
       >
         <Box fontSize="heading-m">
@@ -115,7 +201,7 @@ function AuthShell({ children }: { children: React.ReactNode }) {
             <g clipPath="url(#clip0_26_4679)">
               <path
                 d="M16.9478 13.054C16.9478 13.802 17.0238 14.396 17.1758 14.838C17.3278 15.282 17.5438 15.76 17.8238 16.274C17.9158 16.438 17.9638 16.588 17.9638 16.728C17.9638 16.938 17.8358 17.136 17.5778 17.324L16.3178 18.164C16.1318 18.28 15.9558 18.34 15.7938 18.34C15.5838 18.34 15.3858 18.248 15.1998 18.06C14.9198 17.78 14.6798 17.47 14.4818 17.132C14.2838 16.794 14.0798 16.404 13.8698 15.96C12.3058 17.804 10.3458 18.726 7.9898 18.726C6.3098 18.726 4.9798 18.248 3.9998 17.29C3.0198 16.334 2.5298 15.05 2.5298 13.44C2.5298 11.738 3.1358 10.366 4.3498 9.32802C5.5618 8.29002 7.1958 7.77002 9.2498 7.77002C9.9258 7.77002 10.6318 7.82202 11.3678 7.92802C12.1038 8.03402 12.8678 8.18002 13.6598 8.36602V6.89602C13.6598 5.38002 13.3438 4.31202 12.7158 3.69402C12.0858 3.07602 10.9998 2.76602 9.4598 2.76602C8.7598 2.76602 8.0418 2.85402 7.3078 3.02802C6.5738 3.20402 5.8558 3.43002 5.1558 3.71002C4.8298 3.85002 4.5958 3.93802 4.4558 3.97202C4.3158 4.00602 4.2118 4.02402 4.1418 4.02402C3.8618 4.02402 3.7218 3.81402 3.7218 3.39402V2.41402C3.7218 2.08802 3.7678 1.85402 3.8618 1.71402C3.9538 1.57402 4.1418 1.43402 4.4218 1.29402C5.1218 0.944016 5.9618 0.642016 6.9418 0.384016C7.9218 0.128016 8.95979 -0.00198364 10.0558 -0.00198364C12.4358 -0.00198364 14.1798 0.540016 15.2878 1.62602C16.3958 2.71002 16.9498 4.35002 16.9498 6.54402V13.054H16.9478ZM8.8278 16.1C9.4818 16.1 10.1698 15.978 10.8938 15.732C11.6178 15.488 12.2458 15.062 12.7838 14.454C13.1098 14.082 13.3378 13.654 13.4658 13.176C13.5938 12.698 13.6578 12.12 13.6578 11.444V10.604C13.0738 10.464 12.4618 10.354 11.8198 10.272C11.1778 10.19 10.5538 10.15 9.9478 10.15C8.6178 10.15 7.6258 10.418 6.9718 10.954C6.3178 11.492 5.9918 12.262 5.9918 13.264C5.9918 14.198 6.2378 14.904 6.7258 15.382C7.2158 15.86 7.9158 16.1 8.8258 16.1H8.8278ZM24.8938 18.27C24.5438 18.27 24.2858 18.206 24.1238 18.078C23.9598 17.95 23.8198 17.688 23.7038 17.29L19.0138 1.82002C18.8958 1.42402 18.8398 1.15402 18.8398 1.01602C18.8398 0.690016 19.0018 0.526016 19.3298 0.526016H21.2898C21.6618 0.526016 21.9258 0.590016 22.0778 0.718016C22.2298 0.846016 22.3638 1.11002 22.4798 1.50602L25.8398 14.736L28.9538 1.50602C29.0458 1.11002 29.1758 0.848016 29.3398 0.718016C29.5018 0.590016 29.7718 0.526016 30.1438 0.526016H31.7538C32.1278 0.526016 32.3958 0.590016 32.5598 0.718016C32.7218 0.846016 32.8518 1.11002 32.9438 1.50602L36.0938 14.912L39.5578 1.50402C39.6738 1.10802 39.8078 0.846016 39.9598 0.716016C40.1118 0.588016 40.3738 0.524016 40.7478 0.524016H42.6018C42.9278 0.524016 43.0918 0.688016 43.0918 1.01402C43.0918 1.10802 43.0798 1.21202 43.0578 1.32802C43.0338 1.44602 42.9878 1.60802 42.9178 1.81802L38.0878 17.288C37.9698 17.686 37.8298 17.948 37.6678 18.076C37.5038 18.204 37.2478 18.268 36.8978 18.268H35.1818C34.8078 18.268 34.5398 18.198 34.3758 18.058C34.2118 17.918 34.0838 17.65 33.9918 17.252L30.8758 4.37202L27.7958 17.252C27.7018 17.65 27.5738 17.918 27.4118 18.058C27.2478 18.198 26.9798 18.268 26.6058 18.268H24.8898L24.8938 18.27ZM50.5838 18.796C49.5338 18.796 48.5078 18.68 47.5038 18.446C46.4998 18.214 45.7298 17.944 45.1938 17.64C44.8678 17.454 44.6618 17.268 44.5818 17.08C44.4998 16.894 44.4598 16.708 44.4598 16.52V15.504C44.4598 15.084 44.6118 14.874 44.9158 14.874C45.0318 14.874 45.1538 14.898 45.2838 14.944C45.4118 14.992 45.5818 15.062 45.7918 15.154C46.4678 15.458 47.2038 15.692 47.9958 15.854C48.7878 16.018 49.5818 16.1 50.3758 16.1C51.6358 16.1 52.6098 15.878 53.2978 15.434C53.9858 14.992 54.3298 14.36 54.3298 13.544C54.3298 12.984 54.1498 12.518 53.7878 12.144C53.4258 11.77 52.7558 11.42 51.7758 11.094L48.8698 10.184C47.3998 9.71802 46.3318 9.04202 45.6678 8.15402C45.0038 7.26802 44.6698 6.30002 44.6698 5.25002C44.6698 4.41002 44.8498 3.67002 45.2118 3.02802C45.5738 2.38602 46.0518 1.83802 46.6458 1.38202C47.2398 0.928016 47.9358 0.582016 48.7278 0.350016C49.5198 0.118016 50.3598 1.63575e-05 51.2478 1.63575e-05C51.6898 1.63575e-05 52.1398 0.0300164 52.5958 0.0880164C53.0518 0.146016 53.4818 0.222016 53.8898 0.316016C54.2978 0.410016 54.6778 0.514016 55.0278 0.630016C55.3778 0.748016 55.6578 0.864016 55.8678 0.980016C56.1478 1.14402 56.3458 1.30802 56.4638 1.47002C56.5798 1.63402 56.6378 1.85402 56.6378 2.13602V3.08002C56.6378 3.50002 56.4858 3.71002 56.1818 3.71002C56.0178 3.71002 55.7618 3.62802 55.4118 3.46402C54.2678 2.95202 52.9838 2.69402 51.5618 2.69402C50.4178 2.69402 49.5318 2.88202 48.9018 3.25402C48.2718 3.62802 47.9578 4.22202 47.9578 5.04002C47.9578 5.60002 48.1558 6.07202 48.5518 6.45802C48.9478 6.84202 49.6838 7.21002 50.7578 7.56002L53.5918 8.47002C55.0378 8.93802 56.0718 9.57802 56.6898 10.396C57.3078 11.212 57.6178 12.146 57.6178 13.196C57.6178 14.06 57.4438 14.836 57.0938 15.524C56.7438 16.212 56.2598 16.802 55.6418 17.292C55.0238 17.782 54.2818 18.156 53.4198 18.412C52.5558 18.668 51.6118 18.796 50.5858 18.796H50.5838ZM53.4098 26.982C46.0278 30.114 38.0038 31.628 30.7058 31.628C19.8858 31.628 9.4118 28.66 0.941795 23.73C0.199795 23.298 -0.348204 24.06 0.267796 24.616C8.11979 31.706 18.4938 35.964 30.0158 35.964C38.2358 35.964 47.7838 33.38 54.3678 28.52C55.4578 27.714 54.5238 26.51 53.4098 26.982ZM55.3738 32.9C55.1338 33.5 55.6498 33.742 56.1938 33.288C59.7258 30.332 60.6398 24.14 59.9158 23.246C59.1978 22.36 53.0218 21.596 49.2518 24.242C48.6718 24.648 48.7718 25.21 49.4158 25.134C51.5398 24.88 56.2638 24.312 57.1058 25.39C57.9498 26.47 56.1698 30.914 55.3738 32.898V32.9Z"
-                fill="white"
+                fill={isDarkMode ? 'white' : '#1E1E1E'}
               />
             </g>
             <defs>
@@ -129,14 +215,14 @@ function AuthShell({ children }: { children: React.ReactNode }) {
           style={{
             root: {
               background: {
-                active: 'light-dark(rgb(255, 255, 255), rgb(255, 255, 255))',
-                default: 'light-dark(rgb(255, 255, 255), rgb(255, 255, 255))',
-                hover: 'light-dark(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.9))',
+                active: 'light-dark(rgb(36, 36, 36), rgb(255, 255, 255))',
+                default: 'light-dark(rgb(36, 36, 36), rgb(255, 255, 255))',
+                hover: 'light-dark(rgba(36, 36, 36, 0.9), rgba(255, 255, 255, 0.9))',
               },
               color: {
-                active: 'light-dark(rgb(0, 0, 0), rgb(0, 0, 0))',
-                default: 'light-dark(rgb(0, 0, 0), rgb(0, 0, 0))',
-                hover: 'light-dark(rgb(0, 0, 0), rgb(0, 0, 0))',
+                active: 'light-dark(rgb(255, 255, 255), rgb(0, 0, 0))',
+                default: 'light-dark(rgb(255, 255, 255), rgb(0, 0, 0))',
+                hover: 'light-dark(rgb(255, 255, 255), rgb(0, 0, 0))',
               },
               borderWidth: '0px',
               paddingBlock: '4px',
@@ -155,17 +241,100 @@ function AuthShell({ children }: { children: React.ReactNode }) {
           alignItems: 'center',
           justifyContent: 'center',
           padding: '40px 24px 80px',
+          position: 'relative',
+          zIndex: 1,
         }}
       >
         {children}
       </div>
+      {/* Footer */}
+      <div
+        style={{
+          position: 'relative',
+          zIndex: 1,
+          backgroundColor: awsui.colorBackgroundContainerContent,
+          padding: '12px 24px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: 8,
+        }}
+      >
+        <Link href="#" fontSize="body-s" onFollow={e => e.preventDefault()}>
+          Submit Feedback
+        </Link>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 0, flexWrap: 'wrap' }}>
+          <Box color="text-body-secondary" fontSize="body-s" margin={{ right: 'l' }}>
+            © 2026, Amazon Web Services, Inc. or its affiliates.
+          </Box>
+          {[
+            { label: 'Privacy', href: '#' },
+            { label: 'Site terms', href: '#' },
+            { label: 'Cookie Preferences', href: '#' },
+          ].map((link, i, arr) => (
+            <React.Fragment key={link.label}>
+              <Link href={link.href} fontSize="body-s" onFollow={e => e.preventDefault()}>
+                {link.label}
+              </Link>
+              {i < arr.length - 1 && (
+                <div style={{ height: '12px', display: 'flex', alignItems: 'center', margin: '0 8px' }}>
+                  <Divider orientation="vertical" />
+                </div>
+              )}
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CollapsibleSection({ title, children }: { title: string; children: React.ReactNode }) {
+  const [expanded, setExpanded] = useState(false);
+  return (
+    <div>
+      <button
+        onClick={() => setExpanded(e => !e)}
+        style={{
+          all: 'unset',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+          cursor: 'pointer',
+          width: '100%',
+          boxSizing: 'border-box',
+        }}
+        aria-expanded={expanded}
+      >
+        <span
+          style={{
+            display: 'inline-flex',
+            transition: 'transform 250ms',
+            transform: expanded ? 'rotate(90deg)' : 'rotate(0deg)',
+            color: awsui.colorTextBodyDefault,
+          }}
+        >
+          <IconProvider icons={null} sizes={{ normal: 12 }}>
+            <Icon name="angle-right" />
+          </IconProvider>
+        </span>
+        <Box variant="h5" fontSize="body-m">
+          {title}
+        </Box>
+      </button>
+      {expanded && <div style={{ paddingTop: 8, paddingLeft: 24 }}>{children}</div>}
     </div>
   );
 }
 
 export default function AuthPage() {
   const navigate = useNavigate();
+  const [isDarkMode, setIsDarkMode] = useState(() => document.body.classList.contains('awsui-dark-mode'));
   const [step, setStep] = useState<Step>('email');
+  const [bgIndex, setBgIndex] = useState(1);
+  const cycleBg = useCallback(() => setBgIndex(i => (i + 1) % BACKGROUNDS.length), []);
+  const currentBg = BACKGROUNDS[bgIndex];
 
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -201,6 +370,15 @@ export default function AuthPage() {
       </SpaceBetween>
     </FormField>
   );
+
+  // Track dark mode changes
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDarkMode(document.body.classList.contains('awsui-dark-mode'));
+    });
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
 
   // Countdown timer for resend code
   useEffect(() => {
@@ -277,7 +455,7 @@ export default function AuthPage() {
         toolsHide={true}
         disableContentPaddings={true}
         content={
-          <AuthShell>
+          <AuthShell bg={currentBg} onCycleBg={cycleBg}>
             <div style={{ width: '100%', maxWidth: 520, textAlign: 'center', paddingTop: 40 }}>
               <Container>
                 <SpaceBetween size="l">
@@ -326,8 +504,8 @@ export default function AuthPage() {
       toolsHide={true}
       disableContentPaddings={true}
       content={
-        <AuthShell>
-          <div style={{ width: '100%', maxWidth: 480 }}>
+        <AuthShell bg={currentBg} onCycleBg={cycleBg}>
+          <div style={{ width: '100%', maxWidth: 520 }}>
             {/* {step === 'email' && (
           <div style={{ textAlign: 'center', marginBottom: 24 }}>
             <Box fontSize="heading-l" textAlign="center">
@@ -338,11 +516,20 @@ export default function AuthPage() {
             </Box>
           </div>
         )} */}
-            <Container>
+            <Container
+              style={{
+                content: {
+                  paddingBlock: '32px',
+                  paddingInline: '32px',
+                },
+              }}
+            >
               <SpaceBetween size="l">
                 {step === 'email' && (
                   <>
-                    <div style={{ fontSize: '64px', lineHeight: '64px' }}>Sign up for AWS</div>
+                    <div style={{ fontSize: '64px', lineHeight: '105%', color: isDarkMode ? '#f3f3f7' : '#070707' }}>
+                      Sign up for AWS
+                    </div>
                     <SpaceBetween size="s">
                       <FormField label="Email" errorText={emailError}>
                         <Input
@@ -356,13 +543,7 @@ export default function AuthPage() {
                         Continue
                       </Button>
                     </SpaceBetween>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                      <div style={{ flex: 1, height: 1, backgroundColor: awsui.colorBorderDividerDefault }} />
-                      <Box color="text-body-secondary" fontSize="body-s">
-                        OR
-                      </Box>
-                      <div style={{ flex: 1, height: 1, backgroundColor: awsui.colorBorderDividerDefault }} />
-                    </div>
+                    <Divider>OR</Divider>
                     <div style={{ display: 'flex', gap: 8 }}>
                       {SOCIAL_PROVIDERS.map(p => (
                         <Button key={p.id} fullWidth={true} wrapText={false}>
@@ -373,17 +554,36 @@ export default function AuthPage() {
                         </Button>
                       ))}
                     </div>
-                    <Box fontSize="body-s" color="text-body-secondary" textAlign="center">
-                      By continuing, you agree to the{' '}
-                      <Link href="#" fontSize="inherit" external={true} variant="primary">
-                        AWS Customer Agreement
-                      </Link>
-                      , and you acknowledge you have read the{' '}
-                      <Link href="#" fontSize="inherit" external={true} variant="primary">
-                        AWS Privacy Notice
-                      </Link>
-                      .
-                    </Box>
+                    <SpaceBetween size="xs">
+                      <Divider />
+                      <CollapsibleSection title="Try AWS at no cost">
+                        <Box color="text-body-secondary" fontSize="body-s">
+                          Start with USD $100 in AWS credits, plus earn up to USD $100 by completing various activities.
+                          Your free tier benefits last for 12 months.
+                        </Box>
+                      </CollapsibleSection>
+                      <Divider />
+                      <CollapsibleSection title="Which sign up is right for me?">
+                        <Box color="text-body-secondary" fontSize="body-s">
+                          Choose a personal account for individual projects or a business account if you're setting up
+                          AWS for your company or organization.
+                        </Box>
+                      </CollapsibleSection>
+                      <Divider />
+                    </SpaceBetween>
+                    <IconProvider icons={null} sizes={{ normal: 12 }}>
+                      <Box fontSize="body-s" color="text-body-secondary" textAlign="center">
+                        By continuing, you agree to the{' '}
+                        <Link href="#" fontSize="inherit" external={true} variant="primary">
+                          AWS Customer Agreement
+                        </Link>
+                        , and you acknowledge you have read the{' '}
+                        <Link href="#" fontSize="inherit" external={true} variant="primary">
+                          AWS Privacy Notice
+                        </Link>
+                        .
+                      </Box>
+                    </IconProvider>
                   </>
                 )}
 

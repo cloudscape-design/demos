@@ -85,7 +85,7 @@ export function generateThemeConfigOneTheme() {
 
   // Toned down text color
   const colorTextBodyDefault = { light: grey950, dark: grey350 };
-  const colorTextBodySecondary = { light: grey300, dark: grey450 };
+  const colorTextBodySecondary = { light: grey600, dark: grey450 };
 
   // Status colors
   const colorSuccess = { light: '#006B48', dark: '#006B48' };
@@ -131,12 +131,12 @@ export function generateThemeConfigOneTheme() {
       // BUTTONS - Primary
       // ========================================================================
       //colorBackgroundButtonPrimaryDefault: colorAccentPrimary,
-      colorBackgroundButtonPrimaryDefault: { light: grey300, dark: grey300 },
-      colorBackgroundButtonPrimaryHover: { light: grey200, dark: grey200 },
-      colorBackgroundButtonPrimaryActive: { light: grey300, dark: grey300 },
-      colorTextButtonPrimaryDefault: grey950,
-      colorTextButtonPrimaryHover: grey950,
-      colorTextButtonPrimaryActive: grey950,
+      colorBackgroundButtonPrimaryDefault: { light: grey800, dark: grey300 },
+      colorBackgroundButtonPrimaryHover: { light: grey700, dark: grey200 },
+      colorBackgroundButtonPrimaryActive: { light: grey800, dark: grey300 },
+      colorTextButtonPrimaryDefault: { light: grey50, dark: grey950 },
+      colorTextButtonPrimaryHover: { light: grey50, dark: grey950 },
+      colorTextButtonPrimaryActive: { light: grey50, dark: grey950 },
 
       // ========================================================================
       // BUTTONS - Link
@@ -172,13 +172,14 @@ export function generateThemeConfigOneTheme() {
       colorTextLabel: { light: grey600, dark: grey500 },
       fontSizeKeyValuePairsLabel: '14px',
       lineHeightKeyValuePairsLabel: '20px',
-      fontWeightKeyValuePairsLabel: '400',
+      fontWeightKeyValuePairsLabel: '500',
+      colorTextKeyValuePairsValue: { light: grey600, dark: grey300 },
 
-      colorTextFormLabel: { light: grey600, dark: grey350 },
+      colorTextFormLabel: { light: grey600, dark: grey300 },
       colorTextFormSecondary: { light: grey600, dark: grey500 },
       fontSizeFormLabel: '14px',
       lineHeightFormLabel: '20px',
-      fontWeightFormLabel: '400',
+      fontWeightFormLabel: '500',
 
       // ========================================================================
       // LINKS & TEXT
