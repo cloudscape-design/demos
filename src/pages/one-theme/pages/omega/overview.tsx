@@ -181,7 +181,7 @@ function DomainsSection() {
     <Container
       fitHeight={true}
       header={
-        <Header counter="(1)" actions={<Button iconName="add-plus" variant="icon" ariaLabel="Add domain" />}>
+        <Header counter="(1)" actions={<Button iconName="add-plus" variant="normal" ariaLabel="Add domain" />}>
           Domains
         </Header>
       }
@@ -220,7 +220,7 @@ function IntegrationsSection() {
       fitHeight={true}
       style={{ footer: { root: {}, divider: { borderWidth: '0' } } }}
       header={
-        <Header counter="(5)" actions={<Button iconName="add-plus" variant="icon" ariaLabel="Add integration" />}>
+        <Header counter="(5)" actions={<Button iconName="add-plus" variant="normal" ariaLabel="Add integration" />}>
           Integrations
         </Header>
       }
@@ -273,7 +273,7 @@ function CollaborationSection() {
         fitHeight={true}
         style={{ footer: { root: {}, divider: { borderWidth: '0' } } }}
         header={
-          <Header counter="(6)" actions={<Button iconName="add-plus" variant="icon" ariaLabel="Add collaborator" />}>
+          <Header counter="(6)" actions={<Button iconName="add-plus" variant="normal" ariaLabel="Add collaborator" />}>
             Collaboration
           </Header>
         }
@@ -478,7 +478,7 @@ export default function OverviewPage() {
               counter="(3)"
               actions={
                 <SpaceBetween direction="horizontal" size="xs">
-                  <Button iconName="refresh" ariaLabel="Refresh" variant="icon" />
+                  <Button iconName="refresh" ariaLabel="Refresh" variant="normal" />
                   <Button iconName="add-plus" onClick={() => navigate('/omega/create')}>
                     Create
                   </Button>

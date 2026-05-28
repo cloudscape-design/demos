@@ -41,6 +41,21 @@ export function generateThemeConfigOneTheme() {
   const indigo900 = '#001A99';
   const indigo950 = '#001475';
 
+  // Green primitive color palette
+  const green50 = '#EFFFF1';
+  const green100 = '#D9FFD6';
+  const green200 = '#AEFFA8';
+  const green300 = '#62FF57';
+  const green400 = '#00E500';
+  const green500 = '#2BB534';
+  const green600 = '#00802F';
+  const green700 = '#007029';
+  const green800 = '#005C26';
+  const green900 = '#00471E';
+  const green950 = '#003311';
+  const green1000 = '#001401';
+  // green1000 value is pending
+
   // Lime primitive color palette
   const lime50 = '#F7FFEB';
   const lime100 = '#EBFFCC';
@@ -231,7 +246,7 @@ export function generateThemeConfigOneTheme() {
       // STATUS
       // ========================================================================
       colorTextStatusInfo: { light: indigo800, dark: indigo300 },
-      colorTextStatusSuccess: { light: lime600, dark: lime200 },
+      colorTextStatusSuccess: { light: green600, dark: green200 },
       colorTextStatusWarning: { light: yellow800, dark: yellow300 },
       colorTextDropdownItemFilterMatch: colorSelectedAccent,
       colorBackgroundDropdownItemFilterMatch: { light: grey200, dark: grey1000 },
@@ -243,7 +258,7 @@ export function generateThemeConfigOneTheme() {
       borderRadiusStatusIndicator: '2px',
       colorBackgroundStatusIndicatorInfo: { light: '#5c7fff20', dark: '#5c7fff20' },
       colorBackgroundStatusIndicatorWarning: { light: '#FBD33220', dark: '#FBD33220' },
-      colorBackgroundStatusIndicatorSuccess: { light: '#7ae50020', dark: '#7ae50020' },
+      colorBackgroundStatusIndicatorSuccess: { light: '#2BB53420', dark: '#2BB53420' },
       colorBackgroundStatusIndicatorError: { light: '#ff7a7a10', dark: '#ff7a7a20' },
       colorBackgroundStatusIndicatorNeutral: { light: '#ff7a7a10', dark: grey800 },
 
@@ -421,13 +436,12 @@ export function generateThemeConfigOneTheme() {
           colorBackgroundStatusInfo: { light: '#5c7fff20', dark: '#161A2D' },
           colorBackgroundStatusWarning: { light: '#FBD33220', dark: '#FBD33210' },
           colorBackgroundStatusError: { light: '#ff7a7a10', dark: '#ff7a7a10' },
-          colorBackgroundStatusSuccess: { light: '#7ae50020', dark: '#7ae50010' },
+          colorBackgroundStatusSuccess: { light: '#7ae50020', dark: '#2BB53410' },
 
           colorTextStatusInfo: { light: indigo800, dark: indigo400 },
           colorBorderStatusInfo: { light: indigo800, dark: indigo400 },
-          //colorTextStatusSuccess: { light: '#008559', dark: '#00BD6B' }
-          colorTextStatusSuccess: { light: lime600, dark: lime200 },
-          colorBorderStatusSuccess: { light: lime600, dark: lime200 },
+          colorTextStatusSuccess: { light: green600, dark: green200 },
+          colorBorderStatusSuccess: { light: green600, dark: green200 },
           colorBackgroundButtonNormalDefault: { light: 'transparent', dark: 'transparent' },
         },
       },

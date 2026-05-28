@@ -13,7 +13,6 @@ import Link from '@cloudscape-design/components/link';
 import ProgressBar from '@cloudscape-design/components/progress-bar';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import Table from '@cloudscape-design/components/table';
-import * as awsui from '@cloudscape-design/design-tokens';
 
 const SPEND_BY_WORKSPACE = [
   { workspace: 'starter-home-alice', mtd: 24.18, limit: 50, lastMonth: 31.4 },
@@ -61,7 +60,7 @@ function BalanceCard() {
             label: 'Amount due',
             value: (
               <Box variant="h1">
-                <span style={{ color: awsui.colorTextAccent }}>$36.22</span> USD
+                <span>$36.22</span> USD
               </Box>
             ),
           },
