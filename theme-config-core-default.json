@@ -25,7 +25,7 @@
     "colorBackgroundButtonLinkActive": { "light": "#EBEBF0", "dark": "#131920" },
     "colorTextLinkButtonNormalDefault": { "light": "#1b232d", "dark": "#F9F9FB" },
 
-    "colorBackgroundToggleButtonNormalPressed": { "light": "#EBEBF0", "dark": "#131920" },
+    "colorBackgroundToggleButtonNormalPressed": { "light": "#EBEBF0", "dark": "#131920" }, 
     "colorBorderToggleButtonNormalPressed": { "light": "#1b232d", "dark": "#F9F9FB" },
     "colorTextToggleButtonNormalPressed": { "light": "#1b232d", "dark": "#F9F9FB" },
 
@@ -56,7 +56,7 @@
     "colorTextNotificationDefault": { "light": "#ffffff", "dark": "#ffffff" },
 
     "colorTextStatusInfo": { "light": "#0033CC", "dark": "#7598FF" },
-    "colorTextStatusSuccess": { "light": "#008559", "dark": "#00BD6B" },
+    "colorTextStatusSuccess": { "light": "#006B48", "dark": "#00BD6B" },
     "colorTextDropdownItemFilterMatch": { "light": "#1b232d", "dark": "#F9F9FB" },
     "colorBackgroundDropdownItemFilterMatch": { "light": "#F3F3F7", "dark": "#06080A" },
 
@@ -158,7 +158,11 @@
         "colorBackgroundDropdownItemSelected": { "light": "#F6F6F9", "dark": "#06080A" },
         "colorBorderItemSelected": { "light": "#06080A", "dark": "#F6F6F9" },
         "colorTextButtonInlineIconDefault": { "light": "#1b232d", "dark": "#F9F9FB" },
-        "colorTextButtonInlineIconHover": { "light": "#1b232d", "dark": "#F9F9FB" }
+        "colorTextButtonInlineIconHover": { "light": "#1b232d", "dark": "#F9F9FB" },
+        "colorTextHeadingDefault": { "light": "#06080A", "dark": "#F6F6F9" },
+        "colorBorderDropdownItemFocused": { "light": "#424650", "dark": "#dedee3" },
+        "colorBorderDropdownItemHover": { "light": "#8c8c94", "dark": "#656871" },
+        "colorBorderItemFocused": { "light": "#1b232dff", "dark": "#f9f9fbff" }
       }
     },
     "header": {
@@ -195,8 +199,8 @@
         "colorBackgroundStatusSuccess": { "light": "#f6f6f9", "dark": "#232b37" },
         "colorTextStatusInfo": { "light": "#0033CC", "dark": "#7598FF" },
         "colorBorderStatusInfo": { "light": "#0033CC", "dark": "#7598FF" },
-        "colorTextStatusSuccess": { "light": "#008559", "dark": "#00BD6B" },
-        "colorBorderStatusSuccess": { "light": "#008559", "dark": "#00BD6B" }
+        "colorTextStatusSuccess": { "light": "#006B48", "dark": "#00BD6B" },
+        "colorBorderStatusSuccess": { "light": "#006B48", "dark": "#00BD6B" }
       }
     }
   }

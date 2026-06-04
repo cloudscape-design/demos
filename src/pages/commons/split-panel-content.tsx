@@ -426,8 +426,8 @@ export function GlobalSplitPanelContent() {
             value={themeValue}
             items={[
               { value: 'core-default', label: 'New Core default' },
-              { value: 'core', label: 'New CloudWatch theme' },
-              { value: 'console', label: 'Current Console' },
+              { value: 'core', label: 'New CloudWatch theme', disabled: true },
+              { value: 'console', label: 'Current Console', disabled: true },
             ]}
           />
         </Box>

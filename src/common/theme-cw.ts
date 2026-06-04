@@ -77,10 +77,10 @@ export function generateThemeConfigCW(
       // ========================================================================
       colorTextLinkDefault: colorTextBodyDefault,
       colorTextLinkHover: { light: '#424650', dark: '#FFFFFF' },
-      colorTextLinkSecondaryDefault: { light: '#006CE0', dark: '#42B4FF' }, // Added
-      colorTextLinkSecondaryHover: { light: '#002A66', dark: '#75CFFF' }, // Added
-      colorTextLinkInfoDefault: { light: '#006CE0', dark: '#42B4FF' }, // Added
-      colorTextLinkInfoHover: { light: '#002A66', dark: '#75CFFF' }, // Added
+      colorTextLinkSecondaryDefault: { light: '#006CE0', dark: '#42B4FF' },
+      colorTextLinkSecondaryHover: { light: '#002A66', dark: '#75CFFF' },
+      colorTextLinkInfoDefault: { light: '#006CE0', dark: '#42B4FF' },
+      colorTextLinkInfoHover: { light: '#002A66', dark: '#75CFFF' },
       colorTextAccent: { light: '#006CE0', dark: '#42B4FF' },
 
       // ========================================================================
@@ -323,8 +323,8 @@ export function generateThemeConfigCoreDefault() {
       // ========================================================================
       // BUTTONS - Link
       // ========================================================================
-      colorBackgroundButtonLinkDefault: { light: '#f6f6f9', dark: '#232b37' }, // Added
-      colorBackgroundButtonLinkHover: { light: '#ebebf0', dark: '#424650' }, // Added
+      colorBackgroundButtonLinkDefault: { light: '#f6f6f9', dark: '#232b37' },
+      colorBackgroundButtonLinkHover: { light: '#ebebf0', dark: '#424650' },
       colorBackgroundButtonLinkActive: colorSelectedAccentSubtleHover,
       colorTextLinkButtonNormalDefault: colorSelectedAccent,
 
@@ -346,10 +346,10 @@ export function generateThemeConfigCoreDefault() {
       // ========================================================================
       colorTextLinkDefault: colorTextBodyDefault,
       colorTextLinkHover: { light: '#424650', dark: '#FFFFFF' },
-      colorTextLinkSecondaryDefault: { light: '#295eff', dark: '#7598ff' }, // Added
-      colorTextLinkSecondaryHover: { light: '#0033CC', dark: '#94AFFF' }, // Added
-      colorTextLinkInfoDefault: { light: '#295eff', dark: '#7598ff' }, // Added
-      colorTextLinkInfoHover: { light: '#0033CC', dark: '#94AFFF' }, // Added
+      colorTextLinkSecondaryDefault: { light: '#295eff', dark: '#7598ff' },
+      colorTextLinkSecondaryHover: { light: '#0033CC', dark: '#94AFFF' },
+      colorTextLinkInfoDefault: { light: '#295eff', dark: '#7598ff' },
+      colorTextLinkInfoHover: { light: '#0033CC', dark: '#94AFFF' },
       colorTextAccent: colorSelectedAccent,
 
       // ========================================================================
@@ -387,7 +387,7 @@ export function generateThemeConfigCoreDefault() {
       // STATUS
       // ========================================================================
       colorTextStatusInfo: { light: '#0033CC', dark: '#7598FF' },
-      colorTextStatusSuccess: { light: '#008559', dark: '#00BD6B' }, // Added
+      colorTextStatusSuccess: { light: '#006B48', dark: '#00BD6B' }, // Fix ACR a11y issues
       colorTextDropdownItemFilterMatch: colorSelectedAccent,
       colorBackgroundDropdownItemFilterMatch: { light: '#F3F3F7', dark: '#06080A' },
 
@@ -515,6 +515,10 @@ export function generateThemeConfigCoreDefault() {
           colorBorderItemSelected: { light: '#06080A', dark: '#F6F6F9' },
           colorTextButtonInlineIconDefault: { light: '#1b232d', dark: '#F9F9FB' },
           colorTextButtonInlineIconHover: { light: '#1b232d', dark: '#F9F9FB' },
+          colorTextHeadingDefault: { light: '#06080A', dark: '#F6F6F9' }, // Fix ACR a11y issues
+          colorBorderDropdownItemFocused: { light: '#424650', dark: '#dedee3' }, // Fix ACR a11y issues
+          colorBorderDropdownItemHover: { light: '#8c8c94', dark: '#656871' }, // Fix ACR a11y issues
+          colorBorderItemFocused: { light: '#1b232dff', dark: '#f9f9fbff' }, // Fix ACR a11y issues
         },
       },
       header: {
@@ -558,8 +562,8 @@ export function generateThemeConfigCoreDefault() {
           colorBackgroundStatusSuccess: { light: '#f6f6f9', dark: '#232b37' },
           colorTextStatusInfo: { light: '#0033CC', dark: '#7598FF' },
           colorBorderStatusInfo: { light: '#0033CC', dark: '#7598FF' },
-          colorTextStatusSuccess: { light: '#008559', dark: '#00BD6B' }, // Added
-          colorBorderStatusSuccess: { light: '#008559', dark: '#00BD6B' }, // Added
+          colorTextStatusSuccess: { light: '#006B48', dark: '#00BD6B' }, // Fix ACR a11y issues
+          colorBorderStatusSuccess: { light: '#006B48', dark: '#00BD6B' },
         },
       },
     },
