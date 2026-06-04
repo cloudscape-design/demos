@@ -9,6 +9,28 @@ import lodash from 'lodash';
 import examplesList from './examples-list.json' with { type: 'json' };
 import config from './scripts/config.js';
 
+const useLocalComponents = process.env.USE_LOCAL_COMPONENTS === 'true';
+
+const COMPONENTS_REPO = '/Users/ienakaai/Documents/cloudscape-components/components';
+const GLOBAL_STYLES_REPO = '/Users/ienakaai/Documents/cloudscape-global-styles';
+const THEMING_CORE_REPO = '/Users/ienakaai/Documents/cloudscape-theming-core';
+
+function buildLocalAliases() {
+  return {
+    '@cloudscape-design/components': path.resolve(COMPONENTS_REPO, 'lib/components'),
+    '@cloudscape-design/design-tokens': path.resolve(COMPONENTS_REPO, 'lib/design-tokens'),
+    '@cloudscape-design/global-styles': path.resolve(GLOBAL_STYLES_REPO),
+    '@cloudscape-design/theming-runtime': path.resolve(THEMING_CORE_REPO),
+  };
+}
+
+if (useLocalComponents) {
+  console.log('[local-component-linking] Local package aliases are active:');
+  Object.entries(buildLocalAliases()).forEach(([pkg, localPath]) => {
+    console.log(`  ${pkg} → ${localPath}`);
+  });
+}
+
 const banJsLoader = path.resolve('./scripts/ban-js-loader.js');
 const mergeArrays = (a, b) => (Array.isArray(a) ? a.concat(b) : undefined);
 const addEntryIteration = (entries, example) => {
@@ -124,6 +146,7 @@ const createWebpackConfig = (base, { includeDevServer }) => {
 
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      ...(useLocalComponents ? { alias: buildLocalAliases() } : {}),
     },
 
     module: {
