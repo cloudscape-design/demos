@@ -37,13 +37,42 @@ function getPageContent(pageName, { title }) {
     ${frameworkUtils.getStyles(pageName)}
 </head>
 <!-- this class is not needed in production, only for testing -->
-<body class="awsui-visual-refresh">
+<body class="awsui-one-theme">
 <div id="b">
     <header class="custom-main-header" id="h">
         <ul class="menu-list awsui-context-top-navigation">
             <li class="title"><a href="index.html">Cloudscape Demos</a></li>
+            <li class="color-scheme-toggle-item">
+                <button
+                    id="color-scheme-toggle"
+                    type="button"
+                    aria-label="Toggle dark mode"
+                    onclick="
+                        var isDark = document.body.classList.toggle('awsui-dark-mode');
+                        var mode = isDark ? 'dark' : 'light';
+                        this.setAttribute('data-mode', mode);
+                        window.localStorage.setItem('Awsui-Color-Scheme', JSON.stringify(mode));
+                        if (window.updateMode && window.Mode) {
+                            window.updateMode(isDark ? window.Mode.Dark : window.Mode.Light);
+                        }
+                    "
+                >
+                    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true"><circle cx="8" cy="8" r="7"></circle><path d="M8 15A7 7 0 1 0 8 1v14Z" class="filled no-stroke"></path></svg>
+                </button>
+            </li>
         </ul>
     </header>
+    <script>
+        // Apply persisted color scheme before React mounts to avoid flash
+        (function() {
+            var saved = localStorage.getItem('Awsui-Color-Scheme');
+            if (saved === '"dark"' || saved === 'dark') {
+                document.body.classList.add('awsui-dark-mode');
+                var btn = document.getElementById('color-scheme-toggle');
+                if (btn) btn.setAttribute('data-mode', 'dark');
+            }
+        })();
+    </script>
     ${frameworkUtils.initialMarkup}
 </div>
 <script src="./libs/fake-server.js"></script>

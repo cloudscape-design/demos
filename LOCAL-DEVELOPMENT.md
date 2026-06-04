@@ -13,7 +13,7 @@ This guide describes how to run the demos app against locally built Cloudscape p
 
   ```bash
   cd /Users/ienakaai/Documents/cloudscape-components/components
-  npm run quick-build
+  INCLUDE_ONE_THEME=true npm run quick-build
   ```
 
 ## Starting the Dev Server with Local Packages
@@ -43,14 +43,24 @@ When the variable is active, webpack prints a confirmation listing each active a
 
 ## Rebuilding After Source Changes
 
-`npm run quick-build` does **not** watch for changes. You must re-run it manually in the Local Components Repo whenever component source files or styles change:
+`npm run quick-build` does **not** watch for changes. After every edit in the components source, you must:
 
-```bash
-cd /Users/ienakaai/Documents/cloudscape-components/components
-npm run quick-build
-```
+1. Rebuild in the components repo:
+   ```bash
+   cd /Users/ienakaai/Documents/cloudscape-components/components
+   INCLUDE_ONE_THEME=true npm run quick-build
+   ```
 
-After the build completes, webpack's HMR will pick up the updated files automatically (no server restart needed for most changes).
+2. Restart the demos dev server (webpack does not pick up changes to the aliased build output automatically):
+   ```bash
+   USE_LOCAL_COMPONENTS=true npm start
+   ```
+
+## Activating One-Theme
+
+The demos app defaults to `awsui-visual-refresh` on the `<body>` tag. To activate the one-theme styles built with `INCLUDE_ONE_THEME=true`, the body class must be `awsui-one-theme` instead.
+
+This is already set in `scripts/generate-html-files.js`. If you ever need to switch back to the default visual refresh, change the body class back to `awsui-visual-refresh`.
 
 ## CI and Production Builds
 

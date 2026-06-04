@@ -15,9 +15,14 @@ body {
   right: 0;
   z-index: 1000;
   margin: 0;
-  background-color: #0f1b2a;
+  background-color: #ffffff;
   font-family: cs.$font-family-base;
-  border-bottom: solid 1px #414d5c;
+  border-bottom: solid 1px #e9ebed;
+
+  body.awsui-dark-mode & {
+    background-color: #1a1a1a;
+    border-bottom-color: transparent;
+  }
 }
 
 ul.menu-list {
@@ -51,6 +56,52 @@ ul.menu-list {
     #visual-refresh-toggle {
       margin-right: 5px;
       margin-top: 1px;
+    }
+
+    &.color-scheme-toggle-item {
+      margin-left: auto;
+      margin-right: 0;
+
+      button#color-scheme-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        padding: 0;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #5f6b7a;
+        float: none;
+
+        body.awsui-dark-mode & {
+          color: #d1d5db;
+        }
+
+        &:focus-visible {
+          outline: 2px solid #0972d3;
+          outline-offset: 2px;
+          border-radius: 2px;
+        }
+
+        svg {
+          width: 16px;
+          height: 16px;
+          overflow: visible;
+
+          circle {
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.5;
+          }
+
+          path.filled {
+            fill: currentColor;
+            stroke: none;
+          }
+        }
+      }
     }
 
     a,

@@ -12,8 +12,8 @@ import config from './scripts/config.js';
 const useLocalComponents = process.env.USE_LOCAL_COMPONENTS === 'true';
 
 const COMPONENTS_REPO = '/Users/ienakaai/Documents/cloudscape-components/components';
-const GLOBAL_STYLES_REPO = '/Users/ienakaai/Documents/cloudscape-global-styles';
-const THEMING_CORE_REPO = '/Users/ienakaai/Documents/cloudscape-theming-core';
+const GLOBAL_STYLES_REPO = '/Users/ienakaai/Documents/cloudscape-global-styles/lib';
+const THEMING_CORE_REPO = '/Users/ienakaai/Documents/cloudscape-theming-core/theming-core/lib/browser';
 
 function buildLocalAliases() {
   return {
@@ -21,6 +21,9 @@ function buildLocalAliases() {
     '@cloudscape-design/design-tokens': path.resolve(COMPONENTS_REPO, 'lib/design-tokens'),
     '@cloudscape-design/global-styles': path.resolve(GLOBAL_STYLES_REPO),
     '@cloudscape-design/theming-runtime': path.resolve(THEMING_CORE_REPO),
+    // Ensure a single copy of React across local packages and the demos app
+    react: path.resolve('./node_modules/react'),
+    'react-dom': path.resolve('./node_modules/react-dom'),
   };
 }
 
