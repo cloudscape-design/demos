@@ -41,7 +41,7 @@ function getPageContent(pageName, { title }) {
 <div id="b">
     <header class="custom-main-header" id="h">
         <ul class="menu-list awsui-context-top-navigation">
-            <li class="title"><a href="index.html">Cloudscape Demos</a></li>
+            <li class="title"><a href="index.html"></a></li>
             <li class="color-scheme-toggle-item">
                 <button
                     id="color-scheme-toggle"
