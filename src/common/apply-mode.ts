@@ -34,6 +34,10 @@ export function updateMode(mode: Mode) {
   }
 }
 
+export function updateDirection(direction: 'ltr' | 'rtl') {
+  document.documentElement.dir = direction;
+}
+
 // Expose globally so the inline header script can call it before React mounts
 (window as any).updateMode = updateMode;
 (window as any).Mode = Mode;
