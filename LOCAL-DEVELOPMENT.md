@@ -12,7 +12,7 @@ This guide describes how to run the demos app against locally built Cloudscape p
 - **Quick build completed** — before starting the dev server, run a build in the Local Components Repo:
 
   ```bash
-  cd /Users/ienakaai/Documents/cloudscape-components/components
+  cd /Users/username/Documents/cloudscape-components/components
   INCLUDE_ONE_THEME=true npm run quick-build
   ```
 
@@ -36,10 +36,10 @@ When the variable is active, webpack prints a confirmation listing each active a
 
 | Package import | Resolved to |
 |---|---|
-| `@cloudscape-design/components` | `/Users/ienakaai/Documents/cloudscape-components/components/lib/components` |
-| `@cloudscape-design/design-tokens` | `/Users/ienakaai/Documents/cloudscape-components/components/lib/design-tokens` |
-| `@cloudscape-design/global-styles` | `/Users/ienakaai/Documents/cloudscape-global-styles` |
-| `@cloudscape-design/theming-runtime` | `/Users/ienakaai/Documents/cloudscape-theming-core` |
+| `@cloudscape-design/components` | `/Users/username/Documents/cloudscape-components/components/lib/components` |
+| `@cloudscape-design/design-tokens` | `/Users/username/Documents/cloudscape-components/components/lib/design-tokens` |
+| `@cloudscape-design/global-styles` | `/Users/username/Documents/cloudscape-global-styles` |
+| `@cloudscape-design/theming-runtime` | `/Users/username/Documents/cloudscape-theming-core` |
 
 ## Rebuilding After Source Changes
 
@@ -47,7 +47,7 @@ When the variable is active, webpack prints a confirmation listing each active a
 
 1. Rebuild in the components repo:
    ```bash
-   cd /Users/ienakaai/Documents/cloudscape-components/components
+   cd /Users/username/Documents/cloudscape-components/components
    INCLUDE_ONE_THEME=true npm run quick-build
    ```
 
