@@ -6,9 +6,9 @@ This guide describes how to run the demos app against locally built Cloudscape p
 
 - **Node.js** — same version required by the demos app (see `.nvmrc` or `engines` in `package.json`)
 - **Local repos cloned** at the following paths:
-  - `/Users/ienakaai/Documents/cloudscape-components/components` — components and design-tokens source
-  - `/Users/ienakaai/Documents/cloudscape-global-styles` — global-styles source
-  - `/Users/ienakaai/Documents/cloudscape-theming-core` — theming-runtime source
+  - `/Users/username/Documents/cloudscape-components/components` — components and design-tokens source
+  - `/Users/username/Documents/cloudscape-global-styles` — global-styles source
+  - `/Users/username/Documents/cloudscape-theming-core` — theming-runtime source
 - **Quick build completed** — before starting the dev server, run a build in the Local Components Repo:
 
   ```bash
