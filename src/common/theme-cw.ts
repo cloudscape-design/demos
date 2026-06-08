@@ -519,6 +519,7 @@ export function generateThemeConfigCoreDefault() {
           colorBorderDropdownItemFocused: { light: '#424650', dark: '#dedee3' }, // Fix ACR a11y issues
           colorBorderDropdownItemHover: { light: '#8c8c94', dark: '#656871' }, // Fix ACR a11y issues
           colorBorderItemFocused: { light: '#1b232dff', dark: '#f9f9fbff' }, // Fix ACR a11y issues
+          colorBackgroundBadgeIcon: { light: '#db0000', dark: '#ff7a7a' }, // Fix ACR a11y issues
         },
       },
       header: {
