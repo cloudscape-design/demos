@@ -1,21 +1,23 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { ReactNode, useState } from 'react';
-import { createPortal } from 'react-dom';
+import React from 'react';
 
 import Box from '@cloudscape-design/components/box';
 import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
 import Button from '@cloudscape-design/components/button';
 import Header from '@cloudscape-design/components/header';
-import Input from '@cloudscape-design/components/input';
 import SideNavigation, { SideNavigationProps } from '@cloudscape-design/components/side-navigation';
 import SpaceBetween from '@cloudscape-design/components/space-between';
+import SplitPanel from '@cloudscape-design/components/split-panel';
 import Table, { TableProps } from '@cloudscape-design/components/table';
-import TopNavigation from '@cloudscape-design/components/top-navigation';
 
 import { isVisualRefresh } from '../../common/apply-mode';
-import { CustomAppLayout } from '../commons/common-components';
-import logo from './logo.svg';
+import {
+  CustomAppLayout,
+  DemoTopNavigation,
+  GlobalSplitPanelContent,
+  useGlobalSplitPanel,
+} from '../commons/common-components';
 import { Notifications } from './notifications';
 
 import '../../styles/base.scss';
@@ -53,37 +55,6 @@ const breadcrumbs = [
     text: 'Pages',
     href: '#',
   },
-];
-
-const i18nStrings = {
-  searchIconAriaLabel: 'Search',
-  searchDismissIconAriaLabel: 'Close search',
-  overflowMenuTriggerText: 'More',
-  overflowMenuTitleText: 'All',
-  overflowMenuBackIconAriaLabel: 'Back',
-  overflowMenuDismissIconAriaLabel: 'Close menu',
-};
-
-const profileActions = [
-  { id: 'profile', text: 'Profile' },
-  { id: 'preferences', text: 'Preferences' },
-  { id: 'security', text: 'Security' },
-  {
-    id: 'support-group',
-    text: 'Support',
-    items: [
-      {
-        id: 'documentation',
-        text: 'Documentation',
-        href: '#',
-        external: true,
-        externalIconAriaLabel: ' (opens in new tab)',
-      },
-      { id: 'feedback', text: 'Feedback', href: '#', external: true, externalIconAriaLabel: ' (opens in new tab)' },
-      { id: 'support', text: 'Customer support' },
-    ],
-  },
-  { id: 'signout', text: 'Sign out' },
 ];
 
 interface Item {
@@ -163,65 +134,26 @@ const Content = () => {
   );
 };
 
-/**
- * This Portal is for demo purposes only due to the additional
- * header used on the Demo page.
- */
-interface DemoHeaderPortalProps {
-  children: ReactNode;
-}
-
-const DemoHeaderPortal = ({ children }: DemoHeaderPortalProps) => {
-  const domNode = document.querySelector('#h')!;
-  return createPortal(children, domNode);
-};
-
 export function App() {
-  const [searchValue, setSearchValue] = useState('');
+  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize } = useGlobalSplitPanel();
+
   return (
     <>
-      <DemoHeaderPortal>
-        <TopNavigation
-          i18nStrings={i18nStrings}
-          identity={{
-            href: '#',
-            title: 'Service name',
-            logo: { src: logo, alt: 'Service name logo' },
-          }}
-          search={
-            <Input
-              ariaLabel="Input field"
-              clearAriaLabel="Clear"
-              value={searchValue}
-              type="search"
-              placeholder="Search"
-              onChange={({ detail }) => setSearchValue(detail.value)}
-            />
-          }
-          utilities={[
-            {
-              type: 'button',
-              iconName: 'notification',
-              ariaLabel: 'Notifications',
-              badge: true,
-              disableUtilityCollapse: true,
-            },
-            { type: 'button', iconName: 'settings', title: 'Settings', ariaLabel: 'Settings' },
-            {
-              type: 'menu-dropdown',
-              text: 'Customer name',
-              description: 'customer@example.com',
-              iconName: 'user-profile',
-              items: profileActions,
-            },
-          ]}
-        />
-      </DemoHeaderPortal>
+      <DemoTopNavigation />
       <CustomAppLayout
         stickyNotifications
         toolsHide
         navigation={<SideNavigation activeHref="#/pages" items={navItems} />}
         breadcrumbs={<BreadcrumbGroup items={breadcrumbs} expandAriaLabel="Show path" ariaLabel="Breadcrumbs" />}
+        splitPanelOpen={splitPanelOpen}
+        onSplitPanelToggle={onSplitPanelToggle}
+        splitPanelSize={splitPanelSize}
+        onSplitPanelResize={onSplitPanelResize}
+        splitPanel={
+          <SplitPanel header="Design exploration">
+            <GlobalSplitPanelContent />
+          </SplitPanel>
+        }
         content={<Content />}
         notifications={<Notifications />}
       />

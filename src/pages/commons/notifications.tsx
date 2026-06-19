@@ -6,7 +6,7 @@ import Flashbar, { FlashbarProps } from '@cloudscape-design/components/flashbar'
 
 import { useDisclaimerFlashbarItem } from './disclaimer-flashbar-item';
 
-function useNotifications(showSuccessNotification = false) {
+function useNotifications(showSuccessNotification = false, showDisclaimer = false) {
   const successId = useId();
   const [successDismissed, dismissSuccess] = useState(false);
   const [disclaimerDismissed, dismissDisclaimer] = useState(false);
@@ -15,7 +15,7 @@ function useNotifications(showSuccessNotification = false) {
 
   const notifications: Array<FlashbarProps.MessageDefinition> = [];
 
-  if (disclaimerItem && !disclaimerDismissed) {
+  if (showDisclaimer && disclaimerItem && !disclaimerDismissed) {
     notifications.push(disclaimerItem);
   }
 
@@ -36,10 +36,11 @@ function useNotifications(showSuccessNotification = false) {
 
 interface NotificationsProps {
   successNotification?: boolean;
+  showDisclaimer?: boolean;
   customNotifications?: Array<FlashbarProps.MessageDefinition>;
 }
 
-export function Notifications({ successNotification, customNotifications = [] }: NotificationsProps) {
-  const notifications = useNotifications(successNotification);
+export function Notifications({ successNotification, showDisclaimer, customNotifications = [] }: NotificationsProps) {
+  const notifications = useNotifications(successNotification, showDisclaimer);
   return <Flashbar items={[...notifications, ...customNotifications]} />;
 }

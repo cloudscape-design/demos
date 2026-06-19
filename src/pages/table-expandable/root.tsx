@@ -14,7 +14,7 @@ import { TableProps } from '@cloudscape-design/components/table';
 
 import { getHeaderCounterText, getTextFilterCounterText } from '../../i18n-strings';
 import allInstances, { Instance } from '../../resources/related-instances';
-import { FullPageHeader, TableEmptyState, TableNoMatchState } from '../commons/common-components';
+import { DemoTopNavigation, FullPageHeader, TableEmptyState, TableNoMatchState } from '../commons/common-components';
 import { PageLayout } from './page-components';
 import { createColumns, filteringProperties, tableAriaLabels, TablePreferences } from './table-configs';
 
@@ -145,89 +145,92 @@ export function App() {
     : undefined;
 
   return (
-    <PageLayout>
-      {({ openTools }) => (
-        <>
-          <Table
-            {...collectionProps}
-            stickyColumns={preferences.stickyColumns}
-            resizableColumns={true}
-            stickyHeader={true}
-            selectionType="single"
-            columnDefinitions={columnDefinitions}
-            items={paginatedItems}
-            ariaLabels={tableAriaLabels}
-            wrapLines={preferences.wrapLines}
-            columnDisplay={preferences.contentDisplay}
-            preferences={<TablePreferences preferences={preferences} setPreferences={setPreferences} />}
-            submitEdit={() => {
-              // Do nothing
-            }}
-            variant="full-page"
-            renderAriaLive={renderAriaLive}
-            header={
-              <FullPageHeader
-                title="Instances"
-                selectedItemsCount={collectionProps.selectedItems?.length ?? 0}
-                counter={getHeaderCounterText(allInstances, collectionProps.selectedItems)}
-                actions={
-                  <SpaceBetween size="xs" direction="horizontal">
-                    <ButtonDropdown
-                      disabled={collectionProps.selectedItems?.length === 0}
-                      items={[
-                        {
-                          id: 'terminate',
-                          text: 'Terminate DB instance',
-                          disabled: true,
-                          disabledReason: 'No permission granted',
-                        },
-                        {
-                          id: 'create-replica',
-                          text: 'Create DB instance replica',
-                          disabled: true,
-                          disabledReason: 'No permission granted',
-                        },
-                      ]}
-                    >
-                      Instance actions
-                    </ButtonDropdown>
-                    <Button>Restore from S3</Button>
-                    <Button variant="primary">Launch DB instance</Button>
-                  </SpaceBetween>
-                }
-                onInfoLinkClick={openTools}
-              />
-            }
-            filter={
-              <PropertyFilter
-                {...propertyFilterProps}
-                filteringOptions={filteringOptions}
-                countText={getTextFilterCounterText(filteredItemsCount ?? 0)}
-                filteringPlaceholder="Search databases"
-                enableTokenGroups={true}
-                expandToViewport={true}
-              />
-            }
-            expandableRows={expandableRows}
-            getLoadingStatus={getLoadingStatus}
-            renderLoaderPending={({ item }) => (
-              <Button
-                variant="inline-link"
-                iconName="add-plus"
-                onClick={() => {
-                  const itemId = item?.name ?? 'ROOT';
-                  setPages(prev => ({ ...prev, [itemId]: (prev[itemId] ?? 1) + 1 }));
-                }}
-                ariaLabel={item ? `Show more items for ${item.name}` : 'Show more items'}
-              >
-                Show more items
-              </Button>
-            )}
-          />
+    <>
+      <DemoTopNavigation />
+      <PageLayout>
+        {({ openTools }) => (
+          <>
+            <Table
+              {...collectionProps}
+              stickyColumns={preferences.stickyColumns}
+              resizableColumns={true}
+              stickyHeader={true}
+              selectionType="single"
+              columnDefinitions={columnDefinitions}
+              items={paginatedItems}
+              ariaLabels={tableAriaLabels}
+              wrapLines={preferences.wrapLines}
+              columnDisplay={preferences.contentDisplay}
+              preferences={<TablePreferences preferences={preferences} setPreferences={setPreferences} />}
+              submitEdit={() => {
+                // Do nothing
+              }}
+              variant="full-page"
+              renderAriaLive={renderAriaLive}
+              header={
+                <FullPageHeader
+                  title="Instances"
+                  selectedItemsCount={collectionProps.selectedItems?.length ?? 0}
+                  counter={getHeaderCounterText(allInstances, collectionProps.selectedItems)}
+                  actions={
+                    <SpaceBetween size="xs" direction="horizontal">
+                      <ButtonDropdown
+                        disabled={collectionProps.selectedItems?.length === 0}
+                        items={[
+                          {
+                            id: 'terminate',
+                            text: 'Terminate DB instance',
+                            disabled: true,
+                            disabledReason: 'No permission granted',
+                          },
+                          {
+                            id: 'create-replica',
+                            text: 'Create DB instance replica',
+                            disabled: true,
+                            disabledReason: 'No permission granted',
+                          },
+                        ]}
+                      >
+                        Instance actions
+                      </ButtonDropdown>
+                      <Button>Restore from S3</Button>
+                      <Button variant="primary">Launch DB instance</Button>
+                    </SpaceBetween>
+                  }
+                  onInfoLinkClick={openTools}
+                />
+              }
+              filter={
+                <PropertyFilter
+                  {...propertyFilterProps}
+                  filteringOptions={filteringOptions}
+                  countText={getTextFilterCounterText(filteredItemsCount ?? 0)}
+                  filteringPlaceholder="Search databases"
+                  enableTokenGroups={true}
+                  expandToViewport={true}
+                />
+              }
+              expandableRows={expandableRows}
+              getLoadingStatus={getLoadingStatus}
+              renderLoaderPending={({ item }) => (
+                <Button
+                  variant="inline-link"
+                  iconName="add-plus"
+                  onClick={() => {
+                    const itemId = item?.name ?? 'ROOT';
+                    setPages(prev => ({ ...prev, [itemId]: (prev[itemId] ?? 1) + 1 }));
+                  }}
+                  ariaLabel={item ? `Show more items for ${item.name}` : 'Show more items'}
+                >
+                  Show more items
+                </Button>
+              )}
+            />
 
-          <LiveRegion hidden={true}>{ariaLiveMessage}</LiveRegion>
-        </>
-      )}
-    </PageLayout>
+            <LiveRegion hidden={true}>{ariaLiveMessage}</LiveRegion>
+          </>
+        )}
+      </PageLayout>
+    </>
   );
 }
