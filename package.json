@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@cloudscape-design/build-tools": "github:cloudscape-design/build-tools#main",
-    "@babel/core": "^7.18.13",
+    "@babel/core": "^7.29.6",
     "@babel/preset-env": "^7.18.10",
     "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.18.6",
