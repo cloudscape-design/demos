@@ -2,7 +2,10 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useEffect, useRef, useState } from 'react';
 
+import SplitPanel from '@cloudscape-design/components/split-panel';
+
 import { DistributionResource } from '../../resources/types';
+import { GlobalSplitPanelContent, useGlobalSplitPanel } from '../commons/common-components';
 import DataProvider from '../commons/data-provider';
 import fakeDelay from '../commons/fake-delay';
 import { DeleteModal } from './components/delete-modal';
@@ -70,6 +73,22 @@ export function App() {
     setSelectedItems([]);
   }, [locationHash]);
 
+  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize, splitPanelPreferences } =
+    useGlobalSplitPanel();
+
+  const splitPanelProps = {
+    splitPanelOpen,
+    onSplitPanelToggle,
+    splitPanelSize,
+    onSplitPanelResize,
+    splitPanelPreferences,
+    splitPanel: (
+      <SplitPanel header="Design exploration">
+        <GlobalSplitPanelContent />
+      </SplitPanel>
+    ),
+  };
+
   return (
     <>
       {locationDistribution ? (
@@ -77,6 +96,7 @@ export function App() {
           distribution={locationDistribution}
           onDeleteInit={onDeleteInit}
           notifications={notifications}
+          {...splitPanelProps}
         />
       ) : (
         <DistributionsPage
@@ -85,6 +105,7 @@ export function App() {
           setSelectedItems={setSelectedItems}
           onDeleteInit={onDeleteInit}
           notifications={notifications}
+          {...splitPanelProps}
         />
       )}
       <DeleteModal

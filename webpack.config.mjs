@@ -180,6 +180,13 @@ const createWebpackConfig = (base, { includeDevServer }) => {
           use: [MiniCssExtractPlugin.loader, 'css-loader'],
         },
         {
+          test: /\.(ttf|otf)$/,
+          type: 'asset/resource',
+          generator: {
+            filename: 'fonts/[name][ext]',
+          },
+        },
+        {
           test: /\.(png|jpg)$/,
           use: ['url-loader'],
         },

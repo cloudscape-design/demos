@@ -5,17 +5,13 @@ import React, { useCallback, useId, useState } from 'react';
 import Button from '@cloudscape-design/components/button';
 import { FlashbarProps } from '@cloudscape-design/components/flashbar';
 
-import { useDisclaimerFlashbarItem } from '../commons/disclaimer-flashbar-item';
-
 interface Resource {
   id: string;
 }
 
 export default function useNotifications({ resourceName }: { resourceName: string }) {
   const deletingFlashMessageId = useId();
-  const [disclaimerDismissed, dismissDisclaimer] = useState(false);
-  const disclaimerItem = useDisclaimerFlashbarItem(() => dismissDisclaimer(true));
-  const [notifications, setNotifications] = useState(disclaimerItem && !disclaimerDismissed ? [disclaimerItem] : []);
+  const [notifications, setNotifications] = useState<FlashbarProps.MessageDefinition[]>([]);
 
   const dismissNotification = useCallback((id: string) => {
     setNotifications(notifications => notifications.filter(notification => notification.id !== id));

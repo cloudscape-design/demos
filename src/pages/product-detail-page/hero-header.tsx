@@ -14,7 +14,7 @@ function HeroHeader() {
       <Grid gridDefinition={[{ colspan: { default: 12, xs: 8, s: 9 } }, { colspan: { default: 12, xs: 4, s: 3 } }]}>
         <div>
           <Box variant="h1">Cloud Data Solution</Box>
-          <Box variant="p" color="text-body-secondary" margin={{ top: 'xxs', bottom: 's' }}>
+          <Box variant="p" margin={{ top: 'xxs', bottom: 's' }}>
             Delivering data insights and analytics to make decisions quickly, and at scale. Enhance your next step
             decision-making through actionable insights with a free trial today.
           </Box>

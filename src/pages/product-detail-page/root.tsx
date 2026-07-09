@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { useState } from 'react';
+import React from 'react';
 
 import Badge from '@cloudscape-design/components/badge';
 import Box from '@cloudscape-design/components/box';
@@ -8,18 +8,16 @@ import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
 import Button from '@cloudscape-design/components/button';
 import Container from '@cloudscape-design/components/container';
 import ContentLayout from '@cloudscape-design/components/content-layout';
-import Flashbar from '@cloudscape-design/components/flashbar';
 import Header from '@cloudscape-design/components/header';
-import { I18nProvider } from '@cloudscape-design/components/i18n';
-import enMessages from '@cloudscape-design/components/i18n/messages/all.en.json';
 import Link from '@cloudscape-design/components/link';
 import SpaceBetween from '@cloudscape-design/components/space-between';
+import SplitPanel from '@cloudscape-design/components/split-panel';
 import Table from '@cloudscape-design/components/table';
 import TextContent from '@cloudscape-design/components/text-content';
 import { applyTheme } from '@cloudscape-design/components/theming';
 
 import { isVisualRefresh } from '../../common/apply-mode';
-import { useDisclaimerFlashbarItem } from '../commons/disclaimer-flashbar-item';
+import { CustomAppLayout, GlobalSplitPanelContent, useGlobalSplitPanel } from '../commons/common-components';
 import { HeroHeader } from './hero-header';
 import badgePartnerAdvanced from './images/aws-partner-badge.png';
 import videoThumbnail from './images/video-thumbnail.jpg';
@@ -369,62 +367,76 @@ function RelatedProducts() {
 }
 
 export function App() {
-  const [disclaimerDismissed, dismissDisclaimer] = useState(false);
-  const disclaimerItem = useDisclaimerFlashbarItem(() => dismissDisclaimer(true));
-  const showFlashbar = !disclaimerDismissed && disclaimerItem;
+  //const showFlashbar = !disclaimerDismissed && disclaimerItem;
   const headerVariant = isVisualRefresh ? 'high-contrast' : 'divider';
+  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize, splitPanelPreferences } =
+    useGlobalSplitPanel();
 
   return (
-    <I18nProvider locale="en" messages={[enMessages]}>
-      <ContentLayout
-        notifications={showFlashbar && <Flashbar items={[disclaimerItem]} />}
-        breadcrumbs={
-          <BreadcrumbGroup
-            items={[
-              { href: '/', text: 'Marketplace' },
-              { href: '#/product', text: 'Cloud Data Solution' },
-            ]}
-            expandAriaLabel="Show path"
-            ariaLabel="Breadcrumbs"
-          />
-        }
-        headerVariant={headerVariant}
-        header={<HeroHeader />}
-        defaultPadding={true}
-        maxContentWidth={1040}
-        disableOverlap={true}
-      >
-        <div className="product-page-content-grid">
-          <div className="on-this-page--mobile">
-            <OnThisPageNavigation variant="mobile" />
-          </div>
-
-          <aside aria-label="Side bar" className="product-page-aside">
-            <div className="product-page-aside-sticky">
-              <SpaceBetween size="xl">
-                <div className="on-this-page--side">
-                  <OnThisPageNavigation variant="side" />
-                </div>
-                <hr />
-                <UserFeedback />
-              </SpaceBetween>
+    <CustomAppLayout
+      disableContentPaddings
+      navigationHide={true}
+      toolsHide={true}
+      breadcrumbs={
+        <BreadcrumbGroup
+          items={[
+            { href: '/', text: 'Marketplace' },
+            { href: '#/product', text: 'Cloud Data Solution' },
+          ]}
+          expandAriaLabel="Show path"
+          ariaLabel="Breadcrumbs"
+        />
+      }
+      splitPanelOpen={splitPanelOpen}
+      onSplitPanelToggle={onSplitPanelToggle}
+      splitPanelSize={splitPanelSize}
+      onSplitPanelResize={onSplitPanelResize}
+      splitPanelPreferences={splitPanelPreferences}
+      splitPanel={
+        <SplitPanel header="Design exploration">
+          <GlobalSplitPanelContent />
+        </SplitPanel>
+      }
+      content={
+        <ContentLayout
+          headerVariant={headerVariant}
+          header={<HeroHeader />}
+          defaultPadding={true}
+          maxContentWidth={1040}
+          disableOverlap={true}
+        >
+          <div className="product-page-content-grid">
+            <div className="on-this-page--mobile">
+              <OnThisPageNavigation variant="mobile" />
             </div>
-          </aside>
 
-          <main className="product-page-content">
-            <ProductOverview />
-            <Pricing />
-            <Details />
-            <MoreFromVendor />
-            <Support />
-            <RelatedProducts />
-          </main>
+            <aside aria-label="Side bar" className="product-page-aside">
+              <div className="product-page-aside-sticky">
+                <SpaceBetween size="xl">
+                  <div className="on-this-page--side">
+                    <OnThisPageNavigation variant="side" />
+                  </div>
+                  <hr />
+                  <UserFeedback />
+                </SpaceBetween>
+              </div>
+            </aside>
 
-          <aside className="product-page-mobile" aria-label="Side bar">
-            <UserFeedback />
-          </aside>
-        </div>
-      </ContentLayout>
-    </I18nProvider>
+            <main className="product-page-content">
+              <ProductOverview />
+              <Pricing />
+              <Details />
+              <MoreFromVendor />
+              <Support />
+              <RelatedProducts />
+            </main>
+
+            <aside className="product-page-mobile" aria-label="Side bar">
+              <UserFeedback />
+            </aside>
+          </div>
+        </ContentLayout>
+      }
+    />
   );
 }

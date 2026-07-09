@@ -6,7 +6,9 @@ import { useCollection } from '@cloudscape-design/collection-hooks';
 import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import Cards from '@cloudscape-design/components/cards';
 import CollectionPreferences from '@cloudscape-design/components/collection-preferences';
+import Flashbar, { FlashbarProps } from '@cloudscape-design/components/flashbar';
 import Pagination from '@cloudscape-design/components/pagination';
+import SplitPanel from '@cloudscape-design/components/split-panel';
 import TextFilter from '@cloudscape-design/components/text-filter';
 
 import { Distribution } from '../../fake-server/types';
@@ -19,10 +21,12 @@ import {
 import { FullPageHeader } from '../commons';
 import {
   CustomAppLayout,
+  DemoTopNavigation,
+  GlobalSplitPanelContent,
   Navigation,
-  Notifications,
   TableEmptyState,
   TableNoMatchState,
+  useGlobalSplitPanel,
 } from '../commons/common-components';
 import DataProvider from '../commons/data-provider';
 import { useLocalStorage } from '../commons/use-local-storage';
@@ -30,6 +34,54 @@ import { CARD_DEFINITIONS, DEFAULT_PREFERENCES, PAGE_SIZE_OPTIONS, VISIBLE_CONTE
 import { Breadcrumbs, ToolsContent } from './common-components';
 
 import '../../styles/base.scss';
+import '../../styles/top-navigation.scss';
+
+function StackedNotifications() {
+  const [items, setItems] = useState<FlashbarProps.MessageDefinition[]>([
+    {
+      type: 'success',
+      dismissible: true,
+      dismissLabel: 'Dismiss message',
+      content: 'This is a success flash message',
+      id: 'message_5',
+      onDismiss: () => setItems(items => items.filter(item => item.id !== 'message_5')),
+    },
+    {
+      type: 'warning',
+      dismissible: true,
+      dismissLabel: 'Dismiss message',
+      content: 'This is a warning flash message',
+      id: 'message_4',
+      onDismiss: () => setItems(items => items.filter(item => item.id !== 'message_4')),
+    },
+    {
+      type: 'error',
+      dismissible: true,
+      dismissLabel: 'Dismiss message',
+      header: 'Failed to update instance id-4890f893e',
+      content: 'This is a dismissible error message',
+      id: 'message_3',
+      onDismiss: () => setItems(items => items.filter(item => item.id !== 'message_3')),
+    },
+  ]);
+
+  return (
+    <Flashbar
+      items={items}
+      stackItems
+      i18nStrings={{
+        ariaLabel: 'Notifications',
+        notificationBarAriaLabel: 'View all notifications',
+        notificationBarText: 'Notifications',
+        errorIconAriaLabel: 'Error',
+        warningIconAriaLabel: 'Warning',
+        successIconAriaLabel: 'Success',
+        infoIconAriaLabel: 'Info',
+        inProgressIconAriaLabel: 'In progress',
+      }}
+    />
+  );
+}
 
 interface DetailsCardsProps {
   loadHelpPanelContent: () => void;
@@ -113,26 +165,41 @@ function DetailsCards({ loadHelpPanelContent }: DetailsCardsProps) {
 
 export function App() {
   const [toolsOpen, setToolsOpen] = useState(false);
+  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize, splitPanelPreferences } =
+    useGlobalSplitPanel();
   const appLayout = useRef<AppLayoutProps.Ref>(null);
   return (
-    <CustomAppLayout
-      ref={appLayout}
-      navigation={<Navigation activeHref="#/distributions" />}
-      notifications={<Notifications successNotification={true} />}
-      breadcrumbs={<Breadcrumbs />}
-      content={
-        <DetailsCards
-          loadHelpPanelContent={() => {
-            setToolsOpen(true);
-            appLayout.current?.focusToolsClose();
-          }}
-        />
-      }
-      contentType="cards"
-      tools={<ToolsContent />}
-      toolsOpen={toolsOpen}
-      onToolsChange={({ detail }) => setToolsOpen(detail.open)}
-      stickyNotifications={true}
-    />
+    <>
+      <DemoTopNavigation />
+      <CustomAppLayout
+        ref={appLayout}
+        navigation={<Navigation activeHref="#/distributions" />}
+        notifications={<StackedNotifications />}
+        breadcrumbs={<Breadcrumbs />}
+        content={
+          <DetailsCards
+            loadHelpPanelContent={() => {
+              setToolsOpen(true);
+              appLayout.current?.focusToolsClose();
+            }}
+          />
+        }
+        contentType="cards"
+        tools={<ToolsContent />}
+        toolsOpen={toolsOpen}
+        onToolsChange={({ detail }) => setToolsOpen(detail.open)}
+        splitPanelOpen={splitPanelOpen}
+        onSplitPanelToggle={onSplitPanelToggle}
+        splitPanelSize={splitPanelSize}
+        onSplitPanelResize={onSplitPanelResize}
+        splitPanelPreferences={splitPanelPreferences}
+        splitPanel={
+          <SplitPanel header="Design exploration">
+            <GlobalSplitPanelContent />
+          </SplitPanel>
+        }
+        stickyNotifications={true}
+      />
+    </>
   );
 }

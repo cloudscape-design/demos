@@ -6,6 +6,7 @@ import intersection from 'lodash/intersection';
 import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import Pagination from '@cloudscape-design/components/pagination';
 import PropertyFilter, { PropertyFilterProps } from '@cloudscape-design/components/property-filter';
+import SplitPanel from '@cloudscape-design/components/split-panel';
 import Table, { TableProps } from '@cloudscape-design/components/table';
 
 import { parsePropertyFilterQuery } from '../../common/parse-property-filter';
@@ -19,7 +20,15 @@ import {
   renderAriaLive,
 } from '../../i18n-strings';
 import { FullPageHeader } from '../commons';
-import { CustomAppLayout, Navigation, Notifications, TableNoMatchState } from '../commons/common-components';
+import {
+  CustomAppLayout,
+  DemoTopNavigation,
+  GlobalSplitPanelContent,
+  Navigation,
+  Notifications,
+  TableNoMatchState,
+  useGlobalSplitPanel,
+} from '../commons/common-components';
 import { COLUMN_DEFINITIONS, DEFAULT_PREFERENCES, Preferences } from '../commons/table-config';
 import { useColumnWidths } from '../commons/use-column-widths';
 import { useLocalStorage } from '../commons/use-local-storage';
@@ -179,29 +188,44 @@ export function App() {
     COLUMN_DEFINITIONS,
   );
   const [toolsOpen, setToolsOpen] = useState(false);
+  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize, splitPanelPreferences } =
+    useGlobalSplitPanel();
   const appLayout = useRef<AppLayoutProps.Ref>(null);
 
   return (
-    <CustomAppLayout
-      ref={appLayout}
-      navigation={<Navigation activeHref="#/distributions" />}
-      notifications={<Notifications successNotification={true} />}
-      breadcrumbs={<Breadcrumbs />}
-      content={
-        <ServerSidePropertyFilterTable
-          columnDefinitions={columnDefinitions}
-          saveWidths={saveWidths}
-          loadHelpPanelContent={() => {
-            setToolsOpen(true);
-            appLayout.current?.focusToolsClose();
-          }}
-        />
-      }
-      contentType="table"
-      tools={<ToolsContent />}
-      toolsOpen={toolsOpen}
-      onToolsChange={({ detail }) => setToolsOpen(detail.open)}
-      stickyNotifications={true}
-    />
+    <>
+      <DemoTopNavigation />
+      <CustomAppLayout
+        ref={appLayout}
+        navigation={<Navigation activeHref="#/distributions" />}
+        notifications={<Notifications successNotification={true} />}
+        breadcrumbs={<Breadcrumbs />}
+        splitPanelOpen={splitPanelOpen}
+        onSplitPanelToggle={onSplitPanelToggle}
+        splitPanelSize={splitPanelSize}
+        onSplitPanelResize={onSplitPanelResize}
+        splitPanelPreferences={splitPanelPreferences}
+        splitPanel={
+          <SplitPanel header="Design exploration">
+            <GlobalSplitPanelContent />
+          </SplitPanel>
+        }
+        content={
+          <ServerSidePropertyFilterTable
+            columnDefinitions={columnDefinitions}
+            saveWidths={saveWidths}
+            loadHelpPanelContent={() => {
+              setToolsOpen(true);
+              appLayout.current?.focusToolsClose();
+            }}
+          />
+        }
+        contentType="table"
+        tools={<ToolsContent />}
+        toolsOpen={toolsOpen}
+        onToolsChange={({ detail }) => setToolsOpen(detail.open)}
+        stickyNotifications={true}
+      />
+    </>
   );
 }

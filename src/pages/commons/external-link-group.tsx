@@ -22,7 +22,7 @@ interface ExternalLinkGroupProps {
 
 function ExternalLinkItem({ href, text }: ExternalLinkItemProps) {
   return (
-    <Link href={href} target="_blank">
+    <Link variant="primary" href={href} target="_blank">
       {text}
     </Link>
   );

@@ -80,7 +80,11 @@ export const CreateTranscriptionJobPage = () => {
               <Header
                 variant="h1"
                 info={
-                  <Link variant="info" onFollow={makeHelpPanelHandler('create-transcription-job')}>
+                  <Link
+                    variant="info"
+                    onFollow={makeHelpPanelHandler('create-transcription-job')}
+                    className="secondary-link"
+                  >
                     Info
                   </Link>
                 }
@@ -112,6 +116,7 @@ export const CreateTranscriptionJobPage = () => {
                         variant="info"
                         onFollow={makeHelpPanelHandler('name')}
                         ariaLabel={'Information about transcription job name.'}
+                        className="secondary-link"
                       >
                         Info
                       </Link>
@@ -125,7 +130,7 @@ export const CreateTranscriptionJobPage = () => {
                     label="Model type"
                     stretch={true}
                     info={
-                      <Link variant="info" onFollow={makeHelpPanelHandler('model-type')}>
+                      <Link variant="info" onFollow={makeHelpPanelHandler('model-type')} className="secondary-link">
                         Info
                       </Link>
                     }
@@ -153,7 +158,11 @@ export const CreateTranscriptionJobPage = () => {
                     label="Language settings"
                     description="You can transcribe your audio file in a language that you specify or have Amazon Transcribe identify and transcribe it in the predominant language."
                     info={
-                      <Link variant="info" onFollow={makeHelpPanelHandler('language-settings')}>
+                      <Link
+                        variant="info"
+                        onFollow={makeHelpPanelHandler('language-settings')}
+                        className="secondary-link"
+                      >
                         Info
                       </Link>
                     }
@@ -200,7 +209,7 @@ export const CreateTranscriptionJobPage = () => {
                 header={
                   <Header
                     info={
-                      <Link variant="info" onFollow={makeHelpPanelHandler('input-data')}>
+                      <Link variant="info" onFollow={makeHelpPanelHandler('input-data')} className="secondary-link">
                         Info
                       </Link>
                     }
@@ -235,6 +244,7 @@ export const CreateTranscriptionJobPage = () => {
                         variant="info"
                         onFollow={makeHelpPanelHandler('choose-output-location')}
                         ariaLabel={'Information about output location.'}
+                        className="secondary-link"
                       >
                         Info
                       </Link>
