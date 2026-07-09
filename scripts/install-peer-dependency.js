@@ -55,8 +55,10 @@ const targetRepository = `https://github.com/cloudscape-design/${packageName}.gi
 const nodeModulesPath = path.join(process.cwd(), 'node_modules', '@cloudscape-design');
 const tempDir = path.join(os.tmpdir(), `temp-${packageName}`);
 
-// Clone the repository and checkout the branch
+// Clone the repository and checkout the branch. Remove any leftover temp dir
+// from a previous (possibly failed) run first so the clone is idempotent.
 console.log(`Cloning ${packageName}:${targetBranch}...`);
+execCommand(`rm -rf ${tempDir}`);
 execCommand(`git clone ${targetRepository} ${tempDir}`);
 process.chdir(tempDir);
 execCommand(`git checkout ${targetBranch}`);
@@ -64,7 +66,20 @@ execCommand(`git checkout ${targetBranch}`);
 // Install dependencies and build
 console.log(`Installing dependencies and building ${packageName}...`);
 execCommand('npm install');
-execCommand('npm run build');
+
+// The components one-theme build only emits the One Theme token values when
+// INCLUDE_ONE_THEME is set. This flag is what tells the components build to pass
+// the One Theme theme id to buildThemedComponents, so the resulting artifacts
+// carry the `.awsui-one-theme`-scoped token values we activate at runtime.
+//
+// For components we use `quick-build` rather than the full `build`: the full
+// build runs release gates (size-limit, docs, tests), and the extra One Theme
+// token values push widget-exports past the configured size-limit, aborting the
+// build. `quick-build` produces the same `lib/` artifacts without those gates.
+const isComponents = packageName === 'components';
+const buildEnv = isComponents ? { INCLUDE_ONE_THEME: 'true' } : {};
+const buildCommand = isComponents ? 'npm run quick-build' : 'npm run build';
+execCommand(buildCommand, { env: { ...process.env, ...buildEnv } });
 
 // Remove existing peer dependency in node_modules
 for (const moduleName of getModules(packageName)) {

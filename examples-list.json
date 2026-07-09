@@ -5,93 +5,131 @@
     "type": "cloudscape"
   },
   {
-    "path": "one-theme#/auth",
-    "title": "Sign in",
-    "type": "one-theme"
-  },
-  {
-    "path": "one-theme#/console",
-    "title": "Console Home",
-    "type": "one-theme"
-  },
-  {
-    "path": "one-theme#/courtyard",
-    "title": "Courtyard",
-    "type": "one-theme"
-  },
-  {
-    "path": "one-theme#/omega",
-    "title": "Omega",
-    "type": "one-theme"
-  },
-  {
     "path": "cards",
-    "title": "Card view",
-    "type": "cloudscape"
+    "title": "Card view"
   },
   {
     "path": "chat",
-    "title": "Chat",
-    "type": "cloudscape"
+    "title": "Chat"
+  },
+  {
+    "path": "delete-one-click",
+    "title": "One-click delete"
+  },
+  {
+    "path": "delete-with-simple-confirmation",
+    "title": "Delete with simple confirmation"
   },
   {
     "path": "delete-with-additional-confirmation",
-    "title": "Delete with additional confirmation",
-    "type": "cloudscape"
+    "title": "Delete with additional confirmation"
   },
   {
     "path": "details",
-    "title": "Details page",
-    "type": "cloudscape"
+    "title": "Details page"
+  },
+  {
+    "path": "details-hub",
+    "title": "Details page as hub"
+  },
+  {
+    "path": "details-tabs",
+    "title": "Details page with tabs"
+  },
+  {
+    "path": "edit",
+    "title": "Edit resource"
   },
   {
     "path": "form",
-    "title": "Single page create",
-    "type": "cloudscape"
+    "title": "Single page create"
+  },
+  {
+    "path": "form-unsaved-changes",
+    "title": "Communicate unsaved changes"
+  },
+  {
+    "path": "form-validation",
+    "title": "Form validation"
   },
   {
     "path": "product-detail-page",
-    "title": "Product detail page",
-    "type": "cloudscape"
+    "title": "Product detail page"
+  },
+  {
+    "path": "server-side-table",
+    "title": "Table view (server-side)"
+  },
+  {
+    "path": "server-side-table-property-filter",
+    "title": "Table property filter (server-side)"
   },
   {
     "path": "table-property-filter",
-    "title": "Table property filter",
-    "type": "cloudscape"
+    "title": "Table property filter"
+  },
+  {
+    "path": "table-select-filter",
+    "title": "Table with select filter"
+  },
+  {
+    "path": "table-date-filter",
+    "title": "Table view with date range picker filter"
+  },
+  {
+    "path": "table-saved-filters",
+    "title": "Table view with saved filter sets"
+  },
+  {
+    "path": "table",
+    "title": "Table view"
+  },
+  {
+    "path": "table-editable",
+    "title": "Table view with inline editing"
   },
   {
     "path": "table-expandable",
-    "title": "Table view with expandable rows",
-    "type": "cloudscape"
+    "title": "Table view with expandable rows"
+  },
+  {
+    "path": "manage-tags",
+    "title": "Manage tags"
+  },
+  {
+    "path": "read-from-s3",
+    "title": "Read from Amazon S3"
+  },
+  {
+    "path": "write-to-s3",
+    "title": "Write to Amazon S3"
   },
   {
     "path": "wizard",
-    "title": "Multipage create",
-    "type": "cloudscape"
-  },
-  {
-    "path": "configurable-dashboard",
-    "title": "Configurable dashboard",
-    "type": "cloudscape"
+    "title": "Multipage create"
   },
   {
     "path": "dashboard",
-    "title": "Service dashboard",
-    "type": "cloudscape"
+    "title": "Service dashboard"
+  },
+  {
+    "path": "configurable-dashboard",
+    "title": "Configurable dashboard"
+  },
+  {
+    "path": "onboarding",
+    "title": "Hands-on tutorials"
   },
   {
     "path": "split-panel-multiple",
-    "title": "Split view",
-    "type": "cloudscape"
+    "title": "Split view"
+  },
+  {
+    "path": "split-panel-comparison",
+    "title": "Split view with details comparison"
   },
   {
     "path": "non-console",
-    "title": "Top navigation",
-    "type": "cloudscape"
-  },
-  {
-    "path": "one-theme",
-    "title": "One Theme",
-    "type": "cloudscape"
+    "title": "Top navigation"
   }
 ]

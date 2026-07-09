@@ -3,11 +3,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { applyTheme } from '@cloudscape-design/components/theming';
-
-import { themeCoreConfig } from '../../common/theme-one-theme';
-applyTheme({ theme: themeCoreConfig });
-
 import { BreadcrumbGroup, Header, IconProvider, SpaceBetween, SplitPanel } from '@cloudscape-design/components';
 
 import { Notifications } from '../commons';
@@ -17,6 +12,7 @@ import {
   GlobalSplitPanelContent,
   useGlobalSplitPanel,
 } from '../commons/common-components';
+import BoxVisualAccent from './box-visual-accent';
 import ButtonsInputsDropdowns from './buttons-inputs-dropdowns';
 import Charts from './charts';
 import Chat from './chat';
@@ -111,6 +107,9 @@ function App() {
             </div>
             <div id="kvp-form">
               <KvpForm />
+            </div>
+            <div id="box-visual-accent">
+              <BoxVisualAccent />
             </div>
           </SpaceBetween>
         }

@@ -1,16 +1,34 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import { applyDensity, applyMode, Density, disableMotion, Mode } from '@cloudscape-design/global-styles';
+import {
+  applyDensity,
+  applyMode,
+  applyTheme,
+  Density,
+  disableMotion,
+  Mode,
+  Theme,
+} from '@cloudscape-design/global-styles';
 
 import * as localStorage from './local-storage';
 
 import '@cloudscape-design/global-styles/index.css';
-import './custom-font.css';
+import './ember-modern-font.css';
 
 (window as any).disableMotionForTests = disableMotion;
 
 // always `true` in this design
 export const isVisualRefresh = true;
+
+// Default every page to the One Theme. Using global-styles' applyTheme (rather
+// than manually adding the class) treats the theme classes as mutually
+// exclusive: it adds `awsui-one-theme` and removes `awsui-visual-refresh`, so
+// the visual-refresh secondary theme no longer applies on top of One Theme.
+// This module is the first entry in every page bundle, so it runs before React
+// renders.
+if (typeof document !== 'undefined') {
+  applyTheme(Theme.OneTheme);
+}
 
 // Initialize density
 export let currentDensity: Density = localStorage.load('Awsui-Density-Preference') ?? Density.Comfortable;

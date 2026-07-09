@@ -3,12 +3,8 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { applyTheme } from '@cloudscape-design/components/theming';
-
-import { themeCoreConfig } from '../../common/theme-one-theme';
 import { App } from './app';
 
 import '../../styles/base.scss';
 
-applyTheme({ theme: themeCoreConfig });
 createRoot(document.getElementById('app')!).render(<App />);

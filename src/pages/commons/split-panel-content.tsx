@@ -6,9 +6,6 @@ import Box from '@cloudscape-design/components/box';
 import ColumnLayout from '@cloudscape-design/components/column-layout';
 import { SelectProps } from '@cloudscape-design/components/select';
 
-import { applyCustomTheme } from '../../common/apply-theme';
-import { generateThemeConfigOneTheme } from '../../common/theme-one-theme';
-
 export function GlobalSplitPanelContent() {
   const [fontStretch] = useState(95);
   const [checked] = useState(false);
@@ -27,35 +24,8 @@ export function GlobalSplitPanelContent() {
   ];
   const [selectedLinkColor] = useState<SelectProps.Option>(linkColorOptions[0]);
 
-  // Apply theme on mount and when settings change
+  // Toggle custom CSS body classes on mount and when settings change
   useEffect(() => {
-    const applyThemeChanges = () => {
-      try {
-        const baseTheme = generateThemeConfigOneTheme();
-
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const themeTokens: any = { ...baseTheme.tokens };
-
-        // Apply borderRadiusFlashbar only when toggle is on
-        if (checked) {
-          themeTokens.borderRadiusFlashbar = '0px';
-        }
-
-        const updatedTheme = {
-          tokens: themeTokens,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          referenceTokens: (baseTheme as any).referenceTokens || {},
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          contexts: (baseTheme as any).contexts || {},
-        };
-
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        applyCustomTheme(updatedTheme as any);
-      } catch (error) {
-        console.error('Failed to apply theme:', error);
-      }
-    };
-
     if (checked) {
       document.body.classList.add('filled-flashbar');
     } else {
@@ -70,8 +40,6 @@ export function GlobalSplitPanelContent() {
     } else {
       document.body.classList.remove('blue-secondary-link');
     }
-
-    applyThemeChanges();
   }, [checked, selectedLinkColor]);
 
   // Toggle font-smooth-auto class on body

@@ -50,6 +50,12 @@
 }
 @font-face {
   font-family: 'Ember Modern';
+  src: url('./fonts/EmberModernTextUIV1.1-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Ember Modern';
   src: url('./fonts/EmberModernTextUIV1.1-LightItalic.woff2') format('woff2');
   font-weight: 300;
   font-style: italic;
