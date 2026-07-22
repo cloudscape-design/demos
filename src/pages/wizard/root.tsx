@@ -4,12 +4,10 @@ import React, { useCallback, useRef, useState } from 'react';
 
 import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import HelpPanel from '@cloudscape-design/components/help-panel';
-import SplitPanel from '@cloudscape-design/components/split-panel';
 import Wizard, { WizardProps } from '@cloudscape-design/components/wizard';
 
 import { ExternalLinkGroup, InfoLink, Notifications } from '../commons';
-import { CustomAppLayout, DemoTopNavigation, GlobalSplitPanelContent } from '../commons/common-components';
-import { useGlobalSplitPanel } from '../commons/use-global-split-panel';
+import { CustomAppLayout, DemoTopNavigation } from '../commons/common-components';
 import { ToolsContent, WizardState } from './interfaces';
 import Engine from './stepComponents/step1';
 import Details from './stepComponents/step2';
@@ -156,8 +154,6 @@ const App = () => {
     onCancel,
     onSubmit,
   } = useWizard(closeTools, setFormattedToolsContent);
-  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize, splitPanelPreferences } =
-    useGlobalSplitPanel();
 
   const wizardSteps = steps.map(({ title, stateKey, StepContent }) => ({
     title,
@@ -182,16 +178,6 @@ const App = () => {
         onToolsChange={onToolsChange}
         breadcrumbs={<Breadcrumbs />}
         contentType="wizard"
-        splitPanelOpen={splitPanelOpen}
-        onSplitPanelToggle={onSplitPanelToggle}
-        splitPanelSize={splitPanelSize}
-        onSplitPanelResize={onSplitPanelResize}
-        splitPanelPreferences={splitPanelPreferences}
-        splitPanel={
-          <SplitPanel header="Design exploration">
-            <GlobalSplitPanelContent />
-          </SplitPanel>
-        }
         content={
           <Wizard
             steps={wizardSteps}

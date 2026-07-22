@@ -8,15 +8,8 @@ import Form from '@cloudscape-design/components/form';
 import Header from '@cloudscape-design/components/header';
 import Link from '@cloudscape-design/components/link';
 import SpaceBetween from '@cloudscape-design/components/space-between';
-import SplitPanel from '@cloudscape-design/components/split-panel';
 
-import {
-  CustomAppLayout,
-  DemoTopNavigation,
-  GlobalSplitPanelContent,
-  Navigation,
-  useGlobalSplitPanel,
-} from '../commons/common-components';
+import { CustomAppLayout, DemoTopNavigation, Navigation } from '../commons/common-components';
 import { Notifications } from '../commons/common-components';
 import { Breadcrumbs } from './components/breadcrumbs';
 import { Content } from './components/content';
@@ -28,8 +21,6 @@ export const App = () => {
   const appLayoutRef = useRef<AppLayoutProps.Ref>(null);
   const [toolsIndex, setToolsIndex] = React.useState(0);
   const [toolsOpen, setToolsOpen] = React.useState(false);
-  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize, splitPanelPreferences } =
-    useGlobalSplitPanel();
   const loadHelpPanelContent = (toolsIndex: number) => {
     setToolsIndex(toolsIndex);
     setToolsOpen(true);
@@ -41,16 +32,6 @@ export const App = () => {
       <CustomAppLayout
         ref={appLayoutRef}
         contentType="form"
-        splitPanelOpen={splitPanelOpen}
-        onSplitPanelToggle={onSplitPanelToggle}
-        splitPanelSize={splitPanelSize}
-        onSplitPanelResize={onSplitPanelResize}
-        splitPanelPreferences={splitPanelPreferences}
-        splitPanel={
-          <SplitPanel header="Design exploration">
-            <GlobalSplitPanelContent />
-          </SplitPanel>
-        }
         content={
           <form onSubmit={event => event.preventDefault()}>
             <Form

@@ -3,16 +3,8 @@
 import React, { useRef, useState } from 'react';
 
 import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
-import SplitPanel from '@cloudscape-design/components/split-panel';
 
-import {
-  CustomAppLayout,
-  DemoTopNavigation,
-  GlobalSplitPanelContent,
-  Navigation,
-  Notifications,
-  useGlobalSplitPanel,
-} from '../commons/common-components';
+import { CustomAppLayout, DemoTopNavigation, Navigation, Notifications } from '../commons/common-components';
 import { COLUMN_DEFINITIONS, DEFAULT_PREFERENCES } from '../commons/table-config';
 import { useColumnWidths } from '../commons/use-column-widths';
 import { useLocalStorage } from '../commons/use-local-storage';
@@ -26,8 +18,6 @@ export function App() {
   const [columnDefinitions, saveWidths] = useColumnWidths('React-TablePropertyFilter-Widths', COLUMN_DEFINITIONS);
   const [preferences, setPreferences] = useLocalStorage('React-TablePropertyFilter-Preferences', DEFAULT_PREFERENCES);
   const [toolsOpen, setToolsOpen] = useState(false);
-  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize, splitPanelPreferences } =
-    useGlobalSplitPanel();
   const appLayout = useRef<AppLayoutProps.Ref>(null);
 
   return (
@@ -38,16 +28,6 @@ export function App() {
         navigation={<Navigation activeHref="#/distributions" />}
         notifications={<Notifications successNotification={true} />}
         breadcrumbs={<Breadcrumbs />}
-        splitPanelOpen={splitPanelOpen}
-        onSplitPanelToggle={onSplitPanelToggle}
-        splitPanelSize={splitPanelSize}
-        onSplitPanelResize={onSplitPanelResize}
-        splitPanelPreferences={splitPanelPreferences}
-        splitPanel={
-          <SplitPanel header="Design exploration">
-            <GlobalSplitPanelContent />
-          </SplitPanel>
-        }
         content={
           <PropertyFilterTable
             loadHelpPanelContent={() => {

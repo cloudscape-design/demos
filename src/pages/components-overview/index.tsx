@@ -3,15 +3,10 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { BreadcrumbGroup, Header, IconProvider, SpaceBetween, SplitPanel } from '@cloudscape-design/components';
+import { BreadcrumbGroup, Header, SpaceBetween } from '@cloudscape-design/components';
 
 import { Notifications } from '../commons';
-import {
-  CustomAppLayout,
-  DemoTopNavigation,
-  GlobalSplitPanelContent,
-  useGlobalSplitPanel,
-} from '../commons/common-components';
+import { CustomAppLayout, DemoTopNavigation } from '../commons/common-components';
 import BoxVisualAccent from './box-visual-accent';
 import ButtonsInputsDropdowns from './buttons-inputs-dropdowns';
 import Charts from './charts';
@@ -29,19 +24,8 @@ import '../../styles/base.scss';
 import '../../styles/top-navigation.scss';
 
 function App() {
-  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize, splitPanelPreferences } =
-    useGlobalSplitPanel();
-
   return (
-    <IconProvider
-      icons={{
-        'caret-down-filled': (
-          <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-            <path d="m2 5 6 6 6-6" className="stroke-linejoin-round"></path>
-          </svg>
-        ),
-      }}
-    >
+    <>
       <DemoTopNavigation />
       <CustomAppLayout
         toolsHide={true}
@@ -57,16 +41,6 @@ function App() {
           />
         }
         notifications={<Notifications />}
-        splitPanelOpen={splitPanelOpen}
-        onSplitPanelToggle={onSplitPanelToggle}
-        splitPanelSize={splitPanelSize}
-        onSplitPanelResize={onSplitPanelResize}
-        splitPanelPreferences={splitPanelPreferences}
-        splitPanel={
-          <SplitPanel header="Design exploration">
-            <GlobalSplitPanelContent />
-          </SplitPanel>
-        }
         content={
           <SpaceBetween direction="vertical" size="xl">
             <Header
@@ -114,7 +88,7 @@ function App() {
           </SpaceBetween>
         }
       />
-    </IconProvider>
+    </>
   );
 }
 

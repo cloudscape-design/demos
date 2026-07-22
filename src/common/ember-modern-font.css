@@ -1,61 +1,65 @@
-/* Ember Modern font declarations using local EmberModernTextUI V1.1 files */
+/* Ember Modern font declarations using local EmberModernTextUI V1.1 files.
+ * The family name MUST match the One Theme `fontFamilyBase` token, which is
+ * "'Ember Modern Text UI', 'Amazon Ember', Roboto, Arial, sans-serif". If the
+ * names differ, the browser can't match these web fonts and falls back to any
+ * copy installed on the local machine (rendering as "Local file"). */
 @font-face {
-  font-family: 'Ember Modern';
+  font-family: 'Ember Modern Text UI';
   src: url('./fonts/EmberModernTextUIV1.1-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Ember Modern';
+  font-family: 'Ember Modern Text UI';
   src: url('./fonts/EmberModernTextUIV1.1-Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Ember Modern';
+  font-family: 'Ember Modern Text UI';
   src: url('./fonts/EmberModernTextUIV1.1-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Ember Modern';
+  font-family: 'Ember Modern Text UI';
   src: url('./fonts/EmberModernTextUIV1.1-Light.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Ember Modern';
+  font-family: 'Ember Modern Text UI';
   src: url('./fonts/EmberModernTextUIV1.1-Italic.woff2') format('woff2');
   font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Ember Modern';
+  font-family: 'Ember Modern Text UI';
   src: url('./fonts/EmberModernTextUIV1.1-MediumItalic.woff2') format('woff2');
   font-weight: 500;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Ember Modern';
+  font-family: 'Ember Modern Text UI';
   src: url('./fonts/EmberModernTextUIV1.1-BoldItalic.woff2') format('woff2');
   font-weight: 700;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Ember Modern';
+  font-family: 'Ember Modern Text UI';
   src: url('./fonts/EmberModernTextUIV1.1-Semibold.woff2') format('woff2');
   font-weight: 600;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Ember Modern';
+  font-family: 'Ember Modern Text UI';
   src: url('./fonts/EmberModernTextUIV1.1-LightItalic.woff2') format('woff2');
   font-weight: 300;
   font-style: italic;

@@ -12,7 +12,6 @@ import Pagination from '@cloudscape-design/components/pagination';
 import Select from '@cloudscape-design/components/select';
 import { SelectProps } from '@cloudscape-design/components/select';
 import SpaceBetween from '@cloudscape-design/components/space-between';
-import SplitPanel from '@cloudscape-design/components/split-panel';
 import Table from '@cloudscape-design/components/table';
 
 import { getHeaderCounterText, getTextFilterCounterText, renderAriaLive } from '../../i18n-strings';
@@ -21,11 +20,9 @@ import { FullPageHeader } from '../commons';
 import {
   CustomAppLayout,
   DemoTopNavigation,
-  GlobalSplitPanelContent,
   Notifications,
   TableEmptyState,
   TableNoMatchState,
-  useGlobalSplitPanel,
 } from '../commons/common-components';
 import { Preferences } from '../commons/table-config';
 import { useColumnWidths } from '../commons/use-column-widths';
@@ -234,8 +231,6 @@ function TableSelectFilter({ loadHelpPanelContent }: TableSelectFilter) {
 
 export function App() {
   const [toolsOpen, setToolsOpen] = useState(false);
-  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize, splitPanelPreferences } =
-    useGlobalSplitPanel();
   const appLayout = useRef<AppLayoutProps.Ref>(null);
 
   return (
@@ -246,16 +241,6 @@ export function App() {
         navigation={<Navigation activeHref="#/instances" />}
         notifications={<Notifications successNotification={true} />}
         breadcrumbs={<Breadcrumbs />}
-        splitPanelOpen={splitPanelOpen}
-        onSplitPanelToggle={onSplitPanelToggle}
-        splitPanelSize={splitPanelSize}
-        onSplitPanelResize={onSplitPanelResize}
-        splitPanelPreferences={splitPanelPreferences}
-        splitPanel={
-          <SplitPanel header="Design exploration">
-            <GlobalSplitPanelContent />
-          </SplitPanel>
-        }
         content={
           <TableSelectFilter
             loadHelpPanelContent={() => {

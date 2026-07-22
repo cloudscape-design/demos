@@ -5,11 +5,9 @@ import React, { useRef, useState } from 'react';
 import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
 import HelpPanel from '@cloudscape-design/components/help-panel';
-import SplitPanel from '@cloudscape-design/components/split-panel';
 
 import { ExternalLinkGroup, Navigation, Notifications } from '../commons';
-import { CustomAppLayout, ec2NavItems, GlobalSplitPanelContent } from '../commons/common-components';
-import { useGlobalSplitPanel } from '../commons/use-global-split-panel';
+import { CustomAppLayout, ec2NavItems } from '../commons/common-components';
 
 export function Breadcrumbs() {
   return (
@@ -64,8 +62,6 @@ interface PageActions {
 export function PageLayout({ children }: { children: (actions: PageActions) => React.ReactNode }) {
   const appLayout = useRef<AppLayoutProps.Ref>(null);
   const [toolsOpen, setToolsOpen] = useState(false);
-  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize, splitPanelPreferences } =
-    useGlobalSplitPanel();
   return (
     <CustomAppLayout
       ref={appLayout}
@@ -82,16 +78,6 @@ export function PageLayout({ children }: { children: (actions: PageActions) => R
       tools={<ToolsContent />}
       toolsOpen={toolsOpen}
       onToolsChange={({ detail }) => setToolsOpen(detail.open)}
-      splitPanelOpen={splitPanelOpen}
-      onSplitPanelToggle={onSplitPanelToggle}
-      splitPanelSize={splitPanelSize}
-      onSplitPanelResize={onSplitPanelResize}
-      splitPanelPreferences={splitPanelPreferences}
-      splitPanel={
-        <SplitPanel header="Design exploration">
-          <GlobalSplitPanelContent />
-        </SplitPanel>
-      }
       stickyNotifications={true}
     />
   );

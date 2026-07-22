@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MIT-0
 import React, { forwardRef } from 'react';
 
-import { IconProvider } from '@cloudscape-design/components';
 import AppLayout, { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import AppLayoutToolbar from '@cloudscape-design/components/app-layout-toolbar';
 import Badge from '@cloudscape-design/components/badge';
@@ -17,8 +16,6 @@ import { isVisualRefresh } from '../../common/apply-mode';
 // backward compatibility
 export * from './index';
 export { DemoTopNavigation } from './top-navigation';
-export { GlobalSplitPanelContent } from './split-panel-content';
-export { useGlobalSplitPanel } from './use-global-split-panel';
 
 export const ec2NavItems = [
   { type: 'link', text: 'Instances', href: '#/instances' },
@@ -74,21 +71,7 @@ export const TableEmptyState = ({ resourceName }: { resourceName: string }) => (
 export const CustomAppLayout = forwardRef<AppLayoutProps.Ref, AppLayoutProps>(function CustomAppLayout(props, ref) {
   return (
     <I18nProvider locale="en" messages={[enMessages]}>
-      {isVisualRefresh ? (
-        <IconProvider
-          icons={{
-            'angle-right': (
-              <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10 2L6 14" />
-              </svg>
-            ),
-          }}
-        >
-          <AppLayoutToolbar ref={ref} {...props} />
-        </IconProvider>
-      ) : (
-        <AppLayout ref={ref} {...props} />
-      )}
+      {isVisualRefresh ? <AppLayoutToolbar ref={ref} {...props} /> : <AppLayout ref={ref} {...props} />}
     </I18nProvider>
   );
 });

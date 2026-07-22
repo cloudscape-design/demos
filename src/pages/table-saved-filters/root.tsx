@@ -9,7 +9,6 @@ import Flashbar from '@cloudscape-design/components/flashbar';
 import Pagination from '@cloudscape-design/components/pagination';
 import PropertyFilter from '@cloudscape-design/components/property-filter';
 import Select from '@cloudscape-design/components/select';
-import SplitPanel from '@cloudscape-design/components/split-panel';
 import Table from '@cloudscape-design/components/table';
 
 import { parsePropertyFilterQuery } from '../../common/parse-property-filter';
@@ -26,11 +25,9 @@ import { FullPageHeader } from '../commons';
 import {
   CustomAppLayout,
   DemoTopNavigation,
-  GlobalSplitPanelContent,
   Navigation,
   TableEmptyState,
   TableNoMatchState,
-  useGlobalSplitPanel,
 } from '../commons/common-components';
 import DataProvider from '../commons/data-provider';
 import { COLUMN_DEFINITIONS, DEFAULT_PREFERENCES } from '../commons/table-config';
@@ -88,8 +85,6 @@ const PROPERTY_FILTERS_QUERY_PARAM_KEY = 'propertyFilter';
 
 export function App() {
   const [toolsOpen, setToolsOpen] = useState(false);
-  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize, splitPanelPreferences } =
-    useGlobalSplitPanel();
   const appLayout = useRef<AppLayoutProps.Ref>(null);
 
   const [columnDefinitions, saveWidths] = useColumnWidths('React-TableSavedFilters-Widths', COLUMN_DEFINITIONS);
@@ -203,16 +198,6 @@ export function App() {
         navigation={<Navigation activeHref="#/distributions" />}
         notifications={<Flashbar stackItems={true} items={flashNotifications} />}
         breadcrumbs={<Breadcrumbs />}
-        splitPanelOpen={splitPanelOpen}
-        onSplitPanelToggle={onSplitPanelToggle}
-        splitPanelSize={splitPanelSize}
-        onSplitPanelResize={onSplitPanelResize}
-        splitPanelPreferences={splitPanelPreferences}
-        splitPanel={
-          <SplitPanel header="Design exploration">
-            <GlobalSplitPanelContent />
-          </SplitPanel>
-        }
         content={
           <>
             <Table

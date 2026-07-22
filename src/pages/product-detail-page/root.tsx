@@ -11,13 +11,12 @@ import ContentLayout from '@cloudscape-design/components/content-layout';
 import Header from '@cloudscape-design/components/header';
 import Link from '@cloudscape-design/components/link';
 import SpaceBetween from '@cloudscape-design/components/space-between';
-import SplitPanel from '@cloudscape-design/components/split-panel';
 import Table from '@cloudscape-design/components/table';
 import TextContent from '@cloudscape-design/components/text-content';
 import { applyTheme } from '@cloudscape-design/components/theming';
 
 import { isVisualRefresh } from '../../common/apply-mode';
-import { CustomAppLayout, GlobalSplitPanelContent, useGlobalSplitPanel } from '../commons/common-components';
+import { CustomAppLayout } from '../commons/common-components';
 import { HeroHeader } from './hero-header';
 import badgePartnerAdvanced from './images/aws-partner-badge.png';
 import videoThumbnail from './images/video-thumbnail.jpg';
@@ -369,8 +368,6 @@ function RelatedProducts() {
 export function App() {
   //const showFlashbar = !disclaimerDismissed && disclaimerItem;
   const headerVariant = isVisualRefresh ? 'high-contrast' : 'divider';
-  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize, splitPanelPreferences } =
-    useGlobalSplitPanel();
 
   return (
     <CustomAppLayout
@@ -386,16 +383,6 @@ export function App() {
           expandAriaLabel="Show path"
           ariaLabel="Breadcrumbs"
         />
-      }
-      splitPanelOpen={splitPanelOpen}
-      onSplitPanelToggle={onSplitPanelToggle}
-      splitPanelSize={splitPanelSize}
-      onSplitPanelResize={onSplitPanelResize}
-      splitPanelPreferences={splitPanelPreferences}
-      splitPanel={
-        <SplitPanel header="Design exploration">
-          <GlobalSplitPanelContent />
-        </SplitPanel>
       }
       content={
         <ContentLayout

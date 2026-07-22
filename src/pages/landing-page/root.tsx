@@ -14,19 +14,11 @@ import Link from '@cloudscape-design/components/link';
 import List from '@cloudscape-design/components/list';
 import Select, { SelectProps } from '@cloudscape-design/components/select';
 import SpaceBetween from '@cloudscape-design/components/space-between';
-import SplitPanel from '@cloudscape-design/components/split-panel';
 
 import { ReactComponent as DiagramDark } from '../../resources/landing-page/cloudfront-diagram-dark.svg';
 import { ReactComponent as DiagramLight } from '../../resources/landing-page/cloudfront-diagram-light.svg';
 import { Breadcrumbs } from '../commons/breadcrumbs';
-import {
-  CustomAppLayout,
-  DemoTopNavigation,
-  GlobalSplitPanelContent,
-  Navigation,
-  Notifications,
-  useGlobalSplitPanel,
-} from '../commons/common-components';
+import { CustomAppLayout, DemoTopNavigation, Navigation, Notifications } from '../commons/common-components';
 
 import '../../styles/landing-page.scss';
 import '../../styles/top-navigation.scss';
@@ -423,8 +415,6 @@ const Content = () => {
 
 export function App() {
   const [navigationOpen, setNavigationOpen] = React.useState(false);
-  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize, splitPanelPreferences } =
-    useGlobalSplitPanel();
   return (
     <>
       <DemoTopNavigation />
@@ -438,16 +428,6 @@ export function App() {
         toolsHide={true}
         notifications={<Notifications />}
         headerVariant="high-contrast"
-        splitPanelOpen={splitPanelOpen}
-        onSplitPanelToggle={onSplitPanelToggle}
-        splitPanelSize={splitPanelSize}
-        onSplitPanelResize={onSplitPanelResize}
-        splitPanelPreferences={splitPanelPreferences}
-        splitPanel={
-          <SplitPanel header="Design exploration">
-            <GlobalSplitPanelContent />
-          </SplitPanel>
-        }
       />
     </>
   );

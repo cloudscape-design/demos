@@ -6,7 +6,6 @@ import BarChart from '@cloudscape-design/components/bar-chart';
 import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
 import ColumnLayout from '@cloudscape-design/components/column-layout';
-import IconProvider from '@cloudscape-design/components/icon-provider';
 import LineChart from '@cloudscape-design/components/line-chart';
 import PieChart from '@cloudscape-design/components/pie-chart';
 
@@ -135,98 +134,85 @@ const lineChartSite2 = [
 export default function Charts() {
   return (
     <Section header="Charts" level="h2">
-      <IconProvider
-        icons={{
-          'caret-down-filled': (
-            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-              <path d="m2 5 6 6 6-6" className="stroke-linejoin-round"></path>
-            </svg>
-          ),
-        }}
-        sizes={{
-          normal: 12,
-        }}
-      >
-        <ColumnLayout columns={3}>
-          <SubSection header="Stacked bar chart">
-            <BarChart
-              series={[
-                {
-                  title: 'Severe',
-                  type: 'bar',
-                  data: barChartDates.map((x, i) => ({ x, y: [12, 18, 15, 9, 18][i] })),
-                },
-                {
-                  title: 'Moderate',
-                  type: 'bar',
-                  data: barChartDates.map((x, i) => ({ x, y: [8, 11, 12, 11, 13][i] })),
-                },
-                {
-                  title: 'Low',
-                  type: 'bar',
-                  data: barChartDates.map((x, i) => ({ x, y: [7, 9, 8, 7, 5][i] })),
-                },
-                {
-                  title: 'Unclassified',
-                  type: 'bar',
-                  data: barChartDates.map((x, i) => ({ x, y: [14, 8, 6, 4, 6][i] })),
-                },
-              ]}
-              xDomain={barChartDates}
-              yDomain={[0, 50]}
-              i18nStrings={{ xTickFormatter: formatDateTick }}
-              ariaLabel="Stacked bar chart"
-              height={300}
-              stackedBars={true}
-              xTitle="Time (UTC)"
-              yTitle="Error count"
-              empty={emptyState}
-              noMatch={noMatchState}
-            />
-          </SubSection>
+      <ColumnLayout columns={3}>
+        <SubSection header="Stacked bar chart">
+          <BarChart
+            series={[
+              {
+                title: 'Severe',
+                type: 'bar',
+                data: barChartDates.map((x, i) => ({ x, y: [12, 18, 15, 9, 18][i] })),
+              },
+              {
+                title: 'Moderate',
+                type: 'bar',
+                data: barChartDates.map((x, i) => ({ x, y: [8, 11, 12, 11, 13][i] })),
+              },
+              {
+                title: 'Low',
+                type: 'bar',
+                data: barChartDates.map((x, i) => ({ x, y: [7, 9, 8, 7, 5][i] })),
+              },
+              {
+                title: 'Unclassified',
+                type: 'bar',
+                data: barChartDates.map((x, i) => ({ x, y: [14, 8, 6, 4, 6][i] })),
+              },
+            ]}
+            xDomain={barChartDates}
+            yDomain={[0, 50]}
+            i18nStrings={{ xTickFormatter: formatDateTick }}
+            ariaLabel="Stacked bar chart"
+            height={300}
+            stackedBars={true}
+            xTitle="Time (UTC)"
+            yTitle="Error count"
+            empty={emptyState}
+            noMatch={noMatchState}
+          />
+        </SubSection>
 
-          <SubSection header="Line chart">
-            <LineChart
-              series={[
-                { title: 'Site 1', type: 'line', data: lineChartSite1, valueFormatter: formatLargeNumber },
-                { title: 'Site 2', type: 'line', data: lineChartSite2, valueFormatter: formatLargeNumber },
-                { title: 'Performance goal', type: 'threshold', y: 250000, valueFormatter: formatLargeNumber },
-              ]}
-              xDomain={lineChartDomain}
-              yDomain={[0, 500000]}
-              i18nStrings={{ xTickFormatter: formatDateTick, yTickFormatter: formatLargeNumber }}
-              ariaLabel="Multiple data series line chart"
-              height={300}
-              xScaleType="time"
-              xTitle="Time (UTC)"
-              yTitle="Bytes transferred"
-              empty={emptyState}
-              noMatch={noMatchState}
-            />
-          </SubSection>
+        <SubSection header="Line chart">
+          <LineChart
+            series={[
+              { title: 'Site 1', type: 'line', data: lineChartSite1, valueFormatter: formatLargeNumber },
+              { title: 'Site 2', type: 'line', data: lineChartSite2, valueFormatter: formatLargeNumber },
+              { title: 'Performance goal', type: 'threshold', y: 250000, valueFormatter: formatLargeNumber },
+            ]}
+            xDomain={lineChartDomain}
+            yDomain={[0, 500000]}
+            i18nStrings={{ xTickFormatter: formatDateTick, yTickFormatter: formatLargeNumber }}
+            ariaLabel="Multiple data series line chart"
+            height={300}
+            xScaleType="time"
+            xTitle="Time (UTC)"
+            yTitle="Bytes transferred"
+            empty={emptyState}
+            noMatch={noMatchState}
+          />
+        </SubSection>
 
-          <SubSection header="Pie chart">
-            <PieChart
-              data={[
-                { title: 'Running', value: 60, lastUpdate: 'Dec 7, 2020' },
-                { title: 'Failed', value: 30, lastUpdate: 'Dec 6, 2020' },
-                { title: 'In-progress', value: 10, lastUpdate: 'Dec 6, 2020' },
-                { title: 'Pending', value: 0, lastUpdate: 'Dec 7, 2020' },
-              ]}
-              detailPopoverContent={(datum, sum) => [
-                { key: 'Resource count', value: datum.value },
-                { key: 'Percentage', value: `${((datum.value / sum) * 100).toFixed(0)}%` },
-                { key: 'Last update on', value: datum.lastUpdate },
-              ]}
-              segmentDescription={(datum, sum) => `${datum.value} units, ${((datum.value / sum) * 100).toFixed(0)}%`}
-              ariaDescription="Pie chart showing how many resources are currently in which state."
-              ariaLabel="Pie chart"
-              empty={emptyState}
-              noMatch={noMatchState}
-            />
-          </SubSection>
-        </ColumnLayout>
-      </IconProvider>
+        <SubSection header="Pie chart">
+          <PieChart
+            data={[
+              { title: 'Running', value: 60, lastUpdate: 'Dec 7, 2020' },
+              { title: 'Failed', value: 30, lastUpdate: 'Dec 6, 2020' },
+              { title: 'In-progress', value: 10, lastUpdate: 'Dec 6, 2020' },
+              { title: 'Pending', value: 0, lastUpdate: 'Dec 7, 2020' },
+            ]}
+            detailPopoverContent={(datum, sum) => [
+              { key: 'Resource count', value: datum.value },
+              { key: 'Percentage', value: `${((datum.value / sum) * 100).toFixed(0)}%` },
+              { key: 'Last update on', value: datum.lastUpdate },
+            ]}
+            segmentDescription={(datum, sum) => `${datum.value} units, ${((datum.value / sum) * 100).toFixed(0)}%`}
+            ariaDescription="Pie chart showing how many resources are currently in which state."
+            ariaLabel="Pie chart"
+            empty={emptyState}
+            noMatch={noMatchState}
+          />
+        </SubSection>
+      </ColumnLayout>
     </Section>
   );
 }

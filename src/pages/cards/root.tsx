@@ -8,7 +8,6 @@ import Cards from '@cloudscape-design/components/cards';
 import CollectionPreferences from '@cloudscape-design/components/collection-preferences';
 import Flashbar, { FlashbarProps } from '@cloudscape-design/components/flashbar';
 import Pagination from '@cloudscape-design/components/pagination';
-import SplitPanel from '@cloudscape-design/components/split-panel';
 import TextFilter from '@cloudscape-design/components/text-filter';
 
 import { Distribution } from '../../fake-server/types';
@@ -22,11 +21,9 @@ import { FullPageHeader } from '../commons';
 import {
   CustomAppLayout,
   DemoTopNavigation,
-  GlobalSplitPanelContent,
   Navigation,
   TableEmptyState,
   TableNoMatchState,
-  useGlobalSplitPanel,
 } from '../commons/common-components';
 import DataProvider from '../commons/data-provider';
 import { useLocalStorage } from '../commons/use-local-storage';
@@ -165,8 +162,6 @@ function DetailsCards({ loadHelpPanelContent }: DetailsCardsProps) {
 
 export function App() {
   const [toolsOpen, setToolsOpen] = useState(false);
-  const { splitPanelOpen, onSplitPanelToggle, splitPanelSize, onSplitPanelResize, splitPanelPreferences } =
-    useGlobalSplitPanel();
   const appLayout = useRef<AppLayoutProps.Ref>(null);
   return (
     <>
@@ -188,16 +183,6 @@ export function App() {
         tools={<ToolsContent />}
         toolsOpen={toolsOpen}
         onToolsChange={({ detail }) => setToolsOpen(detail.open)}
-        splitPanelOpen={splitPanelOpen}
-        onSplitPanelToggle={onSplitPanelToggle}
-        splitPanelSize={splitPanelSize}
-        onSplitPanelResize={onSplitPanelResize}
-        splitPanelPreferences={splitPanelPreferences}
-        splitPanel={
-          <SplitPanel header="Design exploration">
-            <GlobalSplitPanelContent />
-          </SplitPanel>
-        }
         stickyNotifications={true}
       />
     </>
