@@ -8,7 +8,14 @@ import TopNavigation from '@cloudscape-design/components/top-navigation';
 import { TopNavigationProps } from '@cloudscape-design/components/top-navigation';
 import { Mode } from '@cloudscape-design/global-styles';
 
-import { updateDensity, updateDirection, updateMode } from '../../common/apply-mode';
+import {
+  BaseFont,
+  currentBaseFont,
+  updateBaseFont,
+  updateDensity,
+  updateDirection,
+  updateMode,
+} from '../../common/apply-mode';
 import logo from '../../common/logo.svg';
 
 /**
@@ -25,6 +32,8 @@ const DemoHeaderPortal = ({ children }: DemoHeaderPortalProps) => {
 };
 
 export function DemoTopNavigation() {
+  const [selectedBaseFont, setSelectedBaseFont] = React.useState(currentBaseFont);
+
   const handlePreferenceChange = (event: CustomEvent<ButtonDropdownProps.ItemClickDetails>) => {
     const itemId = event.detail.id;
 
@@ -39,6 +48,11 @@ export function DemoTopNavigation() {
     // Handle direction changes
     else if (itemId === 'ltr' || itemId === 'rtl') {
       updateDirection(itemId);
+    }
+    // Handle base font changes
+    else if (itemId === BaseFont.Regular || itemId === BaseFont.NightMode) {
+      updateBaseFont(itemId);
+      setSelectedBaseFont(itemId);
     }
   };
 
@@ -66,6 +80,23 @@ export function DemoTopNavigation() {
           items: [
             { text: 'Comfortable', id: 'comfortable' },
             { text: 'Compact', id: 'compact' },
+          ],
+        },
+        {
+          text: 'Base font',
+          items: [
+            {
+              text: 'Ember Modern Text UI regular',
+              id: BaseFont.Regular,
+              itemType: 'checkbox',
+              checked: selectedBaseFont === BaseFont.Regular,
+            },
+            {
+              text: 'Ember Modern Text UI night mode',
+              id: BaseFont.NightMode,
+              itemType: 'checkbox',
+              checked: selectedBaseFont === BaseFont.NightMode,
+            },
           ],
         },
       ],

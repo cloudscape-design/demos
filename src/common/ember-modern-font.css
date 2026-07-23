@@ -1,65 +1,128 @@
 /* Ember Modern font declarations using local EmberModernTextUI V1.1 files.
- * The family name MUST match the One Theme `fontFamilyBase` token, which is
- * "'Ember Modern Text UI', 'Amazon Ember', Roboto, Arial, sans-serif". If the
- * names differ, the browser can't match these web fonts and falls back to any
- * copy installed on the local machine (rendering as "Local file"). */
+ * The two families contain the same non-400 faces so switching the One Theme
+ * `fontFamilyBase` token changes only the regular face under comparison. */
 @font-face {
-  font-family: 'Ember Modern Text UI';
+  font-family: 'Ember Modern Text UI Regular';
   src: url('./fonts/EmberModernTextUIV1.1-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Ember Modern Text UI';
+  font-family: 'Ember Modern Text UI Regular';
   src: url('./fonts/EmberModernTextUIV1.1-Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Ember Modern Text UI';
+  font-family: 'Ember Modern Text UI Regular';
+  src: url('./fonts/EmberModernTextUIV1.1-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Ember Modern Text UI Regular';
   src: url('./fonts/EmberModernTextUIV1.1-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Ember Modern Text UI';
+  font-family: 'Ember Modern Text UI Regular';
   src: url('./fonts/EmberModernTextUIV1.1-Light.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Ember Modern Text UI';
+  font-family: 'Ember Modern Text UI Regular';
   src: url('./fonts/EmberModernTextUIV1.1-Italic.woff2') format('woff2');
   font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Ember Modern Text UI';
+  font-family: 'Ember Modern Text UI Regular';
   src: url('./fonts/EmberModernTextUIV1.1-MediumItalic.woff2') format('woff2');
   font-weight: 500;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Ember Modern Text UI';
+  font-family: 'Ember Modern Text UI Regular';
   src: url('./fonts/EmberModernTextUIV1.1-BoldItalic.woff2') format('woff2');
   font-weight: 700;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Ember Modern Text UI';
-  src: url('./fonts/EmberModernTextUIV1.1-Semibold.woff2') format('woff2');
-  font-weight: 600;
+  font-family: 'Ember Modern Text UI Regular';
+  src: url('./fonts/EmberModernTextUIV1.1-LightItalic.woff2') format('woff2');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ember Modern Text UI Night Mode';
+  src: url('./fonts/EmberModernTextUIV1.1-NightMode.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Ember Modern Text UI';
+  font-family: 'Ember Modern Text UI Night Mode';
+  src: url('./fonts/EmberModernTextUIV1.1-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Ember Modern Text UI Night Mode';
+  src: url('./fonts/EmberModernTextUIV1.1-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Ember Modern Text UI Night Mode';
+  src: url('./fonts/EmberModernTextUIV1.1-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Ember Modern Text UI Night Mode';
+  src: url('./fonts/EmberModernTextUIV1.1-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Ember Modern Text UI Night Mode';
+  src: url('./fonts/EmberModernTextUIV1.1-Italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Ember Modern Text UI Night Mode';
+  src: url('./fonts/EmberModernTextUIV1.1-MediumItalic.woff2') format('woff2');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Ember Modern Text UI Night Mode';
+  src: url('./fonts/EmberModernTextUIV1.1-BoldItalic.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Ember Modern Text UI Night Mode';
   src: url('./fonts/EmberModernTextUIV1.1-LightItalic.woff2') format('woff2');
   font-weight: 300;
   font-style: italic;

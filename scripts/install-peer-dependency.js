@@ -85,14 +85,19 @@ execCommand(buildCommand, { env: { ...process.env, ...buildEnv } });
 for (const moduleName of getModules(packageName)) {
   const modulePath = path.join(nodeModulesPath, moduleName);
   const artifactPath = getArtifactPath(moduleName);
+  const packageJsonBackupPath = path.join(tempDir, `${moduleName}-package.json`);
+
+  // Preserve the registry package metadata (especially its published version)
+  // while replacing its implementation with the custom source build.
+  execCommand(`cp ${modulePath}/package.json ${packageJsonBackupPath}`);
 
   console.log(`Removing existing ${moduleName} from node_modules...`, modulePath);
   execCommand(`rm -rf ${modulePath}`);
 
-  // Copy built peer dependency to node_modules
   console.log(`Copying built ${moduleName} to node_modules...`, modulePath, `${tempDir}${artifactPath}`);
   execCommand(`mkdir -p ${modulePath}`);
   execCommand(`cp -R ${tempDir}${artifactPath} ${modulePath}`);
+  execCommand(`cp ${packageJsonBackupPath} ${modulePath}/package.json`);
 }
 
 // Clean up
