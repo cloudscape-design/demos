@@ -13,7 +13,6 @@ import Modal from '@cloudscape-design/components/modal';
 import { PropertyFilterProps } from '@cloudscape-design/components/property-filter';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 
-import { isTokenGroup } from '../../common/property-filter-type-guards';
 import { FilterSet } from './use-filter-sets';
 
 function queryToString(
@@ -42,6 +41,14 @@ function queryToString(
       return `${keyLabel} ${operator} ${valueLabel}`;
     }
     return operator === ':' ? value : `${operator} ${value}`;
+  }
+
+  function isTokenGroup(
+    t: PropertyFilterProps.TokenGroup | PropertyFilterProps.Token,
+  ): t is PropertyFilterProps.TokenGroup {
+    const key: keyof PropertyFilterProps.TokenGroup = 'operation';
+    // eslint-disable-next-line no-restricted-syntax -- Type-safe guard: key is validated via keyof
+    return key in t;
   }
 
   function tokenOrGroupToString(tokenOrGroup: PropertyFilterProps.TokenGroup | PropertyFilterProps.Token): string {

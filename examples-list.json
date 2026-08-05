@@ -1,130 +1,292 @@
 [
   {
     "path": "cards",
-    "title": "Card view"
+    "title": "Card view",
+    "visibleOn": [
+      "console",
+      "external"
+    ]
   },
   {
     "path": "chat",
-    "title": "Chat"
+    "title": "Chat",
+    "visibleOn": [
+      "console",
+      "core",
+      "external"
+    ]
+  },
+  {
+    "path": "custom-chat",
+    "title": "Custom chat",
+    "excludeDemoAssetOnExternal": true,
+    "visibleOn": [
+      "core"
+    ]
+  },
+  {
+    "path": "components-overview",
+    "title": "Components overview",
+    "excludeDemoAssetOnExternal": true,
+    "visibleOn": [
+      "core"
+    ]
   },
   {
     "path": "delete-one-click",
-    "title": "One-click delete"
+    "title": "One-click delete",
+    "visibleOn": [
+      "console",
+      "external"
+    ]
   },
   {
     "path": "delete-with-simple-confirmation",
-    "title": "Delete with simple confirmation"
+    "title": "Delete with simple confirmation",
+    "visibleOn": [
+      "console",
+      "external"
+    ]
   },
   {
     "path": "delete-with-additional-confirmation",
-    "title": "Delete with additional confirmation"
+    "title": "Delete with additional confirmation",
+    "visibleOn": [
+      "console",
+      "external"
+    ]
   },
   {
     "path": "details",
-    "title": "Details page"
+    "title": "Details page",
+    "visibleOn": [
+      "core"
+    ]
   },
   {
     "path": "details-hub",
-    "title": "Details page as hub"
+    "title": "Details page as hub",
+    "visibleOn": [
+      "console",
+      "external"
+    ]
   },
   {
     "path": "details-tabs",
-    "title": "Details page with tabs"
+    "title": "Details page with tabs",
+    "visibleOn": [
+      "console",
+      "external"
+    ]
   },
   {
     "path": "edit",
-    "title": "Edit resource"
+    "title": "Edit resource",
+    "visibleOn": [
+      "console",
+      "external"
+    ]
   },
   {
     "path": "form",
-    "title": "Single page create"
+    "title": "Single page create",
+    "visibleOn": [
+      "core"
+    ]
   },
   {
     "path": "form-unsaved-changes",
-    "title": "Communicate unsaved changes"
+    "title": "Communicate unsaved changes",
+    "visibleOn": [
+      "console",
+      "external"
+    ]
   },
   {
     "path": "form-validation",
-    "title": "Form validation"
+    "title": "Form validation",
+    "visibleOn": [
+      "console",
+      "external"
+    ]
+  },
+  {
+    "path": "landing-page",
+    "excludeDemoAssetOnExternal": true,
+    "title": "Service homepage",
+    "visibleOn": [
+      "console"
+    ]
   },
   {
     "path": "product-detail-page",
-    "title": "Product detail page"
+    "title": "Product detail page",
+    "visibleOn": [
+      "console",
+      "external"
+    ]
   },
   {
     "path": "server-side-table",
-    "title": "Table view (server-side)"
+    "title": "Table view (server-side)",
+    "visibleOn": [
+      "console",
+      "external"
+    ]
   },
   {
     "path": "server-side-table-property-filter",
-    "title": "Table property filter (server-side)"
+    "title": "Table property filter (server-side)",
+    "visibleOn": [
+      "console",
+      "external"
+    ]
   },
   {
     "path": "table-property-filter",
-    "title": "Table property filter"
+    "title": "Table property filter",
+    "visibleOn": [
+      "console",
+      "external"
+    ]
   },
   {
     "path": "table-select-filter",
-    "title": "Table with select filter"
+    "title": "Table with select filter",
+    "visibleOn": [
+      "console",
+      "external"
+    ]
   },
   {
     "path": "table-date-filter",
-    "title": "Table view with date range picker filter"
+    "title": "Table view with date range picker filter",
+    "visibleOn": [
+      "console",
+      "external"
+    ]
   },
   {
     "path": "table-saved-filters",
-    "title": "Table view with saved filter sets"
+    "title": "Table view with saved filter sets",
+    "visibleOn": [
+      "core"
+    ]
   },
   {
     "path": "table",
-    "title": "Table view"
+    "title": "Table view",
+    "visibleOn": [
+      "console",
+      "external"
+    ]
   },
   {
     "path": "table-editable",
-    "title": "Table view with inline editing"
+    "title": "Table view with inline editing",
+    "visibleOn": [
+      "core"
+    ]
   },
   {
     "path": "table-expandable",
-    "title": "Table view with expandable rows"
+    "title": "Table view with expandable rows",
+    "visibleOn": [
+      "core"
+    ]
   },
   {
     "path": "manage-tags",
-    "title": "Manage tags"
+    "title": "Manage tags",
+    "visibleOn": [
+      "console",
+      "external"
+    ]
   },
   {
     "path": "read-from-s3",
-    "title": "Read from Amazon S3"
+    "title": "Read from Amazon S3",
+    "visibleOn": [
+      "console",
+      "external"
+    ]
   },
   {
     "path": "write-to-s3",
-    "title": "Write to Amazon S3"
+    "title": "Write to Amazon S3",
+    "visibleOn": [
+      "console",
+      "external"
+    ]
   },
   {
     "path": "wizard",
-    "title": "Multipage create"
+    "title": "Multipage create",
+    "visibleOn": [
+      "core"
+    ]
+  },
+  {
+    "path": "migration",
+    "excludeDemoAssetOnExternal": true,
+    "title": "Migration opt-in/opt-out",
+    "visibleOn": [
+      "console"
+    ]
   },
   {
     "path": "dashboard",
-    "title": "Service dashboard"
+    "discardLogs": true,
+    "title": "Service dashboard",
+    "visibleOn": [
+      "console",
+      "external"
+    ]
   },
   {
     "path": "configurable-dashboard",
-    "title": "Configurable dashboard"
+    "title": "Configurable dashboard",
+    "visibleOn": [
+      "core"
+    ]
   },
   {
     "path": "onboarding",
-    "title": "Hands-on tutorials"
+    "title": "Hands-on tutorials",
+    "visibleOn": [
+      "console",
+      "external"
+    ]
   },
   {
     "path": "split-panel-multiple",
-    "title": "Split view"
+    "title": "Split view",
+    "visibleOn": [
+      "console",
+      "external"
+    ]
   },
   {
     "path": "split-panel-comparison",
-    "title": "Split view with details comparison"
+    "title": "Split view with details comparison",
+    "visibleOn": [
+      "console",
+      "external"
+    ]
   },
   {
     "path": "non-console",
-    "title": "Top navigation"
+    "title": "Top navigation",
+    "visibleOn": [
+      "core"
+    ]
+  },
+  {
+    "path": "theming-and-styling",
+    "excludeDemoAssetOnExternal": true,
+    "title": "Theming and styling",
+    "visibleOn": [
+      "core"
+    ]
   }
 ]

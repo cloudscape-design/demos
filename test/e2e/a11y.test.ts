@@ -29,6 +29,14 @@ function filterIgnored(results: Axe.Result[]) {
         return !chartIssue;
       }
 
+      // PromptInput uses aria-expanded on role="textbox" for menu/combobox behavior — known component issue
+      if (result.id === 'aria-allowed-attr') {
+        const promptInputIssue = result.nodes.every(
+          node => node.html.indexOf('role="textbox"') !== -1 && node.html.indexOf('aria-haspopup') !== -1,
+        );
+        return !promptInputIssue;
+      }
+
       return true;
     }
     return false;
@@ -77,10 +85,6 @@ describe('Checking examples accessibility', function () {
 
         await browser.execute(fs.readFileSync(require.resolve('axe-core/axe.min.js'), 'utf8'));
         type AxeResult = { result: Axe.AxeResults } | { error: Error };
-        function isAxeError(response: AxeResult): response is { error: Error } {
-          const key: keyof { error: Error } = 'error';
-          return key in response;
-        }
         const runAxe = (done: (result: AxeResult) => void) =>
           axe
             .run({
@@ -96,7 +100,7 @@ describe('Checking examples accessibility', function () {
         // executeAsync has incorrect typings: https://github.com/webdriverio/webdriverio/issues/6206
         const response = (await browser.executeAsync(runAxe as any)) as AxeResult;
 
-        if (isAxeError(response)) {
+        if ('error' in response) {
           throw response.error;
         }
 

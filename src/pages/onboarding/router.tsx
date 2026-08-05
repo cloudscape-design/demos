@@ -33,6 +33,7 @@ export function Router({ initialPage }: RouterProps) {
     window.scrollTo({ top: 0 });
   }, [currentPagePath]);
 
+  // eslint-disable-next-line no-restricted-syntax -- Runtime key lookup in Record object, not type discrimination
   const CurrentPage = currentPagePath in pages ? pages[currentPagePath] : NotFound;
 
   return <CurrentPage />;

@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 
-@use '~@cloudscape-design/design-tokens' as cs;
+@use '~@amzn/awsui-design-tokens-core/index' as cs;
 
 .chat-container {
   display: flex;
@@ -47,6 +47,357 @@
   }
 }
 
-.other-content-vertically-align {
+// Aligns sibling content (feedback dialog, support prompts, artifacts) with the chat
+// bubble's left edge — 36px = 28px avatar + 8px gap — so bordered blocks like the
+// artifact ItemCard line up border-to-border with the chat bubble, not with its inner text.
+.other-content-vertically-align,
+.chat-bubble-indentation {
   margin-inline-start: 36px;
+}
+
+.custom-outgoing {
+  display: flex;
+  justify-content: flex-end;
+}
+
+// Custom full-page layout.
+// Full-page chat layout (no container), shared by the base and custom demos.
+.custom-chat,
+.base-chat {
+  display: flex;
+  flex-direction: column;
+  block-size: 100%;
+
+  &__scroll {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  &__messages {
+    max-inline-size: 860px;
+    margin-inline: auto;
+    padding-inline: cs.$space-container-horizontal;
+    padding-block: cs.$space-scaled-l;
+  }
+
+  &__input {
+    padding-block-end: cs.$space-scaled-m;
+    padding-inline: cs.$space-scaled-l;
+    max-inline-size: 860px;
+    margin-inline: auto;
+    inline-size: 100%;
+  }
+}
+
+// Custom loading avatar with spinning ring.
+.custom-loading-avatar {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  inline-size: 28px;
+  block-size: 28px;
+
+  &__ring {
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top-color: cs.$color-text-accent;
+    border-right-color: cs.$color-text-interactive-default;
+    animation: custom-spin 1.2s linear infinite;
+  }
+}
+
+@keyframes custom-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// Custom dropdown items.
+.custom-tools-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-block: 10px;
+  padding-inline: 16px;
+  cursor: pointer;
+  transition: background 0.1s ease;
+
+  &:hover,
+  &:focus-visible {
+    background: cs.$color-background-dropdown-item-hover;
+    outline: none;
+  }
+
+  &__text {
+    flex: 1;
+    font-size: 14px;
+    color: cs.$color-text-body-default;
+  }
+}
+
+.custom-label-tag {
+  display: inline-block;
+  padding-inline: 8px;
+  padding-block: 2px;
+  border-radius: 4px;
+  background: cs.$color-background-dropdown-item-hover;
+  color: cs.$color-text-body-secondary;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.custom-model-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-block: 10px;
+  padding-inline: 16px;
+  min-inline-size: 240px;
+  cursor: pointer;
+  transition: background 0.1s ease;
+
+  &:hover,
+  &:focus-visible {
+    background: cs.$color-background-dropdown-item-hover;
+    outline: none;
+  }
+
+  &__content {
+    flex: 1;
+    min-inline-size: 0;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 20px;
+    block-size: 20px;
+    flex-shrink: 0;
+    color: cs.$color-text-interactive-default;
+  }
+
+  &__check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 20px;
+    block-size: 20px;
+    border-radius: 50%;
+    background: cs.$color-background-control-checked;
+    color: #fff;
+    flex-shrink: 0;
+
+    svg {
+      inline-size: 14px;
+      block-size: 14px;
+    }
+  }
+}
+
+// Custom dropdown trigger buttons (soft pills).
+.custom-dropdown-trigger__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  border-radius: cs.$border-radius-button;
+  background: transparent;
+  padding-inline: 12px;
+  padding-block: 6px;
+  font-weight: 500;
+  font-size: inherit;
+  font-family: inherit;
+  color: cs.$color-text-body-default;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: cs.$color-background-dropdown-item-hover;
+  }
+
+  &[aria-expanded='true'] {
+    background: cs.$color-background-dropdown-item-hover;
+  }
+}
+
+.custom-dropdown-content {
+  padding-block: cs.$space-scaled-xxs;
+}
+
+// Streaming text progressive reveal.
+.streaming-reveal {
+  will-change: mask-image;
+}
+
+// Custom landing page (pre-chat hero).
+.custom-landing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  block-size: 100%;
+
+  &__spacer {
+    flex: 1;
+  }
+
+  &__hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: cs.$space-scaled-m;
+    padding-block-end: cs.$space-scaled-xl;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 48px;
+    block-size: 48px;
+  }
+
+  &__heading {
+    margin: 0;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1.2;
+    text-align: center;
+    color: cs.$color-text-body-default;
+  }
+
+  &__input {
+    inline-size: 100%;
+    max-inline-size: 860px;
+    padding-inline: cs.$space-scaled-l;
+    padding-block-end: cs.$space-scaled-m;
+  }
+
+}
+
+// Side navigation shared by both demos: a header above tabs (Conversations / Event log).
+// The panel is resizable via a drag handle on the inline-end edge.
+.chat-side-nav {
+  display: flex;
+  flex-direction: column;
+  block-size: 100%;
+  overflow-y: auto;
+
+  &__header {
+    padding-inline: cs.$space-scaled-l;
+    padding-block: cs.$space-scaled-s;
+    flex-shrink: 0;
+  }
+
+  &__section {
+    padding-inline: cs.$space-scaled-s;
+    padding-block: cs.$space-scaled-s;
+  }
+}
+
+// Date separator: a centered label flanked by horizontal dividers.
+.chat-date-separator {
+  display: flex;
+  align-items: center;
+  gap: cs.$space-static-xs;
+
+  > :first-child,
+  > :last-child {
+    flex: 1;
+  }
+
+  &__label {
+    white-space: nowrap;
+  }
+}
+
+// Cloudscape landing (pre-chat hero): centers the hero and caps its width.
+.cloudscape-landing {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  inline-size: 100%;
+  max-inline-size: 860px;
+  margin-inline: auto;
+  padding-block: cs.$space-scaled-xl;
+}
+
+
+// Card grid (model selector, agent management).
+.chat-model-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: cs.$space-scaled-xs;
+}
+
+// Artifact sizing helpers so cards size to content, not the full column.
+.fit-content {
+  inline-size: fit-content;
+  max-inline-size: 100%;
+}
+
+// Thinking flow: overlay the "Skip thinking" control at the top-right of the inline expandable's header row,
+// aligned with the "Thinking..." trigger, per the Cloudscape thinking pattern (inline ExpandableSection has no
+// `headerActions` slot, so the control is positioned rather than passed as a header action).
+.thinking-flow {
+  position: relative;
+
+  &__skip {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-end: 0;
+    z-index: 1;
+  }
+}
+
+.media-card {
+  max-inline-size: 480px;
+}
+
+// Media artifact image wrapper (fixed height to avoid layout shift while loading).
+.chat-media-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: cs.$color-background-container-content;
+  block-size: 240px;
+  inline-size: 100%;
+  overflow: hidden;
+  // Match the embedded card radius so the edge-to-edge image doesn't clip the rounded bottom corners.
+  border-end-start-radius: cs.$border-radius-card-embedded;
+  border-end-end-radius: cs.$border-radius-card-embedded;
+
+  &__img {
+    block-size: 100%;
+    inline-size: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+// Artifact canvas: right-rail drawer that overlays the chat when an artifact card is opened.
+.chat-canvas {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-end: 0;
+  inline-size: min(480px, 90vw);
+  background: cs.$color-background-container-content;
+  border-inline-start: 1px solid cs.$color-border-divider-default;
+  box-shadow: cs.$shadow-container-active;
+  transform: translateX(100%);
+  // Motion tokens so the slide respects reduced-motion / motion-disabled modes.
+  transition: transform cs.$motion-duration-expressive cs.$motion-easing-expressive;
+  overflow-y: auto;
+  z-index: 2000; // above the page banner / topbar
+
+  &--open {
+    transform: translateX(0);
+  }
 }

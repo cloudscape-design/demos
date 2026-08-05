@@ -74,8 +74,9 @@ function ServerSideTable({ columnDefinitions, saveWidths, loadHelpPanelContent }
     <Table
       enableKeyboardNavigation={true}
       loading={loading}
+      skeleton={loading ? { totalRows: pageSize ?? 10 } : undefined}
       selectedItems={selectedItems}
-      items={items}
+      items={loading ? [] : items}
       onSortingChange={onSortingChange}
       onSelectionChange={event => setSelectedItems(event.detail.selectedItems)}
       sortingColumn={sortingColumn}

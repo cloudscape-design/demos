@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MIT-0
 import { PropertyFilterProps } from '@cloudscape-design/components/property-filter';
 
-import { isToken, isTokenGroup } from '../common/property-filter-type-guards';
 import { Distribution } from './types';
 import fetchJson from './utils/fetch-json';
 
@@ -16,6 +15,18 @@ type FilteringProperties = Mutable<PropertyFilterProps['filteringProperties']>;
 
 type TokenGroup = PropertyFilterProps.TokenGroup;
 type Token = PropertyFilterProps.Token;
+
+function isTokenGroup(tokenOrGroup: Token | TokenGroup): tokenOrGroup is TokenGroup {
+  const key: keyof TokenGroup = 'operation';
+  // eslint-disable-next-line no-restricted-syntax -- Type-safe guard: key is validated via keyof
+  return key in tokenOrGroup;
+}
+
+function isToken(tokenOrGroup: Token | TokenGroup): tokenOrGroup is Token {
+  const key: keyof Token = 'operator';
+  // eslint-disable-next-line no-restricted-syntax -- Type-safe guard: key is validated via keyof
+  return key in tokenOrGroup;
+}
 interface FetchDistributionOptions {
   currentPageIndex: number;
   filteringOperation: 'and' | 'or';

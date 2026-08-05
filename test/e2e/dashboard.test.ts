@@ -13,6 +13,8 @@ describe('Common dashboard behaviors', () => {
         const page = new BasePageObject(browser);
         await browser.url(`/${pageName}.html`);
         await page.waitForVisible('[data-testid="instance-limits-table"]');
+        // Discard benign "Couldn't determine console domain"
+        await browser.getLogs('browser');
         await testFn(page);
       });
     };

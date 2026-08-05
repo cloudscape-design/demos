@@ -268,6 +268,7 @@ export interface PreferencesProps {
   disabled?: boolean;
   pageSizeOptions?: CollectionPreferencesProps.PageSizePreference['options'];
   contentDisplayOptions?: CollectionPreferencesProps.ContentDisplayOption[];
+  contentDisplayGroups?: CollectionPreferencesProps.ContentDisplayOptionGroup[];
 }
 export const Preferences = ({
   preferences,
@@ -275,6 +276,7 @@ export const Preferences = ({
   disabled,
   pageSizeOptions = PAGE_SIZE_OPTIONS,
   contentDisplayOptions = CONTENT_DISPLAY_OPTIONS,
+  contentDisplayGroups,
 }: PreferencesProps) => (
   <CollectionPreferences
     disabled={disabled}
@@ -284,7 +286,7 @@ export const Preferences = ({
     wrapLinesPreference={{}}
     stripedRowsPreference={{}}
     contentDensityPreference={{}}
-    contentDisplayPreference={{ options: contentDisplayOptions }}
+    contentDisplayPreference={{ options: contentDisplayOptions, groups: contentDisplayGroups }}
     stickyColumnsPreference={{
       firstColumns: {
         title: 'Stick first column(s)',

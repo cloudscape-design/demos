@@ -2,88 +2,68 @@
 // SPDX-License-Identifier: MIT-0
 import useBrowser from '@cloudscape-design/browser-test-tools/use-browser';
 import Page from './page/chat-page-object';
-import createWrapper from '@cloudscape-design/components/test-utils/selectors';
 
-const initialMessageCount = 7;
-
+// The chat demo opens on a landing page with no chat bubbles until the user
+// sends the first prompt.
 const setupTest = (testFn: { (page: Page): Promise<void> }) => {
   return useBrowser(async browser => {
     await browser.url('/chat.html');
     const page = new Page(browser);
     await page.usePendingCallbacks();
-    await expect(page.countChatBubbles()).resolves.toBe(initialMessageCount);
+    await expect(page.countChatBubbles()).resolves.toBe(0);
+    await testFn(page);
+  });
+};
+
+// Sends a greeting prompt via the prompt input and resolves the response,
+// which is a prose bubble carrying feedback actions.
+// After this runs the conversation is [0: user, 1: gen-ai response].
+const setupWithResponse = (testFn: { (page: Page): Promise<void> }) => {
+  return setupTest(async page => {
+    await page.sendPrompt('hello');
+    await page.flushOne();
+    await page.flushOne();
     await testFn(page);
   });
 };
 
 describe('Chat behavior', () => {
   test(
-    'Unknown prompt gets the correct response',
+    'Sending a prompt shows a generated response',
     setupTest(async page => {
-      const prompt = 'unknown prompt';
+      await page.sendPrompt('hello');
+      await expect(page.countChatBubbles()).resolves.toBe(1);
 
-      await page.sendPrompt(prompt);
-      await expect(page.getChatBubbleText(initialMessageCount)).resolves.toBe(prompt);
-
-      // After a prompt is sent, Gen-AI should response so initialMessageCount + 2 is the new count of bubbles
-      // Gen-AI response is sent with a delay.
       await page.flushOne();
-      await expect(page.countChatBubbles()).resolves.toBe(initialMessageCount + 2);
-      await expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain('Generating a response');
+      await expect(page.countChatBubbles()).resolves.toBe(2);
+      await expect(page.getChatBubbleText(1)).resolves.toContain('Generating a response');
 
-      // After another delay, the message content is shown.
       await page.flushOne();
-      await expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain(
-        'The interactions and functionality of this demo are limited.',
-      );
+      await expect(page.getChatBubbleText(1)).resolves.toContain('AWS assistant');
     }),
   );
 
   test(
-    'Loading prompt shows loading state',
+    'Sending a code snippet prompt returns a code block',
     setupTest(async page => {
-      const prompt = 'Show a loading state example';
-
-      await page.sendPrompt(prompt);
-      await expect(page.getChatBubbleText(initialMessageCount)).resolves.toBe(prompt);
+      await page.sendPrompt('code snippet');
+      await expect(page.countChatBubbles()).resolves.toBe(1);
 
       await page.flushOne();
-      await expect(page.countChatBubbles()).resolves.toBe(initialMessageCount + 2);
-      await expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain('Generating a response');
-
       await page.flushOne();
-      await expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain(
-        'That was the loading state. To see the loading state again, ask "Show a loading state example".',
-      );
-    }),
-  );
-
-  test(
-    'Error prompt shows error state',
-    setupTest(async page => {
-      const prompt = 'Show an error state example';
-
-      await page.sendPrompt(prompt);
-      await expect(page.getChatBubbleText(initialMessageCount)).resolves.toBe(prompt);
-
-      await page.flushOne();
-      await expect(page.countChatBubbles()).resolves.toBe(initialMessageCount + 2);
-      await expect(page.getChatBubbleText(initialMessageCount + 1)).resolves.toContain('Generating a response');
-
-      await page.flushOne();
-      await expect(page.getAlertHeaderText(initialMessageCount + 1)).resolves.toBe('Access denied');
+      await expect(page.getChatBubbleText(1)).resolves.toContain('TypeScript');
     }),
   );
 
   describe('Feedback', () => {
     test(
       'Submit `helpful` feedback',
-      setupTest(async page => {
+      setupWithResponse(async page => {
         await page.submitFeedbackHelpful();
         await page.flushOne();
 
-        // Dismiss popover feedback
-        await page.click(createWrapper().findHeader().toSelector());
+        // Dismiss popover feedback by clicking outside
+        await page.click('body');
 
         await expect(page.getHelpfulButtonDisabledReason()).resolves.toBe('"Helpful" feedback has been submitted.');
         await expect(page.getNotHelpfulButtonDisabledReason()).resolves.toBe(
@@ -94,7 +74,7 @@ describe('Chat behavior', () => {
 
     test(
       'Submit `not-helpful` feedback and feedback dialog should open',
-      setupTest(async page => {
+      setupWithResponse(async page => {
         await page.submitFeedbackNotHelpful();
         await page.flushOne();
 
@@ -112,7 +92,7 @@ describe('Chat behavior', () => {
 
     test(
       'Submit button should be disabled upon feedback dialog load and get enabled after an input is given',
-      setupTest(async page => {
+      setupWithResponse(async page => {
         await page.submitFeedbackNotHelpful();
         await page.flushOne();
 
@@ -130,7 +110,7 @@ describe('Chat behavior', () => {
 
     test(
       'Submit feedback dialog',
-      setupTest(async page => {
+      setupWithResponse(async page => {
         await page.submitFeedbackNotHelpful();
         await page.flushOne();
 
@@ -150,7 +130,7 @@ describe('Chat behavior', () => {
 
     test(
       'Close feedback dialog',
-      setupTest(async page => {
+      setupWithResponse(async page => {
         await page.submitFeedbackNotHelpful();
         await page.flushOne();
 
@@ -164,7 +144,7 @@ describe('Chat behavior', () => {
 
     test(
       'Dismiss feedback dialog',
-      setupTest(async page => {
+      setupWithResponse(async page => {
         await page.submitFeedbackNotHelpful();
         await page.flushOne();
 

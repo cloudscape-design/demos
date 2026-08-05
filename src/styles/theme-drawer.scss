@@ -1,0 +1,139 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
+@use '~@cloudscape-design/design-tokens' as cs;
+
+.theme-drawer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.theme-drawer__header {
+  padding-block: cs.$space-scaled-l;
+  padding-inline: cs.$space-scaled-xl;
+}
+
+.theme-drawer__content {
+  flex: 1;
+  overflow: auto;
+  padding-inline: cs.$space-scaled-xl;
+}
+
+.theme-drawer__footer {
+  position: sticky;
+  bottom: 0;
+  border-top: 1px solid cs.$color-border-divider-default;
+  padding-block: cs.$space-scaled-s;
+  padding-inline: cs.$space-scaled-xl;
+}
+
+.theme-drawer-seed-color-button {
+  display: flex;
+  gap: cs.$space-static-xs;
+  padding: 0;
+  background-color: cs.$color-background-container-content;
+  border: none;
+  align-items: center;
+  cursor: pointer;
+}
+
+// Color picker popover styles
+.color-picker {
+  &__input-container {
+    display: flex;
+    gap: cs.$space-static-xs;
+    align-items: flex-start;
+  }
+
+  &__input-wrapper {
+    flex: 1;
+  }
+
+  &__preset-button {
+    inline-size: 24px;
+    block-size: 24px;
+    outline-width: 2px;
+    outline-offset: 2px;
+    outline-color: cs.$color-border-input-focused;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 0;
+
+    &--selected {
+      border: 3px solid light-dark(#000, #fff);
+    }
+
+    &--unselected {
+      border: 2px solid cs.$color-background-popover;
+    }
+  }
+
+  &__preset-grid {
+    display: flex;
+    gap: cs.$space-static-xxs;
+    flex-wrap: wrap;
+  }
+}
+
+// Color box styles
+.color-box {
+  border-radius: 4px;
+
+  &--empty {
+    border: 1px solid cs.$color-border-input-default;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: cs.$color-text-body-secondary;
+  }
+
+  &--filled {
+    border: 1px solid #e9ebed;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+}
+
+// Palette section styles
+.palette-section {
+  border: 1px solid cs.$color-border-divider-default;
+  border-radius: cs.$border-radius-container;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-block: cs.$space-scaled-m;
+    padding-inline: cs.$space-static-m;
+  }
+
+  &__divider {
+    margin: 0;
+    height: 1px;
+    border: none;
+    background: cs.$color-border-divider-default;
+  }
+
+  &__content {
+    padding-block: cs.$space-scaled-xs;
+    padding-inline: cs.$space-static-m;
+  }
+}
+
+// Palette preview styles
+.palette-preview {
+  &__row {
+    display: flex;
+  }
+
+  &__row-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+  }
+
+  &__color-info {
+    flex: 1;
+  }
+}

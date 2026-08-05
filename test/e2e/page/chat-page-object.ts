@@ -1,23 +1,23 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import createWrapper from '@cloudscape-design/components/test-utils/selectors';
-import createChatWrapper from '@cloudscape-design/chat-components/test-utils/selectors';
+import createWrapper from '@cloudscape-design/components-core/test-utils/selectors';
+import createChatWrapper from '@cloudscape-design/chat-components-core/test-utils/selectors';
 import BaseExamplePage from '../common/base-example-page';
 
 const chatBubblesWrapper = createChatWrapper().findChatBubble();
 
 const wrapper = createWrapper();
-const promptInputWrapper = wrapper.findPromptInput();
 
 const helpfulButton = wrapper.findButtonGroup().findButtonById('helpful');
 const notHelpfulButton = wrapper.findButtonGroup().findButtonById('not-helpful');
 
-const feedbackDialog = wrapper.find('[role=dialog]');
+const feedbackDialog = wrapper.find('[data-testid="feedback-dialog"]');
 const feedbackDialogSubmitButton = wrapper.findButton('[data-testid="feedback-submit-button"]');
 
 interface ExtendedWindow extends Window {
   __usePendingCallbacks: boolean;
   __flushOne: () => void;
+  __flushAll: () => void;
 }
 declare const window: ExtendedWindow;
 
@@ -26,32 +26,30 @@ export default class ChatPageObject extends BaseExamplePage {
     await this.browser.execute(() => (window.__usePendingCallbacks = true));
   }
   async flushOne() {
-    await this.browser.execute(() => {
-      window.__flushOne();
-    });
+    await this.browser.execute(() => window.__flushOne());
+  }
+  async flushAll() {
+    await this.browser.execute(() => window.__flushAll());
   }
 
   countChatBubbles() {
     return this.getElementsCount(chatBubblesWrapper.toSelector());
   }
 
-  async sendPrompt(prompt: string) {
-    const textareaSelector = promptInputWrapper.findNativeTextarea().toSelector();
-    await this.setValue(textareaSelector, prompt);
-
-    const sendButton = this.browser.$(promptInputWrapper.findActionButton().toSelector());
-    await sendButton.click();
+  // Type text into the prompt input and submit it (simulates real user typing).
+  async sendPrompt(text: string) {
+    const promptInput = wrapper.findPromptInput();
+    const contentEditable = promptInput.findContentEditableElement();
+    await this.scrollIntoViewAndClick(contentEditable.toSelector());
+    await this.keys(text);
+    // Submit via the action button (send)
+    const sendButton = promptInput.findActionButton();
+    await this.scrollIntoViewAndClick(sendButton.toSelector());
   }
 
   getChatBubbleText(index: number) {
     const chatBubbles = this.browser.$$(chatBubblesWrapper.findContentSlot().toSelector());
     return chatBubbles[index]!.getText();
-  }
-
-  getAlertHeaderText(index: number) {
-    const alert = this.browser.$(wrapper.findAlert(`[data-testid="error-alert${index}"]`).findHeader().toSelector());
-
-    return alert.getText();
   }
 
   getNotHelpfulButton() {
