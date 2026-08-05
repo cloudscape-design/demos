@@ -2,11 +2,9 @@
 // SPDX-License-Identifier: MIT-0
 import React, { createContext, useContext } from 'react';
 
-import SupportPromptGroup, {
-  SupportPromptGroupProps,
-} from '@cloudscape-design/chat-components-core/support-prompt-group';
-import Button from '@cloudscape-design/components-core/button';
-import { ButtonProps } from '@cloudscape-design/components-core/button';
+import SupportPromptGroup, { SupportPromptGroupProps } from '@cloudscape-design/chat-components/support-prompt-group';
+import Button from '@cloudscape-design/components/button';
+import { ButtonProps } from '@cloudscape-design/components/button';
 
 export interface SuggestionPromptItem {
   id: string;

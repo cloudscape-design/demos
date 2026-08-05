@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: MIT-0
 import React, { forwardRef, useState } from 'react';
 
-import Avatar from '@cloudscape-design/chat-components-core/avatar';
-import { AvatarProps } from '@cloudscape-design/chat-components-core/avatar';
-import ButtonGroup, { ButtonGroupProps } from '@cloudscape-design/components-core/button-group';
-import StatusIndicator from '@cloudscape-design/components-core/status-indicator';
+import Avatar from '@cloudscape-design/chat-components/avatar';
+import { AvatarProps } from '@cloudscape-design/chat-components/avatar';
+import ButtonGroup, { ButtonGroupProps } from '@cloudscape-design/components/button-group';
+import StatusIndicator from '@cloudscape-design/components/status-indicator';
 
 import { AuthorAvatarProps } from './config';
 import { asyncCallback } from './pending-callbacks';

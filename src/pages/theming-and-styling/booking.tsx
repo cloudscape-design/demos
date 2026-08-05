@@ -4,16 +4,7 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import {
-  Box,
-  BreadcrumbGroup,
-  Button,
-  DateInput,
-  FormField,
-  Icon,
-  Link,
-  Select,
-} from '@cloudscape-design/components-core';
+import { Box, BreadcrumbGroup, Button, DateInput, FormField, Icon, Link, Select } from '@cloudscape-design/components';
 
 export default function Booking() {
   const [checkIn, setCheckIn] = React.useState('2025/10/20');

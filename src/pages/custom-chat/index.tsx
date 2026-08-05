@@ -3,8 +3,8 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { I18nProvider } from '@cloudscape-design/components-core/i18n';
-import enMessages from '@cloudscape-design/components-core/i18n/messages/all.en.json';
+import { I18nProvider } from '@cloudscape-design/components/i18n';
+import enMessages from '@cloudscape-design/components/i18n/messages/all.en.json';
 
 import CustomChatPage from './custom-chat-page';
 

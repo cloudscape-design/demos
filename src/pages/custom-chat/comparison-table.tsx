@@ -3,8 +3,8 @@
 import React from 'react';
 
 import { useCollection } from '@cloudscape-design/collection-hooks';
-import Box from '@cloudscape-design/components-core/box';
-import Table, { TableProps } from '@cloudscape-design/components-core/table';
+import Box from '@cloudscape-design/components/box';
+import Table, { TableProps } from '@cloudscape-design/components/table';
 
 import { DemoPrompt, ScriptedResponse } from '../chat-common/scripted-responses';
 import SuggestionPrompts from '../chat-common/suggestion-prompts';

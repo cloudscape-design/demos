@@ -1,9 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import { AvatarProps } from '@cloudscape-design/chat-components-core/avatar';
-import { ChatBubbleProps } from '@cloudscape-design/chat-components-core/chat-bubble';
-import { ButtonProps } from '@cloudscape-design/components-core/button';
-import { PromptInputProps } from '@cloudscape-design/components-core/prompt-input';
+import { AvatarProps } from '@cloudscape-design/chat-components/avatar';
+import { ChatBubbleProps } from '@cloudscape-design/chat-components/chat-bubble';
+import { ButtonProps } from '@cloudscape-design/components/button';
+import { PromptInputProps } from '@cloudscape-design/components/prompt-input';
 
 // Custom-theme light/dark color pairs, shared by the design-token map and the Style API helpers below. Invoked only by the custom demo.
 export type ColorPair = { light: string; dark: string };

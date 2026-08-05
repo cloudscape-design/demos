@@ -2,14 +2,14 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useCallback, useRef, useState } from 'react';
 
-import AppLayoutToolbar from '@cloudscape-design/components-core/app-layout-toolbar';
-import Box from '@cloudscape-design/components-core/box';
-import Button from '@cloudscape-design/components-core/button';
-import Dropdown from '@cloudscape-design/components-core/dropdown';
-import Icon, { IconProps } from '@cloudscape-design/components-core/icon';
-import Link from '@cloudscape-design/components-core/link';
-import { PromptInputProps } from '@cloudscape-design/components-core/prompt-input';
-import SpaceBetween from '@cloudscape-design/components-core/space-between';
+import AppLayoutToolbar from '@cloudscape-design/components/app-layout-toolbar';
+import Box from '@cloudscape-design/components/box';
+import Button from '@cloudscape-design/components/button';
+import Dropdown from '@cloudscape-design/components/dropdown';
+import Icon, { IconProps } from '@cloudscape-design/components/icon';
+import Link from '@cloudscape-design/components/link';
+import { PromptInputProps } from '@cloudscape-design/components/prompt-input';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import ChatPromptInput from '../chat-common/chat-prompt-input';
 import Messages from '../chat-common/messages';

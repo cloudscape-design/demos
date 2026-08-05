@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { PromptInputProps } from '@cloudscape-design/components-core/prompt-input';
+import { PromptInputProps } from '@cloudscape-design/components/prompt-input';
 
 import { createMessage, fileTokenGroupI18nStrings, getLoadingMessage, Message } from './config';
 import { asyncCallback } from './pending-callbacks';

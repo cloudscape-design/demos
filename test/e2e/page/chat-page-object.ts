@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import createWrapper from '@cloudscape-design/components-core/test-utils/selectors';
-import createChatWrapper from '@cloudscape-design/chat-components-core/test-utils/selectors';
+import createWrapper from '@cloudscape-design/components/test-utils/selectors';
+import createChatWrapper from '@cloudscape-design/chat-components/test-utils/selectors';
 import BaseExamplePage from '../common/base-example-page';
 
 const chatBubblesWrapper = createChatWrapper().findChatBubble();

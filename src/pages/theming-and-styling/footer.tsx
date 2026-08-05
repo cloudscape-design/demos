@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import { Link } from '@cloudscape-design/components-core';
+import { Link } from '@cloudscape-design/components';
 
 import Logo from './logo';
 import { colors } from './theme';

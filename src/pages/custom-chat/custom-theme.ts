@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import { Theme } from '@cloudscape-design/components-core/theming';
+import { Theme } from '@cloudscape-design/components/theming';
 
 import { ColorPair, CUSTOM_COLORS } from './custom-theme-styles';
 

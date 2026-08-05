@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import { FileTokenGroupProps } from '@cloudscape-design/components-core/file-token-group';
+import { FileTokenGroupProps } from '@cloudscape-design/components/file-token-group';
 
 export type Message = ChatBubbleMessage | AlertMessage | ArtifactMessage;
 

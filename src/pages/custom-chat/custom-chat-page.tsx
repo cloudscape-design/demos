@@ -2,13 +2,13 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useEffect, useRef, useState } from 'react';
 
+import Flashbar from '@cloudscape-design/components/flashbar';
 import {
   applyTheme as applyConsoleTheme,
   ApplyThemeResult as ConsoleApplyThemeResult,
   Theme as ConsoleTheme,
 } from '@cloudscape-design/components/theming';
-import Flashbar from '@cloudscape-design/components-core/flashbar';
-import { applyTheme, ApplyThemeResult } from '@cloudscape-design/components-core/theming';
+import { applyTheme, ApplyThemeResult } from '@cloudscape-design/components/theming';
 
 import { SuggestionButtonStyleContext } from '../chat-common/suggestion-prompts';
 import { useDisclaimerFlashbarItem } from '../commons/disclaimer-flashbar-item';

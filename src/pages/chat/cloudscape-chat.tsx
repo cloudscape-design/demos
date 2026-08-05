@@ -2,12 +2,12 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import Box from '@cloudscape-design/components-core/box';
-import ButtonGroup from '@cloudscape-design/components-core/button-group';
-import FormField from '@cloudscape-design/components-core/form-field';
-import Icon from '@cloudscape-design/components-core/icon';
-import Link from '@cloudscape-design/components-core/link';
-import SpaceBetween from '@cloudscape-design/components-core/space-between';
+import Box from '@cloudscape-design/components/box';
+import ButtonGroup from '@cloudscape-design/components/button-group';
+import FormField from '@cloudscape-design/components/form-field';
+import Icon from '@cloudscape-design/components/icon';
+import Link from '@cloudscape-design/components/link';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { isVisualRefresh } from '../../common/apply-mode';
 import ChatPromptInput from '../chat-common/chat-prompt-input';

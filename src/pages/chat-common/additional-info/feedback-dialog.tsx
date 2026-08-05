@@ -2,13 +2,13 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useEffect, useRef } from 'react';
 
-import Box from '@cloudscape-design/components-core/box';
-import Button from '@cloudscape-design/components-core/button';
-import Checkbox from '@cloudscape-design/components-core/checkbox';
-import Form from '@cloudscape-design/components-core/form';
-import FormField from '@cloudscape-design/components-core/form-field';
-import SpaceBetween from '@cloudscape-design/components-core/space-between';
-import Textarea from '@cloudscape-design/components-core/textarea';
+import Box from '@cloudscape-design/components/box';
+import Button from '@cloudscape-design/components/button';
+import Checkbox from '@cloudscape-design/components/checkbox';
+import Form from '@cloudscape-design/components/form';
+import FormField from '@cloudscape-design/components/form-field';
+import SpaceBetween from '@cloudscape-design/components/space-between';
+import Textarea from '@cloudscape-design/components/textarea';
 
 import Dialog from './dialog';
 

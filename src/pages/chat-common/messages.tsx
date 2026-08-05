@@ -2,14 +2,14 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import { AvatarProps } from '@cloudscape-design/chat-components-core/avatar';
-import ChatBubble from '@cloudscape-design/chat-components-core/chat-bubble';
-import { ChatBubbleProps } from '@cloudscape-design/chat-components-core/chat-bubble';
-import Alert from '@cloudscape-design/components-core/alert';
-import Box from '@cloudscape-design/components-core/box';
-import FileTokenGroup from '@cloudscape-design/components-core/file-token-group';
-import LiveRegion from '@cloudscape-design/components-core/live-region';
-import SpaceBetween from '@cloudscape-design/components-core/space-between';
+import { AvatarProps } from '@cloudscape-design/chat-components/avatar';
+import ChatBubble from '@cloudscape-design/chat-components/chat-bubble';
+import { ChatBubbleProps } from '@cloudscape-design/chat-components/chat-bubble';
+import Alert from '@cloudscape-design/components/alert';
+import Box from '@cloudscape-design/components/box';
+import FileTokenGroup from '@cloudscape-design/components/file-token-group';
+import LiveRegion from '@cloudscape-design/components/live-region';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import FeedbackDialog from './additional-info/feedback-dialog';
 import { ChatBubbleAvatar, CodeViewActions, FeedbackActions } from './common-components';

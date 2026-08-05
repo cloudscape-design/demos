@@ -2,13 +2,13 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import Box from '@cloudscape-design/components-core/box';
-import FileDropzone, { useFilesDragging } from '@cloudscape-design/components-core/file-dropzone';
-import FileInput from '@cloudscape-design/components-core/file-input';
-import FileTokenGroup from '@cloudscape-design/components-core/file-token-group';
-import Icon from '@cloudscape-design/components-core/icon';
-import PromptInput, { PromptInputProps } from '@cloudscape-design/components-core/prompt-input';
-import SpaceBetween from '@cloudscape-design/components-core/space-between';
+import Box from '@cloudscape-design/components/box';
+import FileDropzone, { useFilesDragging } from '@cloudscape-design/components/file-dropzone';
+import FileInput from '@cloudscape-design/components/file-input';
+import FileTokenGroup from '@cloudscape-design/components/file-token-group';
+import Icon from '@cloudscape-design/components/icon';
+import PromptInput, { PromptInputProps } from '@cloudscape-design/components/prompt-input';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { fileTokenGroupI18nStrings, menus, promptInputI18nStrings, tokensToDisplayText } from './use-chat';
 

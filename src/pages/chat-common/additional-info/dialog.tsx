@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import Button from '@cloudscape-design/components-core/button';
+import Button from '@cloudscape-design/components/button';
 
 import '../../../styles/dialog.scss';
 

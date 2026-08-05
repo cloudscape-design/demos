@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import { applyTheme, Theme } from '@cloudscape-design/components-core/theming';
+import { applyTheme, Theme } from '@cloudscape-design/components/theming';
 
 export const colors = {
   grey0: '#FFFFFF',
