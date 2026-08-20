@@ -103,7 +103,8 @@
     ]
   },
   "overrides": {
-    "glob": "^10.5.0"
+    "glob": "^10.5.0",
+    "@wdio/utils>@puppeteer/browsers": "3.2.1"
   },
   "private": true
 }
