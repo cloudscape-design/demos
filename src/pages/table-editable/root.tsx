@@ -133,8 +133,7 @@ function TableContent({ loadHelpPanelContent, distributions }: TableContentProps
     const newItem: Distribution = { ...currentItem, [column.id]: value };
 
     if (collectionProps.sortingColumn === column) {
-      // This call signature is not supported by the function; not sure what to do with this
-      // actions.setSorting(null);
+      actions.setSorting({ sortingColumn: {} });
       fullCollection = [...allPageItems];
     }
 
@@ -157,6 +156,7 @@ function TableContent({ loadHelpPanelContent, distributions }: TableContentProps
       columnDefinitions={columnDefinitions}
       columnDisplay={preferences?.contentDisplay}
       items={itemsSnap || items}
+      trackBy="id"
       submitEdit={handleSubmit}
       ariaLabels={distributionEditableTableAriaLabels}
       renderAriaLive={renderAriaLive}
