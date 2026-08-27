@@ -7,6 +7,7 @@
 // where "collection-hooks" is the package to fetch and "property-filter-token-groups" is the branch name in GitHub.
 
 import { execSync } from 'child_process';
+import { readFileSync, writeFileSync } from 'node:fs';
 import process from 'node:process';
 import os from 'os';
 import path from 'path';
@@ -98,6 +99,22 @@ for (const moduleName of getModules(packageName)) {
   execCommand(`mkdir -p ${modulePath}`);
   execCommand(`cp -R ${tempDir}${artifactPath} ${modulePath}`);
   execCommand(`cp ${packageJsonBackupPath} ${modulePath}/package.json`);
+
+  // We restore the registry package.json to preserve its published version, but
+  // its `sideEffects` list describes the registry artifacts — not the custom
+  // source build we just copied in. When the build introduces new side-effectful
+  // modules (e.g. the One Theme build's `internal/base-theme/styles.css.js`,
+  // which is imported for its CSS side effect but exports nothing used), the
+  // restored list omits them, so webpack tree-shakes the module away in a
+  // production build and its token CSS silently disappears from the bundle.
+  // Reconcile the restored manifest's `sideEffects` with the source build so it
+  // matches the artifacts actually installed. Only do this for the primary
+  // package, whose source manifest lives at the cloned repo root; sibling
+  // modules (e.g. design-tokens emitted from the same repo) have their own
+  // manifests and are left untouched.
+  if (moduleName === packageName) {
+    reconcileSideEffects(path.join(modulePath, 'package.json'), path.join(tempDir, 'package.json'));
+  }
 }
 
 // Clean up
@@ -105,6 +122,67 @@ console.log('Cleaning up...');
 execCommand(`rm -rf ${tempDir}`);
 
 console.log(`${packageName} has been successfully installed from branch ${targetBranch}!`);
+
+// Reconcile the restored (registry) manifest's `sideEffects` with the source
+// build's declaration so it correctly describes the artifacts we just copied
+// in. Preserves everything else in the restored manifest (notably its published
+// `version`).
+//
+// Webpack uses `sideEffects` to decide which imported-only modules it may prune
+// in a production build. The registry allowlist can under-describe a custom
+// source build: for example, the One Theme build added `internal/base-theme/
+// styles.css.js` (imported purely for its token CSS side effect, exporting
+// nothing used), but that module is absent from the registry list, so webpack
+// tree-shakes it away and every token value silently drops out of the bundle.
+//
+// - Source declares an array  -> union it into the restored list (source is
+//   authoritative about its own artifacts).
+// - Source declares no field  -> webpack's safe default (every module is
+//   side-effectful); remove the restored allowlist so we don't over-prune.
+// - Any other form            -> leave the restored manifest untouched.
+function reconcileSideEffects(targetManifestPath, sourceManifestPath) {
+  let target;
+  let source;
+  try {
+    target = JSON.parse(readFileSync(targetManifestPath, 'utf8'));
+    source = JSON.parse(readFileSync(sourceManifestPath, 'utf8'));
+  } catch (error) {
+    console.warn(`Skipping sideEffects reconciliation: could not read manifests (${error.message})`);
+    return;
+  }
+
+  const hasField = Object.prototype.hasOwnProperty.call(source, 'sideEffects');
+
+  if (!hasField) {
+    if (target.sideEffects === undefined) {
+      return; // Already matches the safe default.
+    }
+    delete target.sideEffects;
+    writeFileSync(targetManifestPath, JSON.stringify(target, null, 2) + '\n');
+    console.log(
+      `Removed stale sideEffects from ${targetManifestPath}; source build declares none, so webpack keeps all module side effects.`,
+    );
+    return;
+  }
+
+  if (!Array.isArray(source.sideEffects)) {
+    return; // Boolean/other form: don't guess.
+  }
+
+  const targetSideEffects = Array.isArray(target.sideEffects) ? target.sideEffects : [];
+  const merged = [...targetSideEffects];
+  for (const entry of source.sideEffects) {
+    if (!merged.includes(entry)) {
+      merged.push(entry);
+    }
+  }
+  if (merged.length === targetSideEffects.length) {
+    return; // Nothing new to add.
+  }
+  target.sideEffects = merged;
+  writeFileSync(targetManifestPath, JSON.stringify(target, null, 2) + '\n');
+  console.log(`Updated sideEffects in ${targetManifestPath} to match the source build.`);
+}
 
 function execCommand(command, options = {}) {
   try {

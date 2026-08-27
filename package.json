@@ -20,7 +20,7 @@
     "test:unit": "node --experimental-vm-modules ./node_modules/.bin/jest -c jest.config.unit.js",
     "test-no-build": "run-s test:*",
     "test:default": "cross-env ALWAYS_VISUAL_REFRESH=true npm run serve-test",
-    "postinstall": "node ./scripts/install-peer-dependency.js components:3.0.1333 && node ./scripts/install-chat-components-themed.js"
+    "postinstall": "node ./scripts/install-peer-dependency.js components:dev-v3-onetheme-roundedness && node ./scripts/install-chat-components-themed.js"
   },
   "devDependencies": {
     "@babel/core": "^7.29.6",
@@ -77,6 +77,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.30.3",
+    "react-transition-group": "^4.4.5",
     "sass": "^1.54.5",
     "sass-loader": "^16.0.5",
     "ts-jest": "^29.2.5",

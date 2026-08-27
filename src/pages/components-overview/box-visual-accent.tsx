@@ -20,17 +20,13 @@ const ALL_VARIANTS: BoxProps.VisualAccent.Color[] = [
   'green',
   'orange',
   'purple',
-  'mint',
   'lime',
   'grey',
   'teal',
-  'cyan',
   'blue',
   'violet',
-  'fuchsia',
   'magenta',
   'pink',
-  'rose',
   'amber',
 ];
 
@@ -45,7 +41,7 @@ const LIST_ITEMS: { id: string; content: string; icon: string; color: BoxProps.V
   { id: 'network', content: 'Network configuration', icon: 'globe', color: 'grey' },
   { id: 'multi-session', content: 'Multi-session data', icon: 'multiscreen', color: 'purple' },
   { id: 'alert', content: 'Alert center', icon: 'security', color: 'red' },
-  { id: 'communication', content: 'Communication', icon: 'contact', color: 'mint' },
+  { id: 'communication', content: 'Communication', icon: 'contact', color: 'lime' },
 ];
 
 // ─── Section ─────────────────────────────────────────────────────────────────────
@@ -84,7 +80,7 @@ export default function BoxVisualAccent() {
         <Container header={<Header variant="h3">Icons in accent boxes</Header>}>
           <SpaceBetween size="m" direction="horizontal">
             {ALL_VARIANTS.map(color => (
-              <Box key={color} visualAccent={{ color, aspectRatio: 'equal', borderRadius: '50%' }}>
+              <Box key={color} visualAccent={{ color, aspectRatio: 'equal', borderRadius: 'full' }}>
                 <Icon name="check" size="medium" />
               </Box>
             ))}
@@ -100,7 +96,7 @@ export default function BoxVisualAccent() {
                 label: 'Components',
                 value: (
                   <Box
-                    visualAccent={{ color: 'mint' }}
+                    visualAccent={{ color: 'lime' }}
                     padding={{ horizontal: 'xxxs', vertical: 'xxxs' }}
                     margin={{ top: 'xxs' }}
                   >
@@ -112,7 +108,7 @@ export default function BoxVisualAccent() {
                 label: 'Patterns',
                 value: (
                   <Box
-                    visualAccent={{ color: 'mint' }}
+                    visualAccent={{ color: 'lime' }}
                     padding={{ horizontal: 'xxxs', vertical: 'xxxs' }}
                     margin={{ top: 'xxs' }}
                   >
@@ -124,7 +120,7 @@ export default function BoxVisualAccent() {
                 label: 'Demos',
                 value: (
                   <Box
-                    visualAccent={{ color: 'mint' }}
+                    visualAccent={{ color: 'lime' }}
                     padding={{ horizontal: 'xxxs', vertical: 'xxxs' }}
                     margin={{ top: 'xxs' }}
                   >
@@ -144,7 +140,7 @@ export default function BoxVisualAccent() {
               id: item.id,
               content: item.content,
               icon: (
-                <Box padding={'s'} visualAccent={{ color: item.color, borderRadius: '6px', aspectRatio: 'equal' }}>
+                <Box padding={'s'} visualAccent={{ color: item.color, borderRadius: 'xs', aspectRatio: 'equal' }}>
                   <Icon name={item.icon as any} size="medium" />
                 </Box>
               ),
