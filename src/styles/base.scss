@@ -32,6 +32,9 @@ body {
       background-color: #3b3b3b;
       border-radius: 0px !important;
     }
+    .awsui_message-area_cdujn_cgot4_45.awsui_chat-bubble-type-incoming_cdujn_cgot4_63:not(#\9), .awsui_root_1pkji_41dvx_5:not(#\9) {
+      background-color: #3b3b3b;
+    }
   }
 }
 
@@ -48,4 +51,11 @@ body {
   margin: 0;
   background-color: #0f1b2a;
   font-family: cs.$font-family-base;
+}
+
+/// Manual tweak for the chat components
+.awsui_root_55fkh_le023_146:not(#\9):focus-within:not(.awsui_textarea-invalid_55fkh_le023_205):not(
+    .awsui_textarea-warning_55fkh_le023_233
+  ) {
+  border-radius: 4px;
 }

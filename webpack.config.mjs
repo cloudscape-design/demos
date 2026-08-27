@@ -102,6 +102,19 @@ const createWebpackConfig = (base, { includeDevServer }) => {
                 filter: filename => filename.endsWith('.html'),
               },
             },
+            client: {
+              overlay: {
+                errors: true,
+                warnings: true,
+                // "ResizeObserver loop completed with undelivered notifications"
+                // is a benign browser notification (Cloudscape's full-page Table
+                // with sticky header + resizable columns legitimately triggers it)
+                // with no functional impact. Filter it out so the dev-server
+                // overlay stops reporting it as an uncaught runtime error, while
+                // still surfacing all real errors.
+                runtimeErrors: error => !(error && error.message && error.message.includes('ResizeObserver loop')),
+              },
+            },
             port: config.devServerPort,
           },
         }

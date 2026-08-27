@@ -2,24 +2,12 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useState } from 'react';
 
-import CodeView from '@cloudscape-design/code-view/code-view';
 import Box from '@cloudscape-design/components/box';
 import ColumnLayout from '@cloudscape-design/components/column-layout';
 import TokenGroup from '@cloudscape-design/components/token-group';
 import Wizard from '@cloudscape-design/components/wizard';
 
 import { Section, SubSection } from './utils';
-
-const codeSnippet = `import { applyTheme } from '@cloudscape-design/components/theming';
-
-applyTheme({
-  theme: {
-    tokens: {
-      colorBackgroundLayoutMain: '#f5f5f5',
-      borderRadiusContainer: '8px',
-    },
-  },
-});`;
 
 export default function OverlaysAndPatterns() {
   const [tokens, setTokens] = useState([
@@ -30,7 +18,7 @@ export default function OverlaysAndPatterns() {
   const [activeWizardStep, setActiveWizardStep] = useState(0);
 
   return (
-    <Section header="Tokens, code & patterns" level="h2">
+    <Section header="Tokens, Wizard" level="h2">
       <>
         <SubSection header="Token group">
           <ColumnLayout columns={2}>
@@ -45,9 +33,9 @@ export default function OverlaysAndPatterns() {
           </ColumnLayout>
         </SubSection>
 
-        <SubSection header="Code view">
+        {/* <SubSection header="Code view">
           <CodeView content={codeSnippet} lineNumbers />
-        </SubSection>
+        </SubSection> */}
 
         <SubSection header="Wizard">
           <Box padding={{ vertical: 's' }}>

@@ -56,7 +56,7 @@ const applyBaseFont = (baseFont: BaseFont) => {
 };
 
 const storedBaseFont = localStorage.load('Awsui-Base-Font-Preference');
-export let currentBaseFont: BaseFont = isBaseFont(storedBaseFont) ? storedBaseFont : BaseFont.Regular;
+export let currentBaseFont: BaseFont = isBaseFont(storedBaseFont) ? storedBaseFont : BaseFont.NightMode;
 applyBaseFont(currentBaseFont);
 
 export function updateBaseFont(baseFont: BaseFont) {
