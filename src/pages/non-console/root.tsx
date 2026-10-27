@@ -218,6 +218,7 @@ export function App() {
         />
       </DemoHeaderPortal>
       <CustomAppLayout
+        hideDemoTopNavigation
         stickyNotifications
         toolsHide
         navigation={<SideNavigation activeHref="#/pages" items={navItems} />}

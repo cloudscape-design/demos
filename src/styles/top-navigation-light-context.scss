@@ -1,0 +1,96 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
+// GENERATED FILE -- do not edit by hand.
+// Regenerate with: node ./scripts/generate-top-navigation-light-theme.js
+//
+// The light-header companion to src/common/top-navigation-light-theme.ts.
+//
+// These values are flipped dark by the `awsui-context-top-navigation` context
+// but are not public themeable tokens, so applyTheme cannot restore them. The
+// most visible case is `--shadow-dropdown`, which left the header's dropdown
+// with an opaque black drop shadow in light mode.
+//
+// Scoped to light mode only: in dark mode the context's own dark values are
+// already correct. The doubled `:not(#\9)` raises specificity above the base
+// theme's own single-`:not` rules without resorting to `!important`.
+//
+// The custom property names carry a build hash, so this file must be
+// regenerated whenever @cloudscape-design/components is rebuilt.
+
+body:not(.awsui-dark-mode) .awsui-context-top-navigation:not(#\9):not(#\9) {
+  --color-background-alert-error-dpj69i: #fceded;
+  --color-background-alert-info-lqhdg0: #eaeffc;
+  --color-background-alert-success-9dyn87: #e9fce7;
+  --color-background-alert-warning-021z3n: #fcfadb;
+  --color-background-calendar-current-date-4z244f: var(--color-neutral-200-ycjq01);
+  --color-background-code-editor-gutter-active-line-default-vdlqwm: var(--color-neutral-600-3y2c6w);
+  --color-background-code-editor-gutter-default-8n8dxf: var(--color-neutral-200-ycjq01);
+  --color-background-code-editor-loading-1te8g4: var(--color-neutral-100-1tq0gf);
+  --color-background-code-editor-pane-item-hover-umtijd: var(--color-neutral-250-gbfdhl);
+  --color-background-code-editor-status-bar-jisb5k: var(--color-neutral-200-ycjq01);
+  --color-background-direction-button-disabled-p1avil: var(--color-neutral-250-gbfdhl);
+  --color-background-layout-panel-hover-b9uvel: var(--color-neutral-250-gbfdhl);
+  --color-background-notification-stack-bar-active-p84qcp: var(--color-neutral-200-ycjq01);
+  --color-background-notification-stack-bar-g6w7e0: var(--color-neutral-100-1tq0gf);
+  --color-background-notification-stack-bar-hover-gwd3ks: var(--color-neutral-150-44n9cw);
+  --color-background-progress-bar-flash-npejc5: var(--color-grey-opaque-10-lm5hsm);
+  --color-background-side-navigation-item-icon-hover-ru7p8a: var(--color-primary-50-hzpado);
+  --color-background-skeleton-kon6do: var(--color-neutral-500-w303c2);
+  --color-background-skeleton-wave-07ksaz: var(--color-neutral-150-44n9cw);
+  --color-background-visual-accent-grey-iw1dx7: var(--color-neutral-250-gbfdhl);
+  --color-board-placeholder-active-y53hbb: var(--color-neutral-250-gbfdhl);
+  --color-board-placeholder-hover-19qqxj: var(--color-primary-100-n2qcgb);
+  --color-border-calendar-grid-selected-focus-ring-qi02r4: var(--color-neutral-100-1tq0gf);
+  --color-border-cell-shaded-f2b4hq: var(--color-neutral-300-uoc9f7);
+  --color-border-code-editor-default-g2lxyw: var(--color-neutral-300-uoc9f7);
+  --color-border-control-group-default-of49c9: var(--color-neutral-500-w303c2);
+  --color-border-divider-active-zbcsa9: var(--color-neutral-950-qa1l7j);
+  --color-border-divider-interactive-default-cs7tmi: var(--color-neutral-300-uoc9f7);
+  --color-border-divider-notification-3nnpxj: var(--color-neutral-350-n78myc);
+  --color-border-divider-table-group-42wwt3: var(--color-neutral-500-w303c2);
+  --color-border-notification-stack-bar-active-itxyux: var(--color-neutral-400-prk64u);
+  --color-border-notification-stack-bar-hover-pzy1rr: var(--color-neutral-600-3y2c6w);
+  --color-border-notification-stack-bar-iua5tr: var(--color-neutral-500-w303c2);
+  --color-border-tabs-divider-sog0al: var(--color-neutral-350-n78myc);
+  --color-border-tutorial-y71mlg: var(--color-neutral-300-uoc9f7);
+  --color-drag-placeholder-active-dxqser: var(--color-neutral-250-gbfdhl);
+  --color-drag-placeholder-hover-h0smpz: var(--color-primary-100-n2qcgb);
+  --color-gap-global-drawer-df7fm3: var(--color-neutral-250-gbfdhl);
+  --color-grey-opaque-70-96zz4s: rgba(0, 0, 0, 0.7);
+  --color-grey-transparent-3dqrf2: rgba(15, 20, 26, 0.12);
+  --color-grey-transparent-heavy-80huim: rgba(15, 20, 26, 0.12);
+  --color-grey-transparent-light-x8t86g: rgba(15, 20, 26, 0.12);
+  --color-text-alert-icon-info-ud5q0o: var(--color-info-600-14lpnx);
+  --color-text-alert-icon-success-1ldpm2: var(--color-success-600-9gprcu);
+  --color-text-calendar-month-2jnxdt: var(--color-neutral-600-3y2c6w);
+  --color-text-code-editor-gutter-default-u68cfj: var(--color-neutral-950-qa1l7j);
+  --color-text-code-editor-status-bar-disabled-368u13: var(--color-neutral-500-w303c2);
+  --color-text-column-header-f8stnp: var(--color-neutral-650-kuge0t);
+  --color-text-disabled-inline-edit-8wp4er: var(--color-neutral-650-kuge0t);
+  --color-text-disabled-ybqlwm: var(--color-neutral-400-prk64u);
+  --color-text-dropdown-item-secondary-hover-zeming: var(--color-neutral-600-3y2c6w);
+  --color-text-flashbar-icon-info-6gjbnj: var(--color-info-600-14lpnx);
+  --color-text-flashbar-icon-success-m3u8zi: var(--color-success-600-9gprcu);
+  --color-text-icon-caret-apa5jz: var(--color-neutral-500-w303c2);
+  --color-text-notification-link-default-ejciux: var(--color-neutral-800-vmae6a);
+  --color-text-notification-link-hover-m0gz4b: var(--color-neutral-950-qa1l7j);
+  --color-text-notification-stack-bar-cnlqja: var(--color-neutral-700-c12c5v);
+  --color-text-pagination-page-number-default-lt9i33: var(--color-text-interactive-default-pauydh);
+  --color-text-small-uo2fu4: var(--color-neutral-600-3y2c6w);
+  --color-text-visual-accent-green-ux1arx: var(--color-success-600-9gprcu);
+  --color-text-visual-accent-grey-vq1cnd: var(--color-neutral-850-d1tdt7);
+  --color-text-visual-accent-indigo-7jjzus: var(--color-info-800-xho7xf);
+  --color-text-visual-accent-yellow-068yuu: var(--color-warning-900-rpufqr);
+  --shadow-container-active-iomjxu: 0px 1px 1px 1px #ebebeb, 0px 6px 36px #0606061a;
+  --shadow-container-quglkl: 0px 0px 1px 1px #ebebeb, 0px 1px 8px 2px rgba(0, 0, 0, 0.12);
+  --shadow-dropdown-ogwesf: 0px 4px 20px 1px rgba(0, 0, 0, 0.10);
+  --shadow-panel-8l4v80: 0px 0px 0px 1px #bebebe;
+  --shadow-panel-toggle-a81wj1: 0px 6px 12px 1px rgba(0, 0, 0, 0.1);
+  --shadow-split-bottom-p8ki2v: 0px -36px 36px -36px rgba(0, 0, 0, 0.10);
+  --shadow-split-side-wha3re: -1px 0px 1px 0px #ebebeb, -36px 6px 36px -36px rgba(0, 0, 0, 0.10);
+  --shadow-sticky-column-first-7d9wxu: 4px 0px 8px 1px rgba(0, 0, 0, 0.1);
+  --shadow-sticky-column-last-f2p6g7: -4px 0 8px 1px rgba(0, 0, 0, 0.1);
+  --shadow-sticky-embedded-5m1s1m: 0px 2px 0px 0px #ebebeb, 0px 16px 16px -12px rgba(0, 0, 0, 0.10);
+  --shadow-sticky-ukzbip: 0px 4px 8px 1px rgba(0, 0, 0, 0.10);
+}

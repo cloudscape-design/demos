@@ -12,6 +12,7 @@ import enMessages from '@cloudscape-design/components/i18n/messages/all.en.json'
 import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { isVisualRefresh } from '../../common/apply-mode';
+import { DemoTopNavigation } from './top-navigation';
 
 // backward compatibility
 export * from './index';
@@ -67,9 +68,21 @@ export const TableEmptyState = ({ resourceName }: { resourceName: string }) => (
   </Box>
 );
 
-export const CustomAppLayout = forwardRef<AppLayoutProps.Ref, AppLayoutProps>(function CustomAppLayout(props, ref) {
+export interface CustomAppLayoutProps extends AppLayoutProps {
+  /**
+   * Suppresses the shared demo top navigation. Set this on pages that render
+   * their own top navigation, so the header is not rendered twice.
+   */
+  hideDemoTopNavigation?: boolean;
+}
+
+export const CustomAppLayout = forwardRef<AppLayoutProps.Ref, CustomAppLayoutProps>(function CustomAppLayout(
+  { hideDemoTopNavigation, ...props },
+  ref,
+) {
   return (
     <I18nProvider locale="en" messages={[enMessages]}>
+      {!hideDemoTopNavigation && <DemoTopNavigation />}
       {isVisualRefresh ? <AppLayoutToolbar ref={ref} {...props} /> : <AppLayout ref={ref} {...props} />}
     </I18nProvider>
   );

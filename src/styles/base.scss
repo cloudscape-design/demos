@@ -15,9 +15,11 @@ body {
   right: 0;
   z-index: 1000;
   margin: 0;
-  background-color: #0f1b2a;
+  // The injected top navigation paints its own light background and bottom
+  // border, so the header only supplies the layout and takes its surface from
+  // the theme rather than a hard-coded dark value.
+  background-color: cs.$color-background-container-content;
   font-family: cs.$font-family-base;
-  border-bottom: solid 1px #414d5c;
 }
 
 ul.menu-list {

@@ -39,11 +39,7 @@ function getPageContent(pageName, { title }) {
 <!-- this class is not needed in production, only for testing -->
 <body class="awsui-visual-refresh">
 <div id="b">
-    <header class="custom-main-header" id="h">
-        <ul class="menu-list awsui-context-top-navigation">
-            <li class="title"><a href="index.html">Cloudscape Demos</a></li>
-        </ul>
-    </header>
+    <header class="custom-main-header" id="h"></header>
     ${frameworkUtils.initialMarkup}
 </div>
 <script src="./libs/fake-server.js"></script>

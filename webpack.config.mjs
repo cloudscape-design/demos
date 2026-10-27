@@ -98,6 +98,10 @@ const createWebpackConfig = (base, { includeDevServer }) => {
                 filter: filename => filename.endsWith('.html'),
               },
             },
+            // Loopback only: the dev server otherwise listens on every
+            // interface and publishes the demos to the local network. Use an
+            // SSH port-forward to view it from another device.
+            host: '127.0.0.1',
             port: config.devServerPort,
           },
         }

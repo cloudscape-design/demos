@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 export { Breadcrumbs } from './breadcrumbs';
+export { DemoTopNavigation } from './top-navigation';
 export { ExternalLink } from './external-link';
 export { ExternalLinkGroup } from './external-link-group';
 export { FullPageHeader } from './full-page-header';

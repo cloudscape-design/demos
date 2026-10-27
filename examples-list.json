@@ -126,5 +126,9 @@
   {
     "path": "non-console",
     "title": "Top navigation"
+  },
+  {
+    "path": "components-overview",
+    "title": "Components overview"
   }
 ]
