@@ -17,7 +17,16 @@ describe('Table - Client side', () => {
     });
   };
 
-  commonTableTests(setupTest);
+  commonTableTests(setupTest, {
+    sorting: {
+      multiColumn: true,
+      initialAriaLabels: [
+        { column: 2, label: 'Distribution ID, not sorted.' },
+        { column: 3, label: 'State, sorted ascending, sort position 1.' },
+        { column: 4, label: 'Domain name, sorted ascending, sort position 2.' },
+      ],
+    },
+  });
   commonFlashTests(setupTest);
   commonPreferencesTests(setupTest);
   commonFilteringTests(setupTest);
@@ -25,16 +34,40 @@ describe('Table - Client side', () => {
   test(
     'When no row is selected counter displays total number',
     setupTest(async page => {
-      await expect(page.getTableItemsCounter()).resolves.toBe('(150)');
+      await expect(page.getTableItemsCounter()).resolves.toBe('(40)');
     }),
   );
   test(
     'When one row is selected counter displays selected of total',
     setupTest(async page => {
       await page.selectTableRow(1);
-      await expect(page.getTableItemsCounter()).resolves.toBe('(1/150)');
+      await expect(page.getTableItemsCounter()).resolves.toBe('(1/40)');
     }),
   );
+
+  describe('Multi-column sort', () => {
+    test(
+      'toggles the primary sort column direction on a plain click',
+      setupTest(async page => {
+        await page.sortTableByColumn(3); // State (primary sort column)
+
+        await expect(page.getColumnAriaLabel(3)).resolves.toBe('State, sorted descending, sort position 1.');
+        await expect(page.getColumnAriaLabel(4)).resolves.toBe('Domain name, sorted ascending, sort position 2.');
+        await expect(page.getTableCellText(1, 3)).resolves.toBe('Deactivated');
+      }),
+    );
+
+    test(
+      'replaces the multi-column sort with a single column when clicking an unsorted column',
+      setupTest(async page => {
+        await page.sortTableByColumn(2); // Distribution ID (not part of the default sort)
+
+        await expect(page.getColumnAriaLabel(2)).resolves.toBe('Distribution ID, sorted ascending, sort position 1.');
+        await expect(page.getColumnAriaLabel(3)).resolves.toBe('State, not sorted.');
+        await expect(page.getColumnAriaLabel(4)).resolves.toBe('Domain name, not sorted.');
+      }),
+    );
+  });
 
   describe('Table - Filtering', () => {
     test(

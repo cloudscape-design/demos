@@ -46,7 +46,13 @@ function TableContent({ distributions, loadHelpPanelContent }: TableContentProps
         noMatch: <TableNoMatchState onClearFilter={() => actions.setFiltering('')} />,
       },
       pagination: { pageSize: preferences?.pageSize },
-      sorting: { defaultState: { sortingColumn: columnDefinitions[0] } },
+      sorting: {
+        multiColumn: true,
+        defaultSortingColumns: [
+          { sortingColumn: columnDefinitions[1] }, // State
+          { sortingColumn: columnDefinitions[2] }, // Domain name
+        ],
+      },
       selection: {},
     },
   );

@@ -6,7 +6,7 @@ import { TableRow, TableRows, TopNavigation, WindowPath } from './common';
 
 import * as styles from './styles.module.scss';
 
-const comfortableImage = (
+const comfortableVisualRefreshImage = (
   <svg viewBox="0 0 230 107" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden={true}>
     <WindowPath />
     <TopNavigation />
@@ -30,4 +30,4 @@ const comfortableImage = (
   </svg>
 );
 
-export default comfortableImage;
+export default comfortableVisualRefreshImage;

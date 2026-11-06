@@ -24,17 +24,17 @@ describe('Table - Expandable', () => {
       const rows1 = await page.getElementsCount(tableWrapper.findRows().toSelector());
       expect(rows1).toBe(10 + 1);
 
-      // Expand cluster-33387b6c
+      // Expand the first cluster
       await page.click(tableWrapper.findExpandToggle(1).toSelector());
 
       // Expect 10 root data row, 1 root loader, 3 nested data rows, and 1 nested loader
       const rows2 = await page.getElementsCount(tableWrapper.findRows().toSelector());
       expect(rows2).toBe(10 + 1 + 3 + 1);
 
-      // Navigate to cluster-33387b6c "Show more" button
+      // Navigate to the first cluster "Show more" button
       await page.keys(['ArrowDown', 'ArrowDown', 'ArrowDown', 'ArrowDown']);
 
-      // Load more items for cluster-33387b6c
+      // Load more items for the first cluster
       await page.keys(['Enter']);
 
       // Expect 10 root data row, 1 root loader, and 5 nested data rows

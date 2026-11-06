@@ -28,7 +28,7 @@ describe('Table - Inline Editing', () => {
   test(
     'Fails to save invalid domain name edit',
     setupTest(async page => {
-      const errorMessage = await page.performBadDomainEdit(2);
+      const errorMessage = await page.performBadDomainEdit(4);
       expect(errorMessage).toBe('Valid domain name ends with .com, .org, or .net.');
     }),
   );

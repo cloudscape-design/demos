@@ -7,7 +7,7 @@ import HelpPanel from '@cloudscape-design/components/help-panel';
 import { ExternalLink, ExternalLinkGroup } from '../../commons';
 
 /* eslint-disable react/jsx-key */
-export default [
+const ToolsContent = [
   <HelpPanel
     header={<h2>Create distribution</h2>}
     footer={
@@ -425,3 +425,5 @@ export default [
   </HelpPanel>,
 ];
 /* eslint-enable react/jsx-key */
+
+export default ToolsContent;

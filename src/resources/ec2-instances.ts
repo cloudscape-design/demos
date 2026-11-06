@@ -2,9 +2,11 @@
 // SPDX-License-Identifier: MIT-0
 import { EC2Instance } from './types';
 
-const getElement = <T>(array: T[], loopedIndex: number) => array[loopedIndex % array.length];
+function getElement<T>(array: T[], loopedIndex: number) {
+  return array[loopedIndex % array.length];
+}
 
-const instances: EC2Instance[] = Array.from({ length: 50 }).map((item, i) => ({
+const INSTANCES: EC2Instance[] = Array.from({ length: 50 }).map((item, i) => ({
   id: `XLOWCQQFJJHM8${i}`,
   type: getElement(['m5.large', 'm5.xlarge', 'm5.4xlarge'], i),
   publicDns: `231.50.3.${i}`,
@@ -43,4 +45,4 @@ const instances: EC2Instance[] = Array.from({ length: 50 }).map((item, i) => ({
   ],
 }));
 
-export default instances;
+export default INSTANCES;

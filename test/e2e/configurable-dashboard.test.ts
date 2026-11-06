@@ -31,7 +31,7 @@ class ConfigurableDashboardPageObject extends BaseExamplePage {
         id: 'event',
         parameters: { pointerType: 'mouse' },
         actions: [
-          { type: 'pause', duration: 400 }, // TODO: Wait for charts to be loaded instead of waiting for a hard-coded amount (AWSUI-61409)
+          { type: 'pause', duration: 600 }, // TODO: Wait for charts to be loaded instead of waiting for a hard-coded amount (AWSUI-61409)
           { type: 'pointerMove', duration: 0, origin: originEl, x: 1, y: 1 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 200 },
@@ -90,9 +90,21 @@ describe('Configurable dashboard', () => {
   test(
     'Can add a new widget with drag and drop',
     setupTest(async page => {
-      expect((await page.getHeadersTexts())[0]).toEqual('Service overview - new');
+      await expect(page.getHeadersTexts()).resolves.toEqual([
+        'Service overview - new',
+        'Service health',
+        'Instance hours',
+        'Network traffic',
+      ]);
       await page.addNewWidget();
-      await page.waitForAssertion(async () => expect((await page.getHeadersTexts())[0]).toEqual('Operational metrics'));
+      await page.waitForAssertion(async () => {
+        await expect(page.getHeadersTexts()).resolves.toEqual([
+          'Operational metrics',
+          'Service overview - new',
+          'Service health',
+          'Instance hours',
+        ]);
+      });
     }),
   );
 

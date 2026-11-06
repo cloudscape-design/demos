@@ -19,7 +19,6 @@ import logo from './logo.svg';
 import { Notifications } from './notifications';
 
 import '../../styles/base.scss';
-import '../../styles/top-navigation.scss';
 
 const navItems: SideNavigationProps.Item[] = [
   {

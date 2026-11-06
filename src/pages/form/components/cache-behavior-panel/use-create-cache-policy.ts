@@ -9,7 +9,7 @@ import {
 } from '../../form-config';
 import { CreateCachePolicyAttributesErrors, CreateCachePolicyAttributesValues } from '../../types';
 
-const defaultData = {
+const defaultCachePolicyData = {
   name: '',
   description: '',
   minimumTtl: 1,
@@ -21,7 +21,7 @@ const defaultData = {
   isSubmitting: false,
 };
 
-const defaultErrors = {
+const defaultCachePolicyErrors = {
   nameError: '',
 };
 
@@ -33,8 +33,8 @@ export default function useCreateCachePolicy(): [
   boolean,
   () => void,
 ] {
-  const [data, _setData] = useState<CreateCachePolicyAttributesValues>(defaultData);
-  const [errors, _setErrors] = useState<CreateCachePolicyAttributesErrors>(defaultErrors);
+  const [data, _setData] = useState<CreateCachePolicyAttributesValues>(defaultCachePolicyData);
+  const [errors, _setErrors] = useState<CreateCachePolicyAttributesErrors>(defaultCachePolicyErrors);
   const setData = (updateObj: Partial<CreateCachePolicyAttributesValues> = {}) => {
     _setData(prevData => ({ ...prevData, ...updateObj }));
   };
@@ -43,11 +43,11 @@ export default function useCreateCachePolicy(): [
   };
 
   const resetData = () => {
-    setData(defaultData);
-    setErrors(defaultErrors);
+    setData(defaultCachePolicyData);
+    setErrors(defaultCachePolicyErrors);
   };
 
-  const isDataChanged = JSON.stringify(defaultData) !== JSON.stringify(data);
+  const isDataChanged = JSON.stringify(defaultCachePolicyData) !== JSON.stringify(data);
 
   return [data, setData, errors, setErrors, isDataChanged, resetData];
 }

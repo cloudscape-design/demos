@@ -16,7 +16,7 @@ import Select, { SelectProps } from '@cloudscape-design/components/select';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import Tiles from '@cloudscape-design/components/tiles';
 
-import { CustomAppLayout } from '../layout';
+import { OnboardingAppLayout } from '../layout';
 import { useRouter } from '../router';
 import { useStore } from '../store';
 
@@ -59,7 +59,7 @@ export const CreateTranscriptionJobPage = () => {
   const onS3BucketChange = useCallback<OptionChangeCallback>(event => setS3Bucket(event.detail.selectedOption), []);
 
   return (
-    <CustomAppLayout
+    <OnboardingAppLayout
       initialHelpPanelPage="create-transcription-job"
       contentType="form"
       breadcrumbs={

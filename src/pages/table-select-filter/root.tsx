@@ -15,7 +15,7 @@ import SpaceBetween from '@cloudscape-design/components/space-between';
 import Table from '@cloudscape-design/components/table';
 
 import { getHeaderCounterText, getTextFilterCounterText, renderAriaLive } from '../../i18n-strings';
-import DATA, { Instance } from '../../resources/instances';
+import instances, { Instance } from '../../resources/instances';
 import { FullPageHeader } from '../commons';
 import { CustomAppLayout, Notifications, TableEmptyState, TableNoMatchState } from '../commons/common-components';
 import { Preferences } from '../commons/table-config';
@@ -35,7 +35,7 @@ function prepareSelectOptions(field: keyof Instance, defaultOption: SelectProps.
   const optionSet: string[] = [];
   // Building a non redundant list of the field passed as parameter.
 
-  DATA.forEach(item => {
+  instances.forEach(item => {
     const itemValue = String(item[field]);
     if (optionSet.indexOf(itemValue) === -1) {
       optionSet.push(itemValue);
@@ -64,40 +64,43 @@ function matchesClass(item: Instance, selectedClass: SelectProps.Option) {
   return selectedClass === defaultClass || item.class === selectedClass.label;
 }
 
-interface TableSelectFilter {
+interface TableSelectFilterProps {
   loadHelpPanelContent: () => void;
 }
 
-function TableSelectFilter({ loadHelpPanelContent }: TableSelectFilter) {
+function TableSelectFilter({ loadHelpPanelContent }: TableSelectFilterProps) {
   const [columnDefinitions, saveWidths] = useColumnWidths('React-TableSelectFilter-Widths', COLUMN_DEFINITIONS);
   const [engine, setEngine] = useState<SelectProps.Option>(defaultEngine);
   const [instanceClass, setInstanceClass] = useState<SelectProps.Option>(defaultClass);
   const [preferences, setPreferences] = useLocalStorage('React-TableSelectFilter-Preferences', PREFERENCES);
-  const { items, actions, filteredItemsCount, collectionProps, filterProps, paginationProps } = useCollection(DATA, {
-    filtering: {
-      empty: <TableEmptyState resourceName="Instance" />,
+  const { items, actions, filteredItemsCount, collectionProps, filterProps, paginationProps } = useCollection(
+    instances,
+    {
+      filtering: {
+        empty: <TableEmptyState resourceName="Instance" />,
 
-      // ClearFilter also depends on setFiltering returned from this hook
-      // eslint-disable-next-line @typescript-eslint/no-use-before-define
-      noMatch: <TableNoMatchState onClearFilter={clearFilter} />,
-      filteringFunction: (item, filteringText) => {
-        if (!matchesEngine(item, engine)) {
-          return false;
-        }
-        if (!matchesClass(item, instanceClass)) {
-          return false;
-        }
-        const filteringTextLowerCase = filteringText.toLowerCase();
+        // ClearFilter also depends on setFiltering returned from this hook
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
+        noMatch: <TableNoMatchState onClearFilter={clearFilter} />,
+        filteringFunction: (item, filteringText) => {
+          if (!matchesEngine(item, engine)) {
+            return false;
+          }
+          if (!matchesClass(item, instanceClass)) {
+            return false;
+          }
+          const filteringTextLowerCase = filteringText.toLowerCase();
 
-        return SEARCHABLE_COLUMNS.map(key => item[key]).some(
-          value => typeof value === 'string' && value.toLowerCase().indexOf(filteringTextLowerCase) > -1,
-        );
+          return SEARCHABLE_COLUMNS.map(key => item[key]).some(
+            value => typeof value === 'string' && value.toLowerCase().indexOf(filteringTextLowerCase) > -1,
+          );
+        },
       },
+      pagination: { pageSize: preferences?.pageSize },
+      sorting: { defaultState: { sortingColumn: columnDefinitions[0] } },
+      selection: {},
     },
-    pagination: { pageSize: preferences?.pageSize },
-    sorting: { defaultState: { sortingColumn: columnDefinitions[0] } },
-    selection: {},
-  });
+  );
   useLayoutEffect(() => {
     collectionProps.ref.current?.scrollToTop();
   }, [instanceClass, engine, collectionProps.ref, filterProps.filteringText]);
@@ -134,7 +137,7 @@ function TableSelectFilter({ loadHelpPanelContent }: TableSelectFilter) {
         <FullPageHeader
           title="Instances"
           selectedItemsCount={collectionProps.selectedItems?.length ?? 0}
-          counter={getHeaderCounterText(DATA, collectionProps.selectedItems)}
+          counter={getHeaderCounterText(instances, collectionProps.selectedItems)}
           actions={
             <SpaceBetween size="xs" direction="horizontal">
               <ButtonDropdown

@@ -13,7 +13,7 @@ import * as styles from './preferences.module.scss';
 
 export const allContent = ['status', 'running', 'monitoring', 'issues', 'breakdown'] as const;
 
-export type Content = (typeof allContent)[number];
+export type MetricContent = (typeof allContent)[number];
 
 interface PreferencesControlProps {
   label: string;
@@ -37,16 +37,16 @@ function PreferencesControl({ label, toggle, isGroup }: PreferencesControlProps)
 }
 
 interface WidgetPreferencesProps {
-  preferences: ReadonlyArray<Content>;
+  preferences: ReadonlyArray<MetricContent>;
   onDismiss: () => void;
-  onConfirm: (visibleContent: ReadonlyArray<Content>) => void;
+  onConfirm: (visibleContent: ReadonlyArray<MetricContent>) => void;
 }
 
 const metricItems = ['status', 'running', 'monitoring', 'issues'] as const;
 
 export function WidgetPreferences({ onConfirm, onDismiss, preferences }: WidgetPreferencesProps) {
   const [pendingPreferences, setPendingPreferences] = useState(preferences);
-  function toggle(content: Content, checked: boolean) {
+  function toggle(content: MetricContent, checked: boolean) {
     setPendingPreferences(pendingPreferences => {
       const newState = pendingPreferences.slice();
       if (checked) {

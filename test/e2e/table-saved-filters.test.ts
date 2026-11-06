@@ -19,8 +19,9 @@ describe('Table - Saved Filters', () => {
 
   // Configure custom IDs and columns as the default filter set is applied from page load
   commonTableTests(setupTest, {
+    initialRowCount: 9,
     sorting: {
-      descendingIds: ['YBLIKXPJHLB130', 'WWESRFPLTQSJ97'],
+      descendingIds: ['YBRMUIGTFFLV13', 'WTTNZUGJTDBL30'],
       changingColumn: {
         preSort: {
           columnNumber: 2,
@@ -33,8 +34,8 @@ describe('Table - Saved Filters', () => {
       },
     },
   });
-  commonPreferencesTests(setupTest, 40); // Default filter set reduces the total available resources for page size tests
-  commonPropertyFilteringTests(setupTest, 2, [3, 3, 2, 5]); // Expected token are increased and rows are reduced with a default filter set
+  commonPreferencesTests(setupTest, 9); // Default filter set reduces the total available resources for page size tests
+  commonPropertyFilteringTests(setupTest, 2, [1, 1, 0, 4]); // Expected token are increased and rows are reduced with a default filter set
 
   test(
     'Has three default saved filter sets',

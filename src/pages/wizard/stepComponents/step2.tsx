@@ -170,7 +170,7 @@ const InstanceOptions = ({
   );
 };
 
-interface NameAndPassword extends DetailsState {
+interface NameAndPasswordProps extends DetailsState {
   setHelpPanelContent: (tools: ToolsContent) => void;
   onChange: (state: Partial<DetailsState>) => void;
 }
@@ -182,7 +182,7 @@ const NameAndPassword = ({
   confirmPassword,
   onChange,
   setHelpPanelContent,
-}: NameAndPassword) => {
+}: NameAndPasswordProps) => {
   return (
     <Container header={<Header variant="h2">Names and password</Header>}>
       <SpaceBetween size="l">

@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import ItemsPalette, { ItemsPaletteProps } from '@cloudscape-design/board-components/items-palette';
+import { ItemsPaletteProps } from '@cloudscape-design/board-components';
+import ItemsPalette from '@cloudscape-design/board-components/items-palette';
 import { useCollection } from '@cloudscape-design/collection-hooks';
 import Button from '@cloudscape-design/components/button';
 import SpaceBetween from '@cloudscape-design/components/space-between';

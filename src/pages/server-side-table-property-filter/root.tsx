@@ -33,7 +33,7 @@ import '../../styles/base.scss';
 const DEFAULT_SORTING_IS_DESCENDING = false;
 const PROPERTY_FILTERS_QUERY_PARAM_KEY = 'propertyFilter';
 
-interface ServerSidePropertyFilterTable {
+interface ServerSidePropertyFilterTableProps {
   columnDefinitions: TableProps.ColumnDefinition<Distribution>[];
   saveWidths: TableProps['onColumnWidthsChange'];
   loadHelpPanelContent: () => void;
@@ -43,7 +43,7 @@ function ServerSidePropertyFilterTable({
   columnDefinitions,
   saveWidths,
   loadHelpPanelContent,
-}: ServerSidePropertyFilterTable) {
+}: ServerSidePropertyFilterTableProps) {
   const [selectedItems, setSelectedItems] = useState<Distribution[]>([]);
   const [preferences, setPreferences] = useLocalStorage(
     'React-ServerSideTablePropertyFilter-Preferences',
@@ -115,8 +115,9 @@ function ServerSidePropertyFilterTable({
     <Table
       enableKeyboardNavigation={true}
       loading={loading}
+      skeleton={loading ? { totalRows: pageSize ?? 10 } : undefined}
       selectedItems={selectedItems}
-      items={items}
+      items={loading ? [] : items}
       onSortingChange={handleSortingChange}
       onSelectionChange={event => setSelectedItems(event.detail.selectedItems)}
       sortingColumn={sortingColumn}

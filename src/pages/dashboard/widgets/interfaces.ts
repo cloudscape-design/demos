@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
 
-import { BoardProps } from '@cloudscape-design/board-components/board';
+import { BoardProps } from '@cloudscape-design/board-components';
 
-import * as icons from '../icons';
+import { icons } from '../icons';
 
 export interface WidgetDataType {
   icon: keyof typeof icons;

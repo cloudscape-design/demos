@@ -24,13 +24,8 @@ export default function FeedbackDialog({ onDismiss, onSubmit }: { onDismiss: () 
   const triggerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    // Store the element that had focus before dialog opened
     triggerRef.current = document.activeElement as HTMLElement;
-
-    // Focus the dialog container when it opens
     dialogRef.current?.focus();
-
-    // Cleanup: Return focus to the trigger element when dialog closes
     return () => {
       triggerRef.current?.focus();
     };
@@ -42,14 +37,6 @@ export default function FeedbackDialog({ onDismiss, onSubmit }: { onDismiss: () 
   const isFeedbackOptionSelected = Object.values(feedbackOptions).some(val => !!val);
   const isSubmittable = isFeedbackOptionSelected || feedbackText.length > 0;
 
-  const submitFeedback = () => {
-    if (!isSubmittable) {
-      return;
-    }
-
-    onSubmit();
-  };
-
   return (
     <Dialog
       ariaLabel="Feedback dialog"
@@ -59,13 +46,12 @@ export default function FeedbackDialog({ onDismiss, onSubmit }: { onDismiss: () 
         <div style={{ display: 'flex', flexDirection: 'row-reverse', gap: '4px' }}>
           <Button
             data-testid="feedback-submit-button"
-            onClick={submitFeedback}
+            onClick={() => isSubmittable && onSubmit()}
             ariaLabel="Submit form"
             disabled={!isSubmittable}
           >
             Submit
           </Button>
-
           <Button variant="link" onClick={onDismiss} ariaLabel="Close dialog" data-testid="feedback-close-button">
             Close
           </Button>
@@ -109,13 +95,12 @@ export default function FeedbackDialog({ onDismiss, onSubmit }: { onDismiss: () 
               </Checkbox>
             </SpaceBetween>
           </FormField>
-
           <FormField label="Additional notes" stretch={true}>
             <Textarea
               rows={3}
               onChange={({ detail }) => setFeedbackText(detail.value)}
               value={feedbackText}
-              placeholder={'Additional feedback'}
+              placeholder="Additional feedback"
             />
           </FormField>
         </SpaceBetween>

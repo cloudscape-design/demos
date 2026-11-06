@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useEffect, useRef, useState } from 'react';
 
+import fakeDelay from '../../fake-server/utils/fake-delay';
 import { DistributionResource } from '../../resources/types';
 import DataProvider from '../commons/data-provider';
-import fakeDelay from '../commons/fake-delay';
 import { DeleteModal } from './components/delete-modal';
 import { DistributionDetailsPage } from './components/distribution-details-page';
 import { DistributionsPage } from './components/distribution-page';

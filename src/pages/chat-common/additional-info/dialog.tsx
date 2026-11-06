@@ -23,12 +23,13 @@ const Dialog = React.forwardRef(
   ) => {
     return (
       <div
+        data-testid="feedback-dialog"
         ref={ref}
         className="dialog"
         role="dialog"
         aria-label={ariaLabel}
-        aria-modal="false" // Maintains natural focus flow since it's an inline dialog
-        tabIndex={-1} // This allows the dialog to receive focus
+        aria-modal="false"
+        tabIndex={-1}
       >
         <div className="content">
           <div className="dismiss">
@@ -40,10 +41,8 @@ const Dialog = React.forwardRef(
               data-testid="dialog-dismiss-button"
             />
           </div>
-
           <div className="inner-content">{children}</div>
         </div>
-
         <div className="footer">{footer}</div>
       </div>
     );

@@ -7,10 +7,10 @@ import Link from '@cloudscape-design/components/link';
 import Popover from '@cloudscape-design/components/popover';
 import { SideNavigationProps } from '@cloudscape-design/components/side-navigation';
 
-import { Navigation as CommonNavigation } from '../../commons';
+import { Navigation } from '../../commons';
 import { DensityPreferencesDialog } from './density-preferences';
 
-const navItems: SideNavigationProps['items'] = [
+const dashboardNavItems: SideNavigationProps['items'] = [
   { type: 'link', text: 'Dashboard', href: '#/' },
   {
     type: 'link',
@@ -203,7 +203,7 @@ export function DashboardSideNavigation() {
 
   return (
     <>
-      <CommonNavigation items={navItems} activeHref="#/" onFollowHandler={onFollowHandler} />
+      <Navigation items={dashboardNavItems} activeHref="#/" onFollowHandler={onFollowHandler} />
       {dialogVisible && <DensityPreferencesDialog onDismiss={() => setDialogVisible(false)} />}
     </>
   );

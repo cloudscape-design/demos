@@ -9,7 +9,7 @@ import Wizard, { WizardProps } from '@cloudscape-design/components/wizard';
 import { ExternalLinkGroup, InfoLink, Notifications } from '../commons';
 import { CustomAppLayout } from '../commons/common-components';
 import { ToolsContent, WizardState } from './interfaces';
-import Engine from './stepComponents/step1';
+import EngineStep from './stepComponents/step1';
 import Details from './stepComponents/step2';
 import Advanced from './stepComponents/step3';
 import Review from './stepComponents/step4';
@@ -22,7 +22,7 @@ const steps = [
   {
     title: 'Select engine type',
     stateKey: 'engine',
-    StepContent: Engine,
+    StepContent: EngineStep,
   },
   {
     title: 'Specify instance details',

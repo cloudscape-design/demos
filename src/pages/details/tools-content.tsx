@@ -48,7 +48,7 @@ function DistributionSettings({ header }: { header: React.ReactNode }) {
 }
 
 /* eslint-disable react/jsx-key */
-export default [
+const ToolsContent = [
   <DistributionSettings header="Distribution settings" />,
   <DistributionSettings header="Details" />,
   <HelpPanel
@@ -71,3 +71,5 @@ export default [
     </p>
   </HelpPanel>,
 ];
+
+export default ToolsContent;

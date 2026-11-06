@@ -4,13 +4,15 @@ import React, { useRef, useState } from 'react';
 
 import { useCollection } from '@cloudscape-design/collection-hooks';
 import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
+import { CollectionPreferencesProps } from '@cloudscape-design/components/collection-preferences';
 import Pagination from '@cloudscape-design/components/pagination';
 import SplitPanel from '@cloudscape-design/components/split-panel';
-import Table from '@cloudscape-design/components/table';
+import Table, { TableProps } from '@cloudscape-design/components/table';
 import TextFilter from '@cloudscape-design/components/text-filter';
 
 import { getHeaderCounterText, getTextFilterCounterText, renderAriaLive } from '../../i18n-strings';
 import INSTANCES from '../../resources/ec2-instances';
+import { EC2Instance } from '../../resources/types';
 import { FullPageHeader } from '../commons';
 import {
   CustomAppLayout,
@@ -21,20 +23,57 @@ import {
   TableNoMatchState,
 } from '../commons/common-components';
 import { useLocalStorage } from '../commons/use-local-storage';
-import {
-  COLUMN_DEFINITIONS_MAIN,
-  DEFAULT_PREFERENCES,
-  EC2Preferences,
-  SELECTION_LABELS,
-} from '../split-panel-comparison/table-config';
+import { COLUMN_DEFINITIONS_MAIN, EC2Preferences, SELECTION_LABELS } from '../split-panel-comparison/table-config';
 import { Breadcrumbs, getPanelContent, useSplitPanel } from '../split-panel-comparison/utils';
 import { EC2ToolsContent } from '../table/common-components';
 
 // It's necessary to import a scss file or the build will fail
 import '../../styles/base.scss';
 
+const GROUP_DEFINITIONS: TableProps.GroupDefinition<EC2Instance>[] = [
+  { id: 'identity', header: 'Identity' },
+  { id: 'status', header: 'Status' },
+];
+
+const GROUPED_DEFAULT_PREFERENCES: CollectionPreferencesProps.Preferences = {
+  pageSize: 30,
+  wrapLines: false,
+  stripedRows: false,
+  contentDensity: 'comfortable' as const,
+  stickyColumns: undefined,
+  contentDisplay: [
+    {
+      type: 'group' as const,
+      id: 'identity',
+      visible: true,
+      children: [
+        { id: 'id', visible: true },
+        { id: 'type', visible: true },
+        { id: 'publicDns', visible: true },
+      ],
+    },
+    {
+      type: 'group' as const,
+      id: 'status',
+      visible: true,
+      children: [
+        { id: 'monitoring', visible: true },
+        { id: 'state', visible: true },
+      ],
+    },
+  ],
+};
+
+const CONTENT_DISPLAY_GROUPS = [
+  { id: 'identity', label: 'Identity' },
+  { id: 'status', label: 'Status' },
+];
+
 export const App = () => {
-  const [preferences, setPreferences] = useLocalStorage('React-SplitPanelMultiple-Preferences', DEFAULT_PREFERENCES);
+  const [preferences, setPreferences] = useLocalStorage(
+    'React-SplitPanelMultiple-Preferences',
+    GROUPED_DEFAULT_PREFERENCES,
+  );
   const { items, actions, filteredItemsCount, collectionProps, filterProps, paginationProps } = useCollection(
     INSTANCES,
     {
@@ -88,6 +127,7 @@ export const App = () => {
           stickyHeader={true}
           columnDefinitions={COLUMN_DEFINITIONS_MAIN}
           columnDisplay={preferences?.contentDisplay}
+          groupDefinitions={GROUP_DEFINITIONS}
           items={items}
           selectionType="multi"
           ariaLabels={SELECTION_LABELS}
@@ -105,7 +145,13 @@ export const App = () => {
           contentDensity={preferences?.contentDensity}
           stickyColumns={preferences?.stickyColumns}
           pagination={<Pagination {...paginationProps} />}
-          preferences={<EC2Preferences preferences={preferences} setPreferences={setPreferences} />}
+          preferences={
+            <EC2Preferences
+              preferences={preferences}
+              setPreferences={setPreferences}
+              contentDisplayGroups={CONTENT_DISPLAY_GROUPS}
+            />
+          }
         />
       }
     />

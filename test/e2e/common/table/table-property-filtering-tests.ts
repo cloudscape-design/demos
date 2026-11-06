@@ -5,7 +5,7 @@ import TablePropertyFilteringPageObject from '../../page/table-property-filterin
 export default (
   setupTest: { (testFn: { (page: TablePropertyFilteringPageObject): Promise<void> }): any },
   initialAppliedFilterCount = 0,
-  filtersTableRowCounts = [11, 7, 3, 30],
+  filtersTableRowCounts = [8, 7, 2, 19],
 ) => {
   describe('Property Filtering - Common', () => {
     test(

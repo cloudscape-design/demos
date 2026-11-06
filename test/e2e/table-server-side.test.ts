@@ -25,14 +25,14 @@ describe('Table - Server side', () => {
   test(
     'When no row is selected counter displays total number',
     setupTest(async page => {
-      await expect(page.getTableItemsCounter()).resolves.toBe('(120+)');
+      await expect(page.getTableItemsCounter()).resolves.toBe('(30+)');
     }),
   );
   test(
     'When one row is selected counter displays selected of total',
     setupTest(async page => {
       await page.selectTableRow(1);
-      await expect(page.getTableItemsCounter()).resolves.toBe('(1/120+)');
+      await expect(page.getTableItemsCounter()).resolves.toBe('(1/30+)');
     }),
   );
 

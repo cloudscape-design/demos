@@ -7,7 +7,7 @@ import Box from '@cloudscape-design/components/box';
 import Header from '@cloudscape-design/components/header';
 
 import { EmptyState } from '../../../dashboard/components/empty-state';
-import * as icons from '../../../dashboard/icons';
+import { icons } from '../../../dashboard/icons';
 import { boardItemI18nStrings } from '../../i18n-strings';
 
 import * as styles from './styles.module.scss';

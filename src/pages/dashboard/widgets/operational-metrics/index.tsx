@@ -14,10 +14,10 @@ import { EmptyState } from '../../components/empty-state';
 import { ResponsiveLayout } from '../../components/responsive-layout';
 import { WidgetConfig } from '../interfaces';
 import { BreakdownChart } from './chart';
-import { allContent, Content, WidgetPreferences } from './preferences';
+import { allContent, MetricContent, WidgetPreferences } from './preferences';
 
 interface OperationalWidgetContextType {
-  visibleContent: ReadonlyArray<Content>;
+  visibleContent: ReadonlyArray<MetricContent>;
   openPreferences: () => void;
 }
 
@@ -30,7 +30,7 @@ const OperationalWidgetContext = createContext<OperationalWidgetContextType>({
 
 function OperationalMetricsProvider({ children }: { children: React.ReactElement }) {
   const [preferencesVisible, setPreferencesVisible] = useState(false);
-  const [visibleContent, setVisibleContent] = useState<ReadonlyArray<Content>>(allContent);
+  const [visibleContent, setVisibleContent] = useState<ReadonlyArray<MetricContent>>(allContent);
   return (
     <OperationalWidgetContext.Provider value={{ visibleContent, openPreferences: () => setPreferencesVisible(true) }}>
       {React.cloneElement(React.Children.only(children), {
