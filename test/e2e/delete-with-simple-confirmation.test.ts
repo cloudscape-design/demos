@@ -16,19 +16,19 @@ describe('Delete with simple confirmation', () => {
   test(
     'submits to delete all 5 selected distributions with one retry',
     setupTest(async page => {
-      await expect(page.getTableItemsCounter()).resolves.toBe('(5/150)');
+      await expect(page.getTableItemsCounter()).resolves.toBe('(5/40)');
       await page.submitDeletion();
       await page.waitForModalClosed();
-      await expect(page.getTableItemsCounter()).resolves.toBe('(150)');
+      await expect(page.getTableItemsCounter()).resolves.toBe('(40)');
       expect(await page.getNotificationText()).toEqual('Deleting 5 distributions.');
       await page.waitForNotificationText('Successfully deleted 4 distributions.');
-      await expect(page.getTableItemsCounter()).resolves.toBe('(146)');
+      await expect(page.getTableItemsCounter()).resolves.toBe('(36)');
       await page.waitForNotificationText('Failed to delete distribution ');
       await page.retryFailedDeletion();
-      await expect(page.getTableItemsCounter()).resolves.toBe('(146)');
+      await expect(page.getTableItemsCounter()).resolves.toBe('(36)');
       await page.waitForNotificationText('Deleting distribution ');
       await page.waitForNotificationText('Successfully deleted distribution ');
-      await expect(page.getTableItemsCounter()).resolves.toBe('(145)');
+      await expect(page.getTableItemsCounter()).resolves.toBe('(35)');
     }),
   );
 });

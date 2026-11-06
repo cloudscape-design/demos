@@ -7,7 +7,7 @@ export default function commonPreferencesTests(
   setupTest: {
     (testFn: { (page: TablePageObject | TablePropertyFilteringPageObject): Promise<void> }): any;
   },
-  totalItemCount: number = 150,
+  totalItemCount: number = 40,
 ) {
   describe('Preferences', () => {
     test(
@@ -17,7 +17,7 @@ export default function commonPreferencesTests(
         await page.setTablePreferencesPageSize(1);
         await page.confirmTablePreferenceChanges();
 
-        expect(await page.countTableRows()).toBe(10);
+        expect(await page.countTableRows()).toBe(Math.min(totalItemCount, 10));
       }),
     );
 
@@ -38,7 +38,7 @@ export default function commonPreferencesTests(
         await page.openTablePreferences();
         await page.setTablePreferencesPageSize(1);
         await page.cancelTablePreferenceChanges();
-        expect(await page.countTableRows()).toBe(30);
+        expect(await page.countTableRows()).toBe(Math.min(totalItemCount, 30));
       }),
     );
 

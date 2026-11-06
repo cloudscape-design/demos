@@ -19,7 +19,7 @@ import ToolsContent from './components/tools-content';
 
 import '../../styles/base.scss';
 
-type Tag = TagsResource['resourceTags'][number];
+type ResourceTag = TagsResource['resourceTags'][number];
 
 const Breadcrumbs = () => (
   <BreadcrumbGroup items={resourceManageTagsBreadcrumbs} expandAriaLabel="Show path" ariaLabel="Breadcrumbs" />
@@ -33,11 +33,11 @@ export function App() {
   const appLayoutRef = useRef<AppLayoutProps.Ref>(null);
 
   async function loadTags() {
-    const isUserTag = (tag: Tag) => tag.key.indexOf('aws:') !== 0;
-    const mapExistingTag = (tag: Tag) => ({ ...tag, existing: true });
+    const isUserTag = (tag: ResourceTag) => tag.key.indexOf('aws:') !== 0;
+    const mapExistingTag = (tag: ResourceTag) => ({ ...tag, existing: true });
 
     const { ResourceTagMappingList } = await window.FakeServer.GetResources();
-    const tags = ResourceTagMappingList.reduce<Tag[]>(
+    const tags = ResourceTagMappingList.reduce<ResourceTag[]>(
       (tags, resourceTagMapping) => [...tags, ...resourceTagMapping.Tags],
       [],
     )

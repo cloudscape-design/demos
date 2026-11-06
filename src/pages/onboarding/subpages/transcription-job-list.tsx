@@ -12,7 +12,7 @@ import SpaceBetween from '@cloudscape-design/components/space-between';
 import StatusIndicator from '@cloudscape-design/components/status-indicator';
 import Table, { TableProps } from '@cloudscape-design/components/table';
 
-import { CustomAppLayout } from '../layout';
+import { OnboardingAppLayout } from '../layout';
 import { useStore } from '../store';
 
 interface Item {
@@ -54,7 +54,7 @@ export const TranscriptionJobListPage = () => {
   } = useStore();
 
   return (
-    <CustomAppLayout
+    <OnboardingAppLayout
       initialHelpPanelPage="transcription-jobs"
       contentType="table"
       breadcrumbs={

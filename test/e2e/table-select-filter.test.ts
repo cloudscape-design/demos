@@ -24,7 +24,7 @@ describe('Table Select Filter', () => {
       await expect(page.isInstanceActionsButtonEnabled()).resolves.toBe(false);
       await expect(page.isRestoreFromS3ButtonEnabled()).resolves.toBe(true);
       await expect(page.isLaunchDBInstanceButtonEnabled()).resolves.toBe(true);
-      await expect(page.getTableItemsCounter()).resolves.toBe('(150)');
+      await expect(page.getTableItemsCounter()).resolves.toBe('(40)');
       await expect(page.getColumnAriaLabel(2)).resolves.toBe('DB instance, sorted ascending.');
     }),
   );
@@ -52,7 +52,7 @@ describe('Table Select Filter', () => {
   test(
     'When proper filter is applied only one item and one table rows is displayed',
     setupTest(async page => {
-      await page.typeFilterQuery('144');
+      await page.typeFilterQuery('14');
 
       await expect(page.countTableRows()).resolves.toBe(1);
       await expect(page.countPaginationPages()).resolves.toBe(1);
@@ -63,7 +63,7 @@ describe('Table Select Filter', () => {
     'When proper select filter is applied, only one item is displayed',
     setupTest(async page => {
       await page.selectEngine(3);
-      await page.selectClass(9);
+      await page.selectClass(3);
 
       await expect(page.countTableRows()).resolves.toBe(1);
     }),
@@ -75,19 +75,19 @@ describe('Table Select Filter', () => {
       await page.selectEngine(3);
       await page.selectClass(11);
 
-      await expect(page.getTableCellText(1, 2)).resolves.toBe('test-auto-db-22');
-      await expect(page.getTableCellText(2, 2)).resolves.toBe('test-auto-db-24');
+      await expect(page.getTableCellText(1, 2)).resolves.toBe('test-auto-db-25');
+      await expect(page.getTableCellText(2, 2)).resolves.toBe('test-auto-db-35');
     }),
   );
 
   test(
     'When text filter and proper select filter is applied, specific items are displayed',
     setupTest(async page => {
-      await page.typeFilterQuery('14');
+      await page.typeFilterQuery('34');
       await page.selectEngine(3);
-      await page.selectClass(4);
+      await page.selectClass(10);
 
-      await expect(page.getTableCellText(1, 2)).resolves.toBe('test-auto-db-142');
+      await expect(page.getTableCellText(1, 2)).resolves.toBe('test-auto-db-34');
     }),
   );
 
@@ -110,8 +110,8 @@ describe('Table Select Filter', () => {
       await page.sortTableByColumn(2);
 
       await expect(page.getColumnAriaLabel(2)).resolves.toBe('DB instance, sorted descending.');
-      await expect(page.getTableCellText(1, 2)).resolves.toBe('test-auto-db-150');
-      await expect(page.getTableCellText(2, 2)).resolves.toBe('test-auto-db-149');
+      await expect(page.getTableCellText(1, 2)).resolves.toBe('test-auto-db-40');
+      await expect(page.getTableCellText(2, 2)).resolves.toBe('test-auto-db-39');
     }),
   );
 
@@ -132,7 +132,7 @@ describe('Table Select Filter', () => {
     setupTest(async page => {
       await page.selectTableRow(1);
 
-      await expect(page.getTableItemsCounter()).resolves.toBe('(1/150)');
+      await expect(page.getTableItemsCounter()).resolves.toBe('(1/40)');
     }),
   );
 
@@ -197,7 +197,7 @@ describe('Table Select Filter', () => {
         await page.setTablePreferencesPageSize(3);
         await page.confirmTablePreferenceChanges();
 
-        expect(await page.countTableRows()).toBe(50);
+        expect(await page.countTableRows()).toBe(40);
       }),
     );
 

@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import { BoardProps } from '@cloudscape-design/board-components/board';
+import { BoardProps } from '@cloudscape-design/board-components';
 
 import {
   alarms,

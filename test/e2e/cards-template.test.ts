@@ -31,7 +31,7 @@ describe('React Cards - Client side', () => {
       await expect(page.isEditDetailsButtonEnabled()).resolves.toBe(false);
       await expect(page.isDeleteDetailsButtonEnabled()).resolves.toBe(false);
       await expect(page.countItems()).resolves.toBe(30);
-      await expect(page.getItemsCounterText()).resolves.toBe('(150)');
+      await expect(page.getItemsCounterText()).resolves.toBe('(40)');
     }),
   );
 
@@ -117,7 +117,7 @@ describe('React Cards - Client side', () => {
   test(
     'Can select a card when filtering text is set',
     setupTest(async page => {
-      await page.searchText('00');
+      await page.searchText('QHS');
       await page.selectCard(1);
 
       await expect(page.countSelectedCards()).resolves.toBe(1);
@@ -138,7 +138,7 @@ describe('React Cards - Client side', () => {
   test(
     'When proper filter is applied only one card is displayed and one pagination page is available',
     setupTest(async page => {
-      await page.searchText('MHX');
+      await page.searchText('QHS');
 
       await expect(page.countItems()).resolves.toBe(1);
       await expect(page.countPaginationPages()).resolves.toBe(1);
@@ -157,13 +157,13 @@ describe('React Cards - Client side', () => {
   );
 
   test(
-    'When setting page size to 50, 50 cards are shown',
+    'When setting page size to 50, all 40 cards are shown',
     setupTest(async page => {
       await page.openCardsPreferences();
       await page.setCardsPreferencesPageSize(3);
       await page.confirmCardsPreferencesChanges();
 
-      await expect(page.countItems()).resolves.toBe(50);
+      await expect(page.countItems()).resolves.toBe(40);
     }),
   );
 
@@ -222,7 +222,7 @@ describe('React Cards - Client side', () => {
     setupTest(async page => {
       await page.selectCard(1);
 
-      await expect(page.getItemsCounterText()).resolves.toBe('(1/150)');
+      await expect(page.getItemsCounterText()).resolves.toBe('(1/40)');
     }),
   );
 

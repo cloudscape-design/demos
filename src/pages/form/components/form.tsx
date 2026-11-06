@@ -27,7 +27,7 @@ import {
 } from '../types';
 import CacheBehaviorPanel from './cache-behavior-panel/cache-behavior-panel';
 import ContentDeliveryPanel from './content-delivery-panel';
-import DistributionsPanel from './distribution-panel';
+import DistributionPanel from './distribution-panel';
 import OriginPanel from './origin-panel';
 import TagsPanel from './tags-panel';
 
@@ -169,7 +169,7 @@ export function FormFull({
       content={
         <SpaceBetween size="l">
           <ContentDeliveryPanel loadHelpPanelContent={loadHelpPanelContent} />
-          <DistributionsPanel
+          <DistributionPanel
             loadHelpPanelContent={loadHelpPanelContent}
             data={data}
             setData={setData}
@@ -212,7 +212,7 @@ export const LimitedForm = ({
     <BaseForm
       header={header}
       onCancelClick={onCancelClick}
-      content={<DistributionsPanel loadHelpPanelContent={loadHelpPanelContent} data={data} setData={setData} />}
+      content={<DistributionPanel loadHelpPanelContent={loadHelpPanelContent} data={data} setData={setData} />}
     />
   );
 };
@@ -343,7 +343,7 @@ export const FormWithValidation = ({
       header={header}
       content={
         <SpaceBetween size="l">
-          <DistributionsPanel
+          <DistributionPanel
             loadHelpPanelContent={loadHelpPanelContent}
             validation={true}
             data={data}

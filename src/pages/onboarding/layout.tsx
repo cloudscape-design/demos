@@ -6,16 +6,16 @@ import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import Tabs from '@cloudscape-design/components/tabs';
 import TutorialPanel from '@cloudscape-design/components/tutorial-panel';
 
-import { CustomAppLayout as AppLayout, Notifications } from '../commons/common-components';
+import { CustomAppLayout, Notifications } from '../commons/common-components';
 import { helpPanelContent } from './help-panel-content';
 import { tutorialPanelI18nStrings } from './i18n';
 import { useStore } from './store';
 
-interface CustomAppLayoutProps extends AppLayoutProps {
+interface OnboardingAppLayoutProps extends AppLayoutProps {
   initialHelpPanelPage: string;
 }
 
-export function CustomAppLayout({ initialHelpPanelPage, ...props }: CustomAppLayoutProps) {
+export function OnboardingAppLayout({ initialHelpPanelPage, ...props }: OnboardingAppLayoutProps) {
   const { state, actions, appLayoutRef } = useStore();
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export function CustomAppLayout({ initialHelpPanelPage, ...props }: CustomAppLay
   const tutorialPdfDownloadUrl = window.location.href;
 
   return (
-    <AppLayout
+    <CustomAppLayout
       ref={appLayoutRef}
       navigationOpen={false}
       onNavigationChange={() => {

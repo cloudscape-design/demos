@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: MIT-0
 import { PropertyFilterProps } from '@cloudscape-design/components/property-filter';
 
-import { isToken, isTokenGroup } from '../common/property-filter-type-guards';
+import distributionsData from '../resources/distributions';
+import distributionsFilteringProperties from '../resources/distributionsFilteringProperties.json';
 import { Distribution } from './types';
-import fetchJson from './utils/fetch-json';
 
 // removes the readonly as we are trying to mask the Property Filter props
 type Mutable<T> = {
@@ -16,6 +16,18 @@ type FilteringProperties = Mutable<PropertyFilterProps['filteringProperties']>;
 
 type TokenGroup = PropertyFilterProps.TokenGroup;
 type Token = PropertyFilterProps.Token;
+
+function isTokenGroup(tokenOrGroup: Token | TokenGroup): tokenOrGroup is TokenGroup {
+  const key: keyof TokenGroup = 'operation';
+  // eslint-disable-next-line no-restricted-syntax -- Type-safe guard: key is validated via keyof
+  return key in tokenOrGroup;
+}
+
+function isToken(tokenOrGroup: Token | TokenGroup): tokenOrGroup is Token {
+  const key: keyof Token = 'operator';
+  // eslint-disable-next-line no-restricted-syntax -- Type-safe guard: key is validated via keyof
+  return key in tokenOrGroup;
+}
 interface FetchDistributionOptions {
   currentPageIndex: number;
   filteringOperation: 'and' | 'or';
@@ -64,7 +76,7 @@ const getComparatorForOperator = (operator: string) => (a: string, b: string) =>
 };
 
 function filterItemsByProperty(options: FetchDistributionOptions) {
-  const operationFn = <T>(operation: 'and' | 'or') => {
+  function operationFn<T>(operation: 'and' | 'or') {
     switch (operation) {
       case 'or':
         return (value1: T, value2: T) => value1 || value2;
@@ -72,7 +84,7 @@ function filterItemsByProperty(options: FetchDistributionOptions) {
       default:
         return (value1: T, value2: T) => value1 && value2;
     }
-  };
+  }
 
   const match = (
     propertyKey: string,
@@ -245,12 +257,8 @@ export function fetchDistributionFilteringOptions(
   options: FetchDistributionOptions,
   callback: (data: PrepareResponseReturnType) => void,
 ) {
-  fetchJson<NonNullable<PropertyFilterProps.FilteringProperty[]>>(
-    './resources/distributionsFilteringProperties.json',
-  ).then(response => {
-    filteringProperties = response;
-    setTimeout(() => callback(prepareResponse(options)), 500);
-  });
+  filteringProperties = distributionsFilteringProperties as FilteringProperties;
+  setTimeout(() => callback(prepareResponse(options)), 500);
 }
 
 export function fetchDistributions(
@@ -258,15 +266,11 @@ export function fetchDistributions(
   callback: (data: PrepareResponseReturnType) => void,
 ) {
   if (items.length === 0) {
-    fetchJson<Distribution[]>('./resources/distributions.json').then(response => {
-      items = response;
-      if (options.filteringOptions) {
-        fetchDistributionFilteringOptions(options, callback);
-      } else {
-        setTimeout(() => callback(prepareResponse(options)), 500);
-      }
-    });
-  } else {
-    setTimeout(() => callback(prepareResponse(options)), 500);
+    items = distributionsData as unknown as Distribution[];
+    if (options.filteringOptions) {
+      fetchDistributionFilteringOptions(options, callback);
+      return;
+    }
   }
+  setTimeout(() => callback(prepareResponse(options)), 500);
 }

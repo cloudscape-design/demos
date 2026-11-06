@@ -153,10 +153,10 @@ function TableContent({ loadHelpPanelContent, distributions }: TableContentProps
     <Table
       {...tableCollectionProps}
       enableKeyboardNavigation={true}
+      trackBy="id"
       columnDefinitions={columnDefinitions}
       columnDisplay={preferences?.contentDisplay}
       items={itemsSnap || items}
-      trackBy="id"
       submitEdit={handleSubmit}
       ariaLabels={distributionEditableTableAriaLabels}
       renderAriaLive={renderAriaLive}

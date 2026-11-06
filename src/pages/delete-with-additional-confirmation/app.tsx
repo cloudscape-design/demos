@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: MIT-0
 import React, { useEffect, useState } from 'react';
 
+import fakeDelay from '../../fake-server/utils/fake-delay';
 import INSTANCES from '../../resources/ec2-instances';
 import { EC2Instance } from '../../resources/types';
-import fakeDelay from '../commons/fake-delay';
 import useLocationHash from '../delete-with-simple-confirmation/use-location-hash';
 import useNotifications from '../delete-with-simple-confirmation/use-notifications';
 import { DeleteModal } from './components/delete-modal';

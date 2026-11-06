@@ -69,7 +69,7 @@ interface EngineProps {
   onChange: (state: Partial<EngineState>) => void;
 }
 
-const Engine = ({ info: { engine }, onChange }: EngineProps) => {
+const EngineStep = ({ info: { engine }, onChange }: EngineProps) => {
   const { engineOption } = engine;
   const childProps = { engine, onChange };
   return (
@@ -97,4 +97,4 @@ const Engine = ({ info: { engine }, onChange }: EngineProps) => {
   );
 };
 
-export default Engine;
+export default EngineStep;

@@ -7,7 +7,7 @@ export default (setupTest: { (testFn: { (page: TableFilteringPageObject): Promis
     test(
       'only 1 item and 1 pagination page is displayed when the correct filter is applied',
       setupTest(async page => {
-        await page.searchText('MHX');
+        await page.searchText('QHS');
 
         await expect(page.countPaginationPages()).resolves.toBe(1);
         await expect(page.countTableRows()).resolves.toBe(1);

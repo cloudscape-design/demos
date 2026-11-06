@@ -14,7 +14,7 @@ import SpaceBetween from '@cloudscape-design/components/space-between';
 import StatusIndicator from '@cloudscape-design/components/status-indicator';
 
 import { ExternalLink } from '../../commons';
-import { CustomAppLayout } from '../layout';
+import { OnboardingAppLayout } from '../layout';
 import { useStore } from '../store';
 
 export const TranscriptionJobDetailsPage = () => {
@@ -22,7 +22,7 @@ export const TranscriptionJobDetailsPage = () => {
     actions: { makeHelpPanelHandler },
   } = useStore();
   return (
-    <CustomAppLayout
+    <OnboardingAppLayout
       navigationOpen={false}
       initialHelpPanelPage="expiration"
       breadcrumbs={

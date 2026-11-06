@@ -8,6 +8,8 @@ type PageObjectWithFiltering = TablePropertyFilteringPageObject | TableFiltering
 export type SetupTest<T> = (testFn: (page: T) => Promise<void>) => any;
 
 export type TableTestProps = {
+  // Rows on the first page at load; demos that apply a default filter show fewer than a full page.
+  initialRowCount?: number;
   sorting?: {
     descendingIds?: string[];
     changingColumn?: {
@@ -20,12 +22,18 @@ export type TableTestProps = {
       valueBefore: string;
       valueAfter: string;
     };
+    // When the demo enables multi-column sort, the single-column sort behaviour tests below do not
+    // apply (the demo starts in a multi-column sorted state); the consuming suite provides its own.
+    multiColumn?: boolean;
+    // Column header aria-labels expected on initial load. Defaults to the single-column demo, where
+    // Distribution ID is sorted ascending.
+    initialAriaLabels?: Array<{ column: number; label: string }>;
   };
 };
 
 const defaultProps: TableTestProps = {
   sorting: {
-    descendingIds: ['YBLIKXPJHLB130', 'XTVHNKKMSTO144'],
+    descendingIds: ['ZXPGZZCULUEL29', 'YGXEFBLGHWAAP7'],
     changingColumn: {
       columnNumber: 3,
       columnName: 'State',
@@ -51,12 +59,17 @@ export default function commonTests<T extends PageObjectWithFiltering>(
         await expect(page.countExpandableSections(1)).resolves.toBe(7);
         await expect(page.countExpandableSections(2)).resolves.toBe(2);
         await expect(page.isToolsOpen()).resolves.toBe(false);
-        await expect(page.countTableRows()).resolves.toBe(30);
+        await expect(page.countTableRows()).resolves.toBe(props?.initialRowCount ?? 30);
 
         await expect(page.isViewDetailsButtonEnabled()).resolves.toBe(false);
         await expect(page.isEditDetailsButtonEnabled()).resolves.toBe(false);
         await expect(page.isDeleteDetailsButtonEnabled()).resolves.toBe(false);
-        await expect(page.getColumnAriaLabel(2)).resolves.toBe('Distribution ID, sorted ascending.');
+        const initialAriaLabels = props?.sorting?.initialAriaLabels ?? [
+          { column: 2, label: 'Distribution ID, sorted ascending.' },
+        ];
+        for (const { column, label } of initialAriaLabels) {
+          await expect(page.getColumnAriaLabel(column)).resolves.toBe(label);
+        }
       }),
     );
 
@@ -94,7 +107,11 @@ export default function commonTests<T extends PageObjectWithFiltering>(
     });
 
     describe('Table', () => {
-      test(
+      // Multi-column demos start already multi-sorted and provide their own sort interaction tests,
+      // so the single-column sort behaviour below is skipped for them.
+      const sortTest = props?.sorting?.multiColumn ? test.skip : test;
+
+      sortTest(
         'sorts descending when clicking on the same column',
         setupTest(async page => {
           await page.sortTableByColumn(2);
@@ -106,7 +123,7 @@ export default function commonTests<T extends PageObjectWithFiltering>(
         }),
       );
 
-      test(
+      sortTest(
         'changes sorting column',
         setupTest(async page => {
           const columnProps = props!.sorting!.changingColumn!;

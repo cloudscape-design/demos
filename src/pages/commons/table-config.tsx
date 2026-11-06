@@ -225,7 +225,7 @@ export const EDITABLE_COLUMN_DEFINITIONS = COLUMN_DEFINITIONS.map(column => {
   return column;
 });
 
-const CONTENT_DISPLAY_OPTIONS: CollectionPreferencesProps.ContentDisplayOption[] = [
+const DEFAULT_CONTENT_DISPLAY_OPTIONS: CollectionPreferencesProps.ContentDisplayOption[] = [
   { id: 'id', label: 'Distribution ID', alwaysVisible: true },
   { id: 'state', label: 'State' },
   { id: 'domainName', label: 'Domain name' },
@@ -268,13 +268,15 @@ export interface PreferencesProps {
   disabled?: boolean;
   pageSizeOptions?: CollectionPreferencesProps.PageSizePreference['options'];
   contentDisplayOptions?: CollectionPreferencesProps.ContentDisplayOption[];
+  contentDisplayGroups?: CollectionPreferencesProps.ContentDisplayOptionGroup[];
 }
 export const Preferences = ({
   preferences,
   setPreferences,
   disabled,
   pageSizeOptions = PAGE_SIZE_OPTIONS,
-  contentDisplayOptions = CONTENT_DISPLAY_OPTIONS,
+  contentDisplayOptions = DEFAULT_CONTENT_DISPLAY_OPTIONS,
+  contentDisplayGroups,
 }: PreferencesProps) => (
   <CollectionPreferences
     disabled={disabled}
@@ -284,7 +286,7 @@ export const Preferences = ({
     wrapLinesPreference={{}}
     stripedRowsPreference={{}}
     contentDensityPreference={{}}
-    contentDisplayPreference={{ options: contentDisplayOptions }}
+    contentDisplayPreference={{ options: contentDisplayOptions, groups: contentDisplayGroups }}
     stickyColumnsPreference={{
       firstColumns: {
         title: 'Stick first column(s)',

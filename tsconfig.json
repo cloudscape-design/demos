@@ -14,5 +14,6 @@
     "skipLibCheck": true,
     "allowJs": false
   },
-  "include": ["**/*.ts", "**/*.tsx"]
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "lib"]
 }

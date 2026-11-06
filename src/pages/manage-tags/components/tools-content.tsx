@@ -7,7 +7,7 @@ import HelpPanel from '@cloudscape-design/components/help-panel';
 import { ExternalLinkGroup } from '../../commons';
 
 /* eslint-disable react/jsx-key */
-export default [
+const ToolsContent = [
   <HelpPanel
     header={<h2>Tags</h2>}
     footer={
@@ -54,3 +54,5 @@ export default [
   </HelpPanel>,
 ];
 /* eslint-enable react/jsx-key */
+
+export default ToolsContent;

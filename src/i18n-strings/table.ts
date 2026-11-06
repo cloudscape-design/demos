@@ -29,7 +29,13 @@ export function createTableSortLabelFn<T>(
   if (!column.sortingField && !column.sortingComparator && !column.ariaLabel) {
     return;
   }
-  return ({ sorted, descending }) => {
-    return `${column.header}, ${sorted ? `sorted ${descending ? 'descending' : 'ascending'}` : 'not sorted'}.`;
+  return ({ sorted, descending, sortIndex }) => {
+    if (!sorted) {
+      return `${column.header}, not sorted.`;
+    }
+    const direction = descending ? 'descending' : 'ascending';
+    return sortIndex
+      ? `${column.header}, sorted ${direction}, sort position ${sortIndex}.`
+      : `${column.header}, sorted ${direction}.`;
   };
 }

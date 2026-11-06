@@ -6,7 +6,7 @@ import { TableRow, TableRows, TopNavigation, WindowPath } from './common';
 
 import * as styles from './styles.module.scss';
 
-const compactImage = (
+const compactVisualRefreshImage = (
   <svg viewBox="0 0 230 107" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden={true}>
     <WindowPath />
     <TopNavigation />
@@ -29,4 +29,4 @@ const compactImage = (
   </svg>
 );
 
-export default compactImage;
+export default compactVisualRefreshImage;
