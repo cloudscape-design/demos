@@ -320,6 +320,18 @@ export function createThemeDevConfig(themeName, server = {}) {
 }
 
 /**
+ * The output directories that a build writes, for scripts/build-vite.mjs to empty first. The builds run in parallel
+ * with `emptyOutDir: false`, so none of them may clean up after the others. All themes share lib/.
+ * @returns {string[]}
+ */
+export function buildOutputDirs() {
+  if (!path.relative(outputRoot, root).startsWith('..')) {
+    throw new Error(`Refusing to clean ${outputRoot}: it contains the package root`);
+  }
+  return [outputRoot];
+}
+
+/**
  * The fake-server bundle (lib/libs/fake-server.js) plus the ace (lib/libs/ace) and resources (lib/resources) copies.
  * @param {string[]} themeNames
  * @returns {import('vite').InlineConfig}
@@ -337,6 +349,13 @@ export function createFakeServerConfig(themeNames) {
     plugins: [
       {
         name: 'demos:copy-static',
+        buildStart() {
+          for (const entry of fs.readdirSync(path.join(srcRoot, 'resources'), { withFileTypes: true })) {
+            if (entry.isFile()) {
+              this.addWatchFile(path.join(srcRoot, 'resources', entry.name));
+            }
+          }
+        },
         closeBundle() {
           fs.cpSync(path.join(root, 'node_modules/ace-builds/src-min-noconflict'), path.join(outDir, 'ace'), {
             recursive: true,

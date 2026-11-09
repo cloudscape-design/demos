@@ -8,5 +8,5 @@ module.exports = {
   setupFilesAfterEnv: ['./setupJest.js'],
   globalSetup: './start-chromedriver.js',
   globalTeardown: './stop-chromedriver.js',
-  ...(process.env.E2E_MAX_WORKERS && { maxWorkers: process.env.E2E_MAX_WORKERS }),
+  maxWorkers: process.env.E2E_MAX_WORKERS || '50%',
 };

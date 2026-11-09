@@ -43,17 +43,47 @@ function parseArgs(argv) {
   return options;
 }
 
+/**
+ * Builds the fake server and the static copies in watch mode, so edits to them reach the browser on reload.
+ * Resolves with the watcher once the first build is written; a failing first build rejects.
+ */
+async function watchStaticFiles(buildConfig) {
+  const watcher = await build({ ...buildConfig, build: { ...buildConfig.build, watch: {} } });
+  let initialBuild = true;
+  await new Promise((resolve, reject) => {
+    watcher.on('event', async event => {
+      if (event.code === 'BUNDLE_END') {
+        await event.result.close();
+        if (!initialBuild) {
+          console.log('Rebuilt the fake server and static files');
+        }
+        initialBuild = false;
+        resolve();
+      } else if (event.code === 'ERROR') {
+        await event.result?.close();
+        if (initialBuild) {
+          await watcher.close();
+          reject(event.error);
+        } else {
+          console.error(`Fake server build failed: ${event.error.message}`);
+        }
+      }
+    });
+  });
+  return watcher;
+}
+
 async function main() {
   const { host, port = config.devServerPort } = parseArgs(process.argv.slice(2));
   console.log('Building the fake server and static files...');
-  await build(createFakeServerConfig([theme]));
+  const watcher = await watchStaticFiles(createFakeServerConfig([theme]));
   const server = await createServer(createThemeDevConfig(theme, { host, port, strictPort: true }));
   await server.listen();
   server.printUrls();
   server.bindCLIShortcuts({ print: true });
   for (const signal of ['SIGINT', 'SIGTERM']) {
     process.once(signal, async () => {
-      await server.close();
+      await Promise.all([server.close(), watcher.close()]);
       process.exit(0);
     });
   }

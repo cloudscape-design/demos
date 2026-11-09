@@ -1,4 +1,5 @@
 import { spawn } from 'node:child_process';
+import fs from 'node:fs';
 import os from 'node:os';
 import readline from 'node:readline';
 
@@ -147,6 +148,10 @@ async function main(argv) {
   }
 
   const themeNames = resolveThemes(argv);
+  const { buildOutputDirs } = await import('../vite.config.mjs');
+  for (const dir of buildOutputDirs(themeNames)) {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
   const jobs = [
     { label: 'fake-server', args: ['fake-server', ...themeNames] },
     ...themeNames.map(name => ({ label: name, args: ['theme', name] })),

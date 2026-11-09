@@ -18,8 +18,8 @@
     "test": "npm run test-no-build",
     "test:unit": "node --experimental-vm-modules ./node_modules/.bin/jest -c jest.config.unit.js",
     "test-no-build": "run-s test:unit test:e2e",
-    "test:e2e": "cross-env E2E_MAX_WORKERS=50% run-p --continue-on-error --aggregate-output test:default",
-    "test:default": "cross-env ALWAYS_VISUAL_REFRESH=true WEBDRIVER_PORT=9515 DEV_SERVER_PORT=9615 npm run serve-test"
+    "test:e2e": "run-p --continue-on-error --aggregate-output test:default",
+    "test:default": "cross-env ALWAYS_VISUAL_REFRESH=true npm run serve-test"
   },
   "devDependencies": {
     "@babel/core": "^7.29.6",
