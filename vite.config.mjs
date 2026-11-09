@@ -231,6 +231,7 @@ export function createThemeAppConfig(themeName) {
     plugins: [...base.plugins, pageManifestPlugin()],
     build: {
       outDir: outputRoot,
+      // Parallel jobs share the output root; scripts/build-vite.mjs empties it once (buildOutputDirs) before they start.
       emptyOutDir: false,
       target: browserTarget,
       cssCodeSplit: true,
@@ -329,7 +330,9 @@ export function createThemeDevConfig(themeName, server = {}) {
  * @returns {string[]}
  */
 export function buildOutputDirs() {
-  if (!path.relative(outputRoot, root).startsWith('..')) {
+  const relativeRoot = path.relative(outputRoot, root);
+  // Outside only if the first segment is exactly `..` (a directory may be named `..demos`) or it is on another drive.
+  if (!path.isAbsolute(relativeRoot) && relativeRoot.split(path.sep)[0] !== '..') {
     throw new Error(`Refusing to clean ${outputRoot}: it contains the package root`);
   }
   return [outputRoot];
@@ -377,6 +380,7 @@ export function createFakeServerConfig(themeNames) {
     ],
     build: {
       outDir,
+      // Parallel jobs share the output root; scripts/build-vite.mjs empties it once (buildOutputDirs) before they start.
       emptyOutDir: false,
       target: browserTarget,
       sourcemap: true,
