@@ -53,6 +53,7 @@ function resolveConcurrency(jobCount) {
 
 const running = new Set();
 let stopping = false;
+let interruptedExitCode;
 
 const KILL_TIMEOUT_MS = 5000;
 
@@ -129,6 +130,9 @@ async function runPool(jobs, concurrency) {
   if (firstError) {
     throw firstError;
   }
+  if (interruptedExitCode !== undefined) {
+    throw new Error('Vite build interrupted');
+  }
 }
 
 async function main(argv) {
@@ -142,8 +146,9 @@ async function main(argv) {
     ['SIGTERM', 15],
   ]) {
     process.once(signal, async () => {
+      interruptedExitCode = 128 + number;
       await stopRunningJobs();
-      process.exit(128 + number);
+      process.exit(interruptedExitCode);
     });
   }
 
@@ -165,6 +170,9 @@ async function main(argv) {
 
 main(process.argv.slice(2)).catch(async error => {
   console.error(error.message);
+  if (interruptedExitCode !== undefined) {
+    return; // the signal handler exits with 128 + signal number once the jobs have stopped
+  }
   await stopRunningJobs();
   process.exit(1);
 });
