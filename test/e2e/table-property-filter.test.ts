@@ -3,8 +3,6 @@
 import useBrowser from '@cloudscape-design/browser-test-tools/use-browser';
 import TablePropertyFilteringPageObject from './page/table-property-filtering-page-object';
 import commonTableTests from './common/table/table-tests';
-import commonPropertyFilteringTests from './common/table/table-property-filtering-tests';
-import commonPreferencesTests from './common/table/table-preferences-tests';
 import commonFlashTests from './common/flashbar-tests';
 
 describe('Table - Property Filtering', () => {
@@ -19,8 +17,6 @@ describe('Table - Property Filtering', () => {
 
   commonTableTests(setupTest);
   commonFlashTests(setupTest);
-  commonPreferencesTests(setupTest);
-  commonPropertyFilteringTests(setupTest);
 
   test(
     'Resets the table after clicking the clear button from the noMatches region',

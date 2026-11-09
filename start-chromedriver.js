@@ -3,5 +3,5 @@
 const { startWebdriver } = require('@cloudscape-design/browser-test-tools/chrome-launcher');
 
 module.exports = async () => {
-  await startWebdriver();
+  await startWebdriver(process.env.WEBDRIVER_PORT || '9515');
 };
