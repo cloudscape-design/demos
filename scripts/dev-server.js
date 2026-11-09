@@ -21,6 +21,7 @@ console.log(`Local server listening at http://localhost:${config.devServerPort}`
 
 for (const signal of ['SIGINT', 'SIGTERM']) {
   process.once(signal, async () => {
+    // preview() returns a PreviewServer, whose close(): Promise<void> stops the server (see Vite's PreviewServer type).
     await server.close();
     process.exit(0);
   });

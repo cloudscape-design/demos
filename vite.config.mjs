@@ -8,6 +8,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import examplesList from './examples-list.json' with { type: 'json' };
 import { getIndexContent, getPageContent } from './scripts/generate-html-files.js';
 import themes from './themes.config.mjs';
+import { replaceWithSourceMap } from './scripts/source-map-edits.mjs';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const srcRoot = path.join(root, 'src');
@@ -92,27 +93,30 @@ function requireDefaultPlugin() {
         return null;
       }
       const imports = [];
-      const out = code.replace(pattern, (_, quote, specifier) => {
-        const name = `__requireDefault${imports.length}`;
-        imports.push(`import ${name} from ${JSON.stringify(specifier)};`);
-        return name;
-      });
-      return imports.length ? { code: `${imports.join('\n')}\n${out}`, map: null } : null;
+      return replaceWithSourceMap(
+        code,
+        pattern,
+        (_, quote, specifier) => {
+          const name = `__requireDefault${imports.length}`;
+          imports.push(`import ${name} from ${JSON.stringify(specifier)};\n`);
+          return name;
+        },
+        { id, prefix: () => imports.join('') },
+      );
     },
   };
 }
 
 /** `import * as styles from '*.module.scss'` must see the dashed class names, so it reads the default export. */
 function cssModuleNamespacePlugin() {
-  const pattern = /^import\s+\*\s+as\s+(\w+)\s+from\s+(['"][^'"]+\.module\.s?css['"])/gm;
+  const pattern = /(?<=^import\s+)\*\s+as\s+(?=\w+\s+from\s+['"][^'"]+\.module\.s?css['"])/gm;
   return {
     name: 'demos:css-module-namespace',
     transform(code, id) {
       if (!id.startsWith(srcRoot) || !/\.tsx?$/.test(id) || !code.includes('.module.')) {
         return null;
       }
-      const out = code.replace(pattern, 'import $1 from $2');
-      return out === code ? null : { code: out, map: null };
+      return replaceWithSourceMap(code, pattern, () => '', { id });
     },
   };
 }
