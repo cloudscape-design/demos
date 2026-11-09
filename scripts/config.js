@@ -3,6 +3,6 @@
 import path from 'node:path';
 
 export default {
-  outputPath: path.resolve('lib'),
-  devServerPort: 9615,
+  outputPath: path.resolve(process.env.OUTPUT_PATH || 'lib'),
+  devServerPort: Number(process.env.DEV_SERVER_PORT) || 9615,
 };

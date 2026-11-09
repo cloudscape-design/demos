@@ -98,9 +98,8 @@ export default tsEslint.config(
     },
   },
   {
-    // *.mjs build/config files (e.g. webpack.config.mjs) run in node. The legacy
-    // `--ext ts,tsx,js,jsx` scope excluded them; `eslint .` now lints them too.
-    files: ['*.mjs'],
+    // *.mjs build/config files and scripts (e.g. vite.config.mjs) run in node.
+    files: ['*.mjs', 'scripts/**/*.mjs'],
     languageOptions: {
       globals: {
         ...globals.node,
