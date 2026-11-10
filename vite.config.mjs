@@ -231,7 +231,9 @@ export function createThemeAppConfig(themeName) {
     plugins: [...base.plugins, pageManifestPlugin()],
     build: {
       outDir: outputRoot,
-      // Parallel jobs share the output root; scripts/build-vite.mjs empties it once (buildOutputDirs) before they start.
+      // `npm run build` and `build:theme` both run scripts/build-vite.mjs, which deletes lib/ (buildOutputDirs) before
+      // the parallel jobs start, so stale hashed bundles and maps do not pile up. Emptying here would delete sibling
+      // jobs' output.
       emptyOutDir: false,
       target: browserTarget,
       cssCodeSplit: true,
@@ -380,7 +382,9 @@ export function createFakeServerConfig(themeNames) {
     ],
     build: {
       outDir,
-      // Parallel jobs share the output root; scripts/build-vite.mjs empties it once (buildOutputDirs) before they start.
+      // `npm run build` and `build:theme` both run scripts/build-vite.mjs, which deletes lib/ (buildOutputDirs) before
+      // the parallel jobs start, so stale hashed bundles and maps do not pile up. Emptying here would delete sibling
+      // jobs' output.
       emptyOutDir: false,
       target: browserTarget,
       sourcemap: true,
