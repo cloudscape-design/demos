@@ -8,7 +8,6 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import examplesList from './examples-list.json' with { type: 'json' };
 import { getIndexContent, getPageContent } from './scripts/generate-html-files.js';
 import themes from './themes.config.mjs';
-import { replaceWithSourceMap } from './scripts/source-map-edits.mjs';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const srcRoot = path.join(root, 'src');
@@ -79,44 +78,6 @@ function banJsInPagesPlugin() {
         this.error(`${path.relative(root, id)}: demos must be TypeScript`);
       }
       return null;
-    },
-  };
-}
-
-/** `require('./x.svg').default` becomes a hoisted default import. */
-function requireDefaultPlugin() {
-  const pattern = /require\(\s*(['"])([^'"]+)\1\s*\)\.default/g;
-  return {
-    name: 'demos:require-default',
-    transform(code, id) {
-      if (!id.startsWith(srcRoot) || !/\.tsx?$/.test(id) || !code.includes('require(')) {
-        return null;
-      }
-      const imports = [];
-      return replaceWithSourceMap(
-        code,
-        pattern,
-        (_, quote, specifier) => {
-          const name = `__requireDefault${imports.length}`;
-          imports.push(`import ${name} from ${JSON.stringify(specifier)};\n`);
-          return name;
-        },
-        { id, prefix: () => imports.join('') },
-      );
-    },
-  };
-}
-
-/** `import * as styles from '*.module.scss'` must see the dashed class names, so it reads the default export. */
-function cssModuleNamespacePlugin() {
-  const pattern = /(?<=^import\s+)\*\s+as\s+(?=\w+\s+from\s+['"][^'"]+\.module\.s?css['"])/gm;
-  return {
-    name: 'demos:css-module-namespace',
-    transform(code, id) {
-      if (!id.startsWith(srcRoot) || !/\.tsx?$/.test(id) || !code.includes('.module.')) {
-        return null;
-      }
-      return replaceWithSourceMap(code, pattern, () => '', { id });
     },
   };
 }
@@ -206,13 +167,7 @@ function baseConfig(themeName, mode) {
         scss: { importers: [sassTildeImporter()] },
       },
     },
-    plugins: [
-      multiFileEntriesPlugin(pageEntries()),
-      svgrPlugin(),
-      cssModuleNamespacePlugin(),
-      banJsInPagesPlugin(),
-      requireDefaultPlugin(),
-    ],
+    plugins: [multiFileEntriesPlugin(pageEntries()), svgrPlugin(), banJsInPagesPlugin()],
   };
 }
 
@@ -320,8 +275,8 @@ export function createThemeDevConfig(themeName, server = {}) {
     publicDir: outputRoot,
     plugins: [...base.plugins, devPagesPlugin()],
     optimizeDeps: { entries: entryFiles },
-    // Transforming every entry at startup finds the dependencies the scanner misses (e.g. hoisted require() calls)
-    // before the first page load, so the browser never gets a stale pre-bundled dependency.
+    // Transforming every entry at startup finds the dependencies the scanner misses before the first page load, so
+    // the browser never gets a stale pre-bundled dependency.
     server: { ...server, warmup: { clientFiles: entryFiles } },
   };
 }
