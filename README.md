@@ -10,6 +10,8 @@ You can view the demos running live from the the [Cloudscape website 'demos' lis
 
 ### Build the project
 
+The build and the dev server use [Vite](https://vite.dev), which needs Node.js 20.19+ or 22.12+.
+
 To install the project dependencies and build all demos:
 
 ```
@@ -17,7 +19,7 @@ npm install
 npm run build
 ```
 
-The demo artifacts will be output to the `/build` folder.
+The demo pages will be output to the `lib` folder, one `<demo>.html` file per demo.
 
 ### Run Dev Server
 
@@ -27,7 +29,7 @@ To start a dev server with live reload:
 npm start
 ```
 
-The demos will be available at http://localhost:9615.
+The demos will be available at http://localhost:9615. Use `npm start -- --port <port>` for another port, or `npm start -- --host` to listen on all addresses.
 
 ### Run Tests
 
@@ -35,7 +37,7 @@ The demos will be available at http://localhost:9615.
 npm test
 ```
 
-This will build the project by running the `build` script, start a webpack dev server instance and run tests afterwards.
+This will build the project by running the `build` script, serve the built `lib` folder locally and run the tests against it.
 
 To run only tests without building the full project again:
 

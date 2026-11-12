@@ -1,34 +1,28 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-/* eslint-disable @typescript-eslint/no-require-imports */
-const mixedContent = {
-  light: require('./assets/mixed-content-light.svg').default,
-  dark: require('./assets/mixed-content-dark.svg').default,
-};
+import barChartDark from './assets/bar-chart-dark.svg';
+import barChartLight from './assets/bar-chart-light.svg';
+import lineChartDark from './assets/line-chart-dark.svg';
+import lineChartLight from './assets/line-chart-light.svg';
+import listDark from './assets/list-dark.svg';
+import listLight from './assets/list-light.svg';
+import mixedContentDark from './assets/mixed-content-dark.svg';
+import mixedContentLight from './assets/mixed-content-light.svg';
+import pieChartDark from './assets/pie-chart-dark.svg';
+import pieChartLight from './assets/pie-chart-light.svg';
+import tableDark from './assets/table-dark.svg';
+import tableLight from './assets/table-light.svg';
 
-const barChart = {
-  light: require('./assets/bar-chart-light.svg').default,
-  dark: require('./assets/bar-chart-dark.svg').default,
-};
+const mixedContent = { light: mixedContentLight, dark: mixedContentDark };
 
-const lineChart = {
-  light: require('./assets/line-chart-light.svg').default,
-  dark: require('./assets/line-chart-dark.svg').default,
-};
+const barChart = { light: barChartLight, dark: barChartDark };
 
-const list = {
-  light: require('./assets/list-light.svg').default,
-  dark: require('./assets/list-dark.svg').default,
-};
+const lineChart = { light: lineChartLight, dark: lineChartDark };
 
-const pieChart = {
-  light: require('./assets/pie-chart-light.svg').default,
-  dark: require('./assets/pie-chart-dark.svg').default,
-};
+const list = { light: listLight, dark: listDark };
 
-const table = {
-  light: require('./assets/table-light.svg').default,
-  dark: require('./assets/table-dark.svg').default,
-};
+const pieChart = { light: pieChartLight, dark: pieChartDark };
+
+const table = { light: tableLight, dark: tableDark };
 
 export const icons = { mixedContent, barChart, lineChart, list, pieChart, table };
