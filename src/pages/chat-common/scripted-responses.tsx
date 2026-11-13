@@ -821,12 +821,7 @@ export const citationSources: Source[] = [
 export const Citation = ({ index }: { index: number }) => {
   const source = citationSources[index - 1];
   return (
-    <Box
-      color="text-status-info"
-      display="inline"
-      fontWeight="bold"
-      nativeAttributes={{ 'data-testid': `citation-${index}` }}
-    >
+    <Box color="inherit" display="inline" fontWeight="bold" nativeAttributes={{ 'data-testid': `citation-${index}` }}>
       <Popover
         header={source.title}
         content={
