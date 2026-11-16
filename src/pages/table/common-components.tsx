@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React from 'react';
-import { format as formatDate } from 'date-fns/format';
 
 import Box from '@cloudscape-design/components/box';
 import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
@@ -11,6 +10,7 @@ import LiveRegion from '@cloudscape-design/components/live-region';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 
 import { resourcesBreadcrumbs } from '../../common/breadcrumbs';
+import { formatAbsoluteTimestamp } from '../../common/format-timestamp';
 import { ExternalLinkGroup } from '../commons';
 
 export const Breadcrumbs = () => (
@@ -67,7 +67,7 @@ export const ManualRefresh = ({ onRefresh, loading, lastRefresh, disabled }: Man
           <LiveRegion>
             Last updated
             <br />
-            {formatDate(lastRefresh, "MMMM d, yyyy, HH:mm ('UTC'xxx)")}
+            {formatAbsoluteTimestamp(lastRefresh)}
           </LiveRegion>
         </Box>
       )}

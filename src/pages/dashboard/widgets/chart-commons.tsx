@@ -6,6 +6,8 @@ import type Highcharts from 'highcharts';
 import { CartesianChartProps } from '@cloudscape-design/chart-components';
 import Box from '@cloudscape-design/components/box';
 
+import { getLocale } from '../../../common/locale';
+
 export const percentageFormatter = (value: number) => `${(value * 100).toFixed(0)}%`;
 
 export const numberTickFormatter = (value: number | null) => {
@@ -18,27 +20,13 @@ export const numberTickFormatter = (value: number | null) => {
   return (value / 1000).toFixed() + 'k';
 };
 
-export const dateTimeFormatter = (date: number | null) =>
-  date
-    ? new Date(date)
-        .toLocaleDateString('en-US', {
-          month: 'short',
-          day: 'numeric',
-          hour: 'numeric',
-          minute: 'numeric',
-          hour12: false,
-        })
-        .split(',')
-        .join('\n')
-    : '';
-
 export const dateFormatter = (date: number | null) =>
   date
     ? new Date(date)
-        .toLocaleDateString('en-US', {
+        .toLocaleDateString(getLocale(), {
           month: 'short',
           day: 'numeric',
-          hour12: false,
+          hourCycle: 'h23',
         })
         .split(' ')
         .join('\n')

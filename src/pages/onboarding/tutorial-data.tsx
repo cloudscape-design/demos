@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 
 import Box from '@cloudscape-design/components/box';
 import Link from '@cloudscape-design/components/link';
@@ -180,7 +180,7 @@ export const useAvailableTutorials = (makeHelpPanelHandler: MakeHelpPanelHandler
     })),
   );
 
-  const setCompleted = useCallback((tutorial: Tutorial, completed: boolean) => {
+  const setCompleted = (tutorial: Tutorial, completed: boolean) => {
     setTutorials(tutorials => {
       return tutorials.map(t => {
         if (t.id === tutorial.id) {
@@ -189,7 +189,7 @@ export const useAvailableTutorials = (makeHelpPanelHandler: MakeHelpPanelHandler
         return t;
       });
     });
-  }, []);
+  };
 
   return [tutorials, setCompleted] as const;
 };

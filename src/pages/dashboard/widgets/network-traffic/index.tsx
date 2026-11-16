@@ -6,13 +6,8 @@ import { CartesianChart } from '@cloudscape-design/chart-components';
 import Header from '@cloudscape-design/components/header';
 import Link from '@cloudscape-design/components/link';
 
-import {
-  commonChartProps,
-  dateTimeFormatter,
-  lineChartInstructions,
-  numberTickFormatter,
-  useHighcharts,
-} from '../chart-commons';
+import { dateTimeFormatter } from '../../../../common/format-timestamp';
+import { commonChartProps, lineChartInstructions, numberTickFormatter, useHighcharts } from '../chart-commons';
 import { WidgetConfig } from '../interfaces';
 import { networkTrafficDomain, networkTrafficSeries } from './data';
 

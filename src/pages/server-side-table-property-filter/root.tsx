@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import intersection from 'lodash/intersection';
 
 import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
@@ -59,7 +59,7 @@ function ServerSidePropertyFilterTable({
    * Validate the data coming from the URL to mitigate risks from maliciously crafted URLs.
    * For further guidance, reach out to your organization’s security team.
    */
-  const filteringQuery = useMemo(() => parsePropertyFilterQuery(filteringQueryRaw), [filteringQueryRaw]);
+  const filteringQuery = parsePropertyFilterQuery(filteringQueryRaw);
   const [sortingColumn, setSortingColumn] = useState<TableProps.SortingColumn<Distribution>>(columnDefinitions[0]);
 
   const { pageSize } = preferences ?? {};

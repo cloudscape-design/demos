@@ -1,5 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
+process.env.TZ = 'UTC';
+
 /** @type {import('jest').Config} */
 module.exports = {
   preset: 'ts-jest',

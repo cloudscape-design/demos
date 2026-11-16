@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 
 import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
 import Button from '@cloudscape-design/components/button';
@@ -51,12 +51,12 @@ export const CreateTranscriptionJobPage = () => {
   const [outputSetting, setOutputSetting] = useState('service-managed');
   const [s3Bucket, setS3Bucket] = useState<SelectProps.Option | null>(null);
 
-  const onJobNameChange = useCallback<InputChangeCallback>(event => setJobName(event.detail.value), []);
-  const onModelTypeChange = useCallback<InputChangeCallback>(event => setModelType(event.detail.value), []);
-  const onLanguageSettingChange = useCallback<InputChangeCallback>(event => setLanguageSetting(event.detail.value), []);
-  const onLanguageChange = useCallback<OptionChangeCallback>(event => setLanguage(event.detail.selectedOption), []);
-  const onOutputSettingChange = useCallback<InputChangeCallback>(event => setOutputSetting(event.detail.value), []);
-  const onS3BucketChange = useCallback<OptionChangeCallback>(event => setS3Bucket(event.detail.selectedOption), []);
+  const onJobNameChange: InputChangeCallback = event => setJobName(event.detail.value);
+  const onModelTypeChange: InputChangeCallback = event => setModelType(event.detail.value);
+  const onLanguageSettingChange: InputChangeCallback = event => setLanguageSetting(event.detail.value);
+  const onLanguageChange: OptionChangeCallback = event => setLanguage(event.detail.selectedOption);
+  const onOutputSettingChange: InputChangeCallback = event => setOutputSetting(event.detail.value);
+  const onS3BucketChange: OptionChangeCallback = event => setS3Bucket(event.detail.selectedOption);
 
   return (
     <OnboardingAppLayout

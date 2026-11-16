@@ -1,14 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, {
-  createContext,
-  MutableRefObject,
-  PropsWithChildren,
-  useCallback,
-  useContext,
-  useRef,
-  useState,
-} from 'react';
+import React, { createContext, MutableRefObject, PropsWithChildren, useContext, useRef, useState } from 'react';
 
 import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 
@@ -47,15 +39,12 @@ export function StoreProvider({ children }: PropsWithChildren) {
   const [helpPanelTopic, setHelpPanelTopic] = useState('create-transcription-job');
   const appLayoutRef = useRef<AppLayoutProps.Ref>(null);
 
-  const makeHelpPanelHandler = useCallback(
-    (topic: string) => () => {
-      setHelpPanelTopic(topic);
-      setToolsTab('help-panel');
-      setToolsOpen(true);
-      appLayoutRef.current?.focusToolsClose();
-    },
-    [],
-  );
+  const makeHelpPanelHandler = (topic: string) => () => {
+    setHelpPanelTopic(topic);
+    setToolsTab('help-panel');
+    setToolsOpen(true);
+    appLayoutRef.current?.focusToolsClose();
+  };
 
   const [tutorials, setTutorialCompleted] = useAvailableTutorials(makeHelpPanelHandler);
 

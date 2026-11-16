@@ -15,8 +15,10 @@ import Select, { SelectProps } from '@cloudscape-design/components/select';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import Steps from '@cloudscape-design/components/steps';
 
+import { getLocale } from '../../common/locale';
+
 function formatDate(date: Date): string {
-  return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+  return date.toLocaleDateString(getLocale(), { month: 'long', day: 'numeric' });
 }
 
 function getDaysAgoLabel(daysAgo: number): string {

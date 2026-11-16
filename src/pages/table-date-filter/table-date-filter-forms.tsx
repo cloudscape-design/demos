@@ -9,6 +9,8 @@ import DatePicker from '@cloudscape-design/components/date-picker';
 import FormField from '@cloudscape-design/components/form-field';
 import TimeInput, { TimeInputProps } from '@cloudscape-design/components/time-input';
 
+import { getLocale } from '../../common/locale';
+
 function formatTimezoneOffset(isoDate: string, offsetInMinutes?: number) {
   // Using default browser offset if not explicitly specified.
   offsetInMinutes = offsetInMinutes ?? 0 - new Date(isoDate).getTimezoneOffset();
@@ -102,7 +104,7 @@ export function DateTimeForm({ filter, operator, value, onChange }: PropertyFilt
   };
   const calendarProps: CalendarProps = {
     value: dateValue,
-    locale: 'en-EN',
+    locale: getLocale(),
     onChange: event => onChangeDate(event.detail.value),
   };
 
