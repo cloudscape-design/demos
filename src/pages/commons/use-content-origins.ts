@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import { useMemo, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { MultiselectProps } from '@cloudscape-design/components/multiselect';
 
@@ -54,25 +54,23 @@ export default function useContentOrigins(): [
     }
   }
 
-  const handlers = useMemo(() => {
-    return {
-      onLoadItems({ detail: { filteringText, firstPage, samePage } }: { detail: LoadItemsDetail }) {
-        if (firstPage) {
-          requestParams.current = {
-            filteringText,
-            currentPageIndex: 1,
-          };
-          setOptions([]);
-        } else if (!samePage) {
-          requestParams.current = {
-            ...requestParams.current,
-            currentPageIndex: requestParams.current.currentPageIndex + 1,
-          };
-        }
-        doRequest(requestParams.current);
-      },
-    };
-  }, []);
+  const handlers = {
+    onLoadItems({ detail: { filteringText, firstPage, samePage } }: { detail: LoadItemsDetail }) {
+      if (firstPage) {
+        requestParams.current = {
+          filteringText,
+          currentPageIndex: 1,
+        };
+        setOptions([]);
+      } else if (!samePage) {
+        requestParams.current = {
+          ...requestParams.current,
+          currentPageIndex: requestParams.current.currentPageIndex + 1,
+        };
+      }
+      doRequest(requestParams.current);
+    },
+  };
 
   return [{ options, filteringText: requestParams.current.filteringText, status }, handlers];
 }

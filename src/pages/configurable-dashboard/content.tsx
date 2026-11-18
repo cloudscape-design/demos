@@ -26,11 +26,14 @@ interface ContentProps {
 export function Content({ layout, setLayout, resetLayout, setSplitPanelOpen }: ContentProps) {
   const [width, ref] = useContainerQuery(entry => entry.contentBoxWidth);
   const itemsChanged = useRef(layout !== null);
+  // The effect also reruns when resetLayout changes on a redraw, so only reset when the width actually changed.
+  const lastWidth = useRef<number | null>(null);
 
   useEffect(() => {
-    if (itemsChanged.current || !width) {
+    if (itemsChanged.current || !width || width === lastWidth.current) {
       return;
     }
+    lastWidth.current = width;
     resetLayout(getDefaultLayout(width));
   }, [resetLayout, width]);
 

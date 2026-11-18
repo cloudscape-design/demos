@@ -35,6 +35,8 @@ export function useDistributions(params: UseDistributionsParams = {}) {
   const [totalCount, setTotalCount] = useState(0);
   const [currentPageIndex, setCurrentPageIndex] = useState(clientPageIndex);
   const [pagesCount, setPagesCount] = useState(0);
+  // A string compares by content, so a new tokens array with the same filters doesn't refetch.
+  const filteringTokensJson = JSON.stringify(filteringTokens ?? null);
 
   useEffect(() => {
     setCurrentPageIndex(clientPageIndex);
@@ -44,7 +46,7 @@ export function useDistributions(params: UseDistributionsParams = {}) {
     setLoading(true);
     const params: FetchDistributionsParams = {
       filteringText,
-      filteringTokens,
+      filteringTokens: JSON.parse(filteringTokensJson) ?? undefined,
       filteringOperation,
       pageSize,
       currentPageIndex,
@@ -75,7 +77,7 @@ export function useDistributions(params: UseDistributionsParams = {}) {
     sortingColumn,
     currentPageIndex,
     filteringText,
-    filteringTokens,
+    filteringTokensJson,
     filteringOperation,
   ]);
 

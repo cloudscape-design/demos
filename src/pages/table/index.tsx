@@ -1,12 +1,17 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React from 'react';
-import { createRoot } from 'react-dom/client';
+import React, { useEffect, useState } from 'react';
 
 import { Distribution } from '../../fake-server/types';
 import DataProvider from '../commons/data-provider';
 import { App } from './root';
 
-new DataProvider().getDataWithDates<Distribution>('distributions').then(distributions => {
-  createRoot(document.getElementById('app')!).render(<App distributions={distributions} />);
-});
+export default function Demo() {
+  const [distributions, setDistributions] = useState<Distribution[] | null>(null);
+
+  useEffect(() => {
+    new DataProvider().getDataWithDates<Distribution>('distributions').then(setDistributions);
+  }, []);
+
+  return distributions && <App distributions={distributions} />;
+}

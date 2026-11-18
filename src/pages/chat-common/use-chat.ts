@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { PromptInputProps } from '@cloudscape-design/components/prompt-input';
 
@@ -146,7 +146,7 @@ export function tokensToDisplayText(tokens: readonly PromptInputProps.InputToken
 interface UseChatOptions {
   // When true, completed prose messages are flagged `streaming` for a visual reveal; false finalises immediately.
   streamingReveal?: boolean;
-  // Demo-specific scripted responses matched ahead of the shared registry. Pass a stable reference.
+  // Demo-specific scripted responses matched ahead of the shared registry.
   extraResponses?: ScriptedResponse[];
   // Demo-specific catalogue links appended to the greeting/fallback lists.
   extraDemoPrompts?: DemoPrompt[];
@@ -158,14 +158,10 @@ interface UseChatOptions {
 const LOADING_DELAY_MS = 300;
 const RESPONSE_DELAY_MS = 1500;
 
-// Stable empty defaults so callers that pass no extras don't churn the dispatch callback's deps.
-const NO_EXTRA_RESPONSES: ScriptedResponse[] = [];
-const NO_EXTRA_DEMO_PROMPTS: DemoPrompt[] = [];
-
 export function useChat({
   streamingReveal = false,
-  extraResponses = NO_EXTRA_RESPONSES,
-  extraDemoPrompts = NO_EXTRA_DEMO_PROMPTS,
+  extraResponses = [],
+  extraDemoPrompts = [],
   initialMessages,
 }: UseChatOptions = {}) {
   const [isGenAiResponseLoading, setIsGenAiResponseLoading] = useState(false);
@@ -179,191 +175,182 @@ export function useChat({
   const abortRef = useRef(false);
 
   // Swaps the loading placeholder for the scripted response once its delay elapses (shared by the slash-command and submit paths).
-  const dispatchScriptedResponse = useCallback(
-    (prompt: string, hasPinnedMode: boolean, sendAsUser: (text: string) => void) => {
-      // Reset the abort flag so a previous stop doesn't carry over to the next prompt.
-      abortRef.current = false;
-      asyncCallback(() => {
-        if (abortRef.current) {
-          return;
-        }
-        setIsGenAiResponseLoading(true);
-        const timestamp = new Date().toLocaleTimeString();
+  const dispatchScriptedResponse = (prompt: string, hasPinnedMode: boolean, sendAsUser: (text: string) => void) => {
+    // Reset the abort flag so a previous stop doesn't carry over to the next prompt.
+    abortRef.current = false;
+    asyncCallback(() => {
+      if (abortRef.current) {
+        return;
+      }
+      setIsGenAiResponseLoading(true);
+      const timestamp = new Date().toLocaleTimeString();
 
-        // Resolve the response up front to tailor the placeholder bubble via `loadingHint`.
-        const response = buildScriptedResponse({
-          prompt,
-          hasPinnedMode,
-          timestamp,
-          sendAsUser,
-          extraResponses,
-          extraDemoPrompts,
-          // Reveal a follow-up assistant bubble once a live flow (e.g. Thinking) finishes, so it carries the
-          // standard response actions rather than being folded into the flow component.
-          appendMessage: (message: Message) =>
-            setMessages(prev => [...prev, message.id ? message : createMessage(message)]),
-          // Drop content into the prompt input without sending — used by editable support prompts.
-          setPromptInputText: (text: string) => {
-            const ref = promptInputRef.current;
-            if (!ref) {
-              return;
-            }
-            ref.focus();
-            ref.insertText(text, 0);
-          },
-        });
-        const {
-          content,
-          contentToCopy,
-          extraMessages: rawExtraMessages,
-          supportPrompts,
-          loadingHint,
-          hideMainBubbleActions,
-          disableStreaming,
-        } = response;
-
-        // Ensure all extra messages carry stable IDs for React reconciliation.
-        const extraMessages = rawExtraMessages.map(m => (m.id ? m : createMessage(m)));
-
-        // Responses that render additional content (artifact cards like ItemCard/ActionCard) omit the trailing
-        // support prompt group, so the suggestions don't compete with the card's own actions.
-        const hasArtifactContent = extraMessages.some(m => m.type === 'artifact');
-        const trailingSupportPrompts = hasArtifactContent ? undefined : supportPrompts;
-
-        const placeholder: Message = loadingHint?.useAvatarLoading
-          ? createMessage({
-              type: 'chat-bubble',
-              authorId: 'gen-ai',
-              content: '',
-              timestamp,
-              showLoadingBar: false,
-              avatarLoading: true,
-              loadingLabel: loadingHint?.loadingLabel,
-            })
-          : { ...getLoadingMessage(), loadingLabel: loadingHint?.loadingLabel };
-
-        setMessages(prev => [...prev, placeholder]);
-
-        asyncCallback(() => {
-          if (abortRef.current) {
-            // Stop was triggered between phases — bail; stopResponse already swapped in an interrupted marker.
+      // Resolve the response up front to tailor the placeholder bubble via `loadingHint`.
+      const response = buildScriptedResponse({
+        prompt,
+        hasPinnedMode,
+        timestamp,
+        sendAsUser,
+        extraResponses,
+        extraDemoPrompts,
+        // Reveal a follow-up assistant bubble once a live flow (e.g. Thinking) finishes, so it carries the
+        // standard response actions rather than being folded into the flow component.
+        appendMessage: (message: Message) =>
+          setMessages(prev => [...prev, message.id ? message : createMessage(message)]),
+        // Drop content into the prompt input without sending — used by editable support prompts.
+        setPromptInputText: (text: string) => {
+          const ref = promptInputRef.current;
+          if (!ref) {
             return;
           }
-          setMessages(prev => {
-            const updated = [...prev];
-            const last = updated[updated.length - 1];
-            if (last && last.type === 'chat-bubble') {
-              if (!content && extraMessages.length > 0) {
-                const firstExtra = extraMessages[0];
-                if (firstExtra.type === 'alert' || firstExtra.type === 'artifact') {
-                  // Alert/artifact first — collapse the loading bubble; artifacts render as their own non-bubble surfaces.
-                  updated.splice(updated.length - 1, 1, ...extraMessages);
-                } else {
-                  // Non-alert extras (e.g. code-view bubble): replace placeholder with the first extra, append the rest.
-                  const isCodeBlock = firstExtra.type === 'chat-bubble' && firstExtra.actions === 'code-view';
-                  updated[updated.length - 1] = {
-                    ...last,
-                    ...firstExtra,
-                    showLoadingBar: false,
-                    avatarLoading: false,
-                    streaming: streamingReveal && !isCodeBlock,
-                  };
-                  for (let i = 1; i < extraMessages.length; i++) {
-                    updated.push(extraMessages[i]);
-                  }
-                }
+          ref.focus();
+          ref.insertText(text, 0);
+        },
+      });
+      const {
+        content,
+        contentToCopy,
+        extraMessages: rawExtraMessages,
+        supportPrompts,
+        loadingHint,
+        hideMainBubbleActions,
+        disableStreaming,
+      } = response;
+
+      // Ensure all extra messages carry stable IDs for React reconciliation.
+      const extraMessages = rawExtraMessages.map(m => (m.id ? m : createMessage(m)));
+
+      // Responses that render additional content (artifact cards like ItemCard/ActionCard) omit the trailing
+      // support prompt group, so the suggestions don't compete with the card's own actions.
+      const hasArtifactContent = extraMessages.some(m => m.type === 'artifact');
+      const trailingSupportPrompts = hasArtifactContent ? undefined : supportPrompts;
+
+      const placeholder: Message = loadingHint?.useAvatarLoading
+        ? createMessage({
+            type: 'chat-bubble',
+            authorId: 'gen-ai',
+            content: '',
+            timestamp,
+            showLoadingBar: false,
+            avatarLoading: true,
+            loadingLabel: loadingHint?.loadingLabel,
+          })
+        : { ...getLoadingMessage(), loadingLabel: loadingHint?.loadingLabel };
+
+      setMessages(prev => [...prev, placeholder]);
+
+      asyncCallback(() => {
+        if (abortRef.current) {
+          // Stop was triggered between phases — bail; stopResponse already swapped in an interrupted marker.
+          return;
+        }
+        setMessages(prev => {
+          const updated = [...prev];
+          const last = updated[updated.length - 1];
+          if (last && last.type === 'chat-bubble') {
+            if (!content && extraMessages.length > 0) {
+              const firstExtra = extraMessages[0];
+              if (firstExtra.type === 'alert' || firstExtra.type === 'artifact') {
+                // Alert/artifact first — collapse the loading bubble; artifacts render as their own non-bubble surfaces.
+                updated.splice(updated.length - 1, 1, ...extraMessages);
               } else {
-                // Has prose — fill the placeholder and append any extras.
+                // Non-alert extras (e.g. code-view bubble): replace placeholder with the first extra, append the rest.
+                const isCodeBlock = firstExtra.type === 'chat-bubble' && firstExtra.actions === 'code-view';
                 updated[updated.length - 1] = {
                   ...last,
-                  content,
-                  contentToCopy,
+                  ...firstExtra,
                   showLoadingBar: false,
                   avatarLoading: false,
-                  // `hideMainBubbleActions` (e.g. Thinking) suppresses the main bubble toolbar; the flow owns its affordances.
-                  actions: hideMainBubbleActions ? undefined : 'feedback',
-                  streaming: streamingReveal && !disableStreaming,
-                  supportPrompts: extraMessages.length > 0 ? undefined : trailingSupportPrompts,
+                  streaming: streamingReveal && !isCodeBlock,
                 };
-                for (const extra of extraMessages) {
-                  updated.push(extra);
+                for (let i = 1; i < extraMessages.length; i++) {
+                  updated.push(extraMessages[i]);
                 }
               }
+            } else {
+              // Has prose — fill the placeholder and append any extras.
+              updated[updated.length - 1] = {
+                ...last,
+                content,
+                contentToCopy,
+                showLoadingBar: false,
+                avatarLoading: false,
+                // `hideMainBubbleActions` (e.g. Thinking) suppresses the main bubble toolbar; the flow owns its affordances.
+                actions: hideMainBubbleActions ? undefined : 'feedback',
+                streaming: streamingReveal && !disableStreaming,
+                supportPrompts: extraMessages.length > 0 ? undefined : trailingSupportPrompts,
+              };
+              for (const extra of extraMessages) {
+                updated.push(extra);
+              }
+            }
 
-              // Anchor support prompts to the last chat bubble so they sit beneath the freshest assistant message.
-              if (trailingSupportPrompts) {
-                for (let i = updated.length - 1; i >= 0; i--) {
-                  const msg = updated[i];
-                  if (msg.type === 'chat-bubble' && !msg.supportPrompts) {
-                    updated[i] = { ...msg, supportPrompts: trailingSupportPrompts };
-                    break;
-                  }
+            // Anchor support prompts to the last chat bubble so they sit beneath the freshest assistant message.
+            if (trailingSupportPrompts) {
+              for (let i = updated.length - 1; i >= 0; i--) {
+                const msg = updated[i];
+                if (msg.type === 'chat-bubble' && !msg.supportPrompts) {
+                  updated[i] = { ...msg, supportPrompts: trailingSupportPrompts };
+                  break;
                 }
               }
             }
-            return updated;
-          });
+          }
+          return updated;
+        });
 
-          setIsGenAiResponseLoading(false);
-        }, loadingHint?.delayMs ?? RESPONSE_DELAY_MS);
-      }, LOADING_DELAY_MS);
-    },
-    [streamingReveal, extraResponses, extraDemoPrompts],
-  );
+        setIsGenAiResponseLoading(false);
+      }, loadingHint?.delayMs ?? RESPONSE_DELAY_MS);
+    }, LOADING_DELAY_MS);
+  };
 
   // Send text as a user message and route it to the scripted set. Ref-backed so builders can dispatch follow-ups without stale closures.
   const sendAsUserRef = useRef<(text: string) => void>(() => {
     /* no-op until wired below */
   });
 
-  const sendAsUser = useCallback(
-    (text: string) => {
-      if (isGenAiResponseLoading) {
-        return;
-      }
-      const userMessage: Message = createMessage({
-        type: 'chat-bubble',
-        authorId: 'user-jane-doe',
-        content: text,
-        timestamp: new Date().toLocaleTimeString(),
-      });
-      setMessages(prev => [...prev, userMessage]);
-      setHasStartedChat(true);
-      promptInputRef.current?.focus();
-      // Programmatic follow-ups never carry a pinned mode token, so pass `false`.
-      dispatchScriptedResponse(text, false, (followup: string) => sendAsUserRef.current(followup));
-    },
-    [isGenAiResponseLoading, dispatchScriptedResponse],
-  );
+  const sendAsUser = (text: string) => {
+    if (isGenAiResponseLoading) {
+      return;
+    }
+    const userMessage: Message = createMessage({
+      type: 'chat-bubble',
+      authorId: 'user-jane-doe',
+      content: text,
+      timestamp: new Date().toLocaleTimeString(),
+    });
+    setMessages(prev => [...prev, userMessage]);
+    setHasStartedChat(true);
+    promptInputRef.current?.focus();
+    // Programmatic follow-ups never carry a pinned mode token, so pass `false`.
+    dispatchScriptedResponse(text, false, (followup: string) => sendAsUserRef.current(followup));
+  };
 
   useEffect(() => {
     sendAsUserRef.current = sendAsUser;
-  }, [sendAsUser]);
+  });
 
   // Response regeneration & stop: regenerate strips from the assistant message forward and re-dispatches the triggering prompt; stop flips the abort flag.
-  const regenerateResponse = useCallback(
-    (assistantIndex: number) => {
-      // Walk back to the triggering user bubble; bail if none.
-      let promptText: string | null = null;
-      for (let i = assistantIndex - 1; i >= 0; i--) {
-        const msg = messages[i];
-        if (msg.type === 'chat-bubble' && msg.authorId === 'user-jane-doe') {
-          promptText = typeof msg.content === 'string' ? msg.content : (msg.contentToCopy ?? '');
-          break;
-        }
+  const regenerateResponse = (assistantIndex: number) => {
+    // Walk back to the triggering user bubble; bail if none.
+    let promptText: string | null = null;
+    for (let i = assistantIndex - 1; i >= 0; i--) {
+      const msg = messages[i];
+      if (msg.type === 'chat-bubble' && msg.authorId === 'user-jane-doe') {
+        promptText = typeof msg.content === 'string' ? msg.content : (msg.contentToCopy ?? '');
+        break;
       }
-      if (promptText === null) {
-        return;
-      }
+    }
+    if (promptText === null) {
+      return;
+    }
 
-      // Strip from the assistant message forward, then re-dispatch; the trim commits before the loading bubble appends.
-      setMessages(prev => prev.slice(0, assistantIndex));
-      dispatchScriptedResponse(promptText, false, (followup: string) => sendAsUserRef.current(followup));
-    },
-    [messages, dispatchScriptedResponse],
-  );
+    // Strip from the assistant message forward, then re-dispatch; the trim commits before the loading bubble appends.
+    setMessages(prev => prev.slice(0, assistantIndex));
+    dispatchScriptedResponse(promptText, false, (followup: string) => sendAsUserRef.current(followup));
+  };
 
-  const stopResponse = useCallback(() => {
+  const stopResponse = () => {
     if (!isGenAiResponseLoading) {
       return;
     }
@@ -385,7 +372,7 @@ export function useChat({
       return updated;
     });
     setIsGenAiResponseLoading(false);
-  }, [isGenAiResponseLoading]);
+  };
 
   // Message helpers
   const setShowFeedbackDialog = (index: number, show: boolean) => {

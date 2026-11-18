@@ -64,8 +64,16 @@ function multiFileEntriesPlugin(entries) {
       if (!id.startsWith(ENTRY_PREFIX)) {
         return null;
       }
+      // Renders the demo's default export; older demos without one still render themselves on import.
       const files = entries[id.slice(ENTRY_PREFIX.length)];
-      return files.map(file => `import ${JSON.stringify(file)};`).join('\n');
+      const demo = files[files.length - 1];
+      return [
+        ...files.slice(0, -1).map(file => `import ${JSON.stringify(file)};`),
+        `import { createElement } from 'react';`,
+        `import { createRoot } from 'react-dom/client';`,
+        `import * as demo from ${JSON.stringify(demo)};`,
+        `if (demo.default) createRoot(document.getElementById('app')).render(createElement(demo.default));`,
+      ].join('\n');
     },
   };
 }
