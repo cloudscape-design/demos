@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { AppLayoutProps } from '@cloudscape-design/components/app-layout';
 import HelpPanel from '@cloudscape-design/components/help-panel';
@@ -90,18 +90,15 @@ const useWizard = (closeTools: () => void, setFormattedToolsContent: (tools: Too
   const [activeStepIndex, setActiveStepIndex] = useState(0);
   const [stepsInfo, setStepsInfo] = useState<WizardState>(DEFAULT_STEP_INFO);
 
-  const onStepInfoChange = useCallback(
-    <T extends keyof WizardState>(stateKey: T, newStepState: Partial<WizardState[T]>) => {
-      setStepsInfo({
-        ...stepsInfo,
-        [stateKey]: {
-          ...stepsInfo[stateKey],
-          ...newStepState,
-        },
-      });
-    },
-    [stepsInfo],
-  );
+  const onStepInfoChange = <T extends keyof WizardState>(stateKey: T, newStepState: Partial<WizardState[T]>) => {
+    setStepsInfo({
+      ...stepsInfo,
+      [stateKey]: {
+        ...stepsInfo[stateKey],
+        ...newStepState,
+      },
+    });
+  };
 
   const setActiveStepIndexAndCloseTools = (index: number) => {
     setActiveStepIndex(index);
